@@ -36,6 +36,7 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/howler.css"> -->
     <link rel="stylesheet" type="text/css" href="css/framework7.ios.colors.min.css">
     <link rel="stylesheet" type="text/css" href="css/framework7.ios.min.css">
     <script type="text/javascript" src="Framework7/jquery_v331.js"></script>
@@ -74,44 +75,80 @@
                     <!-- Tabs swipeable wrapper, required to switch tabs with swipes -->
                     <div class="tabs-swipeable-wrap">
                         <!-- Tabs, tabs wrapper -->
-                        
+
                         <div class="tabs">
                             <!-- Tab 1, active by default -->
-                            
+
                             <div id="tab1" class="page-content tab active hide-navbar-on-scroll">
-                            
+
                                 <div class="fflow">
                                     <div class="ftop_part">
                                         <p class="fposter_name">Vanessa</p>
                                         <p class="fpost_date">5 min</p>
                                         <p class="fdots">...</p>
-                                        <img class="fplay_button" src="images/play.png">
+                                        <img class="fplay_button" id="playBtn" src="images/play.png">
+                                        <img class="fpause_button" id="pauseBtn" src="images/pause.png">
                                         <div class="fposter_photo"></div>
                                         <div class="ffollower1"></div>
                                         <div class="ffollower2"></div>
                                         <div class="ffollower3"></div>
+                                        <div id="title" style="display:none;">
+                                            <span id="track"></span>
+                                            <div id="timer">0:00</div>
+                                            <div id="duration">0:00</div>
+                                          </div>
+                                        
+                                          <!-- Controls -->
+                                          <div class="controlsOuter">
+                                            <div class="controlsInner">
+                                              <div id="loading"></div>
+                                              <!-- <div class="btn" id="playBtn"></div>
+                                              <div class="btn" id="pauseBtn"></div> -->
+                                              <!-- <div class="btn" id="prevBtn"></div>
+                                              <div class="btn" id="nextBtn"></div>  -->
+                                            </div>
+                                            <div class="btn" id="playlistBtn"></div>
+                                            <div class="btn" id="volumeBtn"></div>
+                                          </div>
+                                        
+                                          <!-- Progress -->
+                                          <div id="waveform"></div>
+                                          <div id="bar"></div>
+                                          <div id="progress"></div>
+                                        
+                                          <!-- Playlist -->
+                                          <div id="playlist" style="display:none;">
+                                            <div id="list"></div>
+                                          </div>
+                                        
+                                          <!-- Volume -->
+                                          <div id="volume" class="fadeout">
+                                            <div id="barFull" class="bar"></div>
+                                            <div id="barEmpty" class="bar"></div>
+                                            <div id="sliderBtn"></div>
+                                        </div>
                                     </div>
                                     <div class="fbottom_part">
-                                         <p class="fpost_title">What an Amazing Sound</p>
+                                        <p class="fpost_title">What an Amazing Sound</p>
                                         <p class="fpost_description">very cool sound recorded</p>
-                                       <p class="fpost_tag">#Fresh #Summer</p>
-                                          <div class="flike">
+                                        <p class="fpost_tag">#Fresh #Summer</p>
+                                        <div class="flike">
                                             <img class="fimg_impression" src="images/Like.png">
                                             <p class="ftxt_impression">2.5k</p>
                                         </div>
                                         <div class="fecho">
-                                                <img class="fimg_impression" src="images/Echo.png">
-                                                <p class="ftxt_impression">8.2k</p>
+                                            <img class="fimg_impression" src="images/Echo.png">
+                                            <p class="ftxt_impression">8.2k</p>
                                         </div>
                                         <div class="fcomment">
-                                                <img class="fimg_impression" src="images/Comment.png">
-                                                <p class="ftxt_impression">605</p>
+                                            <img class="fimg_impression" src="images/Comment.png">
+                                            <p class="ftxt_impression">605</p>
                                         </div>
-                                           
-                                        
+
+
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <!-- Tab 2 -->
                             <div id="tab2" class="page-content tab hide-navbar-on-scroll">
@@ -133,7 +170,9 @@
 
 
 
-    
+    <script src="../www/howler.js/howler.core.js"></script>
+    <script src="../www/howler.js/siriwave.js"></script>
+    <script src="../www/howler.js/player.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
 </body>

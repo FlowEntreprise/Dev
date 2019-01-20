@@ -256,17 +256,17 @@ p {
 
 }
 
-.fdots
-{
-    position:absolute;
+.fdots {
+    position: absolute;
     left: 87vw;
-    top: -2.5vh;
+    top: -6vh;
     font-size: 7vw;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     font-weight: bold;
     color: #FFFFFF;
     font-family: 'Times New Roman', Times, serif;
 }
+
 .fplay_button {
     position: absolute;
     width: 12vw;
@@ -274,6 +274,18 @@ p {
     top: 9vh;
     left: 41.5vw;
     text-align: center;
+    z-index: 1;
+}
+
+.fpause_button {
+    position: absolute;
+    width: 12vw;
+    height: 7vh;
+    top: 9vh;
+    left: 41.5vw;
+    text-align: center;
+    z-index: 1;
+    display: none;
 }
 
 .fbottom_part {
@@ -388,3 +400,95 @@ p {
     font-family: Roboto;
     src: url('../font/Roboto-Light.ttf');
 }
+
+/* --------------------------------------TEST HOWLER--------------------------------------- */
+/* Progress */
+#waveform {
+    width: 95vw;
+    height: 10vh;
+    position: absolute;
+    left: 0;
+    top: 22.6vh;
+    display: none;
+    cursor: pointer;
+    opacity: 0.8;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#waveform:hover {
+    opacity: 1;
+}
+
+#bar {
+    position: absolute;
+    top: 12.5vh;
+    left: 0;
+    width: 95vw;
+    height: 0.25vh;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.33);
+    opacity: 0.9;
+    display: none;
+}
+
+#progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+    border-top-left-radius: 2vw;
+}
+
+/* Loading */
+#loading {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -35px;
+    width: 70px;
+    height: 70px;
+    background-color: #fff;
+    border-radius: 100%;
+    -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+    animation: sk-scaleout 1.0s infinite ease-in-out;
+    display: none;
+}
+
+@-webkit-keyframes sk-scaleout {
+    0% {
+        -webkit-transform: scale(0)
+    }
+
+    100% {
+        -webkit-transform: scale(1.0);
+        opacity: 0;
+    }
+}
+
+@keyframes sk-scaleout {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    100% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+        opacity: 0;
+    }
+}
+
+/* 
+    progresse bar plus foncé-----------------------DONE
+    stop auto play quand le flow a fini -----------DONE
+    remonter les 3 ptit points a droite -----------DONE
+    revoir duplication des flow -------------------DONE
+    remettre border radius de la progression bar---DONE
+    retablir le swipe -----------------------------DONE
+    su^primmer border radius droit progressionbar--DONE
+  
+  */
