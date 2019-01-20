@@ -60,8 +60,8 @@ $$('#tab1').on('tab:show', function () {
 });
 
 $$('#tab2').on('tab:show', function () {
-    app.hideNavbar($('.navbar'));
-    canShowNavbar = false;
+    app.showNavbar($('.navbar'));
+    canShowNavbar = true;
 });
 
 $$('#tab3').on('tab:show', function () {

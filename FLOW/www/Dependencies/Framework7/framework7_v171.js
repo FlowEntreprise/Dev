@@ -9542,7 +9542,12 @@ return t7;
                 navbarHidden = navbar.hasClass('navbar-hidden');
                 toolbarHidden = toolbar.hasClass('toolbar-hidden');
                 tabbarHidden = tabbar && tabbar.hasClass('toolbar-hidden');
-        
+                
+                // console.log(previousScroll +  " - " + currentScroll);
+                if (previousScroll == currentScroll) {
+                    scrollContent = pageContainer.find(".page-content.active");
+                }
+
                 if (reachEnd) {
                     if (app.params.showBarsOnPageScrollEnd) {
                         action = 'show';
@@ -9563,7 +9568,7 @@ return t7;
                     else if (canShowNavbar) {
                         action = 'show';
                     }
-                    else {
+                    else if (!canShowNavbar){
                         action = 'hide';
                     }
                 }
