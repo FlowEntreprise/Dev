@@ -18,7 +18,7 @@
   "cordova-plugin-browsersync": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-browsersync"
+      "id": "cordova-plugin-browsersync@^1.1.0"
     },
     "is_top_level": true,
     "variables": {}

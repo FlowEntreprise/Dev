@@ -71,7 +71,6 @@ $$('#tab4').on('tab:show', function () {
 
 var userConnected = false;
 var ptrContent = $$('.pull-to-refresh-content');
-$("#ptr_arrow").css("opacity", "0");
 
 // Add 'refresh' listener on it
 ptrContent.on('ptr:refresh', function (e) {

@@ -360,8 +360,15 @@ h1 {
     /* background-color: rgba(255, 0, 0, 0.5); */
 }
 
+#ptr_arrow
+{
+    opacity: 0;
+}
+
 .popup-connect
 {
-    top: 40vh !important;
-    height: 60vh !important;
+    top: 45vh !important;
+    height: 55vh !important;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }

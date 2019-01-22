@@ -367,6 +367,16 @@ h1 {
 
 .popup-connect
 {
-    top: 40vh !important;
-    height: 60vh !important;
+    top: 45vh !important;
+    height: 55vh !important;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+#fpopup-connect-msg-inscription
+{
+   font-size: 2.5vh; 
+   text-align: center;
+   width: 76vw;
+   margin-left: 8vw;
 }
