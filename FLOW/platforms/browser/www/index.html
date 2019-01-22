@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <!--
         FLOW by Chris / Victor / Alexis & Thomas
         -->
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densityDpi=device-dpi">
     <link rel="stylesheet" type="text/css" href="css/index.css">
-
     <!-- <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.md.colors.min.css">
     <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.md.min.css"> -->
     <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.ios.colors.min.css">
     <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.ios.min.css">
+
     <script type="text/javascript" src="Dependencies/Jquery/jquery_v331.js"></script>
     <script type="text/javascript" src="Dependencies/Framework7/framework7_v171.js"></script>
     <title>FLOW</title>
@@ -26,64 +27,93 @@
         <div id="menu1" class="view view-main tab active">
             <div class="navbar no-border ftop_bar">
                 <div class="navbar-inner">
-                    <div class="ftitle">FLOW</div>
-                    <div class="faccount"></div>
-                    <div class="fstories_title">Stories</div>
-                    <ul class="fstory_list">
-                        <li>
-                            <div class="fstory_block">
-                                <div class="fplus"></div>
-                                <img src="src/pictures/guy1.jpg" class="fstory_pic fnoshadow">
-                                <div class="unread_shadow"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="fstory_block unread">
-                                <img src="src/pictures/girl1.jpg" class="fstory_pic">
-                                <div class="unread_shadow"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="fstory_block unread">
-                                <img src="src/pictures/girl2.jpg" class="fstory_pic">
-                                <div class="unread_shadow"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="fstory_block">
-                                <img src="src/pictures/girl3.jpg" class="fstory_pic">
-                                <div class="unread_shadow"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="fstory_block">
-                                <img src="src/pictures/girl2.jpg" class="fstory_pic">
-                                <div class="unread_shadow"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="fstory_block">
-                                <img src="src/pictures/girl1.jpg" class="fstory_pic">
-                                <div class="unread_shadow"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="fstory_block">
-                                <img src="src/pictures/girl3.jpg" class="fstory_pic">
-                                <div class="unread_shadow"></div>
-                            </div>
-                        </li>
-                    </ul>
+                    <div class="fhome-bar">
+                        <div class="ftitle">FLOW</div>
+                        <div class="faccount"></div>
+                        <div class="fstories_title">Stories</div>
+                        <ul class="fstory_list">
+                            <li>
+                                <div class="fstory_block">
+                                    <div class="fplus"></div>
+                                    <img src="src/pictures/guy1.jpg" class="fstory_pic fnoshadow">
+                                    <div class="unread_shadow"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fstory_block unread">
+                                    <img src="src/pictures/girl1.jpg" class="fstory_pic">
+                                    <div class="unread_shadow"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fstory_block unread">
+                                    <img src="src/pictures/girl2.jpg" class="fstory_pic">
+                                    <div class="unread_shadow"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fstory_block">
+                                    <img src="src/pictures/girl3.jpg" class="fstory_pic">
+                                    <div class="unread_shadow"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fstory_block">
+                                    <img src="src/pictures/girl2.jpg" class="fstory_pic">
+                                    <div class="unread_shadow"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fstory_block">
+                                    <img src="src/pictures/girl1.jpg" class="fstory_pic">
+                                    <div class="unread_shadow"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fstory_block">
+                                    <img src="src/pictures/girl3.jpg" class="fstory_pic">
+                                    <div class="unread_shadow"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="fexplore-bar">
+                        <input class="fsearch-bar" placeholder="Explore">
+                        <ul class="fexplore_list">
+                            <li>
+                                <a href="#top50" class="fexplore_tabs tab-link active">TOP 50</a>
+
+                            </li>
+                            <li>
+                                <a href="#sport" class="fexplore_tabs tab-link">Sport</a>
+                            </li>
+                            <li>
+                                <a href="#music" class="fexplore_tabs tab-link">Music</a>
+                            </li>
+                            <li>
+                                <a href="#top50" class="fexplore_tabs tab-link">TOP 50</a>
+                            </li>
+                            <li>
+                                <a href="#sport" class="fexplore_tabs tab-link">Sport</a>
+                            </li>
+                            <li>
+                                <a href="#music" class="fexplore_tabs tab-link">Music</a>
+                            </li>
+                            <li>
+                                <a href="#top50" class="fexplore_tabs tab-link">TOP 50</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="toolbar no-border">
                 <div class="toolbar-inner">
-                    <a href="#tab1" class="nav-btn home-btn tab-link active"></a>
-                    <a href="#tab2" class="nav-btn explore-btn tab-link"></a>
-                    <a href="#" data-popup=".popup-record" class="nav-btn flow-btn open-popup"></a>
-                    <a href="#tab3" class="nav-btn messages-btn tab-link"></a>
+                    <a href="#tab1" class="fnav-btn fhome-btn tab-link active"></a>
+                    <a href="#tab2" class="fnav-btn fexplore-btn tab-link"></a>
+                    <a href="#" data-popup=".popup-record" class="fnav-btn fflow-btn open-popup"></a>
+                    <a href="#tab3" class="fnav-btn fmessages-btn tab-link"></a>
                     <!-- <a href="#tab4" class="nav-btn notif-btn tab-link"></a> -->
-                    <a href="#tab4" class="nav-btn notif-btn tab-link"></a>
+                    <a href="#tab4" class="fnav-btn fnotif-btn tab-link"></a>
                     <div class="fneed_connect" style="left: 17vw;"></div>
                     <div class="fneed_connect" style="left: 68vw;"></div>
                     <div class="fneed_connect" style="left: 84vw;"></div>
@@ -120,7 +150,7 @@
                         <div class="tabs">
                             <!-- Tab 1, active by default -->
                             <div id="tab1" class="page-content pull-to-refresh-content tab active hide-navbar-on-scroll" data-ptr-distance="55">
-                                
+
                             </div>
                             <!-- Tab 2 -->
                             <div id="tab2" class="page-content tab hide-navbar-on-scroll">

@@ -42,7 +42,7 @@ var $$ = Dom7;
 
 var app = new Framework7({
     showBarsOnPageScrollEnd: false,
-    material: true
+    material: false
 });
 
 var connected = false;
@@ -128,6 +128,14 @@ $$('.fneed_connect').on('click', function () {
     }
 });
 
+$$('#tab1').on('tab:show', function () {
+    $(".fhome-bar").css({
+        "display": "block"
+    });
+    $(".fexplore-bar").css({
+        "display": "none"
+    });
+});
 $$('#tab2').on('tab:show', function () {
     if (!connected) {
         setTimeout(function () {
@@ -135,6 +143,13 @@ $$('#tab2').on('tab:show', function () {
             app.popup('.popup-connect');
         }, 100);
         //app.popup('.popup-connect');
+    } else {
+        $(".fhome-bar").css({
+            "display": "none"
+        });
+        $(".fexplore-bar").css({
+            "display": "block"
+        });
     }
 });
 $$('#tab3').on('tab:show', function () {

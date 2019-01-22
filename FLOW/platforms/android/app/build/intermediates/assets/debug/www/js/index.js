@@ -42,10 +42,11 @@ var $$ = Dom7;
 
 var app = new Framework7({
     showBarsOnPageScrollEnd: false,
-    material: true
+    material: false
 });
 
 var connected = false;
+var canShowNavbar = true;
 DisconnectUser();
 
 $("#tab1").load("pages/home.html");
@@ -55,23 +56,28 @@ $("#tab4").load("pages/notifications.html");
 
 $$('#tab1').on('tab:show', function () {
     app.showNavbar($('.navbar'));
+    canShowNavbar = true;
 });
 
 $$('#tab2').on('tab:show', function () {
-    app.hideNavbar($('.navbar'));
+    app.showNavbar($('.navbar'));
+    canShowNavbar = true;
 });
 
 $$('#tab3').on('tab:show', function () {
     app.hideNavbar($('.navbar'));
+    canShowNavbar = false;
+
 });
 
 $$('#tab4').on('tab:show', function () {
     app.hideNavbar($('.navbar'));
+    canShowNavbar = false;
+
 });
 
 var userConnected = false;
 var ptrContent = $$('.pull-to-refresh-content');
-$("#ptr_arrow").css("opacity", "0");
 
 // Add 'refresh' listener on it
 ptrContent.on('ptr:refresh', function (e) {
@@ -82,6 +88,7 @@ ptrContent.on('ptr:refresh', function (e) {
         console.log("refreshed !");
         $("#ptr_arrow").css("opacity", "0");
         app.pullToRefreshDone();
+        ConnectUser();
     }, 1000);
 });
 
@@ -121,6 +128,14 @@ $$('.fneed_connect').on('click', function () {
     }
 });
 
+$$('#tab1').on('tab:show', function () {
+    $(".fhome-bar").css({
+        "display": "block"
+    });
+    $(".fexplore-bar").css({
+        "display": "none"
+    });
+});
 $$('#tab2').on('tab:show', function () {
     if (!connected) {
         setTimeout(function () {
@@ -128,6 +143,13 @@ $$('#tab2').on('tab:show', function () {
             app.popup('.popup-connect');
         }, 100);
         //app.popup('.popup-connect');
+    } else {
+        $(".fhome-bar").css({
+            "display": "none"
+        });
+        $(".fexplore-bar").css({
+            "display": "block"
+        });
     }
 });
 $$('#tab3').on('tab:show', function () {

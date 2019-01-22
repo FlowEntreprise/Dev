@@ -1,7 +1,7 @@
 #Internal package file, do not edit.
-#Tue Jan 15 19:32:42 CET 2019
+#Tue Jan 22 15:38:41 CET 2019
 5.base=C\:\\Users\\thoma\\Documents\\PROJETS_persos\\FLOW\\GitHub\\Dev\\Dev\\FLOW\\platforms\\android\\app\\build\\intermediates\\assets\\debug
-22.path=www/src/pictures/girl2.jpg
+22.path=www/src/icons/+@3x.png
 32.set=ASSET
 32.path=www/src/pictures/girl3.jpg
 36.baseType=DIRECTORY
@@ -16,14 +16,14 @@
 28.set=ASSET
 22.base=C\:\\Users\\thoma\\Documents\\PROJETS_persos\\FLOW\\GitHub\\Dev\\Dev\\FLOW\\platforms\\android\\app\\build\\intermediates\\assets\\debug
 32.base=C\:\\Users\\thoma\\Documents\\PROJETS_persos\\FLOW\\GitHub\\Dev\\Dev\\FLOW\\platforms\\android\\app\\build\\intermediates\\assets\\debug
-12.path=www/plugins/cordova-plugin-statusbar/www/statusbar.js
+12.path=www/pages/explore.html
 17.set=ASSET
 26.base=C\:\\Users\\thoma\\Documents\\PROJETS_persos\\FLOW\\GitHub\\Dev\\Dev\\FLOW\\platforms\\android\\app\\build\\intermediates\\assets\\debug
 36.base=C\:\\Users\\thoma\\Documents\\PROJETS_persos\\FLOW\\GitHub\\Dev\\Dev\\FLOW\\platforms\\android\\app\\build\\intermediates\\assets\\debug
 1.set=ASSET
 37.baseType=DIRECTORY
 28.baseType=DIRECTORY
-16.path=www/src/icons/Notifications@3x.png
+16.path=www/pages/home.html
 19.baseType=DIRECTORY
 12.base=C\:\\Users\\thoma\\Documents\\PROJETS_persos\\FLOW\\GitHub\\Dev\\Dev\\FLOW\\platforms\\android\\app\\build\\intermediates\\assets\\debug
 8.set=ASSET
@@ -40,9 +40,9 @@
 8.baseType=DIRECTORY
 6.base=C\:\\Users\\thoma\\Documents\\PROJETS_persos\\FLOW\\GitHub\\Dev\\Dev\\FLOW\\platforms\\android\\app\\build\\intermediates\\assets\\debug
 4.set=ASSET
-23.path=www/src/icons/+@3x.png
+23.path=www/src/pictures/girl2.jpg
 33.path=www/src/icons/FLOW@3x.png
-17.path=www/pages/home.html
+17.path=www/src/icons/Notifications@3x.png
 31.set=ASSET
 20.baseType=DIRECTORY
 27.path=www/src/fonts/Roboto-Bold.ttf
@@ -51,7 +51,7 @@
 23.base=C\:\\Users\\thoma\\Documents\\PROJETS_persos\\FLOW\\GitHub\\Dev\\Dev\\FLOW\\platforms\\android\\app\\build\\intermediates\\assets\\debug
 9.baseType=DIRECTORY
 33.base=C\:\\Users\\thoma\\Documents\\PROJETS_persos\\FLOW\\GitHub\\Dev\\Dev\\FLOW\\platforms\\android\\app\\build\\intermediates\\assets\\debug
-13.path=www/pages/explore.html
+13.path=www/plugins/cordova-plugin-statusbar/www/statusbar.js
 17.base=C\:\\Users\\thoma\\Documents\\PROJETS_persos\\FLOW\\GitHub\\Dev\\Dev\\FLOW\\platforms\\android\\app\\build\\intermediates\\assets\\debug
 27.set=ASSET
 count=38
