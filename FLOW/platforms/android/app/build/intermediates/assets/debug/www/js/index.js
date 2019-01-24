@@ -78,6 +78,7 @@ $$('#tab4').on('tab:show', function () {
 
 var userConnected = false;
 var ptrContent = $$('.pull-to-refresh-content');
+var offsets_calculated = false;
 
 // Add 'refresh' listener on it
 ptrContent.on('ptr:refresh', function (e) {
@@ -150,6 +151,12 @@ $$('#tab2').on('tab:show', function () {
         $(".fexplore-bar").css({
             "display": "block"
         });
+        if (!offsets_calculated) {
+            setTimeout(function () {
+                CalculatOffsets();
+            }, 100);
+
+        }
     }
 });
 $$('#tab3').on('tab:show', function () {
@@ -170,3 +177,27 @@ $$('#tab4').on('tab:show', function () {
         //app.popup('.popup-connect');
     }
 });
+
+var offsets = [];
+
+function CalculatOffsets() {
+    offsets = [];
+    $(".fexplore_tabs").each(function () {
+        offsets.push($(this).offset().left + ($(this).outerWidth() / 2));
+    });
+    console.log(offsets);
+    CenterExploreTab(1);
+    offsets_calculated = true;
+}
+// Move to explore.js scripts
+function CenterExploreTab(index) {
+    //var offset = window.innerWidth / 2;
+    //var calc_offset = (offset + (20 * index)) + "px";
+    var calc_offset = (offsets[index] - (window.innerWidth / 2));
+    if (index > 1) calc_offset -= 20;
+    calc_offset = calc_offset + "px";
+    console.log(calc_offset);
+    $('.fexplore_list').animate({
+        scrollLeft: calc_offset
+    }, 400);
+}
