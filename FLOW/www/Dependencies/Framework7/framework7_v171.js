@@ -15372,6 +15372,7 @@ return t7;
                     if (s.params.roundLengths) slideSize = round(slideSize);
     
                     if (s.isHorizontal()) {
+                        slideSize = window.innerWidth / s.params.slidesPerView;
                         s.slides[i].style.width = slideSize + 'px';
                     }
                     else {
