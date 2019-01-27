@@ -3,3 +3,4 @@ FLOW/platforms/
 FLOW/config.xml
 FLOW/package.json
 
+FLOW/platforms/android/app/build/intermediates/assets/debug/www/css/index.css
