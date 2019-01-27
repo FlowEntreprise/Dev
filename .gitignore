@@ -1,1 +1,5 @@
 FLOW/node_modules/
+FLOW/platforms/
+FLOW/config.xml
+FLOW/package.json
+
