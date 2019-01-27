@@ -472,7 +472,7 @@ h1 {
     height: 40px;
     border-radius: 50px;
     background: transparent;
-    background-image: linear-gradient(to right, #1A84EF, #FF0054) !important;
+    background-image: linear-gradient(to right, #1A84EF, #dd136a) !important;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
 }
 .swiper-slide {
@@ -484,6 +484,7 @@ h1 {
     top: 16px;
     left: 0;
     height: 40px !important;
+    width: 100vw !important;
     /* background-color: rgba(255, 0, 0, 0.2); */
 }
 .fexplore_text {
