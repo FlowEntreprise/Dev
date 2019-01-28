@@ -71,7 +71,7 @@ function StopRecording() {
 
 function UpdateRecordIndicator() {
     record_time = (Date.now() - start_time) / 1000;
-    console.log("record time : "+record_time);
+    $$('#flow_number_of_sec').text(format(Math.round(record_time)));
     // $$('.frecord_indicator').css({
     //     "stroke-dasharray": Math.round(6.73 * record_time) + " 100"
     // });
@@ -87,4 +87,8 @@ function UpdateRecordIndicator() {
     } else {
         StopRecording();
     }
+}
+
+function format(number) {
+    return (number < 10) ? '0' + number.toString() : number.toString();
 }
