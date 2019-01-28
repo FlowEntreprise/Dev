@@ -1,0 +1,15 @@
+.frecord-btn
+{
+    position: absolute;
+    top: 86.5vh;
+    left: 37.5vw;
+    width: 25vw;
+    height: 15vh;
+    background: url("../src/icons/FLOW@3x.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    z-index: 50000;
+    display: none;
+    filter: brightness(110%);
+}

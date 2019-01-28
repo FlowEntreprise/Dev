@@ -20,16 +20,16 @@
         "source": "C:\\Users\\chris\\Documents\\FLOW\\platforms\\android\\app\\src\\main\\res\\mipmap-xhdpi\\icon.png"
     },
     {
-        "merged": "C:\\Users\\chris\\Documents\\FLOW\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-land-ldpi_screen.png.flat",
-        "source": "C:\\Users\\chris\\Documents\\FLOW\\platforms\\android\\app\\src\\main\\res\\drawable-land-ldpi\\screen.png"
+        "merged": "C:\\Users\\chris\\Documents\\FLOW\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-ldpi_screen.png.flat",
+        "source": "C:\\Users\\chris\\Documents\\FLOW\\platforms\\android\\app\\src\\main\\res\\drawable-port-ldpi\\screen.png"
     },
     {
         "merged": "C:\\Users\\chris\\Documents\\FLOW\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-xhdpi_screen.png.flat",
         "source": "C:\\Users\\chris\\Documents\\FLOW\\platforms\\android\\app\\src\\main\\res\\drawable-port-xhdpi\\screen.png"
     },
     {
-        "merged": "C:\\Users\\chris\\Documents\\FLOW\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-ldpi_screen.png.flat",
-        "source": "C:\\Users\\chris\\Documents\\FLOW\\platforms\\android\\app\\src\\main\\res\\drawable-port-ldpi\\screen.png"
+        "merged": "C:\\Users\\chris\\Documents\\FLOW\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-land-ldpi_screen.png.flat",
+        "source": "C:\\Users\\chris\\Documents\\FLOW\\platforms\\android\\app\\src\\main\\res\\drawable-land-ldpi\\screen.png"
     },
     {
         "merged": "C:\\Users\\thoma\\Documents\\PROJETS_persos\\FLOW\\GitHub\\Dev\\Dev\\FLOW\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-land-ldpi_screen.png.flat",
