@@ -209,12 +209,11 @@ h1 {
     height: 15vh !important;
     width: 25vw !important;
     background-image: url("../src/icons/FLOW@3x.png");
-    transition-duration: .4s;
+    transition-duration: 1s;
 }
 
 .fflow-btn:active {
-    filter: brightness(110%);
-    transition-duration: .4s;
+    filter: brightness(120%);
 }
 
 .fnav-btn.tab-link.active {

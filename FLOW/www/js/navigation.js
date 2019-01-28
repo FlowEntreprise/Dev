@@ -1,7 +1,6 @@
 var connected = false;
 var canShowNavbar = true;
 var explore_tabs_initialised = false;
-DisconnectUser();
 
 $("#tab1").load("pages/home.html");
 $("#tab2").load("pages/explore.html");
@@ -84,4 +83,3 @@ $$('#tab4').on('tab:show', function () {
 
 });
 
-/* -------------------------------------------------------- */

@@ -1,15 +1,50 @@
-.frecord-btn
-{
+.frecord-btn {
     position: absolute;
     top: 86.5vh;
     left: 37.5vw;
     width: 25vw;
     height: 15vh;
+   
+    z-index: 50000;
+    display: none;
+    transition-duration: 0.4s;
+
+    align-items: center;
+}
+
+.frecord_img
+{
+    height: 100%; width: 100%;
     background: url("../src/icons/FLOW@3x.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    z-index: 50000;
-    display: none;
+}
+.frecord-btn-active {
     filter: brightness(110%);
+}
+
+svg {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    transform: rotate(-90deg);
+    background: transparent;
+    border-radius: 50%;
+
+    margin: 0 auto;
+    display: block;
+    z-index: -100;
+}
+
+circle {
+    fill: transparent;
+    stroke: black;
+    stroke-opacity: 0.2;
+    stroke-width: 32;
+    stroke-dasharray: 0 100;
+
+    transition-duration: 0.2s;
+    transition-timing-function: linear; 
+    /* for 0% */
 }

@@ -1,3 +1,5 @@
+DisconnectUser();
+
 function ConnectUser() {
     console.log("user connected");
     connected = true;
