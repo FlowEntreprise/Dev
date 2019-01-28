@@ -90,9 +90,9 @@ function UpdateRecordIndicator() {
 }
 
 function PlayRipple() {
-    $$('.frecord-btn').removeClass('fripple');
+    $$('.frecord-btn').removeClass('fripple-record');
     setTimeout(function () {
-        $$('.frecord-btn').addClass('fripple');
+        $$('.frecord-btn').addClass('fripple-record');
     }, 10);
 }
 

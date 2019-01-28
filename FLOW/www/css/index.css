@@ -186,6 +186,7 @@ h1 {
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
+    overflow: inherit !important;
 }
 
 .fhome-btn {
@@ -231,6 +232,38 @@ h1 {
     padding-top: 0px !important;
 }
 
+/* --------- RIPPLE ----------- */
+
+.fripple::after {
+    filter: hue-rotate(-140deg) !important;
+    -webkit-animation: click-wave 0.65s;
+    -moz-animation: click-wave 0.65s;
+    animation: click-wave 0.65s;
+    background: #ff0061;
+    content: '';
+    display: block;
+    z-index: 100;
+    border-radius: 50%;
+}
+
+@keyframes click-wave {
+    0% {
+        margin-top: -2vw;
+        height: 10vw;
+        width: 10vw;
+        opacity: 0.15;
+    }
+
+    100% {
+        height: 20vw;
+        width: 20vw;
+        margin-left: -5vw;
+        margin-top: -7vw;
+        /* margin-left: -80px;
+        margin-top: -80px; */
+        opacity: 0;
+    }
+}
 
 
 

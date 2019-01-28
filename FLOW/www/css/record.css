@@ -83,11 +83,11 @@ circle {
 }
 
 /* --------------------------------------------------- */
-.fripple::after {
+.fripple-record::after {
     border-radius: 50%;
-    -webkit-animation: click-wave 0.65s;
-    -moz-animation: click-wave 0.65s;
-    animation: click-wave 0.65s;
+    -webkit-animation: click-wave-record 0.65s;
+    -moz-animation: click-wave-record 0.65s;
+    animation: click-wave-record 0.65s;
     background-image: linear-gradient(#1A84EF, #FF0054);
     content: '';
     display: block;
@@ -97,7 +97,7 @@ circle {
     filter: blur(5px);
 }
 
-@keyframes click-wave {
+@keyframes click-wave-record {
     0% {
         height: 25vw;
         width: 25vw;
