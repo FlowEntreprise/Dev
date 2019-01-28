@@ -89,6 +89,21 @@ function UpdateRecordIndicator() {
     }
 }
 
+function PlayRipple() {
+    $$('.frecord-btn').removeClass('fripple');
+    setTimeout(function () {
+        $$('.frecord-btn').addClass('fripple');
+    }, 10);
+}
+
 function format(number) {
     return (number < 10) ? '0' + number.toString() : number.toString();
 }
+
+$$('.frecord-btn').on('touchstart', function () {
+    PlayRipple();
+});
+
+$$('.fflow-btn').on('touchstart', function () {
+    PlayRipple();
+});

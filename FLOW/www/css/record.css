@@ -75,10 +75,42 @@ circle {
     position: relative;
 }
 
-.fclose_record
-{
+.fclose_record {
     position: absolute;
     top: 2vh;
     right: 2vh;
     color: #92ABB2;
+}
+
+/* --------------------------------------------------- */
+.fripple::after {
+    border-radius: 50%;
+    -webkit-animation: click-wave 0.65s;
+    -moz-animation: click-wave 0.65s;
+    animation: click-wave 0.65s;
+    background-image: linear-gradient(#1A84EF, #FF0054);
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: 100;
+    filter: brightness(200%);
+    filter: blur(5px);
+}
+
+@keyframes click-wave {
+    0% {
+        height: 25vw;
+        width: 25vw;
+        opacity: 0.15;
+        position: absolute;
+    }
+
+    100% {
+        height: 45vw;
+        width: 45vw;
+        margin-left: -10vw;
+        /* margin-left: -80px;
+        margin-top: -80px; */
+        opacity: 0;
+    }
 }
