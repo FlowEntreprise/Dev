@@ -45,11 +45,3 @@ var app = new Framework7({});
 $("#tab2").load("pages/tab-2.html");
 $("#tab3").load("pages/tab-3.html");
 
-var i = 0;
-var original = document.getElementsByClassName('fflow')[0];
-console.log(original);
-function duplicate() {
-    var clone = original.cloneNode(true); 
-    // clone.Class = "fflow" + ++i;
-    original.parentNode.appendChild(clone);
-}

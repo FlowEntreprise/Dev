@@ -441,6 +441,8 @@ p {
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 0;
     border-top-left-radius: 2vw;
+    border-top-right-radius: 0vw;
+    pointer-events: none;
 }
 
 /* Loading */
@@ -489,6 +491,9 @@ p {
     revoir duplication des flow -------------------DONE
     remettre border radius de la progression bar---DONE
     retablir le swipe -----------------------------DONE
-    su^primmer border radius droit progressionbar--DONE
+    suprimmer border radius droit progressionbar
+    Permettre de pouvoir reculer 
+    regler probleme de clonage
+    
   
   */
