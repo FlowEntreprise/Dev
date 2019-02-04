@@ -36,6 +36,7 @@ var app = {
     }
 };
 
+
 app.initialize();
 
 var $$ = Dom7;

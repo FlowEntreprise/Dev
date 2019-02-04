@@ -232,7 +232,7 @@ p {
 .fposter_name {
     position: absolute;
     display: block;
-    top: -2vh;
+    top: -1.5vh;
     font-size: 4vw;
     width: 15vw;
     height: 2.5vh;
@@ -259,7 +259,7 @@ p {
 .fdots {
     position: absolute;
     left: 87vw;
-    top: -6vh;
+    top: -4.5vh;
     font-size: 7vw;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     font-weight: bold;
@@ -492,8 +492,9 @@ p {
     remettre border radius de la progression bar---DONE
     retablir le swipe -----------------------------DONE
     suprimmer border radius droit progressionbar
-    Permettre de pouvoir reculer 
+    Permettre de pouvoir reculer ------------------DONE
     regler probleme de clonage
+    agrandir la zone de click pour anavcer et reculer
     
   
   */
