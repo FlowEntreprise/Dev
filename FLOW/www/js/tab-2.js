@@ -21,6 +21,7 @@ div_test.appendChild(paragraphe);
     this.index = 0;
     this.name;
     this.playBtn
+    
     this.blockElement
 
     this.Play = function () {
