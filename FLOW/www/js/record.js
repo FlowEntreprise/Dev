@@ -98,6 +98,13 @@ function StopRecording() {
     $$('.frecord_indicator').css({
         "stroke-dasharray": "0 100"
     });
+
+    mediaRecorder.stop();
+    //document.getElementById("Error1").innerText = "Record Audio Stop";
+    //record.style.background = "";
+    //record.style.color = "";
+    //stop.disabled = true;
+    //record.disabled = false;
 }
 
 function UpdateRecordIndicator() {
@@ -142,75 +149,24 @@ $$('.fflow-btn').on('touchstart', function () {
 
 //-------------------------------------------------------------//
 var BitsPerSecondDefault = "12000";
-var record = document.querySelector('.record');
-var stop = document.querySelector('.stop');
 var soundClips = document.querySelector('.sounds-record');
-var canvas = document.querySelector('.player');
 // var canvas2 = document.getElementById('siri_classic').children;
-var mainSection = document.querySelector('.main-controls');
-var box = document.getElementById('box');
-// var time = document.getElementById('timer');
-var changeBitsRate = document.querySelector('.changeBitsRate');
 var chunks = [];
+var mediaRecorder;
+
 function setup() {
 
     if (navigator.mediaDevices) {
-        //Definition de constante//
-
         var constraints = {
             audio: true
         };
-        
+
         chunks = [];
 
-        // change and define bits/rate //
         var onSuccess = function (stream) {
             mediaRecorder = new MediaRecorder(stream, {
                 audioBitsPerSecond: BitsPerSecondDefault
             });
-            changeBitsRate.onclick = function () {
-                var BitsPerSecond = prompt("Choose your Bits rate", BitsPerSecondDefault);
-                if (BitsPerSecond !== null) {
-                    BitsPerSecondDefault = BitsPerSecond;
-                }
-                changeBitsRate.textContent = BitsPerSecondDefault + " Kbps";
-                mediaRecorder = new MediaRecorder(stream, {
-                    audioBitsPerSecond: BitsPerSecondDefault
-                });
-                mediaRecorder.onstop = function (e) {
-                    Save(mediaRecorder);
-                }
-                mediaRecorder.ondataavailable = function (e) {
-                    chunks.push(e.data);
-                }
-            }
-            mediaRecorder.audioBitsPerSecond = "10000";
-            // var timer = new Timer();
-            // wave(stream);
-
-            //Record In Progress//
-            record.onclick = function () {
-                // timer.start();
-                mediaRecorder.start();
-                document.getElementById("Error1").innerText = "Record Audio in progress";
-                record.style.background = "red";
-                stop.disabled = false;
-                record.disabled = true;
-            }
-            // Record Stop//
-            stop.onclick = function () {
-                // timer.stop();
-                mediaRecorder.stop();
-                document.getElementById("Error1").innerText = "Record Audio Stop";
-                record.style.background = "";
-                record.style.color = "";
-                stop.disabled = true;
-                record.disabled = false;
-            }
-            // timer.addEventListener('secondsUpdated',function(e){
-            //     time.textContent = timer.getTimeValues().toString();
-            // })
-            //When MediaRecorder Stop//
             mediaRecorder.onstop = function (e) {
                 Save(mediaRecorder);
             }
@@ -218,22 +174,25 @@ function setup() {
             mediaRecorder.ondataavailable = function (e) {
                 chunks.push(e.data);
             }
+
+            mediaRecorder.start();
         }
 
         var onError = function (err) {
-            document.getElementById("Error1").innerText = "The flollowing error occured: " + err;
+            alert("error : recording failed.");
         }
 
         navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
     } else {
-        document.getElementById("Error1").innerText = "Can't acces Media devices";
+        alert("error : can't access media device");
     }
 }
 //-------------- SAVE ---------------------------//
 var i = 1;
 
 function Save(mediaRecorder) {
-    var recordName = prompt("Name For your record", "Flow_v" + i);
+    //var recordName = prompt("Name For your record", "Flow_v" + i);
+    var recordName = "myflow_"+i;
     var recordContainer = document.createElement('article');
     var recordLabel = document.createElement('p');
     var audio = document.createElement('audio');
@@ -264,13 +223,11 @@ function Save(mediaRecorder) {
 
     var audioURL = window.URL.createObjectURL(blob);
     audio.src = audioURL;
-    document.getElementById("Error1").innerText = "Record Audio Save as " + recordName;
     i++;
 
 
     deleteButton.onclick = function (e) {
         evtTgt = e.target;
-        document.getElementById("Error1").innerText = "Delete record audio " + evtTgt.parentNode.children[1].innerText;
         evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
     }
 }
