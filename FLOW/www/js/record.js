@@ -52,11 +52,42 @@ $$('body').on('touchend', function () {
 });
 
 function StartRecording() {
-    $$('.frecord-btn').addClass('frecord-btn-active');
-    recording = true;
-    console.log("start recording...");
-    start_time = Date.now();
-    UpdateRecordIndicator();
+    //------------------ PERMISSIONS -------------------------------//
+    var permissions = cordova.plugins.permissions;
+    var list = [
+        permissions.RECORD_AUDIO
+        //permissions.WRITE_EXTERNAL_STORAGE
+    ];
+
+    function error() {
+        alert('Record audio permission not given');
+    }
+
+    function success(status) {
+        if (!status.hasPermission) error();
+        else {
+            setup();
+            $$('.frecord-btn').addClass('frecord-btn-active');
+            recording = true;
+            console.log("start recording...");
+            start_time = Date.now();
+            UpdateRecordIndicator();
+        }
+    }
+
+    permissions.hasPermission(permissions.RECORD_AUDIO, function (status) {
+        if (status.hasPermission) {
+            setup();
+            $$('.frecord-btn').addClass('frecord-btn-active');
+            recording = true;
+            console.log("start recording...");
+            start_time = Date.now();
+            UpdateRecordIndicator();
+        } else {
+            permissions.requestPermissions(list, success, error);
+        }
+    });
+
 }
 
 function StopRecording() {
@@ -107,3 +138,169 @@ $$('.frecord-btn').on('touchstart', function () {
 $$('.fflow-btn').on('touchstart', function () {
     PlayRipple();
 });
+
+
+//-------------------------------------------------------------//
+var BitsPerSecondDefault = "12000";
+var record = document.querySelector('.record');
+var stop = document.querySelector('.stop');
+var soundClips = document.querySelector('.sounds-record');
+var canvas = document.querySelector('.player');
+// var canvas2 = document.getElementById('siri_classic').children;
+var mainSection = document.querySelector('.main-controls');
+var box = document.getElementById('box');
+// var time = document.getElementById('timer');
+var changeBitsRate = document.querySelector('.changeBitsRate');
+var chunks = [];
+function setup() {
+
+    if (navigator.mediaDevices) {
+        //Definition de constante//
+
+        var constraints = {
+            audio: true
+        };
+        
+        chunks = [];
+
+        // change and define bits/rate //
+        var onSuccess = function (stream) {
+            mediaRecorder = new MediaRecorder(stream, {
+                audioBitsPerSecond: BitsPerSecondDefault
+            });
+            changeBitsRate.onclick = function () {
+                var BitsPerSecond = prompt("Choose your Bits rate", BitsPerSecondDefault);
+                if (BitsPerSecond !== null) {
+                    BitsPerSecondDefault = BitsPerSecond;
+                }
+                changeBitsRate.textContent = BitsPerSecondDefault + " Kbps";
+                mediaRecorder = new MediaRecorder(stream, {
+                    audioBitsPerSecond: BitsPerSecondDefault
+                });
+                mediaRecorder.onstop = function (e) {
+                    Save(mediaRecorder);
+                }
+                mediaRecorder.ondataavailable = function (e) {
+                    chunks.push(e.data);
+                }
+            }
+            mediaRecorder.audioBitsPerSecond = "10000";
+            // var timer = new Timer();
+            // wave(stream);
+
+            //Record In Progress//
+            record.onclick = function () {
+                // timer.start();
+                mediaRecorder.start();
+                document.getElementById("Error1").innerText = "Record Audio in progress";
+                record.style.background = "red";
+                stop.disabled = false;
+                record.disabled = true;
+            }
+            // Record Stop//
+            stop.onclick = function () {
+                // timer.stop();
+                mediaRecorder.stop();
+                document.getElementById("Error1").innerText = "Record Audio Stop";
+                record.style.background = "";
+                record.style.color = "";
+                stop.disabled = true;
+                record.disabled = false;
+            }
+            // timer.addEventListener('secondsUpdated',function(e){
+            //     time.textContent = timer.getTimeValues().toString();
+            // })
+            //When MediaRecorder Stop//
+            mediaRecorder.onstop = function (e) {
+                Save(mediaRecorder);
+            }
+
+            mediaRecorder.ondataavailable = function (e) {
+                chunks.push(e.data);
+            }
+        }
+
+        var onError = function (err) {
+            document.getElementById("Error1").innerText = "The flollowing error occured: " + err;
+        }
+
+        navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
+    } else {
+        document.getElementById("Error1").innerText = "Can't acces Media devices";
+    }
+}
+//-------------- SAVE ---------------------------//
+var i = 1;
+
+function Save(mediaRecorder) {
+    var recordName = prompt("Name For your record", "Flow_v" + i);
+    var recordContainer = document.createElement('article');
+    var recordLabel = document.createElement('p');
+    var audio = document.createElement('audio');
+    var deleteButton = document.createElement('button');
+    recordContainer.classList.add('record');
+    audio.setAttribute('controls', "");
+    deleteButton.textContent = "Delete";
+    deleteButton.className = "delete";
+
+    if (recordName === null) {
+        recordLabel.textContent = "Flow";
+    } else {
+        recordLabel.textContent = recordName;
+    }
+    var blob = new Blob(chunks, {
+        'type': 'audio/opus; codecs=opus'
+    });
+    recordLabel.textContent += " Size : " + precisionRound(blob.size / 1024, 2) + "Ko | rec with " + mediaRecorder.audioBitsPerSecond + " Kbps";
+    //socket.emit('AddFlow', blob);
+    recordContainer.appendChild(audio);
+    recordContainer.appendChild(recordLabel);
+    recordContainer.appendChild(deleteButton);
+    soundClips.appendChild(recordContainer);
+
+    audio.controls = true;
+
+    chunks = [];
+
+    var audioURL = window.URL.createObjectURL(blob);
+    audio.src = audioURL;
+    document.getElementById("Error1").innerText = "Record Audio Save as " + recordName;
+    i++;
+
+
+    deleteButton.onclick = function (e) {
+        evtTgt = e.target;
+        document.getElementById("Error1").innerText = "Delete record audio " + evtTgt.parentNode.children[1].innerText;
+        evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
+    }
+}
+
+function precisionRound(number, precision) {
+    var factor = Math.pow(10, precision);
+    return Math.round(number * factor) / factor;
+}
+
+//------------------ PERMISSIONS -------------------------------//
+
+// var list = [
+//     permissions.CAMERA,
+//     permissions.RECORD_AUDIO
+//   ];
+
+//   permissions.hasPermission(list, callback, null);
+
+//   function error() {
+//     console.warn('Record audio permission not given');
+//   }
+
+//   function success( status ) {
+//     if( !status.hasPermission ) {
+
+//       permissions.requestPermissions(
+//         list,
+//         function(status) {
+//           if( !status.hasPermission ) error();
+//         },
+//         error);
+//     }
+//   }
