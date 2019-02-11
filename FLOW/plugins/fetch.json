@@ -22,5 +22,45 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-facebook4": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-facebook4@4.2.0"
+    },
+    "is_top_level": true,
+    "variables": {
+      "APP_ID": "502054883649562",
+      "APP_NAME": "FLOW"
+    }
+  },
+  "cordova-plugin-googleplus": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-googleplus@^7.0.0"
+    },
+    "is_top_level": true,
+    "variables": {
+      "REVERSED_CLIENT_ID": "919976316439-56btn5ool2gunv5oi379c64jf2v950ac.apps.googleusercontent.com",
+      "WEB_APPLICATION_CLIENT_ID": "cal4l9elcf5ip9m2eh7qt5bs67v2obrv.apps.googleusercontent.com"
+    }
+  },
+  "cordova-plugin-inappbrowser": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-inappbrowser@3.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "twitter-connect-plugin": {
+    "source": {
+      "type": "registry",
+      "id": "twitter-connect-plugin"
+    },
+    "is_top_level": true,
+    "variables": {
+      "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038"
+    }
   }
 }

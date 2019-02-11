@@ -15,6 +15,24 @@
     },
     "cordova-plugin-browsersync": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-facebook4": {
+      "APP_ID": "502054883649562",
+      "APP_NAME": "FLOW",
+      "FACEBOOK_HYBRID_APP_EVENTS": "false",
+      "FACEBOOK_ANDROID_SDK_VERSION": "4.40.0",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-googleplus": {
+      "WEB_APPLICATION_CLIENT_ID": "cal4l9elcf5ip9m2eh7qt5bs67v2obrv.apps.googleusercontent.com",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "twitter-connect-plugin": {
+      "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038",
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {}
