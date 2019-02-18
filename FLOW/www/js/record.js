@@ -101,6 +101,9 @@ function StartRecording() {
 
 function StopRecording() {
     //siriWave.stop();
+    if (recording) {
+        mediaRecorder.stop();
+    }
     $$('.frecord-btn').removeClass('frecord-btn-active');
     recording = false;
     record_was_hold = false;
@@ -108,8 +111,6 @@ function StopRecording() {
     $$('.frecord_indicator').css({
         "stroke-dasharray": "0 100"
     });
-
-    mediaRecorder.stop();
     //document.getElementById("Error1").innerText = "Record Audio Stop";
     //record.style.background = "";
     //record.style.color = "";
@@ -277,8 +278,8 @@ function precisionRound(number, precision) {
 
 // ---------------------------------------------------------------------- //
 var siriWave = new SiriWave({
-	container: document.getElementById('wave-container'),
-	width: 300,
+    container: document.getElementById('wave-container'),
+    width: 300,
     height: 300,
     style: "ios",
     color: "1A84EF",
@@ -298,7 +299,7 @@ function Lerp(value1, value2, amount) {
 }
 var smoothVolume = 0;
 
-function wave(stream){
+function wave(stream) {
     audioContext = new AudioContext();
     analyser = audioContext.createAnalyser();
     microphone = audioContext.createMediaStreamSource(stream);
@@ -310,23 +311,22 @@ function wave(stream){
     microphone.connect(analyser);
     analyser.connect(javascriptNode);
     javascriptNode.connect(audioContext.destination);
-    javascriptNode.onaudioprocess = function() {
+    javascriptNode.onaudioprocess = function () {
         var array = new Uint8Array(analyser.frequencyBinCount);
         analyser.getByteFrequencyData(array);
         var values = 0;
         var length = array.length;
-            for (var i = 0; i < length; i++) {
-               values += (array[i]);
-            }
+        for (var i = 0; i < length; i++) {
+            values += (array[i]);
+        }
 
         var average = values / length;
         // smoothVolume = Lerp(smoothVolume,average,0.25);
         smoothVolume = average;
         if (recording) {
-            siriWave.amplitude = smoothVolume*0.02;
+            siriWave.amplitude = smoothVolume * 0.02;
             siriWave.speed = 0.2;
-        }
-        else {
+        } else {
             siriWave.amplitude = 0;
             siriWave.speed = 0;
         }
