@@ -7,19 +7,19 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
-    "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-browsersync": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova.plugins.diagnostic": {
+    "cordova-plugin-statusbar": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova-plugin-android-permissions": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova.plugins.diagnostic": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },

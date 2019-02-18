@@ -1,0 +1,58 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-browsersync": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova.plugins.diagnostic": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    }
+  },
+  "dependent_plugins": {},
+  "modules": [
+    {
+      "file": "plugins/cordova-plugin-android-permissions/www/permissions-dummy.js",
+      "id": "cordova-plugin-android-permissions.Permissions",
+      "pluginId": "cordova-plugin-android-permissions",
+      "clobbers": [
+        "cordova.plugins.permissions"
+      ]
+    },
+    {
+      "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+      "id": "cordova-plugin-statusbar.statusbar",
+      "pluginId": "cordova-plugin-statusbar",
+      "clobbers": [
+        "window.StatusBar"
+      ]
+    },
+    {
+      "file": "plugins/cordova-plugin-statusbar/src/browser/StatusBarProxy.js",
+      "id": "cordova-plugin-statusbar.StatusBarProxy",
+      "pluginId": "cordova-plugin-statusbar",
+      "runs": true
+    }
+  ],
+  "plugin_metadata": {
+    "cordova-plugin-android-permissions": "1.0.0",
+    "cordova-plugin-browsersync": "0.1.7",
+    "cordova-plugin-statusbar": "2.4.2",
+    "cordova-plugin-whitelist": "1.3.3",
+    "cordova.plugins.diagnostic": "4.0.11"
+  }
+}
