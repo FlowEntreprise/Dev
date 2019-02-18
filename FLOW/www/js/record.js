@@ -52,41 +52,50 @@ $$('body').on('touchend', function () {
 });
 
 function StartRecording() {
-    //------------------ PERMISSIONS -------------------------------//
-    var permissions = cordova.plugins.permissions;
-    var list = [
-        permissions.RECORD_AUDIO
-        //permissions.WRITE_EXTERNAL_STORAGE
-    ];
+    if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
+        //------------------ PERMISSIONS -------------------------------//
+        var permissions = cordova.plugins.permissions;
+        var list = [
+            permissions.RECORD_AUDIO
+            //permissions.WRITE_EXTERNAL_STORAGE
+        ];
 
-    function error() {
-        alert('Record audio permission not given');
-    }
-
-    function success(status) {
-        if (!status.hasPermission) error();
-        else {
-            setup();
-            $$('.frecord-btn').addClass('frecord-btn-active');
-            recording = true;
-            console.log("start recording...");
-            start_time = Date.now();
-            UpdateRecordIndicator();
+        function error() {
+            alert('Record audio permission not given');
         }
-    }
 
-    permissions.hasPermission(permissions.RECORD_AUDIO, function (status) {
-        if (status.hasPermission) {
-            setup();
-            $$('.frecord-btn').addClass('frecord-btn-active');
-            recording = true;
-            console.log("start recording...");
-            start_time = Date.now();
-            UpdateRecordIndicator();
-        } else {
-            permissions.requestPermissions(list, success, error);
+        function success(status) {
+            if (!status.hasPermission) error();
+            else {
+                setup();
+                $$('.frecord-btn').addClass('frecord-btn-active');
+                recording = true;
+                console.log("start recording...");
+                start_time = Date.now();
+                UpdateRecordIndicator();
+            }
         }
-    });
+
+        permissions.hasPermission(permissions.RECORD_AUDIO, function (status) {
+            if (status.hasPermission) {
+                setup();
+                $$('.frecord-btn').addClass('frecord-btn-active');
+                recording = true;
+                console.log("start recording...");
+                start_time = Date.now();
+                UpdateRecordIndicator();
+            } else {
+                permissions.requestPermissions(list, success, error);
+            }
+        });
+    } else {
+        setup();
+        $$('.frecord-btn').addClass('frecord-btn-active');
+        recording = true;
+        console.log("start recording...");
+        start_time = Date.now();
+        UpdateRecordIndicator();
+    }
 
 }
 
@@ -192,7 +201,7 @@ var i = 1;
 
 function Save(mediaRecorder) {
     //var recordName = prompt("Name For your record", "Flow_v" + i);
-    var recordName = "myflow_"+i;
+    var recordName = "myflow_" + i;
     var recordContainer = document.createElement('article');
     var recordLabel = document.createElement('p');
     var audio = document.createElement('audio');
