@@ -114,3 +114,13 @@ circle {
         opacity: 0;
     }
 }
+
+#wave-container
+{
+    position: absolute;
+    top: 30vh;
+    left: 0vw;
+    width: 101vw;
+    height: 40vh;
+    pointer-events: none;
+}
