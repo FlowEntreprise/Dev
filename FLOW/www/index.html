@@ -9,11 +9,6 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densityDpi=device-dpi">
     <link rel="stylesheet" type="text/css" href="css/index.css">
-    <link rel="stylesheet" type="text/css" href="css/home.css">
-    <link rel="stylesheet" type="text/css" href="css/explore.css">
-    <link rel="stylesheet" type="text/css" href="css/popup-connect.css">
-    <link rel="stylesheet" type="text/css" href="css/record.css">
-
     <!-- <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.md.colors.min.css">
     <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.md.min.css"> -->
     <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.ios.colors.min.css">
@@ -21,7 +16,6 @@
 
     <script type="text/javascript" src="Dependencies/Jquery/jquery_v331.js"></script>
     <script type="text/javascript" src="Dependencies/Framework7/framework7_v171.js"></script>
-    <script type="text/javascript" src="Dependencies/Siriwave/siriwave.min.js"></script>
     <title>FLOW</title>
 </head>
 
@@ -141,34 +135,31 @@
                     <a href="#tab3" class="fnav-btn fmessages-btn tab-link"></a>
                     <!-- <a href="#tab4" class="nav-btn notif-btn tab-link"></a> -->
                     <a href="#tab4" class="fnav-btn fnotif-btn tab-link"></a>
-
-                    <!-- <div class="fneed_connect" style="left: 17vw;"></div> -->
+                    <div class="fneed_connect" style="left: 17vw;"></div>
                     <div class="fneed_connect" style="left: 68vw;"></div>
                     <div class="fneed_connect" style="left: 84vw;"></div>
+                    <!-- <a href="#tab1" class="button active tab-link">Tab1</a>
 
+                    <a href="#tab2" class="button tab-link">Tab2</a>
+
+                    <a href="#tab3" class="button tab-link">Tab3</a> -->
                 </div>
             </div>
 
             <div class="popup popup-record">
                 <div class="content-block">
-                    <p id="flow_number_of_sec" class="fflow_duration">00</p>
-                    <p class="fflow_duration fsec">sec</p>
-                    <p><a href="#" class="fclose_record close-popup">Close</a></p>
-
-                    <!-- test -->
-                    <div id="wave-container"></div>
-                    <div class="sounds-record"></div>
-
+                    <p>RECORD</p>
+                    <p><a href="#" class="close-popup">Close popup</a></p>
+                    <p>...</p>
                 </div>
             </div>
 
             <div class="popup popup-connect">
                 <div class="content-block">
-                    <p id="fpopup-connect-msg-inscription">Un compte est nécessaire pour réaliser cette action</p>
-                    <div id="fcontent_logo_reseaux_sociaux">
+                   <p id="fpopup-connect-msg-inscription">Un compte est nécessaire pour réaliser cette action</p>
+                   <div id="fcontent_logo_reseaux_sociaux">
                         <a href=""><img src="../www/src/icons/google@3x.png" alt="logo google" class="fsize_img_reseaux_sociaux"></a>
-                        <a href=""><img src="../www/src/icons/instagram-round-flat-512@3x.png" alt="logo instagram"
-                                class="fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/instagram-round-flat-512@3x.png" alt="logo instagram" class="fsize_img_reseaux_sociaux"></a>
                         <a href=""><img src="../www/src/icons/facebook_circle-512@3x.png" alt="logo facebook" class="fsize_img_reseaux_sociaux"></a>
                         <a href=""><img src="../www/src/icons/twitter-512@3x.png" alt="logo twitter" class="fsize_img_reseaux_sociaux"></a>
                     </div>
@@ -181,9 +172,7 @@
                         inscription avec mail ou telephone
                     </div>
                     <div id="fpolitique">
-                        <p>En continuant vous acceptez les <a class="funderline">conditions d'utilisations</a> et
-                            affirmez avoir lu et compris la <a class="funderline">politique de confidentialité</a> de
-                            FLOW </p>
+                        <p>En continuant vous acceptez les <a class="funderline">conditions d'utilisations</a> et affirmez avoir lu et compris la <a class="funderline">politique de confidentialité</a> de FLOW </p>
                     </div>
                     <div id="fcompte_conn">
                         Vous avez déjà un compte ? <a href="">Connexion</a>
@@ -222,23 +211,12 @@
     </div>
 
 
-    <div class="frecord-btn">
-        <svg viewBox="0 0 32 32">
-            <circle class="frecord_indicator" r="16" cx="16" cy="16" />
-        </svg>
-        <div class="frecord_img"></div>
-    </div>
 
 
 
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript" src="js/home.js"></script>
-    <script type="text/javascript" src="js/connection.js"></script>
-    <script type="text/javascript" src="js/navigation.js"></script>
-    <script type="text/javascript" src="js/record.js"></script>
-
 </body>
 
 </html>
