@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.flowapp.flow" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>FLOW</name>
+    <description>
+        The Vocal Social Network.
+    </description>
+    <author email="flowapp.entreprise@gmail.com" href="http://cordova.io">
+        FLOW Team
+    </author>
+    <icon src="www/src/icons/FLOW@3x.png" />
+    <content src="index.html" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
+    <preference name="StatusBarBackgroundColor" value="#f7f7f8" />
+    <preference name="StatusBarStyle" value="default" />
+    <preference name="Orientation" value="portrait" />
+    <plugin name="cordova-plugin-browsersync" spec="^1.1.0" />
+    <engine name="android" spec="^7.1.4" />
+    <engine name="browser" spec="^5.0.4" />
+</widget>
