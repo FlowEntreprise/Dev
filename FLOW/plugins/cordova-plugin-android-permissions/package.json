@@ -1,19 +1,19 @@
 {
-  "_from": "cordova-plugin-android-permissions@^1.0.0",
+  "_from": "cordova-plugin-android-permissions",
   "_id": "cordova-plugin-android-permissions@1.0.0",
   "_inBundle": false,
   "_integrity": "sha1-nnwRa+Zo6336QUkbE9jUfalUgUk=",
   "_location": "/cordova-plugin-android-permissions",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "tag",
     "registry": true,
-    "raw": "cordova-plugin-android-permissions@^1.0.0",
+    "raw": "cordova-plugin-android-permissions",
     "name": "cordova-plugin-android-permissions",
     "escapedName": "cordova-plugin-android-permissions",
-    "rawSpec": "^1.0.0",
+    "rawSpec": "",
     "saveSpec": null,
-    "fetchSpec": "^1.0.0"
+    "fetchSpec": "latest"
   },
   "_requiredBy": [
     "#USER",
@@ -21,7 +21,7 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-android-permissions/-/cordova-plugin-android-permissions-1.0.0.tgz",
   "_shasum": "9e7c116be668eb7dfa41491b13d8d47da9548149",
-  "_spec": "cordova-plugin-android-permissions@^1.0.0",
+  "_spec": "cordova-plugin-android-permissions",
   "_where": "C:\\Users\\thoma\\Documents\\PROJETS_persos\\FLOW\\GitHub\\Dev\\Dev\\FLOW",
   "author": {
     "name": "Jason Yang"

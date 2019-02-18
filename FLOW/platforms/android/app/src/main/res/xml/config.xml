@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.flowapp.flow" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Permissions">
+        <param name="android-package" value="com.android.plugins.Permissions" />
+    </feature>
+    <feature name="Diagnostic">
+        <param name="android-package" value="cordova.plugins.Diagnostic" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Diagnostic_Location">
+        <param name="android-package" value="cordova.plugins.Diagnostic_Location" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Diagnostic_Bluetooth">
+        <param name="android-package" value="cordova.plugins.Diagnostic_Bluetooth" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Diagnostic_Wifi">
+        <param name="android-package" value="cordova.plugins.Diagnostic_Wifi" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Diagnostic_Camera">
+        <param name="android-package" value="cordova.plugins.Diagnostic_Camera" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Diagnostic_Notifications">
+        <param name="android-package" value="cordova.plugins.Diagnostic_Notifications" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Diagnostic_NFC">
+        <param name="android-package" value="cordova.plugins.Diagnostic_NFC" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Diagnostic_External_Storage">
+        <param name="android-package" value="cordova.plugins.Diagnostic_External_Storage" />
+        <param name="onload" value="true" />
+    </feature>
+    <name>FLOW</name>
+    <description>
+        The Vocal Social Network.
+    </description>
+    <author email="flowapp.entreprise@gmail.com" href="http://cordova.io">
+        FLOW Team
+    </author>
+    <icon src="www/src/icons/FLOW@3x.png" />
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <allow-intent href="market:*" />
+    <preference name="loglevel" value="DEBUG" />
+    <preference name="StatusBarBackgroundColor" value="#f7f7f8" />
+    <preference name="StatusBarStyle" value="default" />
+    <preference name="Orientation" value="portrait" />
+</widget>
