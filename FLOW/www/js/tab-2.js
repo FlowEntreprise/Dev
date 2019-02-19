@@ -17,10 +17,12 @@ function block() {
         block.progress_div.style.display = 'block';
         block.progress_div.style.borderTopRightRadius = '0vw';
         block.isPlaying=true;
+        console.log("play");
+
     };
 
-    
 
+    
     this.flowpause = function () {
 
 
@@ -33,6 +35,7 @@ function block() {
         wave.stop();
         block.isPlaying = false;
         block.myaudio.pause();
+        console.log("pause");
 
     };
 
@@ -236,14 +239,23 @@ function block() {
 
     this.seek = function () {
         this.progress = block.myRange.value;
+        if (this.progress > 99) this.progress = 99;
         this.time = this.progress * block.myaudio.duration / 100;
         block.myaudio.currentTime = this.time;
-        // block.flowplay();
         block.seeking = true;
+        block.progress_div.style.display = "block";
         block.progress_div.style.width = block.myaudio.currentTime * 100 / block.myaudio.duration + '%';
         setTimeout(function () {
             block.seeking = false;
         }, 600);
+        if(block.wasPlaying)
+        {
+            block.flowplay();
+        }
+        else
+        {
+            block.flowpause();
+        }
     };
 
     
@@ -261,10 +273,8 @@ function block() {
         block.seek();
     });
     this.myRange.addEventListener('input', function () {
-
+        block.wasPlaying = block.isPlaying; 
         block.flowpause();
-        
-
     });
     /* 
         wave animation----------------------------------------DONE
