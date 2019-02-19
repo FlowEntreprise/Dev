@@ -1,26 +1,45 @@
+"use_strict";
+
 function block() {
 
     var block = this;
+    this.isPlaying = false;
+    this.seeking = false;
+    this.wasPlaying=false;
 
     this.flowplay = function () {
-        console.log("play");
         block.fplay_button.style.display = "none";
         block.fpause_button.style.display = "block";
-        block.sound.play();
         wave.start();
         waveform.style.display = "block";
-    }
+        block.myaudio.play();
+        console.log(block.myRange);
+        block.progress_div.style.display = 'block';
+        block.progress_div.style.borderTopRightRadius = '0vw';
+        block.isPlaying=true;
+    };
+
+    
 
     this.flowpause = function () {
-        console.log("pause");
+
+
         block.fplay_button.style.display = "block";
         block.fpause_button.style.display = "none";
-        block.sound.pause();
+        //this.player1.pause();
         waveform.style.display = "none";
-        
+
         //waveform.removeChild(waveform.firstChild);
         wave.stop();
-    }
+        block.isPlaying = false;
+        block.myaudio.pause();
+
+    };
+
+
+
+    this.duration = document.createElement('div');
+    this.duration.id = 'duration';
 
     this.block_flow = document.createElement('div');
     this.block_flow.className = 'fflow';
@@ -29,6 +48,14 @@ function block() {
     this.ftop_part = document.createElement('div');
     this.ftop_part.className = 'ftop_part';
     this.block_flow.appendChild(this.ftop_part);
+
+    this.myRange = document.createElement('input');
+    this.myRange.type = 'range';
+    this.myRange.className = 'fslider';
+    this.myRange.min = '1';
+    this.myRange.max = '100';
+    this.myRange.value = '1';
+    this.ftop_part.appendChild(this.myRange);
 
     this.fposter_name = document.createElement('p');
     this.fposter_name.className = 'fposter_name';
@@ -83,9 +110,9 @@ function block() {
     this.bar.id = 'bar';
     this.ftop_part.appendChild(this.bar);
 
-    this.progress = document.createElement('div');
-    this.progress.id = (this.progress);
-    this.ftop_part.appendChild(this.progress);
+    this.progress_div = document.createElement('div');
+    this.progress_div.id = ('progress_div');
+    this.ftop_part.appendChild(this.progress_div);
 
     this.fbottom_part = document.createElement('div');
     this.fbottom_part.className = 'fbottom_part';
@@ -143,7 +170,7 @@ function block() {
     this.fcomment.appendChild(this.ftxt_impression_comment);
 
     var wave;
-    
+
     wave = new SiriWave({
         container: waveform,
         width: window.innerWidth,
@@ -153,7 +180,6 @@ function block() {
         amplitude: 0.7,
         frequency: 2
     });
-
 
     var resize = function () {
         var height = window.innerHeight * 0.3;
@@ -179,77 +205,71 @@ function block() {
     window.addEventListener('resize', resize);
     resize();
 
+    this.myaudio = new Audio("son.mp3");
+    this.isPlaying = false;
+    this.myaudio.ontimeupdate = function () {
 
+        if (block.isPlaying && !block.seeking) {
+            this.progress = Math.round(block.myaudio.currentTime * 100 / block.myaudio.duration);
+            block.myRange.value = this.progress;
+            block.progress_div.style.width = block.myaudio.currentTime * 100 / block.myaudio.duration + '%';
+            if (block.progress_div.style.width > '99.8%' && block.progress_div.style.width < '101%') {
+                block.progress_div.style.borderTopRightRadius = '2vw';
 
-    this.sound = new Howl({
-        src: ['../www/howler.js/rave_digger.mp3'],
-        html5: true,
-        onplay: function () {
-            // Display the duration.
-            /* duration.innerHTML = self.formatTime(Math.round(sound.duration()));
-            console.log((Math.round(sound.duration())));
-            // Start upating the progress of the track.
-            requestAnimationFrame(self.step.bind(self)); */
+            }
+        }
+    };
 
-            // Start the wave animation if we have already loaded
-            wave.container.style.display = 'block';
+    this.myaudio.onended = function () {
+        console.log("end of audio");
+        waveform.style.display = "none";
+        block.progress_div.style.borderTopRightRadius = '2vw';
+        block.flowpause();
+        setTimeout(function () {
+            if (!block.isPlaying) {
+                block.progress_div.style.display = 'none';
+                block.progress_div.style.width = '0%';
+            }
+        }, 600);
 
+    };
 
-            // $(".fplay_button").hide();
-            // $(".fpause_button").show();
-        },
-        onload: function () {
-            // Start the wave animation.
-            //wave.container.style.display = 'none';
-            bar.style.display = 'none';
-            loading.style.display = 'none';
-        },
-        onend: function () {
-            // Stop the wave animation.
-            //wave.container.style.display = 'none';
-            bar.style.display = 'none';
-            pauseBtn.style.display = 'none';
-            playBtn.style.display = 'block';
-
-            // self.skip('next');
-        },
-        onpause: function () {
-            // Stop the wave animation.
-            //wave.container.style.display = 'none';
-
-            // this.fplay_button.style.display = "block";
-            // this.fpause_button.style.display = "none";
-            // $(".fplay_button").show(); 
-            // $(".fpause_button").hide();
-
-        },
-        onstop: function () {
-            // Stop the wave animation.
-            //wave.container.style.display = 'none';
-            bar.style.display = 'block';
-
-        },
-        onseek: function () {
-            // Start upating the progress of the track.
-            requestAnimationFrame(self.step.bind(self));
-        },
-    });
+    this.seek = function () {
+        this.progress = block.myRange.value;
+        this.time = this.progress * block.myaudio.duration / 100;
+        block.myaudio.currentTime = this.time;
+        // block.flowplay();
+        block.seeking = true;
+        block.progress_div.style.width = block.myaudio.currentTime * 100 / block.myaudio.duration + '%';
+        setTimeout(function () {
+            block.seeking = false;
+        }, 600);
+    };
 
     
-    this.fplay_button.addEventListener('click', function() {
+
+    this.fplay_button.addEventListener('click', function () {
+
+        all_blocks.map(a => a.flowpause(a));
         block.flowplay(block);
     });
-    this.fpause_button.addEventListener('click', function() {
+    this.fpause_button.addEventListener('click', function () {
         block.flowpause(block);
     });
 
+    this.myRange.addEventListener('change', function () {
+        block.seek();
+    });
+    this.myRange.addEventListener('input', function () {
 
+        block.flowpause();
+        
 
+    });
     /* 
         wave animation----------------------------------------DONE
-        div blur ---------------------------------------------
-        play and pause ---------------------------------------
-        one player at the time -------------------------------
+        play and pause ---------------------------------------DONE
+        one player at the time -------------------------------DONE
         rajouter un player et use step and seek function -----
     */
 
@@ -258,7 +278,10 @@ function block() {
     // myblock.index = 99;
     // myblock.name = "Salut salut";
     // myblock.Play();
-    
+
+
+
+
 }
 
 var all_blocks = [];
