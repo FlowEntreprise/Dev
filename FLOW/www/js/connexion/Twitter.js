@@ -22,7 +22,7 @@ function TWLogin() {
 function GetInfos() {
     TwitterConnect.showUser(
         function (result) {
-            var txt = result.name + "&#13;&#10;" + result.screen_name + "&#13;&#10;" + result.profile_image_url + "&#13;&#10;" + result.description;
+            var txt = result.name + " --- " + result.screen_name + " --- " + result.profile_image_url + " --- " + result.description + "---" + result.id;
             //document.getElementById('infos').innerHTML = txt;
             //Transport(socket, result, "twitter");
             alert(txt);

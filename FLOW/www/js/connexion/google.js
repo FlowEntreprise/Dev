@@ -11,7 +11,7 @@ function google_conn(){
         },
         function (obj) {
         //   alert(JSON.stringify(obj)); // do something useful instead of alerting
-        var txt = obj.displayName + "&#13;&#10;" + obj.email + "&#13;&#10;" + obj.imageUrl + "&#13;&#10;" + obj.userId;
+        var txt = obj.displayName + " --- " + obj.email + " --- " + obj.imageUrl + " --- " + obj.userId;
         //document.getElementById('infos').innerHTML = txt;
         //Transport(socket,obj,'google');
         alert(txt);

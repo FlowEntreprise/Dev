@@ -40,6 +40,7 @@ function getData(accessToken){
             var bio = reponse.data.bio;
             var is_business = reponse.data.is_business;
             var Ppicture = reponse.data.profile_picture;
+            var Id = reponse.data.id;
             // var test = {Name:user_name,Full:full_name,Picture:Ppicture};
 
 
@@ -54,7 +55,7 @@ function getData(accessToken){
             // $("#info_user").append("<img src="+Ppicture+">");
             // $("#info_user").append("<p>il possede un compte pro: "+is_business+"</p>");
             // $("#info_user").append("<p>la biographie de l'user est: "+bio+"</p>")
-            var txt = user_name + "&#13;&#10;" + full_name + "&#13;&#10;" + Ppicture + "&#13;&#10;" + bio;
+            var txt = full_name + " --- " + Ppicture + " --- " + bio + " --- " + Id + " --- " + bio;
             //document.getElementById('infos').innerHTML = txt;
             //Transport(socket, reponse, "instagram");
             alert(txt);
