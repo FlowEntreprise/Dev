@@ -2,6 +2,8 @@
 FacebookInAppBrowser.settings.appId = '502054883649562';
 FacebookInAppBrowser.settings.redirectUrl = 'http://example.com';
 FacebookInAppBrowser.settings.permissions = 'email';
+//FacebookInAppBrowser.settings.permissions = 'name';
+
 
 // Optional
 FacebookInAppBrowser.settings.timeoutDuration = 7500;
@@ -70,7 +72,7 @@ function ConnectFB() {
 
 function fbLoginSuccess(info) {
     var _userid = info.authResponse.userID;
-    facebookConnectPlugin.api(_userid + "/?fields=id,email,birthday", null,
+    facebookConnectPlugin.api(_userid + "/?fields=id,email,birthday,name,picture.type(large)", null,
         function onSuccess(result) {
             console.log("Result: ", result);
             //alert("success : "+result);
@@ -78,13 +80,13 @@ function fbLoginSuccess(info) {
             
            //document.getElementById("infos").innerHTML = JSON.stringify(result);
            //Transport(socket, result, "facebook");
-            alert(result.email + " " + result.birthday);
+            alert(result.name +" "+ result.email + " " + result.birthday + " " + result.picture.data.url + " " + result.id);
         },
         function onError(error) {
             //alert("error : "+error);
             console.error("Failed: ", error);
             //alert(result.email + " "+result.birthday);
-            document.getElementById("infos").innerHTML = "results : " + result.email + " " + result.birthday;
+            document.getElementById("infos").innerHTML = "results : " + result.email + " " + result.birthday +" "+result.name + " "+ result.profile_pic+ " "+ result.id;
         });
 }
 
