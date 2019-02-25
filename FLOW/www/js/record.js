@@ -278,7 +278,7 @@ function precisionRound(number, precision) {
 //   }
 
 // ---------------------------------------------------------------------- //
-var siriWave = new SiriWave({
+var siriWave = new SiriWaveRecord({
     container: document.getElementById('wave-container'),
     width: 300,
     height: 300,

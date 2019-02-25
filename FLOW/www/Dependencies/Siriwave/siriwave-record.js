@@ -1,5 +1,5 @@
 ! function (t, i) {
-    "object" == typeof exports && "undefined" != typeof module ? module.exports = i() : "function" == typeof define && define.amd ? define(i) : t.SiriWave = i()
+    "object" == typeof exports && "undefined" != typeof module ? module.exports = i() : "function" == typeof define && define.amd ? define(i) : t.SiriWaveRecord = i()
 }(this, function () {
     "use strict";
 
