@@ -18,7 +18,7 @@ function block() {
         block.progress_div.style.borderTopRightRadius = '0vw';
         block.isPlaying=true;
         console.log("play");
-
+        block.myRange.style.pointerEvents = "all";
     };
 
 
@@ -36,6 +36,7 @@ function block() {
         block.isPlaying = false;
         block.myaudio.pause();
         console.log("pause");
+        block.myRange.style.pointerEvents = "none";
 
     };
 
@@ -46,7 +47,7 @@ function block() {
 
     this.block_flow = document.createElement('div');
     this.block_flow.className = 'fflow';
-    document.getElementById('tab2').appendChild(this.block_flow);
+    $(".list-block").append(this.block_flow);
 
     this.ftop_part = document.createElement('div');
     this.ftop_part.className = 'ftop_part';
@@ -78,14 +79,14 @@ function block() {
     this.fplay_button = document.createElement('img');
     this.fplay_button.className = 'fplay_button';
     this.fplay_button.id = 'playBtn';
-    this.fplay_button.src = 'images/play.png';
+    this.fplay_button.src = 'src/icons/play.png';
     this.ftop_part.appendChild(this.fplay_button);
 
     this.fpause_button = document.createElement('img');
     this.fpause_button.className = 'fpause_button';
     this.fpause_button.id = 'pauseBtn';
     // fpause_button.style.visibility = 'hidden';
-    this.fpause_button.src = 'images/pause.png';
+    this.fpause_button.src = 'src/icons/pause.png';
     this.ftop_part.appendChild(this.fpause_button);
 
     this.fposter_photo = document.createElement('div');
@@ -141,7 +142,7 @@ function block() {
     this.fbottom_part.appendChild(this.flike);
     this.fimg_impression_like = document.createElement('img');
     this.fimg_impression_like.className = 'fimg_impression';
-    this.fimg_impression_like.src = 'images/Like.png';
+    this.fimg_impression_like.src = 'src/icons/Like.png';
     this.flike.appendChild(this.fimg_impression_like);
     this.ftxt_impression_like = document.createElement('p');
     this.ftxt_impression_like.className = 'ftxt_impression';
@@ -153,7 +154,7 @@ function block() {
     this.fbottom_part.appendChild(this.fecho);
     this.fimg_impression_echo = document.createElement('img');
     this.fimg_impression_echo.className = 'fimg_impression';
-    this.fimg_impression_echo.src = 'images/echo.png';
+    this.fimg_impression_echo.src = 'src/icons/echo.png';
     this.fecho.appendChild(this.fimg_impression_echo);
     this.ftxt_impression_echo = document.createElement('p');
     this.ftxt_impression_echo.className = 'ftxt_impression';
@@ -165,7 +166,7 @@ function block() {
     this.fbottom_part.appendChild(this.fcomment);
     this.fimg_impression_comment = document.createElement('img');
     this.fimg_impression_comment.className = 'fimg_impression';
-    this.fimg_impression_comment.src = 'images/comment.png';
+    this.fimg_impression_comment.src = 'src/icons/comment.png';
     this.fcomment.appendChild(this.fimg_impression_comment);
     this.ftxt_impression_comment = document.createElement('p');
     this.ftxt_impression_comment.className = 'ftxt_impression';
@@ -174,7 +175,7 @@ function block() {
 
     var wave;
 
-    wave = new SiriWave({
+    wave = new SiriWaveBlock({
         container: waveform,
         width: window.innerWidth,
         height: window.innerHeight * 0.3,
@@ -208,7 +209,7 @@ function block() {
     window.addEventListener('resize', resize);
     resize();
 
-    this.myaudio = new Audio("son.mp3");
+    this.myaudio = new Audio("src/sound/son.mp3");
     this.isPlaying = false;
     this.myaudio.ontimeupdate = function () {
 
@@ -296,7 +297,7 @@ function block() {
 
 var all_blocks = [];
 
-$("#button2").click(function () {
-    var new_block = new block();
-    all_blocks.push(new_block);
-});
+// $("#button2").click(function () {
+//     var new_block = new block();
+//     all_blocks.push(new_block);
+// });

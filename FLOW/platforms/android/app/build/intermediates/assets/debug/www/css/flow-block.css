@@ -17,7 +17,7 @@
     top: 18.5vh;
     left: 2vw;
     border: 1.2px solid rgb(255, 255, 255);
-    background-image: url(../images/poster.jpg);
+    background-image: url(../src/pictures/poster.jpg);
     background-size: cover;
     background-position: center;
     border-radius: 10vw;
@@ -32,7 +32,7 @@
     top: 18.5vh;
     left: 75vw;
     border: 1.2px solid rgb(235, 13, 105);
-    background-image: url(../images/follower1.jpg);
+    background-image: url(../src/pictures/follower1.jpg);
     background-size: cover;
     background-position: center;
     border-radius: 10vw;
@@ -47,7 +47,7 @@
     top: 18.5vh;
     left: 80vw;
     border: 1.2px solid rgb(166, 10, 238);
-    background-image: url(../images/follower2.jpg);
+    background-image: url(../src/pictures/follower2.jpg);
     background-size: cover;
     background-position: center;
     border-radius: 10vw;
@@ -62,7 +62,7 @@
     top: 18.5vh;
     left: 83vw;
     border: 1.2px solid rgb(95, 133, 236);
-    background-image: url(../images/follower3.png);
+    background-image: url(../src/pictures/follower3.png);
     background-size: cover;
     background-position: center;
     border-radius: 10vw;
@@ -78,7 +78,7 @@
     width: 95vw;
     border-top-left-radius: 2vw;
     border-top-right-radius: 2vw;
-    background-image: url(../images/lambo.jpg);
+    background-image: url(../src/pictures/lambo.jpg);
     background-size: cover;
     background-position: center;
 }
@@ -252,7 +252,7 @@
 
 @font-face {
     font-family: Roboto;
-    src: url('../font/Roboto-Light.ttf');
+    src: url('../src/fonts/Roboto-Light.ttf');
 }
 
 /* --------------------------------------TEST HOWLER--------------------------------------- */
@@ -312,6 +312,7 @@
     left: -0.5vw;
     opacity: 0;
     z-index: 2;
+    pointer-events: none;
   }
 
   

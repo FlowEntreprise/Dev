@@ -18,7 +18,7 @@ function block() {
         block.progress_div.style.borderTopRightRadius = '0vw';
         block.isPlaying=true;
         console.log("play");
-
+        block.myRange.style.pointerEvents = "all";
     };
 
 
@@ -36,6 +36,7 @@ function block() {
         block.isPlaying = false;
         block.myaudio.pause();
         console.log("pause");
+        block.myRange.style.pointerEvents = "none";
 
     };
 
