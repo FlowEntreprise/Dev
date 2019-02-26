@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/explore.css">
     <link rel="stylesheet" type="text/css" href="css/popup-connect.css">
     <link rel="stylesheet" type="text/css" href="css/record.css">
+    <link rel="stylesheet" type="text/css" href="css/monCompte.css">
 
     <!-- <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.md.colors.min.css">
     <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.md.min.css"> -->
@@ -35,7 +36,7 @@
                 <div class="navbar-inner">
                     <div class="fhome-bar">
                         <div class="ftitle">FLOW</div>
-                        <div class="faccount"></div>
+                        <a href="../www/monCompte.html" class="faccount open-login-screen"></a>
                         <div class="fstories_title">Stories</div>
                         <ul class="fstory_list">
                             <li>
@@ -84,12 +85,12 @@
                         </ul>
                     </div>
                     <div class="fexplore-bar">
-                        <input class="fsearch-bar" placeholder="Explore" />
+                        <input class="fsearch-bar" placeholder="Explore">
                         <div class="swiper-container swiper-3">
                             <div class="swiper-pagination"></div>
                             <div class="fexplore_bg_div"></div>
                             <div class="swiper-wrapper fexplore_wrapper">
-                                <div class="swiper-slide fexplore_text" target=""><span></span></div>
+                                <div class="swiper-slide fexplore_text" target><span></span></div>
                                 <div class="swiper-slide fexplore_text" target="top50"><span>TOP 50</span></div>
                                 <div class="swiper-slide fexplore_text" target="music"><span>Music</span></div>
                                 <div class="swiper-slide fexplore_text" target="sport"><span>Sport</span></div>
@@ -98,7 +99,7 @@
                                 <div class="swiper-slide fexplore_text" target="sport"><span>Sport</span></div>
                                 <div class="swiper-slide fexplore_text" target="top50"><span>TOP 50</span></div>
                                 <div class="swiper-slide fexplore_text" target="music"><span>Music</span></div>
-                                <div class="swiper-slide fexplore_text" target=""><span></span></div>
+                                <div class="swiper-slide fexplore_text" target><span></span></div>
                             </div>
                         </div>
                         <!-- <ul class="fexplore_list">
@@ -166,11 +167,10 @@
                 <div class="content-block">
                     <p id="fpopup-connect-msg-inscription">Un compte est nécessaire pour réaliser cette action</p>
                     <div id="fcontent_logo_reseaux_sociaux">
-                        <a href=""><img src="../www/src/icons/google@3x.png" alt="logo google" class="fsize_img_reseaux_sociaux"></a>
-                        <a href=""><img src="../www/src/icons/instagram-round-flat-512@3x.png" alt="logo instagram"
-                                class="fsize_img_reseaux_sociaux"></a>
-                        <a href=""><img src="../www/src/icons/facebook_circle-512@3x.png" alt="logo facebook" class="fsize_img_reseaux_sociaux"></a>
-                        <a href=""><img src="../www/src/icons/twitter-512@3x.png" alt="logo twitter" class="fsize_img_reseaux_sociaux"></a>
+                        <a href><img src="../www/src/icons/google@3x.png" alt="logo google" class="fsize_img_reseaux_sociaux"></a>
+                        <a href><img src="../www/src/icons/instagram-round-flat-512@3x.png" alt="logo instagram" class="fsize_img_reseaux_sociaux"></a>
+                        <a href><img src="../www/src/icons/facebook_circle-512@3x.png" alt="logo facebook" class="fsize_img_reseaux_sociaux"></a>
+                        <a href><img src="../www/src/icons/twitter-512@3x.png" alt="logo twitter" class="fsize_img_reseaux_sociaux"></a>
                     </div>
                     <div id="fseparation">
                         <div id="ftrait_gauche"></div>
@@ -186,7 +186,7 @@
                             FLOW </p>
                     </div>
                     <div id="fcompte_conn">
-                        Vous avez déjà un compte ? <a href="">Connexion</a>
+                        Vous avez déjà un compte ? <a href>Connexion</a>
                     </div>
                 </div>
             </div>
@@ -199,8 +199,7 @@
                         <!-- Tabs, tabs wrapper -->
                         <div class="tabs">
                             <!-- Tab 1, active by default -->
-                            <div id="tab1" class="page-content pull-to-refresh-content tab active hide-navbar-on-scroll"
-                                data-ptr-distance="55">
+                            <div id="tab1" class="page-content pull-to-refresh-content tab active hide-navbar-on-scroll" data-ptr-distance="55">
 
                             </div>
                             <!-- Tab 2 -->
@@ -223,8 +222,8 @@
 
 
     <div class="frecord-btn">
-        <svg viewBox="0 0 32 32">
-            <circle class="frecord_indicator" r="16" cx="16" cy="16" />
+        <svg viewbox="0 0 32 32">
+            <circle class="frecord_indicator" r="16" cx="16" cy="16"/>
         </svg>
         <div class="frecord_img"></div>
     </div>
@@ -238,6 +237,7 @@
     <script type="text/javascript" src="js/connection.js"></script>
     <script type="text/javascript" src="js/navigation.js"></script>
     <script type="text/javascript" src="js/record.js"></script>
+    <script type="text/javascript" src="js/monCompte.js"></script>
 
 </body>
 
