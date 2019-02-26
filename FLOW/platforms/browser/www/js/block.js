@@ -249,14 +249,15 @@ function block() {
         setTimeout(function () {
             block.seeking = false;
         }, 600);
-        if(block.wasPlaying)
-        {
-            block.flowplay();
-        }
-        else
-        {
-            block.flowpause();
-        }
+        block.flowplay();
+        // if(block.wasPlaying)
+        // {
+        //     block.flowplay();
+        // }
+        // else
+        // {
+        //     block.flowpause();
+        // }
     };
 
     
@@ -274,8 +275,15 @@ function block() {
         block.seek();
     });
     this.myRange.addEventListener('input', function () {
-        block.wasPlaying = block.isPlaying; 
+        this.focus();
+        //block.wasPlaying = block.isPlaying; 
         block.flowpause();
+        block.progress = block.myRange.value;
+        if (block.progress > 99) block.progress = 99;
+        block.time = block.progress * block.myaudio.duration / 100;
+        block.myaudio.currentTime = block.time;
+        block.progress_div.style.width = block.myaudio.currentTime * 100 / block.myaudio.duration + '%';
+
     });
     /* 
         wave animation----------------------------------------DONE
