@@ -91,6 +91,7 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
+apply from: "../twitter-connect-plugin/flow-twitter.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -267,6 +268,9 @@ dependencies {
     implementation(project(path: ":CordovaLib"))
     compile "com.android.support:support-v4:26.+"
     compile "com.android.support:appcompat-v7:26.+"
+    compile "com.facebook.android:facebook-android-sdk:4.40.0"
+    compile "com.google.android.gms:play-services-auth:11.8.0"
+    compile "com.google.android.gms:play-services-identity:11.8.0"
     // SUB-PROJECT DEPENDENCIES END
 }
 

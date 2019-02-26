@@ -4,7 +4,54 @@
     "uninstalled": []
   },
   "config_munge": {
-    "files": {}
+    "files": {
+      "config.xml": {
+        "parents": {
+          "/*": [
+            {
+              "xml": "<feature name=\"FacebookConnectPlugin\"><param name=\"browser-package\" value=\"FacebookConnectPluginBrowser\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<plugin name=\"FacebookConnectPlugin\" value=\"FacebookConnectPlugin\" />",
+              "count": 1
+            },
+            {
+              "xml": "<access origin=\"https://m.facebook.com\" />",
+              "count": 1
+            },
+            {
+              "xml": "<access origin=\"https://connect.facebook.net\" />",
+              "count": 1
+            },
+            {
+              "xml": "<access origin=\"https://graph.facebook.com\" />",
+              "count": 1
+            },
+            {
+              "xml": "<access origin=\"https://api.facebook.com\" />",
+              "count": 1
+            },
+            {
+              "xml": "<access origin=\"https://*.fbcdn.net\" />",
+              "count": 1
+            },
+            {
+              "xml": "<access origin=\"https://*.akamaihd.net\" />",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"GooglePlus\"><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<access origin=\"https://accounts.google.com/*\" />",
+              "count": 1
+            }
+          ]
+        }
+      }
+    }
   },
   "installed_plugins": {
     "cordova-plugin-android-permissions": {
@@ -20,6 +67,24 @@
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova.plugins.diagnostic": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-facebook4": {
+      "APP_ID": "502054883649562",
+      "APP_NAME": "FLOW",
+      "FACEBOOK_HYBRID_APP_EVENTS": "false",
+      "FACEBOOK_ANDROID_SDK_VERSION": "4.40.0",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-googleplus": {
+      "WEB_APPLICATION_CLIENT_ID": "cal4l9elcf5ip9m2eh7qt5bs67v2obrv.apps.googleusercontent.com",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "twitter-connect-plugin": {
+      "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038",
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -46,6 +111,53 @@
       "id": "cordova-plugin-statusbar.StatusBarProxy",
       "pluginId": "cordova-plugin-statusbar",
       "runs": true
+    },
+    {
+      "file": "plugins/cordova-plugin-facebook4/www/facebook-browser.js",
+      "id": "cordova-plugin-facebook4.FacebookConnectPluginBrowser",
+      "pluginId": "cordova-plugin-facebook4",
+      "clobbers": [
+        "facebookConnectPlugin"
+      ]
+    },
+    {
+      "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
+      "id": "cordova-plugin-googleplus.GooglePlus",
+      "pluginId": "cordova-plugin-googleplus",
+      "clobbers": [
+        "window.plugins.googleplus"
+      ]
+    },
+    {
+      "file": "plugins/cordova-plugin-googleplus/src/browser/GooglePlusProxy.js",
+      "id": "cordova-plugin-googleplus.GooglePlusProxy",
+      "pluginId": "cordova-plugin-googleplus",
+      "clobbers": [
+        "GooglePlus"
+      ]
+    },
+    {
+      "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+      "id": "cordova-plugin-inappbrowser.inappbrowser",
+      "pluginId": "cordova-plugin-inappbrowser",
+      "clobbers": [
+        "cordova.InAppBrowser.open",
+        "window.open"
+      ]
+    },
+    {
+      "file": "plugins/cordova-plugin-inappbrowser/src/browser/InAppBrowserProxy.js",
+      "id": "cordova-plugin-inappbrowser.InAppBrowserProxy",
+      "pluginId": "cordova-plugin-inappbrowser",
+      "runs": true
+    },
+    {
+      "file": "plugins/twitter-connect-plugin/www/TwitterConnect.js",
+      "id": "twitter-connect-plugin.TwitterConnect",
+      "pluginId": "twitter-connect-plugin",
+      "clobbers": [
+        "TwitterConnect"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -53,6 +165,10 @@
     "cordova-plugin-browsersync": "0.1.7",
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-whitelist": "1.3.3",
-    "cordova.plugins.diagnostic": "4.0.11"
+    "cordova.plugins.diagnostic": "4.0.11",
+    "cordova-plugin-facebook4": "4.2.1",
+    "cordova-plugin-googleplus": "7.0.0",
+    "cordova-plugin-inappbrowser": "3.0.0",
+    "twitter-connect-plugin": "0.6.0"
   }
 }
