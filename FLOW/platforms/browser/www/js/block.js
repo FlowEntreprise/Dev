@@ -13,7 +13,7 @@ function block() {
         wave.start();
         waveform.style.display = "block";
         block.myaudio.play();
-        console.log(block.myRange);
+        // console.log(block.myRange);
         block.progress_div.style.display = 'block';
         block.progress_div.style.borderTopRightRadius = '0vw';
         block.isPlaying=true;
@@ -154,7 +154,7 @@ function block() {
     this.fbottom_part.appendChild(this.fecho);
     this.fimg_impression_echo = document.createElement('img');
     this.fimg_impression_echo.className = 'fimg_impression';
-    this.fimg_impression_echo.src = 'src/icons/echo.png';
+    this.fimg_impression_echo.src = 'src/icons/Echo.png';
     this.fecho.appendChild(this.fimg_impression_echo);
     this.ftxt_impression_echo = document.createElement('p');
     this.ftxt_impression_echo.className = 'ftxt_impression';
@@ -166,7 +166,7 @@ function block() {
     this.fbottom_part.appendChild(this.fcomment);
     this.fimg_impression_comment = document.createElement('img');
     this.fimg_impression_comment.className = 'fimg_impression';
-    this.fimg_impression_comment.src = 'src/icons/comment.png';
+    this.fimg_impression_comment.src = 'src/icons/Comment.png';
     this.fcomment.appendChild(this.fimg_impression_comment);
     this.ftxt_impression_comment = document.createElement('p');
     this.ftxt_impression_comment.className = 'ftxt_impression';
