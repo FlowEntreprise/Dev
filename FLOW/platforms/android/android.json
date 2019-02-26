@@ -59,10 +59,6 @@
             {
               "xml": "<feature name=\"TwitterConnect\"><param name=\"android-package\" value=\"com.manifestwebdesign.twitterconnect.TwitterConnect\" /></feature>",
               "count": 1
-            },
-            {
-              "xml": "<feature name=\"Permissions\"><param name=\"android-package\" value=\"com.android.plugins.Permissions\" /></feature>",
-              "count": 1
             }
           ]
         }
@@ -166,9 +162,6 @@
     "twitter-connect-plugin": {
       "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038",
       "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-android-permissions": {
-      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {},
@@ -213,14 +206,6 @@
       "clobbers": [
         "TwitterConnect"
       ]
-    },
-    {
-      "id": "cordova-plugin-android-permissions.Permissions",
-      "file": "plugins/cordova-plugin-android-permissions/www/permissions.js",
-      "pluginId": "cordova-plugin-android-permissions",
-      "clobbers": [
-        "cordova.plugins.permissions"
-      ]
     }
   ],
   "plugin_metadata": {
@@ -230,7 +215,6 @@
     "cordova-plugin-facebook4": "4.2.0",
     "cordova-plugin-googleplus": "7.0.0",
     "cordova-plugin-inappbrowser": "3.0.0",
-    "twitter-connect-plugin": "0.6.0",
-    "cordova-plugin-android-permissions": "1.0.0"
+    "twitter-connect-plugin": "0.6.0"
   }
 }

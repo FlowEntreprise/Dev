@@ -16,7 +16,6 @@
 
     <script type="text/javascript" src="Dependencies/Jquery/jquery_v331.js"></script>
     <script type="text/javascript" src="Dependencies/Framework7/framework7_v171.js"></script>
-    <script src="js/connexion/cordova.oauth2.js"></script>
     <title>FLOW</title>
 </head>
 
@@ -79,12 +78,12 @@
                         </ul>
                     </div>
                     <div class="fexplore-bar">
-                        <input class="fsearch-bar" placeholder="Explore">
+                        <input class="fsearch-bar" placeholder="Explore" />
                         <div class="swiper-container swiper-3">
                             <div class="swiper-pagination"></div>
                             <div class="fexplore_bg_div"></div>
                             <div class="swiper-wrapper fexplore_wrapper">
-                                <div class="swiper-slide fexplore_text" target><span></span></div>
+                                <div class="swiper-slide fexplore_text" target=""><span></span></div>
                                 <div class="swiper-slide fexplore_text" target="top50"><span>TOP 50</span></div>
                                 <div class="swiper-slide fexplore_text" target="music"><span>Music</span></div>
                                 <div class="swiper-slide fexplore_text" target="sport"><span>Sport</span></div>
@@ -93,7 +92,7 @@
                                 <div class="swiper-slide fexplore_text" target="sport"><span>Sport</span></div>
                                 <div class="swiper-slide fexplore_text" target="top50"><span>TOP 50</span></div>
                                 <div class="swiper-slide fexplore_text" target="music"><span>Music</span></div>
-                                <div class="swiper-slide fexplore_text" target><span></span></div>
+                                <div class="swiper-slide fexplore_text" target=""><span></span></div>
                             </div>
                         </div>
                         <!-- <ul class="fexplore_list">
@@ -159,10 +158,10 @@
                 <div class="content-block">
                    <p id="fpopup-connect-msg-inscription">Un compte est nécessaire pour réaliser cette action</p>
                    <div id="fcontent_logo_reseaux_sociaux">
-                        <a href><img src="../www/src/icons/google@3x.png" alt="logo google" class="fgoogle_btn fsize_img_reseaux_sociaux"></a>
-                        <a href><img src="../www/src/icons/instagram-round-flat-512@3x.png" alt="logo instagram" class="finsta_btn fsize_img_reseaux_sociaux"></a>
-                        <a href><img src="../www/src/icons/facebook_circle-512@3x.png" alt="logo facebook" class="ffacebook_btn fsize_img_reseaux_sociaux"></a>
-                        <a href><img src="../www/src/icons/twitter-512@3x.png" alt="logo twitter" class="ftwitter_btn fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/google@3x.png" alt="logo google" class="fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/instagram-round-flat-512@3x.png" alt="logo instagram" class="fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/facebook_circle-512@3x.png" alt="logo facebook" class="fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/twitter-512@3x.png" alt="logo twitter" class="fsize_img_reseaux_sociaux"></a>
                     </div>
                     <div id="fseparation">
                         <div id="ftrait_gauche"></div>
@@ -176,7 +175,7 @@
                         <p>En continuant vous acceptez les <a class="funderline">conditions d'utilisations</a> et affirmez avoir lu et compris la <a class="funderline">politique de confidentialité</a> de FLOW </p>
                     </div>
                     <div id="fcompte_conn">
-                        Vous avez déjà un compte ? <a href>Connexion</a>
+                        Vous avez déjà un compte ? <a href="">Connexion</a>
                     </div>
                 </div>
             </div>
@@ -189,7 +188,8 @@
                         <!-- Tabs, tabs wrapper -->
                         <div class="tabs">
                             <!-- Tab 1, active by default -->
-                            <div id="tab1" class="page-content pull-to-refresh-content tab active hide-navbar-on-scroll" data-ptr-distance="55">
+                            <div id="tab1" class="page-content pull-to-refresh-content tab active hide-navbar-on-scroll"
+                                data-ptr-distance="55">
 
                             </div>
                             <!-- Tab 2 -->
@@ -217,12 +217,6 @@
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript" src="js/connexion/Twitter.js"></script>
-    <script type="text/javascript" src="js/connexion/insta.js"></script>
-    <script type="text/javascript" src="js/connexion/Facebook.js"></script>
-    <script type="text/javascript" src="js/connexion/google.js"></script>
-    <script type="text/javascript" src="js/Socket.js"></script>
-    <script type="text/javascript" src="js/connexion/connexion.js"></script>
 </body>
 
 </html>

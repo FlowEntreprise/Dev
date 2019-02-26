@@ -54,19 +54,13 @@
     }
   },
   "installed_plugins": {
-    "cordova-plugin-android-permissions": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-browsersync": {
-      "PACKAGE_NAME": "com.flowapp.flow"
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
     },
     "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "com.flowapp.flow"
+      "PACKAGE_NAME": "io.cordova.hellocordova"
     },
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova.plugins.diagnostic": {
+    "cordova-plugin-browsersync": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-facebook4": {
@@ -91,14 +85,6 @@
   "dependent_plugins": {},
   "modules": [
     {
-      "file": "plugins/cordova-plugin-android-permissions/www/permissions-dummy.js",
-      "id": "cordova-plugin-android-permissions.Permissions",
-      "pluginId": "cordova-plugin-android-permissions",
-      "clobbers": [
-        "cordova.plugins.permissions"
-      ]
-    },
-    {
       "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
       "id": "cordova-plugin-statusbar.statusbar",
       "pluginId": "cordova-plugin-statusbar",
@@ -111,14 +97,6 @@
       "id": "cordova-plugin-statusbar.StatusBarProxy",
       "pluginId": "cordova-plugin-statusbar",
       "runs": true
-    },
-    {
-      "file": "plugins/cordova-plugin-android-permissions/www/permissions-dummy.js",
-      "id": "cordova-plugin-android-permissions.Permissions",
-      "pluginId": "cordova-plugin-android-permissions",
-      "clobbers": [
-        "cordova.plugins.permissions"
-      ]
     },
     {
       "file": "plugins/cordova-plugin-facebook4/www/facebook-browser.js",
@@ -169,11 +147,9 @@
     }
   ],
   "plugin_metadata": {
-    "cordova-plugin-android-permissions": "1.0.0",
-    "cordova-plugin-browsersync": "0.1.7",
-    "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-whitelist": "1.3.3",
-    "cordova.plugins.diagnostic": "4.0.11",
+    "cordova-plugin-statusbar": "2.4.2",
+    "cordova-plugin-browsersync": "0.1.7",
     "cordova-plugin-facebook4": "4.2.0",
     "cordova-plugin-googleplus": "7.0.0",
     "cordova-plugin-inappbrowser": "3.0.0",
