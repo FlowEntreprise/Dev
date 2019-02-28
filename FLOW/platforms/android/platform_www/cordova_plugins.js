@@ -40,6 +40,14 @@ module.exports = [
     "clobbers": [
       "TwitterConnect"
     ]
+  },
+  {
+    "id": "cordova-plugin-android-permissions.Permissions",
+    "file": "plugins/cordova-plugin-android-permissions/www/permissions.js",
+    "pluginId": "cordova-plugin-android-permissions",
+    "clobbers": [
+      "cordova.plugins.permissions"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -51,7 +59,8 @@ module.exports.metadata =
   "cordova-plugin-facebook4": "4.2.0",
   "cordova-plugin-googleplus": "7.0.0",
   "cordova-plugin-inappbrowser": "3.0.0",
-  "twitter-connect-plugin": "0.6.0"
+  "twitter-connect-plugin": "0.6.0",
+  "cordova-plugin-android-permissions": "1.0.0"
 };
 // BOTTOM OF METADATA
 });

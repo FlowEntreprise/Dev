@@ -28,6 +28,9 @@
     <feature name="TwitterConnect">
         <param name="android-package" value="com.manifestwebdesign.twitterconnect.TwitterConnect" />
     </feature>
+    <feature name="Permissions">
+        <param name="android-package" value="com.android.plugins.Permissions" />
+    </feature>
     <name>FLOW</name>
     <description>
         The Vocal Social Network.
