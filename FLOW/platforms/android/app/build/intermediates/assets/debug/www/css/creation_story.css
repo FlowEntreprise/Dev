@@ -1,0 +1,18 @@
+.test1
+{
+    position: absolute;
+    top: 90vh;
+    padding: 2vw;
+}
+.fretour
+{
+    background-image: url("../src/icons/Temporaire/retour.PNG");
+}
+.valider
+{
+    background-image: url("../src/icons/Temporaire/valider.PNG");
+}
+.fannuler
+{
+    background-image: url("../src/icons/Temporaire/annuler.PNG");
+}

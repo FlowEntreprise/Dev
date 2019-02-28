@@ -159,9 +159,9 @@
     height: 2.5vh;
     top: 0vh;
     font-size: 4.5vw;
-    left: 1vw;
+    left: 1.5vw;
     font-weight: bold;
-    color: #909597;
+    color: #92ABB2;
     text-align: left;
 
 }
@@ -171,10 +171,10 @@
     display: block;
     width: 50vw;
     height: 2.5vh;
-    font-size: 3vw;
-    left: 1vw;
-    top: 4vh;
-    color: #909597;
+    font-size: 4vw;
+    left: 1.5vw;
+    top: 3vh;
+    color: #92ABB2;
     text-align: left;
 
 }
@@ -183,12 +183,12 @@
     position: absolute;
     display: block;
     width: 30vw;
-    height: 3vh;
+    height: 5vh;
     font-size: 3.5vw;
-    left: 1vw;
+    left: 1.5vw;
     top: 6vh;
     font-weight: bold;
-    color: #909597;
+    color: #92ABB2;
     text-align: left;
 
 }
@@ -196,8 +196,8 @@
 .flike {
     position: absolute;
     width: 10vw;
-    left: 65vw;
-    top: 3vh;
+    left: 63vw;
+    top: 2.5vh;
     text-align: center;
     height: 7vh;
 
@@ -206,8 +206,8 @@
 .fecho {
     position: absolute;
     width: 10vw;
-    left: 75vw;
-    top: 3vh;
+    left: 73vw;
+    top: 2.5vh;
     text-align: center;
     height: 7vh;
 }
@@ -215,8 +215,8 @@
 .fcomment {
     position: absolute;
     width: 10vw;
-    left: 85vw;
-    top: 3vh;
+    left: 83vw;
+    top: 2.5vh;
     text-align: center;
     height: 7vh;
 }
@@ -230,7 +230,7 @@
     top: 2vh;
     left: 2vw;
     ;
-    color: #909597;
+    color: #92ABB2;
     font-weight: bold;
 
 }

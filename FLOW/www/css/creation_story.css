@@ -1,0 +1,27 @@
+.buttons-row
+{
+    position: absolute;
+    top: 80vh;
+    width: 95vw;
+}
+.fretour
+{
+    background-image: url("../src/icons/Temporaire/retour.PNG") !important;
+    height: 15vh !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
+.valider
+{
+    background-image: url("../src/icons/Temporaire/valider.PNG") !important;
+    height: 15vh !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
+.fannuler
+{
+    background-image: url("../src/icons/Temporaire/annuler.PNG") !important;
+    height: 15vh !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
