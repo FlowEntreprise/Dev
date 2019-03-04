@@ -22,6 +22,17 @@
 
     <script type="text/javascript" src="Dependencies/Jquery/jquery_v331.js"></script>
     <script type="text/javascript" src="Dependencies/Framework7/framework7_v171.js"></script>
+
+	<script src="js/require/SocketClient.js"></script>
+	<script src="js/require/EventEmitter.js""></script>
+	<script src="js/require/EventListener.js"></script>
+	<script src="js/SocketManager.js"></script>
+	<script>
+
+	    const test = new SocketManager("http://51.38.39.212:8082");
+	    console.log(test);
+
+	</script>
     <script type="text/javascript" src="Dependencies/Siriwave/siriwave-block.js"></script>
     <script type="text/javascript" src="Dependencies/Siriwave/siriwave-record.js"></script>
     <title>FLOW</title>
