@@ -7,7 +7,7 @@
 {
     position: absolute;
     top: 3vh;
-    left: 1.5vw;
+    left: 3vw;
 }
 
 #fbandeauMonCompte
@@ -19,7 +19,7 @@
     width: 65vw;
     height: 8vh;
     border-radius: 25px 0px 0px 25px;
-    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 3px 8px rgba(120, 120, 120, 0.20);
 }
 
 #fprofilPicture
@@ -30,7 +30,8 @@
     width: 27vw;
     height: 27vw;
     border-radius: 22vw;
-    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 3.5px 8px rgba(0, 0, 0, 0.20);
+    border: solid 3px white;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -82,29 +83,35 @@
 {
     font-size: 22px;
     position: absolute;
-    right: 51.5vw;
+    right: 46vw;
     top: 1vh;
     font-family:Roboto-Regular;
     color: #4A4A4A;
+    width: 16vw;
+    text-align: center;
 }
 
 #ffollowersBandeauChiffre
 {
     font-size: 22px;
     position: absolute;
-    right: 32.5vw;
+    right: 28vw;
     top: 1vh;
     font-family:Roboto-Regular;
     color: #4A4A4A;
+    width: 16vw;
+    text-align: center;
 }
 
 #ffollowingBandeauChiffre
 {
     font-size: 22px;
     position: absolute;
-    right: 12.5vw;
+    right: 8vw;
     top: 1vh;
     font-family:Roboto-Regular;
+    width: 16vw;
+    text-align: center;
 }
 
 #fbioMonCompte
@@ -126,56 +133,39 @@
     font-size: 14px;
     padding: 2.5px;
     position: absolute;
-    top: 23vh;
+    top: 25vh;
     left: 35vw;
 }
 
-#fcontainLike
-{
-    display: none;
-}
-
-#fcontainMyActivity
-{
-    display: none;
-}
-
-#fMyActivity
+.fnavMonCompte
 {
     position: absolute;
-    top: 30vh;
-    left: 24vw;
-    font-size: 5vw;
-    color: #1A84EF;
+    top: 22vh !important;
+    left: 7vw !important;
+    font-size: 19px !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    width: 85vw !important;
 }
 
-#funderlineMyActivity
+.MonCompte
 {
-    position: absolute;
-    top: 33.5vh;
-    left: 24vw;
-    border-top: solid 2px #1A84EF;
-    width: 24vw;
-    font-family:Roboto-Regular;
+    color: #92ABB2 !important;
+    filter: none !important;
+    width: auto !important;
 }
 
-#fLikes
+.MonCompte.active
 {
-    position: absolute;
-    top: 30vh;
-    left: 62vw;
-    font-size: 5vw;
-    color: #92ABB2;
-    font-family:Roboto-Regular;
+    color: #1A84EF !important;
+    filter: none !important;
+    border-bottom: solid 2px #1A84EF;
+    padding-top: 2px;
 }
 
-#funderlineLike
+.ftabsMonCompte
 {
     position: absolute;
-    top: 33.5vh;
-    left: 62vw;
-    border-top: solid 2px #1A84EF;
-    width: 12vw;
-    font-family:Roboto-Regular;
-    display: none;
+    top: 32vh;
+    left: 0vw;
 }

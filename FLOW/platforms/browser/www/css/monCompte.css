@@ -132,7 +132,7 @@
     font-size: 14px;
     padding: 2.5px;
     position: absolute;
-    top: 23vh;
+    top: 25vh;
     left: 35vw;
 }
 
@@ -140,11 +140,11 @@
 {
     position: absolute;
     top: 22vh !important;
-    left: 26vw !important;
+    left: 5vw !important;
     font-size: 19px !important;
     background-color: transparent !important;
     box-shadow: none !important;
-    width: 50vw !important;
+    width: 88vw !important;
 }
 
 .MonCompte
