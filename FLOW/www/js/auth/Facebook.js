@@ -9,59 +9,59 @@ FacebookInAppBrowser.settings.permissions = 'email';
 FacebookInAppBrowser.settings.timeoutDuration = 7500;
 
 // Login(accessToken will be stored trough localStorage in 'accessToken');
-FacebookInAppBrowser.login({
-    send: function () {
-        console.log('login opened');
-    },
-    success: function (access_token) {
-        console.log('done, access token: ' + access_token);
-    },
-    denied: function () {
-        console.log('user denied');
-    },
-    timeout: function () {
-        console.log('a timeout has occurred, probably a bad internet connection');
-    },
-    complete: function (access_token) {
-        console.log('window closed');
-        if (access_token) {
-            console.log(access_token);
-        } else {
-            console.log('no access token');
-        }
-    },
-    userInfo: function (userInfo) {
-        if (userInfo) {
-            console.log(JSON.stringify(userInfo));
-        } else {
-            console.log('no user info');
-        }
-    }
-});
+// FacebookInAppBrowser.login({
+//     send: function () {
+//         console.log('login opened');
+//     },
+//     success: function (access_token) {
+//         console.log('done, access token: ' + access_token);
+//     },
+//     denied: function () {
+//         console.log('user denied');
+//     },
+//     timeout: function () {
+//         console.log('a timeout has occurred, probably a bad internet connection');
+//     },
+//     complete: function (access_token) {
+//         console.log('window closed');
+//         if (access_token) {
+//             console.log(access_token);
+//         } else {
+//             console.log('no access token');
+//         }
+//     },
+//     userInfo: function (userInfo) {
+//         if (userInfo) {
+//             console.log(JSON.stringify(userInfo));
+//         } else {
+//             console.log('no user info');
+//         }
+//     }
+// });
 
 
-// Same logic of callbacks
-FacebookInAppBrowser.getInfo(function (response) {
-    if (response) {
-        var name = response.name,
-            id = response.id,
-            gender = response.gender;
+// // Same logic of callbacks
+// FacebookInAppBrowser.getInfo(function (response) {
+//     if (response) {
+//         var name = response.name,
+//             id = response.id,
+//             gender = response.gender;
 
-        // check the response object to see all available data like email, first name, last name, etc
-        console.log(JSON.stringify(response));
-    }
-});
+//         // check the response object to see all available data like email, first name, last name, etc
+//         console.log(JSON.stringify(response));
+//     }
+// });
 
-FacebookInAppBrowser.getPermissions(function (permissions) {
-    if (permissions) {
-        console.log(permissions.publish_actions, permissions);
-    }
-});
+// FacebookInAppBrowser.getPermissions(function (permissions) {
+//     if (permissions) {
+//         console.log(permissions.publish_actions, permissions);
+//     }
+// });
 
-// Logout
-FacebookInAppBrowser.logout(function () {
-    alert('bye');
-});
+// // Logout
+// FacebookInAppBrowser.logout(function () {
+//     alert('bye');
+// });
 
 function ConnectFB() {
     facebookConnectPlugin.login(["public_profile", "user_birthday", "email"], fbLoginSuccess,
