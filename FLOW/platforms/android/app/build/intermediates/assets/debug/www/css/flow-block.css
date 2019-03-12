@@ -1,12 +1,13 @@
 .fflow {
     position: relative;
-    width: 95vw;
-    margin-left: 2.5vw;
-    margin-top: 1vh;
-    height: 36vh;
+    width: 90vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-top: 5vw;
+    height: 37vh;
     background-color: #FFFFFF;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 2vw;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
     font-family: Roboto;
 }
 
@@ -30,7 +31,7 @@
     width: 10vw;
     height: 10vw;
     top: 18.5vh;
-    left: 75vw;
+    left: 68vw;
     border: 1.2px solid rgb(235, 13, 105);
     background-image: url(../src/pictures/follower1.jpg);
     background-size: cover;
@@ -45,7 +46,7 @@
     width: 10vw;
     height: 10vw;
     top: 18.5vh;
-    left: 80vw;
+    left: 73vw;
     border: 1.2px solid rgb(166, 10, 238);
     background-image: url(../src/pictures/follower2.jpg);
     background-size: cover;
@@ -60,7 +61,7 @@
     width: 10vw;
     height: 10vw;
     top: 18.5vh;
-    left: 83vw;
+    left: 76vw;
     border: 1.2px solid rgb(95, 133, 236);
     background-image: url(../src/pictures/follower3.png);
     background-size: cover;
@@ -75,7 +76,7 @@
     display: block;
     top: 0vh;
     height: 25vh;
-    width: 95vw;
+    width: 90vw;
     border-top-left-radius: 2vw;
     border-top-right-radius: 2vw;
     background-image: url(../src/pictures/lambo.jpg);
@@ -90,7 +91,7 @@
     font-size: 4vw;
     width: 15vw;
     height: 2.5vh;
-    left: 1vw;
+    left: 2vw;
     color: #FFFFFF;
     text-align: left;
     font-weight: bold;
@@ -100,7 +101,7 @@
 .fpost_date {
     position: absolute;
     font-size: 3vw;
-    left: 1.5vw;
+    left: 2.5vw;
     top: 1vh;
     width: 10vw;
     height: 2vh;
@@ -112,8 +113,8 @@
 
 .fdots {
     position: absolute;
-    left: 87vw;
-    top: -4.5vh;
+    left: 82vw;
+    top: -2vh;
     font-size: 7vw;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     font-weight: bold;
@@ -144,8 +145,8 @@
 
 .fbottom_part {
     position: absolute;
-    width: 95vw;
-    height: 11vh;
+    width: 90vw;
+    height: 12vh;
     top: 25vh;
     background-color: #FFFFFF;
     border-bottom-left-radius: 2vw;
@@ -159,9 +160,9 @@
     height: 2.5vh;
     top: 0vh;
     font-size: 4.5vw;
-    left: 1vw;
+    left: 2vw;
     font-weight: bold;
-    color: #909597;
+    color: #92ABB2;
     text-align: left;
 
 }
@@ -171,10 +172,10 @@
     display: block;
     width: 50vw;
     height: 2.5vh;
-    font-size: 3vw;
-    left: 1vw;
-    top: 4vh;
-    color: #909597;
+    font-size: 3.5vw;
+    left: 2vw;
+    top: 4.5vh;
+    color: #92ABB2;
     text-align: left;
 
 }
@@ -185,10 +186,10 @@
     width: 30vw;
     height: 3vh;
     font-size: 3.5vw;
-    left: 1vw;
-    top: 6vh;
+    left: 2vw;
+    top: 6.5vh;
     font-weight: bold;
-    color: #909597;
+    color: #92ABB2;
     text-align: left;
 
 }
@@ -196,7 +197,7 @@
 .flike {
     position: absolute;
     width: 10vw;
-    left: 65vw;
+    left: 58vw;
     top: 3vh;
     text-align: center;
     height: 7vh;
@@ -206,7 +207,7 @@
 .fecho {
     position: absolute;
     width: 10vw;
-    left: 75vw;
+    left: 68vw;
     top: 3vh;
     text-align: center;
     height: 7vh;
@@ -215,7 +216,7 @@
 .fcomment {
     position: absolute;
     width: 10vw;
-    left: 85vw;
+    left: 78vw;
     top: 3vh;
     text-align: center;
     height: 7vh;
@@ -223,14 +224,15 @@
 
 .fimg_impression {
     text-align: center;
+    width: 3.5vh;
 }
 
 .ftxt_impression {
     position: absolute;
     top: 2vh;
     left: 2vw;
-    ;
-    color: #909597;
+    font-size: 3.8vw ;
+    color: #92ABB2;
     font-weight: bold;
 
 }

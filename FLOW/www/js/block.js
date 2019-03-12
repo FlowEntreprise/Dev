@@ -71,7 +71,7 @@ function block() {
     this.fpost_date.innerText = '5 min';
     this.ftop_part.appendChild(this.fpost_date);
 
-    this.fdots = document.createElement('p');
+    this.fdots = document.createElement('label');
     this.fdots.className = 'fdots';
     this.fdots.innerText = '...';
     this.ftop_part.appendChild(this.fdots);
@@ -93,7 +93,7 @@ function block() {
     this.fposter_photo.className = 'fposter_photo';
     this.ftop_part.appendChild(this.fposter_photo);
 
-    this.ffollower1 = document.createElement('div');
+    /* this.ffollower1 = document.createElement('div');
     this.ffollower1.className = 'ffollower1';
     this.ftop_part.appendChild(this.ffollower1);
 
@@ -103,7 +103,7 @@ function block() {
 
     this.ffollower3 = document.createElement('div');
     this.ffollower3.className = 'ffollower3';
-    this.ftop_part.appendChild(this.ffollower3);
+    this.ftop_part.appendChild(this.ffollower3); */
 
     var waveform = document.createElement('div');
     waveform.id = 'waveform';
@@ -124,7 +124,7 @@ function block() {
 
     this.fpost_title = document.createElement('p');
     this.fpost_title.className = 'fpost_title';
-    this.fpost_title.innerText = 'What an Amasing Sound';
+    this.fpost_title.innerText = 'What an Amazing Sound';
     this.fbottom_part.appendChild(this.fpost_title);
 
     this.fpost_description = document.createElement('p');
