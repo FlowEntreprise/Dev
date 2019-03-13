@@ -2132,4 +2132,5 @@ int styleable tw__TweetView_tw__action_color 0
 int styleable tw__TweetView_tw__container_bg_color 1
 int styleable tw__TweetView_tw__primary_text_color 2
 int styleable tw__TweetView_tw__tweet_id 3
-int xml config 0x7f100000
+int xml camera_provider_paths 0x7f100000
+int xml config 0x7f100001

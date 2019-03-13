@@ -1,9 +1,20 @@
 -- Merging decision tree log ---
+provider#org.apache.cordova.camera.FileProvider
+INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:16:9-18:20
+	android:grantUriPermissions
+		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:16:92-126
+	android:authorities
+		INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:16:19-66
+	android:exported
+		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:16:67-91
+	android:name
+		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:16:127-180
 manifest
-ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:2:1-24:12
+ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:2:1-28:12
 MERGED from [com.twitter.sdk.android:twitter:1.4.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\twitter-1.4.0.aar\d26d5f005bbe27c96d37bbc8078b21bb\AndroidManifest.xml:2:1-11:12
 MERGED from [com.twitter.sdk.android:tweet-ui:1.1.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\tweet-ui-1.1.0.aar\c0c22be596823560af87d8f8a0c8df27\AndroidManifest.xml:2:1-13:12
 MERGED from [com.facebook.android:facebook-android-sdk:4.40.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\facebook-android-sdk-4.40.0.aar\4a573b9e977ba69897290d9b999a2fae\AndroidManifest.xml:21:1-31:12
@@ -24,7 +35,6 @@ MERGED from [com.twitter.sdk.android:tweet-composer:0.7.3] C:\Users\thoma\.gradl
 MERGED from [com.digits.sdk.android:digits:1.4.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\digits-1.4.0.aar\2603aac7c5c39acdfb9dad0512180c73\AndroidManifest.xml:2:1-101:12
 MERGED from [com.twitter.sdk.android:twitter-core:1.3.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\twitter-core-1.3.2.aar\f45a9d63af9e9edbfb5e0c505d08b318\AndroidManifest.xml:2:1-26:12
 MERGED from [io.fabric.sdk.android:fabric:1.3.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\fabric-1.3.0.aar\b624e65e6111ddea3a7320511185a43e\AndroidManifest.xml:2:1-11:12
-MERGED from [com.android.support:customtabs:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\customtabs-27.0.2.aar\209c18ab0bbe283dd27ab1ffbb3882d8\AndroidManifest.xml:17:1-22:12
 MERGED from [com.facebook.android:facebook-places:4.40.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\facebook-places-4.40.0.aar\5c7bfbb14ed9b05770c0db6ec37af9ca\AndroidManifest.xml:21:1-31:12
 MERGED from [com.facebook.android:facebook-applinks:4.40.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\facebook-applinks-4.40.0.aar\040d73d106436dfe0faa857f3405834e\AndroidManifest.xml:21:1-31:12
 MERGED from [com.facebook.android:facebook-messenger:4.40.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\facebook-messenger-4.40.0.aar\81393f14c255dca12a7569164058a563\AndroidManifest.xml:21:1-31:12
@@ -32,12 +42,13 @@ MERGED from [com.facebook.android:facebook-marketing:4.40.0] C:\Users\thoma\.gra
 MERGED from [com.facebook.android:facebook-core:4.40.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\facebook-core-4.40.0.aar\dc213402740690571b707043aa04dfb2\AndroidManifest.xml:21:1-53:12
 MERGED from [com.android.support:support-fragment:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.2.aar\bc6ec54511046f1ee9b4ed0f83fdcd59\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-core-utils:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.2.aar\6dd64ec1ab01cf7f8ac9c8975173bc84\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:cardview-v7:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.0.2.aar\9a8f4ba9db49dc4a541358042aca9a15\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customtabs:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\customtabs-27.0.2.aar\209c18ab0bbe283dd27ab1ffbb3882d8\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.2.aar\42988a85c63a4df929b583ec194dd40d\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:animated-vector-drawable:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.2.aar\75e4b92c92cabe5905ad37473b0cd5c0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-core-ui:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.2.aar\ede4a212a63bb78e2df723a9730a3b18\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-vector-drawable:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.2.aar\b053d0ae8130a8b93757320b2f2bbad8\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-compat:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.2.aar\52edbbfd8212c2b39d50fa1579a5e9a5\AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:cardview-v7:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.0.2.aar\9a8f4ba9db49dc4a541358042aca9a15\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.android.gms:play-services-identity-license:11.8.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\play-services-identity-license-11.8.0.aar\6a653513c111f0069e0afcfec50092e6\AndroidManifest.xml:2:1-6:12
 MERGED from [com.twitter.cobalt:performance-metrics:0.2.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\performance-metrics-0.2.0.aar\05606c55c6149c50109866fdffab4c88\AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.android.gms:play-services-auth-api-phone-license:11.8.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\play-services-auth-api-phone-license-11.8.0.aar\b4c23f1a9d57290b09e588cb6049fb43\AndroidManifest.xml:2:1-6:12
@@ -46,9 +57,9 @@ MERGED from [com.google.android.gms:play-services-base-license:11.8.0] C:\Users\
 MERGED from [com.google.android.gms:play-services-basement-license:11.8.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-11.8.0.aar\beffa9ea4e53c00d2ef7f4646e96a0a3\AndroidManifest.xml:2:1-6:12
 MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-11.8.0.aar\9fbd109eb8e0f550e40577cae451ef17\AndroidManifest.xml:2:1-6:12
 MERGED from [android.arch.lifecycle:runtime:1.0.3] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\runtime-1.0.3.aar\a7aa7c9e0046c2c1f395e2c705317e53\AndroidManifest.xml:17:1-24:12
-INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:2:1-24:12
-INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:2:1-24:12
+INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:2:1-28:12
+INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:2:1-28:12
 	package
 		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:2:102-128
 		INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml
@@ -92,7 +103,7 @@ MERGED from [com.twitter.sdk.android:twitter-core:1.3.2] C:\Users\thoma\.gradle\
 	android:name
 		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:4:22-64
 application
-ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:5:5-16:19
+ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:5:5-19:19
 MERGED from [com.twitter.sdk.android:twitter:1.4.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\twitter-1.4.0.aar\d26d5f005bbe27c96d37bbc8078b21bb\AndroidManifest.xml:9:5-20
 MERGED from [com.twitter.sdk.android:twitter:1.4.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\twitter-1.4.0.aar\d26d5f005bbe27c96d37bbc8078b21bb\AndroidManifest.xml:9:5-20
 MERGED from [com.twitter.sdk.android:tweet-ui:1.1.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\tweet-ui-1.1.0.aar\c0c22be596823560af87d8f8a0c8df27\AndroidManifest.xml:11:5-20
@@ -214,8 +225,8 @@ ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\plat
 	android:name
 		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:15:20-51
 uses-sdk
-ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:17:5-74
-INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:17:5-74
+ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:20:5-74
+INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:20:5-74
 MERGED from [com.twitter.sdk.android:twitter:1.4.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\twitter-1.4.0.aar\d26d5f005bbe27c96d37bbc8078b21bb\AndroidManifest.xml:7:5-43
 MERGED from [com.twitter.sdk.android:twitter:1.4.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\twitter-1.4.0.aar\d26d5f005bbe27c96d37bbc8078b21bb\AndroidManifest.xml:7:5-43
 MERGED from [com.twitter.sdk.android:tweet-ui:1.1.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\tweet-ui-1.1.0.aar\c0c22be596823560af87d8f8a0c8df27\AndroidManifest.xml:7:5-43
@@ -256,8 +267,6 @@ MERGED from [com.twitter.sdk.android:twitter-core:1.3.2] C:\Users\thoma\.gradle\
 MERGED from [com.twitter.sdk.android:twitter-core:1.3.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\twitter-core-1.3.2.aar\f45a9d63af9e9edbfb5e0c505d08b318\AndroidManifest.xml:7:5-43
 MERGED from [io.fabric.sdk.android:fabric:1.3.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\fabric-1.3.0.aar\b624e65e6111ddea3a7320511185a43e\AndroidManifest.xml:7:5-43
 MERGED from [io.fabric.sdk.android:fabric:1.3.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\fabric-1.3.0.aar\b624e65e6111ddea3a7320511185a43e\AndroidManifest.xml:7:5-43
-MERGED from [com.android.support:customtabs:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\customtabs-27.0.2.aar\209c18ab0bbe283dd27ab1ffbb3882d8\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:customtabs:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\customtabs-27.0.2.aar\209c18ab0bbe283dd27ab1ffbb3882d8\AndroidManifest.xml:20:5-44
 MERGED from [com.facebook.android:facebook-places:4.40.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\facebook-places-4.40.0.aar\5c7bfbb14ed9b05770c0db6ec37af9ca\AndroidManifest.xml:24:5-26:41
 MERGED from [com.facebook.android:facebook-places:4.40.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\facebook-places-4.40.0.aar\5c7bfbb14ed9b05770c0db6ec37af9ca\AndroidManifest.xml:24:5-26:41
 MERGED from [com.facebook.android:facebook-applinks:4.40.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\facebook-applinks-4.40.0.aar\040d73d106436dfe0faa857f3405834e\AndroidManifest.xml:24:5-26:41
@@ -272,6 +281,10 @@ MERGED from [com.android.support:support-fragment:27.0.2] C:\Users\thoma\.gradle
 MERGED from [com.android.support:support-fragment:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.2.aar\bc6ec54511046f1ee9b4ed0f83fdcd59\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-core-utils:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.2.aar\6dd64ec1ab01cf7f8ac9c8975173bc84\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-core-utils:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.2.aar\6dd64ec1ab01cf7f8ac9c8975173bc84\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.0.2.aar\9a8f4ba9db49dc4a541358042aca9a15\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.0.2.aar\9a8f4ba9db49dc4a541358042aca9a15\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customtabs:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\customtabs-27.0.2.aar\209c18ab0bbe283dd27ab1ffbb3882d8\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customtabs:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\customtabs-27.0.2.aar\209c18ab0bbe283dd27ab1ffbb3882d8\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.2.aar\42988a85c63a4df929b583ec194dd40d\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.2.aar\42988a85c63a4df929b583ec194dd40d\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:animated-vector-drawable:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.2.aar\75e4b92c92cabe5905ad37473b0cd5c0\AndroidManifest.xml:20:5-44
@@ -282,8 +295,6 @@ MERGED from [com.android.support:support-vector-drawable:27.0.2] C:\Users\thoma\
 MERGED from [com.android.support:support-vector-drawable:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.2.aar\b053d0ae8130a8b93757320b2f2bbad8\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-compat:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.2.aar\52edbbfd8212c2b39d50fa1579a5e9a5\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-compat:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.2.aar\52edbbfd8212c2b39d50fa1579a5e9a5\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:cardview-v7:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.0.2.aar\9a8f4ba9db49dc4a541358042aca9a15\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:cardview-v7:27.0.2] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.0.2.aar\9a8f4ba9db49dc4a541358042aca9a15\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-identity-license:11.8.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\play-services-identity-license-11.8.0.aar\6a653513c111f0069e0afcfec50092e6\AndroidManifest.xml:4:5-43
 MERGED from [com.google.android.gms:play-services-identity-license:11.8.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\play-services-identity-license-11.8.0.aar\6a653513c111f0069e0afcfec50092e6\AndroidManifest.xml:4:5-43
 MERGED from [com.twitter.cobalt:performance-metrics:0.2.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\performance-metrics-0.2.0.aar\05606c55c6149c50109866fdffab4c88\AndroidManifest.xml:5:5-7:41
@@ -300,37 +311,47 @@ MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users
 MERGED from [com.google.android.gms:play-services-tasks-license:11.8.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-11.8.0.aar\9fbd109eb8e0f550e40577cae451ef17\AndroidManifest.xml:4:5-43
 MERGED from [android.arch.lifecycle:runtime:1.0.3] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\runtime-1.0.3.aar\a7aa7c9e0046c2c1f395e2c705317e53\AndroidManifest.xml:20:5-22:41
 MERGED from [android.arch.lifecycle:runtime:1.0.3] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\runtime-1.0.3.aar\a7aa7c9e0046c2c1f395e2c705317e53\AndroidManifest.xml:20:5-22:41
-INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:17:5-74
+INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:20:5-74
 	android:targetSdkVersion
-		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:17:42-71
+		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:20:42-71
 	android:minSdkVersion
-		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:17:15-41
+		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:20:15-41
 		INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml
 uses-permission#android.permission.BLUETOOTH
-ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:18:5-68
+ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:21:5-68
 	android:name
-		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:18:22-65
+		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:21:22-65
 uses-permission#android.permission.RECORD_AUDIO
-ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:19:5-71
-	android:name
-		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:19:22-68
-uses-permission#android.permission.MODIFY_AUDIO_SETTINGS
-ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:20:5-80
-	android:name
-		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:20:22-77
-uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:21:5-81
-	android:name
-		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:21:22-78
-uses-permission#android.permission.GET_ACCOUNTS
 ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:22:5-71
 	android:name
 		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:22:22-68
-uses-permission#android.permission.USE_CREDENTIALS
-ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:23:5-74
+uses-permission#android.permission.MODIFY_AUDIO_SETTINGS
+ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:23:5-80
 	android:name
-		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:23:22-71
+		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:23:22-77
+uses-permission#android.permission.GET_ACCOUNTS
+ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:24:5-71
+	android:name
+		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:24:22-68
+uses-permission#android.permission.USE_CREDENTIALS
+ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:25:5-74
+	android:name
+		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:25:22-71
+uses-permission#android.permission.CAMERA
+ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:26:5-65
+	android:name
+		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:26:22-62
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:27:5-81
+	android:name
+		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:27:22-78
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:17:13-123
+	android:resource
+		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:17:75-120
+	android:name
+		ADDED from C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\src\main\AndroidManifest.xml:17:24-74
 activity#com.facebook.CustomTabMainActivity
 ADDED from [com.facebook.android:facebook-common:4.40.0] C:\Users\thoma\.gradle\caches\transforms-1\files-1.1\facebook-common-4.40.0.aar\5afafe5fa2575a87fab6fc9c1018a55e\AndroidManifest.xml:33:9-71
 	android:name

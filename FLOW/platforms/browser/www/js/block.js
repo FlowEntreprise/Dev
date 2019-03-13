@@ -1,11 +1,22 @@
 "use_strict";
 
-function block() {
+// function clean_placeholder() {
+//     this.placeholder = '';
+// }
+// function reset_placeholder_title() {
+//     this.placeholder = 'Tap to edit title';
+// }
+
+// function reset_placeholder_description() {
+//     this.placeholder = 'Tap to edit description';
+// }
+
+function block(parent_element, afterblock, audioURL, duration) {
 
     var block = this;
     this.isPlaying = false;
     this.seeking = false;
-    this.wasPlaying=false;
+    this.wasPlaying = false;
 
     this.flowplay = function () {
         block.fplay_button.style.display = "none";
@@ -16,13 +27,13 @@ function block() {
         // console.log(block.myRange);
         block.progress_div.style.display = 'block';
         block.progress_div.style.borderTopRightRadius = '0vw';
-        block.isPlaying=true;
+        block.isPlaying = true;
         console.log("play");
         block.myRange.style.pointerEvents = "all";
     };
 
 
-    
+
     this.flowpause = function () {
 
 
@@ -47,10 +58,14 @@ function block() {
 
     this.block_flow = document.createElement('div');
     this.block_flow.className = 'fflow';
-    $(".list-block").append(this.block_flow);
+    parent_element.append(this.block_flow);
 
     this.ftop_part = document.createElement('div');
     this.ftop_part.className = 'ftop_part';
+    /*--------------------------*/
+    var pattern = GeoPattern.generate(Date.now().toString());
+    this.ftop_part.style.backgroundImage = pattern.toDataUrl();
+    /*---------------------------*/
     this.block_flow.appendChild(this.ftop_part);
 
     this.myRange = document.createElement('input');
@@ -65,16 +80,6 @@ function block() {
     this.fposter_name.className = 'fposter_name';
     this.fposter_name.innerText = 'Vanessa';
     this.ftop_part.appendChild(this.fposter_name);
-
-    this.fpost_date = document.createElement('p');
-    this.fpost_date.className = 'fpost_date';
-    this.fpost_date.innerText = '5 min';
-    this.ftop_part.appendChild(this.fpost_date);
-
-    this.fdots = document.createElement('p');
-    this.fdots.className = 'fdots';
-    this.fdots.innerText = '...';
-    this.ftop_part.appendChild(this.fdots);
 
     this.fplay_button = document.createElement('img');
     this.fplay_button.className = 'fplay_button';
@@ -93,18 +98,6 @@ function block() {
     this.fposter_photo.className = 'fposter_photo';
     this.ftop_part.appendChild(this.fposter_photo);
 
-    this.ffollower1 = document.createElement('div');
-    this.ffollower1.className = 'ffollower1';
-    this.ftop_part.appendChild(this.ffollower1);
-
-    this.ffollower2 = document.createElement('div');
-    this.ffollower2.className = 'ffollower2';
-    this.ftop_part.appendChild(this.ffollower2);
-
-    this.ffollower3 = document.createElement('div');
-    this.ffollower3.className = 'ffollower3';
-    this.ftop_part.appendChild(this.ffollower3);
-
     var waveform = document.createElement('div');
     waveform.id = 'waveform';
     waveform.style.display = 'none';
@@ -122,56 +115,103 @@ function block() {
     this.fbottom_part.className = 'fbottom_part';
     this.block_flow.appendChild(this.fbottom_part);
 
-    this.fpost_title = document.createElement('p');
-    this.fpost_title.className = 'fpost_title';
-    this.fpost_title.innerText = 'What an Amasing Sound';
-    this.fbottom_part.appendChild(this.fpost_title);
+    this.title_enter = function (e) {
+        if (e.keyCode == 13) {
+            block.finput_description.focus();
+        }
+    }
 
-    this.fpost_description = document.createElement('p');
-    this.fpost_description.className = 'fpost_description';
-    this.fpost_description.innerText = 'very col sound recorded';
-    this.fbottom_part.appendChild(this.fpost_description);
+    if (!afterblock) {
 
-    this.fpost_tag = document.createElement('p');
-    this.fpost_tag.className = 'fpost_tag';
-    this.fpost_tag.innerText = '#Fresh #Sumer';
-    this.fbottom_part.appendChild(this.fpost_tag);
+        this.fpost_date = document.createElement('p');
+        this.fpost_date.className = 'fpost_date';
+        this.fpost_date.innerText = '5 min';
+        this.ftop_part.appendChild(this.fpost_date);
 
-    this.flike = document.createElement('div');
-    this.flike.className = 'flike';
-    this.fbottom_part.appendChild(this.flike);
-    this.fimg_impression_like = document.createElement('img');
-    this.fimg_impression_like.className = 'fimg_impression';
-    this.fimg_impression_like.src = 'src/icons/Like.png';
-    this.flike.appendChild(this.fimg_impression_like);
-    this.ftxt_impression_like = document.createElement('p');
-    this.ftxt_impression_like.className = 'ftxt_impression';
-    this.ftxt_impression_like.innerText = '2.5k';
-    this.flike.appendChild(this.ftxt_impression_like);
+        this.fdots = document.createElement('p');
+        this.fdots.className = 'fdots';
+        this.fdots.innerText = '...';
+        this.ftop_part.appendChild(this.fdots);
 
-    this.fecho = document.createElement('div');
-    this.fecho.className = 'fecho';
-    this.fbottom_part.appendChild(this.fecho);
-    this.fimg_impression_echo = document.createElement('img');
-    this.fimg_impression_echo.className = 'fimg_impression';
-    this.fimg_impression_echo.src = 'src/icons/Echo.png';
-    this.fecho.appendChild(this.fimg_impression_echo);
-    this.ftxt_impression_echo = document.createElement('p');
-    this.ftxt_impression_echo.className = 'ftxt_impression';
-    this.ftxt_impression_echo.innerText = '8.2k';
-    this.fecho.appendChild(this.ftxt_impression_echo);
+        // this.ffollower1 = document.createElement('div');
+        // this.ffollower1.className = 'ffollower1';
+        // this.ftop_part.appendChild(this.ffollower1);
 
-    this.fcomment = document.createElement('div');
-    this.fcomment.className = 'fcomment';
-    this.fbottom_part.appendChild(this.fcomment);
-    this.fimg_impression_comment = document.createElement('img');
-    this.fimg_impression_comment.className = 'fimg_impression';
-    this.fimg_impression_comment.src = 'src/icons/Comment.png';
-    this.fcomment.appendChild(this.fimg_impression_comment);
-    this.ftxt_impression_comment = document.createElement('p');
-    this.ftxt_impression_comment.className = 'ftxt_impression';
-    this.ftxt_impression_comment.innerText = '605';
-    this.fcomment.appendChild(this.ftxt_impression_comment);
+        // this.ffollower2 = document.createElement('div');
+        // this.ffollower2.className = 'ffollower2';
+        // this.ftop_part.appendChild(this.ffollower2);
+
+        // this.ffollower3 = document.createElement('div');
+        // this.ffollower3.className = 'ffollower3';
+        // this.ftop_part.appendChild(this.ffollower3);
+
+        this.fpost_title = document.createElement('p');
+        this.fpost_title.className = 'fpost_title';
+        this.fpost_title.innerText = 'What an Amasing Sound';
+        this.fbottom_part.appendChild(this.fpost_title);
+
+        this.fpost_description = document.createElement('p');
+        this.fpost_description.className = 'fpost_description';
+        this.fpost_description.innerText = 'very col sound recorded';
+        this.fbottom_part.appendChild(this.fpost_description);
+
+        this.fpost_tag = document.createElement('p');
+        this.fpost_tag.className = 'fpost_tag';
+        this.fpost_tag.innerText = '#Fresh #Sumer';
+        this.fbottom_part.appendChild(this.fpost_tag);
+
+        this.flike = document.createElement('div');
+        this.flike.className = 'flike';
+        this.fbottom_part.appendChild(this.flike);
+        this.fimg_impression_like = document.createElement('img');
+        this.fimg_impression_like.className = 'fimg_impression';
+        this.fimg_impression_like.src = 'src/icons/Like.png';
+        this.flike.appendChild(this.fimg_impression_like);
+        this.ftxt_impression_like = document.createElement('p');
+        this.ftxt_impression_like.className = 'ftxt_impression';
+        this.ftxt_impression_like.innerText = '2.5k';
+        this.flike.appendChild(this.ftxt_impression_like);
+
+        this.fecho = document.createElement('div');
+        this.fecho.className = 'fecho';
+        this.fbottom_part.appendChild(this.fecho);
+        this.fimg_impression_echo = document.createElement('img');
+        this.fimg_impression_echo.className = 'fimg_impression';
+        this.fimg_impression_echo.src = 'src/icons/Echo.png';
+        this.fecho.appendChild(this.fimg_impression_echo);
+        this.ftxt_impression_echo = document.createElement('p');
+        this.ftxt_impression_echo.className = 'ftxt_impression';
+        this.ftxt_impression_echo.innerText = '8.2k';
+        this.fecho.appendChild(this.ftxt_impression_echo);
+
+        this.fcomment = document.createElement('div');
+        this.fcomment.className = 'fcomment';
+        this.fbottom_part.appendChild(this.fcomment);
+        this.fimg_impression_comment = document.createElement('img');
+        this.fimg_impression_comment.className = 'fimg_impression';
+        this.fimg_impression_comment.src = 'src/icons/Comment.png';
+        this.fcomment.appendChild(this.fimg_impression_comment);
+        this.ftxt_impression_comment = document.createElement('p');
+        this.ftxt_impression_comment.className = 'ftxt_impression';
+        this.ftxt_impression_comment.innerText = '605';
+        this.fcomment.appendChild(this.ftxt_impression_comment);
+
+    } else {
+        this.finput_title = document.createElement('input');
+        this.finput_title.className = 'finput_title';
+        this.finput_title.placeholder = 'Tap to edit title';
+        this.finput_title.maxLength = "25";
+        this.finput_title.onkeypress = this.title_enter;
+        // this.finput_title.onfocus = clean_placeholder;
+        // this.finput_title.onblur = reset_placeholder_title;
+        this.fbottom_part.appendChild(this.finput_title);
+
+        this.finput_description = document.createElement('textarea');
+        this.finput_description.className = 'finput_description';
+        this.finput_description.placeholder = 'Tap to add description';
+        this.finput_description.maxLength = "50";
+        this.fbottom_part.appendChild(this.finput_description);
+    }
 
     var wave;
 
@@ -210,13 +250,18 @@ function block() {
     resize();
 
     this.myaudio = new Audio("src/sound/son.mp3");
+    if (audioURL) {
+        this.myaudio = new Audio(audioURL);
+    }
+
     this.isPlaying = false;
     this.myaudio.ontimeupdate = function () {
 
         if (block.isPlaying && !block.seeking) {
-            this.progress = Math.round(block.myaudio.currentTime * 100 / block.myaudio.duration);
+            this.progress = Math.round(block.myaudio.currentTime * 100 / duration);
+            // console.log(this.progress);
             block.myRange.value = this.progress;
-            block.progress_div.style.width = block.myaudio.currentTime * 100 / block.myaudio.duration + '%';
+            block.progress_div.style.width = block.myaudio.currentTime * 100 / duration + '%';
             if (block.progress_div.style.width > '99.8%' && block.progress_div.style.width < '101%') {
                 block.progress_div.style.borderTopRightRadius = '2vw';
 
@@ -228,6 +273,7 @@ function block() {
         console.log("end of audio");
         waveform.style.display = "none";
         block.progress_div.style.borderTopRightRadius = '2vw';
+        block.progress_div.style.width = '100%';
         block.flowpause();
         setTimeout(function () {
             if (!block.isPlaying) {
@@ -240,16 +286,17 @@ function block() {
 
     this.seek = function () {
         this.progress = block.myRange.value;
-        if (this.progress > 99) this.progress = 99;
-        this.time = this.progress * block.myaudio.duration / 100;
+        //if (this.progress > 99) this.progress = 99;
+        this.time = this.progress * duration / 100;
         block.myaudio.currentTime = this.time;
         block.seeking = true;
         block.progress_div.style.display = "block";
-        block.progress_div.style.width = block.myaudio.currentTime * 100 / block.myaudio.duration + '%';
+        block.progress_div.style.width = block.myaudio.currentTime * 100 / duration + '%';
         setTimeout(function () {
             block.seeking = false;
         }, 600);
         block.flowplay();
+
         // if(block.wasPlaying)
         // {
         //     block.flowplay();
@@ -260,7 +307,7 @@ function block() {
         // }
     };
 
-    
+
 
     this.fplay_button.addEventListener('click', function () {
 
@@ -280,9 +327,9 @@ function block() {
         block.flowpause();
         block.progress = block.myRange.value;
         if (block.progress > 99) block.progress = 99;
-        block.time = block.progress * block.myaudio.duration / 100;
+        block.time = block.progress * duration / 100;
         block.myaudio.currentTime = block.time;
-        block.progress_div.style.width = block.myaudio.currentTime * 100 / block.myaudio.duration + '%';
+        block.progress_div.style.width = block.myaudio.currentTime * 100 / duration + '%';
 
     });
     /* 

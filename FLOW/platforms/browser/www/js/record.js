@@ -3,7 +3,26 @@ var recording = false;
 var record_time = 0;
 
 var start_time;
+var after_record_initialised = false;
 
+var pictureSource;
+var destinationType;
+
+var new_block;
+
+let options = {
+    quality: 75,
+    widthRatio:1,
+    heightRatio:1,          
+    targetWidth:600,
+    targetHeight:600
+};
+
+$$('.popup-record').on('popup:open', function () {
+    $$('#flow_number_of_sec').text("00");
+    pictureSource = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
+});
 $$('.fflow-btn').on('taphold', function () {
     console.log("Hold Record !");
     app.popup('.popup-record');
@@ -49,6 +68,19 @@ $$('body').on('touchend', function () {
     if (recording && record_was_hold) {
         StopRecording();
     }
+});
+
+$$('.frestart-after_btn').on('touchend', function () {
+    app.closeModal('.popup-after-record');
+    app.popup('.popup-record');
+});
+
+$$('.fcancel-after_btn').on('touchend', function () {
+    app.closeModal('.popup-after-record');
+});
+
+$$('.fcamera-after').on('click', function () {
+    TakePhoto();
 });
 
 function StartRecording() {
@@ -138,10 +170,10 @@ function UpdateRecordIndicator() {
     }
 }
 
-function PlayRipple() {
-    $$('.frecord-btn').removeClass('fripple-record');
+function PlayRipple(element, className) {
+    element.removeClass(className);
     setTimeout(function () {
-        $$('.frecord-btn').addClass('fripple-record');
+        element.addClass(className);
     }, 10);
 }
 
@@ -150,12 +182,13 @@ function format(number) {
 }
 
 $$('.frecord-btn').on('touchstart', function () {
-    PlayRipple();
+    PlayRipple($$(this), 'fripple-record');
 });
 
 $$('.fflow-btn').on('touchstart', function () {
-    PlayRipple();
+    PlayRipple($$(this), 'fripple-record');
 });
+
 
 
 //-------------------------------------------------------------//
@@ -207,44 +240,65 @@ var i = 1;
 
 function Save(mediaRecorder) {
     //var recordName = prompt("Name For your record", "Flow_v" + i);
-    var recordName = "myflow_" + i;
-    var recordContainer = document.createElement('article');
-    var recordLabel = document.createElement('p');
-    var audio = document.createElement('audio');
-    var deleteButton = document.createElement('button');
-    recordContainer.classList.add('record');
-    audio.setAttribute('controls', "");
-    deleteButton.textContent = "Delete";
-    deleteButton.className = "delete";
+    // var recordName = "myflow_" + i;
+    // var recordContainer = document.createElement('article');
+    // var recordLabel = document.createElement('p');
+    // var audio = document.createElement('audio');
+    // var deleteButton = document.createElement('button');
+    // recordContainer.classList.add('record');
+    // audio.setAttribute('controls', "");
+    // deleteButton.textContent = "Delete";
+    // deleteButton.className = "delete";
 
-    if (recordName === null) {
-        recordLabel.textContent = "Flow";
-    } else {
-        recordLabel.textContent = recordName;
-    }
+    // if (recordName === null) {
+    //     recordLabel.textContent = "Flow";
+    // } else {
+    //     recordLabel.textContent = recordName;
+    // }
     var blob = new Blob(chunks, {
         'type': 'audio/opus; codecs=opus'
     });
-    recordLabel.textContent += " Size : " + precisionRound(blob.size / 1024, 2) + "Ko | rec with " + mediaRecorder.audioBitsPerSecond + " Kbps";
-    //socket.emit('AddFlow', blob);
-    recordContainer.appendChild(audio);
-    recordContainer.appendChild(recordLabel);
-    recordContainer.appendChild(deleteButton);
-    soundClips.appendChild(recordContainer);
+    // recordLabel.textContent += " Size : " + precisionRound(blob.size / 1024, 2) + "Ko | rec with " + mediaRecorder.audioBitsPerSecond + " Kbps";
+    // //socket.emit('AddFlow', blob);
+    // recordContainer.appendChild(audio);
+    // recordContainer.appendChild(recordLabel);
+    // recordContainer.appendChild(deleteButton);
+    // soundClips.appendChild(recordContainer);
 
-    audio.controls = true;
+    // audio.controls = true;
 
     chunks = [];
 
     var audioURL = window.URL.createObjectURL(blob);
-    audio.src = audioURL;
-    i++;
+    // audio.src = audioURL;
+    // i++;
 
 
-    deleteButton.onclick = function (e) {
-        evtTgt = e.target;
-        evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
+    // deleteButton.onclick = function (e) {
+    //     evtTgt = e.target;
+    //     evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
+    // }
+
+    app.closeModal('.popup-record');
+    app.popup('.popup-after-record');
+    if (!after_record_initialised) {
+        var mySwiper4 = app.swiper('.swiper-4', {
+            pagination: '.swiper-4 .swiper-pagination',
+            spaceBetween: 0,
+            slidesPerView: 3
+        });
+
+        mySwiper4.on('slideChangeStart', function () {
+            var target = "#" + $(".swiper-slide-next").attr("target");
+            app.showTab(target);
+        });
+        after_record_initialised = true;
     }
+    $(".after-record-block-container").html("");
+    new_block = new block($(".after-record-block-container"), true, audioURL, record_time);
+    setTimeout(() => {
+        new_block.finput_title.focus();
+    }, 500);
 }
 
 function precisionRound(number, precision) {
@@ -333,4 +387,56 @@ function wave(stream) {
         }
         // siriWave.speed = smoothVolume*0.004;
     }
+}
+
+function TakePhoto() {
+    console.log("take photo");
+    var permissions = cordova.plugins.permissions;
+    var list = [
+        permissions.CAMERA
+        //permissions.WRITE_EXTERNAL_STORAGE
+    ];
+
+    function error() {
+        alert('Camera permission not given');
+    }
+
+    function success(status) {
+        if (!status.hasPermission) error();
+        else {
+            //alert("success");
+            capturePhotoEdit();
+        }
+    }
+
+    permissions.hasPermission(permissions.CAMERA, function (status) {
+        if (status.hasPermission) {
+            //alert("success");
+            capturePhotoEdit();
+        } else {
+            permissions.requestPermissions(list, success, error);
+        }
+    });
+}
+
+function onPhotoDataSuccess(imageData) {
+    plugins.crop(function success () {
+        alert("success");
+    }, function fail () {
+        alert("fail");
+    }, imageData, options)
+    //new_block.ftop_part.style.backgroundImage = "url('data:image/jpeg;base64," + imageData + "')";
+}
+
+function capturePhotoEdit() {
+    // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
+    navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
+        quality: 75,
+        allowEdit: true,
+        destinationType: destinationType.FILE_URI,
+    });
+}
+
+function onFail(message) {
+    alert('Failed because: ' + message);
 }

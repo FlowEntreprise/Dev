@@ -47,6 +47,7 @@
     </plugin>
     <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
+    <plugin name="cordova-plugin-camera" spec="~4.0.3" />
     <engine name="android" spec="^7.1.4" />
     <engine name="browser" spec="^5.0.4" />
 </widget>

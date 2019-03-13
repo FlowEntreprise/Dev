@@ -72,6 +72,17 @@ $$('#tab2').on('tab:show', function () {
             var target = "#" + $(".swiper-slide-next").attr("target");
             app.showTab(target);
         });
+
+        // var mySwiper4 = app.swiper('.swiper-4', {
+        //     pagination: '.swiper-4 .swiper-pagination',
+        //     spaceBetween: 0,
+        //     slidesPerView: 3
+        // });
+
+        // mySwiper4.on('slideChangeStart', function () {
+        //     var target = "#" + $(".swiper-slide-next").attr("target");
+        //     app.showTab(target);
+        // });
         explore_tabs_initialised = true;
     }
 

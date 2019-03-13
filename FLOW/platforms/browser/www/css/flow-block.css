@@ -1,13 +1,13 @@
-.fflow {
+    .fflow {
     position: relative;
-    width: 95vw;
-    margin-left: 2.5vw;
-    margin-top: 1vh;
+    width: 90vw;
+    margin-left: 5vw;
+    margin-top: 5vw;
     height: 36vh;
     background-color: #FFFFFF;
     border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-    font-family: Roboto;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+    font-family: "Roboto-Light";
 }
 
 .fposter_photo {
@@ -75,7 +75,7 @@
     display: block;
     top: 0vh;
     height: 25vh;
-    width: 95vw;
+    width: 90vw;
     border-top-left-radius: 2vw;
     border-top-right-radius: 2vw;
     background-image: url(../src/pictures/lambo.jpg);
@@ -144,7 +144,7 @@
 
 .fbottom_part {
     position: absolute;
-    width: 95vw;
+    width: 90vw;
     height: 11vh;
     top: 25vh;
     background-color: #FFFFFF;

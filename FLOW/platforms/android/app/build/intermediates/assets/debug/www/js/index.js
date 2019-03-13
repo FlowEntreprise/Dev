@@ -47,4 +47,4 @@ var app = new Framework7({
     showBarsOnPageScrollEnd: false,
     material: false,
     tapHold: true, //enable tap hold events
-});
+}); 

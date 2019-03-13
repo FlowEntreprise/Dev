@@ -10343,6 +10343,7 @@ public final class R {
     public static final int tw__TweetView_tw__tweet_id=3;
   }
   public static final class xml {
-    public static final int config=0x7f100000;
+    public static final int camera_provider_paths=0x7f100000;
+    public static final int config=0x7f100001;
   }
 }

@@ -78,5 +78,13 @@
     "variables": {
       "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038"
     }
+  },
+  "cordova-plugin-camera": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-camera@4.0.3"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }
