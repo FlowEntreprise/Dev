@@ -170,11 +170,11 @@ module.exports = [
     ]
   },
   {
-    "id": "cordova-plugin-crop.CropPlugin",
-    "file": "plugins/cordova-plugin-crop/www/crop.js",
-    "pluginId": "cordova-plugin-crop",
+    "id": "cordova-plugin-k-imagecropper.imagecropper",
+    "file": "plugins/cordova-plugin-k-imagecropper/www/imagecropper.js",
+    "pluginId": "cordova-plugin-k-imagecropper",
     "clobbers": [
-      "plugins.crop"
+      "window.plugins.k.imagecropper"
     ]
   }
 ];
@@ -191,7 +191,7 @@ module.exports.metadata =
   "cordova-plugin-inappbrowser": "3.0.0",
   "twitter-connect-plugin": "0.6.0",
   "cordova-plugin-camera": "4.0.3",
-  "cordova-plugin-crop": "0.0.3"
+  "cordova-plugin-k-imagecropper": "1.2.0"
 };
 // BOTTOM OF METADATA
 });

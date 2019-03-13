@@ -70,6 +70,14 @@
     <string msgid="5201977337835724196" name="common_open_on_phone">"Openen op telefoon"</string>
     <string msgid="3441753203274453993" name="common_signin_button_text">"Inloggen"</string>
     <string msgid="669893613918351210" name="common_signin_button_text_long">"Inloggen met Google"</string>
+    <string name="crop_image_activity_no_permissions">Wordt geannuleerd, vereiste machtigingen zijn niet toegekend</string>
+    <string name="crop_image_activity_title"/>
+    <string name="crop_image_menu_crop">Bijsnijden</string>
+    <string name="crop_image_menu_flip">Spiegelen</string>
+    <string name="crop_image_menu_flip_horizontally">Horizontaal spiegelen</string>
+    <string name="crop_image_menu_flip_vertically">Verticaal spiegelen</string>
+    <string name="crop_image_menu_rotate_left">Tegen de klok in draaien</string>
+    <string name="crop_image_menu_rotate_right">Draaien</string>
     <string name="dgts__cancel">Annuleren</string>
     <string name="dgts__communication_error">Communicatiefout </string>
     <string name="dgts__confirmation_code">Bevestigingscode</string>
@@ -116,6 +124,7 @@ die %1$s gebruiken, kunnen je vinden via je telefoonnummer en/of e-mailadres .</
     <string name="dgts_pin_code_terms">Je hebt eerder een code voor 2-staps verificatie ingesteld op digits.com</string>
     <string name="dgts_verify">Verifiëren</string>
     <string name="dgts_verifying">Verifiëren</string>
+    <string name="pick_image_intent_chooser_title">Bron selecteren</string>
     <string msgid="146198913615257606" name="search_menu_title">"Zoeken"</string>
     <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="tw__allow_btn_txt">Toestaan</string>

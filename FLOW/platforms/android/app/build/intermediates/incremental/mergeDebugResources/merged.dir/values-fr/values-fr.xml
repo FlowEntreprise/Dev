@@ -70,6 +70,14 @@
     <string msgid="5201977337835724196" name="common_open_on_phone">"Ouvrir sur le téléphone"</string>
     <string msgid="3441753203274453993" name="common_signin_button_text">"Se connecter"</string>
     <string msgid="669893613918351210" name="common_signin_button_text_long">"Se connecter avec Google"</string>
+    <string name="crop_image_activity_no_permissions">Annulation, il manque des permissions requises</string>
+    <string name="crop_image_activity_title"/>
+    <string name="crop_image_menu_crop">Redimensionner</string>
+    <string name="crop_image_menu_flip">Retourner</string>
+    <string name="crop_image_menu_flip_horizontally">Retourner horizontalement</string>
+    <string name="crop_image_menu_flip_vertically">Retourner verticalement</string>
+    <string name="crop_image_menu_rotate_left">Pivoter à gauche</string>
+    <string name="crop_image_menu_rotate_right">Pivoter à droite</string>
     <string name="dgts__cancel">Annuler</string>
     <string name="dgts__communication_error">Erreur de communication</string>
     <string name="dgts__confirmation_code">Code de confirmation</string>
@@ -118,6 +126,7 @@ numéro de téléphone et/ou votre email.</string>
     <string name="dgts_pin_code_terms">Vous avez précédemment créé un code de vérification en 2 étapes sur digits.com</string>
     <string name="dgts_verify">Vérifier</string>
     <string name="dgts_verifying">Vérification</string>
+    <string name="pick_image_intent_chooser_title">Sélectionner la source</string>
     <string msgid="146198913615257606" name="search_menu_title">"Rechercher"</string>
     <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">">999"</string>
     <string name="tw__allow_btn_txt">Autoriser</string>

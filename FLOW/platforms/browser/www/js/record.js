@@ -420,12 +420,7 @@ function TakePhoto() {
 }
 
 function onPhotoDataSuccess(imageData) {
-    plugins.crop(function success () {
-        alert("success");
-    }, function fail () {
-        alert("fail");
-    }, imageData, options)
-    //new_block.ftop_part.style.backgroundImage = "url('data:image/jpeg;base64," + imageData + "')";
+    new_block.ftop_part.style.backgroundImage = "url('data:image/jpeg;base64," + imageData + "')";
 }
 
 function capturePhotoEdit() {
@@ -433,7 +428,7 @@ function capturePhotoEdit() {
     navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
         quality: 75,
         allowEdit: true,
-        destinationType: destinationType.FILE_URI,
+        destinationType: destinationType.DATA_URL,
     });
 }
 

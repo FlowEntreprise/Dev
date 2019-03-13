@@ -70,6 +70,14 @@
     <string msgid="5201977337835724196" name="common_open_on_phone">"Otwórz na telefonie"</string>
     <string msgid="3441753203274453993" name="common_signin_button_text">"Zaloguj się"</string>
     <string msgid="669893613918351210" name="common_signin_button_text_long">"Zaloguj się przez Google"</string>
+    <string name="crop_image_activity_no_permissions">Przerywaniem, potrzebne uprawnienia nie zostały nadane</string>
+    <string name="crop_image_activity_title"/>
+    <string name="crop_image_menu_crop">Przytnij</string>
+    <string name="crop_image_menu_flip">Odbij</string>
+    <string name="crop_image_menu_flip_horizontally">Odbij poziomo</string>
+    <string name="crop_image_menu_flip_vertically">Odbij pionowo</string>
+    <string name="crop_image_menu_rotate_left">Obróć w lewo</string>
+    <string name="crop_image_menu_rotate_right">Obróć</string>
     <string name="dgts__cancel">Anuluj</string>
     <string name="dgts__communication_error">Błąd połączenia</string>
     <string name="dgts__confirmation_code">Kod potwierdzenia</string>
@@ -114,6 +122,7 @@
     <string name="dgts_pin_code_terms">Ustawiono poprzednio dwuetapową weryfikację kodu na digits.com</string>
     <string name="dgts_verify">Zweryfikuj</string>
     <string name="dgts_verifying">Weryfikowanie</string>
+    <string name="pick_image_intent_chooser_title">Wybierz źródło</string>
     <string msgid="146198913615257606" name="search_menu_title">"Szukaj"</string>
     <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="tw__allow_btn_txt">Zezwól</string>

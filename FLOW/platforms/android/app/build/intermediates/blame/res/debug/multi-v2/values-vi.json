@@ -21,7 +21,24 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\thoma\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.0.2.aar\\135f16aaf5ac5310e5f30d8ef930ff55\\res\\values-vi\\values-vi.xml",
+                    "source": "C:\\Users\\thoma\\.gradle\\caches\\transforms-1\\files-1.1\\android-image-cropper-2.7.0.aar\\44f808537db9a43b31f847f65345b681\\res\\values-vi\\values-vi.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,164,211,264,317,400,479,563,625",
+                        "endColumns": "108,46,52,52,82,78,83,61,70",
+                        "endOffsets": "159,206,259,312,395,474,558,620,691"
+                    },
+                    "to": {
+                        "startLines": "60,61,62,63,64,65,66,67,68",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "7146,7255,7302,7355,7408,7491,7570,7654,7716",
+                        "endColumns": "108,46,52,52,82,78,83,61,70",
+                        "endOffsets": "7250,7297,7350,7403,7486,7565,7649,7711,7782"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\thoma\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\d5ccded93892fa3671d0f3a455801484\\res\\values-vi\\values-vi.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -30,11 +47,11 @@
                         "endOffsets": "214,322,431,515,618,737,814,891,975,1079,1188,1289,1394,1508,1613,1770,1869,1953"
                     },
                     "to": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,60",
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,69",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,219,327,436,520,623,742,819,896,980,1084,1193,1294,1399,1513,1618,1775,7146",
+                        "startOffsets": "105,219,327,436,520,623,742,819,896,980,1084,1193,1294,1399,1513,1618,1775,7787",
                         "endColumns": "113,107,108,83,102,118,76,76,83,103,108,100,104,113,104,156,98,83",
-                        "endOffsets": "214,322,431,515,618,737,814,891,975,1079,1188,1289,1394,1508,1613,1770,1869,7225"
+                        "endOffsets": "214,322,431,515,618,737,814,891,975,1079,1188,1289,1394,1508,1613,1770,1869,7866"
                     }
                 },
                 {
@@ -64,11 +81,11 @@
                         "endOffsets": "280,347,521,601"
                     },
                     "to": {
-                        "startLines": "62,63,64,65",
+                        "startLines": "71,72,73,74",
                         "startColumns": "4,4,4,4",
-                        "startOffsets": "7331,7386,7453,7627",
+                        "startOffsets": "7972,8027,8094,8268",
                         "endColumns": "54,66,173,79",
-                        "endOffsets": "7381,7448,7622,7702"
+                        "endOffsets": "8022,8089,8263,8343"
                     }
                 },
                 {
@@ -89,7 +106,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\thoma\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.0.2.aar\\52edbbfd8212c2b39d50fa1579a5e9a5\\res\\values-vi\\values-vi.xml",
+                    "source": "C:\\Users\\thoma\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\ad660cbfbb8ded47fdd5853635f83f14\\res\\values-vi\\values-vi.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -98,11 +115,11 @@
                         "endOffsets": "151"
                     },
                     "to": {
-                        "startLines": "61",
+                        "startLines": "70",
                         "startColumns": "4",
-                        "startOffsets": "7230",
+                        "startOffsets": "7871",
                         "endColumns": "100",
-                        "endOffsets": "7326"
+                        "endOffsets": "7967"
                     }
                 }
             ]

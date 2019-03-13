@@ -5,17 +5,17 @@ var record_time = 0;
 var start_time;
 var after_record_initialised = false;
 
+var new_block;
+
 var pictureSource;
 var destinationType;
 
-var new_block;
-
 let options = {
     quality: 75,
-    widthRatio:1,
-    heightRatio:1,          
-    targetWidth:600,
-    targetHeight:600
+    widthRatio: 1,
+    heightRatio: 1,
+    targetWidth: 600,
+    targetHeight: 600
 };
 
 $$('.popup-record').on('popup:open', function () {
@@ -82,7 +82,9 @@ $$('.fcancel-after_btn').on('touchend', function () {
 $$('.fcamera-after').on('click', function () {
     TakePhoto();
 });
-
+$$('.fgallery-after').on('click', function () {
+    GetPhotoFromGallery();
+});
 function StartRecording() {
     if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
         //------------------ PERMISSIONS -------------------------------//
@@ -405,14 +407,43 @@ function TakePhoto() {
         if (!status.hasPermission) error();
         else {
             //alert("success");
-            capturePhotoEdit();
+            capturePhoto();
         }
     }
 
     permissions.hasPermission(permissions.CAMERA, function (status) {
         if (status.hasPermission) {
             //alert("success");
-            capturePhotoEdit();
+            capturePhoto();
+        } else {
+            permissions.requestPermissions(list, success, error);
+        }
+    });
+}
+
+function GetPhotoFromGallery() {
+    console.log("get photo from gallery");
+    var permissions = cordova.plugins.permissions;
+    var list = [
+        permissions.READ_EXTERNAL_STORAGE
+    ];
+
+    function error() {
+        alert('Gallery permission not given');
+    }
+
+    function success(status) {
+        if (!status.hasPermission) error();
+        else {
+            //alert("success");
+            getPhoto();
+        }
+    }
+
+    permissions.hasPermission(permissions.READ_EXTERNAL_STORAGE, function (status) {
+        if (status.hasPermission) {
+            //alert("success");
+            getPhoto();
         } else {
             permissions.requestPermissions(list, success, error);
         }
@@ -420,15 +451,39 @@ function TakePhoto() {
 }
 
 function onPhotoDataSuccess(imageData) {
-    new_block.ftop_part.style.backgroundImage = "url('data:image/jpeg;base64," + imageData + "')";
+    var options = {
+        url: imageData, // required.
+        ratio: "6/4", // required. (here you can define your custom ration) "1/1" for square images
+        title: "Crop image", // optional. android only. (here you can put title of image cropper activity) default: Image Cropper
+        autoZoomEnabled: true // optional. android only. for iOS its always true (if it is true then cropper will automatically adjust the view) default: true
+    }
+    window.plugins.k.imagecropper.open(options, function (data) {
+        // its return an object with the cropped image cached url, cropped width & height, you need to manually delete the image from the application cache.
+        console.log(data);
+        //$scope.croppedImage = data;
+        new_block.ftop_part.style.backgroundImage = "url('" + data.imgPath + "')";
+    }, function (error) {
+        console.log(error);
+    })
+    //new_block.ftop_part.style.backgroundImage = "url('data:image/jpeg;base64," + imageData + "')";
 }
 
-function capturePhotoEdit() {
+function capturePhoto() {
     // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
     navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
         quality: 75,
-        allowEdit: true,
-        destinationType: destinationType.DATA_URL,
+        allowEdit: false,
+        destinationType: destinationType.FILE_URI,
+    });
+}
+
+function getPhoto() {
+    // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
+    navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
+        quality: 75,
+        allowEdit: false,
+        destinationType: destinationType.FILE_URI,
+        sourceType : pictureSource.SAVEDPHOTOALBUM,
     });
 }
 

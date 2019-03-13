@@ -70,6 +70,14 @@
     <string msgid="5201977337835724196" name="common_open_on_phone">"Auf Smartphone öffnen"</string>
     <string msgid="3441753203274453993" name="common_signin_button_text">"Anmelden"</string>
     <string msgid="669893613918351210" name="common_signin_button_text_long">"Über Google anmelden"</string>
+    <string name="crop_image_activity_no_permissions">Vorgang wird abgebrochen, benötigte Berechtigungen wurden nicht erteilt.</string>
+    <string name="crop_image_activity_title"/>
+    <string name="crop_image_menu_crop">zuschneiden</string>
+    <string name="crop_image_menu_flip">spiegeln</string>
+    <string name="crop_image_menu_flip_horizontally">horizontal spiegeln</string>
+    <string name="crop_image_menu_flip_vertically">vertikal spiegeln</string>
+    <string name="crop_image_menu_rotate_left">gegen den Uhrzeigersinn drehen</string>
+    <string name="crop_image_menu_rotate_right">drehen</string>
     <string name="dgts__cancel">Abbrechen</string>
     <string name="dgts__communication_error">Kommunikationsfehler</string>
     <string name="dgts__confirmation_code">Bestätigungscode</string>
@@ -114,6 +122,7 @@
     <string name="dgts_pin_code_terms">Du hast zuvor einen 2-Schritte-Verifizierungscode auf digits.com eingestellt</string>
     <string name="dgts_verify">Verifizieren</string>
     <string name="dgts_verifying">Wird verifiziert</string>
+    <string name="pick_image_intent_chooser_title">Quelle wählen</string>
     <string msgid="146198913615257606" name="search_menu_title">"Suchen"</string>
     <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="tw__allow_btn_txt">Erlauben</string>

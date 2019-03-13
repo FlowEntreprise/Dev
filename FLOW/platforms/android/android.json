@@ -67,6 +67,10 @@
             {
               "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"KImageCropper\"><param name=\"android-package\" value=\"in.co.indusnet.plugins.cordova.imagecropper.KImageCropper\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -118,6 +122,10 @@
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+              "count": 2
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />",
               "count": 1
             }
           ],
@@ -152,6 +160,10 @@
           "/manifest/application": [
             {
               "xml": "<meta-data android:name=\"io.fabric.ApiKey\" android:value=\"1c7233ea28bcc14682e840d324ff7fbb32b9c038\" />",
+              "count": 1
+            },
+            {
+              "xml": "<activity android:name=\"com.theartofdev.edmodo.cropper.CropImageActivity\" android:theme=\"@style/Base.Theme.AppCompat\" />",
               "count": 1
             }
           ]
@@ -230,6 +242,10 @@
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-k-imagecropper": {
+      "ANDROID_SUPPORT_APPCOMPAT_VERSION": "27.+",
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -403,6 +419,14 @@
       "clobbers": [
         "CameraPopoverHandle"
       ]
+    },
+    {
+      "id": "cordova-plugin-k-imagecropper.imagecropper",
+      "file": "plugins/cordova-plugin-k-imagecropper/www/imagecropper.js",
+      "pluginId": "cordova-plugin-k-imagecropper",
+      "clobbers": [
+        "window.plugins.k.imagecropper"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -415,6 +439,7 @@
     "cordova-plugin-googleplus": "7.0.0",
     "cordova-plugin-inappbrowser": "3.0.0",
     "twitter-connect-plugin": "0.6.0",
-    "cordova-plugin-camera": "4.0.3"
+    "cordova-plugin-camera": "4.0.3",
+    "cordova-plugin-k-imagecropper": "1.2.0"
   }
 }

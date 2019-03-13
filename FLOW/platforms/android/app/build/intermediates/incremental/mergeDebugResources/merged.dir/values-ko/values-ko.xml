@@ -70,6 +70,14 @@
     <string msgid="5201977337835724196" name="common_open_on_phone">"스마트폰에서 열기"</string>
     <string msgid="3441753203274453993" name="common_signin_button_text">"로그인"</string>
     <string msgid="669893613918351210" name="common_signin_button_text_long">"Google 계정으로 로그인"</string>
+    <string name="crop_image_activity_no_permissions">필수 권한이 없어서 취소합니다.</string>
+    <string name="crop_image_activity_title"/>
+    <string name="crop_image_menu_crop">자르기</string>
+    <string name="crop_image_menu_flip">반전</string>
+    <string name="crop_image_menu_flip_horizontally">좌우반전</string>
+    <string name="crop_image_menu_flip_vertically">상하반전</string>
+    <string name="crop_image_menu_rotate_left">반시계 회전</string>
+    <string name="crop_image_menu_rotate_right">회전</string>
     <string name="dgts__cancel">취소</string>
     <string name="dgts__communication_error">통신 오류</string>
     <string name="dgts__confirmation_code">인증 코드</string>
@@ -115,6 +123,7 @@
     <string name="dgts_pin_code_terms">이전에 digits.com에서 2단계 인증 코드를 설정했습니다.</string>
     <string name="dgts_verify">인증</string>
     <string name="dgts_verifying">인증 중</string>
+    <string name="pick_image_intent_chooser_title">이미지 선택</string>
     <string msgid="146198913615257606" name="search_menu_title">"검색"</string>
     <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="tw__allow_btn_txt">허용</string>

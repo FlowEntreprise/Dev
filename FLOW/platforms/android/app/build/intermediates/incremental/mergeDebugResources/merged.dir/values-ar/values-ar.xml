@@ -70,6 +70,14 @@
     <string msgid="5201977337835724196" name="common_open_on_phone">"فتح على الهاتف"</string>
     <string msgid="3441753203274453993" name="common_signin_button_text">"تسجل الدخول"</string>
     <string msgid="669893613918351210" name="common_signin_button_text_long">"‏تسجيل الدخول عبر Google"</string>
+    <string name="crop_image_activity_no_permissions">إلغاء؛ الأذونات المطلوبة غير ممنوحة</string>
+    <string name="crop_image_activity_title"/>
+    <string name="crop_image_menu_crop">قُصّ</string>
+    <string name="crop_image_menu_flip">اقلب</string>
+    <string name="crop_image_menu_flip_horizontally">اقلب أفقيًا</string>
+    <string name="crop_image_menu_flip_vertically">اقلب رأسيًا</string>
+    <string name="crop_image_menu_rotate_left">أدر عكس اتجاه عقارب الساعة</string>
+    <string name="crop_image_menu_rotate_right">أدر</string>
     <string name="dgts__cancel">إلغاء</string>
     <string name="dgts__communication_error">خطأ اتصال</string>
     <string name="dgts__confirmation_code">رمز التأكيد</string>
@@ -119,6 +127,7 @@
     <string name="dgts_pin_code_terms">لقد قمتَ مسبقًا بتعيين رمز توثيق مكوَّن من خطوتين على digits.Com</string>
     <string name="dgts_verify">توثيق</string>
     <string name="dgts_verifying">توثيق</string>
+    <string name="pick_image_intent_chooser_title">اختر مصدرًا</string>
     <string msgid="146198913615257606" name="search_menu_title">"البحث"</string>
     <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"+999"</string>
     <string name="tw__allow_btn_txt">السماح</string>

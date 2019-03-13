@@ -42,6 +42,10 @@
     },
     "cordova-plugin-camera": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-k-imagecropper": {
+      "ANDROID_SUPPORT_APPCOMPAT_VERSION": "27.+",
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {}

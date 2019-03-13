@@ -98,6 +98,14 @@ module.exports = [
         "id": "cordova-plugin-camera.CameraProxy",
         "pluginId": "cordova-plugin-camera",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-k-imagecropper/www/imagecropper.js",
+        "id": "cordova-plugin-k-imagecropper.imagecropper",
+        "pluginId": "cordova-plugin-k-imagecropper",
+        "clobbers": [
+            "window.plugins.k.imagecropper"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -112,7 +120,8 @@ module.exports.metadata =
     "cordova-plugin-googleplus": "7.0.0",
     "cordova-plugin-inappbrowser": "3.0.0",
     "twitter-connect-plugin": "0.6.0",
-    "cordova-plugin-camera": "4.0.3"
+    "cordova-plugin-camera": "4.0.3",
+    "cordova-plugin-k-imagecropper": "1.2.0"
 }
 // BOTTOM OF METADATA
 });

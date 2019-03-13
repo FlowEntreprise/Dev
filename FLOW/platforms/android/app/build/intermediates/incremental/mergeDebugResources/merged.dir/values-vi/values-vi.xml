@@ -58,6 +58,15 @@
     <string msgid="5201977337835724196" name="common_open_on_phone">"Mở trên điện thoại"</string>
     <string msgid="3441753203274453993" name="common_signin_button_text">"Đăng nhập"</string>
     <string msgid="669893613918351210" name="common_signin_button_text_long">"Đăng nhập bằng Google"</string>
+    <string name="crop_image_activity_no_permissions">Đang hủy, các quyền đã yêu cầu không được cấp</string>
+    <string name="crop_image_activity_title"/>
+    <string name="crop_image_menu_crop">Cắt</string>
+    <string name="crop_image_menu_flip">Lật</string>
+    <string name="crop_image_menu_flip_horizontally">Lật theo chiều ngang</string>
+    <string name="crop_image_menu_flip_vertically">Lật theo chiều dọc</string>
+    <string name="crop_image_menu_rotate_left">Xoay theo chiều kim đồng hồ</string>
+    <string name="crop_image_menu_rotate_right">Xoay</string>
+    <string name="pick_image_intent_chooser_title">Chọn nguồn</string>
     <string msgid="146198913615257606" name="search_menu_title">"Tìm kiếm"</string>
     <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="tw__allow_btn_txt">Cho phép</string>

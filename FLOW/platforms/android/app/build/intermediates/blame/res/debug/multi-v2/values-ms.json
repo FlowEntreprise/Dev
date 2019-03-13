@@ -57,24 +57,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\thoma\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.0.2.aar\\52edbbfd8212c2b39d50fa1579a5e9a5\\res\\values-ms\\values-ms.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "118",
-                        "startColumns": "4",
-                        "startOffsets": "12019",
-                        "endColumns": "100",
-                        "endOffsets": "12115"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\thoma\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.0.2.aar\\135f16aaf5ac5310e5f30d8ef930ff55\\res\\values-ms\\values-ms.xml",
+                    "source": "C:\\Users\\thoma\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\d5ccded93892fa3671d0f3a455801484\\res\\values-ms\\values-ms.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -105,6 +88,23 @@
                         "startOffsets": "4831,4939,5144,5276,5384,5615,5749,5899,6240,6484,6595,6801,6938,7168,7373,7470,7564",
                         "endColumns": "107,204,131,107,230,133,149,135,243,110,205,136,229,204,96,93,111",
                         "endOffsets": "4934,5139,5271,5379,5610,5744,5894,6030,6479,6590,6796,6933,7163,7368,7465,7559,7671"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\thoma\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\ad660cbfbb8ded47fdd5853635f83f14\\res\\values-ms\\values-ms.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "118",
+                        "startColumns": "4",
+                        "startOffsets": "12019",
+                        "endColumns": "100",
+                        "endOffsets": "12115"
                     }
                 },
                 {

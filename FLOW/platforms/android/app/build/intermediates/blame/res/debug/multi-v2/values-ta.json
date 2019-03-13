@@ -4,7 +4,24 @@
             "outputFile": "C:\\Users\\thoma\\Documents\\PROJETS_persos\\FLOW\\GitHub\\Dev\\Dev\\FLOW\\platforms\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ta\\values-ta.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\thoma\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.0.2.aar\\52edbbfd8212c2b39d50fa1579a5e9a5\\res\\values-ta\\values-ta.xml",
+                    "source": "C:\\Users\\thoma\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-11.8.0.aar\\df40b0eff6e07ef5dfa8a56b43999b7b\\res\\values-ta\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "283",
+                        "endColumns": "224",
+                        "endOffsets": "507"
+                    },
+                    "to": {
+                        "startLines": "50",
+                        "startColumns": "4",
+                        "startOffsets": "5648",
+                        "endColumns": "224",
+                        "endOffsets": "5868"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\thoma\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\ad660cbfbb8ded47fdd5853635f83f14\\res\\values-ta\\values-ta.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -21,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\thoma\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.0.2.aar\\135f16aaf5ac5310e5f30d8ef930ff55\\res\\values-ta\\values-ta.xml",
+                    "source": "C:\\Users\\thoma\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\d5ccded93892fa3671d0f3a455801484\\res\\values-ta\\values-ta.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -35,23 +52,6 @@
                         "startOffsets": "105,219,324,439,528,635,761,839,916,998,1100,1204,1301,1411,1513,1620,1777,7239",
                         "endColumns": "113,104,114,88,106,125,77,76,81,101,103,96,109,101,106,156,99,79",
                         "endOffsets": "214,319,434,523,630,756,834,911,993,1095,1199,1296,1406,1508,1615,1772,1872,7314"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\thoma\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-11.8.0.aar\\df40b0eff6e07ef5dfa8a56b43999b7b\\res\\values-ta\\values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "283",
-                        "endColumns": "224",
-                        "endOffsets": "507"
-                    },
-                    "to": {
-                        "startLines": "50",
-                        "startColumns": "4",
-                        "startOffsets": "5648",
-                        "endColumns": "224",
-                        "endOffsets": "5868"
                     }
                 },
                 {

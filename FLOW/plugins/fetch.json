@@ -86,5 +86,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-k-imagecropper": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-k-imagecropper"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }
