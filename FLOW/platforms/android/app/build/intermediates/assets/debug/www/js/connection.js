@@ -1,4 +1,5 @@
-DisconnectUser();
+/*DisconnectUser();*/
+ConnectUser();
 
 function ConnectUser() {
     console.log("user connected");
@@ -22,5 +23,7 @@ function DisconnectUser() {
 $$('.fneed_connect').on('click', function () {
     if (!connected) {
         app.popup('.popup-connect');
+        
     }
+    console.log("vicfou");
 });

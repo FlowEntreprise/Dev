@@ -5,7 +5,7 @@ function block() {
     var block = this;
     this.isPlaying = false;
     this.seeking = false;
-    this.wasPlaying=false;
+    this.wasPlaying = false;
 
     this.flowplay = function () {
         block.fplay_button.style.display = "none";
@@ -16,13 +16,13 @@ function block() {
         // console.log(block.myRange);
         block.progress_div.style.display = 'block';
         block.progress_div.style.borderTopRightRadius = '0vw';
-        block.isPlaying=true;
+        block.isPlaying = true;
         console.log("play");
         block.myRange.style.pointerEvents = "all";
     };
 
 
-    
+
     this.flowpause = function () {
 
 
@@ -250,17 +250,7 @@ function block() {
             block.seeking = false;
         }, 600);
         block.flowplay();
-        // if(block.wasPlaying)
-        // {
-        //     block.flowplay();
-        // }
-        // else
-        // {
-        //     block.flowpause();
-        // }
     };
-
-    
 
     this.fplay_button.addEventListener('click', function () {
 
@@ -285,26 +275,47 @@ function block() {
         block.progress_div.style.width = block.myaudio.currentTime * 100 / block.myaudio.duration + '%';
 
     });
+
+    $(this.fimg_impression_like).on("click", function () {
+        
+        if($(this).attr('src', 'src/icons/like.png'))
+        {
+            $(this).attr('src', 'src/icons/like_rempli.png');
+            push_notif_block('like');
+            console.log('liked');
+        }
+        if($(this).attr('src', 'src/icons/like_rempli.png'))
+        {
+            $(this).attr('src', 'src/icons/like.png');
+            console.log('unliked');
+        }
+        
+        
+    });
+
+    $(this.fimg_impression_echo).on("click", function () {
+        $(this).attr('src', 'src/icons/echo_rempli.png');
+        push_notif_block('echo');
+    });
+
+    $(this.fimg_impression_comment).on("click", function () {
+        $(this).attr('src', 'src/icons/comment_rempli.png');
+        push_notif_block('comment');
+    });
+
     /* 
         wave animation----------------------------------------DONE
         play and pause ---------------------------------------DONE
         one player at the time -------------------------------DONE
         rajouter un player et use step and seek function -----
     */
-
-
     // this.myblock = new Block();
     // myblock.index = 99;
     // myblock.name = "Salut salut";
     // myblock.Play();
-
-
-
-
 }
 
 var all_blocks = [];
-
 // $("#button2").click(function () {
 //     var new_block = new block();
 //     all_blocks.push(new_block);

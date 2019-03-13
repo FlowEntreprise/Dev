@@ -232,6 +232,32 @@ h1 {
     padding-top: 0px !important;
 }
 
+.fred_dot_toolbar_new_notif
+{
+    position: absolute;
+    z-index: 10;
+    top: 1vw;
+    right: 3.5vw;
+    width: 3vw;
+    height: 3vw;
+    border-radius: 3vw;
+    background-color: #FF5D5D;
+    display: none;
+}
+
+.fred_dot_toolbar_new_message
+{
+    position: absolute;
+    z-index: 10;
+    top: 1vw;
+    right: 19.5vw;
+    width: 3vw;
+    height: 3vw;
+    border-radius: 3vw;
+    background-color: #FF5D5D;
+    display: none;
+}
+
 /* --------- RIPPLE ----------- */
 
 .fripple::after {
