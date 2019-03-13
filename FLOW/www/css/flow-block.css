@@ -1,13 +1,14 @@
-    .fflow {
+.fflow {
     position: relative;
     width: 90vw;
     margin-left: 5vw;
+    margin-right: 5vw;
     margin-top: 5vw;
-    height: 36vh;
+    height: 37vh;
     background-color: #FFFFFF;
-    border-radius: 5px;
+    border-radius: 2vw;
     box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
-    font-family: "Roboto-Light";
+    font-family: Roboto;
 }
 
 .fposter_photo {
@@ -90,7 +91,7 @@
     font-size: 4vw;
     width: 15vw;
     height: 2.5vh;
-    left: 1vw;
+    left: 2vw;
     color: #FFFFFF;
     text-align: left;
     font-weight: bold;
@@ -100,20 +101,19 @@
 .fpost_date {
     position: absolute;
     font-size: 3vw;
-    left: 1.5vw;
-    top: 1vh;
+    left: 2.5vw;
+    top: 1.8vh;
     width: 10vw;
     height: 2vh;
     color: #FFFFFF;
     text-align: left;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-
 }
 
 .fdots {
     position: absolute;
-    left: 87vw;
-    top: -4.5vh;
+    left: 82.5vw;
+    top: -1.5vh;
     font-size: 7vw;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     font-weight: bold;
@@ -145,7 +145,7 @@
 .fbottom_part {
     position: absolute;
     width: 90vw;
-    height: 11vh;
+    height: 12vh;
     top: 25vh;
     background-color: #FFFFFF;
     border-bottom-left-radius: 2vw;
@@ -159,7 +159,7 @@
     height: 2.5vh;
     top: 0vh;
     font-size: 4.5vw;
-    left: 1vw;
+    left: 2vw;
     font-weight: bold;
     color: #909597;
     text-align: left;
@@ -172,8 +172,8 @@
     width: 50vw;
     height: 2.5vh;
     font-size: 3vw;
-    left: 1vw;
-    top: 4vh;
+    left: 2vw;
+    top: 4.5vh;
     color: #909597;
     text-align: left;
 
@@ -185,8 +185,8 @@
     width: 30vw;
     height: 3vh;
     font-size: 3.5vw;
-    left: 1vw;
-    top: 6vh;
+    left: 2vw;
+    top: 6.5vh;
     font-weight: bold;
     color: #909597;
     text-align: left;
@@ -196,7 +196,7 @@
 .flike {
     position: absolute;
     width: 10vw;
-    left: 65vw;
+    left: 58vw;
     top: 3vh;
     text-align: center;
     height: 7vh;
@@ -206,7 +206,7 @@
 .fecho {
     position: absolute;
     width: 10vw;
-    left: 75vw;
+    left: 68vw;
     top: 3vh;
     text-align: center;
     height: 7vh;
@@ -215,7 +215,7 @@
 .fcomment {
     position: absolute;
     width: 10vw;
-    left: 85vw;
+    left: 78vw;
     top: 3vh;
     text-align: center;
     height: 7vh;
@@ -223,16 +223,16 @@
 
 .fimg_impression {
     text-align: center;
+    width: 3.5vh;
 }
 
 .ftxt_impression {
     position: absolute;
     top: 2vh;
     left: 2vw;
-    ;
     color: #909597;
+    font-size: 3.8vw ;
     font-weight: bold;
-
 }
 
 #fbutton {
@@ -268,7 +268,7 @@
     opacity: 0.8;
     -webkit-user-select: none;
     user-select: none;
-    
+
 }
 
 #waveform:hover {
@@ -314,26 +314,26 @@
     opacity: 0;
     z-index: 2;
     pointer-events: none;
-  }
+}
 
-  
-   .fslider::-webkit-slider-thumb {
+
+.fslider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 25px;
     height: 25px;
     border-radius: 50%;
     background: rgb(76, 91, 175);
-    
-  } 
-  
-  .fslider::-moz-range-thumb {
+
+}
+
+.fslider::-moz-range-thumb {
     width: 25px;
     height: 25px;
     border-radius: 50%;
     background: #4CAF50;
-    
-  }
+
+}
 
 
 /* Loading */
