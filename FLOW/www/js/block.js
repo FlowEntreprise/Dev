@@ -250,7 +250,17 @@ function block() {
             block.seeking = false;
         }, 600);
         block.flowplay();
+        // if(block.wasPlaying)
+        // {
+        //     block.flowplay();
+        // }
+        // else
+        // {
+        //     block.flowpause();
+        // }
     };
+
+
 
     this.fplay_button.addEventListener('click', function () {
 
@@ -275,47 +285,85 @@ function block() {
         block.progress_div.style.width = block.myaudio.currentTime * 100 / block.myaudio.duration + '%';
 
     });
-
-    $(this.fimg_impression_like).on("click", function () {
-        
-        if($(this).attr('src', 'src/icons/like.png'))
-        {
-            $(this).attr('src', 'src/icons/like_rempli.png');
-            push_notif_block('like');
-            console.log('liked');
-        }
-        if($(this).attr('src', 'src/icons/like_rempli.png'))
-        {
-            $(this).attr('src', 'src/icons/like.png');
-            console.log('unliked');
-        }
-        
-        
-    });
-
-    $(this.fimg_impression_echo).on("click", function () {
-        $(this).attr('src', 'src/icons/echo_rempli.png');
-        push_notif_block('echo');
-    });
-
-    $(this.fimg_impression_comment).on("click", function () {
-        $(this).attr('src', 'src/icons/comment_rempli.png');
-        push_notif_block('comment');
-    });
-
     /* 
         wave animation----------------------------------------DONE
         play and pause ---------------------------------------DONE
         one player at the time -------------------------------DONE
         rajouter un player et use step and seek function -----
     */
+
     // this.myblock = new Block();
     // myblock.index = 99;
     // myblock.name = "Salut salut";
     // myblock.Play();
+
+    $(this.fimg_impression_like).on('click', function () {
+
+        impression_coloring(this, 'like');
+    });
+
+    $(this.fimg_impression_echo).on('click', function () {
+
+        impression_coloring(this, 'echo');
+    });
+
+    $(this.fimg_impression_comment).on('click', function () {
+
+        impression_coloring(this,'comment');
+    });
+
+
+    // fonction permettant de colorier ou non les like ,echo et comment.
+    function impression_coloring(object, type) {
+
+        switch (type) {
+            case 'like':
+                $(object).each(function () {
+
+                    var attr_img_like = $(object).attr('src');
+                    if (attr_img_like === 'src/icons/Like.png') {
+                        $(block.fimg_impression_like).attr('src', 'src/icons/like_rempli.png');
+                        push_notif_block('like');
+                    }
+                    if (attr_img_like === 'src/icons/like_rempli.png') {
+                        $(block.fimg_impression_like).attr('src', 'src/icons/Like.png');
+                    }
+                });
+                break;
+
+            case 'echo':
+                $(object).each(function () {
+                    var attr_img_echo = $(object).attr('src');
+                    if (attr_img_echo === 'src/icons/Echo.png') {
+                        $(block.fimg_impression_echo).attr('src', 'src/icons/echo_rempli.png');
+                        push_notif_block('echo');
+                    }
+                    if (attr_img_echo === 'src/icons/echo_rempli.png') {
+                        $(block.fimg_impression_echo).attr('src', 'src/icons/Echo.png');
+                    }
+                });
+                break;
+
+            case 'comment':
+                $(object).each(function () {
+                    var attr_img_comment = $(object).attr('src');
+                    if (attr_img_comment === 'src/icons/Comment.png') {
+                        $(block.fimg_impression_comment).attr('src', 'src/icons/comment_rempli.png');
+                        push_notif_block('comment');
+                    }
+                    if (attr_img_comment === 'src/icons/comment_rempli.png') {
+                        $(block.fimg_impression_comment).attr('src', 'src/icons/Comment.png');
+                    }
+                });
+                break;
+        }
+
+    }
+
 }
 
 var all_blocks = [];
+
 // $("#button2").click(function () {
 //     var new_block = new block();
 //     all_blocks.push(new_block);

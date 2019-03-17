@@ -4,11 +4,10 @@
 <head>
     <!--
         FLOW by Chris / Victor / Alexis & Thomas
-        target-densityDpi=device-dpi
         -->
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densityDpi=device-dpi">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
     <link rel="stylesheet" type="text/css" href="css/explore.css">
@@ -16,7 +15,6 @@
     <link rel="stylesheet" type="text/css" href="css/record.css">
     <link rel="stylesheet" type="text/css" href="css/flow-block.css">
     <link rel="stylesheet" type="text/css" href="css/notifications.css">
-
     <!-- <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.md.colors.min.css">
     <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.md.min.css"> -->
     <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.ios.colors.min.css">
@@ -145,15 +143,17 @@
                     <a href="#tab2" class="fnav-btn fexplore-btn tab-link"></a>
                     <a href="#" data-popup=".popup-record" class="fnav-btn fflow-btn open-popup"></a>
                     <a href="#tab3" class="fnav-btn fmessages-btn tab-link"></a>
-                    <label class="fred_dot_toolbar_new_message"></label>
-                    <!-- <a href="#tab4" class="nav-btn notif-btn tab-link"></a> -->
+                   
                     <a href="#tab4" class="fnav-btn fnotif-btn tab-link"></a>
-                    <label class="fred_dot_toolbar_new_notif"></label>
+                    
                     <!-- <div class="fneed_connect" style="left: 17vw;"></div> -->
                     <div class="fneed_connect" style="left: 68vw;"></div>
                     <div class="fneed_connect" style="left: 84vw;"></div>
 
                 </div>
+                <a href="#tab3" class="fred_dot_toolbar_new_message"></a>
+                <a href="#tab4" class="fred_dot_toolbar_new_notif"></a>
+
             </div>
 
             <div class="popup popup-record">
@@ -242,6 +242,7 @@
     <script type="text/javascript" src="js/block.js"></script>
     <script type="text/javascript" src="js/home.js"></script>
     <script type="text/javascript" src="js/connection.js"></script>
+    <script type="text/javascript" src="js/notifications.js"></script>
     <script type="text/javascript" src="js/navigation.js"></script>
     <script type="text/javascript" src="js/record.js"></script>
     <script type="text/javascript" src="js/auth/Twitter.js"></script>
@@ -249,8 +250,7 @@
     <script type="text/javascript" src="js/auth/Facebook.js"></script>
     <script type="text/javascript" src="js/auth/google.js"></script>
     <script type="text/javascript" src="js/auth/connexion.js"></script>
-    <script type="text/javascript" src="js/notifications.js"></script>
-
+    
 
 </body>
 

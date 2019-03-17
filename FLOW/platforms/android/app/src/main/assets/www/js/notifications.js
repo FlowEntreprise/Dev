@@ -1,8 +1,9 @@
 function block_notification_like() {
     this.seen = false;
+    var block_notification_like = this;
     this.block_notification_like = document.createElement('div');
     this.block_notification_like.className = 'fblock_notification';
-    $("#tab4").append(this.block_notification_like);
+    $("#tab4").prepend(this.block_notification_like);
 
     this.fphoto_block_notif = document.createElement('div');
     this.fphoto_block_notif.className = 'fphoto_block_notif_like';
@@ -36,19 +37,19 @@ function block_notification_like() {
     this.ftime.innerText = '2 min';
     this.block_notification_like.appendChild(this.ftime);
 
-    $(this.fred_dot_border).on("click", function () {
-        $(this).css('display', 'none');
-        set_seen(this);
+    $(this.block_notification_like).on("click", function () {
+        $(block_notification_like.fred_dot_border).css('display', 'none');
+        set_seen(block_notification_like);
         check_seen();
     });
-
 }
 
 function block_notification_echo() {
     this.seen = false;
+    var block_notification_echo = this;
     this.block_notification_echo = document.createElement('div');
     this.block_notification_echo.className = 'fblock_notification';
-    $("#tab4").append(this.block_notification_echo);
+    $("#tab4").prepend(this.block_notification_echo);
 
     this.fphoto_block_notif = document.createElement('div');
     this.fphoto_block_notif.className = 'fphoto_block_notif_echo';
@@ -82,9 +83,9 @@ function block_notification_echo() {
     this.ftime.innerText = '2 min';
     this.block_notification_echo.appendChild(this.ftime);
 
-    $(this.fred_dot_border).on("click", function () {
-        $(this).css('display', 'none');
-        set_seen(this);
+    $(this.block_notification_echo).on("click", function () {
+        $(block_notification_echo.fred_dot_border).css('display', 'none');
+        set_seen(block_notification_echo);
         check_seen();
     });
 
@@ -92,9 +93,10 @@ function block_notification_echo() {
 
 function block_notification_comment() {
     this.seen = false;
+    var block_notification_comment = this;
     this.block_notification_comment = document.createElement('div');
     this.block_notification_comment.className = 'fblock_notification';
-    $("#tab4").append(this.block_notification_comment);
+    $("#tab4").prepend(this.block_notification_comment);
 
     this.fphoto_block_notif = document.createElement('div');
     this.fphoto_block_notif.className = 'fphoto_block_notif_comment';
@@ -107,7 +109,7 @@ function block_notification_comment() {
 
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
-    this.fnotif_label.innerText = 'Justine liked your flow';
+    this.fnotif_label.innerText = 'Justine comment your flow';
     this.block_notification_comment.appendChild(this.fnotif_label);
 
     this.fnotif_text = document.createElement('label');
@@ -128,14 +130,16 @@ function block_notification_comment() {
     this.ftime.innerText = '2 min';
     this.block_notification_comment.appendChild(this.ftime);
 
-    $(this.fred_dot_border).on("click", function () {
-        $(this).css('display', 'none');
-        set_seen(this);
+    $(this.block_notification_comment).on("click", function () {
+        $(block_notification_comment.fred_dot_border).css('display', 'none');
+        set_seen(block_notification_comment);
         check_seen();
     });
 
 }
 
+//fonction qui permet de faire disparaitre le point rouge de l'iconne de notifications
+//quand toute les notifications on été consulté
 function check_seen() {
     var incrementation = 0;
     for (var i = 0; i < all_notifications_block.length; i++) {
@@ -145,19 +149,22 @@ function check_seen() {
         if (incrementation == all_notifications_block.length) {
             $(".fred_dot_toolbar_new_notif").css('display', 'none');
         }
+
     }
 
 }
 
+//fonction qui permet de set la variable seen qui indique si une notif a été consulté ou pas
 function set_seen(object) {
 
     for (var i = 0; i < all_notifications_block.length; i++) {
-        if (all_notifications_block[i].fred_dot_border == object) {
+        if (all_notifications_block[i] == object) {
             all_notifications_block[i].seen = true;
         }
     }
 }
 
+//fonction qui permet de creer les blocs de notifs
 function push_notif_block(notification_type) {
 
     switch (notification_type) {

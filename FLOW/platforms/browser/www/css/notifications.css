@@ -16,9 +16,9 @@
     top: 1.5vh;
     left: 2vw;
     border-radius: 7vh;
-        border: 1.5px solid rgb(255, 0, 84);
+    border: 1.5px solid rgb(255, 0, 84);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    background-image: url(../src/pictures/notif1.jpg);
+    background-image: url(../src/pictures/notif1.png);
     background-size: cover;
     background-position: center;
 }
@@ -32,7 +32,7 @@
     border-radius: 7vh;
     border: 1.5px solid rgb(152,57,198);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    background-image: url(../src/pictures/notif2.png);
+    background-image: url(../src/pictures/notif2.jpg);
     background-size: cover;
     background-position: center;
 }
@@ -46,16 +46,16 @@
     border-radius: 7vh;
     border: 1.5px solid rgb(26,132,239); 
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    background-image: url(../src/pictures/notif3.png);
+    background-image: url(../src/pictures/notif3.jpg);
     background-size: cover;
     background-position: center;
 }
 
 .ftype_notif {
     position: absolute;
-    width: 10vw;
-    top: 4vh;
-    left: 6vw;
+    width: 5vw;
+    top: 5vh;
+    left: 9vw;
 }
 
 .fnotif_label {
