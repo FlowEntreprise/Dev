@@ -22,5 +22,6 @@ function DisconnectUser() {
 $$('.fneed_connect').on('click', function () {
     if (!connected) {
         app.popup('.popup-connect');
+        current_page = "connect-popup";
     }
 });

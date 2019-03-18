@@ -128,3 +128,27 @@ function PlayNavRipple(element) {
         element.addClass('fripple');
     }, 10);
 }
+
+document.addEventListener("backbutton", onBackKeyDown, false);
+var current_page = "home";
+
+function onBackKeyDown() {
+    alert(current_page);
+    // Handle the back button
+    if (current_page == "record") {
+        app.closeModal('.popup-record');
+        current_page = "home";
+    }
+    else if (current_page == "connect-popup") {
+        app.closeModal('.popup-connect');
+        current_page = "home";
+    }
+    else if (current_page == "after-record") {
+        app.closeModal('.popup-after-record');
+        app.popup('.popup-record');
+        current_page = "record";
+    }
+    else if (current_page == "home") {
+        navigator.app.exitApp();
+    }
+}

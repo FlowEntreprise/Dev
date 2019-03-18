@@ -112,8 +112,8 @@
 
 .fdots {
     position: absolute;
-    left: 82vw;
-    top: -2vh;
+    left: 82.5vw;
+    top: -1.5vh;
     font-size: 7vw;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     font-weight: bold;
@@ -206,7 +206,7 @@
 .fecho {
     position: absolute;
     width: 10vw;
-    left: 75vw;
+    left: 68vw;
     top: 3vh;
     text-align: center;
     height: 7vh;

@@ -22,6 +22,7 @@ $$('.popup-record').on('popup:open', function () {
     $$('#flow_number_of_sec').text("00");
     pictureSource = navigator.camera.PictureSourceType;
     destinationType = navigator.camera.DestinationType;
+    current_page = "record"
 });
 $$('.fflow-btn').on('taphold', function () {
     console.log("Hold Record !");
@@ -45,6 +46,7 @@ $$('.popup-record').on('popup:close', function () {
         "display": "none"
     });
     StopRecording();
+    current_page = "home";
 });
 
 $$('.popup-record').on('popup:open', function () {
@@ -77,6 +79,7 @@ $$('.frestart-after_btn').on('touchend', function () {
 
 $$('.fcancel-after_btn').on('touchend', function () {
     app.closeModal('.popup-after-record');
+    current_page = "home";
 });
 
 $$('.fcamera-after').on('click', function () {
@@ -295,6 +298,7 @@ function Save(mediaRecorder) {
             app.showTab(target);
         });
         after_record_initialised = true;
+        current_page = "after-record";
     }
     $(".after-record-block-container").html("");
     new_block = new block($(".after-record-block-container"), true, audioURL, record_time);

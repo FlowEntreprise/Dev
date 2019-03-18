@@ -128,7 +128,7 @@ function block(parent_element, afterblock, audioURL, duration) {
         this.fpost_date.innerText = '5 min';
         this.ftop_part.appendChild(this.fpost_date);
 
-        this.fdots = document.createElement('p');
+        this.fdots = document.createElement('label');
         this.fdots.className = 'fdots';
         this.fdots.innerText = '...';
         this.ftop_part.appendChild(this.fdots);
