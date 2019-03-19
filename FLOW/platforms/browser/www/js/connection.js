@@ -1,16 +1,14 @@
+//DisconnectUser();
 var connected = false;
 var user_token;
 CheckIfConnected();
 
-
-function ConnectUser(data) {
+function ConnectUser() {
     console.log("user connected");
     connected = true;
     $(".fneed_connect").css({
         "display": "none"
     });
-    window.localStorage.setItem("user_token", data.TokenId);
-    window.localStorage.setItem("user_profile_pic", data.Image);
     $(".faccount").css({"background-image": "url('"+ window.localStorage.getItem("user_profile_pic") +"')"});
     app.closeModal('.popup-connect');
     //$( "#fswipe_area" ).css({"pointer-events": "all"});

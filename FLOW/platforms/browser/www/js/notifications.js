@@ -11,7 +11,7 @@ function block_notification_like() {
 
     this.ftype_notif = document.createElement('img');
     this.ftype_notif.className = 'ftype_notif';
-    this.ftype_notif.src = '../src/icons/like_rempli.png';
+    this.ftype_notif.src = '../src/icons/Like_filled.png';
     this.fphoto_block_notif.appendChild(this.ftype_notif);
 
     this.fnotif_label = document.createElement('label');
@@ -57,7 +57,7 @@ function block_notification_echo() {
 
     this.ftype_notif = document.createElement('img');
     this.ftype_notif.className = 'ftype_notif';
-    this.ftype_notif.src = '../src/icons/echo_rempli.png';
+    this.ftype_notif.src = '../src/icons/Echo_filled.png';
     this.fphoto_block_notif.appendChild(this.ftype_notif);
 
     this.fnotif_label = document.createElement('label');
@@ -104,7 +104,7 @@ function block_notification_comment() {
 
     this.ftype_notif = document.createElement('img');
     this.ftype_notif.className = 'ftype_notif';
-    this.ftype_notif.src = '../src/icons/comment_rempli.png';
+    this.ftype_notif.src = '../src/icons/Comment_filled.png';
     this.fphoto_block_notif.appendChild(this.ftype_notif);
 
     this.fnotif_label = document.createElement('label');

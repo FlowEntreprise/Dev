@@ -200,7 +200,6 @@
     top: 3vh;
     text-align: center;
     height: 7vh;
-
 }
 
 .fecho {
@@ -224,6 +223,8 @@
 .fimg_impression {
     text-align: center;
     width: 3.5vh;
+    height: 3.5vh;
+    object-fit: contain;
 }
 
 .ftxt_impression {

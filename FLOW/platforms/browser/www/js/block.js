@@ -360,7 +360,7 @@ function block(parent_element, afterblock, audioURL, duration) {
     });
 
 
-    // fonction permettant de colorier ou non les like ,echo et comment.
+    // fonction permettant de colorier ou non les like, echo et comment.
     function impression_coloring(object, type) {
 
         switch (type) {
@@ -369,10 +369,10 @@ function block(parent_element, afterblock, audioURL, duration) {
 
                     var attr_img_like = $(object).attr('src');
                     if (attr_img_like === 'src/icons/Like.png') {
-                        $(block.fimg_impression_like).attr('src', 'src/icons/like_rempli.png');
+                        $(block.fimg_impression_like).attr('src', 'src/icons/Like_filled.png');
                         push_notif_block('like');
                     }
-                    if (attr_img_like === 'src/icons/like_rempli.png') {
+                    if (attr_img_like === 'src/icons/Like_filled.png') {
                         $(block.fimg_impression_like).attr('src', 'src/icons/Like.png');
                     }
                 });
@@ -382,10 +382,10 @@ function block(parent_element, afterblock, audioURL, duration) {
                 $(object).each(function () {
                     var attr_img_echo = $(object).attr('src');
                     if (attr_img_echo === 'src/icons/Echo.png') {
-                        $(block.fimg_impression_echo).attr('src', 'src/icons/echo_rempli.png');
+                        $(block.fimg_impression_echo).attr('src', 'src/icons/Echo_filled.png');
                         push_notif_block('echo');
                     }
-                    if (attr_img_echo === 'src/icons/echo_rempli.png') {
+                    if (attr_img_echo === 'src/icons/Echo_filled.png') {
                         $(block.fimg_impression_echo).attr('src', 'src/icons/Echo.png');
                     }
                 });
@@ -395,10 +395,10 @@ function block(parent_element, afterblock, audioURL, duration) {
                 $(object).each(function () {
                     var attr_img_comment = $(object).attr('src');
                     if (attr_img_comment === 'src/icons/Comment.png') {
-                        $(block.fimg_impression_comment).attr('src', 'src/icons/comment_rempli.png');
+                        $(block.fimg_impression_comment).attr('src', 'src/icons/Comment_filled.png');
                         push_notif_block('comment');
                     }
-                    if (attr_img_comment === 'src/icons/comment_rempli.png') {
+                    if (attr_img_comment === 'src/icons/Comment_filled.png') {
                         $(block.fimg_impression_comment).attr('src', 'src/icons/Comment.png');
                     }
                 });

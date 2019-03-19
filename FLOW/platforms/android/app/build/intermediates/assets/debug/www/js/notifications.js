@@ -11,7 +11,7 @@ function block_notification_like() {
 
     this.ftype_notif = document.createElement('img');
     this.ftype_notif.className = 'ftype_notif';
-    this.ftype_notif.src = '../src/icons/like_rempli.png';
+    this.ftype_notif.src = 'src/icons/Like_filled.png';
     this.fphoto_block_notif.appendChild(this.ftype_notif);
 
     this.fnotif_label = document.createElement('label');
@@ -57,7 +57,7 @@ function block_notification_echo() {
 
     this.ftype_notif = document.createElement('img');
     this.ftype_notif.className = 'ftype_notif';
-    this.ftype_notif.src = '../src/icons/echo_rempli.png';
+    this.ftype_notif.src = 'src/icons/Echo_filled.png';
     this.fphoto_block_notif.appendChild(this.ftype_notif);
 
     this.fnotif_label = document.createElement('label');
@@ -104,7 +104,7 @@ function block_notification_comment() {
 
     this.ftype_notif = document.createElement('img');
     this.ftype_notif.className = 'ftype_notif';
-    this.ftype_notif.src = '../src/icons/comment_rempli.png';
+    this.ftype_notif.src = 'src/icons/Comment_filled.png';
     this.fphoto_block_notif.appendChild(this.ftype_notif);
 
     this.fnotif_label = document.createElement('label');
@@ -138,6 +138,8 @@ function block_notification_comment() {
 
 }
 
+//fonction qui permet de faire disparaitre le point rouge de l'iconne de notifications
+//quand toute les notifications on été consulté
 function check_seen() {
     var incrementation = 0;
     for (var i = 0; i < all_notifications_block.length; i++) {
@@ -152,17 +154,17 @@ function check_seen() {
 
 }
 
+//fonction qui permet de set la variable seen qui indique si une notif a été consulté ou pas
 function set_seen(object) {
 
     for (var i = 0; i < all_notifications_block.length; i++) {
         if (all_notifications_block[i] == object) {
             all_notifications_block[i].seen = true;
         }
-
-
     }
 }
 
+//fonction qui permet de creer les blocs de notifs
 function push_notif_block(notification_type) {
 
     switch (notification_type) {

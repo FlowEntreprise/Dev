@@ -25,7 +25,7 @@ class EventListener {
         console.log(data);
         window.localStorage.setItem("user_token", data.TokenId);
         window.localStorage.setItem("user_profile_pic", data.Image);
-        ConnectUser(data);
+        ConnectUser();
     }
 
     Error(err) {
@@ -43,6 +43,6 @@ class EventListener {
         console.log(data);
         window.localStorage.setItem("user_token", data.TokenId);
         window.localStorage.setItem("user_profile_pic", data.Image);
-        ConnectUser(data);
+        ConnectUser();
     }
 }

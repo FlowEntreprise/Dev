@@ -53,9 +53,11 @@
 
 .ftype_notif {
     position: absolute;
-    width: 5vw;
+    width: 3vh;
+    height: 3vh;
     top: 5vh;
-    left: 9vw;
+    left: 4.5vh;
+    object-fit: contain;
 }
 
 .fnotif_label {
