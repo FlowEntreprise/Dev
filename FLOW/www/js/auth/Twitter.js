@@ -16,7 +16,7 @@ function GetInfos() {
             //document.getElementById('infos').innerHTML = txt;
             //Transport(socket, result, "twitter");
             Socket.client.send('Inscription','Twitter',result);
-            alert(txt);
+            //alert(txt);
         },
         function (error) {
             alert("error 2");

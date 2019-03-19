@@ -9,7 +9,6 @@ ptrContent.on('ptr:refresh', function (e) {
         console.log("refreshed !");
         $("#ptr_arrow").css("opacity", "0");
         app.pullToRefreshDone();
-        ConnectUser();
         var new_block = new block($(".list-block"), false, null, 89);
         all_blocks.push(new_block);
     }, 1000);

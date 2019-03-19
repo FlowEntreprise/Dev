@@ -10,7 +10,7 @@ class SocketManager {
 
             this.socket = io.connect(host);
 
-            this.ListenManager = new EventListener(this.socket);
+            new EventListener(this.socket);
 
             this.client = new EventEmitter(this.socket);
         }

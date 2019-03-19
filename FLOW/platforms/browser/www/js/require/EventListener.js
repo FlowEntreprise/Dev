@@ -13,28 +13,32 @@ class EventListener {
 
     AddListener(name,func){
         if(name === "AddListener") return;
-        this.socket.io.on(name,func);
+        this.socket.on(name,func);
     }
 
     ConnectionError(err){
-        console.error(err);
+        console.error('connection error');
     }
 
     Inscription(data){
-        alert(JSON.stringify(data));
-        ConnectUser();
+        console.log('Inscription');
+        console.log(data);
+        ConnectUser(data);
     }
 
     Error(err){
-        alert(JSON.stringify(data));
+        console.log('error');
+        console.log(JSON.stringify(err));
     }
 
     ErrorCustom(err){
-        alert(JSON.stringify(data));
+        console.log('custom_error');
+        console.log(JSON.stringify(err));
     }
 
     Connexion(data){
-        alert(JSON.stringify(data));
-        ConnectUser(); 
+        console.log('Connexion');
+        console.log(data);
+        ConnectUser(data); 
     }
 }

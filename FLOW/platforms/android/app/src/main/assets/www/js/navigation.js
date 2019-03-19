@@ -1,4 +1,3 @@
-var connected = false;
 var canShowNavbar = true;
 var explore_tabs_initialised = false;
 

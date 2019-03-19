@@ -12,7 +12,7 @@ function google_conn(){
         Socket.client.send('Inscription','Google',obj);
         //document.getElementById('infos').innerHTML = txt;
         //Transport(socket,obj,'google');
-        alert(txt);
+        //alert(txt);
         },
         function (msg) {
           alert('error: ' + msg);

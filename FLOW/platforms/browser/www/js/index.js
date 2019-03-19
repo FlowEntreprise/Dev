@@ -48,3 +48,5 @@ var app = new Framework7({
     material: false,
     tapHold: true, //enable tap hold events
 }); 
+
+var storage = window.localStorage;

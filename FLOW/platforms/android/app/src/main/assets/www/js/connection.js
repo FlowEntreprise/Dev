@@ -1,4 +1,7 @@
-DisconnectUser();
+//DisconnectUser();
+var connected = false;
+var user_token;
+CheckIfConnected();
 
 function ConnectUser() {
     console.log("user connected");
@@ -6,6 +9,8 @@ function ConnectUser() {
     $(".fneed_connect").css({
         "display": "none"
     });
+    $(".faccount").css({"background-image": "url('"+ window.localStorage.getItem("user_profile_pic") +"')"});
+    app.closeModal('.popup-connect');
     //$( "#fswipe_area" ).css({"pointer-events": "all"});
 }
 
@@ -25,3 +30,14 @@ $$('.fneed_connect').on('click', function () {
         current_page = "connect-popup";
     }
 });
+
+function CheckIfConnected() {
+    user_token = window.localStorage.getItem("user_token") || null;
+    console.log(window.localStorage.getItem("user_token"));
+    if (user_token != null) {
+        ConnectUser();
+    }
+    else {
+        DisconnectUser();
+    }
+}

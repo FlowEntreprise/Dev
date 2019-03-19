@@ -16,9 +16,10 @@
     width: 35px;
     height: 35px;
     background-image: url('../src/icons/Account@3x.png');
-    background-size: contain;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    border-radius: 50px;
 }
 
 .fstories_title {
