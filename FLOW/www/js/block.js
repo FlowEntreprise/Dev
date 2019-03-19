@@ -58,7 +58,7 @@ function block(parent_element, afterblock, audioURL, duration) {
 
     this.block_flow = document.createElement('div');
     this.block_flow.className = 'fflow';
-    parent_element.append(this.block_flow);
+    parent_element.prepend(this.block_flow);
 
     this.ftop_part = document.createElement('div');
     this.ftop_part.className = 'ftop_part';
