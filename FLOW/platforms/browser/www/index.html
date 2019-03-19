@@ -24,6 +24,8 @@
     <script type="text/javascript" src="Dependencies/Framework7/framework7_v171.js"></script>
     <script type="text/javascript" src="Dependencies/Siriwave/siriwave-block.js"></script>
     <script type="text/javascript" src="Dependencies/Siriwave/siriwave-record.js"></script>
+    <script type="text/javascript" src="js/auth/cordova.oauth2.js"></script>
+    <script type="text/javascript" src="js/auth/phonegap.facebook.inappbrowser.js"></script>
     <title>FLOW</title>
 </head>
 
@@ -168,11 +170,11 @@
                 <div class="content-block">
                     <p id="fpopup-connect-msg-inscription">Un compte est nécessaire pour réaliser cette action</p>
                     <div id="fcontent_logo_reseaux_sociaux">
-                        <a href=""><img src="../www/src/icons/google@3x.png" alt="logo google" class="fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/google@3x.png" alt="logo google" class="fgoogle_btn fsize_img_reseaux_sociaux"></a>
                         <a href=""><img src="../www/src/icons/instagram-round-flat-512@3x.png" alt="logo instagram"
-                                class="fsize_img_reseaux_sociaux"></a>
-                        <a href=""><img src="../www/src/icons/facebook_circle-512@3x.png" alt="logo facebook" class="fsize_img_reseaux_sociaux"></a>
-                        <a href=""><img src="../www/src/icons/twitter-512@3x.png" alt="logo twitter" class="fsize_img_reseaux_sociaux"></a>
+                                class="finsta_btn fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/facebook_circle-512@3x.png" alt="logo facebook" class="ffacebook_btn fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/twitter-512@3x.png" alt="logo twitter" class="ftwitter_btn fsize_img_reseaux_sociaux"></a>
                     </div>
                     <div id="fseparation">
                         <div id="ftrait_gauche"></div>
@@ -235,12 +237,30 @@
 
 
     <script type="text/javascript" src="cordova.js"></script>
+    
+    <script src="js/require/SocketClient.js"></script>
+    <script src="js/require/EventEmitter.js""></script>
+    <script src="js/require/EventListener.js"></script>
+    <script src="js/SocketManager.js"></script>
+    <script>
+
+        const ClientManager = new SocketManager("http://51.38.39.212:8082");
+        console.log(ClientManager);
+
+    </script>
+
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/block.js"></script>
     <script type="text/javascript" src="js/home.js"></script>
     <script type="text/javascript" src="js/connection.js"></script>
     <script type="text/javascript" src="js/navigation.js"></script>
     <script type="text/javascript" src="js/record.js"></script>
+    <script type="text/javascript" src="js/auth/Twitter.js"></script>
+    <script type="text/javascript" src="js/auth/insta.js"></script>
+    <script type="text/javascript" src="js/auth/Facebook.js"></script>
+    <script type="text/javascript" src="js/auth/google.js"></script>
+    <script type="text/javascript" src="js/auth/connexion.js"></script>
+
 
 </body>
 

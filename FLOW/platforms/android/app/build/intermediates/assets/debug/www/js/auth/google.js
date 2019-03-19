@@ -8,6 +8,8 @@ function google_conn(){
         function (obj) {
         //   alert(JSON.stringify(obj)); // do something useful instead of alerting
         var txt = obj.displayName + " --- " + obj.email + " --- " + obj.imageUrl + " --- " + obj.userId;
+
+        Socket.client.send('Inscription','Google',obj);
         //document.getElementById('infos').innerHTML = txt;
         //Transport(socket,obj,'google');
         alert(txt);

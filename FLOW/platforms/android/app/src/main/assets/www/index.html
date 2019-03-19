@@ -237,6 +237,18 @@
 
 
     <script type="text/javascript" src="cordova.js"></script>
+    
+    <script src="js/require/SocketClient.js"></script>
+    <script src="js/require/EventEmitter.js""></script>
+    <script src="js/require/EventListener.js"></script>
+    <script src="js/SocketManager.js"></script>
+    <script>
+
+        const Socket = new SocketManager("http://51.38.39.212:8082");
+        console.log(Socket.ListenManager);
+
+    </script>
+
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/block.js"></script>
     <script type="text/javascript" src="js/home.js"></script>
