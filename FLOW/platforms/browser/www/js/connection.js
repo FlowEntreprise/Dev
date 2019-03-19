@@ -1,7 +1,7 @@
-//DisconnectUser();
 var connected = false;
 var user_token;
 CheckIfConnected();
+
 
 function ConnectUser(data) {
     console.log("user connected");

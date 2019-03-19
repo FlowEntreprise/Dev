@@ -1,0 +1,116 @@
+.fblock_notification {
+    position: relative;
+    width: 90vw;
+    margin-left: 5vw;
+    height: 10vh;
+    margin-top: 2vw;
+    background-color: #fff;
+    border-radius: 2vw;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+}
+
+.fphoto_block_notif_like {
+    position: absolute;
+    width: 7vh;
+    height: 7vh;
+    top: 1.5vh;
+    left: 2vw;
+    border-radius: 7vh;
+    border: 1.5px solid rgb(255, 0, 84);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-image: url(../src/pictures/notif1.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.fphoto_block_notif_echo {
+    position: absolute;
+    width: 7vh;
+    height: 7vh;
+    top: 1.5vh;
+    left: 2vw;
+    border-radius: 7vh;
+    border: 1.5px solid rgb(152,57,198);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-image: url(../src/pictures/notif2.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.fphoto_block_notif_comment {
+    position: absolute;
+    width: 7vh;
+    height: 7vh;
+    top: 1.5vh;
+    left: 2vw;
+    border-radius: 7vh;
+    border: 1.5px solid rgb(26,132,239); 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-image: url(../src/pictures/notif3.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.ftype_notif {
+    position: absolute;
+    width: 5vw;
+    top: 5vh;
+    left: 9vw;
+}
+
+.fnotif_label {
+    position: absolute;
+    top: 2vh;
+    left: 20vw;
+    font-size: 4.5vw;
+    color: #92ABB2;
+    font-weight: bold;
+    font-family: Roboto;
+
+}
+
+.fnotif_text {
+    font-family: Roboto;
+    position: absolute;
+    top: 6vh;
+    left: 20vw;
+    color: #92ABB2;
+    font-size: 3.5vw;
+}
+
+.fred_dot {
+    position: absolute;
+    z-index: 1;
+    top: 1vw;
+    left: 1vw;
+    width: 3vw;
+    height: 3vw;
+    border-radius: 3vw;
+    background-color: #FF5D5D;
+}
+
+.fred_dot_border {
+    position: absolute;
+    top: 3.5vh;
+    right: 4vw;
+    width: 5vw;
+    height: 5vw;
+    border-radius: 5vw;
+    background-color: rgba(255, 91, 91, 0.199);
+}
+
+.ftime
+{
+    position: absolute;
+    top: 7vh;
+    right: 3.5vw;
+    color: #92ABB2;
+    font-size: 3vw;
+    font-family: Roboto;
+    
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url('../src/fonts/Roboto-Light.ttf');
+}

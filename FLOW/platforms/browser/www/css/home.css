@@ -145,3 +145,17 @@
 #ptr_arrow {
     opacity: 0;
 }
+
+.fred_dot_toolbar_new_notif
+{
+    position: absolute;
+    z-index: 1;
+    top: 3vw;
+    left: 93vw;
+    width: 3vw;
+    height: 3vw;
+    border-radius: 3vw;
+    background-color: #FF0054;
+    border : 1px solid red;
+    display: none;
+}

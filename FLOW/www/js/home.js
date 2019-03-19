@@ -1,5 +1,4 @@
 var ptrContent = $$('.pull-to-refresh-content');
-
 // Add 'refresh' listener on it
 ptrContent.on('ptr:refresh', function (e) {
     // Emulate 2s loading
