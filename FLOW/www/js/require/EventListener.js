@@ -17,7 +17,7 @@ class EventListener {
     }
 
     ConnectionError(err){
-        console.error('xd');
+        console.error('connection error');
     }
 
     Inscription(data){
@@ -27,12 +27,12 @@ class EventListener {
     }
 
     Error(err){
-        console.log('in');
+        console.log('error');
         alert(JSON.stringify(err));
     }
 
     ErrorCustom(err){
-        console.log('in');
+        console.log('custom_error');
         alert(JSON.stringify(err));
     }
 

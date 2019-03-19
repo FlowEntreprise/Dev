@@ -40,12 +40,12 @@ class EventEmitter{
     }
     
     Google(data){
-        const regex = /([a-zA-Z0-9]+\s+[a-zA-Z0-9]+) (\(+[a-zA-Z0-9]+\))/gm;
-        const parenthesis = /[\(\)]/gm
-        const res = regex.exec(data.displayName)
+        const regex = /([a-zA-Z0-9]+\s+[a-zA-Z0-9]+) (\(+[a-zA-Z0-9]+\))/gm ;
+        const parenthesis = /[\(\)]/gm ;
+        const res = regex.exec(data.displayName);
         let Username,Fullname;
 
-        if(res.length == 3){ Username = res[2];Fullname = res[1]; }
+        if(res != null && res.length == 3){ Username = res[2];Fullname = res[1]; }
         else{ Username = data.displayName;Fullname = data.displayName; }
 
         Username = Username.replace(parenthesis,'');
@@ -63,9 +63,9 @@ class EventEmitter{
     Twitter(data){
         const DataSend = {
             Username : data.name,
-            Link : data.picture.profile_image_url,
+            Link : data.profile_image_url,
             Biographie : data.description,
-            Token : data.id
+            Token : String(data.id)
         };
         return {Data : DataSend,Action : "Twitter"};
         
@@ -75,7 +75,7 @@ class EventEmitter{
         const DataSend = {
             Username : data.full_name,
             Fullname : data.full_name,
-            Link : data.picture.profil_picture,
+            Link : data.profile_picture,
             Biographie : data.bio,
             Token : data.id
         };

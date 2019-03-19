@@ -133,7 +133,7 @@ document.addEventListener("backbutton", onBackKeyDown, false);
 var current_page = "home";
 
 function onBackKeyDown() {
-    alert(current_page);
+    //alert(current_page);
     // Handle the back button
     if (current_page == "record") {
         app.closeModal('.popup-record');
