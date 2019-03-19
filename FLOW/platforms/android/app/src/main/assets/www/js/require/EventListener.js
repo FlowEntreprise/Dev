@@ -9,6 +9,7 @@ class EventListener {
         this.AddListener("connect_error", this.ConnectionError);
         this.AddListener("Error-Custom", this.ErrorCustom);
         this.AddListener("Error", this.Error);
+        this.AddListener("Flow-Added", this.FlowAdded);
     }
 
     AddListener(name, func) {
@@ -44,5 +45,13 @@ class EventListener {
         window.localStorage.setItem("user_token", data.TokenId);
         window.localStorage.setItem("user_profile_pic", data.Image);
         ConnectUser();
+    }
+
+    FlowAdded(data) {
+        console.log('Flow added');
+        console.log(data);
+        // window.localStorage.setItem("user_token", data.TokenId);
+        // window.localStorage.setItem("user_profile_pic", data.Image);
+        // ConnectUser();
     }
 }

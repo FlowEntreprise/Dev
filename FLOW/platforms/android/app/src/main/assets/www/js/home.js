@@ -23,3 +23,9 @@ ptrContent.on('ptr:pullend', function (e) {
     console.log("pull end");
     $("#ptr_arrow").css("opacity", "0");
 });
+
+/******************************* TO DELETE **************************/
+
+Socket.client.send("Flow", "GetFlowById", "5c9123d5e7eb79095bd6798e");
+
+/********************************************************************/

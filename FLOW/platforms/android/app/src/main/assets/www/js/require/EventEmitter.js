@@ -81,6 +81,30 @@ class EventEmitter{
         };
         return {Data : DataSend,Action : "Instagram"};
     }
+
+    AddFlow(data) {
+        console.log(data);
+        /* const DataSend = {
+            PrivatedId : data.PrivatedId,
+            Title : data.Title,
+            Image : data.Image,
+            Description : data.Description,
+            Tags : data.Tags,
+            Sound : data.Sound
+        }
+
+        console.log(DataSend); */
+
+        return {Data : data, Action : "Insert"};
+    }
+
+    GetFlowById(id) {
+        const DataSend = {
+            IdFlow : id
+        }
+
+        return {Data : DataSend, Action : "GetSingle"};
+    }
     
     
 }

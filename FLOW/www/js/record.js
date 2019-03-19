@@ -10,6 +10,9 @@ var new_block;
 var pictureSource;
 var destinationType;
 
+var image64;
+var blob;
+
 let options = {
     quality: 75,
     widthRatio: 1,
@@ -82,12 +85,29 @@ $$('.fcancel-after_btn').on('touchend', function () {
     current_page = "home";
 });
 
+
+$$('.fvalidate-after_btn').on('touchend', function () {
+    app.closeModal('.popup-after-record');
+    current_page = "home";
+    var data = {
+        PrivatedId: "a",
+        Title: $(".finput_title").val(),
+        Image: image64,
+        Description: $(".finput_description").val(),
+        Tags: [],
+        Sound: blob
+    }
+    console.log(data);
+    Socket.client.send("Flow", "AddFlow", data);
+});
+
 $$('.fcamera-after').on('click', function () {
     TakePhoto();
 });
 $$('.fgallery-after').on('click', function () {
     GetPhotoFromGallery();
 });
+
 function StartRecording() {
     if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
         //------------------ PERMISSIONS -------------------------------//
@@ -260,7 +280,7 @@ function Save(mediaRecorder) {
     // } else {
     //     recordLabel.textContent = recordName;
     // }
-    var blob = new Blob(chunks, {
+    blob = new Blob(chunks, {
         'type': 'audio/opus; codecs=opus'
     });
     // recordLabel.textContent += " Size : " + precisionRound(blob.size / 1024, 2) + "Ko | rec with " + mediaRecorder.audioBitsPerSecond + " Kbps";
@@ -466,6 +486,7 @@ function onPhotoDataSuccess(imageData) {
         console.log(data);
         //$scope.croppedImage = data;
         new_block.ftop_part.style.backgroundImage = "url('" + data.imgPath + "')";
+        image64 = data.imgPath;
     }, function (error) {
         console.log(error);
     })
@@ -487,7 +508,7 @@ function getPhoto() {
         quality: 75,
         allowEdit: false,
         destinationType: destinationType.FILE_URI,
-        sourceType : pictureSource.SAVEDPHOTOALBUM,
+        sourceType: pictureSource.SAVEDPHOTOALBUM,
     });
 }
 
