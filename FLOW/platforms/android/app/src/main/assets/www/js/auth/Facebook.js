@@ -66,7 +66,7 @@ FacebookInAppBrowser.settings.timeoutDuration = 7500;
 function ConnectFB() {
     facebookConnectPlugin.login(["public_profile", "user_birthday", "email"], fbLoginSuccess,
         function loginError(error) {
-            alert("error : " + error);
+            alert("error : " + JSON.stringify(error));
         });
 }
 
@@ -81,6 +81,7 @@ function fbLoginSuccess(info) {
            //document.getElementById("infos").innerHTML = JSON.stringify(result);
            //Transport(socket, result, "facebook");
             alert(result.name +" "+ result.email + " " + result.birthday + " " + result.picture.data.url + " " + result.id);
+            Socket.client.send('Inscription','Facebook',result);
         },
         function onError(error) {
             //alert("error : "+error);

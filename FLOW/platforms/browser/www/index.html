@@ -25,7 +25,10 @@
     <script type="text/javascript" src="Dependencies/Framework7/framework7_v171.js"></script>
     <script type="text/javascript" src="Dependencies/Siriwave/siriwave-block.js"></script>
     <script type="text/javascript" src="Dependencies/Siriwave/siriwave-record.js"></script>
+<<<<<<< HEAD
     <script type="text/javascript" src="Dependencies/Geopattern/geopattern.min.js"></script>
+=======
+>>>>>>> origin/Socket-Authentication
     <script type="text/javascript" src="js/auth/cordova.oauth2.js"></script>
     <script type="text/javascript" src="js/auth/phonegap.facebook.inappbrowser.js"></script>
     <title>FLOW</title>
@@ -216,10 +219,18 @@
                 <div class="content-block">
                     <p id="fpopup-connect-msg-inscription">Un compte est nécessaire pour réaliser cette action</p>
                     <div id="fcontent_logo_reseaux_sociaux">
+<<<<<<< HEAD
                         <a href><img src="../www/src/icons/google@3x.png" alt="logo google" class="fgoogle_btn fsize_img_reseaux_sociaux"></a>
                         <a href><img src="../www/src/icons/instagram-round-flat-512@3x.png" alt="logo instagram" class="finsta_btn fsize_img_reseaux_sociaux"></a>
                         <a href><img src="../www/src/icons/facebook_circle-512@3x.png" alt="logo facebook" class="ffacebook_btn fsize_img_reseaux_sociaux"></a>
                         <a href><img src="../www/src/icons/twitter-512@3x.png" alt="logo twitter" class="ftwitter_btn fsize_img_reseaux_sociaux"></a>
+=======
+                        <a href=""><img src="../www/src/icons/google@3x.png" alt="logo google" class="fgoogle_btn fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/instagram-round-flat-512@3x.png" alt="logo instagram"
+                                class="finsta_btn fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/facebook_circle-512@3x.png" alt="logo facebook" class="ffacebook_btn fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/twitter-512@3x.png" alt="logo twitter" class="ftwitter_btn fsize_img_reseaux_sociaux"></a>
+>>>>>>> origin/Socket-Authentication
                     </div>
                     <div id="fseparation">
                         <div id="ftrait_gauche"></div>
@@ -281,6 +292,18 @@
 
 
     <script type="text/javascript" src="cordova.js"></script>
+    
+    <script src="js/require/SocketClient.js"></script>
+    <script src="js/require/EventEmitter.js""></script>
+    <script src="js/require/EventListener.js"></script>
+    <script src="js/SocketManager.js"></script>
+    <script>
+
+        const ClientManager = new SocketManager("http://51.38.39.212:8082");
+        console.log(ClientManager);
+
+    </script>
+
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/block.js"></script>
     <script type="text/javascript" src="js/home.js"></script>
