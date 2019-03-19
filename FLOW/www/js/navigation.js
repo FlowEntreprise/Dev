@@ -7,6 +7,7 @@ $("#tab3").load("pages/messages.html");
 $("#tab4").load("pages/notifications.html");
 
 $$('#tab1').on('tab:show', function () {
+    $(".navbar").css({"display": "block"});
     app.showNavbar($('.navbar'));
     canShowNavbar = true;
 
@@ -19,6 +20,7 @@ $$('#tab1').on('tab:show', function () {
 });
 
 $$('#tab2').on('tab:show', function () {
+    $(".navbar").css({"display": "block"});
     app.showNavbar($('.navbar'));
     canShowNavbar = true;
 
@@ -89,6 +91,7 @@ $$('#tab2').on('tab:show', function () {
 });
 
 $$('#tab3').on('tab:show', function () {
+    $(".navbar").css({"display": "none"});
     app.hideNavbar($('.navbar'));
     canShowNavbar = false;
 
@@ -102,6 +105,7 @@ $$('#tab3').on('tab:show', function () {
 });
 
 $$('#tab4').on('tab:show', function () {
+    $(".navbar").css({"display": "none"});
     app.hideNavbar($('.navbar'));
     canShowNavbar = false;
 
