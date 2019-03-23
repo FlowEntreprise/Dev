@@ -8,7 +8,7 @@ var Following = 250;
 app.onPageInit('login-screen', function (page) {
     $(".fflow-btn").css("display", "none");
     $("#fprofilPicture").css({"background-image":"url('src/pictures/girl1.jpg')"});
-    $("#fMonCompteSpace").append(nameMonCompte);
+    $("#fnameMonCompte").html(nameMonCompte);
     $("#ffLowBandeauChiffre").append(FlowBandeau);
     $("#ffollowersBandeauChiffre").append(Follower);
     $("#ffollowingBandeauChiffre").append(Following);
@@ -33,4 +33,3 @@ app.onPageInit('login-screen', function (page) {
     //     $("#funderlineLike").css("display", "none");
     // });
 }); 
-
