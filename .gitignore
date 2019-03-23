@@ -1,2 +1,4 @@
-
+FLOW/platforms/android/app/build/
+FLOW/platforms/android/app/.gradle/
+FLOW/platforms/browser/
 
