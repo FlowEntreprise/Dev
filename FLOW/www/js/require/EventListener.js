@@ -10,6 +10,7 @@ class EventListener {
         this.AddListener("Error-Custom", this.ErrorCustom);
         this.AddListener("Error", this.Error);
         this.AddListener("Flow-Added", this.FlowAdded);
+        this.AddListener("Flow-Get", this.FlowGet);
     }
 
     AddListener(name, func) {
@@ -24,8 +25,7 @@ class EventListener {
     Inscription(data) {
         console.log('Inscription');
         console.log(data);
-        window.localStorage.setItem("user_token", data.TokenId);
-        window.localStorage.setItem("user_profile_pic", data.Image);
+        storeVariables(data);
         ConnectUser();
     }
 
@@ -42,8 +42,7 @@ class EventListener {
     Connexion(data) {
         console.log('Connexion');
         console.log(data);
-        window.localStorage.setItem("user_token", data.TokenId);
-        window.localStorage.setItem("user_profile_pic", data.Image);
+        storeVariables(data);
         ConnectUser();
     }
 
@@ -53,5 +52,10 @@ class EventListener {
         // window.localStorage.setItem("user_token", data.TokenId);
         // window.localStorage.setItem("user_profile_pic", data.Image);
         // ConnectUser();
+    }
+
+    FlowGet(data) {
+        console.log("Get Flow");
+        console.log(data);
     }
 }

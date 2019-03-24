@@ -63,10 +63,12 @@ class EventEmitter{
     Twitter(data){
         const DataSend = {
             Username : data.name,
+            Fullname : data.name,
             Link : data.profile_image_url,
             Biographie : data.description,
             Token : String(data.id)
         };
+        console.log(DataSend);
         return {Data : DataSend,Action : "Twitter"};
         
     }

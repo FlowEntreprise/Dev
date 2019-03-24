@@ -41,3 +41,11 @@ function CheckIfConnected() {
         DisconnectUser();
     }
 }
+
+function storeVariables(data) {
+    window.localStorage.setItem("user_name", data.Fullname);
+    window.localStorage.setItem("user_bio", data.Biographie);
+    window.localStorage.setItem("user_private_id", data.PrivateId);
+    window.localStorage.setItem("user_token", data.TokenId);
+    window.localStorage.setItem("user_profile_pic", data.Image);
+}

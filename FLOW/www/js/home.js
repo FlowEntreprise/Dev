@@ -26,7 +26,7 @@ ptrContent.on('ptr:pullend', function (e) {
 
 /******************************* TO DELETE **************************/
 
-Socket.client.send("Flow", "GetFlowById", "5c9123d5e7eb79095bd6798e");
+Socket.client.send("Flow", "GetFlowById", "5c913550c092f60af566fd4a");
 
 /* 
 **************** RECUPERER FLOW AUDIO FROM BASE64 *********************

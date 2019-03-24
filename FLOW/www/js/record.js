@@ -11,6 +11,7 @@ var pictureSource;
 var destinationType;
 
 var image64;
+var patternKey;
 var blob;
 
 let options = {
@@ -92,13 +93,16 @@ $$('.fvalidate-after_btn').on('touchend', function () {
     var data = {
         PrivatedId: "a",
         Title: $(".finput_title").val(),
-        Image: image64,
+        Image: image64 ? image64 : patternKey,
         Description: $(".finput_description").val(),
         Tags: [],
-        Sound: blob
+        Sound: blob,
+        Duration: record_time
     }
     console.log(data);
     Socket.client.send("Flow", "AddFlow", data);
+    image64 = null;
+    patternKey = null;
 });
 
 $$('.fcamera-after').on('click', function () {
@@ -322,6 +326,7 @@ function Save(mediaRecorder) {
     }
     $(".after-record-block-container").html("");
     new_block = new block($(".after-record-block-container"), true, audioURL, record_time);
+    patternKey = new_block.patternKey;
     setTimeout(() => {
         new_block.finput_title.focus();
     }, 500);
@@ -486,7 +491,9 @@ function onPhotoDataSuccess(imageData) {
         console.log(data);
         //$scope.croppedImage = data;
         new_block.ftop_part.style.backgroundImage = "url('" + data.imgPath + "')";
-        image64 = data.imgPath;
+        toDataUrl(data.imgPath, function(b64) {
+            image64 = b64;
+        });
     }, function (error) {
         console.log(error);
     })
@@ -514,4 +521,18 @@ function getPhoto() {
 
 function onFail(message) {
     alert('Failed because: ' + message);
+}
+
+function toDataUrl(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            callback(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
 }

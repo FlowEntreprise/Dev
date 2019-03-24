@@ -11,12 +11,14 @@
 //     this.placeholder = 'Tap to edit description';
 // }
 
-function block(parent_element, afterblock, audioURL, duration) {
+function block(parent_element, afterblock, audioURL, duration, patternKey, imageURL) {
 
     var block = this;
     this.isPlaying = false;
     this.seeking = false;
     this.wasPlaying = false;
+    this.patternKey;
+    this.duration = duration;
 
     this.flowplay = function () {
         block.fplay_button.style.display = "none";
@@ -63,8 +65,18 @@ function block(parent_element, afterblock, audioURL, duration) {
     this.ftop_part = document.createElement('div');
     this.ftop_part.className = 'ftop_part';
     /*--------------------------*/
-    var pattern = GeoPattern.generate(Date.now().toString());
-    this.ftop_part.style.backgroundImage = pattern.toDataUrl();
+    if (patternKey != undefined) {
+        this.patternKey = patternKey;
+        this.ftop_part.style.backgroundImage = pattern = GeoPattern.generate(this.patternKey).toDataUrl();
+    }
+    else if (imageURL != undefined) {
+        this.ftop_part.style.backgroundImage = "url('"+imageURL+"')";
+    }
+    // Erreur, on génère un pattern random
+    else {
+        this.patternKey = Date.now().toString();
+        this.ftop_part.style.backgroundImage = pattern = GeoPattern.generate(this.patternKey).toDataUrl();
+    }
     /*---------------------------*/
     this.block_flow.appendChild(this.ftop_part);
 
@@ -249,7 +261,7 @@ function block(parent_element, afterblock, audioURL, duration) {
     window.addEventListener('resize', resize);
     resize();
 
-    this.myaudio = new Audio("src/sound/son.mp3");
+    this.myaudio = new Audio("src/sound/son.opus");
     if (audioURL) {
         this.myaudio = new Audio(audioURL);
     }
@@ -356,7 +368,7 @@ function block(parent_element, afterblock, audioURL, duration) {
 
     $(this.fimg_impression_comment).on('click', function () {
 
-        impression_coloring(this,'comment');
+        impression_coloring(this, 'comment');
     });
 
 
