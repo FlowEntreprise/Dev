@@ -1,5 +1,5 @@
 FLOW/platforms/android/app/build/
-FLOW/platforms/android/app/src/
+FLOW/platforms/android/app/src/assets/www
 FLOW/platforms/android/app/.gradle/
 FLOW/platforms/android/.gradle/
 FLOW/platforms/browser/www/
