@@ -7,19 +7,13 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
-    "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-browsersync": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova.plugins.diagnostic": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-android-permissions": {
+    "cordova-plugin-camera": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-facebook4": {
@@ -36,15 +30,21 @@
     "cordova-plugin-inappbrowser": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "twitter-connect-plugin": {
-      "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038",
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-camera": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
     "cordova-plugin-k-imagecropper": {
       "ANDROID_SUPPORT_APPCOMPAT_VERSION": "27.+",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova.plugins.diagnostic": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "twitter-connect-plugin": {
+      "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038",
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
