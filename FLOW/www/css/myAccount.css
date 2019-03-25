@@ -119,8 +119,8 @@
     color: #92ABB2;
     font-size: 15px;
     position: absolute;
-    top: 18vh;
-    left: 35vw;
+    top: 21vh;
+    left: 36vw;
 }
 
 #feditProfil
@@ -134,7 +134,7 @@
     padding: 2.5px;
     position: absolute;
     top: 25vh;
-    left: 35vw;
+    left: 45vw;
 }
 
 .fnavMonCompte
@@ -168,4 +168,15 @@
     position: absolute;
     top: 32vh;
     left: 0vw;
+}
+
+#privateID
+{
+    color: #1A84EF;
+    position: absolute;
+    font-size: 18px;
+    left: 36vw;
+    top: 17vh;
+    font-family:Roboto-Regular;
+    opacity: 0.5;
 }
