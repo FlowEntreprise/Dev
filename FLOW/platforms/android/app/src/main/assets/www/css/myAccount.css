@@ -140,12 +140,22 @@
 .fnavMonCompte
 {
     position: absolute;
-    top: 22vh !important;
+    top: 22vh;
     left: 7vw !important;
     font-size: 19px !important;
     background-color: transparent !important;
     box-shadow: none !important;
     width: 85vw !important;
+}
+
+.fnavMonCompteTransitionTop
+{
+    transition-duration: 0.4s !important;
+}
+
+.fnavMonCompteTransitionDown
+{
+    transition-duration: 0.2s !important;
 }
 
 .MonCompte
@@ -168,6 +178,7 @@
     position: absolute;
     top: 32vh;
     left: 0vw;
+    transition-duration: 0.4s;
 }
 
 #privateID
@@ -179,4 +190,21 @@
     top: 17vh;
     font-family:Roboto-Regular;
     opacity: 0.5;
+}
+
+.fblockMonCompte
+{
+    margin-top: 0vh !important;
+    padding-left: 0vw !important;
+    padding-right: 0vw !important;
+}
+
+.fblockMonComptePadding
+{
+    padding-top: 1.5vh !important;
+}
+
+#accountBannerScroll
+{
+    transition-duration: 0.4s;
 }
