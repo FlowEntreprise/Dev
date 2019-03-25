@@ -20,6 +20,8 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
     this.patternKey;
     this.duration = duration;
 
+    console.log("audio url : "+audioURL);
+
     this.flowplay = function () {
         block.fplay_button.style.display = "none";
         block.fpause_button.style.display = "block";
@@ -263,8 +265,10 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
 
     this.myaudio = new Audio("src/sound/son.opus");
     if (audioURL) {
+        console.log("custom audio url : " + audioURL);
         this.myaudio = new Audio(audioURL);
     }
+    console.log(this.myaudio);
 
     this.isPlaying = false;
     this.myaudio.ontimeupdate = function () {

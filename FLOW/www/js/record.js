@@ -26,7 +26,7 @@ $$('.popup-record').on('popup:open', function () {
     $$('#flow_number_of_sec').text("00");
     pictureSource = navigator.camera.PictureSourceType;
     destinationType = navigator.camera.DestinationType;
-    current_page = "record"
+    current_page = "record";
 });
 $$('.fflow-btn').on('taphold', function () {
     console.log("Hold Record !");
@@ -327,6 +327,16 @@ function Save(mediaRecorder) {
     $(".after-record-block-container").html("");
     new_block = new block($(".after-record-block-container"), true, audioURL, record_time);
     patternKey = new_block.patternKey;
+    appState.patternKey = patternKey;
+    appState.recordTime = record_time;
+    appState.blob = blob;
+    var reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onloadend = function () {
+        appState.blob64 = reader.result.replace("data:audio/opus; codecs=opus;base64,", "");
+        console.log(base64data);
+    }
+
     setTimeout(() => {
         new_block.finput_title.focus();
     }, 500);
@@ -485,22 +495,29 @@ function onPhotoDataSuccess(imageData) {
         ratio: "6/4", // required. (here you can define your custom ration) "1/1" for square images
         title: "Crop image", // optional. android only. (here you can put title of image cropper activity) default: Image Cropper
         autoZoomEnabled: true // optional. android only. for iOS its always true (if it is true then cropper will automatically adjust the view) default: true
-    }
+    };
+
+    appState.takingPicture = false;
+    appState.imageUri = imageData;
+
     window.plugins.k.imagecropper.open(options, function (data) {
         // its return an object with the cropped image cached url, cropped width & height, you need to manually delete the image from the application cache.
         console.log(data);
         //$scope.croppedImage = data;
         new_block.ftop_part.style.backgroundImage = "url('" + data.imgPath + "')";
-        toDataUrl(data.imgPath, function(b64) {
+        toDataUrl(data.imgPath, function (b64) {
             image64 = b64;
         });
     }, function (error) {
         console.log(error);
-    })
+    });
     //new_block.ftop_part.style.backgroundImage = "url('data:image/jpeg;base64," + imageData + "')";
 }
 
 function capturePhoto() {
+
+    appState.takingPicture = true;
+
     // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
     navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
         quality: 75,
@@ -520,14 +537,15 @@ function getPhoto() {
 }
 
 function onFail(message) {
+    appState.takingPicture = false;
     alert('Failed because: ' + message);
 }
 
 function toDataUrl(url, callback) {
     var xhr = new XMLHttpRequest();
-    xhr.onload = function() {
+    xhr.onload = function () {
         var reader = new FileReader();
-        reader.onloadend = function() {
+        reader.onloadend = function () {
             callback(reader.result);
         }
         reader.readAsDataURL(xhr.response);
