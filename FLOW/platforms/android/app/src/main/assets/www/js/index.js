@@ -5,7 +5,9 @@ var appState = {
     blob: null,
     blob64: "",
     patternKey: "",
-    recordTime: 0
+    recordTime: 0,
+    flow_title: "",
+    flow_description: ""
 };
 
 var app = {
@@ -47,16 +49,19 @@ var app = {
             console.log(appState.blob64);
             var myblob = b64toBlob(appState.blob64, "audio/opus");
             var myblobUrl = URL.createObjectURL(myblob);
-            //console.log(appState.blob);
+            //console.log(appState.blob); 
             //var binaryData = [];
             //binaryData.push(appState.blob);
             //var myaudioURL = window.URL.createObjectURL(new Blob(binaryData, {'type': 'audio/opus; codecs=opus'}))
             console.log("generated audio url : " + myblobUrl);
-            new_block = new block($(".after-record-block-container"), true, myblobUrl, appState.recordTime);
+            new_block = new block($(".after-record-block-container"), true, myblobUrl, appState.recordTime, appState.patternKey, null, "", "", window.localStorage.getItem("user_name"), window.localStorage.getItem("user_profile_pic"));
             patternKey = new_block.patternKey;
-            setTimeout(() => {
-                new_block.finput_title.focus();
-            }, 500);
+            // setTimeout(() => {
+            //     new_block.finput_title.focus();
+            // }, 500);
+            $(".finput_title").val(appState.flow_title);
+            $(".finput_description").val(appState.flow_description);
+
             ///////////////
 
             onPhotoDataSuccess(appState.imageUri);

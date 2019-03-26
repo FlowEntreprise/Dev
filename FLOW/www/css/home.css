@@ -139,7 +139,8 @@
     height: 7vh;
     width: 15vw;
     bottom: 0;
-    /* background-color: rgba(255, 0, 0, 0.5); */
+    z-index: 5000;
+    /* background-color: rgba(255, 0, 0, .05); */
 }
 
 #ptr_arrow {

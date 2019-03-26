@@ -331,6 +331,8 @@ function Save(mediaRecorder) {
     appState.patternKey = patternKey;
     appState.recordTime = record_time;
     appState.blob = blob;
+    appState.flow_title = $(".finput_title").val();
+    appState.flow_description = $(".finput_description").val();
     var reader = new FileReader();
     reader.readAsDataURL(blob);
     reader.onloadend = function () {
