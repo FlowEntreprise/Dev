@@ -13,9 +13,14 @@ app.onPageInit('login-screen', function (page) {
         all_blocks.push(new_block);
     }
 
+    for (var y = 0; y < 10; y++) {
+        var new_block = new block($("#MyLikes"), false, null, 89);
+        all_blocks.push(new_block);
+        console.log(new_block);
+    }
+
     console.log("init");
-    //nameMonCompte = window.localStorage.getItem("user_name");
-    nameMonCompte = "Alexis";
+    nameMonCompte = window.localStorage.getItem("user_name");
     bioMonCompte = window.localStorage.getItem("user_bio") || "";
     if (bioMonCompte.length < 1) {
         bioMonCompte = "Hey, I'm using Flow";
@@ -37,20 +42,49 @@ app.onPageInit('login-screen', function (page) {
     });
 
     var position = $(".scrollMyAccunt").scrollTop();
+
+    // $$('#tabMonCompte2').on('tab:show', function () 
+    // {
+    //     position = $(".scrollMyAccunt").scrollTop();
+    //     scroll = $(".scrollMyAccunt").scrollTop();
+    // });
+    var scroll_element = $("#tabMonCompte1");
+    checkScroll();
+    $$('#tabMonCompte1').on('tab:show', function () {
+        position = $(".scrollMyAccunt").scrollTop();
+        scroll_element = $("#tabMonCompte1");
+        checkScroll();
+    });
+
+    $$('#tabMonCompte2').on('tab:show', function () {
+        position = $(".scrollMyAccunt").scrollTop();
+        scroll_element = $("#tabMonCompte2");
+        checkScroll();
+    });
+
+    $$('#tabMonCompte3').on('tab:show', function () {
+        position = $(".scrollMyAccunt").scrollTop();
+        scroll_element = $("#tabMonCompte3");
+        checkScroll();
+    });
+
     var boolScrollTop = true;
+
     $(".scrollMyAccunt").scroll(function () {
-        var scroll = $(".scrollMyAccunt").scrollTop();
-        if (scroll > position) {
-            if (event.cancelable) {
-                event.preventDefault();
-                console.log(test);
-                // swiping = true;
-            } else {
+        checkScroll();
+    });
+
+    function checkScroll() {
+        var scroll = scroll_element.scrollTop();
+        console.log(scroll);
+        if (scroll > position && scroll >= 100) {
+            // if (event.cancelable) {
+            //     event.preventDefault();
+            // } else {
                 event.preventDefault();
                 event.stopPropagation();
                 $("scrollEvent").remove(".swiper-wrapper");
                 $("#accountBannerScroll").css("transform", "translate3d(0vw, -30vh, 0vh)");
-                // $(".fnavMonCompte").css("top", "-6vh");
                 if (boolScrollTop) {
                     $(".fnavMonCompte").removeClass("fnavMonCompteTransitionDown");
                     $(".fnavMonCompte").addClass("fnavMonCompteTransitionTop");
@@ -63,13 +97,12 @@ app.onPageInit('login-screen', function (page) {
                 $("#MyActivity").removeClass("fblockMonComptePadding");
                 $("scrollEvent").addClass(".swiper-wrapper");
                 // $("#AccountTabSize.style").attr("top", "5vh");
-            }
+            // }
         } else {
-            if (event.cancelable) {
-                event.preventDefault();
-                console.log(test);
-                // swiping = true;
-            } else {
+            // if (event.cancelable) {
+            //     event.preventDefault();
+            //     // swiping = true;
+            // } else {
                 if (scroll < 100) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -81,37 +114,37 @@ app.onPageInit('login-screen', function (page) {
                         $(".fnavMonCompte").removeClass("fnavMonCompteTransitionTop");
                         $(".fnavMonCompte").addClass("fnavMonCompteTransitionDown");
                         $(".ftabsMonCompte").css("transition-duration", "0.2s");
-                        $(".scrollMyAccunt").scrollTop("10");
+                        //$(".scrollMyAccunt").scrollTop("10");
                         var scrollTest = $(".scrollMyAccunt").scrollTop();
                         console.log(scrollTest);
                         $(".fnavMonCompte").css("transform", "translate3d(0vw, 7vh, 0vh)");
                         $(".ftabsMonCompte").css("transform", "translate3d(0vw, 2vh, 0vh)");
                         boolScrollTop = true;
                         $("#MyActivity").addClass("fblockMonComptePadding");
-                        $("scrollEvent").addClass(".swiper-wrapper");
+                        // $("scrollEvent").addClass("swiper-wrapper");
                     }
                     // $(".ftabsMonCompte").css("top", "8vh");
-                   
+
                     // $("#AccountTabSize.style").attr("top", "5vh");
                 }
 
-            }
+                // }
         }
         position = scroll;
+    }
+
+    $('#fprofilPicture').click(function () {
+        $("#fbigProfilPictureContainer").css("transform", "scale(1)");
     });
 
+    $("#fbigProfilPicture").css("background-image", "url(src/pictures/girl1.jpg)");
+    var profilePicture = document.createElement('img');
+    profilePicture.setAttribute('src', 'src/pictures/girl1.jpg');
 
-    // $("#fLikes").click(function(){
-    //     $("#fLikes").css("color", "#1A84EF");
-    //     $("#fMyActivity").css("color", "#92ABB2");
-    //     $("#funderlineMyActivity").css("display", "none");
-    //     $("#funderlineLike").css("display", "block");
-    // });
-
-    // $("#fMyActivity").click(function(){
-    //     $("#fMyActivity").css("color", "#1A84EF");
-    //     $("#fLikes").css("color", "#92ABB2");
-    //     $("#funderlineMyActivity").css("display", "block");
-    //     $("#funderlineLike").css("display", "none");
-    // });
+    profilePicture.addEventListener('load', function () {
+        var vibrant = new Vibrant(profilePicture);
+        var swatches = vibrant.swatches();
+        console.log(swatches);
+        $("#fbigProfilPictureContainer").css("background-color", swatches.Muted.getHex());
+    });
 });

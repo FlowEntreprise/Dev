@@ -18,7 +18,7 @@
     <div id="feditProfil">EDIT PROFIL</div>
   </div>
     <div class="toolbar no-border fnavMonCompte fnavMonCompteTransitionTop">
-      <div class="toolbar-inner">
+      <div class="toolbar-inner sizeTollBar">
         <a href="#tabMonCompte1" class="fnav-btn tab-link MonCompte active">My Activity</a>
         <a href="#tabMonCompte2" class="fnav-btn tab-link MonCompte">Likes</a>
         <a href="#tabMonCompte3" class="fnav-btn tab-link MonCompte">Saved</a>
@@ -27,7 +27,7 @@
   <div class="tabs-swipeable-wrap ftabsMonCompte" id="AccountTabSize">
     <div class="tabs scrollEvent">
       <div id="tabMonCompte1" class="page-content tab active scrollMyAccunt">
-        <div class="content-block fblockMonCompte fblockMonComptePadding test" id="MyActivity">
+        <div class="content-block fblockMonCompte fblockMonComptePadding" id="MyActivity">
           <p>Toutes mes activités</p>
           <p>test</p>
           <p>test</p>
@@ -62,12 +62,17 @@
         </div>
       </div>
       <div id="tabMonCompte2" class="page-content tab scrollMyAccunt">
-        <div class="content-block fblockMonCompte">Tous mes likes</div>
+        <div id="MyLikes" class="content-block fblockMonCompte fblockMonComptePadding">
+
+        </div>
       </div>
       <div id="tabMonCompte3" class="page-content tab scrollMyAccunt">
         <div class="content-block fblockMonCompte">Tous les flow Saved</div>
       </div>
     </div>
   </div>
-
+  <div id="fbigProfilPictureContainer">
+      <div id="fretour">retour</div>
+      <div id="fbigProfilPicture"></div>
+    </div>
 </div>

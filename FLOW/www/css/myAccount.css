@@ -35,6 +35,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-image: url("../src/pictures/follower2.jpg") !important;
 }
 
 #fnameMonCompte
@@ -141,11 +142,10 @@
 {
     position: absolute;
     top: 22vh;
-    left: 7vw !important;
     font-size: 19px !important;
-    background-color: transparent !important;
+    background-color: white !important;
     box-shadow: none !important;
-    width: 85vw !important;
+    width: 100vw !important;
 }
 
 .fnavMonCompteTransitionTop
@@ -175,7 +175,7 @@
 
 .ftabsMonCompte
 {
-    position: absolute;
+    position: absolute !important;
     top: 32vh;
     left: 0vw;
     transition-duration: 0.4s;
@@ -207,4 +207,35 @@
 #accountBannerScroll
 {
     transition-duration: 0.4s;
+}
+
+#fbigProfilPictureContainer
+{
+    position: absolute;
+    transform: scale(0);
+    width: 100vw;
+    height: 100vh;
+    /* border-radius: 50%; */
+    background-color: white;
+    transition: all 1s;
+    z-index: 1000;
+}
+
+#fbigProfilPicture
+{
+    /* background-image: url("../src/pictures/girl1.jpg"); */
+    position: absolute;
+    z-index: 505;
+    width: 101vw;
+    height: 30vh;
+    top:35vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.sizeTollBar
+{
+    width: 85vw !important;
+    margin-left: 7.5vw;
 }
