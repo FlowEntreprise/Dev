@@ -14,8 +14,7 @@ app.onPageInit('login-screen', function (page) {
     }
 
     console.log("init");
-    //nameMonCompte = window.localStorage.getItem("user_name");
-    nameMonCompte = "Alexis";
+    nameMonCompte = window.localStorage.getItem("user_name");
     bioMonCompte = window.localStorage.getItem("user_bio") || "";
     if (bioMonCompte.length < 1) {
         bioMonCompte = "Hey, I'm using Flow";
