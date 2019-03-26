@@ -55,6 +55,7 @@ class EventListener {
     }
 
     FlowGet(data) {
+        PopFlow(data);
         console.log("Get Flow");
         console.log(data);
     }

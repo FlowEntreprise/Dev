@@ -8,8 +8,9 @@ ptrContent.on('ptr:refresh', function (e) {
         console.log("refreshed !");
         $("#ptr_arrow").css("opacity", "0");
         app.pullToRefreshDone();
-        var new_block = new block($(".list-block"), false, null, 89);
-        all_blocks.push(new_block);
+        Socket.client.send("Flow", "GetFlowById", "5c98edb4939cf639919d0aba");
+        // var new_block = new block($(".list-block"), false, null, 89);
+        // all_blocks.push(new_block);
     }, 1000);
 });
 
@@ -26,8 +27,34 @@ ptrContent.on('ptr:pullend', function (e) {
 
 /******************************* TO DELETE **************************/
 
-Socket.client.send("Flow", "GetFlowById", "5c913550c092f60af566fd4a");
 
+function PopFlow(data) {
+  var image_link = undefined;
+  var pattern_key = undefined;
+  if (data.Image.PatternKey == undefined) {
+    const src_img = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Image.name + '?';
+    const param_img = `${data.LinkBuilder.Params.hash}=${data.Image.hash}&${data.LinkBuilder.Params.time}=${data.Image.timestamp}`;
+    image_link = src_img + param_img;
+  }
+  else {
+    pattern_key = data.Image.PatternKey;
+  }
+
+  const src_flow = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/flows/' + data.Sound.name + '?';
+  const param_flow = `${data.LinkBuilder.Params.hash}=${data.Sound.hash}&${data.LinkBuilder.Params.time}=${data.Sound.timestamp}`;
+  const flow_link = src_flow + param_flow;
+
+  const src_profile_img = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.ProfileImage.name + '?';
+  const param_profile_img = `${data.LinkBuilder.Params.hash}=${data.ProfileImage.hash}&${data.LinkBuilder.Params.time}=${data.ProfileImage.timestamp}`;
+  var profilePicLink = src_profile_img + param_profile_img;
+  console.log(profilePicLink);
+  console.log(image_link);
+  var new_block = new block($(".list-block"), false, flow_link, data.Duration, pattern_key, image_link, data.Title, data.Description, data.Pseudo, profilePicLink);
+  all_blocks.push(new_block);
+
+  console.log("Pop Flow");
+  console.log(new_block);
+}
 /* 
 **************** RECUPERER FLOW AUDIO FROM BASE64 *********************
 

@@ -13,6 +13,7 @@ var destinationType;
 var image64;
 var patternKey;
 var blob;
+// var blob64;
 
 let options = {
     quality: 75,
@@ -91,12 +92,12 @@ $$('.fvalidate-after_btn').on('touchend', function () {
     app.closeModal('.popup-after-record');
     current_page = "home";
     var data = {
-        PrivatedId: "a",
+        PrivatedId: window.localStorage.getItem("user_private_id"),
         Title: $(".finput_title").val(),
         Image: image64 ? image64 : patternKey,
         Description: $(".finput_description").val(),
         Tags: [],
-        Sound: blob,
+        Sound: appState.blob64,
         Duration: record_time
     }
     console.log(data);
@@ -325,7 +326,7 @@ function Save(mediaRecorder) {
         current_page = "after-record";
     }
     $(".after-record-block-container").html("");
-    new_block = new block($(".after-record-block-container"), true, audioURL, record_time);
+    new_block = new block($(".after-record-block-container"), true, audioURL, record_time, null, null, "", "", window.localStorage.getItem("user_name"), window.localStorage.getItem("user_profile_pic"));
     patternKey = new_block.patternKey;
     appState.patternKey = patternKey;
     appState.recordTime = record_time;
@@ -333,8 +334,9 @@ function Save(mediaRecorder) {
     var reader = new FileReader();
     reader.readAsDataURL(blob);
     reader.onloadend = function () {
+        //blob64 = reader.result;
         appState.blob64 = reader.result.replace("data:audio/opus; codecs=opus;base64,", "");
-        console.log(base64data);
+        console.log(appState.blob64);
     }
 
     setTimeout(() => {

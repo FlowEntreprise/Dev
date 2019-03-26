@@ -11,7 +11,7 @@
 //     this.placeholder = 'Tap to edit description';
 // }
 
-function block(parent_element, afterblock, audioURL, duration, patternKey, imageURL) {
+function block(parent_element, afterblock, audioURL, duration, patternKey, imageURL, title, description, pseudo, account_imageURL) {
 
     var block = this;
     this.isPlaying = false;
@@ -90,10 +90,7 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
     this.myRange.value = '1';
     this.ftop_part.appendChild(this.myRange);
 
-    this.fposter_name = document.createElement('p');
-    this.fposter_name.className = 'fposter_name';
-    this.fposter_name.innerText = 'Vanessa';
-    this.ftop_part.appendChild(this.fposter_name);
+
 
     this.fplay_button = document.createElement('img');
     this.fplay_button.className = 'fplay_button';
@@ -110,6 +107,7 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
 
     this.fposter_photo = document.createElement('div');
     this.fposter_photo.className = 'fposter_photo';
+    this.fposter_photo.style.backgroundImage = "url('"+account_imageURL+"')";
     this.ftop_part.appendChild(this.fposter_photo);
 
     var waveform = document.createElement('div');
@@ -124,6 +122,11 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
     this.progress_div = document.createElement('div');
     this.progress_div.id = ('progress_div');
     this.ftop_part.appendChild(this.progress_div);
+
+    this.fposter_name = document.createElement('p');
+    this.fposter_name.className = 'fposter_name';
+    this.fposter_name.innerText = pseudo;
+    this.ftop_part.appendChild(this.fposter_name);
 
     this.fbottom_part = document.createElement('div');
     this.fbottom_part.className = 'fbottom_part';
@@ -161,12 +164,12 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
 
         this.fpost_title = document.createElement('p');
         this.fpost_title.className = 'fpost_title';
-        this.fpost_title.innerText = 'What an Amasing Sound';
+        this.fpost_title.innerText = title;
         this.fbottom_part.appendChild(this.fpost_title);
 
         this.fpost_description = document.createElement('p');
         this.fpost_description.className = 'fpost_description';
-        this.fpost_description.innerText = 'very col sound recorded';
+        this.fpost_description.innerText = description;
         this.fbottom_part.appendChild(this.fpost_description);
 
         this.fpost_tag = document.createElement('p');
