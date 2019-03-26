@@ -176,6 +176,14 @@ module.exports = [
     "clobbers": [
       "TwitterConnect"
     ]
+  },
+  {
+    "id": "phonegap-plugin-push.PushNotification",
+    "file": "plugins/phonegap-plugin-push/www/push.js",
+    "pluginId": "phonegap-plugin-push",
+    "clobbers": [
+      "PushNotification"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -191,7 +199,11 @@ module.exports.metadata =
   "cordova-plugin-statusbar": "2.4.2",
   "cordova-plugin-whitelist": "1.3.3",
   "cordova.plugins.diagnostic": "4.0.11",
-  "twitter-connect-plugin": "0.6.0"
+  "twitter-connect-plugin": "0.6.0",
+  "cordova-android-support-gradle-release": "2.1.0",
+  "cordova-support-google-services": "1.3.1",
+  "phonegap-plugin-multidex": "1.0.0",
+  "phonegap-plugin-push": "2.2.3"
 };
 // BOTTOM OF METADATA
 });

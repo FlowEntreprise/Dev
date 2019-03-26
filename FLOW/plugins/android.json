@@ -46,6 +46,21 @@
     "twitter-connect-plugin": {
       "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038",
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-android-support-gradle-release": {
+      "ANDROID_SUPPORT_VERSION": "27.+",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-support-google-services": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "phonegap-plugin-multidex": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "phonegap-plugin-push": {
+      "ANDROID_SUPPORT_V13_VERSION": "27.+",
+      "FCM_VERSION": "17.0.+",
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {}

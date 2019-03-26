@@ -37,6 +37,9 @@
     <feature name="TwitterConnect">
         <param name="android-package" value="com.manifestwebdesign.twitterconnect.TwitterConnect" />
     </feature>
+    <feature name="PushNotification">
+        <param name="android-package" value="com.adobe.phonegap.push.PushPlugin" />
+    </feature>
     <feature name="Diagnostic">
         <param name="android-package" value="cordova.plugins.Diagnostic" />
         <param name="onload" value="true" />
@@ -86,6 +89,8 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <allow-intent href="market:*" />
+    <resource-file src="google-services.json" target="app/google-services.json" />
+    <resource-file src="google-services.json" target="google-services.json" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="android-minSdkVersion" value="15" />
     <preference name="StatusBarBackgroundColor" value="#f7f7f8" />

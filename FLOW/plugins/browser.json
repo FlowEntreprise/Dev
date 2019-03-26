@@ -45,6 +45,18 @@
     },
     "cordova-plugin-k-imagecropper": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-android-support-gradle-release": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-support-google-services": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "phonegap-plugin-multidex": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "phonegap-plugin-push": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {}

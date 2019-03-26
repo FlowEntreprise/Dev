@@ -23,6 +23,11 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+        <resource-file src="GoogleService-Info.plist" />
+    </platform>
+    <platform name="android">
+        <resource-file src="google-services.json" target="app/google-services.json" />
+        <resource-file src="google-services.json" target="google-services.json" />
     </platform>
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <preference name="StatusBarBackgroundColor" value="#f7f7f8" />
