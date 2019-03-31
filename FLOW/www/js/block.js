@@ -1,26 +1,28 @@
 "use_strict";
 
-// function clean_placeholder() {
-//     this.placeholder = '';
-// }
-// function reset_placeholder_title() {
-//     this.placeholder = 'Tap to edit title';
-// }
-
-// function reset_placeholder_description() {
-//     this.placeholder = 'Tap to edit description';
-// }
-
-function block(parent_element, afterblock, audioURL, duration, patternKey, imageURL, title, description, pseudo, account_imageURL) {
-
+/*********** BLOCK PARAMS *************
+ * var block_params = {
+    parent_element: undefined,
+    afterblock: undefined,
+    audioURL: undefined,
+    duration: undefined,
+    patternKey: undefined,
+    imageURL: undefined,
+    title: undefined,
+    description: undefined,
+    pseudo: undefined,
+    account_imageURL: undefined
+  };
+ ****************************************/
+function block(params) {
     var block = this;
     this.isPlaying = false;
     this.seeking = false;
     this.wasPlaying = false;
     this.patternKey;
-    this.duration = duration;
+    this.duration = params.duration;
 
-    console.log("audio url : "+audioURL);
+    console.log("audio url : "+params.audioURL);
 
     this.flowplay = function () {
         block.fplay_button.style.display = "none";
@@ -62,17 +64,17 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
 
     this.block_flow = document.createElement('div');
     this.block_flow.className = 'fflow';
-    parent_element.prepend(this.block_flow);
+    params.parent_element.prepend(this.block_flow);
 
     this.ftop_part = document.createElement('div');
     this.ftop_part.className = 'ftop_part';
     /*--------------------------*/
-    if (patternKey != undefined) {
-        this.patternKey = patternKey;
+    if (params.patternKey != undefined) {
+        this.patternKey = params.patternKey;
         this.ftop_part.style.backgroundImage = pattern = GeoPattern.generate(this.patternKey).toDataUrl();
     }
-    else if (imageURL != undefined) {
-        this.ftop_part.style.backgroundImage = "url('"+imageURL+"')";
+    else if (params.imageURL != undefined) {
+        this.ftop_part.style.backgroundImage = "url('"+params.imageURL+"')";
     }
     // Erreur, on génère un pattern random
     else {
@@ -107,7 +109,7 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
 
     this.fposter_photo = document.createElement('div');
     this.fposter_photo.className = 'fposter_photo';
-    this.fposter_photo.style.backgroundImage = "url('"+account_imageURL+"')";
+    this.fposter_photo.style.backgroundImage = "url('"+params.account_imageURL+"')";
     this.ftop_part.appendChild(this.fposter_photo);
 
     var waveform = document.createElement('div');
@@ -125,7 +127,7 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
 
     this.fposter_name = document.createElement('p');
     this.fposter_name.className = 'fposter_name';
-    this.fposter_name.innerText = pseudo;
+    this.fposter_name.innerText = params.pseudo;
     this.ftop_part.appendChild(this.fposter_name);
 
     this.fbottom_part = document.createElement('div');
@@ -138,7 +140,7 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
         }
     }
 
-    if (!afterblock) {
+    if (!params.afterblock) {
 
         this.fpost_date = document.createElement('p');
         this.fpost_date.className = 'fpost_date';
@@ -164,12 +166,12 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
 
         this.fpost_title = document.createElement('p');
         this.fpost_title.className = 'fpost_title';
-        this.fpost_title.innerText = title;
+        this.fpost_title.innerText = params.title;
         this.fbottom_part.appendChild(this.fpost_title);
 
         this.fpost_description = document.createElement('p');
         this.fpost_description.className = 'fpost_description';
-        this.fpost_description.innerText = description;
+        this.fpost_description.innerText = params.description;
         this.fbottom_part.appendChild(this.fpost_description);
 
         this.fpost_tag = document.createElement('p');
@@ -267,9 +269,9 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
     resize();
 
     this.myaudio = new Audio("src/sound/son.opus");
-    if (audioURL) {
-        console.log("custom audio url : " + audioURL);
-        this.myaudio = new Audio(audioURL);
+    if (params.audioURL) {
+        console.log("custom audio url : " + params.audioURL);
+        this.myaudio = new Audio(params.audioURL);
     }
     console.log(this.myaudio);
 
@@ -277,10 +279,10 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
     this.myaudio.ontimeupdate = function () {
 
         if (block.isPlaying && !block.seeking) {
-            this.progress = Math.round(block.myaudio.currentTime * 100 / duration);
+            this.progress = Math.round(block.myaudio.currentTime * 100 / params.duration);
             // console.log(this.progress);
             block.myRange.value = this.progress;
-            block.progress_div.style.width = block.myaudio.currentTime * 100 / duration + '%';
+            block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
             if (block.progress_div.style.width > '99.8%' && block.progress_div.style.width < '101%') {
                 block.progress_div.style.borderTopRightRadius = '2vw';
 
@@ -306,11 +308,11 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
     this.seek = function () {
         this.progress = block.myRange.value;
         //if (this.progress > 99) this.progress = 99;
-        this.time = this.progress * duration / 100;
+        this.time = this.progress * params.duration / 100;
         block.myaudio.currentTime = this.time;
         block.seeking = true;
         block.progress_div.style.display = "block";
-        block.progress_div.style.width = block.myaudio.currentTime * 100 / duration + '%';
+        block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
         setTimeout(function () {
             block.seeking = false;
         }, 600);
@@ -346,9 +348,9 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
         block.flowpause();
         block.progress = block.myRange.value;
         if (block.progress > 99) block.progress = 99;
-        block.time = block.progress * duration / 100;
+        block.time = block.progress * params.duration / 100;
         block.myaudio.currentTime = block.time;
-        block.progress_div.style.width = block.myaudio.currentTime * 100 / duration + '%';
+        block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
 
     });
     /* 

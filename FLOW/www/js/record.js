@@ -326,7 +326,19 @@ function Save(mediaRecorder) {
         current_page = "after-record";
     }
     $(".after-record-block-container").html("");
-    new_block = new block($(".after-record-block-container"), true, audioURL, record_time, null, null, "", "", window.localStorage.getItem("user_name"), window.localStorage.getItem("user_profile_pic"));
+    let block_params = {
+        parent_element: $(".after-record-block-container"),
+        afterblock: true,
+        audioURL: audioURL,
+        duration: record_time,
+        patternKey: null,
+        imageURL: null,
+        title: "",
+        description: "",
+        pseudo: window.localStorage.getItem("user_name"),
+        account_imageURL: window.localStorage.getItem("user_profile_pic")
+      };
+    new_block = new block(block_params);
     patternKey = new_block.patternKey;
     appState.patternKey = patternKey;
     appState.recordTime = record_time;
@@ -424,7 +436,7 @@ function wave(stream) {
         // smoothVolume = Lerp(smoothVolume,average,0.25);
         smoothVolume = average;
         if (recording) {
-            siriWave.amplitude = smoothVolume * 0.02;
+            siriWave.amplitude = (smoothVolume * 0.02) + 0.1;
             siriWave.speed = 0.2;
         } else {
             siriWave.amplitude = 0;

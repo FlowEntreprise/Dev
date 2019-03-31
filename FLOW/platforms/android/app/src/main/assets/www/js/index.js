@@ -46,7 +46,7 @@ var app = {
                 current_page = "after-record";
             }
             $(".after-record-block-container").html("");
-            console.log(appState.blob64);
+            console.log(appState);
             var myblob = b64toBlob(appState.blob64, "audio/opus");
             var myblobUrl = URL.createObjectURL(myblob);
             //console.log(appState.blob); 
@@ -54,7 +54,19 @@ var app = {
             //binaryData.push(appState.blob);
             //var myaudioURL = window.URL.createObjectURL(new Blob(binaryData, {'type': 'audio/opus; codecs=opus'}))
             console.log("generated audio url : " + myblobUrl);
-            new_block = new block($(".after-record-block-container"), true, myblobUrl, appState.recordTime, appState.patternKey, null, "", "", window.localStorage.getItem("user_name"), window.localStorage.getItem("user_profile_pic"));
+            let block_params = {
+                parent_element: $(".after-record-block-container"),
+                afterblock: true,
+                audioURL: myblobUrl,
+                duration: appState.recordTime,
+                patternKey: appState.patternKey,
+                imageURL: null,
+                title: "",
+                description:  "",
+                pseudo: window.localStorage.getItem("user_name"),
+                account_imageURL: window.localStorage.getItem("user_profile_pic")
+              };
+            new_block = new block(block_params);
             patternKey = new_block.patternKey;
             // setTimeout(() => {
             //     new_block.finput_title.focus();

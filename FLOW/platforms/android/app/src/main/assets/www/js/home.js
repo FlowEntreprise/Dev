@@ -49,8 +49,19 @@ function PopFlow(data) {
   var profilePicLink = src_profile_img + param_profile_img;
   console.log(profilePicLink);
   console.log(image_link);
-  var new_block = new block($(".list-block"), false, flow_link, data.Duration, pattern_key, image_link, data.Title, data.Description, data.Pseudo, profilePicLink);
-  all_blocks.push(new_block);
+  let block_params = {
+    parent_element: $(".list-block"),
+    afterblock: false,
+    audioURL: flow_link,
+    duration: data.Duration,
+    patternKey: pattern_key,
+    imageURL: image_link,
+    title: data.Title,
+    description:  data.Description,
+    pseudo: data.Pseudo,
+    account_imageURL: profilePicLink
+  };
+  var new_block = new block(block_params);  all_blocks.push(new_block);
 
   console.log("Pop Flow");
   console.log(new_block);

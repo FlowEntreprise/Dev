@@ -1,0 +1,28 @@
+.fstory_window
+{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5000;
+    background-color: white;
+    /* transform: scale3d(0.5, 0.5, 0.5); */
+    transform-origin: top left;
+    transition-duration: 0.4s;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.story_main_view
+{
+    height: 100%;
+    background: blue;
+    transition-duration: 0.4s;
+}
+
+.comments_main_view
+{
+    height: 100%;
+    background: red;
+    transition-duration: 0.4s;
+}
