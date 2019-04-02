@@ -41,7 +41,7 @@ app.onPageInit('login-screen', function (page) {
         $(".fflow-btn").css("display", "block");
     });
 
-    var position = $(".scrollMyAccunt").scrollTop();
+    // var position = $(".scrollMyAccunt").scrollTop();
 
     // $$('#tabMonCompte2').on('tab:show', function () 
     // {
@@ -51,19 +51,19 @@ app.onPageInit('login-screen', function (page) {
     var scroll_element = $("#tabMonCompte1");
     checkScroll();
     $$('#tabMonCompte1').on('tab:show', function () {
-        position = $(".scrollMyAccunt").scrollTop();
+        // position = $(".scrollMyAccunt").scrollTop();
         scroll_element = $("#tabMonCompte1");
         checkScroll();
     });
 
     $$('#tabMonCompte2').on('tab:show', function () {
-        position = $(".scrollMyAccunt").scrollTop();
+        // position = $(".scrollMyAccunt").scrollTop();
         scroll_element = $("#tabMonCompte2");
         checkScroll();
     });
 
     $$('#tabMonCompte3').on('tab:show', function () {
-        position = $(".scrollMyAccunt").scrollTop();
+        // position = $(".scrollMyAccunt").scrollTop();
         scroll_element = $("#tabMonCompte3");
         checkScroll();
     });
@@ -77,7 +77,7 @@ app.onPageInit('login-screen', function (page) {
     function checkScroll() {
         var scroll = scroll_element.scrollTop();
         console.log(scroll);
-        if (scroll > position && scroll >= 100) {
+        if (scroll >= 100) {
             // if (event.cancelable) {
             //     event.preventDefault();
             // } else {
@@ -146,5 +146,10 @@ app.onPageInit('login-screen', function (page) {
         var swatches = vibrant.swatches();
         console.log(swatches);
         $("#fbigProfilPictureContainer").css("background-color", swatches.Muted.getHex());
+    });
+
+    $("#returnProfilPicture").click(function(){
+        $("#fbigProfilPictureContainer").css("transform", "scale(0)");
+        console.log("ok");
     });
 });
