@@ -5,13 +5,13 @@ function manageFollow()
 {
     if(follow)
     {
-        $("#fFollowButtunAcount").addClass("activeButtunFollow");
-        $("#fFollowButtunAcount").text("FOLLOWING");
+        $("#fFollowButtunAccount").addClass("activeButtunFollow");
+        $("#fFollowButtunAccount").text("FOLLOWING");
     }
     else
     {
-        $("#fFollowButtunAcount").removeClass("activeButtunFollow");
-        $("#fFollowButtunAcount").text("FOLLOW");
+        $("#fFollowButtunAccount").removeClass("activeButtunFollow");
+        $("#fFollowButtunAccount").text("FOLLOW");
     }
 }
 
@@ -19,18 +19,18 @@ function manageFollowYou()
 {
     if(followYou)
     {
-        $("#fFollowYouButtunAcount").css("display", "block");
+        $("#fFollowYouButtunAccount").css("display", "block");
     }
     else
     {
-        $("#fFollowYouButtunAcount").css("display", "none");
+        $("#fFollowYouButtunAccount").css("display", "none");
     }
 }
 
 app.onPageInit('login-screen', function (page) {    
     manageFollow();
     manageFollowYou();
-    $("#fFollowButtunAcount").click(function(){
+    $("#fFollowButtunAccount").click(function(){
         if(follow)
         {
             follow = false;
