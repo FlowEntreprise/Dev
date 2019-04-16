@@ -9,6 +9,7 @@ ptrContent.on('ptr:refresh', function (e) {
         $("#ptr_arrow").css("opacity", "0");
         app.pullToRefreshDone();
         Socket.client.send("Flow", "GetFlowById", "5c98edb4939cf639919d0aba");
+        RefreshStories();
         // var new_block = new block($(".list-block"), false, null, 89);
         // all_blocks.push(new_block);
     }, 1000);

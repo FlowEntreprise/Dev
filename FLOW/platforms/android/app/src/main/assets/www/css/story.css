@@ -4,7 +4,7 @@
     width: 100vw;
     height: 100vh;
     z-index: 5000;
-    background-color: white;
+    background-image: linear-gradient(#1A84EF, #0A4179);
     /* transform: scale3d(0.5, 0.5, 0.5); */
     transform-origin: top left;
     transition-duration: 0.4s;
@@ -16,13 +16,150 @@
 .story_main_view
 {
     height: 100%;
-    background: blue;
+    background: transparent;
     transition-duration: 0.4s;
 }
 
 .comments_main_view
 {
     height: 100%;
-    background: red;
+    background: transparent;
     transition-duration: 0.4s;
+}
+
+.fstory_pp
+{
+    position: absolute;
+    top: 20vh;
+    height: 30vw;
+    width: 30vw;
+    left: 35vw;
+    /* background-image: url("../src/pictures/girl1.jpg"); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 100%;
+}
+
+.fstory_pseudo
+{
+    position: absolute;
+    top: 35vh;
+    width: 100vw;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    font-family: "Roboto-Regular";
+}
+
+.fstory_time
+{
+    position: absolute;
+    top: 39vh;
+    width: 100vw;
+    text-align: center;
+    color: white;
+    font-size: 13px;
+    font-family: "Roboto-Thin";
+}
+
+.fstory_wave
+{
+    position: absolute;
+    top: 42vh;
+    width: 100vw;
+    height: 20vh;
+    /* background-color: red; */
+}
+
+.fstory_reactions_txt
+{
+    position: absolute;
+    bottom: 1vh;
+    width: 100vw;
+    text-align: center;
+    color: white;
+    font-family: "Roboto-Regular";
+    font-size: 17px;
+}
+
+.fstory_reactions_icon
+{
+    position: absolute;
+    bottom: 4vh;
+    width: 8vw;
+    height: 30px;
+    left: 46vw;
+    background-image: url("../src/icons/UpArrow.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.fstory_previous
+{
+    position: absolute;
+    left: 0;
+    width: 40vw;
+    height: 80vh;
+    top: 10vh;
+    /* background-color: rgba(255, 0, 0, 0.3); */
+}
+
+.fstory_next
+{
+    position: absolute;
+    left: 40vw;
+    width: 60vw;
+    height: 80vh;
+    top: 10vh;
+    /* background-color: rgba(0, 255, 0, 0.3); */
+}
+
+.fstory_indicator_container
+{
+    position: absolute;
+    top: 1vh;
+    left: 5vw;
+    width: 90vw;
+}
+
+.fstory_indicator_list
+{
+    display: table;
+    width: 100%;
+    padding: 0;
+}
+
+.fstory_indicator_list li
+{
+    display: table-cell;
+    text-align: center;
+}
+
+
+.fstory_indicator
+{
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 5px;
+    color: transparent;
+    border-radius: 50px;
+}
+
+.fstory_indicator_list .active
+{
+    background-color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.fstory_completion
+{
+    /* margin: 0;
+    padding: 0;
+    left: 0;
+    top: 0; */
+    width: 0%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.4) !important;
 }

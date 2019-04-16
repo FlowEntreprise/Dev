@@ -396,7 +396,8 @@ var siriWave = new SiriWaveRecord({
     style: "ios",
     color: "1A84EF",
     cover: true,
-    lerpSpeed: 1
+    lerpSpeed: 1,
+    story: false
 });
 siriWave.start();
 siriWave.speed = 0;
