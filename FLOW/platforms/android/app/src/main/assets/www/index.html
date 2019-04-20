@@ -7,7 +7,8 @@
         -->
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densityDpi=device-dpi">
+    <meta name="viewport"
+        content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densityDpi=device-dpi">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
     <link rel="stylesheet" type="text/css" href="css/explore.css">
@@ -18,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="css/notifications.css">
     <link rel="stylesheet" type="text/css" href="css/myAccount.css">
     <link rel="stylesheet" type="text/css" href="css/account.css">
+    <link rel="stylesheet" type="text/css" href="css/popup_comment.css">
 
 
     <!-- <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.md.colors.min.css">
@@ -53,7 +55,7 @@
                                 <div class="fstory_block">
                                     <div class="fplus"></div>
                                     <a href="../www/pages/account.html" class="open-login-screen">
-                                            <img src="src/pictures/guy1.jpg" class="fstory_pic fnoshadow">
+                                        <img src="src/pictures/guy1.jpg" class="fstory_pic fnoshadow">
                                     </a>
                                     <div class="unread_shadow"></div>
                                 </div>
@@ -153,9 +155,9 @@
                     <a href="#tab2" class="fnav-btn fexplore-btn tab-link"></a>
                     <a href="#" data-popup=".popup-record" class="fnav-btn fflow-btn open-popup"></a>
                     <a href="#tab3" class="fnav-btn fmessages-btn tab-link"></a>
-                   
+
                     <a href="#tab4" class="fnav-btn fnotif-btn tab-link"></a>
-                    
+
                     <!-- <div class="fneed_connect" style="left: 17vw;"></div> -->
                     <div class="fneed_connect" style="left: 68vw;"></div>
                     <div class="fneed_connect" style="left: 84vw;"></div>
@@ -227,11 +229,14 @@
                 <div class="content-block">
                     <p id="fpopup-connect-msg-inscription">Un compte est nécessaire pour réaliser cette action</p>
                     <div id="fcontent_logo_reseaux_sociaux">
-                        <a href=""><img src="../www/src/icons/google@3x.png" alt="logo google" class="fgoogle_btn fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/google@3x.png" alt="logo google"
+                                class="fgoogle_btn fsize_img_reseaux_sociaux"></a>
                         <a href=""><img src="../www/src/icons/instagram-round-flat-512@3x.png" alt="logo instagram"
                                 class="finsta_btn fsize_img_reseaux_sociaux"></a>
-                        <a href=""><img src="../www/src/icons/facebook_circle-512@3x.png" alt="logo facebook" class="ffacebook_btn fsize_img_reseaux_sociaux"></a>
-                        <a href=""><img src="../www/src/icons/twitter-512@3x.png" alt="logo twitter" class="ftwitter_btn fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/facebook_circle-512@3x.png" alt="logo facebook"
+                                class="ffacebook_btn fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/twitter-512@3x.png" alt="logo twitter"
+                                class="ftwitter_btn fsize_img_reseaux_sociaux"></a>
                     </div>
                     <div id="fseparation">
                         <div id="ftrait_gauche"></div>
@@ -249,6 +254,25 @@
                     <div id="fcompte_conn">
                         Vous avez déjà un compte ? <a href="">Connexion</a>
                     </div>
+                </div>
+            </div>
+
+            <div class="popup popup_comment">
+                <label class="fcomment_number">605 comments</label>
+                <img src="src/icons/cancel.png" class="close-popup fclose_comment">
+                <div class="popover">
+                        <div class="popover-angle"></div>
+                        <div class="popover-inner">
+                            <label class="fpopover_button fpopover_copy">COPY</label>
+                            <label class="fpopover_button fpopover_share">SHARE</label>
+                            <label class="fpopover_button fpopover_delete">DELETE</label>
+                        </div>
+                    </div>
+                <div class="fblock_comment_content">  
+                </div>
+                <div class="fwrite_comment">
+                    <input type="text" placeholder="Say something nice" maxlength="140" class="finput_comment">
+                    <img src="src/icons/send.png" class="fsend_comment">
                 </div>
             </div>
 
@@ -295,11 +319,10 @@
 
 
     <script type="text/javascript" src="cordova.js"></script>
-    
+
     <script src="js/require/SocketClient.js"></script>
     <script src="js/require/EventEmitter.js""></script>
-    <script src="js/require/EventListener.js"></script>
-    <script src="js/SocketManager.js"></script>
+    <script src=" js/require/EventListener.js"> </script> <script src="js/SocketManager.js"></script>
     <script>
 
         const Socket = new SocketManager("http://51.38.39.212:8082");
@@ -319,7 +342,7 @@
     <script type="text/javascript" src="js/auth/Facebook.js"></script>
     <script type="text/javascript" src="js/auth/google.js"></script>
     <script type="text/javascript" src="js/auth/connexion.js"></script>
-    
+    <script type="text/javascript" src="js/popup_comment.js"></script>
     <script type="text/javascript" src="js/myAccount.js"></script>
     <script type="text/javascript" src="js/account.js"></script>
 

@@ -15,14 +15,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-browsersync": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-browsersync@^1.1.0"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova.plugins.diagnostic": {
     "source": {
       "type": "registry",
@@ -91,6 +83,14 @@
     "source": {
       "type": "registry",
       "id": "cordova-plugin-k-imagecropper"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-browsersync": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-browsersync"
     },
     "is_top_level": true,
     "variables": {}

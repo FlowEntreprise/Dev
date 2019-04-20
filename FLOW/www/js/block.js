@@ -213,6 +213,8 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
         this.ftxt_impression_comment.innerText = '605';
         this.fcomment.appendChild(this.ftxt_impression_comment);
 
+
+
     } else {
         this.finput_title = document.createElement('input');
         this.finput_title.className = 'finput_title';
@@ -374,10 +376,12 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
     });
 
     $(this.fimg_impression_comment).on('click', function () {
-
         impression_coloring(this, 'comment');
     });
 
+    $(this.ftxt_impression_comment).on('click', function () {
+        app.popup('.popup_comment');
+    });
 
     // fonction permettant de colorier ou non les like, echo et comment.
     function impression_coloring(object, type) {
@@ -427,6 +431,7 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
     }
 
 }
+
 
 var all_blocks = [];
 
