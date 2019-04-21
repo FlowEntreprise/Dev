@@ -25,6 +25,12 @@ var app = {
     onDeviceReady: function () {
         this.receivedEvent('deviceready');
 
+        if (cordova.platformId == 'android') {
+            StatusBar.overlaysWebView(true);
+            StatusBar.backgroundColorByHexString('#00000000');
+            StatusBar.styleDefault();
+        }
+        
         if (appState.needRestore) {
 
             ///////////////
@@ -93,6 +99,11 @@ var app = {
     },
     onResume: function (event) {
         console.log("resume");
+        if (cordova.platformId == 'android') {
+            StatusBar.overlaysWebView(true);
+            StatusBar.backgroundColorByHexString('#00000000');
+            StatusBar.styleDefault();
+        }
         // Here we check for stored state and restore it if necessary. In your
         // application, it's up to you to keep track of where any pending plugin
         // results are coming from (i.e. what part of your code made the call)

@@ -4,7 +4,7 @@
     width: 100vw;
     height: 100vh;
     z-index: 5000;
-    background-image: linear-gradient(#1A84EF, #0A4179);
+    /* background-image: linear-gradient(#1A84EF, #0A4179); */
     /* transform: scale3d(0.5, 0.5, 0.5); */
     transform-origin: top left;
     transition-duration: 0.4s;
@@ -16,6 +16,7 @@
 .story_main_view
 {
     height: 100%;
+    width: 100%;
     background: transparent;
     transition-duration: 0.4s;
 }
@@ -23,6 +24,7 @@
 .comments_main_view
 {
     height: 100%;
+    width: 100%;
     background: transparent;
     transition-duration: 0.4s;
 }
@@ -30,7 +32,7 @@
 .fstory_pp
 {
     position: absolute;
-    top: 20vh;
+    top: 23vh;
     height: 30vw;
     width: 30vw;
     left: 35vw;
@@ -45,7 +47,7 @@
 .fstory_pseudo
 {
     position: absolute;
-    top: 35vh;
+    top: 38vh;
     width: 100vw;
     text-align: center;
     color: white;
@@ -56,7 +58,7 @@
 .fstory_time
 {
     position: absolute;
-    top: 39vh;
+    top: 42vh;
     width: 100vw;
     text-align: center;
     color: white;
@@ -67,7 +69,7 @@
 .fstory_wave
 {
     position: absolute;
-    top: 42vh;
+    top: 45vh;
     width: 100vw;
     height: 20vh;
     /* background-color: red; */
@@ -84,7 +86,7 @@
     font-size: 17px;
 }
 
-.fstory_reactions_icon
+.fstory_up_icon
 {
     position: absolute;
     bottom: 4vh;
@@ -120,7 +122,7 @@
 .fstory_indicator_container
 {
     position: absolute;
-    top: 1vh;
+    top: 4vh;
     left: 5vw;
     width: 90vw;
 }
@@ -162,4 +164,77 @@
     width: 0%;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/*
+////////////////////// STORY REACTION PANEL /////////////////////////////
+*/
+.fstory_txt
+{
+    position: absolute;
+    top: 1vh;
+    width: 100vw;
+    text-align: center;
+    color: white;
+    font-family: "Roboto-Regular";
+    font-size: 17px;
+}
+
+.fstory_down_icon
+{
+    position: absolute;
+    top: 4vh;
+    width: 8vw;
+    height: 30px;
+    left: 46vw;
+    background-image: url("../src/icons/UpArrow.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: rotate(180deg);
+}
+
+.fstory_addcomment_btn
+{
+    position: absolute;
+    bottom: 3vh;
+    height: 20vw;
+    width: 20vw;
+    left: 40vw;
+    border-radius: 100%;
+    background-color: transparent;
+    border: solid 2px white;
+
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20vw;
+    color: white;
+    font-size: 46px;
+    font-family: "Roboto-Light";
+}
+
+.fstory_seen_icon
+{
+    position: absolute;
+    bottom: 2.5vh;
+    width: 10vw;
+    height: 40px;
+    left: 4vw;
+    background-image: url("../src/icons/Eye_icon.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(3);
+}
+
+.fstory_seen_txt
+{
+    position: absolute;
+    bottom: 1vh;
+    left: 4vw;
+    width: 10vw;
+    text-align: center;
+    color: white;
+    font-family: "Roboto-Regular";
+    font-size: 13px;
 }

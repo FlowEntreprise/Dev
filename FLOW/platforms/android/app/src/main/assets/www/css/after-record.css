@@ -1,7 +1,7 @@
 .after-record-block-container {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 3vh;
 }
 
 .finput_title {
@@ -47,14 +47,14 @@ textarea:focus::-webkit-input-placeholder {
 
 .swiper-4 {
     position: absolute !important;
-    top: 65vh !important;
+    top: 68vh !important;
     left: 0;
     height: 120px !important;
 }
 
 .fbackground-after-txt {
     position: absolute;
-    top: 45vh;
+    top: 48vh;
     left: 0;
     width: 100vw;
     font-family: "Roboto-Regular";
@@ -65,7 +65,7 @@ textarea:focus::-webkit-input-placeholder {
 
 .fcamera-after {
     position: absolute;
-    top: 50vh;
+    top: 53vh;
     left: 10vw;
     width: 35vw;
     height: 7vh;
@@ -80,7 +80,7 @@ textarea:focus::-webkit-input-placeholder {
 
 .fgallery-after {
     position: absolute;
-    top: 50vh;
+    top: 53vh;
     left: 55vw;
     width: 35vw;
     height: 7vh;
@@ -95,7 +95,7 @@ textarea:focus::-webkit-input-placeholder {
 
 .ffx-after-txt {
     position: absolute;
-    top: 61vh;
+    top: 64vh;
     left: 0;
     width: 100vw;
     font-family: "Roboto-Regular";

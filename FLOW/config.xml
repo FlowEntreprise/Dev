@@ -25,8 +25,7 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
-    <preference name="StatusBarBackgroundColor" value="#f7f7f8" />
-    <preference name="StatusBarStyle" value="default" />
+    <preference name="Fullscreen" value="true" />
     <preference name="Orientation" value="portrait" />
     <plugin name="cordova-plugin-browsersync" spec="^1.1.0" />
     <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />

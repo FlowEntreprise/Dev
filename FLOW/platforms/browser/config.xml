@@ -16,8 +16,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <preference name="StatusBarBackgroundColor" value="#f7f7f8" />
-    <preference name="StatusBarStyle" value="default" />
+    <preference name="Fullscreen" value="true" />
     <preference name="Orientation" value="portrait" />
     <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />

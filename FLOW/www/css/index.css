@@ -170,7 +170,7 @@ h1 {
 }
 
 .ftop_bar {
-    height: 19vh !important;
+    height: 22vh !important;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -223,7 +223,7 @@ h1 {
 
 #tab1,
 #tab2 {
-    padding-top: 19vh;
+    padding-top: 22vh;
     padding-bottom: 7vh !important;
 }
 
