@@ -28,6 +28,7 @@
     <preference name="StatusBarBackgroundColor" value="#f7f7f8" />
     <preference name="StatusBarStyle" value="default" />
     <preference name="Orientation" value="portrait" />
+    <preference name="Hostname" value="app" />
     <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
     <plugin name="cordova-plugin-facebook4" spec="4.2.1">
         <variable name="APP_ID" value="502054883649562" />

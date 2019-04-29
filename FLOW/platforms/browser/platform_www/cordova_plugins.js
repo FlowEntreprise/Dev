@@ -120,7 +120,8 @@ module.exports.metadata =
     "cordova-plugin-inappbrowser": "3.0.0",
     "twitter-connect-plugin": "0.6.0",
     "cordova-plugin-camera": "4.0.3",
-    "cordova-plugin-k-imagecropper": "1.2.0"
+    "cordova-plugin-k-imagecropper": "1.2.0",
+    "cordova-plugin-ionic-keyboard": "2.1.3"
 }
 // BOTTOM OF METADATA
 });

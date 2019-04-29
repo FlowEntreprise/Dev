@@ -69,6 +69,9 @@
         <param name="android-package" value="cordova.plugins.Diagnostic_External_Storage" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="Keyboard">
+        <param name="android-package" onload="true" value="io.ionic.keyboard.IonicKeyboard" />
+    </feature>
     <name>FLOW</name>
     <description>
         The Vocal Social Network.
@@ -91,6 +94,7 @@
     <preference name="StatusBarBackgroundColor" value="#f7f7f8" />
     <preference name="StatusBarStyle" value="default" />
     <preference name="Orientation" value="portrait" />
+    <preference name="Hostname" value="app" />
     <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
 </widget>

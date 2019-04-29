@@ -170,19 +170,19 @@ h1 {
 }
 
 .ftop_bar {
-    height: 19vh !important;
+    height: calc(19 * var(--custom-vh)) !important;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .toolbar {
-    height: 7vh !important;
+    height: calc(7 * var(--custom-vh)) !important;
     box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .fnav-btn {
     position: absolute;
     width: 10vw;
-    height: 4vh;
+    height: calc(4* var(--custom-vh));
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -206,8 +206,8 @@ h1 {
 }
 
 .fflow-btn {
-    margin-top: -5vh !important;
-    height: 15vh !important;
+    margin-top: calc(-5* var(--custom-vh)) !important;
+    height: calc(15* var(--custom-vh)) !important;
     width: 25vw !important;
     background-image: url("../src/icons/FLOW@3x.png");
     transition-duration: 1s;
@@ -223,8 +223,8 @@ h1 {
 
 #tab1,
 #tab2 {
-    padding-top: 19vh;
-    padding-bottom: 7vh !important;
+    padding-top: calc(19* var(--custom-vh));
+    padding-bottom: calc(7* var(--custom-vh)) !important;
 }
 
 #tab3,

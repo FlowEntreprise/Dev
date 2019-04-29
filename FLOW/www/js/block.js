@@ -20,7 +20,7 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
     this.patternKey;
     this.duration = duration;
 
-    console.log("audio url : "+audioURL);
+    console.log("audio url : " + audioURL);
 
     this.flowplay = function () {
         block.fplay_button.style.display = "none";
@@ -70,9 +70,8 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
     if (patternKey != undefined) {
         this.patternKey = patternKey;
         this.ftop_part.style.backgroundImage = pattern = GeoPattern.generate(this.patternKey).toDataUrl();
-    }
-    else if (imageURL != undefined) {
-        this.ftop_part.style.backgroundImage = "url('"+imageURL+"')";
+    } else if (imageURL != undefined) {
+        this.ftop_part.style.backgroundImage = "url('" + imageURL + "')";
     }
     // Erreur, on génère un pattern random
     else {
@@ -107,7 +106,7 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
 
     this.fposter_photo = document.createElement('div');
     this.fposter_photo.className = 'fposter_photo';
-    this.fposter_photo.style.backgroundImage = "url('"+account_imageURL+"')";
+    this.fposter_photo.style.backgroundImage = "url('" + account_imageURL + "')";
     this.ftop_part.appendChild(this.fposter_photo);
 
     var waveform = document.createElement('div');
@@ -367,71 +366,69 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
 
     $(this.fimg_impression_like).on('click', function () {
 
-        impression_coloring(this, 'like');
+        impression_coloring(this, 'like', block.fimg_impression_like);
     });
 
     $(this.fimg_impression_echo).on('click', function () {
 
-        impression_coloring(this, 'echo');
+        impression_coloring(this, 'echo', block.fimg_impression_echo);
     });
 
     $(this.fimg_impression_comment).on('click', function () {
-        impression_coloring(this, 'comment');
+        impression_coloring(this, 'comment', block.fimg_impression_comment);
+        app.popup('.popup_comment');
     });
 
     $(this.ftxt_impression_comment).on('click', function () {
         app.popup('.popup_comment');
     });
+}
+// fonction permettant de colorier ou non les like, echo et comment.
+function impression_coloring(object, type, block_item,like_type) {
 
-    // fonction permettant de colorier ou non les like, echo et comment.
-    function impression_coloring(object, type) {
+    switch (type) {
+        case 'like':
+            $(object).each(function () {
 
-        switch (type) {
-            case 'like':
-                $(object).each(function () {
+                var attr_img_like = $(object).attr('src');
+                if (attr_img_like === 'src/icons/Like.png') {
+                    $(block_item).attr('src', 'src/icons/Like_filled.png');
+                    push_notif_block('like',like_type);
+                }
+                if (attr_img_like === 'src/icons/Like_filled.png') {
+                    $(block_item).attr('src', 'src/icons/Like.png');
+                }
+            });
+            break;
 
-                    var attr_img_like = $(object).attr('src');
-                    if (attr_img_like === 'src/icons/Like.png') {
-                        $(block.fimg_impression_like).attr('src', 'src/icons/Like_filled.png');
-                        push_notif_block('like');
-                    }
-                    if (attr_img_like === 'src/icons/Like_filled.png') {
-                        $(block.fimg_impression_like).attr('src', 'src/icons/Like.png');
-                    }
-                });
-                break;
+        case 'echo':
+            $(object).each(function () {
+                var attr_img_echo = $(object).attr('src');
+                if (attr_img_echo === 'src/icons/Echo.png') {
+                    $(block_item).attr('src', 'src/icons/Echo_filled.png');
+                    push_notif_block('echo');
+                }
+                if (attr_img_echo === 'src/icons/Echo_filled.png') {
+                    $(block_item).attr('src', 'src/icons/Echo.png');
+                }
+            });
+            break;
 
-            case 'echo':
-                $(object).each(function () {
-                    var attr_img_echo = $(object).attr('src');
-                    if (attr_img_echo === 'src/icons/Echo.png') {
-                        $(block.fimg_impression_echo).attr('src', 'src/icons/Echo_filled.png');
-                        push_notif_block('echo');
-                    }
-                    if (attr_img_echo === 'src/icons/Echo_filled.png') {
-                        $(block.fimg_impression_echo).attr('src', 'src/icons/Echo.png');
-                    }
-                });
-                break;
-
-            case 'comment':
-                $(object).each(function () {
-                    var attr_img_comment = $(object).attr('src');
-                    if (attr_img_comment === 'src/icons/Comment.png') {
-                        $(block.fimg_impression_comment).attr('src', 'src/icons/Comment_filled.png');
-                        push_notif_block('comment');
-                    }
-                    if (attr_img_comment === 'src/icons/Comment_filled.png') {
-                        $(block.fimg_impression_comment).attr('src', 'src/icons/Comment.png');
-                    }
-                });
-                break;
-        }
-
+        case 'comment':
+            $(object).each(function () {
+                var attr_img_comment = $(object).attr('src');
+                if (attr_img_comment === 'src/icons/Comment.png') {
+                    $(block_item).attr('src', 'src/icons/Comment_filled.png');
+                    push_notif_block('comment');
+                }
+                if (attr_img_comment === 'src/icons/Comment_filled.png') {
+                    $(block_item).attr('src', 'src/icons/Comment.png');
+                }
+            });
+            break;
     }
 
 }
-
 
 var all_blocks = [];
 

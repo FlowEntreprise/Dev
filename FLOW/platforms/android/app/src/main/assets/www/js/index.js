@@ -16,15 +16,22 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
         document.addEventListener('pause', this.onPause, false);
         document.addEventListener('resume', this.onResume, false);
+        
     },
-
+    
+    
+    
     // deviceready Event Handler
     //
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function () {
         this.receivedEvent('deviceready');
-
+        window.addEventListener('native.keyboardshow', keyboardShowHandler);
+        function keyboardShowHandler (e) { // fired when keyboard enabled
+            var keyboardHeight = e.keyboardHeight;
+            alert(keyboardHeight);
+        }
         if (appState.needRestore) {
 
             ///////////////
@@ -130,6 +137,13 @@ var app = {
         }
     },
 
+
+
+    
+    
+    
+    
+
     // Update DOM on a Received Event
     receivedEvent: function (id) {
         // //------------------ PERMISSIONS -------------------------------//
@@ -154,7 +168,17 @@ var app = {
         //         permissions.requestPermissions(list, success, error);
         //     }
         // });
+
+        var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
+
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
+
+        console.log('Received Event: ' + id);
     }
+    
 };
 
 app.initialize();
@@ -164,7 +188,11 @@ var $$ = Dom7;
 var app = new Framework7({
     showBarsOnPageScrollEnd: false,
     material: false,
-    tapHold: true, //enable tap hold events
+    tapHold: true,
+    input: {
+        scrollIntoViewOnFocus: true,
+        scrollIntoViewCentered: true,
+      } //enable tap hold events
 });
 
 var storage = window.localStorage;

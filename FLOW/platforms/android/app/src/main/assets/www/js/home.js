@@ -1,28 +1,28 @@
 var ptrContent = $$('.pull-to-refresh-content');
 // Add 'refresh' listener on it
 ptrContent.on('ptr:refresh', function (e) {
-    // Emulate 2s loading
-    console.log("refreshing...")
-    setTimeout(function () {
-        // When loading done, we need to reset it
-        console.log("refreshed !");
-        $("#ptr_arrow").css("opacity", "0");
-        app.pullToRefreshDone();
-        Socket.client.send("Flow", "GetFlowById", "5c98edb4939cf639919d0aba");
-        // var new_block = new block($(".list-block"), false, null, 89);
-        // all_blocks.push(new_block);
-    }, 1000);
+  // Emulate 2s loading
+  console.log("refreshing...")
+  setTimeout(function () {
+    // When loading done, we need to reset it
+    console.log("refreshed !");
+    $("#ptr_arrow").css("opacity", "0");
+    app.pullToRefreshDone();
+    Socket.client.send("Flow", "GetFlowById", "5c98edb4939cf639919d0aba");
+    // var new_block = new block($(".list-block"), false, null, 89);
+    // all_blocks.push(new_block);
+  }, 1000);
 });
 
 ptrContent.on('ptr:pullstart', function (e) {
-    console.log("pull start");
-    $("#ptr_arrow").css("opacity", "1");
+  console.log("pull start");
+  $("#ptr_arrow").css("opacity", "1");
 
 });
 
 ptrContent.on('ptr:pullend', function (e) {
-    console.log("pull end");
-    $("#ptr_arrow").css("opacity", "0");
+  console.log("pull end");
+  $("#ptr_arrow").css("opacity", "0");
 });
 
 /******************************* TO DELETE **************************/
@@ -35,8 +35,7 @@ function PopFlow(data) {
     const src_img = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Image.name + '?';
     const param_img = `${data.LinkBuilder.Params.hash}=${data.Image.hash}&${data.LinkBuilder.Params.time}=${data.Image.timestamp}`;
     image_link = src_img + param_img;
-  }
-  else {
+  } else {
     pattern_key = data.Image.PatternKey;
   }
 
@@ -95,3 +94,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 }
  */
 /********************************************************************/
+
+var _root = document.documentElement;
+var _myvar = window.innerHeight / 100 + "px";
+_root.style.setProperty("--custom-vh", _myvar);

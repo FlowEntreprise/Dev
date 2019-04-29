@@ -176,6 +176,14 @@ module.exports = [
     "clobbers": [
       "TwitterConnect"
     ]
+  },
+  {
+    "id": "cordova-plugin-ionic-keyboard.keyboard",
+    "file": "plugins/cordova-plugin-ionic-keyboard/www/android/keyboard.js",
+    "pluginId": "cordova-plugin-ionic-keyboard",
+    "clobbers": [
+      "window.Keyboard"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -191,7 +199,8 @@ module.exports.metadata =
   "cordova-plugin-whitelist": "1.3.3",
   "cordova.plugins.diagnostic": "4.0.11",
   "twitter-connect-plugin": "0.6.0",
-  "cordova-plugin-browsersync": "0.1.7"
+  "cordova-plugin-browsersync": "0.1.7",
+  "cordova-plugin-ionic-keyboard": "2.1.3"
 };
 // BOTTOM OF METADATA
 });

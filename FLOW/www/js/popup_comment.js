@@ -34,6 +34,10 @@ function block_comment(pseudo, account_imageURL, comment) {
     this.fnumber_like.className = 'fnumber_like';
     this.fnumber_like.innerHTML = "136";
     $(this.block_comment).append(this.fnumber_like);
+
+    $(this.fcomment_like).on('click', function () {
+        impression_coloring(this, 'like', block_comment.fcomment_like,"comment");
+    });
 }
 
 
@@ -48,6 +52,7 @@ var pseudo = "@adc_98";
     var account_imageURL = "src/pictures/notif1.png";
 
 $('.fsend_comment').on('click', function () {
+    Keyboard.show();
     
     if (comment != "") {
         var new_block_comment = new block_comment(pseudo, account_imageURL, comment);
@@ -63,10 +68,12 @@ $(".finput_comment").keyup(function(){
     if($(".finput_comment").val() != "")
     {
         $(".fsend_comment").css('filter','brightness(100%)');
+        $(".fsend_comment").css('pointer-events','auto');
     }
     else
     {
         $(".fsend_comment").css('filter','brightness(125%)');
+        $(".fsend_comment").css('pointer-events','none');
     }
 
 });
@@ -76,18 +83,12 @@ for(var i = 0;i<6;i++)
     var new_block_comment = new block_comment(pseudo, account_imageURL, comment);
 }
 
-$(this.fcomment_like).on('click', function () {
+/* $(".finput_comment").focus(function(){
+    console.log("comment sent");
+    var input_msg = $(".finput_comment");
+    // input_msg.scrollIntoView();
+    
+}); */
 
-    $(this).each(function () {
-
-        var attr_img_like = $(this).attr('src');
-        if (attr_img_like === 'src/icons/Like.png') {
-            $(block_comment.fcomment_like).attr('src', 'src/icons/Like_filled.png');
-        }
-        if (attr_img_like === 'src/icons/Like_filled.png') {
-            $(block_comment.fcomment_like).attr('src', 'src/icons/Like.png');
-        }
-    });
-});
 
 var all_comments_block = [];

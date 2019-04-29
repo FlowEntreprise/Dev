@@ -47,14 +47,14 @@ textarea:focus::-webkit-input-placeholder {
 
 .swiper-4 {
     position: absolute !important;
-    top: 65vh !important;
+    top: calc(65* var(--custom-vh)) !important;
     left: 0;
     height: 120px !important;
 }
 
 .fbackground-after-txt {
     position: absolute;
-    top: 45vh;
+    top: calc(45* var(--custom-vh));
     left: 0;
     width: 100vw;
     font-family: "Roboto-Regular";
@@ -65,37 +65,37 @@ textarea:focus::-webkit-input-placeholder {
 
 .fcamera-after {
     position: absolute;
-    top: 50vh;
+    top: calc(50* var(--custom-vh));
     left: 10vw;
     width: 35vw;
-    height: 7vh;
+    height: calc(7* var(--custom-vh));
     background-color: white;
     border-radius: 30px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     background-image: url("../src/icons/camera.png");
-    background-size: 5vh auto;
+    background-size: calc(5* var(--custom-vh)) auto;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .fgallery-after {
     position: absolute;
-    top: 50vh;
+    top: calc(50* var(--custom-vh));
     left: 55vw;
     width: 35vw;
-    height: 7vh;
+    height: calc(7* var(--custom-vh));;
     background-color: white;
     border-radius: 30px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     background-image: url("../src/icons/gallery.png");
-    background-size: 5vh auto;
+    background-size: calc(5* var(--custom-vh)) auto;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .ffx-after-txt {
     position: absolute;
-    top: 61vh;
+    top: calc(61* var(--custom-vh));
     left: 0;
     width: 100vw;
     font-family: "Roboto-Regular";
@@ -148,11 +148,11 @@ textarea:focus::-webkit-input-placeholder {
 }
 
 .ffx_icon {
-    height: 4vh;
+    height: calc(4* var(--custom-vh));
     width: 35vw;
     height: 60px;
     background-image: url("../src/icons/gallery.png");
-    background-size: 7vh auto;
+    background-size: calc(7* var(--custom-vh)) auto;
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -160,7 +160,7 @@ textarea:focus::-webkit-input-placeholder {
 .frestart-after_btn {
     position: absolute;
     left: 15vw;
-    bottom: 4vh;
+    bottom: calc(4* var(--custom-vh));
     height: 16vw;
     width: 16vw;
     background-color: white;
@@ -175,7 +175,7 @@ textarea:focus::-webkit-input-placeholder {
 .fvalidate-after_btn {
     position: absolute;
     left: 39vw;
-    bottom: 2.5vh;
+    bottom: calc(2.5* var(--custom-vh));
     height: 22vw;
     width: 22vw;
     background:  url(../src/icons/validate.png) center / 15vw auto no-repeat, linear-gradient(to bottom, #1A84EF, #FF0054);
@@ -189,7 +189,7 @@ textarea:focus::-webkit-input-placeholder {
 .fcancel-after_btn {
     position: absolute;
     right: 15vw;
-    bottom: 4vh;
+    bottom: calc(4* var(--custom-vh));
     height: 16vw;
     width: 16vw;
     background-color: white;

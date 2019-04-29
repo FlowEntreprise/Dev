@@ -4,7 +4,7 @@
     margin-left: 5vw;
     margin-right: 5vw;
     margin-top: 5vw;
-    height: 37vh;
+    height: calc(37* var(--custom-vh));
     background-color: #FFFFFF;
     border-radius: 2vw;
     box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
@@ -15,7 +15,7 @@
     position: absolute;
     width: 15vw;
     height: 15vw;
-    top: 18.5vh;
+    top: calc(18.5* var(--custom-vh));
     left: 2vw;
     border: 1.2px solid rgb(255, 255, 255);
     /*background-image: url(../src/pictures/poster.jpg);*/
@@ -30,7 +30,7 @@
     position: absolute;
     width: 10vw;
     height: 10vw;
-    top: 18.5vh;
+    top: calc(18.5* var(--custom-vh));
     left: 75vw;
     border: 1.2px solid rgb(235, 13, 105);
     background-image: url(../src/pictures/follower1.jpg);
@@ -45,7 +45,7 @@
     position: absolute;
     width: 10vw;
     height: 10vw;
-    top: 18.5vh;
+    top: calc(18.5* var(--custom-vh));
     left: 80vw;
     border: 1.2px solid rgb(166, 10, 238);
     background-image: url(../src/pictures/follower2.jpg);
@@ -60,7 +60,7 @@
     position: absolute;
     width: 10vw;
     height: 10vw;
-    top: 18.5vh;
+    top: calc(18.5* var(--custom-vh));
     left: 83vw;
     border: 1.2px solid rgb(95, 133, 236);
     background-image: url(../src/pictures/follower3.png);
@@ -74,8 +74,8 @@
 .ftop_part {
     position: absolute;
     display: block;
-    top: 0vh;
-    height: 25vh;
+    top: 0;
+    height: calc(25* var(--custom-vh));
     width: 90vw;
     border-top-left-radius: 2vw;
     border-top-right-radius: 2vw;
@@ -87,10 +87,10 @@
 .fposter_name {
     position: absolute;
     display: block;
-    top: -1.5vh;
+    top: calc(-1.5* var(--custom-vh));
     font-size: 4vw;
     width: 15vw;
-    height: 2.5vh;
+    height: calc(2.5* var(--custom-vh));
     left: 2vw;
     color: #FFFFFF;
     text-align: left;
@@ -102,9 +102,9 @@
     position: absolute;
     font-size: 3vw;
     left: 2.5vw;
-    top: 1.8vh;
+    top: calc(1.8* var(--custom-vh));
     width: 10vw;
-    height: 2vh;
+    height: calc(2* var(--custom-vh));
     color: #FFFFFF;
     text-align: left;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
@@ -113,7 +113,7 @@
 .fdots {
     position: absolute;
     left: 82.5vw;
-    top: -1.5vh;
+    top: calc(-1.5* var(--custom-vh));
     font-size: 7vw;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     font-weight: bold;
@@ -124,8 +124,8 @@
 .fplay_button {
     position: absolute;
     width: 12vw;
-    height: 7vh;
-    top: 9vh;
+    height: calc(7* var(--custom-vh));
+    top: calc(9* var(--custom-vh));
     left: 41.5vw;
     text-align: center;
     z-index: 2;
@@ -134,8 +134,8 @@
 .fpause_button {
     position: absolute;
     width: 12vw;
-    height: 7vh;
-    top: 9vh;
+    height: calc(7* var(--custom-vh));
+    top: calc(9* var(--custom-vh));
     left: 41.5vw;
     text-align: center;
     z-index: 2;
@@ -145,8 +145,8 @@
 .fbottom_part {
     position: absolute;
     width: 90vw;
-    height: 12vh;
-    top: 25vh;
+    height: calc(12* var(--custom-vh));
+    top: calc(25* var(--custom-vh));
     background-color: #FFFFFF;
     border-bottom-left-radius: 2vw;
     border-bottom-right-radius: 2vw;
@@ -156,8 +156,8 @@
     position: absolute;
     display: block;
     width: 50vw;
-    height: 2.5vh;
-    top: 0vh;
+    height: calc(2.5* var(--custom-vh));
+    top: 0;
     font-size: 4.5vw;
     left: 2vw;
     font-weight: bold;
@@ -170,10 +170,10 @@
     position: absolute;
     display: block;
     width: 50vw;
-    height: 2.5vh;
+    height: calc(2.5* var(--custom-vh));
     font-size: 3vw;
     left: 2vw;
-    top: 4.5vh;
+    top: calc(4.5* var(--custom-vh));
     color: #909597;
     text-align: left;
 
@@ -183,10 +183,10 @@
     position: absolute;
     display: block;
     width: 30vw;
-    height: 3vh;
+    height: calc(3* var(--custom-vh));
     font-size: 3.5vw;
     left: 2vw;
-    top: 6.5vh;
+    top: calc(6.5* var(--custom-vh));
     font-weight: bold;
     color: #909597;
     text-align: left;
@@ -197,39 +197,39 @@
     position: absolute;
     width: 10vw;
     left: 58vw;
-    top: 3vh;
+    top: calc(3* var(--custom-vh));
     text-align: center;
-    height: 7vh;
+    height: calc(7* var(--custom-vh));
 }
 
 .fecho {
     position: absolute;
     width: 10vw;
     left: 68vw;
-    top: 3vh;
+    top: calc(3* var(--custom-vh));
     text-align: center;
-    height: 7vh;
+    height: calc(7* var(--custom-vh));
 }
 
 .fcomment {
     position: absolute;
     width: 10vw;
     left: 78vw;
-    top: 3vh;
+    top: calc(3* var(--custom-vh));
     text-align: center;
-    height: 7vh;
+    height: calc(7* var(--custom-vh));
 }
 
 .fimg_impression {
     text-align: center;
-    width: 3.5vh;
-    height: 3.5vh;
+    width: calc(3.5* var(--custom-vh));
+    height: calc(3.5* var(--custom-vh));
     object-fit: contain;
 }
 
 .ftxt_impression {
     position: absolute;
-    top: 2vh;
+    top: calc(2* var(--custom-vh));
     left: 2vw;
     color: #909597;
     font-size: 3.8vw ;
@@ -238,7 +238,7 @@
 
 #fbutton {
     position: absolute;
-    top: 80vh;
+    top: calc(80* var(--custom-vh));
     left: 80vw;
     background-color: #007aff;
     border: none;
@@ -260,10 +260,10 @@
 /* Progress */
 #waveform {
     width: 95vw;
-    height: 10vh;
+    height: calc(10* var(--custom-vh));;
     position: absolute;
     left: 0;
-    top: 22.6vh;
+    top: calc(22.6* var(--custom-vh));
     display: none;
     cursor: pointer;
     opacity: 0.8;
@@ -278,10 +278,10 @@
 
 #bar {
     position: absolute;
-    top: 12.5vh;
+    top: calc(12.5* var(--custom-vh));
     left: 0;
     width: 95vw;
-    height: 0.25vh;
+    height: calc(0.25* var(--custom-vh));
     background-color: rgba(255, 255, 255, 0.9);
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.33);
     opacity: 0.9;
@@ -306,8 +306,8 @@
     -webkit-appearance: none;
     position: absolute;
     width: 95vw;
-    height: 6vh;
-    top: 9.5vh;
+    height: calc(6* var(--custom-vh));
+    top: calc(9.5* var(--custom-vh));
     border-radius: 5px;
     background: #d3d3d3;
     outline: none;

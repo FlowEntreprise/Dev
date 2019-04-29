@@ -1,4 +1,4 @@
-function block_notification_like() {
+function block_notification_like(type) { //type permet de defini si c'est le like d'un flow ou le like d'un commentaire
     this.seen = false;
     var block_notification_like = this;
     this.block_notification_like = document.createElement('div');
@@ -17,6 +17,7 @@ function block_notification_like() {
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
     this.fnotif_label.innerText = 'Chris liked your flow';
+    if(type == "comment"){this.fnotif_label.innerText = 'Chris liked your comment';}
     this.block_notification_like.appendChild(this.fnotif_label);
 
     this.fnotif_text = document.createElement('label');
@@ -165,11 +166,11 @@ function set_seen(object) {
 }
 
 //fonction qui permet de creer les blocs de notifs
-function push_notif_block(notification_type) {
+function push_notif_block(notification_type,like_type) {
 
     switch (notification_type) {
         case 'like':
-            var new_notif_like = new block_notification_like();
+            var new_notif_like = new block_notification_like(like_type);
             all_notifications_block.push(new_notif_like);
             break;
         case 'echo':

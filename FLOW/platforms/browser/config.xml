@@ -19,6 +19,7 @@
     <preference name="StatusBarBackgroundColor" value="#f7f7f8" />
     <preference name="StatusBarStyle" value="default" />
     <preference name="Orientation" value="portrait" />
+    <preference name="Hostname" value="app" />
     <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
 </widget>
