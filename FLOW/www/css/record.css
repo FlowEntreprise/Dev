@@ -45,7 +45,7 @@ svg {
     z-index: -100;
 }
 
-circle {
+.frecord_indicator {
     fill: transparent;
     stroke: black;
     stroke-opacity: 0.2;

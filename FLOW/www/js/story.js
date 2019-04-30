@@ -6,6 +6,9 @@ var story_index = 0;
 var storyFlow_index = 0;
 var story_read_ids = [];
 
+var current_value = 0;
+var inSeenPopup = false;
+
 // Version 4.0
 const pSBC = (p, c0, c1, l) => {
     let r, g, b, P, f, t, h, i = parseInt,
@@ -78,8 +81,9 @@ class StoryComment {
         this.time = "14h56";
         this.audio = new Audio("src/sound/son.opus");
         this.user_id = 1;
-        this.user_pseudo = "@";
+        this.user_pseudo = "Pamela";
         this.user_picture = "src/pictures/girl1.jpg";
+        this.isPlaying = false;
     }
 }
 
@@ -98,7 +102,7 @@ for (var i = 0; i < 3; i++) {
     userStory.addStoryFlow("13h ago");
     userStory.color = story_colors[i];
     userStory.darkColor = pSBC(-0.8, userStory.color);
-        story_data.push(userStory);
+    story_data.push(userStory);
 }
 
 RefreshStories();
@@ -252,7 +256,7 @@ function handleTouchMove(evt) {
 };
 
 function handleTouchEnd(evt) {
-    if (direction != null) {
+    if (direction != null && $(".fstory_comment_list").scrollTop() < 5 && !inSeenPopup) {
         console.log("swipe " + direction);
         if (direction == "up") {
             showStoryComments();
@@ -318,8 +322,8 @@ function loadStory(story_index, storyFlow_index) {
     story_pos = $($(".fstory_block")[parseInt(story_index) + 1]).position();
     $(".fstory_indicator_list")[0].innerHTML = "";
     $(".fstory_pp")[0].style.backgroundImage = "url(" + story_data[story_index].user_picture + ")";
-    $(".fstory_window")[0].style.backgroundImage = "linear-gradient("+story_data[story_index].color+", "+story_data[story_index].darkColor+");";
-    let color_gradient = "linear-gradient("+story_data[story_index].color+", "+story_data[story_index].darkColor+")";
+    $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].color + ", " + story_data[story_index].darkColor + ");";
+    let color_gradient = "linear-gradient(" + story_data[story_index].color + ", " + story_data[story_index].darkColor + ")";
     $(".fstory_window")[0].style.background = color_gradient;
     for (var i = 0; i < story_data[storyFlow_index].data.length; i++) {
         let story_indicator_li = document.createElement("li");
@@ -353,6 +357,8 @@ function loadStory(story_index, storyFlow_index) {
     }, 100);
 
     story_read_ids.push(story_data[story_index].id);
+
+    loadStoryComments();
 }
 
 function previousStory() {
@@ -409,4 +415,105 @@ function stopAllStoriesAudio() {
     }
 }
 
+function loadStoryComments() {
+    $(".fstory_comment_list")[0].innerHTML = "";
+    for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
+        let comment_li = document.createElement("li");
+        comment_li.className = "fstory_comment_li";
+        let comment_time = document.createElement("label");
+        comment_time.innerHTML = story_data[story_index].data[storyFlow_index].comments[i].time;
+        comment_time.className = "fstory_comment_time";
+        let comment_loading = document.createElement("div");
+        comment_loading.className = "fstory_comment_loading";
+        comment_loading.setAttribute("comment_loading_id", i);
+        let comment_pp = document.createElement("div");
+        comment_pp.className = "fstory_comment_pp";
+        comment_pp.style.backgroundImage = "url(" + story_data[story_index].data[storyFlow_index].comments[i].user_picture + ")";
+        let comment_play = document.createElement("div");
+        comment_play.setAttribute("comment_id", i);
+        comment_play.className = "fstory_comment_play";
+        comment_play.onclick = function () {
+            playStoryComment(story_data[story_index].data[storyFlow_index].comments[i], comment_play)
+        };
+        let comment_pseudo = document.createElement("label");
+        comment_pseudo.className = "fstory_comment_pseudo";
+        comment_pseudo.innerHTML = story_data[story_index].data[storyFlow_index].comments[i].user_pseudo;
 
+        comment_li.appendChild(comment_time);
+        comment_li.appendChild(comment_loading);
+        comment_li.appendChild(comment_pp);
+        comment_li.appendChild(comment_play);
+        comment_li.appendChild(comment_pseudo);
+        $(".fstory_comment_list")[0].appendChild(comment_li);
+    }
+}
+
+function playStoryComment(comment, htmlelement) {
+    // stop all comments
+    for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
+        let com = story_data[story_index].data[storyFlow_index].comments[i];
+        if (com != comment) {
+            $("div[comment_id='" + i + "']")[0].style.backgroundImage = "url(../src/icons/play.png)";
+            com.audio.pause();
+            com.audio.currentTime = 0;
+            com.isPlaying = false;
+        }
+    }
+
+    if (!comment.isPlaying) {
+        var loading_com = $("div[comment_loading_id='" + htmlelement.getAttribute("comment_id") + "']")[0];
+        // var current_value = 0;
+        htmlelement.style.backgroundImage = "url(../src/icons/pause.png)";
+        comment.audio.play();
+        comment.audio.onended = function () {
+            htmlelement.style.backgroundImage = "url(../src/icons/play.png)";
+            comment.isPlaying = false;
+            comment.audio.currentTime = 0;
+            current_value = 0;
+        };
+        comment.audio.ontimeupdate = function () {
+            //console.log(loading_com);
+            //--let target_value = (comment.audio.currentTime / comment.audio.duration) * 100;
+            // current_value = Lerp(current_value, target_value, 0.5);
+            //--let css = "rgba(0, 0, 0, 0) conic-gradient(white 0deg, white "+target_value+"%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
+            //--$(loading_com).css({"background": css});//.style.backgroundImage = "conic-gradient(white 0 50%, transparent 0 100%);";
+        }
+        current_value = (comment.audio.currentTime / comment.audio.duration) * 100;
+        smoothUpdateBar(loading_com, comment);
+        comment.isPlaying = true;
+    } else {
+        htmlelement.style.backgroundImage = "url(../src/icons/play.png)";
+        comment.audio.pause();
+        comment.isPlaying = false;
+    }
+}
+
+function lerp(start, end, amt) {
+    return (1 - amt) * start + amt * end
+}
+
+function smoothUpdateBar(loading_com, comment) {
+    setTimeout(function () {
+        let target_value = (comment.audio.currentTime / comment.audio.duration) * 100;
+        current_value = Lerp(current_value, target_value, 0.5);
+        let css = "rgba(0, 0, 0, 0) conic-gradient(white 0deg, white " + current_value + "%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
+        $(loading_com).css({
+            "background": css
+        });
+        if (comment.isPlaying) {
+            smoothUpdateBar(loading_com, comment);
+        }
+    }, 40);
+}
+
+function ShowSeenPopup() {
+    inSeenPopup = true;
+    $(".seen_popup_bg").css({"opacity": "0.3", "pointer-events": "auto"});
+    $(".seen_popup").css({"transform": "translate3d(0, 0, 0)"});
+}
+
+function CloseSeenPopup() {
+    inSeenPopup = false;
+    $(".seen_popup_bg").css({"opacity": "0", "pointer-events": "none"});
+    $(".seen_popup").css({"transform": "translate3d(0, 70vh, 0)"});
+}
