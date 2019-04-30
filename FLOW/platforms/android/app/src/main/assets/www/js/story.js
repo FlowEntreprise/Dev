@@ -73,6 +73,10 @@ class StoryFlow {
         for (let i = 0; i < 5; i++) {
             this.comments.push(new StoryComment());
         }
+        this.seen = [];
+        for (let i = 0; i < 15; i++) {
+            this.seen.push(new StorySeen());
+        }
     }
 }
 
@@ -84,6 +88,14 @@ class StoryComment {
         this.user_pseudo = "Pamela";
         this.user_picture = "src/pictures/girl1.jpg";
         this.isPlaying = false;
+    }
+}
+
+class StorySeen {
+    constructor() {
+        this.time = "Seen 5m ago";
+        this.user_pseudo = "@John";
+        this.user_picture = "src/pictures/guy1.jpg";
     }
 }
 
@@ -359,6 +371,7 @@ function loadStory(story_index, storyFlow_index) {
     story_read_ids.push(story_data[story_index].id);
 
     loadStoryComments();
+    loadStorySeen();
 }
 
 function previousStory() {
@@ -516,4 +529,27 @@ function CloseSeenPopup() {
     inSeenPopup = false;
     $(".seen_popup_bg").css({"opacity": "0", "pointer-events": "none"});
     $(".seen_popup").css({"transform": "translate3d(0, 70vh, 0)"});
+}
+
+function loadStorySeen() {
+    $(".fstory_seen_txt")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen.length;
+    $(".seen_number")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen.length;
+    $(".seen_ul")[0].innerHTML = "";
+    for (let i = 0; i < story_data[story_index].data[storyFlow_index].seen.length; i++) {
+        let seen_li = document.createElement("li");
+        seen_li.className = "seen_li";
+        let seen_pseudo = document.createElement("label");
+        seen_pseudo.innerHTML = story_data[story_index].data[storyFlow_index].seen[i].user_pseudo;
+        seen_pseudo.className = "seen_pseudo";
+        let seen_pp = document.createElement("div");
+        seen_pp.className = "seen_pp";
+        let seen_time = document.createElement("label");
+        seen_time.innerHTML = story_data[story_index].data[storyFlow_index].seen[i].time;
+        seen_time.className = "seen_time";
+
+        seen_li.appendChild(seen_pseudo);
+        seen_li.appendChild(seen_pp);
+        seen_li.appendChild(seen_time);
+        $(".seen_ul")[0].appendChild(seen_li);
+    }
 }
