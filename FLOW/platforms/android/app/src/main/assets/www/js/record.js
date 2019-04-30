@@ -35,6 +35,7 @@ $$('.fflow-btn').on('taphold', function () {
     $$('.frecord-btn').css({
         "display": "flex"
     });
+    $(".record-shadow")[0].style.display = "block";
     record_was_hold = true;
     StartRecording();
 });
@@ -50,6 +51,7 @@ $$('.popup-record').on('popup:close', function () {
     $$('.frecord-btn').css({
         "display": "none"
     });
+    $(".record-shadow")[0].style.display = "none";
     StopRecording();
     current_page = "home";
 });
@@ -58,6 +60,7 @@ $$('.popup-record').on('popup:open', function () {
     $$('.frecord-btn').css({
         "display": "flex"
     });
+    $(".record-shadow")[0].style.display = "block";
     if (record_was_hold) {
         $$('.frecord-btn').addClass('frecord-btn-active');
     }

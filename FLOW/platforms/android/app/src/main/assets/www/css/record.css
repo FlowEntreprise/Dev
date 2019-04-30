@@ -1,15 +1,16 @@
 .frecord-btn {
     position: absolute;
-    top: 86.5vh;
-    left: 37.5vw;
-    width: 25vw;
-    height: 15vh;
+    left: calc(50vw - 5vh);
+    bottom: 1vh;
+    height: 10vh !important;
+    width: 10vh !important;
 
     z-index: 50000;
     display: none;
     transition-duration: 0.4s;
 
-    align-items: center;
+    border-radius: 100%;
+    background: url("../src/icons/Record.png") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054);
 }
 
 .frecord_img {
@@ -28,8 +29,10 @@
 
 svg {
     position: absolute;
-    height: 25vw;
-    width: 25vw;
+    left: calc(50vw - 6vh);
+    bottom: 0vh;
+    height: 12vh !important;
+    width: 12vh !important;
 
     /* object-fit: contain;
     width: 100%;
@@ -42,7 +45,8 @@ svg {
 
     margin: 0 auto;
     display: block;
-    z-index: -100;
+    z-index: 40000;
+    pointer-events: none;
 }
 
 .frecord_indicator {
@@ -99,16 +103,17 @@ svg {
 
 @keyframes click-wave-record {
     0% {
-        height: 25vw;
-        width: 25vw;
+        height: 10vh;
+        width: 10vh;
         opacity: 0.15;
         position: absolute;
     }
 
     100% {
-        height: 45vw;
-        width: 45vw;
-        margin-left: -10vw;
+        height: 20vh;
+        width: 20vh;
+        margin-left: -5vh;
+        margin-top: -5vh;
         /* margin-left: -80px;
         margin-top: -80px; */
         opacity: 0;
@@ -123,4 +128,10 @@ svg {
     width: 101vw;
     height: 40vh;
     pointer-events: none;
+}
+
+.record-shadow
+{
+    z-index: 40000; 
+    display: none;
 }

@@ -7,7 +7,8 @@
         -->
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densityDpi=device-dpi">
+    <meta name="viewport"
+        content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densityDpi=device-dpi">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
     <link rel="stylesheet" type="text/css" href="css/explore.css">
@@ -53,7 +54,7 @@
                                 <div class="fstory_block">
                                     <div class="fplus"></div>
                                     <a href="../www/pages/account.html" class="open-login-screen">
-                                            <img src="src/pictures/guy1.jpg" class="fstory_pic fnoshadow">
+                                        <img src="src/pictures/guy1.jpg" class="fstory_pic fnoshadow">
                                     </a>
                                     <div class="unread_shadow"></div>
                                 </div>
@@ -151,11 +152,12 @@
                 <div class="toolbar-inner">
                     <a href="#tab1" class="fnav-btn fhome-btn tab-link active"></a>
                     <a href="#tab2" class="fnav-btn fexplore-btn tab-link"></a>
+                    <div class="flow-btn-shadow"></div>
                     <a href="#" data-popup=".popup-record" class="fnav-btn fflow-btn open-popup"></a>
                     <a href="#tab3" class="fnav-btn fmessages-btn tab-link"></a>
-                   
+
                     <a href="#tab4" class="fnav-btn fnotif-btn tab-link"></a>
-                    
+
                     <!-- <div class="fneed_connect" style="left: 17vw;"></div> -->
                     <div class="fneed_connect" style="left: 68vw;"></div>
                     <div class="fneed_connect" style="left: 84vw;"></div>
@@ -227,11 +229,14 @@
                 <div class="content-block">
                     <p id="fpopup-connect-msg-inscription">Un compte est nécessaire pour réaliser cette action</p>
                     <div id="fcontent_logo_reseaux_sociaux">
-                        <a href=""><img src="../www/src/icons/google@3x.png" alt="logo google" class="fgoogle_btn fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/google@3x.png" alt="logo google"
+                                class="fgoogle_btn fsize_img_reseaux_sociaux"></a>
                         <a href=""><img src="../www/src/icons/instagram-round-flat-512@3x.png" alt="logo instagram"
                                 class="finsta_btn fsize_img_reseaux_sociaux"></a>
-                        <a href=""><img src="../www/src/icons/facebook_circle-512@3x.png" alt="logo facebook" class="ffacebook_btn fsize_img_reseaux_sociaux"></a>
-                        <a href=""><img src="../www/src/icons/twitter-512@3x.png" alt="logo twitter" class="ftwitter_btn fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/facebook_circle-512@3x.png" alt="logo facebook"
+                                class="ffacebook_btn fsize_img_reseaux_sociaux"></a>
+                        <a href=""><img src="../www/src/icons/twitter-512@3x.png" alt="logo twitter"
+                                class="ftwitter_btn fsize_img_reseaux_sociaux"></a>
                     </div>
                     <div id="fseparation">
                         <div id="ftrait_gauche"></div>
@@ -284,27 +289,24 @@
 
     <div class="fneed_connect" style="left: 37.5vw; width: 25vw; height: 15vh;"></div>
 
+    <svg viewBox="0 0 32 32">
+        <circle class="frecord_indicator" r="16" cx="16" cy="16" />
+    </svg>
+    <div class="flow-btn-shadow record-shadow"></div>
     <div class="frecord-btn">
-        <svg viewBox="0 0 32 32">
-            <circle class="frecord_indicator" r="16" cx="16" cy="16" />
-        </svg>
-        <div class="frecord_img"></div>
     </div>
 
 
 
 
     <script type="text/javascript" src="cordova.js"></script>
-    
+
     <script src="js/require/SocketClient.js"></script>
     <script src="js/require/EventEmitter.js""></script>
-    <script src="js/require/EventListener.js"></script>
-    <script src="js/SocketManager.js"></script>
+    <script src=" js/require/EventListener.js"> </script> <script src="js/SocketManager.js"></script>
     <script>
-
         const Socket = new SocketManager("http://51.38.39.212:8082");
         console.log(Socket.ListenManager);
-
     </script>
 
     <script type="text/javascript" src="js/index.js"></script>

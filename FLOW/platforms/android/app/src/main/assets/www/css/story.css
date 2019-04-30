@@ -203,6 +203,10 @@
     left: 40vw;
     border-radius: 100%;
     background-color: transparent;
+    background-image: url("../src/icons/Record.png");
+    background-size: 8vw;
+    background-position: center;
+    background-repeat: no-repeat;
     border: solid 2px white;
 
     text-align: center;
