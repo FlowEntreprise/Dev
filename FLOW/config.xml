@@ -50,6 +50,7 @@
     <plugin name="cordova-plugin-k-imagecropper" spec="^1.2.0">
         <variable name="ANDROID_SUPPORT_APPCOMPAT_VERSION" value="27.+" />
     </plugin>
+    <plugin name="cordova-plugin-fullscreen" spec="~1.1.0" />
     <engine name="browser" spec="^5.0.4" />
     <engine name="android" spec="^7.1.4" />
 </widget>

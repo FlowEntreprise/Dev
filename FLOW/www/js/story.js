@@ -271,9 +271,11 @@ function handleTouchEnd(evt) {
     if (direction != null && $(".fstory_comment_list").scrollTop() < 5 && !inSeenPopup) {
         console.log("swipe " + direction);
         if (direction == "up") {
+            stopAllStoriesAudio();
             showStoryComments();
         } else if (direction == "down") {
             if (currentSection == "comments") {
+                stopAllStoriesAudio();
                 showStoryMain();
             } else {
                 CloseStory();
@@ -426,6 +428,13 @@ function stopAllStoriesAudio() {
             story_data[i].data[j].audio.currentTime = 0.0;
         }
     }
+
+    for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
+        let com = story_data[story_index].data[storyFlow_index].comments[i];
+        com.audio.pause();
+        com.audio.currentTime = 0;
+        com.isPlaying = false;
+    }
 }
 
 function loadStoryComments() {
@@ -466,7 +475,7 @@ function playStoryComment(comment, htmlelement) {
     for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
         let com = story_data[story_index].data[storyFlow_index].comments[i];
         if (com != comment) {
-            $("div[comment_id='" + i + "']")[0].style.backgroundImage = "url(../src/icons/play.png)";
+            $("div[comment_id='" + i + "']")[0].style.backgroundImage = "url('src/icons/play.png')";
             com.audio.pause();
             com.audio.currentTime = 0;
             com.isPlaying = false;
@@ -476,10 +485,10 @@ function playStoryComment(comment, htmlelement) {
     if (!comment.isPlaying) {
         var loading_com = $("div[comment_loading_id='" + htmlelement.getAttribute("comment_id") + "']")[0];
         // var current_value = 0;
-        htmlelement.style.backgroundImage = "url(../src/icons/pause.png)";
+        htmlelement.style.backgroundImage = "url('src/icons/pause.png')";
         comment.audio.play();
         comment.audio.onended = function () {
-            htmlelement.style.backgroundImage = "url(../src/icons/play.png)";
+            htmlelement.style.backgroundImage = "url('src/icons/play.png')";
             comment.isPlaying = false;
             comment.audio.currentTime = 0;
             current_value = 0;
@@ -495,7 +504,7 @@ function playStoryComment(comment, htmlelement) {
         smoothUpdateBar(loading_com, comment);
         comment.isPlaying = true;
     } else {
-        htmlelement.style.backgroundImage = "url(../src/icons/play.png)";
+        htmlelement.style.backgroundImage = "url('src/icons/play.png')";
         comment.audio.pause();
         comment.isPlaying = false;
     }
@@ -521,14 +530,24 @@ function smoothUpdateBar(loading_com, comment) {
 
 function ShowSeenPopup() {
     inSeenPopup = true;
-    $(".seen_popup_bg").css({"opacity": "0.3", "pointer-events": "auto"});
-    $(".seen_popup").css({"transform": "translate3d(0, 0, 0)"});
+    $(".seen_popup_bg").css({
+        "opacity": "0.3",
+        "pointer-events": "auto"
+    });
+    $(".seen_popup").css({
+        "transform": "translate3d(0, 0, 0)"
+    });
 }
 
 function CloseSeenPopup() {
     inSeenPopup = false;
-    $(".seen_popup_bg").css({"opacity": "0", "pointer-events": "none"});
-    $(".seen_popup").css({"transform": "translate3d(0, 70vh, 0)"});
+    $(".seen_popup_bg").css({
+        "opacity": "0",
+        "pointer-events": "none"
+    });
+    $(".seen_popup").css({
+        "transform": "translate3d(0, 70vh, 0)"
+    });
 }
 
 function loadStorySeen() {

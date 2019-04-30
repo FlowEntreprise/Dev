@@ -172,7 +172,7 @@
 .fstory_txt
 {
     position: absolute;
-    top: 1vh;
+    top: 4vh;
     width: 100vw;
     text-align: center;
     color: white;
@@ -183,7 +183,7 @@
 .fstory_down_icon
 {
     position: absolute;
-    top: 4vh;
+    top: 7vh;
     width: 8vw;
     height: 30px;
     left: 46vw;
@@ -242,7 +242,7 @@
 .fstory_comment_list
 {
     position: absolute;
-    top: 7vh;
+    top: 10vh;
     width: 80vw;
     left: 10vw;
     height: 75vh;

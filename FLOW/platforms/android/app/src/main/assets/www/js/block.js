@@ -332,7 +332,7 @@ function block(params) {
 
     this.fplay_button.addEventListener('click', function () {
 
-        all_blocks.map(a => a.flowpause(a));
+        stopAllBlocksAudio();
         block.flowplay(block);
     });
     this.fpause_button.addEventListener('click', function () {
@@ -431,6 +431,10 @@ function block(params) {
 }
 
 var all_blocks = [];
+
+function stopAllBlocksAudio() {
+    all_blocks.map(a => a.flowpause(a));
+}
 
 // $("#button2").click(function () {
 //     var new_block = new block();

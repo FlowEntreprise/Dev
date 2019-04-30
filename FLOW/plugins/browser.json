@@ -45,6 +45,9 @@
     },
     "cordova-plugin-k-imagecropper": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-fullscreen": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {}

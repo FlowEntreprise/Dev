@@ -24,13 +24,14 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function () {
         this.receivedEvent('deviceready');
-
+        
         if (cordova.platformId == 'android') {
+            StatusBar.show();
             StatusBar.overlaysWebView(true);
             StatusBar.backgroundColorByHexString('#00000000');
             StatusBar.styleDefault();
         }
-        
+
         if (appState.needRestore) {
 
             ///////////////
@@ -92,17 +93,25 @@ var app = {
         // plugin result in onResume(). We also save if we have already fetched
         // an image URI
         console.log("pause");
+        stopAllStoriesAudio();
+        stopAllBlocksAudio();
+
         if (appState.takingPicture || appState.imageUri) {
             window.localStorage.setItem("app_state", JSON.stringify(appState));
             console.log("app state saved");
         }
+
+        // if (cordova.platformId == 'android') {
+        //     StatusBar.show();
+        //     StatusBar.overlaysWebView(true);
+        //     StatusBar.backgroundColorByHexString('#00000000');
+        //     StatusBar.styleDefault();
+        // }
     },
     onResume: function (event) {
         console.log("resume");
         if (cordova.platformId == 'android') {
-            StatusBar.overlaysWebView(true);
-            StatusBar.backgroundColorByHexString('#00000000');
-            StatusBar.styleDefault();
+            ResetStatusBar();
         }
         // Here we check for stored state and restore it if necessary. In your
         // application, it's up to you to keep track of where any pending plugin
