@@ -7,7 +7,7 @@ function block_comment(pseudo, account_imageURL, comment) {
 
     this.fimg_user = document.createElement('div');
     this.fimg_user.className = 'fimg_user';
-    $(this.fimg_user).css("background-image","url(" + account_imageURL + "");
+    $(this.fimg_user).css("background-image", "url(" + account_imageURL + "");
     $(this.block_comment).append(this.fimg_user);
 
     this.fid_user = document.createElement('label');
@@ -15,9 +15,9 @@ function block_comment(pseudo, account_imageURL, comment) {
     this.fid_user.innerHTML = "@adc_98";
     $(this.block_comment).append(this.fid_user);
 
-    this.fblock_comment_comment = document.createElement('label');
+    this.fblock_comment_comment = document.createElement('p');
     this.fblock_comment_comment.className = 'fblock_comment_comment open-popover';
-    this.fblock_comment_comment.innerHTML = "Super lourd le Flow";
+    this.fblock_comment_comment.innerHTML = comment;
     $(this.block_comment).append(this.fblock_comment_comment);
 
     this.fdate = document.createElement('label');
@@ -36,7 +36,7 @@ function block_comment(pseudo, account_imageURL, comment) {
     $(this.block_comment).append(this.fnumber_like);
 
     $(this.fcomment_like).on('click', function () {
-        impression_coloring(this, 'like', block_comment.fcomment_like,"comment");
+        impression_coloring(this, 'like', block_comment.fcomment_like, "comment");
     });
 }
 
@@ -48,47 +48,35 @@ $$('.fcomment').on('click', function () {
 $$(".fclose_comment").on("click", function () {});
 
 var pseudo = "@adc_98";
-    var comment = $(".finput_comment").val();
-    var account_imageURL = "src/pictures/notif1.png";
+var account_imageURL = "src/pictures/notif1.png";
 
 $('.fsend_comment').on('click', function () {
-    Keyboard.show();
+
+    var comment = ($(".finput_comment").val()).trim();
+    $(".finput_comment").val("");
+    var new_block_comment = new block_comment(pseudo, account_imageURL, comment);
+    all_comments_block.push(new_block_comment);
+    if(comment == "")
+    {
+        alert("Commentaire vide !!!");
+    }
     
-    if (comment != "") {
-        var new_block_comment = new block_comment(pseudo, account_imageURL, comment);
-        all_comments_block.push(new_block_comment);
-        $(".finput_comment").val("");
-    }
-    else{alert("Commentaire vide !!!");}
-
 });
 
-$(".finput_comment").keyup(function(){
 
-    if($(".finput_comment").val() != "")
-    {
-        $(".fsend_comment").css('filter','brightness(100%)');
-        $(".fsend_comment").css('pointer-events','auto');
-    }
-    else
-    {
-        $(".fsend_comment").css('filter','brightness(125%)');
-        $(".fsend_comment").css('pointer-events','none');
-    }
+$(".finput_comment").keyup(function () {
 
+    if ($(".finput_comment").val() != "") {
+        $(".fsend_comment").css('filter', 'brightness(100%)');
+        $(".fsend_comment").css('pointer-events', 'auto');
+    } else if($(".finput_comment").val() == "") {
+        $(".fsend_comment").css('filter', 'brightness(125%)');
+        $(".fsend_comment").css('pointer-events', 'none');
+    }
 });
 
-for(var i = 0;i<6;i++)
-{
+for (var i = 0; i < 6; i++) {
     var new_block_comment = new block_comment(pseudo, account_imageURL, comment);
 }
-
-/* $(".finput_comment").focus(function(){
-    console.log("comment sent");
-    var input_msg = $(".finput_comment");
-    // input_msg.scrollIntoView();
-    
-}); */
-
 
 var all_comments_block = [];

@@ -19,7 +19,7 @@
 .fblock_comment {
     position: relative;
     width: 100vw;
-    height: calc(12* var(--custom-vh));
+    height: calc(13* var(--custom-vh));
 
 }
 
@@ -40,8 +40,8 @@
 .fblock_comment_content {
     position: absolute;
     width: 100vw;
-    height: calc(54* var(--custom-vh));
-    top: calc(8* var(--custom-vh));
+    height: calc(59* var(--custom-vh));
+    top: calc(5.5* var(--custom-vh));
     overflow-y: scroll;
 }
 
@@ -70,21 +70,27 @@
 .fblock_comment_comment {
     position: absolute;
     left: 20.5vw;
-    top: calc(4.7* var(--custom-vh));
-    width: 70vw;
+    display : block;
+    overflow-wrap: break-word;
+    max-width : 100%;
+    top: calc(4.5* var(--custom-vh));
+    width: 68vw;
     height: calc(7* var(--custom-vh));
-    font-size: calc(2.2* var(--custom-vh));
+    font-size: calc(1.7* var(--custom-vh));
     text-align: left;
     color: #4A4A4A;
+    line-height: 1.15;
     font-family: "Roboto-Light";
+    margin: 0;
+    padding: 0;
 }
 
 .fdate {
     position: absolute;
     left: 20.5vw;
-    top: calc(8* var(--custom-vh));
+    top: calc(11* var(--custom-vh));
     color: #4A4A4A;
-    font-size: calc(1.8* var(--custom-vh));
+    font-size: calc(1.6* var(--custom-vh));
     font-family: "Roboto-Light";
 }
 
@@ -109,10 +115,10 @@
 
 .fwrite_comment {
     position: absolute;
-    height: calc(7* var(--custom-vh));
+    height: calc(6* var(--custom-vh));
     border-top: 0.1px solid #92ABB2;
     width: 100vw;
-    bottom: 0;
+    bottom: calc(0* var(--custom-vh));
     box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
     background-color: #fff;
 }
@@ -120,7 +126,7 @@
 .finput_comment {
      position: absolute; 
     width: 75vw;
-    height: calc(7.5* var(--custom-vh));
+    height: calc(5.5* var(--custom-vh));
     border: none;
     top: calc(0.25* var(--custom-vh));
     font-size: calc(2.6* var(--custom-vh));
@@ -136,9 +142,9 @@
 
 .fsend_comment {
     position: absolute;
-    width: 10vw;
+    width: 8vw;
     right: 4vw;
-    height: calc(5* var(--custom-vh));
+    height: calc(4* var(--custom-vh));
     top: calc(1.5* var(--custom-vh));
     filter: brightness(125%);
     pointer-events: none;
