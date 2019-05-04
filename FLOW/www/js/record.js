@@ -159,6 +159,10 @@ function StartRecording() {
                     $$('.frecord-btn').addClass('frecord-btn-active');
                 } else if (current_page == "story") {
                     $$('.fstory_addcomment_btn').addClass('active');
+                    $(".comment_record_popup").css({
+                        "opacity": "1",
+                        "pointer-events": "auto"
+                    });
                 }
                 recording = true;
                 console.log("start recording...");

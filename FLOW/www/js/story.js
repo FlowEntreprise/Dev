@@ -116,7 +116,8 @@ for (var i = 0; i < 3; i++) {
     userStory.addStoryFlow("2h ago");
     userStory.addStoryFlow("6h ago");
     userStory.addStoryFlow("13h ago");
-    userStory.color = story_colors[i];
+    //userStory.color = story_colors[i];
+    userStory.color = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
     userStory.darkColor = pSBC(-0.8, userStory.color);
     story_data.push(userStory);
 }
