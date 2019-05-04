@@ -25,6 +25,7 @@
 
 .frecord-btn-active {
     filter: brightness(110%);
+    background: url("../src/icons/stop_icon.png") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054) !important;
 }
 
 svg {

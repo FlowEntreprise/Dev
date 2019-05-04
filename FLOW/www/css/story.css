@@ -215,6 +215,27 @@
     color: white;
     font-size: 46px;
     font-family: "Roboto-Light";
+    z-index: 10;
+}
+
+.fstory_addcomment_btn.active
+{
+    background-image: url("../src/icons/stop_icon.png") !important;
+}
+
+
+.fstory_addcomment_loading
+{
+    position: absolute;
+    bottom: calc(3vh + 1px);
+    height: calc(20vw + 1px);
+    width: 20vw;
+    left: calc(40vw + 2px);
+    background: conic-gradient(white 0 0%, transparent 0 100%);
+    border-radius: 100%;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 10;
 }
 
 .fstory_seen_icon
@@ -430,4 +451,67 @@
     color: #4A4A4A;
     font-family: "Roboto-Regular";
     text-align: center;
+}
+
+.comment_record_popup
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.5);
+    transition-duration: 0.4s;
+    z-index: 5;
+}
+
+.validate_record_comment 
+{
+    position: absolute;
+    bottom: 3vh;
+    height: 20vw;
+    width: 20vw;
+    left: 40vw;
+    border-radius: 100%;
+    background-color: transparent;
+    background-image: url("../src/icons/validate.png");
+    background-size: 13vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: solid 2px white;
+    z-index: 10;
+    display: none;
+}
+
+.listen_record_comment 
+{
+    position: absolute;
+    bottom: calc(4vh + 25vw);
+    height: 8vh;
+    width: 8vh;
+    left: calc(50vw - 4vh);
+    border-radius: 100%;
+    background-color: transparent;
+    background-image: url("../src/pictures/guy1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 10;
+    display: none;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.play_record_comment
+{
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    background-image: url("../src/icons/play.png");
+    background-size: 8vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
 }

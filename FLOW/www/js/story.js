@@ -8,6 +8,10 @@ var story_read_ids = [];
 
 var current_value = 0;
 var inSeenPopup = false;
+var playing_recorded_com = false;
+var recorded_com;
+
+var debug_record = false;
 
 // Version 4.0
 const pSBC = (p, c0, c1, l) => {
@@ -207,6 +211,21 @@ function SpawnStoryWindow(story_block) {
             // OR
             loadStory(story_index, storyFlow_index);
             showStoryMain();
+
+            $('.fstory_addcomment_btn').on('taphold', function () {
+                console.log("Hold Record !");
+                record_was_hold = true;
+                StartRecording();
+            });
+            $('.fstory_addcomment_btn').on('click', function () {
+                console.log("Tap Record !");
+                if (recording) {
+                    StopRecording();
+                } else {
+                    StartRecording();
+                }
+            });
+
 
         }, 50);
     });
@@ -435,6 +454,10 @@ function stopAllStoriesAudio() {
         com.audio.currentTime = 0;
         com.isPlaying = false;
     }
+
+    if (recorded_com) {
+        recorded_com.pause();
+    }
 }
 
 function loadStoryComments() {
@@ -571,4 +594,34 @@ function loadStorySeen() {
         seen_li.appendChild(seen_time);
         $(".seen_ul")[0].appendChild(seen_li);
     }
+}
+
+function closeRecordComment() {
+    StopRecording("cancel");
+    $(".comment_record_popup").css({
+        "opacity": "0",
+        "pointer-events": "none"
+    });
+    $$('.fstory_addcomment_btn')[0].style.display = "block";
+    $(".validate_record_comment")[0].style.display = "none";
+    $(".listen_record_comment")[0].style.display = "none";
+    recorded_com.pause();
+}
+
+function ListenRecordedComment() {
+    if (playing_recorded_com) {
+        recorded_com.pause();
+        $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/play.png')";
+        playing_recorded_com = false;
+    } else {
+        recorded_com.play();
+        $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/pause.png')";
+        playing_recorded_com = true;
+    }
+}
+
+function PublishRecordedComment() {
+    // Send recorded com to the server
+    console.log("published comment (ignore canceled debug)");
+    closeRecordComment();
 }

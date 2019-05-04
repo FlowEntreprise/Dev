@@ -23,6 +23,11 @@
     <div class="fstory_next" onclick="nextStory()"></div>
 </div>
 <div class="comments_main_view">
+    <div class="comment_record_popup" onclick="closeRecordComment()"></div>
+    <div class="validate_record_comment" onclick="PublishRecordedComment()"></div>
+    <div class="listen_record_comment" onclick="ListenRecordedComment()">
+        <div class="play_record_comment"></div>
+    </div>
     <label class="fstory_txt" onclick="showStoryMain()">STORY</label>
     <div class="fstory_down_icon" onclick="showStoryMain()"></div>
     <ul class="fstory_comment_list">
@@ -34,6 +39,7 @@
             <label class="fstory_comment_pseudo">John</label>
         </li> -->
     </ul>
+    <div class="fstory_addcomment_loading"></div>
     <div class="fstory_addcomment_btn"></div>
     <div class="fstory_seen_icon" onclick="ShowSeenPopup()"></div>
     <label class="fstory_seen_txt" onclick="ShowSeenPopup()">0</label>

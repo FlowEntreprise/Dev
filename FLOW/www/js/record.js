@@ -25,8 +25,10 @@ let options = {
 
 $$('.popup-record').on('popup:open', function () {
     $$('#flow_number_of_sec').text("00");
-    pictureSource = navigator.camera.PictureSourceType;
-    destinationType = navigator.camera.DestinationType;
+    if (!debug_record) {
+        pictureSource = navigator.camera.PictureSourceType;
+        destinationType = navigator.camera.DestinationType;
+    }
     current_page = "record";
 });
 $$('.fflow-btn').on('taphold', function () {
@@ -117,7 +119,7 @@ $$('.fgallery-after').on('click', function () {
 });
 
 function StartRecording() {
-    if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
+    if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/) && !debug_record) {
         //------------------ PERMISSIONS -------------------------------//
         var permissions = cordova.plugins.permissions;
         var list = [
@@ -133,18 +135,31 @@ function StartRecording() {
             if (!status.hasPermission) error();
             else {
                 setup();
-                $$('.frecord-btn').addClass('frecord-btn-active');
                 recording = true;
                 console.log("start recording...");
                 start_time = Date.now();
                 UpdateRecordIndicator();
+
+                if (current_page == "record") {
+                    $$('.frecord-btn').addClass('frecord-btn-active');
+                } else if (current_page == "story") {
+                    $$('.fstory_addcomment_btn').addClass('active');
+                    $(".comment_record_popup").css({
+                        "opacity": "1",
+                        "pointer-events": "auto"
+                    });
+                }
             }
         }
 
         permissions.hasPermission(permissions.RECORD_AUDIO, function (status) {
             if (status.hasPermission) {
                 setup();
-                $$('.frecord-btn').addClass('frecord-btn-active');
+                if (current_page == "record") {
+                    $$('.frecord-btn').addClass('frecord-btn-active');
+                } else if (current_page == "story") {
+                    $$('.fstory_addcomment_btn').addClass('active');
+                }
                 recording = true;
                 console.log("start recording...");
                 start_time = Date.now();
@@ -155,7 +170,15 @@ function StartRecording() {
         });
     } else {
         setup();
-        $$('.frecord-btn').addClass('frecord-btn-active');
+        if (current_page == "record") {
+            $$('.frecord-btn').addClass('frecord-btn-active');
+        } else if (current_page == "story") {
+            $$('.fstory_addcomment_btn').addClass('active');
+            $(".comment_record_popup").css({
+                "opacity": "1",
+                "pointer-events": "auto"
+            });
+        }
         recording = true;
         console.log("start recording...");
         start_time = Date.now();
@@ -169,15 +192,33 @@ function StopRecording() {
     if (recording) {
         mediaRecorder.stop();
     }
-    $$('.frecord-btn').removeClass('frecord-btn-active');
+
     recording = false;
     record_was_hold = false;
     console.log("stop recording.");
-    $$('.frecord_indicator').css({
-        "stroke-dasharray": "0 100"
-    });
+    if (current_page == "record") {
+        $$('.frecord-btn').removeClass('frecord-btn-active');
+        $$('.frecord_indicator').css({
+            "stroke-dasharray": "0 100"
+        });
+    } else if (current_page == "story") {
+        $$('.fstory_addcomment_btn').removeClass('active');
+        $$('.fstory_addcomment_btn')[0].style.display = "none";
+        let value = 0;
+        let css = "rgba(0, 0, 0, 0) conic-gradient(white 0deg, white " + value + "%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
+        $(".fstory_addcomment_loading").css({
+            "background": css
+        });
+        if (arguments[0] == "cancel") {
+            console.log("recording canceled");
+        } else {
+            $(".validate_record_comment")[0].style.display = "block";
+            $(".listen_record_comment")[0].style.display = "block";
+        }
+        // $(".comment_record_popup").css({"opacity": "1", "pointer-events": "none"});
+    }
     //document.getElementById("Error1").innerText = "Record Audio Stop";
-    //record.style.background = "";
+    //record.style.background = ""; 
     //record.style.color = "";
     //stop.disabled = true;
     //record.disabled = false;
@@ -185,16 +226,26 @@ function StopRecording() {
 
 function UpdateRecordIndicator() {
     record_time = (Date.now() - start_time) / 1000;
-    $$('#flow_number_of_sec').text(format(Math.round(record_time)));
+    if (current_page == "record") {
+        $$('#flow_number_of_sec').text(format(Math.round(record_time)));
+    }
     // $$('.frecord_indicator').css({
     //     "stroke-dasharray": Math.round(6.73 * record_time) + " 100"
     // });
     if (recording && record_time <= 15) {
         setTimeout(function () {
             if (recording) {
-                $$('.frecord_indicator').css({
-                    "stroke-dasharray": Math.round(6.73 * record_time) + " 100"
-                });
+                let value = Math.round(6.73 * record_time);
+                if (current_page == "record") {
+                    $$('.frecord_indicator').css({
+                        "stroke-dasharray": value + " 100"
+                    });
+                } else if (current_page == "story") {
+                    let css = "rgba(0, 0, 0, 0) conic-gradient(white 0deg, white " + value + "%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
+                    $(".fstory_addcomment_loading").css({
+                        "background": css
+                    });
+                }
                 UpdateRecordIndicator();
             }
         }, 100);
@@ -311,54 +362,67 @@ function Save(mediaRecorder) {
     //     evtTgt = e.target;
     //     evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
     // }
+    console.log("current page : " + current_page);
+    if (current_page == "record") {
 
-    app.closeModal('.popup-record');
-    app.popup('.popup-after-record');
-    if (!after_record_initialised) {
-        var mySwiper4 = app.swiper('.swiper-4', {
-            pagination: '.swiper-4 .swiper-pagination',
-            spaceBetween: 0,
-            slidesPerView: 3
-        });
+        app.closeModal('.popup-record');
+        app.popup('.popup-after-record');
+        if (!after_record_initialised) {
+            var mySwiper4 = app.swiper('.swiper-4', {
+                pagination: '.swiper-4 .swiper-pagination',
+                spaceBetween: 0,
+                slidesPerView: 3
+            });
 
-        mySwiper4.on('slideChangeStart', function () {
-            var target = "#" + $(".swiper-slide-next").attr("target");
-            app.showTab(target);
-        });
-        after_record_initialised = true;
-        current_page = "after-record";
+            mySwiper4.on('slideChangeStart', function () {
+                var target = "#" + $(".swiper-slide-next").attr("target");
+                app.showTab(target);
+            });
+            after_record_initialised = true;
+            current_page = "after-record";
+        }
+        $(".after-record-block-container").html("");
+        let block_params = {
+            parent_element: $(".after-record-block-container"),
+            afterblock: true,
+            audioURL: audioURL,
+            duration: record_time,
+            patternKey: null,
+            imageURL: null,
+            title: "",
+            description: "",
+            pseudo: window.localStorage.getItem("user_name"),
+            account_imageURL: window.localStorage.getItem("user_profile_pic")
+        };
+        new_block = new block(block_params);
+        patternKey = new_block.patternKey;
+        appState.patternKey = patternKey;
+        appState.recordTime = record_time;
+        appState.blob = blob;
+        appState.flow_title = $(".finput_title").val();
+        appState.flow_description = $(".finput_description").val();
+        var reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = function () {
+            //blob64 = reader.result;
+            appState.blob64 = reader.result.replace("data:audio/opus; codecs=opus;base64,", "");
+            console.log(appState.blob64);
+        }
+
+        setTimeout(() => {
+            new_block.finput_title.focus();
+        }, 500);
+    } else if (current_page == "story") {
+        playing_recorded_com = false;
+        recorded_com = new Audio(audioURL);
+        recorded_com.currentTime = 0;
+        $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/play.png')";
+        recorded_com.onended = function () {
+            recorded_com.pause();
+            $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/play.png')";
+            playing_recorded_com = false;
+        }
     }
-    $(".after-record-block-container").html("");
-    let block_params = {
-        parent_element: $(".after-record-block-container"),
-        afterblock: true,
-        audioURL: audioURL,
-        duration: record_time,
-        patternKey: null,
-        imageURL: null,
-        title: "",
-        description: "",
-        pseudo: window.localStorage.getItem("user_name"),
-        account_imageURL: window.localStorage.getItem("user_profile_pic")
-      };
-    new_block = new block(block_params);
-    patternKey = new_block.patternKey;
-    appState.patternKey = patternKey;
-    appState.recordTime = record_time;
-    appState.blob = blob;
-    appState.flow_title = $(".finput_title").val();
-    appState.flow_description = $(".finput_description").val();
-    var reader = new FileReader();
-    reader.readAsDataURL(blob);
-    reader.onloadend = function () {
-        //blob64 = reader.result;
-        appState.blob64 = reader.result.replace("data:audio/opus; codecs=opus;base64,", "");
-        console.log(appState.blob64);
-    }
-
-    setTimeout(() => {
-        new_block.finput_title.focus();
-    }, 500);
 }
 
 function precisionRound(number, precision) {
