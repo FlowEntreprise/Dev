@@ -35,6 +35,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-image: url("../src/pictures/follower2.jpg") !important;
 }
 
 #fnameMonCompte
@@ -119,8 +120,8 @@
     color: #92ABB2;
     font-size: 15px;
     position: absolute;
-    top: 18vh;
-    left: 35vw;
+    top: 21vh;
+    left: 36vw;
 }
 
 #feditProfil
@@ -134,18 +135,27 @@
     padding: 2.5px;
     position: absolute;
     top: 25vh;
-    left: 35vw;
+    left: 45vw;
 }
 
 .fnavMonCompte
 {
     position: absolute;
-    top: 22vh !important;
-    left: 7vw !important;
+    top: 22vh;
     font-size: 19px !important;
-    background-color: transparent !important;
+    background-color: white !important;
     box-shadow: none !important;
-    width: 85vw !important;
+    width: 100vw !important;
+}
+
+.fnavMonCompteTransitionTop
+{
+    transition-duration: 0.4s !important;
+}
+
+.fnavMonCompteTransitionDown
+{
+    transition-duration: 0.2s !important;
 }
 
 .MonCompte
@@ -165,7 +175,157 @@
 
 .ftabsMonCompte
 {
-    position: absolute;
+    position: absolute !important;
     top: 32vh;
     left: 0vw;
+    transition-duration: 0.4s;
+}
+
+#privateID
+{
+    color: #1A84EF;
+    position: absolute;
+    font-size: 18px;
+    left: 36vw;
+    top: 17vh;
+    font-family:Roboto-Regular;
+    opacity: 0.5;
+}
+
+.fblockMonCompte
+{
+    margin-top: 0vh !important;
+    padding-left: 0vw !important;
+    padding-right: 0vw !important;
+}
+
+.fblockMonComptePadding
+{
+    padding-top: 1.5vh !important;
+}
+
+#accountBannerScroll
+{
+    transition-duration: 0.4s;
+}
+
+#fbigProfilPictureContainer
+{
+    position: absolute;
+    transform: scale(0);
+    width: 100vw;
+    height: 100vh;
+    /* border-radius: 50%; */
+    background-color: white;
+    transition: all 0.5s;
+    z-index: 1000;
+}
+
+#fbigProfilPicture
+{
+    /* background-image: url("../src/pictures/girl1.jpg"); */
+    position: absolute;
+    z-index: 505;
+    width: 101vw;
+    height: 30vh;
+    top:35vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.sizeTollBar
+{
+    width: 85vw !important;
+    margin-left: 7.5vw;
+}
+
+#returnProfilPicture
+{
+    position: absolute;
+    top: 3vh;
+    left: 3vw;  
+    background-color: none;
+    color: none;
+}
+
+#editProfilePopup
+{
+    position: absolute;
+    /*transform: scale(0);*/
+    width: 75vw;
+    height: 40vh;
+    top: 15vh;
+    left: 12.5vw;
+    border-radius: 5%;
+    background-color: white;
+    transition: all 0.5s;
+    z-index: 1000;
+    border: 1px solid #707070;
+    transform: scale(0); 
+}
+
+#feditProfilePopupContainer
+{
+    position: absolute;
+    /* transform: scale(0); */
+    opacity: 0;
+    width: 100vw;
+    height: 100vh;
+    /* border-radius: 50%; */
+    background-color: rgba(0, 0, 0, 0.60);
+    transition: all 0.5s;
+    z-index: 999;
+    pointer-events: none;
+}
+
+#fprofilPicturePopup
+{
+    position: absolute;
+    top: 3vh;
+    left: 22.5vw;
+    width: 30vw;
+    height: 30vw;
+    border-radius: 22vw;
+    box-shadow: 0px 3.5px 8px rgba(0, 0, 0, 0.20);
+    border: solid 3px white;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("../src/pictures/follower2.jpg") !important;
+}
+
+#editProfileName
+{
+    position: absolute;
+    border: none;
+    border-bottom: solid 1px #1A84EF;
+    width: 40vw;
+    left: 17.5vw;
+    top: 20vh;
+    font-size: 3vh;
+    color: #1A84EF;
+    font-family:Roboto-Regular;
+}
+
+#feditBio
+{
+    position: absolute;
+    top: 28vh;
+    left: 7.5vw;
+    border: solid 1px #92ABB2;
+    border-radius: 10px;
+    color: #92ABB2;
+    font-size: 4vw;
+    font-family: Roboto-Lightitalic;
+    width: 60vw;
+}
+
+#fcloseProfilPopup
+{
+    position: absolute;
+    top: 2vh;
+    right: 4vw;
+    width: 5vw;
+    height: 5vw;
 }
