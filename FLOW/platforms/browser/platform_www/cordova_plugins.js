@@ -106,6 +106,22 @@ module.exports = [
         "clobbers": [
             "window.plugins.k.imagecropper"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-fullscreen/www/AndroidFullScreen.js",
+        "id": "cordova-plugin-fullscreen.AndroidFullScreen",
+        "pluginId": "cordova-plugin-fullscreen",
+        "clobbers": [
+            "AndroidFullScreen"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-fullscreen/www/AndroidFullScreen.js",
+        "id": "cordova-plugin-fullscreen.AndroidFullScreen",
+        "pluginId": "cordova-plugin-fullscreen",
+        "clobbers": [
+            "AndroidFullScreen"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -121,7 +137,8 @@ module.exports.metadata =
     "cordova-plugin-inappbrowser": "3.0.0",
     "twitter-connect-plugin": "0.6.0",
     "cordova-plugin-camera": "4.0.3",
-    "cordova-plugin-k-imagecropper": "1.2.0"
+    "cordova-plugin-k-imagecropper": "1.2.0",
+    "cordova-plugin-fullscreen": "1.1.0"
 }
 // BOTTOM OF METADATA
 });

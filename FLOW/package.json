@@ -51,7 +51,8 @@
             "cordova-plugin-k-imagecropper": {
                 "ANDROID_SUPPORT_APPCOMPAT_VERSION": "27.+"
             },
-            "cordova-plugin-camera": {}
+            "cordova-plugin-camera": {},
+            "cordova-plugin-fullscreen": {}
         },
         "platforms": [
             "browser",
