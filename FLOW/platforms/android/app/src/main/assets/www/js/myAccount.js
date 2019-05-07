@@ -152,4 +152,22 @@ app.onPageInit('login-screen', function (page) {
         $("#fbigProfilPictureContainer").css("transform", "scale(0)");
         console.log("ok");
     });
+
+    $("#feditProfil").click(function(){
+        //$("#editProfilePopup").css("transform", "scale(1)");
+        $("#feditProfilePopupContainer").css("opacity", "1");
+        $("#editProfilePopup").css("transform", "scale(1)");
+        $("#feditProfilePopupContainer").css("pointer-events", "auto");
+        $("#fprofilPicturePopup").css({
+            "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+        }); 
+        $("editProfileName").val(nameMonCompte);
+        $("#feditBio").val(bioMonCompte);       
+    });
+
+    $("#fcloseProfilPopup").click(function(){
+        $("#feditProfilePopupContainer").css("opacity", "0");
+        $("#editProfilePopup").css("transform", "scale(0)");
+        $("#feditProfilePopupContainer").css("pointer-events", "none");
+    });
 });
