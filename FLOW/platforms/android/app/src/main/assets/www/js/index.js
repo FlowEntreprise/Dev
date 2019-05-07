@@ -24,6 +24,13 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function () {
         this.receivedEvent('deviceready');
+        
+        if (cordova.platformId == 'android') {
+            StatusBar.show();
+            StatusBar.overlaysWebView(true);
+            StatusBar.backgroundColorByHexString('#00000000');
+            StatusBar.styleDefault();
+        }
 
         if (appState.needRestore) {
 
@@ -46,7 +53,7 @@ var app = {
                 current_page = "after-record";
             }
             $(".after-record-block-container").html("");
-            console.log(appState.blob64);
+            console.log(appState);
             var myblob = b64toBlob(appState.blob64, "audio/opus");
             var myblobUrl = URL.createObjectURL(myblob);
             //console.log(appState.blob); 
@@ -54,7 +61,19 @@ var app = {
             //binaryData.push(appState.blob);
             //var myaudioURL = window.URL.createObjectURL(new Blob(binaryData, {'type': 'audio/opus; codecs=opus'}))
             console.log("generated audio url : " + myblobUrl);
-            new_block = new block($(".after-record-block-container"), true, myblobUrl, appState.recordTime, appState.patternKey, null, "", "", window.localStorage.getItem("user_name"), window.localStorage.getItem("user_profile_pic"));
+            let block_params = {
+                parent_element: $(".after-record-block-container"),
+                afterblock: true,
+                audioURL: myblobUrl,
+                duration: appState.recordTime,
+                patternKey: appState.patternKey,
+                imageURL: null,
+                title: "",
+                description:  "",
+                pseudo: window.localStorage.getItem("user_name"),
+                account_imageURL: window.localStorage.getItem("user_profile_pic")
+              };
+            new_block = new block(block_params);
             patternKey = new_block.patternKey;
             // setTimeout(() => {
             //     new_block.finput_title.focus();
@@ -111,13 +130,26 @@ var app = {
         // plugin result in onResume(). We also save if we have already fetched
         // an image URI
         console.log("pause");
+        stopAllStoriesAudio();
+        stopAllBlocksAudio();
+
         if (appState.takingPicture || appState.imageUri) {
             window.localStorage.setItem("app_state", JSON.stringify(appState));
             console.log("app state saved");
         }
+
+        // if (cordova.platformId == 'android') {
+        //     StatusBar.show();
+        //     StatusBar.overlaysWebView(true);
+        //     StatusBar.backgroundColorByHexString('#00000000');
+        //     StatusBar.styleDefault();
+        // }
     },
     onResume: function (event) {
         console.log("resume");
+        if (cordova.platformId == 'android') {
+            ResetStatusBar();
+        }
         // Here we check for stored state and restore it if necessary. In your
         // application, it's up to you to keep track of where any pending plugin
         // results are coming from (i.e. what part of your code made the call)

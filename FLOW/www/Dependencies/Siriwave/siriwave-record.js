@@ -1,3 +1,5 @@
+var InStory = false;
+
 ! function (t, i) {
     "object" == typeof exports && "undefined" != typeof module ? module.exports = i() : "function" == typeof define && define.amd ? define(i) : t.SiriWaveRecord = i()
 }(this, function () {
@@ -43,8 +45,13 @@
                 t.moveTo(0, 0), t.beginPath();
                 var i = this.ctrl.color.replace(/rgb\(/g, "").replace(/\)/g, "");
                 this.gradient = this.ctrl.ctx.createLinearGradient(this.ctrl.width / 2, 0, this.ctrl.width / 2, this.ctrl.height);
-                this.gradient.addColorStop("0.4", "rgba(26, 132, 239," + this.definition.opacity + ")");
-                this.gradient.addColorStop("0.6", "rgba(255, 0, 84," + this.definition.opacity + ")");
+                if (InStory) {
+                    this.gradient.addColorStop("0.4", "rgba(255, 255, 255," + this.definition.opacity + ")");
+                    this.gradient.addColorStop("0.6", "rgba(255, 255, 255," + this.definition.opacity + ")");
+                } else {
+                    this.gradient.addColorStop("0.4", "rgba(26, 132, 239," + this.definition.opacity + ")");
+                    this.gradient.addColorStop("0.6", "rgba(255, 0, 84," + this.definition.opacity + ")");
+                }
                 t.strokeStyle = this.gradient;
                 t.lineWidth = this.definition.lineWidth;
                 //t.strokeStyle = "rgba(" + i + "," + this.definition.opacity + ")", t.lineWidth = this.definition.lineWidth;
@@ -54,34 +61,70 @@
         }], [{
             key: "getDefinition",
             value: function () {
-                return [
-                    //     {
-                    //     attenuation: -2,
-                    //     lineWidth: 13,
-                    //     opacity: .1
-                    // }, 
-                    // {
-                    //     attenuation: -6,
-                    //     lineWidth: 13,
-                    //     opacity: .2
-                    // }
-                    // , 
-                    {
-                        attenuation: 10,
-                        lineWidth: screen.height / 40,
-                        opacity: 0.1
-                    },
-                    {
-                        attenuation: 2,
-                        lineWidth: screen.height / 40,
-                        opacity: 0.5
-                    },
-                    {
-                        attenuation: 1,
-                        lineWidth: screen.height / 40,
-                        opacity: 1
-                    }
-                ]
+                if (InStory) {
+                    return [
+                        //     {
+                        //     attenuation: -2,
+                        //     lineWidth: 13,
+                        //     opacity: .1
+                        // }, 
+                        // {
+                        //     attenuation: -6,
+                        //     lineWidth: 13,
+                        //     opacity: .2
+                        // }
+                        // , 
+                        {
+                            attenuation: 10,
+                            lineWidth: screen.height / 40,
+                            opacity: 0.1
+                        },
+                        // {
+                        //     attenuation: 4,
+                        //     lineWidth: screen.height / 40,
+                        //     opacity: 0.15
+                        // },
+                        {
+                            attenuation: 3.5,
+                            lineWidth: screen.height / 40,
+                            opacity: 0.35
+                        },
+                        {
+                            attenuation: 2,
+                            lineWidth: screen.height / 60,
+                            opacity: 0.7
+                        }
+                    ]
+                } else {
+                    return [
+                        //     {
+                        //     attenuation: -2,
+                        //     lineWidth: 13,
+                        //     opacity: .1
+                        // }, 
+                        // {
+                        //     attenuation: -6,
+                        //     lineWidth: 13,
+                        //     opacity: .2
+                        // }
+                        // , 
+                        {
+                            attenuation: 10,
+                            lineWidth: screen.height / 40,
+                            opacity: 0.1
+                        },
+                        {
+                            attenuation: 2,
+                            lineWidth: screen.height / 40,
+                            opacity: 0.5
+                        },
+                        {
+                            attenuation: 1,
+                            lineWidth: screen.height / 40,
+                            opacity: 1
+                        }
+                    ]
+                }
             }
         }]), i
     }();

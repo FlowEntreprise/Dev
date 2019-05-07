@@ -151,6 +151,9 @@ function onBackKeyDown() {
         app.popup('.popup-record');
         current_page = "record";
     }
+    else if (current_page == "story") {
+        CloseStory();
+    }
     else if (current_page == "home") {
         navigator.app.exitApp();
     }
