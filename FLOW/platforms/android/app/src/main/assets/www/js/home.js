@@ -8,7 +8,8 @@ ptrContent.on('ptr:refresh', function (e) {
     console.log("refreshed !");
     $("#ptr_arrow").css("opacity", "0");
     app.pullToRefreshDone();
-    Socket.client.send("Flow", "GetFlowById", "5c98edb4939cf639919d0aba");
+    // Socket.client.send("Flow", "GetFlowById", "5c98edb4939cf639919d0aba"); --OLD
+    ServerManager.GetFlowById("5cd89b7802e2bf07d888ada5");
     RefreshStories();
     // var new_block = new block($(".list-block"), false, null, 89);
     // all_blocks.push(new_block);
@@ -32,20 +33,20 @@ ptrContent.on('ptr:pullend', function (e) {
 function PopFlow(data) {
   var image_link = undefined;
   var pattern_key = undefined;
-  if (data.Image.PatternKey == undefined) {
-    const src_img = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Image.name + '?';
-    const param_img = `${data.LinkBuilder.Params.hash}=${data.Image.hash}&${data.LinkBuilder.Params.time}=${data.Image.timestamp}`;
+  if (data.Background.PatternKey == undefined) {
+    const src_img = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Background.name + '?';
+    const param_img = `${data.LinkBuilder.Params.hash}=${data.Background.hash}&${data.LinkBuilder.Params.time}=${data.Background.timestamp}`;
     image_link = src_img + param_img;
   } else {
-    pattern_key = data.Image.PatternKey;
+    pattern_key = data.Background.PatternKey;
   }
 
-  const src_flow = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/flows/' + data.Sound.name + '?';
-  const param_flow = `${data.LinkBuilder.Params.hash}=${data.Sound.hash}&${data.LinkBuilder.Params.time}=${data.Sound.timestamp}`;
+  const src_flow = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
+  const param_flow = `${data.LinkBuilder.Params.hash}=${data.Audio.hash}&${data.LinkBuilder.Params.time}=${data.Audio.timestamp}`;
   const flow_link = src_flow + param_flow;
 
-  const src_profile_img = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.ProfileImage.name + '?';
-  const param_profile_img = `${data.LinkBuilder.Params.hash}=${data.ProfileImage.hash}&${data.LinkBuilder.Params.time}=${data.ProfileImage.timestamp}`;
+  const src_profile_img = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
+  const param_profile_img = `${data.LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${data.LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
   var profilePicLink = src_profile_img + param_profile_img;
   console.log(profilePicLink);
   console.log(image_link);
@@ -58,7 +59,7 @@ function PopFlow(data) {
     imageURL: image_link,
     title: data.Title,
     description: data.Description,
-    pseudo: data.Pseudo,
+    pseudo: data.PrivateId,
     account_imageURL: profilePicLink
   };
   var new_block = new block(block_params);
