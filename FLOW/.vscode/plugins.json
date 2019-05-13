@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"plugins":["cordova-plugin-whitelist","cordova-plugin-statusbar","cordova-plugin-browsersync","cordova.plugins.diagnostic","cordova-plugin-android-permissions","cordova-plugin-facebook4","cordova-plugin-googleplus","cordova-plugin-inappbrowser","twitter-connect-plugin","cordova-plugin-camera","cordova-plugin-k-imagecropper","cordova-android-support-gradle-release","phonegap-plugin-push"]}
+=======
+{"plugins":["cordova-plugin-whitelist","cordova-plugin-statusbar","cordova-plugin-browsersync","cordova.plugins.diagnostic","cordova-plugin-android-permissions"]}
+>>>>>>> parent of b508c0ff... Merge remote-tracking branch 'origin/notification_push'
