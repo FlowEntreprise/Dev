@@ -16,8 +16,7 @@ function GetInfos() {
             //document.getElementById('infos').innerHTML = txt;
             //Transport(socket, result, "twitter");
             result.profile_image_url = result.profile_image_url.replace("_normal", "");
-            // Socket.client.send('Inscription','Twitter',result); -- OLD
-            ServerManager.Connect(apiTypes.Twitter, result);
+            Socket.client.send('Inscription','Twitter',result);
             console.log(result);
             //alert(txt);
         },

@@ -55,8 +55,7 @@ function getData(accessToken){
             var txt = full_name + " --- " + Ppicture + " --- " + bio + " --- " + Id + " --- " + bio;
             //document.getElementById('infos').innerHTML = txt;
             //Transport(socket, reponse, "instagram");
-            // Socket.client.send('Inscription','Instagram',reponse.data); -- OLD
-            ServerManager.Connect(apiTypes.Instagram, reponse.data);
+            Socket.client.send('Inscription','Instagram',reponse.data);
             //alert(txt);
         }
     });
