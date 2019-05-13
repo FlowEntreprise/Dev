@@ -9,12 +9,25 @@ var privateID = "@alexis_98";
 app.onPageInit('login-screen', function (page) {
 
     for (var i = 0; i < 10; i++) {
-        var new_block = new block($("#MyActivity"), false, null, 89);
+        let block_params = {
+            parent_element: $("#MyActivity"),
+            afterblock: false,
+            audioURL: null,
+            duration: 89,
+        };
+        var new_block = new block(block_params);
+        //var new_block = new block($("#MyActivity"), false, null, 89);
         all_blocks.push(new_block);
     }
 
     for (var y = 0; y < 10; y++) {
-        var new_block = new block($("#MyLikes"), false, null, 89);
+        let block_params = {
+            parent_element: $("#MyLikes"),
+            afterblock: false,
+            audioURL: null,
+            duration: 89,
+        };
+        var new_block = new block(block_params);
         all_blocks.push(new_block);
         console.log(new_block);
     }
@@ -81,54 +94,54 @@ app.onPageInit('login-screen', function (page) {
             // if (event.cancelable) {
             //     event.preventDefault();
             // } else {
-                event.preventDefault();
-                event.stopPropagation();
-                $("scrollEvent").remove(".swiper-wrapper");
-                $("#accountBannerScroll").css("transform", "translate3d(0vw, -30vh, 0vh)");
-                if (boolScrollTop) {
-                    $(".fnavMonCompte").removeClass("fnavMonCompteTransitionDown");
-                    $(".fnavMonCompte").addClass("fnavMonCompteTransitionTop");
-                    $(".ftabsMonCompte").css("transition-duration", "0.4s");
-                    $(".fnavMonCompte").css("transform", "translate3d(0vw, -21vh, 0vh)");
-                    $(".ftabsMonCompte").css("transform", "translate3d(0vw, -24vh, 0vh)");
-                    boolScrollTop = false;
-                }
-                // $(".ftabsMonCompte").css("top", "8vh");
-                $("#MyActivity").removeClass("fblockMonComptePadding");
-                $("scrollEvent").addClass(".swiper-wrapper");
-                // $("#AccountTabSize.style").attr("top", "5vh");
+            event.preventDefault();
+            event.stopPropagation();
+            $("scrollEvent").remove(".swiper-wrapper");
+            $("#accountBannerScroll").css("transform", "translate3d(0vw, -30vh, 0vh)");
+            if (boolScrollTop) {
+                $(".fnavMonCompte").removeClass("fnavMonCompteTransitionDown");
+                $(".fnavMonCompte").addClass("fnavMonCompteTransitionTop");
+                $(".ftabsMonCompte").css("transition-duration", "0.4s");
+                $(".fnavMonCompte").css("transform", "translate3d(0vw, -21vh, 0vh)");
+                $(".ftabsMonCompte").css("transform", "translate3d(0vw, -24vh, 0vh)");
+                boolScrollTop = false;
+            }
+            // $(".ftabsMonCompte").css("top", "8vh");
+            $("#MyActivity").removeClass("fblockMonComptePadding");
+            $("scrollEvent").addClass(".swiper-wrapper");
+            // $("#AccountTabSize.style").attr("top", "5vh");
             // }
         } else {
             // if (event.cancelable) {
             //     event.preventDefault();
             //     // swiping = true;
             // } else {
-                if (scroll < 100) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    // $(".fnavMonCompte").css("top", "-6vh");
-                    if (boolScrollTop == false) {
-                        $("scrollEvent").remove(".swiper-wrapper");
-                        $("#accountBannerScroll").css("transition-duration", "0.2s");
-                        $("#accountBannerScroll").css("transform", "translate3d(0vw, 0vh, 0vh)");
-                        $(".fnavMonCompte").removeClass("fnavMonCompteTransitionTop");
-                        $(".fnavMonCompte").addClass("fnavMonCompteTransitionDown");
-                        $(".ftabsMonCompte").css("transition-duration", "0.2s");
-                        //$(".scrollMyAccunt").scrollTop("10");
-                        var scrollTest = $(".scrollMyAccunt").scrollTop();
-                        console.log(scrollTest);
-                        $(".fnavMonCompte").css("transform", "translate3d(0vw, 7vh, 0vh)");
-                        $(".ftabsMonCompte").css("transform", "translate3d(0vw, 2vh, 0vh)");
-                        boolScrollTop = true;
-                        $("#MyActivity").addClass("fblockMonComptePadding");
-                        // $("scrollEvent").addClass("swiper-wrapper");
-                    }
-                    // $(".ftabsMonCompte").css("top", "8vh");
-
-                    // $("#AccountTabSize.style").attr("top", "5vh");
+            if (scroll < 100) {
+                event.preventDefault();
+                event.stopPropagation();
+                // $(".fnavMonCompte").css("top", "-6vh");
+                if (boolScrollTop == false) {
+                    $("scrollEvent").remove(".swiper-wrapper");
+                    $("#accountBannerScroll").css("transition-duration", "0.2s");
+                    $("#accountBannerScroll").css("transform", "translate3d(0vw, 0vh, 0vh)");
+                    $(".fnavMonCompte").removeClass("fnavMonCompteTransitionTop");
+                    $(".fnavMonCompte").addClass("fnavMonCompteTransitionDown");
+                    $(".ftabsMonCompte").css("transition-duration", "0.2s");
+                    //$(".scrollMyAccunt").scrollTop("10");
+                    var scrollTest = $(".scrollMyAccunt").scrollTop();
+                    console.log(scrollTest);
+                    $(".fnavMonCompte").css("transform", "translate3d(0vw, 7vh, 0vh)");
+                    $(".ftabsMonCompte").css("transform", "translate3d(0vw, 2vh, 0vh)");
+                    boolScrollTop = true;
+                    $("#MyActivity").addClass("fblockMonComptePadding");
+                    // $("scrollEvent").addClass("swiper-wrapper");
                 }
+                // $(".ftabsMonCompte").css("top", "8vh");
 
-                // }
+                // $("#AccountTabSize.style").attr("top", "5vh");
+            }
+
+            // }
         }
         position = scroll;
     }
@@ -148,24 +161,24 @@ app.onPageInit('login-screen', function (page) {
         $("#fbigProfilPictureContainer").css("background-color", swatches.Muted.getHex());
     });
 
-    $("#returnProfilPicture").click(function(){
+    $("#returnProfilPicture").click(function () {
         $("#fbigProfilPictureContainer").css("transform", "scale(0)");
         console.log("ok");
     });
 
-    $("#feditProfil").click(function(){
+    $("#feditProfil").click(function () {
         //$("#editProfilePopup").css("transform", "scale(1)");
         $("#feditProfilePopupContainer").css("opacity", "1");
         $("#editProfilePopup").css("transform", "scale(1)");
         $("#feditProfilePopupContainer").css("pointer-events", "auto");
         $("#fprofilPicturePopup").css({
             "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
-        }); 
+        });
         $("editProfileName").val(nameMonCompte);
-        $("#feditBio").val(bioMonCompte);       
+        $("#feditBio").val(bioMonCompte);
     });
 
-    $("#fcloseProfilPopup").click(function(){
+    $("#fcloseProfilPopup").click(function () {
         $("#feditProfilePopupContainer").css("opacity", "0");
         $("#editProfilePopup").css("transform", "scale(0)");
         $("#feditProfilePopupContainer").css("pointer-events", "none");
