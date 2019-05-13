@@ -96,8 +96,7 @@
     <resource-file src="google-services.json" target="google-services.json" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="android-minSdkVersion" value="15" />
-    <preference name="StatusBarBackgroundColor" value="#f7f7f8" />
-    <preference name="StatusBarStyle" value="default" />
+    <preference name="Fullscreen" value="true" />
     <preference name="Orientation" value="portrait" />
     <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
