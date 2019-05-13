@@ -19,7 +19,6 @@
 
 apply plugin: 'com.android.application'
 
-
 buildscript {
     repositories {
         mavenCentral()
@@ -31,7 +30,6 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        
     }
 }
 
@@ -94,9 +92,6 @@ ext {
 
 // PLUGIN GRADLE EXTENSIONS START
 apply from: "../twitter-connect-plugin/flow-twitter.gradle"
-apply from: "../cordova-android-support-gradle-release/flow-cordova-android-support-gradle-release.gradle"
-apply from: "../cordova-support-google-services/flow-build.gradle"
-apply from: "../phonegap-plugin-multidex/flow-multidex.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -279,11 +274,7 @@ dependencies {
     compile "com.android.support:support-v4:24.1.1+"
     compile "com.theartofdev.edmodo:android-image-cropper:2.7.+"
     compile "com.android.support:appcompat-v7:27.+"
-    compile "com.android.support:support-v13:27.+"
-    compile "me.leolin:ShortcutBadger:1.1.17@aar"
-    compile "com.google.firebase:firebase-messaging:17.0.+"
     // SUB-PROJECT DEPENDENCIES END
-    implementation 'com.google.firebase:firebase-core:16.0.1'
 }
 
 def promptForReleaseKeyPassword() {
@@ -345,4 +336,3 @@ for (def func : cdvPluginPostBuildExtras) {
 if (hasProperty('postBuildExtras')) {
     postBuildExtras()
 }
-//apply plugin: 'com.google.gms.google-services'

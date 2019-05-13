@@ -75,10 +75,6 @@
             {
               "xml": "<feature name=\"AndroidFullScreen\"><param name=\"android-package\" value=\"com.mesmotronic.plugins.FullScreenPlugin\" /></feature>",
               "count": 1
-            },
-            {
-              "xml": "<feature name=\"PushNotification\"><param name=\"android-package\" value=\"com.adobe.phonegap.push.PushPlugin\" /></feature>",
-              "count": 1
             }
           ]
         }
@@ -125,22 +121,6 @@
             {
               "xml": "<uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />",
               "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
-              "count": 1
             }
           ],
           "/manifest/application": [
@@ -150,26 +130,6 @@
             },
             {
               "xml": "<meta-data android:name=\"io.fabric.ApiKey\" android:value=\"1c7233ea28bcc14682e840d324ff7fbb32b9c038\" />",
-              "count": 1
-            },
-            {
-              "xml": "<activity android:exported=\"true\" android:name=\"com.adobe.phonegap.push.PushHandlerActivity\" android:permission=\"${applicationId}.permission.PushHandlerActivity\" />",
-              "count": 1
-            },
-            {
-              "xml": "<receiver android:name=\"com.adobe.phonegap.push.BackgroundActionButtonHandler\" />",
-              "count": 1
-            },
-            {
-              "xml": "<receiver android:name=\"com.adobe.phonegap.push.PushDismissedHandler\" />",
-              "count": 1
-            },
-            {
-              "xml": "<service android:name=\"com.adobe.phonegap.push.FCMService\"><intent-filter><action android:name=\"com.google.firebase.MESSAGING_EVENT\" /></intent-filter></service>",
-              "count": 1
-            },
-            {
-              "xml": "<service android:name=\"com.adobe.phonegap.push.PushInstanceIDListenerService\"><intent-filter><action android:name=\"com.google.firebase.INSTANCE_ID_EVENT\" /></intent-filter></service>",
               "count": 1
             }
           ]
@@ -294,20 +254,6 @@
     },
     "cordova-plugin-fullscreen": {
       "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-android-support-gradle-release": {
-      "ANDROID_SUPPORT_VERSION": "27.+",
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-support-google-services": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "phonegap-plugin-multidex": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "phonegap-plugin-push": {
-      "ANDROID_SUPPORT_V13_VERSION": "27.+",
-      "FCM_VERSION": "17.0.+"
     }
   },
   "dependent_plugins": {},
@@ -496,14 +442,6 @@
       "clobbers": [
         "AndroidFullScreen"
       ]
-    },
-    {
-      "id": "phonegap-plugin-push.PushNotification",
-      "file": "plugins/phonegap-plugin-push/www/push.js",
-      "pluginId": "phonegap-plugin-push",
-      "clobbers": [
-        "PushNotification"
-      ]
     }
   ],
   "plugin_metadata": {
@@ -518,10 +456,6 @@
     "cordova-plugin-whitelist": "1.3.3",
     "cordova.plugins.diagnostic": "4.0.11",
     "twitter-connect-plugin": "0.6.0",
-    "cordova-plugin-fullscreen": "1.1.0",
-    "cordova-android-support-gradle-release": "2.1.0",
-    "cordova-support-google-services": "1.3.1",
-    "phonegap-plugin-multidex": "1.0.0",
-    "phonegap-plugin-push": "2.2.3"
+    "cordova-plugin-fullscreen": "1.1.0"
   }
 }
