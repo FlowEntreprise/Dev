@@ -106,7 +106,8 @@ $$('.fvalidate-after_btn').on('touchend', function () {
         Duration: record_time
     }
     console.log(data);
-    Socket.client.send("Flow", "AddFlow", data);
+    // Socket.client.send("Flow", "AddFlow", data); --OLD
+    ServerManager.AddFlow(data);
     image64 = null;
     patternKey = null;
 });
@@ -140,7 +141,7 @@ function StartRecording() {
                 start_time = Date.now();
                 UpdateRecordIndicator();
 
-                if (current_page == "record") {
+                if (current_page == "record" || current_page=="record-story") {
                     $$('.frecord-btn').addClass('frecord-btn-active');
                 } else if (current_page == "story") {
                     $$('.fstory_addcomment_btn').addClass('active');
@@ -155,7 +156,7 @@ function StartRecording() {
         permissions.hasPermission(permissions.RECORD_AUDIO, function (status) {
             if (status.hasPermission) {
                 setup();
-                if (current_page == "record") {
+                if (current_page == "record" || current_page=="record-story") {
                     $$('.frecord-btn').addClass('frecord-btn-active');
                 } else if (current_page == "story") {
                     $$('.fstory_addcomment_btn').addClass('active');
@@ -174,7 +175,7 @@ function StartRecording() {
         });
     } else {
         setup();
-        if (current_page == "record") {
+        if (current_page == "record" || current_page=="record-story") {
             $$('.frecord-btn').addClass('frecord-btn-active');
         } else if (current_page == "story") {
             $$('.fstory_addcomment_btn').addClass('active');
@@ -200,7 +201,7 @@ function StopRecording() {
     recording = false;
     record_was_hold = false;
     console.log("stop recording.");
-    if (current_page == "record") {
+    if (current_page == "record" || current_page=="record-story") {
         $$('.frecord-btn').removeClass('frecord-btn-active');
         $$('.frecord_indicator').css({
             "stroke-dasharray": "0 100"
@@ -233,6 +234,9 @@ function UpdateRecordIndicator() {
     if (current_page == "record") {
         $$('#flow_number_of_sec').text(format(Math.round(record_time)));
     }
+    else if (current_page=="record-story") {
+        $$('#flow_story_number_of_sec').text(format(Math.round(record_time)));
+    }
     // $$('.frecord_indicator').css({
     //     "stroke-dasharray": Math.round(6.73 * record_time) + " 100"
     // });
@@ -240,7 +244,7 @@ function UpdateRecordIndicator() {
         setTimeout(function () {
             if (recording) {
                 let value = Math.round(6.73 * record_time);
-                if (current_page == "record") {
+                if (current_page == "record" || current_page=="record-story") {
                     $$('.frecord_indicator').css({
                         "stroke-dasharray": value + " 100"
                     });
@@ -416,7 +420,43 @@ function Save(mediaRecorder) {
         setTimeout(() => {
             new_block.finput_title.focus();
         }, 500);
-    } else if (current_page == "story") {
+    }
+    else if (current_page=="record-story") {
+        app.closeModal('.popup-story-record');
+        app.popup('.popup-after-story-record');
+        $(".after-story-record-block-container").html("");
+        let block_params = {
+            parent_element: $(".after-story-record-block-container"),
+            afterblock: true,
+            audioURL: audioURL,
+            duration: record_time,
+            patternKey: null,
+            imageURL: null,
+            title: "",
+            description: "",
+            pseudo: window.localStorage.getItem("user_name"),
+            account_imageURL: window.localStorage.getItem("user_profile_pic")
+        };
+        new_block = new block(block_params);
+        patternKey = new_block.patternKey;
+        appState.patternKey = patternKey;
+        appState.recordTime = record_time;
+        appState.blob = blob;
+        appState.flow_title = $(".finput_title").val();
+        appState.flow_description = $(".finput_description").val();
+        var reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = function () {
+            //blob64 = reader.result;
+            appState.blob64 = reader.result.replace("data:audio/opus; codecs=opus;base64,", "");
+            console.log(appState.blob64);
+        }
+
+        setTimeout(() => {
+            new_block.finput_title.focus();
+        }, 500);
+    }
+    else if (current_page == "story") {
         playing_recorded_com = false;
         recorded_com = new Audio(audioURL);
         recorded_com.currentTime = 0;

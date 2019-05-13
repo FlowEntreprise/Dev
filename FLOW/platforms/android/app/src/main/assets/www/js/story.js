@@ -117,7 +117,9 @@ for (var i = 0; i < 3; i++) {
     userStory.addStoryFlow("6h ago");
     userStory.addStoryFlow("13h ago");
     //userStory.color = story_colors[i];
-    userStory.color = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+    userStory.color = "#000000".replace(/0/g, function () {
+        return (~~(Math.random() * 16)).toString(16);
+    });
     userStory.darkColor = pSBC(-0.8, userStory.color);
     story_data.push(userStory);
 }
@@ -125,7 +127,7 @@ for (var i = 0; i < 3; i++) {
 RefreshStories();
 
 function RefreshStories() {
-    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\"><div class=\"fplus\"></div><img src=\"src/pictures/guy1.jpg\" class=\"fstory_pic fnoshadow\"><div class=\"unread_shadow\"></div></div></li>";
+    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\"><div class=\"fplus\"></div><a href=\"#\" data-popup=\".popup-story-record\" class=\"open-story-record open-popup\"></a><img src=\"src/pictures/guy1.jpg\" class=\"fstory_pic fnoshadow\"><div class=\"unread_shadow\"></div></div></li>";
     for (var i = 0; i < story_data.length; i++) {
         let story_element = document.createElement("li");
         let story_block = document.createElement("div");
@@ -306,8 +308,10 @@ function handleTouchEnd(evt) {
 
 function CloseStory() {
     stopAllStoriesAudio();
-    StorySiriWave.speed = 0;
-    StorySiriWave.amplitude = 0;
+    if (StorySiriWave) {
+        StorySiriWave.speed = 0;
+        StorySiriWave.amplitude = 0;
+    }
     story_window.style.transform = "scale3d(0.1, 0.1, 0.1)";
     // story_window.style.top = story_pos.top + (window.innerHeight / 100) * 6 + "px";
     // story_window.style.left = story_pos.left + (window.innerHeight / 100) * 2 + "px";
@@ -440,8 +444,10 @@ function nextStory() {
 }
 
 function stopAllStoriesAudio() {
-    StorySiriWave.speed = 0;
-    StorySiriWave.amplitude = 0;
+    if (StorySiriWave) {
+        StorySiriWave.speed = 0;
+        StorySiriWave.amplitude = 0;
+    }
     for (var i = 0; i < story_data.length; i++) {
         for (var j = 0; j < story_data[i].data.length; j++) {
             story_data[i].data[j].audio.pause();
@@ -626,3 +632,21 @@ function PublishRecordedComment() {
     console.log("published comment (ignore canceled debug)");
     closeRecordComment();
 }
+
+////////////////////////// RECORDING STORY //////////////////////////
+$$('.popup-story-record').on('popup:open', function () {
+    $$('.frecord-btn').css({
+        "display": "flex"
+    });
+    $(".record-shadow")[0].style.display = "block";
+    current_page = "record-story";
+});
+
+$$('.popup-story-record').on('popup:close', function () {
+    $$('.frecord-btn').css({
+        "display": "none"
+    });
+    $(".record-shadow")[0].style.display = "none";
+    StopRecording();
+    current_page = "home";
+});

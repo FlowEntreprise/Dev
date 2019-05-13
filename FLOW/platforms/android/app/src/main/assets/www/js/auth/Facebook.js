@@ -81,7 +81,8 @@ function fbLoginSuccess(info) {
            //document.getElementById("infos").innerHTML = JSON.stringify(result);
            //Transport(socket, result, "facebook");
             //alert(result.name +" "+ result.email + " " + result.birthday + " " + result.picture.data.url + " " + result.id);
-            Socket.client.send('Inscription','Facebook',result);
+            // Socket.client.send('Inscription','Facebook',result); -- OLD
+            ServerManager.Connect(apiTypes.Facebook, result);
         },
         function onError(error) {
             //alert("error : "+error);

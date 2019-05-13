@@ -142,6 +142,10 @@ function onBackKeyDown() {
         app.closeModal('.popup-record');
         current_page = "home";
     }
+    else if (current_page == "record-story") {
+        app.closeModal('.popup-story-record');
+        current_page = "home";    
+    }
     else if (current_page == "connect-popup") {
         app.closeModal('.popup-connect');
         current_page = "home";

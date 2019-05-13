@@ -515,3 +515,13 @@
     background-repeat: no-repeat;
     pointer-events: none;
 }
+
+.open-story-record
+{
+    position: absolute;
+    height: 8vh !important;
+    width: 7vh !important;
+    margin-left: -3.5vh;
+    background-color: red;
+    z-index: 100;
+}
