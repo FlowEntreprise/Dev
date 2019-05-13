@@ -1,6 +1,6 @@
 .ftitle {
     position: absolute;
-    top: 3vh;
+    top: 0;
     left: 0;
     width: 100%;
     text-align: center;
@@ -11,7 +11,7 @@
 
 .faccount {
     position: absolute;
-    top: calc(3vh + 7px);
+    top: 7px;
     right: 10px;
     width: 35px;
     height: 35px;
@@ -24,7 +24,7 @@
 
 .fstories_title {
     position: absolute;
-    top: 8vh;
+    top: 5vh;
     left: 2vw;
     color: #92ABB2;
     font-family: 'Roboto-Bold';
@@ -36,7 +36,7 @@
     list-style: none;
     list-style-type: none;
     position: absolute;
-    top: 10vh;
+    top: 7vh;
     padding-top: 1.5vh;
     left: 0;
     width: 100%;
@@ -94,7 +94,7 @@
     vertical-align: middle;
     object-fit: cover;
     border-radius: 50%;
-    /* box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2); */
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
 .fnoshadow {

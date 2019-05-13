@@ -174,7 +174,7 @@ h1 {
 }
 
 .ftop_bar {
-    height: 22vh !important;
+    height: 19vh !important;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -209,42 +209,13 @@ h1 {
     background-image: url("../src/icons/Notifications@3x.png");
 }
 
-/* .fflow-btn {
+.fflow-btn {
     margin-top: -5vh !important;
     height: 15vh !important;
     width: 25vw !important;
     background-image: url("../src/icons/FLOW@3x.png");
     transition-duration: 1s;
-} */
-
-.fflow-btn {
-    margin-top: -5vh !important;
-    height: 10vh !important;
-    width: 10vh !important;
-
-    border-radius: 100%;
-    /* background: url("../src/icons/Record.png") no-repeat 4vh 4vh;linear-gradient(#1A84EF, #FF0054); */
-    background: url("../src/icons/Record.png") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054);
-   
-    /* background-size: 4vh;
-    background-position: center;
-    background-repeat: no-repeat; */
 }
-
-.flow-btn-shadow
-{
-    position: absolute;
-    height: 10vh !important;
-    width: 10vh !important;
-    left: calc(50vw - 5vh);
-    bottom: 1vh;
-    border-radius: 100%;
-    background: linear-gradient(#1A84EF, #FF0054);
-    filter: blur(10px);
-    opacity: 0.8;
-}
-
-
 
 .fflow-btn:active {
     filter: brightness(120%);
@@ -256,7 +227,7 @@ h1 {
 
 #tab1,
 #tab2 {
-    padding-top: 22vh;
+    padding-top: 19vh;
     padding-bottom: 7vh !important;
 }
 

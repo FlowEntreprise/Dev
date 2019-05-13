@@ -1,29 +1,28 @@
 var ptrContent = $$('.pull-to-refresh-content');
 // Add 'refresh' listener on it
 ptrContent.on('ptr:refresh', function (e) {
-  // Emulate 2s loading
-  console.log("refreshing...")
-  setTimeout(function () {
-    // When loading done, we need to reset it
-    console.log("refreshed !");
-    $("#ptr_arrow").css("opacity", "0");
-    app.pullToRefreshDone();
-    Socket.client.send("Flow", "GetFlowById", "5c98edb4939cf639919d0aba");
-    RefreshStories();
-    // var new_block = new block($(".list-block"), false, null, 89);
-    // all_blocks.push(new_block);
-  }, 1000);
+    // Emulate 2s loading
+    console.log("refreshing...")
+    setTimeout(function () {
+        // When loading done, we need to reset it
+        console.log("refreshed !");
+        $("#ptr_arrow").css("opacity", "0");
+        app.pullToRefreshDone();
+        Socket.client.send("Flow", "GetFlowById", "5c98edb4939cf639919d0aba");
+        // var new_block = new block($(".list-block"), false, null, 89);
+        // all_blocks.push(new_block);
+    }, 1000);
 });
 
 ptrContent.on('ptr:pullstart', function (e) {
-  console.log("pull start");
-  $("#ptr_arrow").css("opacity", "1");
+    console.log("pull start");
+    $("#ptr_arrow").css("opacity", "1");
 
 });
 
 ptrContent.on('ptr:pullend', function (e) {
-  console.log("pull end");
-  $("#ptr_arrow").css("opacity", "0");
+    console.log("pull end");
+    $("#ptr_arrow").css("opacity", "0");
 });
 
 /******************************* TO DELETE **************************/
@@ -36,7 +35,8 @@ function PopFlow(data) {
     const src_img = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Image.name + '?';
     const param_img = `${data.LinkBuilder.Params.hash}=${data.Image.hash}&${data.LinkBuilder.Params.time}=${data.Image.timestamp}`;
     image_link = src_img + param_img;
-  } else {
+  }
+  else {
     pattern_key = data.Image.PatternKey;
   }
 
@@ -49,19 +49,7 @@ function PopFlow(data) {
   var profilePicLink = src_profile_img + param_profile_img;
   console.log(profilePicLink);
   console.log(image_link);
-  let block_params = {
-    parent_element: $(".list-block"),
-    afterblock: false,
-    audioURL: flow_link,
-    duration: data.Duration,
-    patternKey: pattern_key,
-    imageURL: image_link,
-    title: data.Title,
-    description: data.Description,
-    pseudo: data.Pseudo,
-    account_imageURL: profilePicLink
-  };
-  var new_block = new block(block_params);
+  var new_block = new block($(".list-block"), false, flow_link, data.Duration, pattern_key, image_link, data.Title, data.Description, data.Pseudo, profilePicLink);
   all_blocks.push(new_block);
 
   console.log("Pop Flow");
@@ -107,25 +95,3 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 }
  */
 /********************************************************************/
-
-function ResetStatusBar() {
-  setTimeout(function () {
-    StatusBar.show();
-    StatusBar.overlaysWebView(true);
-    StatusBar.backgroundColorByHexString('#00000000');
-    StatusBar.styleDefault();
-  }, 10);
-
-}
-
-function successFunction() {
-  console.info("It worked!");
-}
-
-function errorFunction(error) {
-  console.error(error);
-}
-
-function trace(value) {
-  console.log(value);
-}
