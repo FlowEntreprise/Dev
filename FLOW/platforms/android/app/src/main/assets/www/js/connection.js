@@ -13,6 +13,7 @@ function ConnectUser() {
         "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
     });
     app.closeModal('.popup-connect');
+    RefreshStories();
     //$( "#fswipe_area" ).css({"pointer-events": "all"});
 }
 
@@ -44,8 +45,8 @@ function CheckIfConnected() {
 }
 
 function storeVariables(data) {
-    window.localStorage.setItem("user_name", data.Fullname);
-    window.localStorage.setItem("user_bio", data.Biographie);
+    window.localStorage.setItem("user_name", data.FullName);
+    window.localStorage.setItem("user_bio", data.Bio);
     window.localStorage.setItem("user_private_id", data.PrivateId);
     window.localStorage.setItem("user_token", data.TokenId);
 

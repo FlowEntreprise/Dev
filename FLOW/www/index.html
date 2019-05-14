@@ -47,7 +47,7 @@
                 <div class="navbar-inner">
                     <div class="fhome-bar">
                         <div class="ftitle">FLOW</div>
-                        <div class="fneed_connect" style="right: 0px; top: 0px;"></div>
+                        <div class="fneed_connect" style="right: 0px; top: 0px; height: 10vh"></div>
                         <a href="../www/pages/myAccount.html" class="faccount open-login-screen"></a>
                         <div class="fstories_title">Stories</div>
                         <ul class="fstory_list">
@@ -260,12 +260,12 @@
 
             <div class="popup popup-story-record">
                 <div class="content-block">
-                    <p id="flow_story_number_of_sec" class="fflow_duration">00</p>
+                    <p id="flow_story_number_of_sec" class="fflow_duration story_flow_duration">00</p>
                     <p class="fflow_duration fsec">sec</p>
                     <p><a href="#" class="fclose_record close-popup">Close</a></p>
 
                     <!-- test -->
-                    <div id="wave-container"></div>
+                    <div id="wave-container" class="story-record-wave"></div>
                     <div class="sounds-record"></div>
                 </div>
             </div>
@@ -273,9 +273,8 @@
             <div class="popup popup-after-story-record">
                 <div class="content-block">
                     <div class="after-story-record-block-container"></div>
-                    <label class="fbackground-after-txt">Background</label>
-                    <div class="fcamera-after"></div>    
-
+                    <label class="fbackground-after-story-txt">Background</label>
+                    <div class="frandom-color-btn" onclick="new_block.randomColorGradient()"><label class="frandom-color-txt">CHANGE COLOR</label></div>    
                     <div class="frestart-after_btn"></div>
                     <div class="fvalidate-after_btn"></div>
                     <div class="fcancel-after_btn"></div>

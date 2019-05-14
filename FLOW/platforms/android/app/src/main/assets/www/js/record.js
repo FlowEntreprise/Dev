@@ -31,6 +31,10 @@ $$('.popup-record').on('popup:open', function () {
     }
     current_page = "record";
 });
+$$('.popup-story-record').on('popup:open', function () {
+    $$('.story_flow_duration').text("00");
+    current_page = "record-story";
+});
 $$('.fflow-btn').on('taphold', function () {
     console.log("Hold Record !");
     app.popup('.popup-record');
@@ -83,33 +87,48 @@ $$('body').on('touchend', function () {
 });
 
 $$('.frestart-after_btn').on('touchend', function () {
-    app.closeModal('.popup-after-record');
-    app.popup('.popup-record');
+    if (current_page == "after-record") {
+        app.closeModal('.popup-after-record');
+        app.popup('.popup-record');
+    } else {
+        app.closeModal('.popup-after-story-record');
+        app.popup('.popup-story-record');
+    }
 });
 
 $$('.fcancel-after_btn').on('touchend', function () {
-    app.closeModal('.popup-after-record');
-    current_page = "home";
+    if (current_page == "after-record") {
+        app.closeModal('.popup-after-record');
+        current_page = "home";
+    } else {
+        app.closeModal('.popup-after-story-record');
+        current_page = "home";
+    }
 });
 
 
 $$('.fvalidate-after_btn').on('touchend', function () {
-    app.closeModal('.popup-after-record');
-    current_page = "home";
-    var data = {
-        PrivatedId: window.localStorage.getItem("user_private_id"),
-        Title: $(".finput_title").val(),
-        Image: image64 ? image64 : patternKey,
-        Description: $(".finput_description").val(),
-        Tags: [],
-        Sound: appState.blob64,
-        Duration: record_time
+    if (current_page == "after-record") {
+        app.closeModal('.popup-after-record');
+        current_page = "home";
+        var data = {
+            PrivatedId: window.localStorage.getItem("user_private_id"),
+            Title: $(".finput_title").val(),
+            Image: image64 ? image64 : patternKey,
+            Description: $(".finput_description").val(),
+            Tags: [],
+            Sound: appState.blob64,
+            Duration: record_time
+        }
+        console.log(data);
+        // Socket.client.send("Flow", "AddFlow", data); --OLD
+        ServerManager.AddFlow(data);
+        image64 = null;
+        patternKey = null;
+    } else {
+        app.closeModal('.popup-after-story-record');
+        console.log("Send story to server");
     }
-    console.log(data);
-    // Socket.client.send("Flow", "AddFlow", data); --OLD
-    ServerManager.AddFlow(data);
-    image64 = null;
-    patternKey = null;
 });
 
 $$('.fcamera-after').on('click', function () {
@@ -141,7 +160,7 @@ function StartRecording() {
                 start_time = Date.now();
                 UpdateRecordIndicator();
 
-                if (current_page == "record" || current_page=="record-story") {
+                if (current_page == "record" || current_page == "record-story") {
                     $$('.frecord-btn').addClass('frecord-btn-active');
                 } else if (current_page == "story") {
                     $$('.fstory_addcomment_btn').addClass('active');
@@ -156,7 +175,7 @@ function StartRecording() {
         permissions.hasPermission(permissions.RECORD_AUDIO, function (status) {
             if (status.hasPermission) {
                 setup();
-                if (current_page == "record" || current_page=="record-story") {
+                if (current_page == "record" || current_page == "record-story") {
                     $$('.frecord-btn').addClass('frecord-btn-active');
                 } else if (current_page == "story") {
                     $$('.fstory_addcomment_btn').addClass('active');
@@ -175,7 +194,7 @@ function StartRecording() {
         });
     } else {
         setup();
-        if (current_page == "record" || current_page=="record-story") {
+        if (current_page == "record" || current_page == "record-story") {
             $$('.frecord-btn').addClass('frecord-btn-active');
         } else if (current_page == "story") {
             $$('.fstory_addcomment_btn').addClass('active');
@@ -201,7 +220,7 @@ function StopRecording() {
     recording = false;
     record_was_hold = false;
     console.log("stop recording.");
-    if (current_page == "record" || current_page=="record-story") {
+    if (current_page == "record" || current_page == "record-story") {
         $$('.frecord-btn').removeClass('frecord-btn-active');
         $$('.frecord_indicator').css({
             "stroke-dasharray": "0 100"
@@ -233,8 +252,7 @@ function UpdateRecordIndicator() {
     record_time = (Date.now() - start_time) / 1000;
     if (current_page == "record") {
         $$('#flow_number_of_sec').text(format(Math.round(record_time)));
-    }
-    else if (current_page=="record-story") {
+    } else if (current_page == "record-story") {
         $$('#flow_story_number_of_sec').text(format(Math.round(record_time)));
     }
     // $$('.frecord_indicator').css({
@@ -244,7 +262,7 @@ function UpdateRecordIndicator() {
         setTimeout(function () {
             if (recording) {
                 let value = Math.round(6.73 * record_time);
-                if (current_page == "record" || current_page=="record-story") {
+                if (current_page == "record" || current_page == "record-story") {
                     $$('.frecord_indicator').css({
                         "stroke-dasharray": value + " 100"
                     });
@@ -403,6 +421,7 @@ function Save(mediaRecorder) {
             account_imageURL: window.localStorage.getItem("user_profile_pic")
         };
         new_block = new block(block_params);
+        // $(".frandom-color-btn").on("click", function() {new_block.randomColorGradient()});
         patternKey = new_block.patternKey;
         appState.patternKey = patternKey;
         appState.recordTime = record_time;
@@ -420,8 +439,7 @@ function Save(mediaRecorder) {
         setTimeout(() => {
             new_block.finput_title.focus();
         }, 500);
-    }
-    else if (current_page=="record-story") {
+    } else if (current_page == "record-story") {
         app.closeModal('.popup-story-record');
         app.popup('.popup-after-story-record');
         $(".after-story-record-block-container").html("");
@@ -435,7 +453,8 @@ function Save(mediaRecorder) {
             title: "",
             description: "",
             pseudo: window.localStorage.getItem("user_name"),
-            account_imageURL: window.localStorage.getItem("user_profile_pic")
+            account_imageURL: window.localStorage.getItem("user_profile_pic"),
+            storyAfterBlock: true
         };
         new_block = new block(block_params);
         patternKey = new_block.patternKey;
@@ -444,6 +463,7 @@ function Save(mediaRecorder) {
         appState.blob = blob;
         appState.flow_title = $(".finput_title").val();
         appState.flow_description = $(".finput_description").val();
+        current_page = "after-story-record";
         var reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onloadend = function () {
@@ -455,8 +475,7 @@ function Save(mediaRecorder) {
         setTimeout(() => {
             new_block.finput_title.focus();
         }, 500);
-    }
-    else if (current_page == "story") {
+    } else if (current_page == "story") {
         playing_recorded_com = false;
         recorded_com = new Audio(audioURL);
         recorded_com.currentTime = 0;
@@ -514,6 +533,20 @@ siriWave.start();
 siriWave.speed = 0;
 siriWave.amplitude = 0;
 
+var siriWaveStory = new SiriWaveRecord({
+    container: $(".story-record-wave")[0],
+    width: 300,
+    height: 300,
+    style: "ios",
+    color: "1A84EF",
+    cover: true,
+    lerpSpeed: 1,
+    story: false
+});
+siriWaveStory.start();
+siriWaveStory.speed = 0;
+siriWaveStory.amplitude = 0;
+
 ////////////////////////////////////////////////////////////////
 
 function Lerp(value1, value2, amount) {
@@ -547,12 +580,22 @@ function wave(stream) {
         var average = values / length;
         // smoothVolume = Lerp(smoothVolume,average,0.25);
         smoothVolume = average;
-        if (recording) {
-            siriWave.amplitude = (smoothVolume * 0.02) + 0.1;
-            siriWave.speed = 0.2;
+        if (current_page == "record") {
+            if (recording) {
+                siriWave.amplitude = (smoothVolume * 0.02) + 0.1;
+                siriWave.speed = 0.2;
+            } else {
+                siriWave.amplitude = 0;
+                siriWave.speed = 0;
+            }
         } else {
-            siriWave.amplitude = 0;
-            siriWave.speed = 0;
+            if (recording) {
+                siriWaveStory.amplitude = (smoothVolume * 0.02) + 0.1;
+                siriWaveStory.speed = 0.2;
+            } else {
+                siriWaveStory.amplitude = 0;
+                siriWaveStory.speed = 0;
+            }
         }
         // siriWave.speed = smoothVolume*0.004;
     }

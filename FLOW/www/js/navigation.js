@@ -155,6 +155,11 @@ function onBackKeyDown() {
         app.popup('.popup-record');
         current_page = "record";
     }
+    else if (current_page == "after-story-record") {
+        app.closeModal('.popup-after-story-record');
+        app.popup('.popup-story-record');
+        current_page = "record-story";
+    }
     else if (current_page == "story") {
         CloseStory();
     }

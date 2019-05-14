@@ -127,7 +127,10 @@ for (var i = 0; i < 3; i++) {
 RefreshStories();
 
 function RefreshStories() {
-    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\"><div class=\"fplus\"></div><a href=\"#\" data-popup=\".popup-story-record\" class=\"open-story-record open-popup\"></a><img src=\"src/pictures/guy1.jpg\" class=\"fstory_pic fnoshadow\"><div class=\"unread_shadow\"></div></div></li>";
+    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\"><div class=\"fplus\"></div><a href=\"#\" data-popup=\".popup-story-record\" class=\"open-story-record open-popup\"></a><img src=\"src/icons/Account@3x.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div></div></li>";
+    if (connected) {
+        $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
+    }
     for (var i = 0; i < story_data.length; i++) {
         let story_element = document.createElement("li");
         let story_block = document.createElement("div");

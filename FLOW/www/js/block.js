@@ -232,12 +232,41 @@ function block(params) {
         this.fbottom_part.appendChild(this.finput_description);
     }
 
-    var wave;
+    this.randomColorGradient = function () {
+        console.log("generate random gradient");
+        let color_start = "#000000".replace(/0/g, function () {
+            return (~~(Math.random() * 16)).toString(16);
+        });
+        let color_end = pSBC(-0.8, color_start);
+        let lineargradientcss = "linear-gradient(to bottom,"+color_start+","+color_end+")";
+        this.ftop_part.style.backgroundImage = lineargradientcss;
+    };
 
+    if (params.storyAfterBlock) {
+        this.fbottom_part.style.display = "none";
+        this.ftop_part.style.height = "100%";
+        this.ftop_part.style.borderRadius = "2vw";
+
+        this.fplay_button.style.top = "22vh";
+        this.fplay_button.style.left = "41.5vw";
+        this.fpause_button.style.top = "22vh";
+        this.fpause_button.style.left = "41.5vw";
+
+        this.fposter_photo.style.top = "6vh";
+        this.fposter_photo.style.left = "34vw";
+        this.fposter_photo.style.width = "25vw";
+        this.fposter_photo.style.height = "25vw";
+
+        waveform.style.opacity = "0";
+        block.randomColorGradient();
+        // this.waveform.style.opacity = 0;
+    }
+
+    var wave;
     wave = new SiriWaveBlock({
         container: waveform,
-        width: window.innerWidth,
-        height: window.innerHeight * 0.3,
+        width: document.documentElement.clientWidth,
+        height: document.documentElement.clientHeight * 0.3,
         cover: true,
         speed: 0.03,
         amplitude: 0.7,
@@ -245,8 +274,8 @@ function block(params) {
     });
 
     var resize = function () {
-        var height = window.innerHeight * 0.3;
-        var width = window.innerWidth;
+        var height = document.documentElement.clientHeight * 0.3;
+        var width = document.documentElement.clientWidth;
         wave.height = height;
         wave.height_2 = height / 2;
         wave.MAX = wave.height_2 - 4;
