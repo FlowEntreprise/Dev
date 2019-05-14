@@ -18,9 +18,7 @@ var app = {
         document.addEventListener('resume', this.onResume, false);
         
     },
-    
-    
-    
+          
     // deviceready Event Handler
     //
     // Bind any cordova events here. Common events are:

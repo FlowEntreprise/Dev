@@ -11,8 +11,12 @@
 //     this.placeholder = 'Tap to edit description';
 // }
 
+var current_flow_block;
+
 function block(parent_element, afterblock, audioURL, duration, patternKey, imageURL, title, description, pseudo, account_imageURL) {
 
+
+    this.all_comment_blocks = [];
     var block = this;
     this.isPlaying = false;
     this.seeking = false;
@@ -375,13 +379,25 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
     });
 
     $(this.fimg_impression_comment).on('click', function () {
+
+                
+        current_flow_block = block;
+     
+
         impression_coloring(this, 'comment', block.fimg_impression_comment);
-        app.popup('.popup_comment');
+        $(".fblock_comment_content").html("");
+
+        var i = 0;
+        for( i = 0; i < current_flow_block.all_comment_blocks.length; i++)
+        {
+            $(".fblock_comment_content").append(current_flow_block.all_comment_blocks[i].fblock_comment);
+            
+        }
+
+        app.popup('.popup_comment');               
+              
     });
 
-    $(this.ftxt_impression_comment).on('click', function () {
-        app.popup('.popup_comment');
-    });
 }
 // fonction permettant de colorier ou non les like, echo et comment.
 function impression_coloring(object, type, block_item,like_type) {
@@ -417,13 +433,8 @@ function impression_coloring(object, type, block_item,like_type) {
         case 'comment':
             $(object).each(function () {
                 var attr_img_comment = $(object).attr('src');
-                if (attr_img_comment === 'src/icons/Comment.png') {
-                    $(block_item).attr('src', 'src/icons/Comment_filled.png');
-                    push_notif_block('comment');
-                }
-                if (attr_img_comment === 'src/icons/Comment_filled.png') {
-                    $(block_item).attr('src', 'src/icons/Comment.png');
-                }
+                var comment_lenght = current_flow_block.all_comment_blocks.length;
+                push_notif_block('comment');
             });
             break;
     }

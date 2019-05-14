@@ -9,7 +9,7 @@
         "browser-sync": "^2.26.3",
         "cheerio": "^0.19.0",
         "cordova-android": "^7.1.4",
-        "cordova-browser": "^5.0.4",
+        "cordova-browser": "^6.0.0",
         "cordova-plugin-android-permissions": "^1.0.0",
         "cordova-plugin-browsersync": "^1.1.0",
         "cordova-plugin-camera": "~4.0.3",
@@ -53,10 +53,10 @@
                 "ANDROID_SUPPORT_APPCOMPAT_VERSION": "27.+"
             },
             "cordova-plugin-camera": {},
-            "cordova-plugin-ionic-keyboard": {}
+            "cordova-plugin-ionic-keyboard": {},
+            "cordova-plugin-browsersync": {}
         },
         "platforms": [
-            "browser",
             "android"
         ]
     }

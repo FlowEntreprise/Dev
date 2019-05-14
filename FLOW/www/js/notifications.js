@@ -182,7 +182,7 @@ function push_notif_block(notification_type,like_type) {
             all_notifications_block.push(new_notif_comment);
             break;
     }
-    $(".fred_dot_toolbar_new_notif").css("display", "block");
+      
 }
 
 var all_notifications_block = [];
