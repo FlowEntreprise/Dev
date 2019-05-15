@@ -1,5 +1,6 @@
 var parent = $(".fblock_comment_content");
 var current_comment_block;
+
 function block_comment(pseudo, account_imageURL, comment) {
 
     var block_comment = this;
@@ -41,7 +42,7 @@ function block_comment(pseudo, account_imageURL, comment) {
     $(this.fcomment_like).on('click', function () {
         impression_coloring(this, 'like', block_comment.fcomment_like, "comment");
     });
-  
+
 
     $$(this.fid_user).on('taphold', function () {
         var clickedLink = this;
@@ -60,9 +61,8 @@ function block_comment(pseudo, account_imageURL, comment) {
 
 }
 
+$(".fpopover_button").on("click", function () {
 
-$(".fpopover_button").on("click",function(){
-   
     app.closeModal('.popover');
 });
 
@@ -80,6 +80,7 @@ $(".fpopover_delete").on("click", function () {
     delete_comment(current_comment_block.fblock_comment);
 });
 
+//copy de commentaire
 const copyToClipboard = str => {
     const el = document.createElement('textarea');
     el.value = str;
@@ -90,22 +91,10 @@ const copyToClipboard = str => {
     console.log('copy');
 };
 
-
-$$(".fclose_comment").on("click", function () {
-    var comment_lenght = current_flow_block.all_comment_blocks.length;
-    if (comment_lenght > 0) {
-        $(current_flow_block.fimg_impression_comment).attr('src', 'src/icons/Comment_filled.png');
-
-        $(".fred_dot_toolbar_new_notif").css("display", "block");
-                        
-    }
-    else
-    {
-        $(current_flow_block.fimg_impression_comment).attr('src', 'src/icons/Comment.png');
-    }
-});
 var pseudo = "@adc_98";
 var account_imageURL = "src/pictures/notif1.png";
+
+//post de commentaire
 $('.fsend_comment').on('click', function () {
 
     var comment = ($(".finput_comment").val()).trim();
@@ -118,14 +107,11 @@ $('.fsend_comment').on('click', function () {
         current_flow_block.all_comment_blocks.push(new_block_comment);
         console.log(current_flow_block.all_comment_blocks[0].fblock_comment);
 
-        
-
-        
     }
 
 });
 
-
+//input des commentaires
 $(".finput_comment").keyup(function () {
 
     if (($(".finput_comment").val()).trim() != "") {
@@ -137,21 +123,33 @@ $(".finput_comment").keyup(function () {
     }
 });
 
-
+//supression de commentaire
 function delete_comment(element) {
-    /* const index = array.indexOf(element);
-    array.splice(index, 1); */
     for (var i = 0; i < current_flow_block.all_comment_blocks.length; i++) {
         if (current_flow_block.all_comment_blocks[i] == current_comment_block) {
-            current_flow_block.all_comment_blocks.splice(i, 1); 
-            
+            current_flow_block.all_comment_blocks.splice(i, 1);
+
         }
     }
 
     $(element).remove();
-    
-  }
 
+}
 
-  ///////-----mettre le array all comment block dans le block_flow--------/////////
-  //// FAIRE scroll onto view flow specifique/////////
+//Notif lors d'un nouveau commentaire
+
+$$('.popup_comment').on('popup:close', function () {
+    var comment_lenght = current_flow_block.all_comment_blocks.length;
+    if (comment_lenght > 0) {
+        $(current_flow_block.fimg_impression_comment).attr('src', 'src/icons/Comment_filled.png');
+
+        $(".fred_dot_toolbar_new_notif").css("display", "block");
+
+    } else {
+        $(current_flow_block.fimg_impression_comment).attr('src', 'src/icons/Comment.png');
+    }
+
+});
+
+///////-----mettre le array all comment block dans le block_flow--------/////////
+//// FAIRE scroll onto view flow specifique/////////

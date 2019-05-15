@@ -310,7 +310,6 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
 
     this.seek = function () {
         this.progress = block.myRange.value;
-        //if (this.progress > 99) this.progress = 99;
         this.time = this.progress * duration / 100;
         block.myaudio.currentTime = this.time;
         block.seeking = true;
@@ -321,17 +320,7 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
         }, 600);
         block.flowplay();
 
-        // if(block.wasPlaying)
-        // {
-        //     block.flowplay();
-        // }
-        // else
-        // {
-        //     block.flowpause();
-        // }
     };
-
-
 
     this.fplay_button.addEventListener('click', function () {
 
@@ -356,18 +345,7 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
         block.progress_div.style.width = block.myaudio.currentTime * 100 / duration + '%';
 
     });
-    /* 
-        wave animation----------------------------------------DONE
-        play and pause ---------------------------------------DONE
-        one player at the time -------------------------------DONE
-        rajouter un player et use step and seek function -----
-    */
-
-    // this.myblock = new Block();
-    // myblock.index = 99;
-    // myblock.name = "Salut salut";
-    // myblock.Play();
-
+   
     $(this.fimg_impression_like).on('click', function () {
 
         impression_coloring(this, 'like', block.fimg_impression_like);
@@ -379,11 +357,8 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
     });
 
     $(this.fimg_impression_comment).on('click', function () {
-
-                
-        current_flow_block = block;
-     
-
+      
+        current_flow_block = block;   
         impression_coloring(this, 'comment', block.fimg_impression_comment);
         $(".fblock_comment_content").html("");
 
@@ -393,9 +368,7 @@ function block(parent_element, afterblock, audioURL, duration, patternKey, image
             $(".fblock_comment_content").append(current_flow_block.all_comment_blocks[i].fblock_comment);
             
         }
-
-        app.popup('.popup_comment');               
-              
+        app.popup('.popup_comment');                   
     });
 
 }
