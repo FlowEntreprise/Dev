@@ -1,8 +1,9 @@
 //Global variables used for Server Management :
 const ServerParams = {
-    ServerURL: "http://51.38.39.212/",
+    ServerURL: "https://api.flowappweb.com/",
     ConnexionURL: "ConnexionFromApi",
     AddFlowURL: "AddFlow",
+    UpdateProfileURL: "UpdateProfile",
     GetSingleFlowURL: "GetSingle"
 };
 const apiTypes = {
@@ -128,10 +129,36 @@ class ServerManagerClass {
         });
     }
 
+    UpdateProfile(data) {
+        let final_data = {
+            Data: data,
+            Action: "UpdateProfile",
+            TokenId : window.localStorage.getItem("user_token")
+        };
+        console.log(final_data.Data);
+        
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.UpdateProfileURL,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log('Flow update sucessfully: ');
+                console.log(response);
+                UpdateProfile(final_data.Data.FullName, final_data.Data.Biography);
+            },
+            error: function (response) {
+                console.log("Flow update error : ");
+                console.log(response);
+                console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
+            }
+        });
+    }
+
     AddFlow(data) {
         let final_data = {
             Data: data,
-            Action: "AddFlow"
+            Action: "AddFlow",
+            TokenId : window.localStorage.getItem("user_token")
         };
 
         $.ajax({

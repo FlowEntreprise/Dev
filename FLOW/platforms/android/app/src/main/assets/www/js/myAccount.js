@@ -4,7 +4,7 @@ var mainView = app.addView('.view-main');
 var FlowBandeau = 12;
 var Follower = 305;
 var Following = 250;
-var privateID = "@alexis_98";
+var privateID;
 
 app.onPageInit('login-screen', function (page) {
 
@@ -34,11 +34,10 @@ app.onPageInit('login-screen', function (page) {
 
     console.log("init");
     nameMonCompte = window.localStorage.getItem("user_name");
+    privateID = window.localStorage.getItem("user_private_id");
     bioMonCompte = window.localStorage.getItem("user_bio") || "";
-    if (bioMonCompte.length < 1) {
-        bioMonCompte = "Hey, I'm using Flow";
-    }
     $(".fflow-btn").css("display", "none");
+    $(".flow-btn-shadow").css("display", "none");
     $("#fprofilPicture").css({
         "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
     });
@@ -102,8 +101,8 @@ app.onPageInit('login-screen', function (page) {
                 $(".fnavMonCompte").removeClass("fnavMonCompteTransitionDown");
                 $(".fnavMonCompte").addClass("fnavMonCompteTransitionTop");
                 $(".ftabsMonCompte").css("transition-duration", "0.4s");
-                $(".fnavMonCompte").css("transform", "translate3d(0vw, -21vh, 0vh)");
-                $(".ftabsMonCompte").css("transform", "translate3d(0vw, -24vh, 0vh)");
+                $(".fnavMonCompte").css("transform", "translate3d(0vw, -20vh, 0vh)");
+                $(".ftabsMonCompte").css("transform", "translate3d(0vw, -23vh, 0vh)");
                 boolScrollTop = false;
             }
             // $(".ftabsMonCompte").css("top", "8vh");
@@ -150,9 +149,12 @@ app.onPageInit('login-screen', function (page) {
         $("#fbigProfilPictureContainer").css("transform", "scale(1)");
     });
 
-    $("#fbigProfilPicture").css("background-image", "url(src/pictures/girl1.jpg)");
+    $("#fbigProfilPicture").css({
+        "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+    });
     var profilePicture = document.createElement('img');
-    profilePicture.setAttribute('src', 'src/pictures/girl1.jpg');
+    // var profilePicture = window.localStorage.getItem("user_profile_pic");
+    profilePicture.setAttribute('src', window.localStorage.getItem("user_profile_pic"));
 
     profilePicture.addEventListener('load', function () {
         var vibrant = new Vibrant(profilePicture);
@@ -174,13 +176,54 @@ app.onPageInit('login-screen', function (page) {
         $("#fprofilPicturePopup").css({
             "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
         });
-        $("editProfileName").val(nameMonCompte);
+        $("#editProfileName").val(nameMonCompte);
         $("#feditBio").val(bioMonCompte);
     });
 
     $("#fcloseProfilPopup").click(function () {
-        $("#feditProfilePopupContainer").css("opacity", "0");
-        $("#editProfilePopup").css("transform", "scale(0)");
-        $("#feditProfilePopupContainer").css("pointer-events", "none");
+        if($.trim($("#editProfileName").val()) != "") 
+        {
+            if($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte)
+            {
+                var updateEditProfile =  {
+                    FullName : $("#editProfileName").val(),
+                    Biography: $("#feditBio").val()
+                };
+                console.log("Profile name:" +updateEditProfile.FullName);
+                console.log("Profile bio:" +updateEditProfile.Biography);
+                ServerManager.UpdateProfile(updateEditProfile);
+            }
+            $("#feditProfilePopupContainer").css("opacity", "0");
+            $("#editProfilePopup").css("transform", "scale(0)");
+            $("#feditProfilePopupContainer").css("pointer-events", "none");
+        }
+    });
+
+    $("#feditProfilePopupContainer").click(function() {
+        if($.trim($("#editProfileName").val()) != "") 
+        {
+            if($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte)
+            {
+                var updateEditProfile =  {
+                    FullName : $("#editProfileName").val(),
+                    Biography: $("#feditBio").val()
+                };
+                console.log("Profile name:" +updateEditProfile.FullName);
+                console.log("Profile bio:" +updateEditProfile.Biography);
+                ServerManager.UpdateProfile(updateEditProfile);
+            }
+            $("#feditProfilePopupContainer").css("opacity", "0");
+            $("#editProfilePopup").css("transform", "scale(0)");
+            $("#feditProfilePopupContainer").css("pointer-events", "none");
+        }
     });
 });
+
+function UpdateProfile (profileName, profileBio) {
+    $("#fnameMonCompte").html(profileName);
+    window.localStorage.setItem("user_name", profileName);
+    $("#fbioMonCompte").html(profileBio);
+    window.localStorage.setItem("user_bio", profileBio);
+    nameMonCompte = profileName;
+    bioMonCompte = profileBio;
+}

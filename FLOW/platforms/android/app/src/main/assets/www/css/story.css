@@ -522,6 +522,6 @@
     height: 8vh !important;
     width: 7vh !important;
     margin-left: -3.5vh;
-    background-color: red;
+    background-color: transparent;
     z-index: 100;
 }

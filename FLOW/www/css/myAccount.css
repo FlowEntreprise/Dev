@@ -6,14 +6,14 @@
 #freturnMonCompte
 {
     position: absolute;
-    top: 3vh;
+    top: 4vh;
     left: 3vw;
 }
 
 #fbandeauMonCompte
 {
     position: absolute;
-    top: 3.5vh;
+    top: 4.5vh;
     background-color: white;
     right: 0vw;
     width: 65vw;
@@ -25,7 +25,7 @@
 #fprofilPicture
 {
     position: absolute;
-    top: 8vh;
+    top: 8.5vh;
     left: 3.5vw;
     width: 27vw;
     height: 27vw;
@@ -35,7 +35,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url("../src/pictures/follower2.jpg") !important;
+    /* background-image: url("../src/pictures/follower2.jpg") !important; */
 }
 
 #fnameMonCompte
@@ -227,7 +227,7 @@
     position: absolute;
     z-index: 505;
     width: 101vw;
-    height: 30vh;
+    height: 35vh;
     top:35vh;
     background-position: center;
     background-repeat: no-repeat;
@@ -259,7 +259,7 @@
     left: 12.5vw;
     border-radius: 5%;
     background-color: white;
-    transition: all 0.5s;
+    transition: all 0.4s;
     z-index: 1000;
     border: 1px solid #707070;
     transform: scale(0); 
@@ -274,7 +274,7 @@
     height: 100vh;
     /* border-radius: 50%; */
     background-color: rgba(0, 0, 0, 0.60);
-    transition: all 0.5s;
+    transition: all 0.4s;
     z-index: 999;
     pointer-events: none;
 }
@@ -292,7 +292,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url("../src/pictures/follower2.jpg") !important;
+    /* background-image: url("../src/pictures/follower2.jpg") !important; */
 }
 
 #editProfileName
@@ -306,6 +306,7 @@
     font-size: 3vh;
     color: #1A84EF;
     font-family:Roboto-Regular;
+    text-align: center;
 }
 
 #feditBio
@@ -318,7 +319,8 @@
     color: #92ABB2;
     font-size: 4vw;
     font-family: Roboto-Lightitalic;
-    width: 60vw;
+    width: 59vw;
+    padding-left: 1vw;
 }
 
 #fcloseProfilPopup
