@@ -47,14 +47,14 @@ textarea:focus::-webkit-input-placeholder {
 
 .swiper-4 {
     position: absolute !important;
-    top: calc(65* var(--custom-vh)) !important;
+    top: calc(68* var(--custom-vh)) !important;
     left: 0;
     height: 120px !important;
 }
 
 .fbackground-after-txt {
     position: absolute;
-    top: calc(45* var(--custom-vh));
+    top: calc(48* var(--custom-vh));
     left: 0;
     width: 100vw;
     font-family: "Roboto-Regular";
@@ -65,7 +65,7 @@ textarea:focus::-webkit-input-placeholder {
 
 .fcamera-after {
     position: absolute;
-    top: calc(50* var(--custom-vh));
+    top: calc(53* var(--custom-vh));
     left: 10vw;
     width: 35vw;
     height: calc(7* var(--custom-vh));
@@ -80,7 +80,7 @@ textarea:focus::-webkit-input-placeholder {
 
 .fgallery-after {
     position: absolute;
-    top: calc(50* var(--custom-vh));
+    top: calc(53* var(--custom-vh));
     left: 55vw;
     width: 35vw;
     height: calc(7* var(--custom-vh));;
@@ -95,7 +95,7 @@ textarea:focus::-webkit-input-placeholder {
 
 .ffx-after-txt {
     position: absolute;
-    top: calc(61* var(--custom-vh));
+    top: calc(64* var(--custom-vh));
     left: 0;
     width: 100vw;
     font-family: "Roboto-Regular";

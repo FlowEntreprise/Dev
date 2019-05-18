@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.flowapp.flow" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.flowapp.flow" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>FLOW</name>
     <description>
         The Vocal Social Network.
@@ -9,7 +9,6 @@
     </author>
     <icon src="www/src/icons/FLOW@3x.png" />
     <content src="index.html" />
-    <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -29,13 +28,20 @@
         <resource-file src="google-services.json" target="app/google-services.json" />
         <resource-file src="google-services.json" target="google-services.json" />
     </platform>
-    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
-    <preference name="Fullscreen" value="true" />
     <preference name="Orientation" value="portrait" />
+    <preference name="StatusBarStyle" value="default" />
+    <preference name="StatusBarBackgroundColor" value="#00000000" />
+    <preference name="AndroidLaunchMode" value="singleInstance" />
+    <preference name="KeepRunning" value="true" />
+    <preference name="fullscreen" value="false" />
     <preference name="Hostname" value="app" />
+    <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
+    <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
     <plugin name="cordova-plugin-facebook4" spec="4.2.1">
-        <variable name="APP_ID" value="502054883649562" />
+        <variable name="APP_ID" value="com.flowapp.flow" />
         <variable name="APP_NAME" value="FLOW" />
         <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false" />
         <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" />
@@ -49,13 +55,21 @@
     <plugin name="twitter-connect-plugin" spec="^0.6.0">
         <variable name="FABRIC_KEY" value="1c7233ea28bcc14682e840d324ff7fbb32b9c038" />
     </plugin>
-    <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
-    <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
-    <plugin name="cordova-plugin-camera" spec="~4.0.3" />
     <plugin name="cordova-plugin-k-imagecropper" spec="^1.2.0">
         <variable name="ANDROID_SUPPORT_APPCOMPAT_VERSION" value="27.+" />
     </plugin>
-    <plugin name="cordova-plugin-fullscreen" spec="~1.1.0" />
-    <engine name="browser" spec="^5.0.4" />
+    <plugin name="cordova-plugin-camera" spec="~4.0.3" />
+    <plugin name="cordova-android-support-gradle-release" spec="^2.1.0">
+        <variable name="ANDROID_SUPPORT_VERSION" value="27.+" />
+    </plugin>
+    <plugin name="cordova-support-google-services" spec="^1.3.1" />
+    <plugin name="phonegap-plugin-multidex" spec="^1.0.0" />
+    <plugin name="phonegap-plugin-push" spec="git+https://github.com/phonegap/phonegap-plugin-push.git" />
+    <plugin name="cordova-plugin-ionic-keyboard" spec="2.1.3" />
+    <plugin name="cordova-plugin-browsersync" spec="^1.1.0" />
+    <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application/activity[@android:name='MainActivity']">
+        <activity android:name="MainActivity" android:windowSoftInputMode="adjustResize" />
+    </edit-config>
     <engine name="android" spec="^7.1.4" />
+    <engine name="browser" spec="^6.0.0" />
 </widget>

@@ -66,14 +66,14 @@ function PopFlow(data) {
   all_blocks.push(new_block);
 
 
-  var new_block_top50 = new block($("#top50"), false, flow_link, data.Duration, pattern_key, image_link, data.Title, data.Description, data.Pseudo, profilePicLink);
-  all_blocks.push(new_block_top50);
+  // var new_block_top50 = new block($("#top50"), false, flow_link, data.Duration, pattern_key, image_link, data.Title, data.Description, data.Pseudo, profilePicLink);
+  // all_blocks.push(new_block_top50);
 
-  var new_block_sport = new block($("#sport"), false, flow_link, data.Duration, pattern_key, image_link, data.Title, data.Description, data.Pseudo, profilePicLink);
-  all_blocks.push(new_block_sport);
+  // var new_block_sport = new block($("#sport"), false, flow_link, data.Duration, pattern_key, image_link, data.Title, data.Description, data.Pseudo, profilePicLink);
+  // all_blocks.push(new_block_sport);
 
-  var new_block_music = new block($("#music"), false, flow_link, data.Duration, pattern_key, image_link, data.Title, data.Description, data.Pseudo, profilePicLink);
-  all_blocks.push(new_block_music);
+  // var new_block_music = new block($("#music"), false, flow_link, data.Duration, pattern_key, image_link, data.Title, data.Description, data.Pseudo, profilePicLink);
+  // all_blocks.push(new_block_music);
 
 
 
@@ -127,7 +127,8 @@ function ResetStatusBar() {
     StatusBar.overlaysWebView(true);
     StatusBar.backgroundColorByHexString('#00000000');
     StatusBar.styleDefault();
-  }, 10);
+    console.log("reset status bar");
+  }, 100);
 
 }
 

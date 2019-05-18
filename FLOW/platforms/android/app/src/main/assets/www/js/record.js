@@ -127,7 +127,13 @@ $$('.fvalidate-after_btn').on('touchend', function () {
         patternKey = null;
     } else {
         app.closeModal('.popup-after-story-record');
+        let storydata = {
+            PrivatedId: window.localStorage.getItem("user_private_id"),
+            Sound: appState.blob64,
+            Duration: record_time
+        };
         console.log("Send story to server");
+        ServerManager.AddStory(storydata);
     }
 });
 

@@ -57,7 +57,6 @@
                 "ANDROID_SUPPORT_APPCOMPAT_VERSION": "27.+"
             },
             "cordova-plugin-camera": {},
-            "cordova-plugin-fullscreen": {},
             "cordova-android-support-gradle-release": {
                 "ANDROID_SUPPORT_VERSION": "27.+"
             },
@@ -68,7 +67,8 @@
             "cordova-plugin-browsersync": {}
         },
         "platforms": [
-            "android"
+            "android",
+            "browser"
         ]
     }
 }

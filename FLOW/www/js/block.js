@@ -15,6 +15,7 @@
   };
  ****************************************/
 function block(params) {
+    console.log("NEW BLOCK CREATED");
     var block = this;
     this.all_comment_blocks = [];
     this.isPlaying = false;
@@ -22,7 +23,6 @@ function block(params) {
     this.wasPlaying = false;
     this.patternKey;
     this.duration = params.duration;
-
     console.log("audio url : "+params.audioURL);
 
     this.flowplay = function () {

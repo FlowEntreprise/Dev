@@ -15,6 +15,7 @@
   };
  ****************************************/
 function block(params) {
+    console.log("NEW BLOCK CREATED");
     var block = this;
     this.all_comment_blocks = [];
     this.isPlaying = false;
@@ -22,7 +23,6 @@ function block(params) {
     this.wasPlaying = false;
     this.patternKey;
     this.duration = params.duration;
-
     console.log("audio url : "+params.audioURL);
 
     this.flowplay = function () {
@@ -350,17 +350,7 @@ function block(params) {
         }, 600);
         block.flowplay();
 
-        // if(block.wasPlaying)
-        // {
-        //     block.flowplay();
-        // }
-        // else
-        // {
-        //     block.flowpause();
-        // }
     };
-
-
 
     this.fplay_button.addEventListener('click', function () {
 
@@ -385,18 +375,7 @@ function block(params) {
         block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
 
     });
-    /* 
-        wave animation----------------------------------------DONE
-        play and pause ---------------------------------------DONE
-        one player at the time -------------------------------DONE
-        rajouter un player et use step and seek function -----
-    */
-
-    // this.myblock = new Block();
-    // myblock.index = 99;
-    // myblock.name = "Salut salut";
-    // myblock.Play();
-
+   
     $(this.fimg_impression_like).on('click', function () {
 
         impression_coloring(this, 'like', block.fimg_impression_like);
@@ -408,11 +387,8 @@ function block(params) {
     });
 
     $(this.fimg_impression_comment).on('click', function () {
-
-                
-        current_flow_block = block;
-     
-
+      
+        current_flow_block = block;   
         impression_coloring(this, 'comment', block.fimg_impression_comment);
         $(".fblock_comment_content").html("");
 
@@ -422,9 +398,7 @@ function block(params) {
             $(".fblock_comment_content").append(current_flow_block.all_comment_blocks[i].fblock_comment);
             
         }
-
-        app.popup('.popup_comment');               
-              
+        app.popup('.popup_comment');                   
     });
 
 }

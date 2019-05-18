@@ -120,8 +120,8 @@
     color: #92ABB2;
     font-size: 15px;
     position: absolute;
-    top: calc(18* var(--custom-vh));
-    left: 35vw;
+    top: calc(21* var(--custom-vh));
+    left: 36vw;
 }
 
 #feditProfil
@@ -135,14 +135,14 @@
     padding: 2.5px;
     position: absolute;
     top: calc(25* var(--custom-vh));
-    left: 35vw;
+    left: 45vw;
 }
 
 .fnavMonCompte
 {
     position: absolute;
     top: calc(22* var(--custom-vh)) !important;
-    left: 7vw !important;
+    /* left: 7vw !important; */
     font-size: 19px !important;
     background-color: white !important;
     box-shadow: none !important;
@@ -176,8 +176,8 @@
 
 .ftabsMonCompte
 {
-    position: absolute;
-    top: calc(32* var(--custom-vh));
+    position: absolute !important;
+    top: 32vh;
     left: 0vw;
     transition-duration: 0.4s;
 }

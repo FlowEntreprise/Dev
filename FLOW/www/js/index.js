@@ -25,13 +25,110 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function () {
         this.receivedEvent('deviceready');
-        
-        if (cordova.platformId == 'android') {
-            StatusBar.show();
-            StatusBar.overlaysWebView(true);
-            StatusBar.backgroundColorByHexString('#00000000');
-            StatusBar.styleDefault();
+    },
+    onPause: function () {
+        // Here, we check to see if we are in the middle of taking a picture. If
+        // so, we want to save our state so that we can properly retrieve the
+        // plugin result in onResume(). We also save if we have already fetched
+        // an image URI
+        console.log("pause");
+        stopAllStoriesAudio();
+        stopAllBlocksAudio();
+
+        if (appState.takingPicture || appState.imageUri) {
+            window.localStorage.setItem("app_state", JSON.stringify(appState));
+            console.log("app state saved");
         }
+
+        if (cordova.platformId == 'android') {
+            //ResetStatusBar();
+        }
+
+        // if (cordova.platformId == 'android') {
+        //     StatusBar.show();
+        //     StatusBar.overlaysWebView(true);
+        //     StatusBar.backgroundColorByHexString('#00000000');
+        //     StatusBar.styleDefault();
+        // }
+    },
+    onResume: function (event) {
+        console.log("resume");
+        if (cordova.platformId == 'android') {
+            //ResetStatusBar();
+        }
+        // Here we check for stored state and restore it if necessary. In your
+        // application, it's up to you to keep track of where any pending plugin
+        // results are coming from (i.e. what part of your code made the call)
+        // and what arguments you provided to the plugin if relevant
+        var storedState = window.localStorage.getItem("app_state");
+
+        if (storedState) {
+            appState = JSON.parse(storedState);
+        }
+
+        console.log(appState);
+        console.log(event);
+        console.log(event.pendingResult);
+
+        // Check to see if we need to restore an image we took
+        if (!appState.takingPicture && appState.imageUri) {
+            console.log("restore picture...");
+            console.log(appState.imageUri);
+
+            //appState.imageUri = event.pendingResult.result;
+            appState.needRestore = false;
+        }
+        // Now we can check if there is a plugin result in the event object.
+        // This requires cordova-android 5.1.0+
+        else if (appState.takingPicture && event.pendingResult) {
+            console.log("status : " + event.pendingResult.pluginStatus);
+            // Figure out whether or not the plugin call was successful and call
+            // the relevant callback. For the camera plugin, "OK" means a
+            // successful result and all other statuses mean error
+            if (event.pendingResult.pluginStatus === "OK") {
+                // The camera plugin places the same result in the resume object
+                // as it passes to the success callback passed to getPicture(),
+                // thus we can pass it to the same callback. Other plugins may
+                // return something else. Consult the documentation for
+                // whatever plugin you are using to learn how to interpret the
+                // result field
+                console.log("restoring picture");
+                console.log(event.pendingResult.result);
+
+                appState.imageUri = event.pendingResult.result;
+                appState.needRestore = true;
+            } else {
+                console.log("restore picture fail");
+                console.log(event.pendingResult.result);
+                onFail(event.pendingResult.result);
+            }
+        }
+    },
+
+
+
+    
+    
+    
+    
+
+    // Update DOM on a Received Event
+    receivedEvent: function (id) {
+        if (cordova.platformId == 'android') {
+            //ResetStatusBar();
+            statusBar.overlaysWebView(true);
+        }
+
+        // if (AndroidFullScreen) {
+        //     // Extend your app underneath the status bar (Android 4.4+ only)
+        //     AndroidFullScreen.showUnderStatusBar();
+        
+        //     // Extend your app underneath the system UI (Android 4.4+ only)
+        //     AndroidFullScreen.showUnderSystemUI();
+        
+        //     // Hide system UI and keep it hidden (Android 4.4+ only)
+        //     AndroidFullScreen.immersiveMode();
+        // }
 
         if (appState.needRestore) {
 
@@ -107,139 +204,6 @@ var app = {
         push.on('error', function (e) {
             console.log(e.message)
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    },
-    onPause: function () {
-        // Here, we check to see if we are in the middle of taking a picture. If
-        // so, we want to save our state so that we can properly retrieve the
-        // plugin result in onResume(). We also save if we have already fetched
-        // an image URI
-        console.log("pause");
-        stopAllStoriesAudio();
-        stopAllBlocksAudio();
-
-        if (appState.takingPicture || appState.imageUri) {
-            window.localStorage.setItem("app_state", JSON.stringify(appState));
-            console.log("app state saved");
-        }
-
-        // if (cordova.platformId == 'android') {
-        //     StatusBar.show();
-        //     StatusBar.overlaysWebView(true);
-        //     StatusBar.backgroundColorByHexString('#00000000');
-        //     StatusBar.styleDefault();
-        // }
-    },
-    onResume: function (event) {
-        console.log("resume");
-        if (cordova.platformId == 'android') {
-            ResetStatusBar();
-        }
-        // Here we check for stored state and restore it if necessary. In your
-        // application, it's up to you to keep track of where any pending plugin
-        // results are coming from (i.e. what part of your code made the call)
-        // and what arguments you provided to the plugin if relevant
-        var storedState = window.localStorage.getItem("app_state");
-
-        if (storedState) {
-            appState = JSON.parse(storedState);
-        }
-
-        console.log(appState);
-        console.log(event);
-        console.log(event.pendingResult);
-
-        // Check to see if we need to restore an image we took
-        if (!appState.takingPicture && appState.imageUri) {
-            console.log("restore picture...");
-            console.log(appState.imageUri);
-
-            //appState.imageUri = event.pendingResult.result;
-            appState.needRestore = false;
-        }
-        // Now we can check if there is a plugin result in the event object.
-        // This requires cordova-android 5.1.0+
-        else if (appState.takingPicture && event.pendingResult) {
-            console.log("status : " + event.pendingResult.pluginStatus);
-            // Figure out whether or not the plugin call was successful and call
-            // the relevant callback. For the camera plugin, "OK" means a
-            // successful result and all other statuses mean error
-            if (event.pendingResult.pluginStatus === "OK") {
-                // The camera plugin places the same result in the resume object
-                // as it passes to the success callback passed to getPicture(),
-                // thus we can pass it to the same callback. Other plugins may
-                // return something else. Consult the documentation for
-                // whatever plugin you are using to learn how to interpret the
-                // result field
-                console.log("restoring picture");
-                console.log(event.pendingResult.result);
-
-                appState.imageUri = event.pendingResult.result;
-                appState.needRestore = true;
-            } else {
-                console.log("restore picture fail");
-                console.log(event.pendingResult.result);
-                onFail(event.pendingResult.result);
-            }
-        }
-    },
-
-
-
-    
-    
-    
-    
-
-    // Update DOM on a Received Event
-    receivedEvent: function (id) {
-        // //------------------ PERMISSIONS -------------------------------//
-        // var permissions = cordova.plugins.permissions;
-        // var list = [
-        //     permissions.RECORD_AUDIO,
-        //     permissions.WRITE_EXTERNAL_STORAGE
-        // ];
-
-        // function error() {
-        //     alert('Record audio permission not given');
-        // }
-
-        // function success(status) {
-        //     if (!status.hasPermission) error();
-        // }
-
-        // permissions.hasPermission(permissions.RECORD_AUDIO, function (status) {
-        //     if (status.hasPermission) {
-        //         //alert("Yes :D ");
-        //     } else {
-        //         permissions.requestPermissions(list, success, error);
-        //     }
-        // });
-
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
     }
     
 };

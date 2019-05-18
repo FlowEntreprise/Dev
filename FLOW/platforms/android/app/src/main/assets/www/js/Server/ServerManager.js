@@ -3,7 +3,8 @@ const ServerParams = {
     ServerURL: "http://51.38.39.212/",
     ConnexionURL: "ConnexionFromApi",
     AddFlowURL: "AddFlow",
-    GetSingleFlowURL: "GetSingle"
+    GetSingleFlowURL: "GetSingle",
+    AddStoryURL: "AddStory"
 };
 const apiTypes = {
     Twitter: 'twitter',
@@ -170,6 +171,28 @@ class ServerManagerClass {
             },
             error: function (response) {
                 console.log("Flow recovering from database error : ");
+                console.log(response);
+            }
+        });
+    }
+
+    AddStory(data) {
+        let final_data = {
+            Data: data,
+            Action: "AddStory"
+        };
+
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.AddStoryURL,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log('Story added sucessfully : ');
+                console.log(response);
+                ServerManager.GetFlowById(response.ObjectId);
+            },
+            error: function (response) {
+                console.log("Story adding error : ");
                 console.log(response);
             }
         });

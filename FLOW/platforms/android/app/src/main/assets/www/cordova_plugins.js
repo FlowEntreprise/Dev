@@ -191,7 +191,7 @@ module.exports = [
     "pluginId": "phonegap-plugin-push",
     "clobbers": [
       "PushNotification"
-    ],
+    ]
   },
   {
     "id": "cordova-plugin-ionic-keyboard.keyboard",
