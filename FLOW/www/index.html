@@ -20,6 +20,8 @@
     <link rel="stylesheet" type="text/css" href="css/myAccount.css">
     <link rel="stylesheet" type="text/css" href="css/account.css">
     <link rel="stylesheet" type="text/css" href="css/story.css">
+    <link rel="stylesheet" type="text/css" href="css/popup_comment.css">
+
 
     <!-- <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.md.colors.min.css">
     <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.md.min.css"> -->
@@ -27,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.ios.min.css">
 
     <script type="text/javascript" src="Dependencies/Jquery/jquery_v331.js"></script>
+    <script type="text/javascript" src="Dependencies/Jquery/longpress.js"></script>
     <script type="text/javascript" src="Dependencies/Framework7/framework7_v171.js"></script>
     <script type="text/javascript" src="Dependencies/Siriwave/siriwave-block.js"></script>
     <script type="text/javascript" src="Dependencies/Siriwave/siriwave-record.js"></script>
@@ -274,10 +277,29 @@
                 <div class="content-block">
                     <div class="after-story-record-block-container"></div>
                     <label class="fbackground-after-story-txt">Background</label>
-                    <div class="frandom-color-btn" onclick="new_block.randomColorGradient()"><label class="frandom-color-txt">CHANGE COLOR</label></div>    
+                    <div class="frandom-color-btn" onclick="new_block.randomColorGradient()"><label
+                            class="frandom-color-txt">CHANGE COLOR</label></div>
                     <div class="frestart-after_btn"></div>
                     <div class="fvalidate-after_btn"></div>
                     <div class="fcancel-after_btn"></div>
+                </div>
+            </div>
+            <div class="popup popup_comment">
+                <label class="fcomment_number">605 comments</label>
+                <img src="src/icons/cancel.png" class="close-popup fclose_comment">
+                <div class="popover">
+                    <div class="popover-angle"></div>
+                    <div class="popover-inner">
+                        <label class="fpopover_button fpopover_copy">COPY</label>
+                        <label class="fpopover_button fpopover_report">REPORT</label>
+                        <label class="fpopover_button fpopover_delete">DELETE</label>
+                    </div>
+                </div>
+                <div class="fblock_comment_content">
+                </div>
+                <div class="fwrite_comment">
+                    <input type="text" placeholder="Say something nice" maxlength="90" class="finput_comment">
+                    <img src="src/icons/send.png" class="fsend_comment">
                 </div>
             </div>
 
@@ -326,14 +348,6 @@
     <script type="text/javascript" src="cordova.js"></script>
 
     <script src="js/Server/ServerManager.js"></script>
-    <!-- <script src="js/require/ServerParams.js""></script>
-    <script src="js/require/SocketClient.js"></script>
-    <script src="js/require/EventEmitter.js""></script>
-    <script src=" js/require/EventListener.js"> </script> <script src="js/SocketManager.js"></script> -->
-    <!-- <script>
-        const Socket = new SocketManager("http://51.38.39.212:8082");
-        console.log(Socket.ListenManager);
-    </script> -->
 
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/block.js"></script>
@@ -347,6 +361,7 @@
     <script type="text/javascript" src="js/auth/Facebook.js"></script>
     <script type="text/javascript" src="js/auth/google.js"></script>
     <script type="text/javascript" src="js/auth/connexion.js"></script>
+    <script type="text/javascript" src="js/popup_comment.js"></script>
     <script type="text/javascript" src="js/myAccount.js"></script>
     <script type="text/javascript" src="js/account.js"></script>
     <script type="text/javascript" src="js/story.js"></script>

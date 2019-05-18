@@ -150,7 +150,8 @@ module.exports.metadata =
     "cordova-android-support-gradle-release": "2.1.0",
     "cordova-support-google-services": "1.3.1",
     "phonegap-plugin-multidex": "1.0.0",
-    "phonegap-plugin-push": "2.2.3"
+    "phonegap-plugin-push": "2.2.3",
+    "cordova-plugin-browsersync": "0.1.7"
 }
 // BOTTOM OF METADATA
 });

@@ -191,6 +191,14 @@ module.exports = [
     "pluginId": "phonegap-plugin-push",
     "clobbers": [
       "PushNotification"
+    ],
+  },
+  {
+    "id": "cordova-plugin-ionic-keyboard.keyboard",
+    "file": "plugins/cordova-plugin-ionic-keyboard/www/android/keyboard.js",
+    "pluginId": "cordova-plugin-ionic-keyboard",
+    "clobbers": [
+      "window.Keyboard"
     ]
   }
 ];
@@ -198,7 +206,6 @@ module.exports.metadata =
 // TOP OF METADATA
 {
   "cordova-plugin-android-permissions": "1.0.0",
-  "cordova-plugin-browsersync": "0.1.7",
   "cordova-plugin-camera": "4.0.3",
   "cordova-plugin-facebook4": "4.2.1",
   "cordova-plugin-googleplus": "7.0.0",
@@ -212,7 +219,9 @@ module.exports.metadata =
   "cordova-android-support-gradle-release": "2.1.0",
   "cordova-support-google-services": "1.3.1",
   "phonegap-plugin-multidex": "1.0.0",
-  "phonegap-plugin-push": "2.2.3"
+  "phonegap-plugin-push": "2.2.3",
+  "cordova-plugin-browsersync": "0.1.7",
+  "cordova-plugin-ionic-keyboard": "2.1.3"
 };
 // BOTTOM OF METADATA
 });

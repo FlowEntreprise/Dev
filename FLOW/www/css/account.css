@@ -1,7 +1,7 @@
 .fnavAccount
 {
     position: absolute;
-    top: 22vh !important;
+    top: calc(22* var(--custom-vh)) !important;
     left: 22vw !important;
     font-size: 19px !important;
     background-color: transparent !important;
@@ -19,7 +19,7 @@
     font-size: 14px;
     padding: 2.5px;
     position: absolute;
-    top: 25vh;
+    top: calc(4* var(--custom-vh));
     left: 35vw;
 }
 
@@ -39,7 +39,7 @@
     font-size: 12px;
     padding: 2.5px;
     position: absolute;
-    top: 25.4vh;
+    top: calc(25.4* var(--custom-vh));
     left: 67vw;
     color: white;
 }

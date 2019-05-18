@@ -10,13 +10,14 @@
         "cheerio": "^0.19.0",
         "cordova-android": "^7.1.4",
         "cordova-android-support-gradle-release": "^2.1.0",
-        "cordova-browser": "^5.0.4",
+        "cordova-browser": "^6.0.0",
         "cordova-plugin-android-permissions": "^1.0.0",
         "cordova-plugin-browsersync": "^1.1.0",
         "cordova-plugin-camera": "~4.0.3",
         "cordova-plugin-facebook4": "4.2.1",
         "cordova-plugin-googleplus": "7.0.0",
         "cordova-plugin-inappbrowser": "^3.0.0",
+        "cordova-plugin-ionic-keyboard": "2.1.3",
         "cordova-plugin-k-imagecropper": "^1.2.0",
         "cordova-plugin-statusbar": "^2.4.2",
         "cordova-plugin-whitelist": "^1.3.3",
@@ -24,6 +25,7 @@
         "csp-parse": "0.0.2",
         "elementtree": "^0.1.7",
         "glob": "^5.0.15",
+        "jquery.scrollto": "^2.1.2",
         "npm": "^2.15.12",
         "phonegap-plugin-multidex": "^1.0.0",
         "phonegap-plugin-push": "git+https://github.com/phonegap/phonegap-plugin-push.git",
@@ -35,7 +37,6 @@
         "plugins": {
             "cordova-plugin-whitelist": {},
             "cordova-plugin-statusbar": {},
-            "cordova-plugin-browsersync": {},
             "cordova-plugin-android-permissions": {},
             "cordova-plugin-facebook4": {
                 "APP_ID": "com.flowapp.flow",
@@ -62,10 +63,11 @@
             },
             "cordova-support-google-services": {},
             "phonegap-plugin-multidex": {},
-            "phonegap-plugin-push": {}
+            "phonegap-plugin-push": {},
+            "cordova-plugin-ionic-keyboard": {},
+            "cordova-plugin-browsersync": {}
         },
         "platforms": [
-            "browser",
             "android"
         ]
     }

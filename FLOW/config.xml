@@ -32,7 +32,7 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <preference name="Fullscreen" value="true" />
     <preference name="Orientation" value="portrait" />
-    <plugin name="cordova-plugin-browsersync" spec="^1.1.0" />
+    <preference name="Hostname" value="app" />
     <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
     <plugin name="cordova-plugin-facebook4" spec="4.2.1">
         <variable name="APP_ID" value="502054883649562" />

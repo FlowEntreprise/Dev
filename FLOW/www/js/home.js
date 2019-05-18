@@ -65,6 +65,18 @@ function PopFlow(data) {
   var new_block = new block(block_params);
   all_blocks.push(new_block);
 
+
+  var new_block_top50 = new block($("#top50"), false, flow_link, data.Duration, pattern_key, image_link, data.Title, data.Description, data.Pseudo, profilePicLink);
+  all_blocks.push(new_block_top50);
+
+  var new_block_sport = new block($("#sport"), false, flow_link, data.Duration, pattern_key, image_link, data.Title, data.Description, data.Pseudo, profilePicLink);
+  all_blocks.push(new_block_sport);
+
+  var new_block_music = new block($("#music"), false, flow_link, data.Duration, pattern_key, image_link, data.Title, data.Description, data.Pseudo, profilePicLink);
+  all_blocks.push(new_block_music);
+
+
+
   console.log("Pop Flow");
   console.log(new_block);
 }
@@ -130,3 +142,6 @@ function errorFunction(error) {
 function trace(value) {
   console.log(value);
 }
+var _root = document.documentElement;
+var _myvar = window.innerHeight / 100 + "px";
+_root.style.setProperty("--custom-vh", _myvar);
