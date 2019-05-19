@@ -3,7 +3,7 @@
     top: auto !important;
     bottom: 0 !important;
     /* height: 70vh !important; */
-    height: calc((70* var(--custom-vh)) - calc((100 * var(--custom-vh)) - 100vh)) !important;
+    height: calc((70* var(--custom-vh)) - calc((100 * var(--custom-vh)) - 100vh - var(--custom-vh2))) !important;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     overflow-y: hidden;

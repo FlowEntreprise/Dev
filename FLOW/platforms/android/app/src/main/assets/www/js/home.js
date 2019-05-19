@@ -120,55 +120,67 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 }
  */
 /********************************************************************/
-$("input").focus(function() {
+$(".finput_comment").focus(function () {
   console.log("an input was focused");
   DisableImmersiveMode();
 });
 
-$("input").blur(function() {
+$(".finput_comment").blur(function () {
   console.log("an input was out focused");
   EnableImmersiveMode();
 });
 
 function DisableImmersiveMode() {
   // setTimeout(function () {
-    // StatusBar.show();
-    // StatusBar.overlaysWebView(true);
-    // StatusBar.backgroundColorByHexString('#00000000');
-    // StatusBar.styleDefault();
-    // console.log("reset status bar");
-    console.log("Exit Immersive Mode");
-    AndroidFullScreen.showSystemUI(successFunction, errorFunction);
-    setTimeout(function () {
-      AndroidFullScreen.showUnderStatusBar(successFunction, errorFunction);
-    }, 500);
-    StatusBar.styleDefault();
-    _root.style.setProperty("--custom-vh2", 3 *_myvar + "px");
-    // }, 100);
+  // StatusBar.show();
+  // StatusBar.overlaysWebView(true);
+  // StatusBar.backgroundColorByHexString('#00000000');
+  // StatusBar.styleDefault();
+  // console.log("reset status bar");
+  console.log("Exit Immersive Mode");
+  // $(".ftop_bar")[0].style.opacity = 0;
+  let d = new Date();
+  console.log("start_time : "+d.getMilliseconds);
+  AndroidFullScreen.showSystemUI(successFunction, errorFunction);
+  setTimeout(function () {
+    _root.style.setProperty("--custom-vh2", 3.7 * _myvar + "px");
+  }, 150);
+  StatusBar.styleDefault();
+  // }, 100);
 
 }
 
 function EnableImmersiveMode() {
   // setTimeout(function () {
-    // StatusBar.show();
-    // StatusBar.overlaysWebView(true);
-    // StatusBar.backgroundColorByHexString('#00000000');
-    // StatusBar.styleDefault();
-    // console.log("reset status bar");
-    console.log("Enable Immersive Mode");
-    AndroidFullScreen.setSystemUiVisibility(AndroidFullScreen.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | AndroidFullScreen.SYSTEM_UI_FLAG_LAYOUT_STABLE, successFunction, errorFunction);
-    StatusBar.styleDefault();
+  // StatusBar.show();
+  // StatusBar.overlaysWebView(true);
+  // StatusBar.backgroundColorByHexString('#00000000');
+  // StatusBar.styleDefault();
+  // console.log("reset status bar");
+  console.log("Enable Immersive Mode");
+  // $(".ftop_bar")[0].style.opacity = 0;
+  AndroidFullScreen.setSystemUiVisibility(AndroidFullScreen.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | AndroidFullScreen.SYSTEM_UI_FLAG_LAYOUT_STABLE, successFunction, errorFunction);
+  StatusBar.styleDefault();
+  setTimeout(function () {
     _root.style.setProperty("--custom-vh2", "0px");
+  }, 50);
   // }, 100);
 
 }
 
-$( "#target" ).focus(function() {
-  alert( "Handler for .focus() called." );
+$("#target").focus(function () {
+  alert("Handler for .focus() called.");
 });
 
 function successFunction() {
+  let d = new Date();
+  console.log("end_time : "+d.getMilliseconds);
   console.info("It worked!");
+  // setTimeout(function () {
+  //   // $(".ftop_bar")[0].style.opacity = 1;
+  //   // StatusBar.overlaysWebView(true);
+
+  // }, 200);
 }
 
 function errorFunction(error) {
