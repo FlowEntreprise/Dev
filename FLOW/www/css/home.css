@@ -1,6 +1,6 @@
 .ftitle {
     position: absolute;
-    top: 3vh;
+    top: calc(3* var(--custom-vh));
     left: 0;
     width: 100%;
     text-align: center;
@@ -11,7 +11,7 @@
 
 .faccount {
     position: absolute;
-    top: calc(3vh + 7px);
+    top:  calc(3* var(--custom-vh) + 7px);
     right: 10px;
     width: 35px;
     height: 35px;

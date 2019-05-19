@@ -70,6 +70,7 @@
     <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application/activity[@android:name='MainActivity']">
         <activity android:name="MainActivity" android:windowSoftInputMode="adjustResize" />
     </edit-config>
+    <plugin name="cordova-plugin-fullscreen" spec="^1.2.0" />
     <engine name="android" spec="^7.1.4" />
     <engine name="browser" spec="^6.0.0" />
 </widget>

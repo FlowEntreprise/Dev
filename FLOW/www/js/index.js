@@ -115,8 +115,8 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function (id) {
         if (cordova.platformId == 'android') {
-            //ResetStatusBar();
-            statusBar.overlaysWebView(true);
+            // ResetStatusBar();
+            // statusBar.overlaysWebView(true);
         }
 
         // if (AndroidFullScreen) {

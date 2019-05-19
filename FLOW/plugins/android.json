@@ -63,6 +63,9 @@
     },
     "cordova-plugin-ionic-keyboard": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-fullscreen": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {}

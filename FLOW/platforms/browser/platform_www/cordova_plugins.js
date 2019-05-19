@@ -122,6 +122,14 @@ module.exports = [
         "clobbers": [
             "PushNotification"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-fullscreen/www/AndroidFullScreen.js",
+        "id": "cordova-plugin-fullscreen.AndroidFullScreen",
+        "pluginId": "cordova-plugin-fullscreen",
+        "clobbers": [
+            "AndroidFullScreen"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -141,7 +149,8 @@ module.exports.metadata =
     "cordova-android-support-gradle-release": "2.1.0",
     "cordova-support-google-services": "1.3.1",
     "phonegap-plugin-multidex": "1.0.0",
-    "phonegap-plugin-push": "2.2.3"
+    "phonegap-plugin-push": "2.2.3",
+    "cordova-plugin-fullscreen": "1.1.0"
 }
 // BOTTOM OF METADATA
 });

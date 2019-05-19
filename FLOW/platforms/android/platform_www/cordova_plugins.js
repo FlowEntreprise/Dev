@@ -178,14 +178,6 @@ module.exports = [
     ]
   },
   {
-    "id": "cordova-plugin-fullscreen.AndroidFullScreen",
-    "file": "plugins/cordova-plugin-fullscreen/www/AndroidFullScreen.js",
-    "pluginId": "cordova-plugin-fullscreen",
-    "clobbers": [
-      "AndroidFullScreen"
-    ]
-  },
-  {
     "id": "phonegap-plugin-push.PushNotification",
     "file": "plugins/phonegap-plugin-push/www/push.js",
     "pluginId": "phonegap-plugin-push",
@@ -199,6 +191,14 @@ module.exports = [
     "pluginId": "cordova-plugin-ionic-keyboard",
     "clobbers": [
       "window.Keyboard"
+    ]
+  },
+  {
+    "id": "cordova-plugin-fullscreen.AndroidFullScreen",
+    "file": "plugins/cordova-plugin-fullscreen/www/AndroidFullScreen.js",
+    "pluginId": "cordova-plugin-fullscreen",
+    "clobbers": [
+      "AndroidFullScreen"
     ]
   }
 ];
@@ -215,13 +215,13 @@ module.exports.metadata =
   "cordova-plugin-whitelist": "1.3.3",
   "cordova.plugins.diagnostic": "4.0.11",
   "twitter-connect-plugin": "0.6.0",
-  "cordova-plugin-fullscreen": "1.1.0",
   "cordova-android-support-gradle-release": "2.1.0",
   "cordova-support-google-services": "1.3.1",
   "phonegap-plugin-multidex": "1.0.0",
   "phonegap-plugin-push": "2.2.3",
   "cordova-plugin-browsersync": "0.1.7",
-  "cordova-plugin-ionic-keyboard": "2.1.3"
+  "cordova-plugin-ionic-keyboard": "2.1.3",
+  "cordova-plugin-fullscreen": "1.1.0"
 };
 // BOTTOM OF METADATA
 });

@@ -120,17 +120,52 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 }
  */
 /********************************************************************/
+$("input").focus(function() {
+  console.log("an input was focused");
+  DisableImmersiveMode();
+});
 
-function ResetStatusBar() {
-  setTimeout(function () {
-    StatusBar.show();
-    StatusBar.overlaysWebView(true);
-    StatusBar.backgroundColorByHexString('#00000000');
+$("input").blur(function() {
+  console.log("an input was out focused");
+  EnableImmersiveMode();
+});
+
+function DisableImmersiveMode() {
+  // setTimeout(function () {
+    // StatusBar.show();
+    // StatusBar.overlaysWebView(true);
+    // StatusBar.backgroundColorByHexString('#00000000');
+    // StatusBar.styleDefault();
+    // console.log("reset status bar");
+    console.log("Exit Immersive Mode");
+    AndroidFullScreen.showSystemUI(successFunction, errorFunction);
+    setTimeout(function () {
+      AndroidFullScreen.showUnderStatusBar(successFunction, errorFunction);
+    }, 500);
     StatusBar.styleDefault();
-    console.log("reset status bar");
-  }, 100);
+    _root.style.setProperty("--custom-vh2", 3 *_myvar + "px");
+    // }, 100);
 
 }
+
+function EnableImmersiveMode() {
+  // setTimeout(function () {
+    // StatusBar.show();
+    // StatusBar.overlaysWebView(true);
+    // StatusBar.backgroundColorByHexString('#00000000');
+    // StatusBar.styleDefault();
+    // console.log("reset status bar");
+    console.log("Enable Immersive Mode");
+    AndroidFullScreen.setSystemUiVisibility(AndroidFullScreen.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | AndroidFullScreen.SYSTEM_UI_FLAG_LAYOUT_STABLE, successFunction, errorFunction);
+    StatusBar.styleDefault();
+    _root.style.setProperty("--custom-vh2", "0px");
+  // }, 100);
+
+}
+
+$( "#target" ).focus(function() {
+  alert( "Handler for .focus() called." );
+});
 
 function successFunction() {
   console.info("It worked!");
@@ -144,5 +179,6 @@ function trace(value) {
   console.log(value);
 }
 var _root = document.documentElement;
-var _myvar = window.innerHeight / 100 + "px";
-_root.style.setProperty("--custom-vh", _myvar);
+var _myvar = window.innerHeight / 100;
+_root.style.setProperty("--custom-vh", _myvar + "px");
+_root.style.setProperty("--custom-vh2", "0px");
