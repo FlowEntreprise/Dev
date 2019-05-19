@@ -44,6 +44,8 @@ var app = {
             //ResetStatusBar();
         }
 
+        mediaRecorder.stop();
+
         // if (cordova.platformId == 'android') {
         //     StatusBar.show();
         //     StatusBar.overlaysWebView(true);
