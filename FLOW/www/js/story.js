@@ -329,6 +329,8 @@ function CloseStory() {
     }, 400);
 
     RefreshStories();
+    StatusBar.backgroundColorByHexString('#f7f7f8');
+    StatusBar.styleDefault();    
 }
 
 function showStoryComments() {
@@ -365,6 +367,8 @@ function loadStory(story_index, storyFlow_index) {
     $(".fstory_pp")[0].style.backgroundImage = "url(" + story_data[story_index].user_picture + ")";
     $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].color + ", " + story_data[story_index].darkColor + ");";
     let color_gradient = "linear-gradient(" + story_data[story_index].color + ", " + story_data[story_index].darkColor + ")";
+    StatusBar.backgroundColorByHexString(story_data[story_index].color);
+    StatusBar.styleLightContent();   
     $(".fstory_window")[0].style.background = color_gradient;
     for (var i = 0; i < story_data[storyFlow_index].data.length; i++) {
         let story_indicator_li = document.createElement("li");

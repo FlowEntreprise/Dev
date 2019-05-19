@@ -200,6 +200,14 @@ module.exports = [
     "clobbers": [
       "AndroidFullScreen"
     ]
+  },
+  {
+    "id": "cordova-plugin-android-notch.notch",
+    "file": "plugins/cordova-plugin-android-notch/www/notch.js",
+    "pluginId": "cordova-plugin-android-notch",
+    "clobbers": [
+      "window.AndroidNotch"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -221,7 +229,8 @@ module.exports.metadata =
   "phonegap-plugin-push": "2.2.3",
   "cordova-plugin-browsersync": "0.1.7",
   "cordova-plugin-ionic-keyboard": "2.1.3",
-  "cordova-plugin-fullscreen": "1.1.0"
+  "cordova-plugin-fullscreen": "1.1.0",
+  "cordova-plugin-android-notch": "1.0.2"
 };
 // BOTTOM OF METADATA
 });

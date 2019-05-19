@@ -85,3 +85,13 @@ function getBase64Image(imgUrl, callback) {
     img.src = imgUrl;
 
 }
+
+$$('.popup-connect').on('popup:open', function () {
+    StatusBar.backgroundColorByHexString('#949494');
+    StatusBar.styleLightContent();    
+});
+
+$$('.popup-connect').on('popup:close', function () {
+    StatusBar.backgroundColorByHexString('#f7f7f8');
+    StatusBar.styleDefault();    
+});

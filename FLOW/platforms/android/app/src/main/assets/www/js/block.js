@@ -398,7 +398,7 @@ function block(params) {
             $(".fblock_comment_content").append(current_flow_block.all_comment_blocks[i].fblock_comment);
             
         }
-        app.popup('.popup_comment');                   
+        app.popup('.popup_comment');               
     });
 
 }
@@ -454,3 +454,13 @@ function stopAllBlocksAudio() {
 //     var new_block = new block();
 //     all_blocks.push(new_block);
 // });
+
+$$('.popup_comment').on('popup:open', function () {
+    StatusBar.backgroundColorByHexString('#949494');
+    StatusBar.styleLightContent();    
+});
+
+$$('.popup_comment').on('popup:close', function () {
+    StatusBar.backgroundColorByHexString('#f7f7f8');
+    StatusBar.styleDefault();    
+});

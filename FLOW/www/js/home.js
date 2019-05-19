@@ -122,12 +122,12 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 /********************************************************************/
 $(".finput_comment").focus(function () {
   console.log("an input was focused");
-  DisableImmersiveMode();
+  //DisableImmersiveMode();
 });
 
 $(".finput_comment").blur(function () {
   console.log("an input was out focused");
-  EnableImmersiveMode();
+  //EnableImmersiveMode();
 });
 
 function DisableImmersiveMode() {
@@ -139,12 +139,10 @@ function DisableImmersiveMode() {
   // console.log("reset status bar");
   console.log("Exit Immersive Mode");
   // $(".ftop_bar")[0].style.opacity = 0;
-  let d = new Date();
-  console.log("start_time : "+d.getMilliseconds);
-  AndroidFullScreen.showSystemUI(successFunction, errorFunction);
   setTimeout(function () {
     _root.style.setProperty("--custom-vh2", 3.7 * _myvar + "px");
-  }, 150);
+  }, 50);
+  AndroidFullScreen.showSystemUI(successFunction, errorFunction);
   StatusBar.styleDefault();
   // }, 100);
 
@@ -159,11 +157,11 @@ function EnableImmersiveMode() {
   // console.log("reset status bar");
   console.log("Enable Immersive Mode");
   // $(".ftop_bar")[0].style.opacity = 0;
-  AndroidFullScreen.setSystemUiVisibility(AndroidFullScreen.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | AndroidFullScreen.SYSTEM_UI_FLAG_LAYOUT_STABLE, successFunction, errorFunction);
-  StatusBar.styleDefault();
   setTimeout(function () {
     _root.style.setProperty("--custom-vh2", "0px");
   }, 50);
+  AndroidFullScreen.setSystemUiVisibility(AndroidFullScreen.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | AndroidFullScreen.SYSTEM_UI_FLAG_LAYOUT_STABLE, successFunction, errorFunction);
+  StatusBar.styleDefault();
   // }, 100);
 
 }
@@ -194,3 +192,18 @@ var _root = document.documentElement;
 var _myvar = window.innerHeight / 100;
 _root.style.setProperty("--custom-vh", _myvar + "px");
 _root.style.setProperty("--custom-vh2", "0px");
+
+// function checkWindowHeight() {
+//     if (window.innerHeight / 100 < _myvar) {
+//       setTimeout(function() {
+//         _root.style.setProperty("--custom-vh2", 3.7 * _myvar + "px");
+//       }, 10);
+//     }
+//     else {
+//       setTimeout(function() {
+//         _root.style.setProperty("--custom-vh2", "0px");
+//       }, 10);    }
+//     requestAnimationFrame(checkWindowHeight);
+// }
+
+// requestAnimationFrame(checkWindowHeight);
