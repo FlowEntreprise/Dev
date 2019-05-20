@@ -1,7 +1,7 @@
 var parent = $(".fblock_comment_content");
 var current_comment_block;
 
-function block_comment(pseudo, account_imageURL, comment) {
+function block_comment(pseudo, account_imageURL, comment, like, timestamp) {
 
     var block_comment = this;
     this.fcomment_text = comment;
@@ -16,7 +16,7 @@ function block_comment(pseudo, account_imageURL, comment) {
 
     this.fid_user = document.createElement('label');
     this.fid_user.className = 'fid_user';
-    this.fid_user.innerHTML = "@adc_98";
+    this.fid_user.innerHTML = "@"+pseudo+"";
     $(this.fblock_comment).append(this.fid_user);
 
     this.fblock_comment_comment = document.createElement('p');
@@ -36,7 +36,7 @@ function block_comment(pseudo, account_imageURL, comment) {
 
     this.fnumber_like = document.createElement('label');
     this.fnumber_like.className = 'fnumber_like';
-    this.fnumber_like.innerHTML = "136";
+    this.fnumber_like.innerHTML = like;
     $(this.fblock_comment).append(this.fnumber_like);
 
     $(this.fcomment_like).on('click', function () {
@@ -95,18 +95,36 @@ var pseudo = "@adc_98";
 var account_imageURL = "src/pictures/notif1.png";
 
 //post de commentaire
+
+function send_comment_to_server(data)
+{
+    var new_block_comment = new block_comment(window.localStorage.getItem("user_private_id"), window.localStorage.getItem("user_profile_pic"), data.Comment, "0");
+    var i = 0;
+    current_flow_block.all_comment_blocks.push(new_block_comment);
+    console.log(current_flow_block.all_comment_blocks[0].fblock_comment);
+    console.log("Comment sucessfully added to database :");
+    console.log(data);
+}
+
 $('.fsend_comment').on('click', function () {
 
     var comment = ($(".finput_comment").val()).trim();
+
+    let data = {
+
+        ObjectId : current_flow_block.ObjectId,
+        Comment : comment
+    }
+    
+
     if (comment == "") {
         alert("Commentaire vide !!!");
-    } else {
-        $(".finput_comment").val("");
-        var new_block_comment = new block_comment(pseudo, account_imageURL, comment);
-        var i = 0;
-        current_flow_block.all_comment_blocks.push(new_block_comment);
-        console.log(current_flow_block.all_comment_blocks[0].fblock_comment);
+    } 
+    else {
 
+        $(".finput_comment").val("");
+        
+        ServerManager.AddFlowComment(data);
     }
 
 });
