@@ -57,7 +57,7 @@ const pSBC = (p, c0, c1, l) => {
 class Story {
     constructor() {
         this.user_id = 1;
-        this.user_pseudo = "Pamela";
+        this.private_id = "Pamela";
         this.user_picture = "src/pictures/girl1.jpg";
         this.data = [];
     }
@@ -89,7 +89,7 @@ class StoryComment {
         this.time = "14h56";
         this.audio = new Audio("src/sound/son.opus");
         this.user_id = 1;
-        this.user_pseudo = "Pamela";
+        this.private_id = "Pamela";
         this.user_picture = "src/pictures/girl1.jpg";
         this.isPlaying = false;
     }
@@ -98,7 +98,7 @@ class StoryComment {
 class StorySeen {
     constructor() {
         this.time = "Seen 5m ago";
-        this.user_pseudo = "@John";
+        this.private_id = "@John";
         this.user_picture = "src/pictures/guy1.jpg";
     }
 }
@@ -111,7 +111,7 @@ var story_images = ["src/pictures/girl1.jpg", "src/pictures/guy1.jpg", "src/pict
 for (var i = 0; i < 3; i++) {
     let userStory = new Story();
     userStory.id = i;
-    userStory.user_pseudo = story_users[i];
+    userStory.private_id = story_users[i];
     userStory.user_picture = story_images[i];
     userStory.addStoryFlow("2h ago");
     userStory.addStoryFlow("6h ago");
@@ -126,9 +126,38 @@ for (var i = 0; i < 3; i++) {
 
 RefreshStories();
 
+function UpdateStoryDataFromServer(data) {
+    /* ------------------------------------------------*/
+    /*           GETTING STORIES DATA ON SERVER        */
+    /* ------------------------------------------------*/
+    story_data = [];
+    for (let i = 0; i < data.Data.length; i++) {
+        let userStory = new Story();
+        userStory.id = i;
+        userStory.private_id = data.Data[i].PrivateId;
+        let src = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Data[i].ProfilePicture.name + '?';
+        let param = `${data.LinkBuilder.Params.hash}=${data.Data[i].ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.Data[i].ProfilePicture.timestamp}`;
+        console.log(src + param);
+        userStory.user_picture = src + param;
+        userStory.addStoryFlow("2h ago");
+        userStory.addStoryFlow("6h ago");
+        userStory.addStoryFlow("13h ago");
+        userStory.color = "#000000".replace(/0/g, function () {
+            return (~~(Math.random() * 16)).toString(16);
+        });
+        userStory.darkColor = pSBC(-0.8, userStory.color);
+
+        story_data.push(userStory);
+    }
+    RefreshStories();
+}
+
 function RefreshStories() {
+    /* ------------------------------------------------*/
+    /*              REFRESH AFTER GETTING DATA         */
+    /* ------------------------------------------------*/
     $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\"><div class=\"fplus\"></div><a href=\"#\" data-popup=\".popup-story-record\" class=\"open-story-record open-popup\"></a><img src=\"src/icons/Account@3x.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div></div></li>";
-    if (connected) {
+    if (connected && window.localStorage.getItem("user_profile_pic")) {
         $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
     }
     for (var i = 0; i < story_data.length; i++) {
@@ -215,7 +244,7 @@ function SpawnStoryWindow(story_block) {
             //     loadStory(story_index, storyFlow_index);
             // }, 500);
             // OR
-            loadStory(story_index, storyFlow_index);
+            tryLoadStory(story_index, storyFlow_index);
             showStoryMain();
 
             $('.fstory_addcomment_btn').on('taphold', function () {
@@ -330,7 +359,7 @@ function CloseStory() {
 
     RefreshStories();
     StatusBar.backgroundColorByHexString('#f7f7f8');
-    StatusBar.styleDefault();    
+    StatusBar.styleDefault();
 }
 
 function showStoryComments() {
@@ -359,8 +388,27 @@ function showStoryMain() {
     });
 }
 
+function tryLoadStory(story_index, storyFlow_index) {
+    if (storyFlow_index == 0) {
+        // LOAD STORY FROM SERVER
+        ServerManager.GetUserStory(story_data[story_index].private_id);
+    }
+    else {
+        loadStory(story_index, storyFlow_index);
+    }
+}
+
+function GetStoryForUserFromServer(data) {
+    // story_data[story_index].data
+
+    loadStory(story_index, 0);
+}
+
 function loadStory(story_index, storyFlow_index) {
-    $(".fstory_pseudo").text(story_data[story_index].user_pseudo);
+    if (storyFlow_index == 0) {
+        // LOAD STORY FROM SERVER
+    }
+    $(".fstory_pseudo").text(story_data[story_index].private_id);
     $(".fstory_time").text(story_data[story_index].data[storyFlow_index].time);
     story_pos = $($(".fstory_block")[parseInt(story_index) + 1]).position();
     $(".fstory_indicator_list")[0].innerHTML = "";
@@ -368,9 +416,10 @@ function loadStory(story_index, storyFlow_index) {
     $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].color + ", " + story_data[story_index].darkColor + ");";
     let color_gradient = "linear-gradient(" + story_data[story_index].color + ", " + story_data[story_index].darkColor + ")";
     StatusBar.backgroundColorByHexString(story_data[story_index].color);
-    StatusBar.styleLightContent();   
+    StatusBar.styleLightContent();
     $(".fstory_window")[0].style.background = color_gradient;
-    for (var i = 0; i < story_data[storyFlow_index].data.length; i++) {
+    // story_data[storyFlow_index].data =/= story_data.data[storyFlow_index] à check
+    for (var i = 0; i < story_data[story_index].data.length; i++) {
         let story_indicator_li = document.createElement("li");
         let story_indicator = document.createElement("div");
         story_indicator.className = "fstory_indicator";
@@ -412,11 +461,11 @@ function previousStory() {
         stopAllStoriesAudio();
         if (storyFlow_index > 0) {
             storyFlow_index--;
-            loadStory(story_index, storyFlow_index);
+            tryLoadStory(story_index, storyFlow_index);
         } else if (story_index > 0) {
             story_index--;
             storyFlow_index = story_data[story_index].data.length - 1;
-            loadStory(story_index, storyFlow_index);
+            tryLoadStory(story_index, storyFlow_index);
         } else {
             CloseStory();
         }
@@ -431,7 +480,7 @@ function previousStory() {
             StorySiriWave.speed = 0.2;
             StorySiriWave.amplitude = 1;
         }, 100);
-        loadStory(story_index, storyFlow_index);
+        tryLoadStory(story_index, storyFlow_index);
     }
 
 }
@@ -440,11 +489,11 @@ function nextStory() {
     stopAllStoriesAudio();
     if (storyFlow_index < story_data[story_index].data.length - 1) {
         storyFlow_index++;
-        loadStory(story_index, storyFlow_index);
+        tryLoadStory(story_index, storyFlow_index);
     } else if (story_index < story_data.length - 1) {
         story_index++;
         storyFlow_index = 0;
-        loadStory(story_index, storyFlow_index);
+        tryLoadStory(story_index, storyFlow_index);
     } else {
         CloseStory();
     }
@@ -496,7 +545,7 @@ function loadStoryComments() {
         };
         let comment_pseudo = document.createElement("label");
         comment_pseudo.className = "fstory_comment_pseudo";
-        comment_pseudo.innerHTML = story_data[story_index].data[storyFlow_index].comments[i].user_pseudo;
+        comment_pseudo.innerHTML = story_data[story_index].data[storyFlow_index].comments[i].private_id;
 
         comment_li.appendChild(comment_time);
         comment_li.appendChild(comment_loading);
@@ -595,7 +644,7 @@ function loadStorySeen() {
         let seen_li = document.createElement("li");
         seen_li.className = "seen_li";
         let seen_pseudo = document.createElement("label");
-        seen_pseudo.innerHTML = story_data[story_index].data[storyFlow_index].seen[i].user_pseudo;
+        seen_pseudo.innerHTML = story_data[story_index].data[storyFlow_index].seen[i].private_id;
         seen_pseudo.className = "seen_pseudo";
         let seen_pp = document.createElement("div");
         seen_pp.className = "seen_pp";

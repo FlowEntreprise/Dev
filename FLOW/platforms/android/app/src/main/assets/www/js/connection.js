@@ -58,7 +58,8 @@ function storeVariables(data) {
         $(".faccount").css({
             "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
         });
-        console.log(base64);
+        $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
+        // console.log(base64);
     });
 }
 

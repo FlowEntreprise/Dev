@@ -44,7 +44,13 @@ var app = {
             //ResetStatusBar();
         }
 
-        mediaRecorder.stop();
+        if (mediaRecorder.state == "recording") {
+            mediaRecorder.stop();
+            console.log("stopped media recorder");
+        }
+        for(let i = 0; i < microphone.mediaStream.getTracks().length; i++) {
+            microphone.mediaStream.getTracks()[i].stop();
+        }
 
         // if (cordova.platformId == 'android') {
         //     StatusBar.show();

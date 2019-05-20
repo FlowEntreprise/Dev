@@ -243,6 +243,7 @@ function block(params) {
         let color_end = pSBC(-0.8, color_start);
         let lineargradientcss = "linear-gradient(to bottom,"+color_start+","+color_end+")";
         this.ftop_part.style.backgroundImage = lineargradientcss;
+        last_story_color = color_start;
     };
 
     if (params.storyAfterBlock) {
@@ -445,6 +446,7 @@ function impression_coloring(object, type, block_item,like_type) {
 }
 
 var all_blocks = [];
+var last_story_color;
 
 function stopAllBlocksAudio() {
     all_blocks.map(a => a.flowpause(a));

@@ -130,7 +130,8 @@ $$('.fvalidate-after_btn').on('touchend', function () {
         let storydata = {
             PrivatedId: window.localStorage.getItem("user_private_id"),
             Sound: appState.blob64,
-            Duration: record_time
+            Duration: record_time,
+            Color: last_story_color
         };
         console.log("Send story to server");
         ServerManager.AddStory(storydata);

@@ -1,10 +1,12 @@
 //Global variables used for Server Management :
 const ServerParams = {
-    ServerURL: "http://51.38.39.212/",
+    ServerURL: "https://api.flowappweb.com/",
     ConnexionURL: "ConnexionFromApi",
     AddFlowURL: "AddFlow",
     GetSingleFlowURL: "GetSingle",
-    AddStoryURL: "AddStory"
+    AddStoryURL: "AddStory",
+    GetStoryURL: "GetStory",
+    GetUserStoryURL: "GetUserStory"
 };
 const apiTypes = {
     Twitter: 'twitter',
@@ -132,7 +134,8 @@ class ServerManagerClass {
     AddFlow(data) {
         let final_data = {
             Data: data,
-            Action: "AddFlow"
+            Action: "AddFlow",
+            TokenId: window.localStorage.getItem("user_token")
         };
 
         $.ajax({
@@ -156,7 +159,8 @@ class ServerManagerClass {
             Data: {
                 IdFlow: id
             },
-            Action: "GetSingle"
+            Action: "GetSingle",
+            TokenId: window.localStorage.getItem("user_token")
         };
 
         console.log(final_data);
@@ -179,7 +183,8 @@ class ServerManagerClass {
     AddStory(data) {
         let final_data = {
             Data: data,
-            Action: "AddStory"
+            Action: "AddStory",
+            TokenId: window.localStorage.getItem("user_token")
         };
 
         $.ajax({
@@ -189,7 +194,7 @@ class ServerManagerClass {
             success: function (response) {
                 console.log('Story added sucessfully : ');
                 console.log(response);
-                ServerManager.GetFlowById(response.ObjectId);
+                //ServerManager.GetFlowById(response.ObjectId);
             },
             error: function (response) {
                 console.log("Story adding error : ");
@@ -197,6 +202,60 @@ class ServerManagerClass {
             }
         });
     }
+
+    GetStory() {
+        let final_data = {
+            Data: {},
+            Action: "GetStory",
+            TokenId: window.localStorage.getItem("user_token")
+        };
+
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetStoryURL,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log("Story sucessfully recovered from database :");
+                console.log(response);
+                UpdateStoryDataFromServer(response);
+                //PopFlow(response);
+            },
+            error: function (response) {
+                console.log("Story recovering from database error : ");
+                console.log(response);
+            }
+        });
+    }
+
+    GetUserStory(private_id) {
+        let final_data = {
+            Data: {
+                PrivateId: private_id
+            },
+            Action: "GetUserStory",
+            TokenId: window.localStorage.getItem("user_token")
+        };
+
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetUserStoryURL,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log("User story sucessfully recovered from database :");
+                console.log(response);
+                GetStoryForUserFromServer(response);
+                //PopFlow(response);
+            },
+            error: function (response) {
+                console.log("User story recovering from database error : ");
+                console.log(response);
+            }
+        });
+    }
+
+
 }
 
 var ServerManager = new ServerManagerClass();

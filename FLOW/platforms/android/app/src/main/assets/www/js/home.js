@@ -10,7 +10,7 @@ ptrContent.on('ptr:refresh', function (e) {
     app.pullToRefreshDone();
     // Socket.client.send("Flow", "GetFlowById", "5c98edb4939cf639919d0aba"); --OLD
     ServerManager.GetFlowById("5cd89b7802e2bf07d888ada5");
-    RefreshStories();
+    ServerManager.GetStory();
     // var new_block = new block($(".list-block"), false, null, 89);
     // all_blocks.push(new_block);
   }, 1000);
