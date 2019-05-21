@@ -17,6 +17,7 @@
 function block(params) {
     console.log("NEW BLOCK CREATED");
     var block = this;
+    this.ObjectId = params.ObjectId;
     this.all_comment_blocks = [];
     this.isPlaying = false;
     this.seeking = false;
@@ -217,7 +218,6 @@ function block(params) {
         this.fcomment.appendChild(this.ftxt_impression_comment);
 
 
-
     } else {
         this.finput_title = document.createElement('input');
         this.finput_title.className = 'finput_title';
@@ -390,15 +390,12 @@ function block(params) {
     $(this.fimg_impression_comment).on('click', function () {
       
         current_flow_block = block;   
-        impression_coloring(this, 'comment', block.fimg_impression_comment);
-        $(".fblock_comment_content").html("");
+        let data = {
 
-        var i = 0;
-        for( i = 0; i < current_flow_block.all_comment_blocks.length; i++)
-        {
-            $(".fblock_comment_content").append(current_flow_block.all_comment_blocks[i].fblock_comment);
-            
+            ObjectId : current_flow_block.ObjectId
         }
+        ServerManager.GetFlowComment(data);
+       
         app.popup('.popup_comment');               
     });
 
@@ -443,6 +440,24 @@ function impression_coloring(object, type, block_item,like_type) {
             break;
     }
 
+}
+
+function get_all_comment(response)
+{
+    impression_coloring(this, 'comment', block.fimg_impression_comment);
+                $(".fblock_comment_content").html("");
+                console.log(response);
+                var i = 0;
+                for (i = 0; i < response.Data.length; i++) {
+
+                    const src_profile_img = 'http://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data[i].ProfilePicture.name + '?';
+                    const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data[i].ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data[i].ProfilePicture.timestamp}`;
+                    var profilePicLink = src_profile_img + param_profile_img;
+
+                    let block_commentaire = new block_comment(response.Data[i].PrivateId, profilePicLink, response.Data[i].Comment, response.Data[i].Likes, response.Data[i].Times);
+                    $(".fblock_comment_content").append(block_commentaire);
+
+                }
 }
 
 var all_blocks = [];

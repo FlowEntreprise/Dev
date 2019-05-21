@@ -6,7 +6,9 @@ const ServerParams = {
     GetSingleFlowURL: "GetSingle",
     AddStoryURL: "AddStory",
     GetStoryURL: "GetStory",
-    GetUserStoryURL: "GetUserStory"
+    GetUserStoryURL: "GetUserStory",
+    AddFlowComment: "AddFlowComment",
+    GetFlowComment: "GetFlowComment"
 };
 const apiTypes = {
     Twitter: 'twitter',
@@ -250,6 +252,56 @@ class ServerManagerClass {
             },
             error: function (response) {
                 console.log("User story recovering from database error : ");
+                console.log(response);
+            }
+        });
+    }
+
+    AddFlowComment(data) {
+        let final_data = {
+            Data: data,
+            Action: "AddFlowComment",
+            TokenId: window.localStorage.getItem("user_token")
+        };
+
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.AddFlowComment,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log("response tu connais : " + response + "");
+                send_comment_to_server(final_data.Data);
+
+            },
+            error: function (response) {
+                console.log("comment adding from database error : ");
+                console.log(response);
+            }
+        });
+    }
+
+    GetFlowComment(data) {
+        let final_data = {
+            Data: data,
+            Action: "GetFlowComment",
+            TokenId: window.localStorage.getItem("user_token")
+        };
+
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetFlowComment,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+
+                get_all_comment(response);
+                console.log("Comment sucessfully added to database :");
+                console.log(response);
+
+            },
+            error: function (response) {
+                console.log("comment adding from database error : ");
                 console.log(response);
             }
         });
