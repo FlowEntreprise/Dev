@@ -283,39 +283,3 @@ function ShowMyFlow(flow) {
         console.log(new_block);
     }
 }
-// var image_link = undefined;
-//     var pattern_key = undefined;
-//     if (data.Background.PatternKey == undefined) {
-//         const src_img = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Background.name + '?';
-//         const param_img = `${data.LinkBuilder.Params.hash}=${data.Background.hash}&${data.LinkBuilder.Params.time}=${data.Background.timestamp}`;
-//         image_link = src_img + param_img;
-//     } else {
-//         pattern_key = data.Background.PatternKey;
-//     }
-    
-//     const src_flow = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
-//     const param_flow = `${data.LinkBuilder.Params.hash}=${data.Audio.hash}&${data.LinkBuilder.Params.time}=${data.Audio.timestamp}`;
-//     const flow_link = src_flow + param_flow;
-    
-//     const src_profile_img = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
-//     const param_profile_img = `${data.LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${data.LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
-//     var profilePicLink = src_profile_img + param_profile_img;
-//     console.log(profilePicLink);
-//     console.log(image_link);
-//     let block_params = {
-//         parent_element: $(".list-block"),
-//         afterblock: false,
-//         audioURL: flow_link,
-//         duration: data.Duration,
-//         patternKey: pattern_key,
-//         imageURL: image_link,
-//         title: data.Title,
-//         description: data.Description,
-//         pseudo: data.PrivateId,
-//         account_imageURL: profilePicLink
-//     };
-//     var new_block = new block(block_params);
-//     all_blocks.push(new_block);
-    
-//     console.log("Pop Flow");
-//     console.log(new_block);
