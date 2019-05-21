@@ -141,15 +141,17 @@ function UpdateStoryDataFromServer(data) {
             let param = `${data.LinkBuilder.Params.hash}=${data.Data[i].ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.Data[i].ProfilePicture.timestamp}`;
             console.log(src + param);
             userStory.user_picture = src + param;
-            userStory.addStoryFlow("2h ago");
-            userStory.addStoryFlow("6h ago");
-            userStory.addStoryFlow("13h ago");
             userStory.color = "#000000".replace(/0/g, function () {
                 return (~~(Math.random() * 16)).toString(16);
             });
             userStory.darkColor = pSBC(-0.8, userStory.color);
 
-            story_data.push(userStory);
+            if (userStory.private_id == window.localStorage.getItem("user_private_id")) {
+                story_data.unshift(userStory);
+            }
+            else {
+                story_data.push(userStory);
+            }
         }
     }
     RefreshStories();

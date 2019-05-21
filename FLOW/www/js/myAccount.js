@@ -94,7 +94,7 @@ app.onPageInit('login-screen', function (page) {
     function checkScroll() {
         var scroll = scroll_element.scrollTop();
         //console.log(scroll);
-        console.log($(".ftabsMonCompte")[0].style.height);
+        // console.log($(".ftabsMonCompte")[0].style.height);
         if (scroll >= 143 && $(".ftabsMonCompte")[0].style.height == "68%") {
             console.log("94vh");
             // if (event.cancelable) {
@@ -125,9 +125,9 @@ app.onPageInit('login-screen', function (page) {
             //     event.preventDefault();
             //     // swiping = true;
             // } else {
-                console.log($(".ftabsMonCompte")[0].style.height);
+                // console.log($(".ftabsMonCompte")[0].style.height);
             if (scroll < 100 && $(".ftabsMonCompte")[0].style.height == "94vh") {
-                console.log("68%");
+                // console.log("68%");
                 event.preventDefault();
                 event.stopPropagation();
                 // $(".fnavMonCompte").css("top", "-6vh");
