@@ -7,30 +7,35 @@ var Following = 250;
 var privateID;
 
 app.onPageInit('login-screen', function (page) {
+    $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
+    var getFlow = {
+        Index : 0,
+        PrivateId : window.localStorage.getItem("user_private_id")
+    };
+    ServerManager.GetMyFlow(getFlow);
+    // for (var i = 0; i < 10; i++) {
+    //     let block_params = {
+    //         parent_element: $("#MyActivity"),
+    //         afterblock: false,
+    //         audioURL: null,
+    //         duration: 89,
+    //     };
+    //     var new_block = new block(block_params);
+    //     //var new_block = new block($("#MyActivity"), false, null, 89);
+    //     all_blocks.push(new_block);
+    // }
 
-    for (var i = 0; i < 10; i++) {
-        let block_params = {
-            parent_element: $("#MyActivity"),
-            afterblock: false,
-            audioURL: null,
-            duration: 89,
-        };
-        var new_block = new block(block_params);
-        //var new_block = new block($("#MyActivity"), false, null, 89);
-        all_blocks.push(new_block);
-    }
-
-    for (var y = 0; y < 10; y++) {
-        let block_params = {
-            parent_element: $("#MyLikes"),
-            afterblock: false,
-            audioURL: null,
-            duration: 89,
-        };
-        var new_block = new block(block_params);
-        all_blocks.push(new_block);
-        console.log(new_block);
-    }
+    // for (var y = 0; y < 10; y++) {
+    //     let block_params = {
+    //         parent_element: $("#MyLikes"),
+    //         afterblock: false,
+    //         audioURL: null,
+    //         duration: 89,
+    //     };
+    //     var new_block = new block(block_params);
+    //     all_blocks.push(new_block);
+    //     console.log(new_block);
+    // }
 
     console.log("init");
     nameMonCompte = window.localStorage.getItem("user_name");
@@ -88,8 +93,10 @@ app.onPageInit('login-screen', function (page) {
 
     function checkScroll() {
         var scroll = scroll_element.scrollTop();
-        console.log(scroll);
-        if (scroll >= 100) {
+        //console.log(scroll);
+        console.log($(".ftabsMonCompte")[0].style.height);
+        if (scroll >= 143 && $(".ftabsMonCompte")[0].style.height == "68%") {
+            console.log("94vh");
             // if (event.cancelable) {
             //     event.preventDefault();
             // } else {
@@ -98,6 +105,9 @@ app.onPageInit('login-screen', function (page) {
             $("scrollEvent").remove(".swiper-wrapper");
             $("#accountBannerScroll").css("transform", "translate3d(0vw, -30vh, 0vh)");
             if (boolScrollTop) {
+                $(".ftabsMonCompte")[0].setAttribute("style", "height:94vh !important");
+
+                
                 $(".fnavMonCompte").removeClass("fnavMonCompteTransitionDown");
                 $(".fnavMonCompte").addClass("fnavMonCompteTransitionTop");
                 $(".ftabsMonCompte").css("transition-duration", "0.4s");
@@ -115,11 +125,14 @@ app.onPageInit('login-screen', function (page) {
             //     event.preventDefault();
             //     // swiping = true;
             // } else {
-            if (scroll < 100) {
+                console.log($(".ftabsMonCompte")[0].style.height);
+            if (scroll < 100 && $(".ftabsMonCompte")[0].style.height == "94vh") {
+                console.log("68%");
                 event.preventDefault();
                 event.stopPropagation();
                 // $(".fnavMonCompte").css("top", "-6vh");
                 if (boolScrollTop == false) {
+                    $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
                     $("scrollEvent").remove(".swiper-wrapper");
                     $("#accountBannerScroll").css("transition-duration", "0.2s");
                     $("#accountBannerScroll").css("transform", "translate3d(0vw, 0vh, 0vh)");
@@ -128,7 +141,7 @@ app.onPageInit('login-screen', function (page) {
                     $(".ftabsMonCompte").css("transition-duration", "0.2s");
                     //$(".scrollMyAccunt").scrollTop("10");
                     var scrollTest = $(".scrollMyAccunt").scrollTop();
-                    console.log(scrollTest);
+                    //console.log(scrollTest);
                     $(".fnavMonCompte").css("transform", "translate3d(0vw, 7vh, 0vh)");
                     $(".ftabsMonCompte").css("transform", "translate3d(0vw, 2vh, 0vh)");
                     boolScrollTop = true;
@@ -227,3 +240,82 @@ function UpdateProfile (profileName, profileBio) {
     nameMonCompte = profileName;
     bioMonCompte = profileBio;
 }
+
+function ShowMyFlow(flow) {
+    console.log(flow);
+    for (let i = 0; i < flow.Data.length; i++) {
+        let data = flow.Data[i];
+        var image_link = undefined;
+        var pattern_key = undefined;
+        if (data.Background.PatternKey == undefined) {
+            const src_img = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.Background.name + '?';
+            const param_img = `${flow.LinkBuilder.Params.hash}=${data.Background.hash}&${flow.LinkBuilder.Params.time}=${data.Background.timestamp}`;
+            image_link = src_img + param_img;
+        } else {
+            pattern_key = data.Background.PatternKey;
+        }
+        
+        const src_flow = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
+        const param_flow = `${flow.LinkBuilder.Params.hash}=${data.Audio.hash}&${flow.LinkBuilder.Params.time}=${data.Audio.timestamp}`;
+        const flow_link = src_flow + param_flow;
+        
+        const src_profile_img = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
+        const param_profile_img = `${flow.LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${flow.LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
+        var profilePicLink = src_profile_img + param_profile_img;
+        console.log(profilePicLink);
+        console.log(image_link);
+        let block_params = {
+            parent_element: $("#MyActivity"),
+            afterblock: false,
+            audioURL: flow_link,
+            duration: data.Duration,
+            patternKey: pattern_key,
+            imageURL: image_link,
+            title: data.Title,
+            description: data.Description,
+            pseudo: data.PrivateId,
+            account_imageURL: profilePicLink
+        };
+        var new_block = new block(block_params);
+        all_blocks.push(new_block);
+        
+        console.log("Pop Flow");
+        console.log(new_block);
+    }
+}
+// var image_link = undefined;
+//     var pattern_key = undefined;
+//     if (data.Background.PatternKey == undefined) {
+//         const src_img = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Background.name + '?';
+//         const param_img = `${data.LinkBuilder.Params.hash}=${data.Background.hash}&${data.LinkBuilder.Params.time}=${data.Background.timestamp}`;
+//         image_link = src_img + param_img;
+//     } else {
+//         pattern_key = data.Background.PatternKey;
+//     }
+    
+//     const src_flow = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
+//     const param_flow = `${data.LinkBuilder.Params.hash}=${data.Audio.hash}&${data.LinkBuilder.Params.time}=${data.Audio.timestamp}`;
+//     const flow_link = src_flow + param_flow;
+    
+//     const src_profile_img = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
+//     const param_profile_img = `${data.LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${data.LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
+//     var profilePicLink = src_profile_img + param_profile_img;
+//     console.log(profilePicLink);
+//     console.log(image_link);
+//     let block_params = {
+//         parent_element: $(".list-block"),
+//         afterblock: false,
+//         audioURL: flow_link,
+//         duration: data.Duration,
+//         patternKey: pattern_key,
+//         imageURL: image_link,
+//         title: data.Title,
+//         description: data.Description,
+//         pseudo: data.PrivateId,
+//         account_imageURL: profilePicLink
+//     };
+//     var new_block = new block(block_params);
+//     all_blocks.push(new_block);
+    
+//     console.log("Pop Flow");
+//     console.log(new_block);
