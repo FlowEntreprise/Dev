@@ -44,6 +44,7 @@ app.onPageInit('login-screen', function (page) {
         bioMonCompte = "Hey, I'm using Flow";
     }
     $(".fflow-btn").css("display", "none");
+    $(".flow-btn-shadow").css("display", "none");
     $("#fprofilPicture").css({
         "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
     });
