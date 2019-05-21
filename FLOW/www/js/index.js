@@ -16,9 +16,9 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
         document.addEventListener('pause', this.onPause, false);
         document.addEventListener('resume', this.onResume, false);
-        
+
     },
-          
+
     // deviceready Event Handler
     //
     // Bind any cordova events here. Common events are:
@@ -48,7 +48,7 @@ var app = {
             mediaRecorder.stop();
             console.log("stopped media recorder");
         }
-        for(let i = 0; i < microphone.mediaStream.getTracks().length; i++) {
+        for (let i = 0; i < microphone.mediaStream.getTracks().length; i++) {
             microphone.mediaStream.getTracks()[i].stop();
         }
 
@@ -115,10 +115,10 @@ var app = {
 
 
 
-    
-    
-    
-    
+
+
+
+
 
     // Update DOM on a Received Event
     receivedEvent: function (id) {
@@ -130,10 +130,10 @@ var app = {
         // if (AndroidFullScreen) {
         //     // Extend your app underneath the status bar (Android 4.4+ only)
         //     AndroidFullScreen.showUnderStatusBar();
-        
+
         //     // Extend your app underneath the system UI (Android 4.4+ only)
         //     AndroidFullScreen.showUnderSystemUI();
-        
+
         //     // Hide system UI and keep it hidden (Android 4.4+ only)
         //     AndroidFullScreen.immersiveMode();
         // }
@@ -175,10 +175,10 @@ var app = {
                 patternKey: appState.patternKey,
                 imageURL: null,
                 title: "",
-                description:  "",
+                description: "",
                 pseudo: window.localStorage.getItem("user_name"),
                 account_imageURL: window.localStorage.getItem("user_profile_pic")
-              };
+            };
             new_block = new block(block_params);
             patternKey = new_block.patternKey;
             // setTimeout(() => {
@@ -197,23 +197,23 @@ var app = {
 
 
         var push = PushNotification.init({
-            android:{}
+            android: {}
         });
-        
+
         push.on('registration', function (data) {
             // data.registrationId
             console.log(data.registrationId);
         });
-        
+
         push.on('notification', function (data) {
-            alert("Title:"+data.title+" Message:"+ data.message);
+            alert("Title:" + data.title + " Message:" + data.message);
         });
-        
+
         push.on('error', function (e) {
             console.log(e.message)
         });
     }
-    
+
 };
 
 app.initialize();
@@ -227,7 +227,7 @@ var app = new Framework7({
     input: {
         scrollIntoViewOnFocus: true,
         scrollIntoViewCentered: true,
-      } //enable tap hold events
+    } //enable tap hold events
 });
 
 var storage = window.localStorage;
@@ -236,23 +236,32 @@ var storage = window.localStorage;
 function b64toBlob(b64Data, contentType, sliceSize) {
     contentType = contentType || '';
     sliceSize = sliceSize || 512;
-  
+
     var byteCharacters = atob(b64Data);
     var byteArrays = [];
-  
+
     for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-      var slice = byteCharacters.slice(offset, offset + sliceSize);
-  
-      var byteNumbers = new Array(slice.length);
-      for (var i = 0; i < slice.length; i++) {
-        byteNumbers[i] = slice.charCodeAt(i);
-      }
-  
-      var byteArray = new Uint8Array(byteNumbers);
-  
-      byteArrays.push(byteArray);
+        var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        var byteArray = new Uint8Array(byteNumbers);
+
+        byteArrays.push(byteArray);
     }
-  
-    var blob = new Blob(byteArrays, {type: contentType});
+
+    var blob = new Blob(byteArrays, {
+        type: contentType
+    });
     return blob;
-  }
+}
+
+Storage.prototype.setObj = function (key, obj) {
+    return this.setItem(key, JSON.stringify(obj))
+}
+Storage.prototype.getObj = function (key) {
+    return JSON.parse(this.getItem(key))
+}

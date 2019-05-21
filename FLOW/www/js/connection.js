@@ -13,7 +13,8 @@ function ConnectUser() {
         "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
     });
     app.closeModal('.popup-connect');
-    RefreshStories();
+    ServerManager.GetStory();
+
     //$( "#fswipe_area" ).css({"pointer-events": "all"});
 }
 
