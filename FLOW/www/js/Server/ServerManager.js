@@ -8,7 +8,8 @@ const ServerParams = {
     GetStoryURL: "GetStory",
     GetUserStoryURL: "GetUserStory",
     AddFlowComment: "AddFlowComment",
-    GetFlowComment: "GetFlowComment"
+    GetFlowComment: "GetFlowComment",
+    LikeFlowComment : "Like/comment"
 };
 const apiTypes = {
     Twitter: 'twitter',
@@ -271,7 +272,9 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log("response tu connais : " + response + "");
-                send_comment_to_server(final_data.Data);
+                var obj = final_data.Data;
+                obj.IdComment = response.IdComment;
+                send_comment_to_server(obj);
 
             },
             error: function (response) {
@@ -302,6 +305,33 @@ class ServerManagerClass {
             },
             error: function (response) {
                 console.log("comment adding from database error : ");
+                console.log(response);
+            }
+        });
+    }
+
+    LikeFlowComment(data,block) {
+        let final_data = {
+            Data: data,
+            Action: "LikeFlowComment",
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        var current_bock = block;
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.LikeFlowComment,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+
+                //impression_coloring(this, 'like', block.fcomment_like, "comment");
+                color_like(current_bock, response.like === undefined ? false : true);
+                console.log("Comment sucessfully liked to database :");
+                console.log(response);
+
+            },
+            error: function (response) {
+                console.log("comment liked database error : ");
                 console.log(response);
             }
         });
