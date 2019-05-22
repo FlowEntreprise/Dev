@@ -9,7 +9,9 @@ const ServerParams = {
     GetUserStoryURL: "GetUserStory",
     AddFlowComment: "AddFlowComment",
     GetFlowComment: "GetFlowComment",
-    LikeFlowComment : "Like/comment"
+    LikeFlowComment : "Like/comment",
+    UpdateProfileURL: "UpdateProfile",
+    GetMultipleFlowURL: "GetMultipleFlow"
 };
 const apiTypes = {
     Twitter: 'twitter',
@@ -337,7 +339,24 @@ class ServerManagerClass {
         });
     }
 
+    GetMyFlow(data) {
+        let final_data = {
+            TokenId: window.localStorage.getItem("user_token"),
+            Data: data              
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetMultipleFlowURL,
+            data: JSON.stringify(final_data),
+            success: function(response){
+                ShowMyFlow(response);
+            },
+            error: function (response) {
 
+            }
+        });
+    }
 }
 
 var ServerManager = new ServerManagerClass();

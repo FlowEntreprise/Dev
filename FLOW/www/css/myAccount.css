@@ -6,18 +6,18 @@
 #freturnMonCompte
 {
     position: absolute;
-    top: calc(3* var(--custom-vh));
+    top: 4vh;
     left: 3vw;
 }
 
 #fbandeauMonCompte
 {
     position: absolute;
-    top: calc(3.5* var(--custom-vh));
+    top: 4.5vh;
     background-color: white;
     right: 0vw;
     width: 65vw;
-    height: calc(8* var(--custom-vh));;
+    height: 8vh;
     border-radius: 25px 0px 0px 25px;
     box-shadow: 0px 3px 8px rgba(120, 120, 120, 0.20);
 }
@@ -25,7 +25,7 @@
 #fprofilPicture
 {
     position: absolute;
-    top: calc(8* var(--custom-vh));
+    top: 8.5vh;
     left: 3.5vw;
     width: 27vw;
     height: 27vw;
@@ -35,7 +35,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url("../src/pictures/follower2.jpg") !important;
+    /* background-image: url("../src/pictures/follower2.jpg") !important; */
 }
 
 #fnameMonCompte
@@ -44,7 +44,7 @@
     color: #1A84EF;
     font-size: 28px;
     left: 36vw;
-    top: calc(13* var(--custom-vh));
+    top: 13vh;
     font-family:Roboto-Regular;
 }
 
@@ -56,7 +56,7 @@
 #ffLowBandeau
 {
     position: absolute;
-    top: calc(4.5* var(--custom-vh));
+    top: 4.5vh;
     right: 50vw;
     font-size: 16px;
     font-family: Roboto-Thin;
@@ -65,7 +65,7 @@
 #ffollowersBandeau
 {
     position: absolute;
-    top: calc(4.5* var(--custom-vh));
+    top: 4.5vh;
     right: 28vw;
     font-size: 16px;
     font-family: Roboto-Thin;
@@ -74,7 +74,7 @@
 #ffollowingBandeau
 {
     position: absolute;
-    top: calc(4.5* var(--custom-vh));
+    top: 4.5vh;
     right: 8vw;
     font-size: 16px;
     font-family: Roboto-Thin;
@@ -85,7 +85,7 @@
     font-size: 22px;
     position: absolute;
     right: 46vw;
-    top: calc(1* var(--custom-vh));
+    top: 1vh;
     font-family:Roboto-Regular;
     color: #4A4A4A;
     width: 16vw;
@@ -97,7 +97,7 @@
     font-size: 22px;
     position: absolute;
     right: 28vw;
-    top: calc(1* var(--custom-vh));
+    top: 1vh;
     font-family:Roboto-Regular;
     color: #4A4A4A;
     width: 16vw;
@@ -109,7 +109,7 @@
     font-size: 22px;
     position: absolute;
     right: 8vw;
-    top: calc(1* var(--custom-vh));
+    top: 1vh;
     font-family:Roboto-Regular;
     width: 16vw;
     text-align: center;
@@ -120,7 +120,7 @@
     color: #92ABB2;
     font-size: 15px;
     position: absolute;
-    top: calc(21* var(--custom-vh));
+    top: 21vh;
     left: 36vw;
 }
 
@@ -134,15 +134,14 @@
     font-size: 14px;
     padding: 2.5px;
     position: absolute;
-    top: calc(25* var(--custom-vh));
+    top: 25vh;
     left: 45vw;
 }
 
 .fnavMonCompte
 {
     position: absolute;
-    top: calc(22* var(--custom-vh)) !important;
-    /* left: 7vw !important; */
+    top: 22vh;
     font-size: 19px !important;
     background-color: white !important;
     box-shadow: none !important;
@@ -228,7 +227,7 @@
     position: absolute;
     z-index: 505;
     width: 101vw;
-    height: 30vh;
+    height: 35vh;
     top:35vh;
     background-position: center;
     background-repeat: no-repeat;
@@ -260,7 +259,7 @@
     left: 12.5vw;
     border-radius: 5%;
     background-color: white;
-    transition: all 0.5s;
+    transition: all 0.4s;
     z-index: 1000;
     border: 1px solid #707070;
     transform: scale(0); 
@@ -275,7 +274,7 @@
     height: 100vh;
     /* border-radius: 50%; */
     background-color: rgba(0, 0, 0, 0.60);
-    transition: all 0.5s;
+    transition: all 0.4s;
     z-index: 999;
     pointer-events: none;
 }
@@ -293,7 +292,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url("../src/pictures/follower2.jpg") !important;
+    /* background-image: url("../src/pictures/follower2.jpg") !important; */
 }
 
 #editProfileName
@@ -307,6 +306,7 @@
     font-size: 3vh;
     color: #1A84EF;
     font-family:Roboto-Regular;
+    text-align: center;
 }
 
 #feditBio
@@ -319,7 +319,8 @@
     color: #92ABB2;
     font-size: 4vw;
     font-family: Roboto-Lightitalic;
-    width: 60vw;
+    width: 59vw;
+    padding-left: 1vw;
 }
 
 #fcloseProfilPopup
