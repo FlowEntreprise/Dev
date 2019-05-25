@@ -269,6 +269,11 @@ Storage.prototype.getObj = function (key) {
     return JSON.parse(this.getItem(key))
 }
 
+// Replace default alert by Sweet Alert
+window.alert = function(txt) {
+    swal(txt);
+};
+
 function offline() {
     console.log("you are offline");
     pullToRefreshEnd();
