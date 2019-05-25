@@ -1,0 +1,45 @@
+.fnavAccount
+{
+    position: absolute;
+    top: calc(22* var(--custom-vh)) !important;
+    left: 22vw !important;
+    font-size: 19px !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    width: 56vw !important;
+}
+
+#fFollowButtunAccount
+{
+    border: solid 1.5px #92ABB2;
+    color: #92ABB2;
+    border-radius: 22vw;
+    width: 105px;
+    text-align: center;
+    font-size: 14px;
+    padding: 2.5px;
+    position: absolute;
+    top: calc(4* var(--custom-vh));
+    left: 35vw;
+}
+
+.activeButtunFollow
+{
+    color: white !important;
+    border: solid 1.5px #1A84EF !important;
+    background-color: #1A84EF;
+}
+
+#fFollowYouButtunAccount
+{
+    background-color: #92ABB2;
+    border-radius: 22vw;
+    width: 80px;
+    text-align: center;
+    font-size: 12px;
+    padding: 2.5px;
+    position: absolute;
+    top: calc(25.4* var(--custom-vh));
+    left: 67vw;
+    color: white;
+}

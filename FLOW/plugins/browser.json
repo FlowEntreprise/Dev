@@ -63,6 +63,9 @@
     },
     "cordova-plugin-network-information": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-insomnia": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {}

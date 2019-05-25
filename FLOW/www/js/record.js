@@ -252,6 +252,8 @@ function StartRecording() {
 }
 
 function StopRecording() {
+
+    window.plugins.insomnia.allowSleepAgain();
     //siriWave.stop();
     if (recording) {
         mediaRecorder.stop();
@@ -355,6 +357,8 @@ var chunks = [];
 var mediaRecorder;
 
 function setup() {
+
+    window.plugins.insomnia.keepAwake();
 
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         var constraints = {
