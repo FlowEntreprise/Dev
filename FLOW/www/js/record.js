@@ -52,7 +52,6 @@ $$('.frecord-btn').on('taphold', function () {
         StartRecording();
     }
 });
-
 $$('.popup-record').on('popup:close', function () {
     $$('.frecord-btn').css({
         "display": "none"
@@ -71,6 +70,29 @@ $$('.popup-record').on('popup:open', function () {
         $$('.frecord-btn').addClass('frecord-btn-active');
     }
 });
+$$('.popup-after-record').on('popup:open', function () {
+    $(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
+    $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
+    $(".floading-spinner.loading-record-flow")[0].style.display = "none";
+    current_page = "after-record";
+});
+$$('.popup-after-record').on('popup:close', function () {
+    $(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
+    $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
+    $(".floading-spinner.loading-record-flow")[0].style.display = "none";
+});
+
+$$('.popup-after-story-record').on('popup:open', function () {
+    $(".fvalidate-after_btn.story")[0].style.pointerEvents = "auto";
+    $(".fvalidate-after_btn.story")[0].setAttribute("style", "");
+    $(".floading-spinner.loading-story")[0].style.display = "none";
+});
+$$('.popup-after-story-record').on('popup:close', function () {
+    $(".fvalidate-after_btn.story")[0].style.pointerEvents = "auto";
+    $(".fvalidate-after_btn.story")[0].setAttribute("style", "");
+    $(".floading-spinner.loading-story")[0].style.display = "none";
+});
+
 
 $$('.frecord-btn').on('click', function () {
     if (recording) {
@@ -91,7 +113,7 @@ $$('.frestart-after_btn').on('touchend', function () {
         app.closeModal('.popup-after-record');
         app.popup('.popup-record');
     } else {
-        app.closeModal('.popup-after-story-record');
+        closeStoryRecord();
         app.popup('.popup-story-record');
     }
 });
@@ -109,8 +131,8 @@ $$('.fcancel-after_btn').on('touchend', function () {
 
 $$('.fvalidate-after_btn').on('touchend', function () {
     if (current_page == "after-record") {
-        app.closeModal('.popup-after-record');
-        current_page = "home";
+        // app.closeModal('.popup-after-record');
+        // current_page = "home";
         var data = {
             PrivatedId: window.localStorage.getItem("user_private_id"),
             Title: $(".finput_title").val(),
@@ -122,11 +144,16 @@ $$('.fvalidate-after_btn').on('touchend', function () {
         }
         console.log(data);
         // Socket.client.send("Flow", "AddFlow", data); --OLD
-        ServerManager.AddFlow(data);
+        // floading-spinner loading-record-flow
+        $(".fvalidate-after_btn.record")[0].style.pointerEvents = "none";
+        $(".fvalidate-after_btn.record")[0].setAttribute("style", "background: linear-gradient(to bottom, #1A84EF, #FF0054)");
+        $(".floading-spinner.loading-record-flow")[0].style.display = "block";
+        setTimeout(function () {
+            ServerManager.AddFlow(data);
+        }, 100);
         image64 = null;
         patternKey = null;
     } else {
-        app.closeModal('.popup-after-story-record');
         let storydata = {
             PrivatedId: window.localStorage.getItem("user_private_id"),
             Sound: appState.blob64,
@@ -134,7 +161,13 @@ $$('.fvalidate-after_btn').on('touchend', function () {
             Color: last_story_color
         };
         console.log("Send story to server");
-        ServerManager.AddStory(storydata);
+        $(".fvalidate-after_btn.story")[0].style.pointerEvents = "none";
+        $(".fvalidate-after_btn.story")[0].setAttribute("style", "background: linear-gradient(to bottom, #1A84EF, #FF0054)");
+        $(".floading-spinner.loading-story")[0].style.display = "block";
+
+        setTimeout(function () {
+            ServerManager.AddStory(storydata);
+        }, 100);
     }
 });
 
@@ -287,6 +320,12 @@ function UpdateRecordIndicator() {
     }
 }
 
+function CloseAfterRecord() {
+    app.closeModal('.popup-after-record');
+    current_page = "home";
+}
+
+
 function PlayRipple(element, className) {
     element.removeClass(className);
     setTimeout(function () {
@@ -413,6 +452,7 @@ function Save(mediaRecorder) {
             });
             after_record_initialised = true;
             current_page = "after-record";
+            console.log("after record");
         }
         $(".after-record-block-container").html("");
         let block_params = {
@@ -731,4 +771,10 @@ function toDataUrl(url, callback) {
     xhr.open('GET', url);
     xhr.responseType = 'blob';
     xhr.send();
+}
+
+function closeStoryRecord() {
+    app.closeModal('.popup-after-story-record');
+    current_page = "home";
+    console.log("close story record");
 }

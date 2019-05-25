@@ -151,10 +151,12 @@ class ServerManagerClass {
                 console.log('Flow added sucessfully : ');
                 console.log(response);
                 ServerManager.GetFlowById(response.ObjectId);
+                CloseAfterRecord();
             },
             error: function (response) {
                 console.log("Flow adding error : ");
                 console.log(response);
+                CloseAfterRecord();
             }
         });
     }
@@ -181,6 +183,7 @@ class ServerManagerClass {
             error: function (response) {
                 console.log("Flow recovering from database error : ");
                 console.log(response);
+                pullToRefreshEnd();
             }
         });
     }
@@ -199,11 +202,13 @@ class ServerManagerClass {
             success: function (response) {
                 console.log('Story added sucessfully : ');
                 console.log(response);
+                closeStoryRecord();
                 //ServerManager.GetFlowById(response.ObjectId);
             },
             error: function (response) {
                 console.log("Story adding error : ");
                 console.log(response);
+                closeStoryRecord();
             }
         });
     }
@@ -256,6 +261,7 @@ class ServerManagerClass {
             error: function (response) {
                 console.log("User story recovering from database error : ");
                 console.log(response);
+                CloseStory();
             }
         });
     }

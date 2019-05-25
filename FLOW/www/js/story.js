@@ -330,7 +330,9 @@ function handleTouchEnd(evt) {
     if (direction != null && $(".fstory_comment_list").scrollTop() < 5 && !inSeenPopup) {
         console.log("swipe " + direction);
         if (direction == "up") {
-            current_story_audio.pause();
+            if (current_story_audio) {
+                current_story_audio.pause();
+            }
             showStoryComments();
         } else if (direction == "down") {
             if (currentSection == "comments") {
@@ -397,9 +399,23 @@ function showStoryMain(play_story) {
 }
 
 function tryLoadStory(story_index, storyFlow_index) {
-    if (storyFlow_index == 0) {
+    if (!story_data[story_index].data[storyFlow_index]) {
+        can_next_prev = false;
         // LOAD STORY FROM SERVER
-        ServerManager.GetUserStory(story_data[story_index].private_id);
+        $(".fstory_pseudo").text("Loading");
+        $(".fstory_time").text("...");
+        story_pos = $($(".fstory_block")[parseInt(story_index) + 1]).position();
+        $(".fstory_indicator_list")[0].innerHTML = "";
+        $(".fstory_pp")[0].style.backgroundImage = "white";
+        // $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].darkColor + ");";
+        let color_gradient = "linear-gradient(white, black)";
+        StatusBar.backgroundColorByHexString("#ffffff");
+        StatusBar.styleDefault();
+        $(".fstory_window")[0].style.backgroundImage = color_gradient;
+
+        setTimeout(function () { 
+            ServerManager.GetUserStory(story_data[story_index].private_id);
+        }, 10);
     } else {
         loadStory(story_index, storyFlow_index);
     }
@@ -425,6 +441,7 @@ function GetStoryForUserFromServer(data) {
 
 function loadStory(story_index, storyFlow_index) {
     console.log("LOAD STORY");
+    can_next_prev = true;
     $(".fstory_pseudo").text(story_data[story_index].private_id);
     $(".fstory_time").text(story_data[story_index].data[storyFlow_index].time);
     story_pos = $($(".fstory_block")[parseInt(story_index) + 1]).position();
@@ -582,11 +599,13 @@ function stopAllStoriesAudio() {
     //     }
     // }
 
-    for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
-        let com = story_data[story_index].data[storyFlow_index].comments[i];
-        com.audio.pause();
-        com.audio.currentTime = 0;
-        com.isPlaying = false;
+    if (story_data[story_index] && story_data[story_index].data[storyFlow_index]) {
+        for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
+            let com = story_data[story_index].data[storyFlow_index].comments[i];
+            com.audio.pause();
+            com.audio.currentTime = 0;
+            com.isPlaying = false;
+        }
     }
 
     if (recorded_com) {

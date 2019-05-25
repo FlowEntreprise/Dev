@@ -12,6 +12,7 @@ function ConnectUser() {
     $(".faccount").css({
         "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
     });
+    $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
     app.closeModal('.popup-connect');
     ServerManager.GetStory();
 

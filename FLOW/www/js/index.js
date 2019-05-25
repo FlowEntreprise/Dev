@@ -122,6 +122,9 @@ var app = {
 
     // Update DOM on a Received Event
     receivedEvent: function (id) {
+        document.addEventListener("offline", function(){ offline();  }, false);
+        document.addEventListener("online", function(){ online(); }, false);  
+
         if (cordova.platformId == 'android') {
             // ResetStatusBar();
             // statusBar.overlaysWebView(true);
@@ -140,57 +143,57 @@ var app = {
 
         if (appState.needRestore) {
 
-            ///////////////
-            pictureSource = navigator.camera.PictureSourceType;
-            destinationType = navigator.camera.DestinationType;
-            app.popup('.popup-after-record');
-            if (!after_record_initialised) {
-                var mySwiper4 = app.swiper('.swiper-4', {
-                    pagination: '.swiper-4 .swiper-pagination',
-                    spaceBetween: 0,
-                    slidesPerView: 3
-                });
+            /////////////// NO NEED SINCE ALEXIS FIXED THE PROBLEM ON HIS PHONE
+            // pictureSource = navigator.camera.PictureSourceType;
+            // destinationType = navigator.camera.DestinationType;
+            // app.popup('.popup-after-record');
+            // if (!after_record_initialised) {
+            //     var mySwiper4 = app.swiper('.swiper-4', {
+            //         pagination: '.swiper-4 .swiper-pagination',
+            //         spaceBetween: 0,
+            //         slidesPerView: 3
+            //     });
 
-                mySwiper4.on('slideChangeStart', function () {
-                    var target = "#" + $(".swiper-slide-next").attr("target");
-                    app.showTab(target);
-                });
-                after_record_initialised = true;
-                current_page = "after-record";
-            }
-            $(".after-record-block-container").html("");
-            console.log(appState);
-            var myblob = b64toBlob(appState.blob64, "audio/opus");
-            var myblobUrl = URL.createObjectURL(myblob);
-            //console.log(appState.blob); 
-            //var binaryData = [];
-            //binaryData.push(appState.blob);
-            //var myaudioURL = window.URL.createObjectURL(new Blob(binaryData, {'type': 'audio/opus; codecs=opus'}))
-            console.log("generated audio url : " + myblobUrl);
-            let block_params = {
-                parent_element: $(".after-record-block-container"),
-                afterblock: true,
-                audioURL: myblobUrl,
-                duration: appState.recordTime,
-                patternKey: appState.patternKey,
-                imageURL: null,
-                title: "",
-                description: "",
-                pseudo: window.localStorage.getItem("user_name"),
-                account_imageURL: window.localStorage.getItem("user_profile_pic")
-            };
-            new_block = new block(block_params);
-            patternKey = new_block.patternKey;
-            // setTimeout(() => {
-            //     new_block.finput_title.focus();
-            // }, 500);
-            $(".finput_title").val(appState.flow_title);
-            $(".finput_description").val(appState.flow_description);
+            //     mySwiper4.on('slideChangeStart', function () {
+            //         var target = "#" + $(".swiper-slide-next").attr("target");
+            //         app.showTab(target);
+            //     });
+            //     after_record_initialised = true;
+            //     current_page = "after-record";
+            // }
+            // $(".after-record-block-container").html("");
+            // console.log(appState);
+            // var myblob = b64toBlob(appState.blob64, "audio/opus");
+            // var myblobUrl = URL.createObjectURL(myblob);
+            // //console.log(appState.blob); 
+            // //var binaryData = [];
+            // //binaryData.push(appState.blob);
+            // //var myaudioURL = window.URL.createObjectURL(new Blob(binaryData, {'type': 'audio/opus; codecs=opus'}))
+            // console.log("generated audio url : " + myblobUrl);
+            // let block_params = {
+            //     parent_element: $(".after-record-block-container"),
+            //     afterblock: true,
+            //     audioURL: myblobUrl,
+            //     duration: appState.recordTime,
+            //     patternKey: appState.patternKey,
+            //     imageURL: null,
+            //     title: "",
+            //     description: "",
+            //     pseudo: window.localStorage.getItem("user_name"),
+            //     account_imageURL: window.localStorage.getItem("user_profile_pic")
+            // };
+            // new_block = new block(block_params);
+            // patternKey = new_block.patternKey;
+            // // setTimeout(() => {
+            // //     new_block.finput_title.focus();
+            // // }, 500);
+            // $(".finput_title").val(appState.flow_title);
+            // $(".finput_description").val(appState.flow_description);
 
-            ///////////////
+            // ///////////////
 
-            onPhotoDataSuccess(appState.imageUri);
-            appState.needRestore = false;
+            // onPhotoDataSuccess(appState.imageUri);
+            // appState.needRestore = false;
         }
 
 
@@ -265,3 +268,24 @@ Storage.prototype.setObj = function (key, obj) {
 Storage.prototype.getObj = function (key) {
     return JSON.parse(this.getItem(key))
 }
+
+function offline() {
+    console.log("you are offline");
+    pullToRefreshEnd();
+    // if (current_page == "story") {
+    //     CloseStory();
+    // }
+}
+
+function online() {
+    console.log("you are online");
+    ServerManager.GetStory();
+}
+
+
+/*
+J'ai remove ça du config.xml juste pour save ça qq part : 
+
+<preference name="AndroidLaunchMode" value="singleInstance" />
+<preference name="KeepRunning" value="true" />
+*/

@@ -2,18 +2,20 @@ var ptrContent = $$('.pull-to-refresh-content');
 // Add 'refresh' listener on it
 ptrContent.on('ptr:refresh', function (e) {
   // Emulate 2s loading
-  console.log("refreshing...")
-  setTimeout(function () {
-    // When loading done, we need to reset it
-    console.log("refreshed !");
-    $("#ptr_arrow").css("opacity", "0");
-    app.pullToRefreshDone();
-    // Socket.client.send("Flow", "GetFlowById", "5c98edb4939cf639919d0aba"); --OLD
-    ServerManager.GetFlowById("5cd89b7802e2bf07d888ada5");
-    ServerManager.GetStory();
-    // var new_block = new block($(".list-block"), false, null, 89);
-    // all_blocks.push(new_block);
-  }, 1000);
+  console.log("refreshing...");
+  ServerManager.GetFlowById("5cd89b7802e2bf07d888ada5");
+  ServerManager.GetStory();
+  // setTimeout(function () {
+  //   // When loading done, we need to reset it
+  //   console.log("refreshed !");
+  //   $("#ptr_arrow").css("opacity", "0");
+  //   app.pullToRefreshDone();
+  //   // Socket.client.send("Flow", "GetFlowById", "5c98edb4939cf639919d0aba"); --OLD
+  //   // -- ServerManager.GetFlowById("5cd89b7802e2bf07d888ada5");
+  //   // -- ServerManager.GetStory();
+  //   // var new_block = new block($(".list-block"), false, null, 89);
+  //   // all_blocks.push(new_block);
+  // }, 1000);
 });
 
 ptrContent.on('ptr:pullstart', function (e) {
@@ -26,6 +28,13 @@ ptrContent.on('ptr:pullend', function (e) {
   console.log("pull end");
   $("#ptr_arrow").css("opacity", "0");
 });
+
+function pullToRefreshEnd() {
+  // When loading done, we need to reset it
+  console.log("refreshed !");
+  $("#ptr_arrow").css("opacity", "0");
+  app.pullToRefreshDone();
+}
 
 /******************************* TO DELETE **************************/
 
@@ -61,7 +70,7 @@ function PopFlow(data) {
     description: data.Description,
     pseudo: data.PrivateId,
     account_imageURL: profilePicLink,
-    ObjectId : data.ObjectId
+    ObjectId: data.ObjectId
   };
   var new_block = new block(block_params);
   all_blocks.push(new_block);
@@ -80,6 +89,7 @@ function PopFlow(data) {
 
   console.log("Pop Flow");
   console.log(new_block);
+  pullToRefreshEnd();
 }
 /* 
 **************** RECUPERER FLOW AUDIO FROM BASE64 *********************
@@ -173,7 +183,7 @@ $("#target").focus(function () {
 
 function successFunction() {
   let d = new Date();
-  console.log("end_time : "+d.getMilliseconds);
+  console.log("end_time : " + d.getMilliseconds);
   console.info("It worked!");
   // setTimeout(function () {
   //   // $(".ftop_bar")[0].style.opacity = 1;
