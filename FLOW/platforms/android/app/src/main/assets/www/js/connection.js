@@ -15,7 +15,7 @@ function ConnectUser() {
     $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
     app.closeModal('.popup-connect');
     ServerManager.GetStory();
-
+    ServerManager.GetTimeline(0);
     //$( "#fswipe_area" ).css({"pointer-events": "all"});
 }
 
@@ -52,7 +52,7 @@ function storeVariables(data) {
     window.localStorage.setItem("user_private_id", data.PrivateId);
     window.localStorage.setItem("user_token", data.TokenId);
 
-    const src = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.ProfilePicture.name + '?';
+    const src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.ProfilePicture.name + '?';
     const param = `${data.LinkBuilder.Params.hash}=${data.ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.ProfilePicture.timestamp}`;
     console.log(src + param);
     getBase64Image((src + param), function (base64) {

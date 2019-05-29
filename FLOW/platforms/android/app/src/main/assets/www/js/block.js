@@ -66,7 +66,7 @@ function block(params) {
 
     this.block_flow = document.createElement('div');
     this.block_flow.className = 'fflow';
-    params.parent_element.prepend(this.block_flow);
+    params.parent_element.append(this.block_flow);
 
     this.ftop_part = document.createElement('div');
     this.ftop_part.className = 'ftop_part';
@@ -453,7 +453,7 @@ function get_all_comment(response)
                 var i = 0;
                 for (i = 0; i < response.Data.length; i++) {
 
-                    const src_profile_img = 'http://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data[i].ProfilePicture.name + '?';
+                    const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data[i].ProfilePicture.name + '?';
                     const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data[i].ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data[i].ProfilePicture.timestamp}`;
                     var profilePicLink = src_profile_img + param_profile_img;
 

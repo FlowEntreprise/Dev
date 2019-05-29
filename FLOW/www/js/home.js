@@ -3,7 +3,9 @@ var ptrContent = $$('.pull-to-refresh-content');
 ptrContent.on('ptr:refresh', function (e) {
   // Emulate 2s loading
   console.log("refreshing...");
-  ServerManager.GetFlowById("5cd89b7802e2bf07d888ada5");
+  // ServerManager.GetFlowById("5cd89b7802e2bf07d888ada5");
+  TLCurrentIndex = 0;
+  ServerManager.GetTimeline(0);
   ServerManager.GetStory();
   // setTimeout(function () {
   //   // When loading done, we need to reset it
@@ -36,26 +38,44 @@ function pullToRefreshEnd() {
   app.pullToRefreshDone();
 }
 
-/******************************* TO DELETE **************************/
+let CanRefreshTL = true;
+let TLCurrentIndex = 0;
+$("#tab1").scroll(function () {
+  var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+  //console.log(Math.round($(this).scrollTop()) + " / "+ limit);
+  if (CanRefreshTL == true) {
+    if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+      CanRefreshTL = false;
+      // var addMyFlow = {
+      //   Index: indexAlexis,
+      //   PrivateId: window.localStorage.getItem("user_private_id")
+      // };
+      console.log("Get Flow on Server");
+      ServerManager.GetTimeline(TLCurrentIndex);
+      //console.log(addMyFlow);
+      //ServerManager.GetMyFlow(addMyFlow);
+    }
+  }
+});
 
 
-function PopFlow(data) {
+function PopFlow(data, LinkBuilder) {
   var image_link = undefined;
   var pattern_key = undefined;
   if (data.Background.PatternKey == undefined) {
-    const src_img = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Background.name + '?';
-    const param_img = `${data.LinkBuilder.Params.hash}=${data.Background.hash}&${data.LinkBuilder.Params.time}=${data.Background.timestamp}`;
+    const src_img = 'https://' + LinkBuilder.Hostname + ':' + LinkBuilder.Port + '/images/' + data.Background.name + '?';
+    const param_img = `${LinkBuilder.Params.hash}=${data.Background.hash}&${LinkBuilder.Params.time}=${data.Background.timestamp}`;
     image_link = src_img + param_img;
   } else {
     pattern_key = data.Background.PatternKey;
   }
 
-  const src_flow = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
-  const param_flow = `${data.LinkBuilder.Params.hash}=${data.Audio.hash}&${data.LinkBuilder.Params.time}=${data.Audio.timestamp}`;
+  const src_flow = 'https://' + LinkBuilder.Hostname + ':' + LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
+  const param_flow = `${LinkBuilder.Params.hash}=${data.Audio.hash}&${LinkBuilder.Params.time}=${data.Audio.timestamp}`;
   const flow_link = src_flow + param_flow;
 
-  const src_profile_img = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
-  const param_profile_img = `${data.LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${data.LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
+  const src_profile_img = 'https://' + LinkBuilder.Hostname + ':' + LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
+  const param_profile_img = `${LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
   var profilePicLink = src_profile_img + param_profile_img;
   console.log(profilePicLink);
   console.log(image_link);
@@ -89,7 +109,30 @@ function PopFlow(data) {
 
   console.log("Pop Flow");
   console.log(new_block);
-  pullToRefreshEnd();
+}
+
+function UpdateTimeline(data) {
+  console.log("updating timeline...");
+  console.log(data.Data);
+  if (Array.isArray(data.Data)) {
+    if (TLCurrentIndex == 0) {
+      $(".list-block")[0].innerHTML = "";
+    }
+    for (let i = 0; i < data.Data.length; i++) {
+      PopFlow(data.Data[i], data.LinkBuilder);
+    }
+    console.log("timeline updated !");
+    pullToRefreshEnd();
+    TLCurrentIndex++;
+    if (data.Data.length < 5) {
+      CanRefreshTL = false;
+    } else {
+      CanRefreshTL = true;
+    }
+  }
+  else {
+    CanRefreshTL = false;
+  }
 }
 /* 
 **************** RECUPERER FLOW AUDIO FROM BASE64 *********************
@@ -203,18 +246,3 @@ var _root = document.documentElement;
 var _myvar = window.innerHeight / 100;
 _root.style.setProperty("--custom-vh", _myvar + "px");
 _root.style.setProperty("--custom-vh2", "0px");
-
-// function checkWindowHeight() {
-//     if (window.innerHeight / 100 < _myvar) {
-//       setTimeout(function() {
-//         _root.style.setProperty("--custom-vh2", 3.7 * _myvar + "px");
-//       }, 10);
-//     }
-//     else {
-//       setTimeout(function() {
-//         _root.style.setProperty("--custom-vh2", "0px");
-//       }, 10);    }
-//     requestAnimationFrame(checkWindowHeight);
-// }
-
-// requestAnimationFrame(checkWindowHeight);

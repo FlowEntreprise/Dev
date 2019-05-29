@@ -4,7 +4,8 @@ var StorySiriWave;
 var currentSection = "main";
 var story_index = 0;
 var storyFlow_index = 0;
-var story_read_ids = window.localStorage.getObj("story_read") || [];
+// var story_read_ids = window.localStorage.getObj("story_read") || [];
+var story_read = window.localStorage.getObj("story_read") || [];
 var current_value = 0;
 var inSeenPopup = false;
 var playing_recorded_com = false;
@@ -62,6 +63,7 @@ class Story {
         this.private_id = "Pamela";
         this.user_picture = "src/pictures/girl1.jpg";
         this.data = [];
+        this.lastStoryTime = 0;
     }
 
     addStoryFlow(time) {
@@ -139,13 +141,14 @@ function UpdateStoryDataFromServer(data) {
             let userStory = new Story();
             userStory.id = i;
             userStory.private_id = data.Data[i].PrivateId;
-            let src = 'http://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Data[i].ProfilePicture.name + '?';
+            let src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Data[i].ProfilePicture.name + '?';
             let param = `${data.LinkBuilder.Params.hash}=${data.Data[i].ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.Data[i].ProfilePicture.timestamp}`;
             userStory.user_picture = src + param;
             userStory.color = "#000000".replace(/0/g, function () {
                 return (~~(Math.random() * 16)).toString(16);
             });
             userStory.darkColor = pSBC(-0.8, userStory.color);
+            userStory.lastStoryTime = data.Data[i].LastStory;
 
             if (userStory.private_id == window.localStorage.getItem("user_private_id")) {
                 story_data.unshift(userStory);
@@ -175,9 +178,16 @@ function RefreshStories() {
                 SpawnStoryWindow($(this));
             }
         };
-        if (!story_read_ids.includes(story_data[i].id)) {
+        // if (!story_read_ids.includes(story_data[i].id)) {
+        //     story_block.className += " unread";
+        // }
+        let found = story_read.find(function (element) {
+            return element.private_id == story_data[i].private_id && element.lastStoryTime < story_data[i].lastStoryTime;
+        });
+        if (story_read.indexOf(found) >= 0) {
             story_block.className += " unread";
         }
+
         story_block.setAttribute("story_id", i);
         let story_img = document.createElement("img");
         story_img.className = "fstory_pic";
@@ -415,7 +425,7 @@ function tryLoadStory(story_index, storyFlow_index) {
         StatusBar.styleDefault();
         $(".fstory_window")[0].style.backgroundImage = color_gradient;
 
-        setTimeout(function () { 
+        setTimeout(function () {
             ServerManager.GetUserStory(story_data[story_index].private_id);
         }, 10);
     } else {
@@ -486,7 +496,7 @@ function loadStory(story_index, storyFlow_index) {
         if (current_story_audio) {
             let progress = Math.floor(current_story_audio.currentTime * 100 / story_data[story_index].data[storyFlow_index].duration);
             story_completion.style.width = progress + "%";
-            console.log(progress);
+            // console.log(progress);
         }
     };
 
@@ -522,8 +532,24 @@ function loadStory(story_index, storyFlow_index) {
     //     StorySiriWave.amplitude = 1;
     // }, 100);
 
-    story_read_ids.push(story_data[story_index].id);
-    window.localStorage.setObj("story_read", story_read_ids);
+    // -- story_read_ids.push(story_data[story_index].id);
+    // -- window.localStorage.setObj("story_read", story_read_ids);
+    let found = story_read.find(function (element) {
+        return element.private_id == story_data[story_index].private_id;
+    });
+    console.log(story_read.indexOf(found));
+    if (story_read.indexOf(found) >= 0) {
+        if (story_data[story_index].data[storyFlow_index].time > story_read[story_read.indexOf(found)].lastStoryTime) {
+            story_read[story_read.indexOf(found)].lastStoryTime = story_data[story_index].data[storyFlow_index].time;
+        }
+    } else {
+        story_read.push({
+            private_id: story_data[story_index].private_id,
+            lastStoryTime: story_data[story_index].data[storyFlow_index].time
+        })
+    }
+
+    window.localStorage.setObj("story_read", story_read);
 
     loadStoryComments();
     loadStorySeen();

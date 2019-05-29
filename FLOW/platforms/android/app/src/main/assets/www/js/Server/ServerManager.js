@@ -11,7 +11,9 @@ const ServerParams = {
     GetFlowComment: "GetFlowComment",
     LikeFlowComment : "Like/comment",
     UpdateProfileURL: "UpdateProfile",
-    GetMultipleFlowURL: "GetMultipleFlow"
+    GetMultipleFlowURL: "GetMultipleFlow",
+    GetTimeline: "GetTimeline"
+
 };
 const apiTypes = {
     Twitter: 'twitter',
@@ -150,7 +152,9 @@ class ServerManagerClass {
             success: function (response) {
                 console.log('Flow added sucessfully : ');
                 console.log(response);
-                ServerManager.GetFlowById(response.ObjectId);
+                // ServerManager.GetFlowById(response.ObjectId);
+                TLCurrentIndex = 0;
+                ServerManager.GetTimeline(0);
                 CloseAfterRecord();
             },
             error: function (response) {
@@ -178,7 +182,7 @@ class ServerManagerClass {
             success: function (response) {
                 console.log("Flow sucessfully recovered from database :");
                 console.log(response);
-                PopFlow(response);
+                PopFlow(response.Data, response.LinkBuilder);
             },
             error: function (response) {
                 console.log("Flow recovering from database error : ");
@@ -203,6 +207,7 @@ class ServerManagerClass {
                 console.log('Story added sucessfully : ');
                 console.log(response);
                 closeStoryRecord();
+                ServerManager.GetStory();
                 //ServerManager.GetFlowById(response.ObjectId);
             },
             error: function (response) {
@@ -360,6 +365,28 @@ class ServerManagerClass {
             },
             error: function (response) {
 
+            }
+        });
+    }
+
+    GetTimeline(data) {
+        let final_data = {
+            TokenId: window.localStorage.getItem("user_token"),
+            Data: {
+                Index: data
+            }           
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetTimeline,
+            data: JSON.stringify(final_data),
+            success: function(response){
+                console.log(response);
+                UpdateTimeline(response);
+            },
+            error: function (response) {
+                console.log(response);
             }
         });
     }

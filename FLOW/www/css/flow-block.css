@@ -260,7 +260,7 @@
 /* --------------------------------------TEST HOWLER--------------------------------------- */
 /* Progress */
 #waveform {
-    width: 95vw;
+    width: 90vw;
     height: calc(10* var(--custom-vh));;
     position: absolute;
     left: 0;
