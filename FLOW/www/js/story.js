@@ -181,10 +181,14 @@ function RefreshStories() {
         // if (!story_read_ids.includes(story_data[i].id)) {
         //     story_block.className += " unread";
         // }
-        let found = story_read.find(function (element) {
-            return element.private_id == story_data[i].private_id && element.lastStoryTime < story_data[i].lastStoryTime;
-        });
-        if (story_read.indexOf(found) >= 0) {
+        let found = story_read.filter(x => x.private_id == story_data[i].private_id);
+        console.log(story_data[i].private_id);
+        console.log(story_data[i].lastStoryTime);
+        console.log(found);
+        // let found = story_read.find(function (element) {
+        //     return element.private_id == story_data[i].private_id && element.lastStoryTime < story_data[i].lastStoryTime;
+        // });
+        if (found.length == 0 || found[0].lastStoryTime < story_data[i].lastStoryTime) {
             story_block.className += " unread";
         }
 
@@ -534,19 +538,21 @@ function loadStory(story_index, storyFlow_index) {
 
     // -- story_read_ids.push(story_data[story_index].id);
     // -- window.localStorage.setObj("story_read", story_read_ids);
-    let found = story_read.find(function (element) {
-        return element.private_id == story_data[story_index].private_id;
-    });
-    console.log(story_read.indexOf(found));
-    if (story_read.indexOf(found) >= 0) {
-        if (story_data[story_index].data[storyFlow_index].time > story_read[story_read.indexOf(found)].lastStoryTime) {
-            story_read[story_read.indexOf(found)].lastStoryTime = story_data[story_index].data[storyFlow_index].time;
+    let found = story_read.filter(x => x.private_id == story_data[story_index].private_id);
+    if (found.length > 0) {
+        if (story_data[story_index].data[storyFlow_index].time > found[0].lastStoryTime) {
+            story_read[story_read.indexOf(found[0])].lastStoryTime = story_data[story_index].data[storyFlow_index].time;
+            console.log("update story read : " + story_data[story_index].data[storyFlow_index].time);
         }
     } else {
         story_read.push({
             private_id: story_data[story_index].private_id,
             lastStoryTime: story_data[story_index].data[storyFlow_index].time
         })
+        console.log(story_data);
+        console.log(story_index);
+        console.log(storyFlow_index);
+        console.log("add story read : " + story_data[story_index].data[storyFlow_index].time);
     }
 
     window.localStorage.setObj("story_read", story_read);
