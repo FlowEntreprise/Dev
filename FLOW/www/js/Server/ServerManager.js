@@ -9,15 +9,12 @@ const ServerParams = {
     GetUserStoryURL: "GetUserStory",
     AddFlowComment: "AddFlowComment",
     GetFlowComment: "GetFlowComment",
-    LikeFlowComment : "Like/comment",
+    LikeFlowComment: "Like/comment",
     UpdateProfileURL: "UpdateProfile",
     GetMultipleFlowURL: "GetMultipleFlow",
-<<<<<<< HEAD
-    GetMyUserInfosURL: "GetInfoUser"
-=======
+    GetMyUserInfosURL: "GetInfoUser",
     GetTimeline: "GetTimeline"
 
->>>>>>> 2edea679fd6393adcb2867a57608e92e15b308db
 };
 const apiTypes = {
     Twitter: 'twitter',
@@ -154,15 +151,6 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.AddFlowURL,
             data: JSON.stringify(final_data),
             success: function (response) {
-<<<<<<< HEAD
-                //console.log('Flow added sucessfully : ');
-                //console.log(response);
-                ServerManager.GetFlowById(response.ObjectId);
-            },
-            error: function (response) {
-                //console.log("Flow adding error : ");
-                //console.log(response);
-=======
                 console.log('Flow added sucessfully : ');
                 console.log(response);
                 // ServerManager.GetFlowById(response.ObjectId);
@@ -174,7 +162,6 @@ class ServerManagerClass {
                 console.log("Flow adding error : ");
                 console.log(response);
                 CloseAfterRecord();
->>>>>>> 2edea679fd6393adcb2867a57608e92e15b308db
             }
         });
     }
@@ -194,15 +181,6 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.GetSingleFlowURL,
             data: JSON.stringify(final_data),
             success: function (response) {
-<<<<<<< HEAD
-                //console.log("Flow sucessfully recovered from database :");
-                //console.log(response);
-                PopFlow(response);
-            },
-            error: function (response) {
-                // console.log("Flow recovering from database error : ");
-                // console.log(response);
-=======
                 console.log("Flow sucessfully recovered from database :");
                 console.log(response);
                 PopFlow(response.Data, response.LinkBuilder);
@@ -211,7 +189,6 @@ class ServerManagerClass {
                 console.log("Flow recovering from database error : ");
                 console.log(response);
                 pullToRefreshEnd();
->>>>>>> 2edea679fd6393adcb2867a57608e92e15b308db
             }
         });
     }
@@ -228,15 +205,6 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.AddStoryURL,
             data: JSON.stringify(final_data),
             success: function (response) {
-<<<<<<< HEAD
-                // console.log('Story added sucessfully : ');
-                // console.log(response);
-                //ServerManager.GetFlowById(response.ObjectId);
-            },
-            error: function (response) {
-                // console.log("Story adding error : ");
-                // console.log(response);
-=======
                 console.log('Story added sucessfully : ');
                 console.log(response);
                 closeStoryRecord();
@@ -247,7 +215,6 @@ class ServerManagerClass {
                 console.log("Story adding error : ");
                 console.log(response);
                 closeStoryRecord();
->>>>>>> 2edea679fd6393adcb2867a57608e92e15b308db
             }
         });
     }
@@ -298,14 +265,9 @@ class ServerManagerClass {
                 //PopFlow(response);
             },
             error: function (response) {
-<<<<<<< HEAD
-                // console.log("User story recovering from database error : ");
-                // console.log(response);
-=======
                 console.log("User story recovering from database error : ");
                 console.log(response);
                 CloseStory();
->>>>>>> 2edea679fd6393adcb2867a57608e92e15b308db
             }
         });
     }
@@ -323,15 +285,10 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.AddFlowComment,
             data: JSON.stringify(final_data),
             success: function (response) {
-<<<<<<< HEAD
-                // console.log("response tu connais : " + response + "");
-                send_comment_to_server(final_data.Data);
-=======
                 console.log("response tu connais : " + response + "");
                 var obj = final_data.Data;
                 obj.IdComment = response.IdComment;
                 send_comment_to_server(obj);
->>>>>>> 2edea679fd6393adcb2867a57608e92e15b308db
 
             },
             error: function (response) {
@@ -367,7 +324,7 @@ class ServerManagerClass {
         });
     }
 
-    LikeFlowComment(data,block) {
+    LikeFlowComment(data, block) {
         let final_data = {
             Data: data,
             Action: "LikeFlowComment",
@@ -397,14 +354,14 @@ class ServerManagerClass {
     GetMyFlow(data) {
         let final_data = {
             TokenId: window.localStorage.getItem("user_token"),
-            Data: data              
+            Data: data
         };
         //console.log(final_data);
         $.ajax({
             type: "POST",
             url: ServerParams.ServerURL + ServerParams.GetMultipleFlowURL,
             data: JSON.stringify(final_data),
-            success: function(response){
+            success: function (response) {
                 ShowMyFlow(response);
             },
             error: function (response) {
@@ -413,7 +370,6 @@ class ServerManagerClass {
         });
     }
 
-<<<<<<< HEAD
     GetMyUserInfo(data) {
         let final_data = {
             Data: data
@@ -422,32 +378,32 @@ class ServerManagerClass {
             type: "POST",
             url: ServerParams.ServerURL + ServerParams.GetMyUserInfosURL,
             data: JSON.stringify(final_data),
-            success: function(response) {
+            success: function (response) {
                 console.log(response);
                 ShowMyInfosUser(response);
             },
-            error: function(response) {
+            error: function (response) {}
+        });
+    }
 
-=======
     GetTimeline(data) {
         let final_data = {
             TokenId: window.localStorage.getItem("user_token"),
             Data: {
                 Index: data
-            }           
+            }
         };
         console.log(final_data);
         $.ajax({
             type: "POST",
             url: ServerParams.ServerURL + ServerParams.GetTimeline,
             data: JSON.stringify(final_data),
-            success: function(response){
+            success: function (response) {
                 console.log(response);
                 UpdateTimeline(response);
             },
             error: function (response) {
                 console.log(response);
->>>>>>> 2edea679fd6393adcb2867a57608e92e15b308db
             }
         });
     }
