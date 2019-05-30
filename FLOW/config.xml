@@ -30,9 +30,6 @@
     </platform>
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />
-    <preference name="StatusBarBackgroundColor" value="#00000000" />
-    <preference name="AndroidLaunchMode" value="singleInstance" />
-    <preference name="KeepRunning" value="true" />
     <preference name="fullscreen" value="false" />
     <preference name="StatusBarBackgroundColor" value="#f7f7f8" />
     <preference name="Hostname" value="app" />
@@ -72,6 +69,8 @@
         <activity android:name="MainActivity" android:windowSoftInputMode="adjustResize" />
     </edit-config>
     <plugin name="cordova-plugin-fullscreen" spec="^1.2.0" />
+    <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
+    <plugin name="cordova-plugin-insomnia" spec="https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git" />
     <engine name="android" spec="^7.1.4" />
     <engine name="browser" spec="^6.0.0" />
 </widget>

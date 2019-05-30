@@ -214,6 +214,7 @@ function UpdateProfile (profileName, profileBio) {
 }
 
 function ShowMyFlow(flow) {
+<<<<<<< HEAD
     //console.log("SHOW MY FLOW");
     //console.log(flow);
     if(Array.isArray(flow.Data) == false)
@@ -278,6 +279,47 @@ function ShowMyFlow(flow) {
             MyFlowAdd = true;
             //console.log("index" + indexAlexis);
         }
+=======
+    console.log(flow);
+    for (let i = 0; i < flow.Data.length; i++) {
+        let data = flow.Data[i];
+        var image_link = undefined;
+        var pattern_key = undefined;
+        if (data.Background.PatternKey == undefined) {
+            const src_img = 'https://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.Background.name + '?';
+            const param_img = `${flow.LinkBuilder.Params.hash}=${data.Background.hash}&${flow.LinkBuilder.Params.time}=${data.Background.timestamp}`;
+            image_link = src_img + param_img;
+        } else {
+            pattern_key = data.Background.PatternKey;
+        }
+        
+        const src_flow = 'https://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
+        const param_flow = `${flow.LinkBuilder.Params.hash}=${data.Audio.hash}&${flow.LinkBuilder.Params.time}=${data.Audio.timestamp}`;
+        const flow_link = src_flow + param_flow;
+        
+        const src_profile_img = 'https://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
+        const param_profile_img = `${flow.LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${flow.LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
+        var profilePicLink = src_profile_img + param_profile_img;
+        console.log(profilePicLink);
+        console.log(image_link);
+        let block_params = {
+            parent_element: $("#MyActivity"),
+            afterblock: false,
+            audioURL: flow_link,
+            duration: data.Duration,
+            patternKey: pattern_key,
+            imageURL: image_link,
+            title: data.Title,
+            description: data.Description,
+            pseudo: data.PrivateId,
+            account_imageURL: profilePicLink
+        };
+        var new_block = new block(block_params);
+        all_blocks.push(new_block);
+        
+        console.log("Pop Flow");
+        console.log(new_block);
+>>>>>>> 2edea679fd6393adcb2867a57608e92e15b308db
     }
 }
 

@@ -35,6 +35,7 @@
     <script type="text/javascript" src="Dependencies/Siriwave/siriwave-record.js"></script>
     <script type="text/javascript" src="Dependencies/Geopattern/geopattern.min.js"></script>
     <script type="text/javascript" src="Dependencies/Vibrant/Vibrant.min.js"></script>
+    <script type="text/javascript" src="Dependencies/SweetAlert/sweetalert.min.js"></script>
     <script type="text/javascript" src="js/auth/cordova.oauth2.js"></script>
     <script type="text/javascript" src="js/auth/phonegap.facebook.inappbrowser.js"></script>
     <title>FLOW</title>
@@ -57,9 +58,7 @@
                             <li>
                                 <div class="fstory_block">
                                     <div class="fplus"></div>
-                                    <a href="../www/pages/account.html" class="open-login-screen">
-                                        <img src="src/pictures/guy1.jpg" class="fstory_pic fnoshadow">
-                                    </a>
+                                        <img src="src/icons/Account@3x.png" class="fstory_pic mystory_pic fnoshadow">
                                     <div class="unread_shadow"></div>
                                 </div>
                             </li>
@@ -224,8 +223,9 @@
                         </div>
                     </div>
                     <div class="frestart-after_btn"></div>
-                    <div class="fvalidate-after_btn"></div>
+                    <div class="fvalidate-after_btn record"></div>
                     <div class="fcancel-after_btn"></div>
+                    <div class="floading-spinner loading-record-flow"></div>
                 </div>
             </div>
 
@@ -280,8 +280,9 @@
                     <div class="frandom-color-btn" onclick="new_block.randomColorGradient()"><label
                             class="frandom-color-txt">CHANGE COLOR</label></div>
                     <div class="frestart-after_btn"></div>
-                    <div class="fvalidate-after_btn"></div>
+                    <div class="fvalidate-after_btn story"></div>
                     <div class="fcancel-after_btn"></div>
+                    <div class="floading-spinner loading-story"></div>
                 </div>
             </div>
             <div class="popup popup_comment">

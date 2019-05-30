@@ -21,10 +21,8 @@
     </edit-config>
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />
-    <preference name="StatusBarBackgroundColor" value="#00000000" />
-    <preference name="AndroidLaunchMode" value="singleInstance" />
-    <preference name="KeepRunning" value="true" />
     <preference name="fullscreen" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#f7f7f8" />
     <preference name="Hostname" value="app" />
     <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />

@@ -442,7 +442,7 @@ function impression_coloring(object, type, block_item,like_type) {
         case 'comment':
             $(object).each(function () {
                 var attr_img_comment = $(object).attr('src');
-                var comment_lenght = current_flow_block.all_comment_blocks.length;
+                var comment_length = current_flow_block.all_comment_blocks.length;
                 push_notif_block('comment');
             });
             break;
@@ -450,22 +450,38 @@ function impression_coloring(object, type, block_item,like_type) {
 
 }
 
+
+
+
 function get_all_comment(response)
 {
-    impression_coloring(this, 'comment', block.fimg_impression_comment);
+    
                 $(".fblock_comment_content").html("");
                 console.log(response);
                 var i = 0;
                 for (i = 0; i < response.Data.length; i++) {
 
-                    const src_profile_img = 'http://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data[i].ProfilePicture.name + '?';
+                    const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data[i].ProfilePicture.name + '?';
                     const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data[i].ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data[i].ProfilePicture.timestamp}`;
                     var profilePicLink = src_profile_img + param_profile_img;
 
-                    let block_commentaire = new block_comment(response.Data[i].PrivateId, profilePicLink, response.Data[i].Comment, response.Data[i].Likes, response.Data[i].Times);
+                    var comment_data = {
+                        PrivateId      : response.Data[i].PrivateId,
+                        ProfilePicture : profilePicLink,
+                        Comment        : response.Data[i].Comment,
+                        Like_number    : response.Data[i].Likes,
+                        Times          : response.Data[i].Times,
+                        IsLike         : response.Data[i].IsLike,
+                        IdComment      : response.Data[i].IdComment
+
+                    }
+
+                    let block_commentaire = new block_comment(comment_data);
                     $(".fblock_comment_content").append(block_commentaire);
 
                 }
+                impression_coloring(this, 'comment', block.fimg_impression_comment);
+                
 }
 
 var all_blocks = [];
