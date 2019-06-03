@@ -425,7 +425,8 @@ class ServerManagerClass {
             success: function (response) {
                 console.log('Flow added sucessfully : ');
                 console.log(response);
-                ServerManager.GetFlowById(response.ObjectId);
+                // ServerManager.GetFlowById(response.ObjectId);
+                CloseAfterRecord();
             },
             error: function (response) {
                 console.log("Flow adding error : ");

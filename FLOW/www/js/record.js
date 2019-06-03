@@ -325,6 +325,8 @@ function UpdateRecordIndicator() {
 function CloseAfterRecord() {
     app.closeModal('.popup-after-record');
     current_page = "home";
+    TLCurrentIndex = 0;
+    ServerManager.GetTimeline(0);
 }
 
 

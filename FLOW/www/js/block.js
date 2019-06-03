@@ -264,6 +264,8 @@ function block(params) {
         this.fposter_photo.style.width = "25vw";
         this.fposter_photo.style.height = "25vw";
 
+        this.fbottom_part.innerHTML = "";
+
         waveform.style.opacity = "0";
         block.randomColorGradient();
         // this.waveform.style.opacity = 0;
