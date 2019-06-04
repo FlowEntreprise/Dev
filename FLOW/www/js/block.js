@@ -1,4 +1,5 @@
 "use_strict";
+var block_id = 0;
 
 /*********** BLOCK PARAMS *************
  * var block_params = {
@@ -25,8 +26,7 @@ function block(params) {
     this.patternKey;
     this.duration = params.duration;
     this.privateID = params.PrivateId;
-    console.log("----------------------- "+ this.privateID);
-    //console.log("audio url : "+params.audioURL);
+    this.block_id = block_id;
 
     this.flowplay = function () {
         block.fplay_button.style.display = "none";
@@ -68,6 +68,8 @@ function block(params) {
 
     this.block_flow = document.createElement('div');
     this.block_flow.className = 'fflow';
+    this.block_flow.setAttribute("block_id", this.block_id);
+    block_id ++;
     params.parent_element.append(this.block_flow);
 
     this.ftop_part = document.createElement('div');
@@ -403,12 +405,6 @@ function block(params) {
        
         app.popup('.popup_comment');               
     });
-
-    $(".fposter_photo").click(function(){
-        console.log(this.privateID);
-        fInitialisationAccount(this.PrivateId);
-    });
-
 }
 // fonction permettant de colorier ou non les like, echo et comment.
 function impression_coloring(object, type, block_item,like_type) {
@@ -452,8 +448,12 @@ function impression_coloring(object, type, block_item,like_type) {
 
 }
 
-
-
+$(document).on('click','a.fposter_photo', function()
+{
+    var parent = $(this).parent().parent();
+    var parentBlockId = parent.attr("block_id");
+    fInitialisationAccount(all_blocks[parentBlockId].privateID);
+});
 
 function get_all_comment(response)
 {

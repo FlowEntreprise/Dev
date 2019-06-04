@@ -13,8 +13,9 @@ const ServerParams = {
     UpdateProfileURL: "UpdateProfile",
     GetMultipleFlowURL: "GetMultipleFlow",
     GetMyUserInfosURL: "GetInfoUser",
-    GetTimeline: "GetTimeline"
-
+    GetTimeline: "GetTimeline",
+    GetUserProfil: "GetProfil",
+    ActionFollowProfil: 'Follow'
 };
 const apiTypes = {
     Twitter: 'twitter',
@@ -133,8 +134,8 @@ class ServerManagerClass {
                 ConnectUser();
             },
             error: function (response) {
-                console.log("Connection error : ");
-                console.log(response);
+                // console.log("Connection error : ");
+                // console.log(response);
             }
         });
     }
@@ -151,16 +152,16 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.AddFlowURL,
             data: JSON.stringify(final_data),
             success: function (response) {
-                console.log('Flow added sucessfully : ');
-                console.log(response);
+                // console.log('Flow added sucessfully : ');
+                // console.log(response);
                 // ServerManager.GetFlowById(response.ObjectId);
                 TLCurrentIndex = 0;
                 ServerManager.GetTimeline(0);
                 CloseAfterRecord();
             },
             error: function (response) {
-                console.log("Flow adding error : ");
-                console.log(response);
+                // console.log("Flow adding error : ");
+                // console.log(response);
                 CloseAfterRecord();
             }
         });
@@ -181,13 +182,13 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.GetSingleFlowURL,
             data: JSON.stringify(final_data),
             success: function (response) {
-                console.log("Flow sucessfully recovered from database :");
-                console.log(response);
+                // console.log("Flow sucessfully recovered from database :");
+                // console.log(response);
                 PopFlow(response.Data, response.LinkBuilder);
             },
             error: function (response) {
-                console.log("Flow recovering from database error : ");
-                console.log(response);
+                // console.log("Flow recovering from database error : ");
+                // console.log(response);
                 pullToRefreshEnd();
             }
         });
@@ -205,15 +206,15 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.AddStoryURL,
             data: JSON.stringify(final_data),
             success: function (response) {
-                console.log('Story added sucessfully : ');
-                console.log(response);
+                // console.log('Story added sucessfully : ');
+                // console.log(response);
                 closeStoryRecord();
                 ServerManager.GetStory();
                 //ServerManager.GetFlowById(response.ObjectId);
             },
             error: function (response) {
-                console.log("Story adding error : ");
-                console.log(response);
+                // console.log("Story adding error : ");
+                // console.log(response);
                 closeStoryRecord();
             }
         });
@@ -370,7 +371,26 @@ class ServerManagerClass {
         });
     }
 
-    GetMyUserInfo(data) {
+    GetUserFlow(data) {
+        let final_data = {
+            TokenId: window.localStorage.getItem("user_token"),
+            Data: data
+        };
+        //console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetMultipleFlowURL,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                ShowUserFlow(response);
+            },
+            error: function (response) {
+
+            }
+        });
+    }
+
+    GetMyUserInfoNumber(data) {
         let final_data = {
             Data: data
         };
@@ -386,27 +406,80 @@ class ServerManagerClass {
         });
     }
 
+    getInfosUserNumber(data) {
+        let final_data = {
+            Data: data
+        };
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetMyUserInfosURL,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log("getInfosUserNumber");
+                ShowInfosUserNumber(response);
+            },
+            error: function (response) {}
+        });
+    }
+
+    GetUserInfo(data) {
+        let final_data = {
+            Data: data,
+            TokenId : window.localStorage.getItem("user_token")
+        };
+        console.log("final data = " );
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetUserProfil,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                //console.log(response);
+                ShowUserProfile(response);
+            },
+            error: function (response) {}
+        });
+    }
+
+    ActionFollow(data) {
+        let final_data = {
+            Data: data,
+            TokenId : window.localStorage.getItem("user_token")
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.ActionFollowProfil,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                ActionFollow(response);
+            },
+            error: function (response) {}
+        });
+    }
+
     UpdateProfile(data) {
         let final_data = {
             Data: data,
             Action: "UpdateProfile",
             TokenId : window.localStorage.getItem("user_token")
         };
-        console.log(final_data.Data);
+        // console.log(final_data.Data);
         
         $.ajax({
             type: "POST",
             url: ServerParams.ServerURL + ServerParams.UpdateProfileURL,
             data: JSON.stringify(final_data),
             success: function (response) {
-                console.log('Flow update sucessfully: ');
-                console.log(response);
+                // console.log('Flow update sucessfully: ');
+                // console.log(response);
                 UpdateProfile(final_data.Data.FullName, final_data.Data.Biography);
             },
             error: function (response) {
-                console.log("Flow update error : ");
-                console.log(response);
-                console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
+                // console.log("Flow update error : ");
+                // console.log(response);
+                // console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
             }
         });
     }
@@ -429,8 +502,8 @@ class ServerManagerClass {
                 CloseAfterRecord();
             },
             error: function (response) {
-                console.log("Flow adding error : ");
-                console.log(response);
+                // console.log("Flow adding error : ");
+                // console.log(response);
             }
         });
     }
@@ -442,17 +515,17 @@ class ServerManagerClass {
                 Index: data
             }
         };
-        console.log(final_data);
+        // console.log(final_data);
         $.ajax({
             type: "POST",
             url: ServerParams.ServerURL + ServerParams.GetTimeline,
             data: JSON.stringify(final_data),
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 UpdateTimeline(response);
             },
             error: function (response) {
-                console.log(response);
+                // console.log(response);
             }
         });
     }
