@@ -37,13 +37,13 @@ app.onPageInit('login-screen2', function (page) {
     });
 
     $("#fFollowButtunAccount").click(function(){
-        console.log(privateIDAccount);
+        // console.log(privateIDAccount);
         var ActionFollow = {
             PrivateId : privateIDAccount
         };
         ServerManager.ActionFollow(ActionFollow);
-        console.log(ActionFollow);
-        manageFollow();
+        // console.log(ActionFollow);
+        // manageFollow();
     });
     $('#fprofilPicture').click(function () {
         $("#fbigProfilPictureContainer").css("transform", "scale(1)");
@@ -183,7 +183,7 @@ function ShowUserProfile(response) {
     manageFollowYou();
     $("#fbioCompte").append(bioCompte);
     $("#fnameCompte").html(nameCompte);
-    $("#privateID").html("@" + privateIDAccount);
+    $("#privateID").html("@" +privateIDAccount);
     const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data.ProfilePicture.name + '?';
     const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data.ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data.ProfilePicture.timestamp}`;
     profilePicLink = src_profile_img + param_profile_img;
@@ -211,7 +211,7 @@ function ShowInfosUserNumber(data) {
     Follower = data.NbFollower;
     Following = data.NbFollowing;
     $("#ffLowBandeauChiffre").append(FlowBandeau);
-    $("#ffollowersBandeauChiffre").append(Follower);
+    $("#ffollowersBandeauChiffre").html(Follower);
     $("#ffollowingBandeauChiffre").append(Following);
 } 
 
@@ -277,15 +277,21 @@ function ShowUserFlow(flow) {
 function ActionFollow(response) {
     if(response.Follow !== undefined) {
         follow = true;
-        manageFollow();
+        console.log("++");
+        Follower ++;
+        $("#ffollowersBandeauChiffre").html(Follower);
     }
     else if(response.UnFollow !== undefined) {
         follow = false;
-        manageFollow();
+        console.log("--");
+        Follower --;
+        $("#ffollowersBandeauChiffre").html(Follower);
     }
     else {
         console.log(response);
     }
+    console.log(Follower);
+    manageFollow();
 }
 
 
