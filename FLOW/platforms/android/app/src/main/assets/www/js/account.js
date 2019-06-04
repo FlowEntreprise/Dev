@@ -1,5 +1,5 @@
-var follow = true;
-var followYou = true;
+var follow = false;
+var followYou;
 var privateIDAccount;
 var nameCompte;
 var bioCompte;
@@ -107,6 +107,8 @@ app.onPageInit('login-screen2', function (page) {
         profilePicLink = "";
         bioCompte = "";
         nameCompte = "";
+        // follow = "";
+        // followYou = "";
         $(".fflow-btn").css("display", "block");
         mainView.back();
     });
@@ -149,13 +151,16 @@ function fInitialisationAccount(privateId) {
 
 function manageFollow()
 {
+    console.log(follow);
     if(follow)
     {
+        console.log(1);
         $("#fFollowButtunAccount").addClass("activeButtunFollow");
         $("#fFollowButtunAccount").text("FOLLOWING");
     }
     else
     {
+        console.log(2);
         $("#fFollowButtunAccount").removeClass("activeButtunFollow");
         $("#fFollowButtunAccount").text("FOLLOW");
     }
@@ -177,8 +182,9 @@ function ShowUserProfile(response) {
     console.log(response);  
     bioCompte = response.Data.Bio;
     nameCompte = response.Data.FullName;
-    followYou = response.Data.HeFollowYou;
-    follow = response.Data.HeFollowYou;
+    followYou = JSON.parse(response.Data.HeFollowYou);
+    follow = JSON.parse(response.Data.YouFollowHim);
+    console.log(follow);
     manageFollow();
     manageFollowYou();
     $("#fbioCompte").append(bioCompte);
