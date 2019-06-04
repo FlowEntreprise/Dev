@@ -232,14 +232,14 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.GetStoryURL,
             data: JSON.stringify(final_data),
             success: function (response) {
-                // console.log("Story sucessfully recovered from database :");
-                // console.log(response);
+                console.log("Story sucessfully recovered from database :");
+                console.log(response);
                 UpdateStoryDataFromServer(response);
                 //PopFlow(response);
             },
             error: function (response) {
-                // console.log("Story recovering from database error : ");
-                // console.log(response);
+                console.log("Story recovering from database error : ");
+                console.log(response);
             }
         });
     }
