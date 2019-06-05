@@ -514,7 +514,6 @@ function set_timestamp(timestamp) {
 
     if (minute_past <= 59 && hour_past <= 0) {
 
-
         (minute_past > 1) ? (Time = "" + minute_past + " minutes ago") : (Time = "" + minute_past + " minute ago") ;
         return Time;
 
