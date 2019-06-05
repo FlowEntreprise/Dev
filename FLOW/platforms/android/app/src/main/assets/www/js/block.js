@@ -26,6 +26,7 @@ function block(params) {
     this.patternKey;
     this.duration = params.duration;
     this.privateID = params.PrivateId;
+    this.Time = params.Times;
     this.block_id = block_id;
 
     this.flowplay = function () {
@@ -69,7 +70,7 @@ function block(params) {
     this.block_flow = document.createElement('div');
     this.block_flow.className = 'fflow';
     this.block_flow.setAttribute("block_id", this.block_id);
-    block_id ++;
+    block_id++;
     params.parent_element.append(this.block_flow);
 
     this.ftop_part = document.createElement('div');
@@ -78,9 +79,8 @@ function block(params) {
     if (params.patternKey != undefined) {
         this.patternKey = params.patternKey;
         this.ftop_part.style.backgroundImage = pattern = GeoPattern.generate(this.patternKey).toDataUrl();
-    }
-    else if (params.imageURL != undefined) {
-        this.ftop_part.style.backgroundImage = "url('"+params.imageURL+"')";
+    } else if (params.imageURL != undefined) {
+        this.ftop_part.style.backgroundImage = "url('" + params.imageURL + "')";
     }
     // Erreur, on génère un pattern random
     else {
@@ -116,7 +116,7 @@ function block(params) {
     this.fposter_photo = document.createElement('a');
     this.fposter_photo.setAttribute('href', '../www/pages/account.html');
     this.fposter_photo.className = 'fposter_photo';
-    this.fposter_photo.style.backgroundImage = "url('"+params.account_imageURL+"')";
+    this.fposter_photo.style.backgroundImage = "url('" + params.account_imageURL + "')";
     this.ftop_part.appendChild(this.fposter_photo);
 
     var waveform = document.createElement('div');
@@ -151,7 +151,7 @@ function block(params) {
 
         this.fpost_date = document.createElement('p');
         this.fpost_date.className = 'fpost_date';
-        this.fpost_date.innerText = '5 min';
+        this.fpost_date.innerText = set_timestamp(this.Time);
         this.ftop_part.appendChild(this.fpost_date);
 
         this.fdots = document.createElement('label');
@@ -246,7 +246,7 @@ function block(params) {
             return (~~(Math.random() * 16)).toString(16);
         });
         let color_end = pSBC(-0.8, color_start);
-        let lineargradientcss = "linear-gradient(to bottom,"+color_start+","+color_end+")";
+        let lineargradientcss = "linear-gradient(to bottom," + color_start + "," + color_end + ")";
         this.ftop_part.style.backgroundImage = lineargradientcss;
         last_story_color = color_start;
     };
@@ -265,6 +265,8 @@ function block(params) {
         this.fposter_photo.style.left = "34vw";
         this.fposter_photo.style.width = "25vw";
         this.fposter_photo.style.height = "25vw";
+
+        this.fbottom_part.innerHTML = "";
 
         waveform.style.opacity = "0";
         block.randomColorGradient();
@@ -381,7 +383,7 @@ function block(params) {
         block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
 
     });
-   
+
     $(this.fimg_impression_like).on('click', function () {
 
         impression_coloring(this, 'like', block.fimg_impression_like);
@@ -393,19 +395,19 @@ function block(params) {
     });
 
     $(this.fimg_impression_comment).on('click', function () {
-      
-        current_flow_block = block;   
+
+        current_flow_block = block;
         let data = {
 
-            ObjectId : current_flow_block.ObjectId
+            ObjectId: current_flow_block.ObjectId
         }
         ServerManager.GetFlowComment(data);
-       
-        app.popup('.popup_comment');               
+
+        app.popup('.popup_comment');
     });
 }
 // fonction permettant de colorier ou non les like, echo et comment.
-function impression_coloring(object, type, block_item,like_type) {
+function impression_coloring(object, type, block_item, like_type) {
 
     switch (type) {
         case 'like':
@@ -414,7 +416,7 @@ function impression_coloring(object, type, block_item,like_type) {
                 var attr_img_like = $(object).attr('src');
                 if (attr_img_like === 'src/icons/Like.png') {
                     $(block_item).attr('src', 'src/icons/Like_filled.png');
-                    push_notif_block('like',like_type);
+                    push_notif_block('like', like_type);
                 }
                 if (attr_img_like === 'src/icons/Like_filled.png') {
                     $(block_item).attr('src', 'src/icons/Like.png');
@@ -446,42 +448,40 @@ function impression_coloring(object, type, block_item,like_type) {
 
 }
 
-$(document).on('click','a.fposter_photo', function()
-{
+$(document).on('click', 'a.fposter_photo', function () {
     var parent = $(this).parent().parent();
     var parentBlockId = parent.attr("block_id");
     fInitialisationAccount(all_blocks[parentBlockId].privateID);
 });
 
-function get_all_comment(response)
-{
-    
-                $(".fblock_comment_content").html("");
-                console.log(response);
-                var i = 0;
-                for (i = 0; i < response.Data.length; i++) {
+function get_all_comment(response) {
 
-                    const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data[i].ProfilePicture.name + '?';
-                    const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data[i].ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data[i].ProfilePicture.timestamp}`;
-                    var profilePicLink = src_profile_img + param_profile_img;
+    $(".fblock_comment_content").html("");
+    console.log(response);
+    var i = 0;
+    for (i = 0; i < response.Data.length; i++) {
 
-                    var comment_data = {
-                        PrivateId      : response.Data[i].PrivateId,
-                        ProfilePicture : profilePicLink,
-                        Comment        : response.Data[i].Comment,
-                        Like_number    : response.Data[i].Likes,
-                        Times          : response.Data[i].Times,
-                        IsLike         : response.Data[i].IsLike,
-                        IdComment      : response.Data[i].IdComment
+        const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data[i].ProfilePicture.name + '?';
+        const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data[i].ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data[i].ProfilePicture.timestamp}`;
+        var profilePicLink = src_profile_img + param_profile_img;
 
-                    }
+        var comment_data = {
+            PrivateId: response.Data[i].PrivateId,
+            ProfilePicture: profilePicLink,
+            Comment: response.Data[i].Comment,
+            Like_number: response.Data[i].Likes,
+            Time: response.Data[i].Time,
+            IsLike: response.Data[i].IsLike,
+            IdComment: response.Data[i].IdComment
 
-                    let block_commentaire = new block_comment(comment_data);
-                    $(".fblock_comment_content").append(block_commentaire);
+        }
 
-                }
-                impression_coloring(this, 'comment', block.fimg_impression_comment);
-                
+        let block_commentaire = new block_comment(comment_data);
+        $(".fblock_comment_content").append(block_commentaire);
+
+    }
+    impression_coloring(this, 'comment', block.fimg_impression_comment);
+
 }
 
 var all_blocks = [];
@@ -495,14 +495,58 @@ function stopAllBlocksAudio() {
 //     var new_block = new block();
 //     all_blocks.push(new_block);
 // });
+function set_timestamp(timestamp) {
+    var Time = "";
+    var time = Math.floor(timestamp);
+    var now = Math.floor(Date.now() / 1000);
+
+    var second_past = now - time;
+
+    var minute_past = Math.round(second_past / 60);
+
+    var hour_past = Math.round(minute_past / 60);
+
+    if (minute_past <= 59 && hour_past <= 0) {
+        if (minute_past == 0) {
+            Time = "1m ago";
+            return Time;
+        } else {
+            Time = "" + minute_past + "m ago";
+            return Time;
+        }
+
+    }
+
+    if (hour_past > 0 && hour_past <= 23) {
+        Time = "" + hour_past + "h ago";
+        return Time;
+
+    }
+
+    if (hour_past > 23 && hour_past <= 167) {
+        Time = "" + day_past + "d ago";
+        return Time;
+
+    } else if (hour_past > 167) {
+        posted_date = new Date(timestamp);
+        var day = posted_date.getDate();
+        var month = posted_date.toLocaleString('en-us', {
+            month: 'short'
+        });
+        var year = ((posted_date.getFullYear()).toString()).slice(2);
+        Time = day + " " + month + " " + year;
+        return Time;
+
+    }
+
+}
 
 $$('.popup_comment').on('popup:open', function () {
     StatusBar.backgroundColorByHexString('#949494');
-    StatusBar.styleLightContent();    
+    StatusBar.styleLightContent();
 });
 
 $$('.popup_comment').on('popup:close', function () {
     StatusBar.backgroundColorByHexString('#f7f7f8');
-    StatusBar.styleDefault();    
+    StatusBar.styleDefault();
 });
-

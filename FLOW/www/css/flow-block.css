@@ -103,7 +103,7 @@
     font-size: 3vw;
     left: 2.5vw;
     top: calc(1.8* var(--custom-vh));
-    width: 10vw;
+    width: 20vw;
     height: calc(2* var(--custom-vh));
     color: #FFFFFF;
     text-align: left;

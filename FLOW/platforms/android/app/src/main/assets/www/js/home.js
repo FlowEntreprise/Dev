@@ -77,8 +77,8 @@ function PopFlow(data, LinkBuilder) {
   const src_profile_img = 'https://' + LinkBuilder.Hostname + ':' + LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
   const param_profile_img = `${LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
   var profilePicLink = src_profile_img + param_profile_img;
-  console.log(profilePicLink);
-  console.log(image_link);
+  // console.log(profilePicLink);
+  // console.log(image_link);
   let block_params = {
     parent_element: $(".list-block"),
     afterblock: false,
@@ -91,9 +91,10 @@ function PopFlow(data, LinkBuilder) {
     pseudo: data.PrivateId,
     account_imageURL: profilePicLink,
     ObjectId : data.ObjectId,
-    PrivateId : data.PrivateId
+    PrivateId : data.PrivateId,
+    Times :  data.Time
   };
-  console.log("pop flow " + block_params.PrivateId);
+  // console.log("pop flow " + block_params.PrivateId);
   var new_block = new block(block_params);
   all_blocks.push(new_block);
 
@@ -115,7 +116,7 @@ function PopFlow(data, LinkBuilder) {
 
 function UpdateTimeline(data) {
   console.log("updating timeline...");
-  console.log(data.Data);
+  // console.log(data.Data);
   if (Array.isArray(data.Data)) {
     if (TLCurrentIndex == 0) {
       $(".list-block")[0].innerHTML = "";

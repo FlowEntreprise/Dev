@@ -194,7 +194,7 @@
               "oldAttrib": {
                 "android:configChanges": "orientation|keyboardHidden|keyboard|screenSize|locale",
                 "android:label": "@string/activity_name",
-                "android:launchMode": "singleInstance",
+                "android:launchMode": "singleTop",
                 "android:name": "MainActivity",
                 "android:screenOrientation": "portrait",
                 "android:theme": "@android:style/Theme.Light.NoTitleBar",

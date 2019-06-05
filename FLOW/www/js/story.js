@@ -459,7 +459,7 @@ function loadStory(story_index, storyFlow_index) {
     console.log("LOAD STORY");
     can_next_prev = true;
     $(".fstory_pseudo").text(story_data[story_index].private_id);
-    $(".fstory_time").text(story_data[story_index].data[storyFlow_index].time);
+    $(".fstory_time").text(set_timestamp(story_data[story_index].data[storyFlow_index].time));
     story_pos = $($(".fstory_block")[parseInt(story_index) + 1]).position();
     $(".fstory_indicator_list")[0].innerHTML = "";
     $(".fstory_pp")[0].style.backgroundImage = "url(" + story_data[story_index].user_picture + ")";

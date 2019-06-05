@@ -28,7 +28,7 @@ function block_comment(comment_data) {
 
     this.fdate = document.createElement('label');
     this.fdate.className = 'fdate';
-    this.fdate.innerHTML = "3days";
+    this.fdate.innerHTML = set_timestamp(comment_data.Time);
     $(this.fblock_comment_comment).append(this.fdate);
 
     this.fcomment_like = document.createElement('img');
@@ -106,13 +106,13 @@ var account_imageURL = "src/pictures/notif1.png";
 
 function send_comment_to_server(data)
 {
-
+    var time = Date.now();
     var comment_data = {
         PrivateId      : window.localStorage.getItem("user_private_id"),
         ProfilePicture : window.localStorage.getItem("user_profile_pic"),
         Comment        : data.Comment,
         Like_number    : "0",
-        Times          : "0",
+        Time          : time,
         IsLike         : 0,
         IdComment      : data.IdComment
 
