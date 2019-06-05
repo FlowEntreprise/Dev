@@ -543,7 +543,7 @@ function set_timestamp(timestamp) {
     if (month_past > 0 && month_past <= 12) {
         Time = "" + month_past + "month ago";
 
-        (day_past < 2) ? (Time = "" + month_past + " month ago") : (Time = "" + month_past + " months ago");
+        (month_past < 2) ? (Time = "" + month_past + " month ago") : (Time = "" + month_past + " months ago");
         return Time;
 
     } 
