@@ -91,8 +91,8 @@ function PopFlow(data, LinkBuilder) {
     pseudo: data.PrivateId,
     account_imageURL: profilePicLink,
     ObjectId : data.ObjectId,
-    PrivateId : data.PrivateId
-    //Times :  data.Time
+    PrivateId : data.PrivateId,
+    Times :  data.Time
   };
   // console.log("pop flow " + block_params.PrivateId);
   var new_block = new block(block_params);

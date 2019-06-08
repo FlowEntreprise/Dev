@@ -151,6 +151,8 @@ function block(params) {
 
         this.fpost_date = document.createElement('p');
         this.fpost_date.className = 'fpost_date';
+        console.log(this.Time);
+        console.log(set_timestamp(this.Time));
         this.fpost_date.innerText = set_timestamp(this.Time);
         this.ftop_part.appendChild(this.fpost_date);
 
@@ -496,7 +498,7 @@ function stopAllBlocksAudio() {
 //     all_blocks.push(new_block);
 // });
 function set_timestamp(timestamp) {
-    var Time = "";
+    var time_str = "";
     var time = Math.floor(timestamp);
     var now = Math.floor(Date.now() / 1000);
 
@@ -514,44 +516,44 @@ function set_timestamp(timestamp) {
 
     if (minute_past <= 59 && hour_past <= 0) {
 
-        (minute_past > 1) ? (Time = "" + minute_past + " minutes ago") : (Time = "" + minute_past + " minute ago") ;
-        return Time;
+        (minute_past > 1) ? (time_str = "" + minute_past + " minutes ago") : (time_str = "" + minute_past + " minute ago") ;
+        return time_str;
 
     }
 
     if (hour_past > 0 && hour_past <= 23) {
         
-        (hour_past > 1) ? (Time = "" + hour_past + " hours ago") : (Time = "" + hour_past + " hour ago");
-        return Time;
+        (hour_past > 1) ? (time_str = "" + hour_past + " hours ago") : (time_str = "" + hour_past + " hour ago");
+        return time_str;
 
     }
 
     if (day_past > 0 && day_past < 7) {
         
-        (day_past > 1) ? (Time = "" + day_past + " days ago") : (Time = "" + day_past + " day ago");
-        return Time;
+        (day_past > 1) ? (time_str = "" + day_past + " days ago") : (time_str = "" + day_past + " day ago");
+        return time_str;
 
     }
 
     if (day_past > 6 && day_past < 30) {
 
-        (day_past < 14) ? (Time = "" + day_past + " week ago") : (Time = "" + day_past + " weeks ago");
-        return Time;
+        (day_past < 14) ? (time_str = "" + day_past + " week ago") : (time_str = "" + day_past + " weeks ago");
+        return time_str;
 
     }
 
     if (month_past > 0 && month_past <= 12) {
-        Time = "" + month_past + "month ago";
+        time_str = "" + month_past + "month ago";
 
-        (day_past < 2) ? (Time = "" + month_past + " month ago") : (Time = "" + month_past + " months ago");
-        return Time;
+        (month_past < 2) ? (time_str = "" + month_past + " month ago") : (time_str = "" + month_past + " months ago");
+        return time_str;
 
     } 
     
     if (year_past > 0 ) {
     
-        (year_past < 2) ? (Time = "" + year_past + " year ago") : (Time = "" + year_past + " years ago");
-        return Time;
+        (year_past < 2) ? (time_str = "" + year_past + " year ago") : (time_str = "" + year_past + " years ago");
+        return time_str;
 
     }
 
