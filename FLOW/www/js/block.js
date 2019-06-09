@@ -174,6 +174,7 @@ function block(params) {
         this.fpost_title = document.createElement('p');
         this.fpost_title.className = 'fpost_title';
         this.fpost_title.innerText = params.title;
+        this.fpost_title.setAttribute('maxlength',20);
         this.fbottom_part.appendChild(this.fpost_title);
 
         this.fpost_description = document.createElement('p');
@@ -508,18 +509,21 @@ function set_timestamp(timestamp) {
 
     var day_past = Math.floor(hour_past / 24);
 
+    var week_past = Math.floor(day_past / 7);
+
     var month_past = Math.floor(day_past / 28);
 
     var year_past = Math.floor(month_past /12);
 
     if (minute_past <= 59 && hour_past <= 0) {
 
-        (minute_past > 1) ? (time_str = "" + minute_past + " minutes ago") : (time_str = "" + minute_past + " minute ago") ;
+        (minute_past > -2 && minute_past < 2) ?  (time_str = "1 minute ago") : (time_str = "" + minute_past + " minutes ago") ;
         return time_str;
 
     }
 
     if (hour_past > 0 && hour_past <= 23) {
+        
         
         (hour_past > 1) ? (time_str = "" + hour_past + " hours ago") : (time_str = "" + hour_past + " hour ago");
         return time_str;
@@ -533,15 +537,15 @@ function set_timestamp(timestamp) {
 
     }
 
-    if (day_past > 6 && day_past < 30) {
+    if (week_past >= 1 && week_past <= 5) {
 
-        (day_past < 14) ? (time_str = "" + day_past + " week ago") : (time_str = "" + day_past + " weeks ago");
+        (week_past == 1) ? (time_str = "" + week_past + " week ago") : (time_str = "" + week_past + " weeks ago");
         return time_str;
 
     }
 
     if (month_past > 0 && month_past <= 12) {
-        time_str = "" + month_past + "month ago";
+        
 
         (month_past < 2) ? (time_str = "" + month_past + " month ago") : (time_str = "" + month_past + " months ago");
         return time_str;

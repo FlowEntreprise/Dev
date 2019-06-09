@@ -140,7 +140,8 @@ $$('.fvalidate-after_btn').on('touchend', function () {
             Description: $(".finput_description").val(),
             Tags: [],
             Sound: appState.blob64,
-            Duration: record_time
+            Duration: record_time,
+            Time : "0" 
         }
         console.log(data);
         // Socket.client.send("Flow", "AddFlow", data); --OLD
@@ -158,7 +159,8 @@ $$('.fvalidate-after_btn').on('touchend', function () {
             PrivatedId: window.localStorage.getItem("user_private_id"),
             Sound: appState.blob64,
             Duration: record_time,
-            Color: last_story_color
+            Color: last_story_color,
+            Time : "0" 
         };
         console.log("Send story to server");
         $(".fvalidate-after_btn.story")[0].style.pointerEvents = "none";
