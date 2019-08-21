@@ -71,6 +71,10 @@
     <plugin name="cordova-plugin-fullscreen" spec="^1.2.0" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <plugin name="cordova-plugin-insomnia" spec="https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git" />
+    <plugin name="cordova-plugin-file" spec="^6.0.2" />
+    <plugin name="cordova-plugin-media" spec="^5.0.3" />
+    <plugin name="cordova-plugin-audioinput" spec="^1.0.2" />
+    <plugin name="cordova-plugin-compat" spec="^1.2.0" />
     <engine name="android" spec="^7.1.4" />
     <engine name="browser" spec="^6.0.0" />
 </widget>

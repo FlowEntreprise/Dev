@@ -72,6 +72,15 @@
     },
     "cordova-plugin-insomnia": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-media": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-audioinput": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {}
