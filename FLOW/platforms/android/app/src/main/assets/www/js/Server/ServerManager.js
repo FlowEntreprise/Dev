@@ -515,17 +515,19 @@ class ServerManagerClass {
                 Index: data
             }
         };
-        // console.log(final_data);
+        console.log(final_data);
         $.ajax({
             type: "POST",
             url: ServerParams.ServerURL + ServerParams.GetTimeline,
             data: JSON.stringify(final_data),
             success: function (response) {
-                // console.log(response);
+                console.log("success");
+                console.log(response);
                 UpdateTimeline(response);
             },
             error: function (response) {
-                // console.log(response);
+                console.log("error");
+                console.log(response);
             }
         });
     }

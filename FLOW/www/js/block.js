@@ -276,6 +276,7 @@ function block(params) {
     this.myaudio = new Audio("src/sound/son.opus");
     if (params.audioURL) {
         this.myaudio = new Audio(params.audioURL);
+        this.myaudio.volume = 1.0;
     }
 
     this.isPlaying = false;

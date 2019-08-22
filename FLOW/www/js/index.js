@@ -19,7 +19,7 @@ var app = {
 
     },
     onDeviceReady: function () {
-        
+
         this.receivedEvent('deviceready');
     },
     onPause: function () {
@@ -84,8 +84,12 @@ var app = {
 
     // Update DOM on a Received Event
     receivedEvent: function (id) {
-        document.addEventListener("offline", function(){ offline();  }, false);
-        document.addEventListener("online", function(){ online(); }, false);  
+        document.addEventListener("offline", function () {
+            offline();
+        }, false);
+        document.addEventListener("online", function () {
+            online();
+        }, false);
 
         var push = PushNotification.init({
             android: {}
@@ -158,7 +162,7 @@ Storage.prototype.getObj = function (key) {
 }
 
 // Replace default alert by Sweet Alert
-window.alert = function(txt) {
+window.alert = function (txt) {
     swal(txt);
 };
 

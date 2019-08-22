@@ -403,8 +403,8 @@ function drawCurveAnim() {
         } else if (smoothValue > average) {
             smoothValue -= 1.5;
         }
-        smoothValue = Math.max(2, smoothVolume);
-        smoothVolume = Lerp(smoothValue, smoothVolume, 0.25);
+        smoothValue = Math.max(2, smoothValue);
+        smoothVolume = Lerp(smoothVolume, smoothValue, 0.25);
         // $$('#flow_number_of_sec').text(Math.round(smoothVolume));
         if (current_page == "record") {
             if (recording) {

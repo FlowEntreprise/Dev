@@ -51,6 +51,7 @@ $("#tab1").scroll(function () {
       //   PrivateId: window.localStorage.getItem("user_private_id")
       // };
       console.log("Get Flow on Server");
+      console.log("TLCurrentIndex : " + TLCurrentIndex);
       ServerManager.GetTimeline(TLCurrentIndex);
       //console.log(addMyFlow);
       //ServerManager.GetMyFlow(addMyFlow);
