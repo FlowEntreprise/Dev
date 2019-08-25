@@ -80,9 +80,14 @@ svg {
 
 .fclose_record {
     position: absolute;
-    top: 5vh;
-    right: 2vh;
-    color: #92ABB2;
+    top: 3vh;
+    right: 5vw;
+    width: 5vw;
+    height: 2.5vh;
+    background-image: url("../src/icons/cancel.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* --------------------------------------------------- */

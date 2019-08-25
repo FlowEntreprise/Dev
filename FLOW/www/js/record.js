@@ -47,7 +47,7 @@ $$('.frecord-btn').on('taphold', function () {
         startCapture();
     }
 });
-document.getElementById("popup-record").addEventListener("opened", function() {
+document.getElementById("popup-record").addEventListener("opened", function () {
     $$('#flow_number_of_sec').text("00");
     if (!debug_record) {
         pictureSource = navigator.camera.PictureSourceType;
@@ -62,7 +62,7 @@ document.getElementById("popup-record").addEventListener("opened", function() {
         $$('.frecord-btn').addClass('frecord-btn-active');
     }
 });
-document.getElementById("popup-record").addEventListener("closed", function() {
+document.getElementById("popup-record").addEventListener("closed", function () {
     $$('.frecord-btn').css({
         "display": "none"
     });
@@ -71,25 +71,25 @@ document.getElementById("popup-record").addEventListener("closed", function() {
     current_page = "home";
 });
 
-document.getElementById("popup-after-record").addEventListener("opened", function() {
+document.getElementById("popup-after-record").addEventListener("opened", function () {
     $(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
     current_page = "after-record";
 });
 
-document.getElementById("popup-after-record").addEventListener("closed", function() {
+document.getElementById("popup-after-record").addEventListener("closed", function () {
     $(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
 });
 
-document.getElementById("popup-after-story-record").addEventListener("opened", function() {
+document.getElementById("popup-after-story-record").addEventListener("opened", function () {
     $(".fvalidate-after_btn.story")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.story")[0].setAttribute("style", "");
     $(".floading-spinner.loading-story")[0].style.display = "none";
 });
-document.getElementById("popup-after-story-record").addEventListener("closed", function() {
+document.getElementById("popup-after-story-record").addEventListener("closed", function () {
     $(".fvalidate-after_btn.story")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.story")[0].setAttribute("style", "");
     $(".floading-spinner.loading-story")[0].style.display = "none";
@@ -99,7 +99,7 @@ document.getElementById("popup-after-story-record").addEventListener("closed", f
 //     $$('.story_flow_duration').text("00");
 //     current_page = "record-story";
 // });
-document.getElementById("popup-story-record").addEventListener("opened", function() {
+document.getElementById("popup-story-record").addEventListener("opened", function () {
     $$('.story_flow_duration').text("00");
     current_page = "record-story";
 });
@@ -144,27 +144,33 @@ $$('.fcancel-after_btn').on('touchend', function () {
 
 $$('.fvalidate-after_btn').on('touchend', function () {
     if (current_page == "after-record") {
-        var data = {
-            PrivatedId: window.localStorage.getItem("user_private_id"),
-            Title: $(".finput_title").val(),
-            Image: image64 ? image64 : patternKey,
-            Description: $(".finput_description").val(),
-            Tags: [],
-            Sound: appState.blob64,
-            Duration: record_time,
-            Time: "0"
+        if ($(".finput_title").val().replace(/\s+/g, '').length > 0) {
+            var data = {
+                PrivatedId: window.localStorage.getItem("user_private_id"),
+                Title: $(".finput_title").val(),
+                Image: image64 ? image64 : patternKey,
+                Description: $(".finput_description").val(),
+                Tags: [],
+                Sound: appState.blob64,
+                Duration: record_time,
+                Time: "0"
+            }
+            console.log(data);
+            // Socket.client.send("Flow", "AddFlow", data); --OLD
+            // floading-spinner loading-record-flow
+            $(".fvalidate-after_btn.record")[0].style.pointerEvents = "none";
+            $(".fvalidate-after_btn.record")[0].setAttribute("style", "background: linear-gradient(to bottom, #1A84EF, #FF0054)");
+            $(".floading-spinner.loading-record-flow")[0].style.display = "block";
+            setTimeout(function () {
+                ServerManager.AddFlow(data);
+            }, 100);
+            image64 = null;
+            patternKey = null;
         }
-        console.log(data);
-        // Socket.client.send("Flow", "AddFlow", data); --OLD
-        // floading-spinner loading-record-flow
-        $(".fvalidate-after_btn.record")[0].style.pointerEvents = "none";
-        $(".fvalidate-after_btn.record")[0].setAttribute("style", "background: linear-gradient(to bottom, #1A84EF, #FF0054)");
-        $(".floading-spinner.loading-record-flow")[0].style.display = "block";
-        setTimeout(function () {
-            ServerManager.AddFlow(data);
-        }, 100);
-        image64 = null;
-        patternKey = null;
+        else {
+            alert("Flow title can't be empty");
+            $(".finput_title").focus();
+        }
     } else {
         let storydata = {
             PrivatedId: window.localStorage.getItem("user_private_id"),
@@ -199,7 +205,7 @@ function UpdateRecordIndicator() {
     } else if (current_page == "record-story") {
         $$('#flow_story_number_of_sec').text(format(Math.round(record_time)));
     }
-    
+
     if (recording && record_time <= 15) {
         setTimeout(function () {
             if (recording) {
@@ -558,7 +564,7 @@ function getPhoto() {
 
 function onFail(message) {
     appState.takingPicture = false;
-    alert('Failed because: ' + message);
+    // alert('Failed because: ' + message);
 }
 
 function toDataUrl(url, callback) {
