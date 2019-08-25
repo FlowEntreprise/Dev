@@ -23,10 +23,16 @@ let options = {
 };
 
 
-
+$$('.fflow-btn').on('click', function () {
+    Popup("popup-record", true);
+    $$('.frecord-btn').css({
+        "display": "flex"
+    });
+});
 $$('.fflow-btn').on('taphold', function () {
     console.log("Hold Record !");
-    app.popup('.popup-record');
+    // app.popup('.popup-record');
+    Popup("popup-record", true);
     $$('.frecord-btn').css({
         "display": "flex"
     });
@@ -41,7 +47,7 @@ $$('.frecord-btn').on('taphold', function () {
         startCapture();
     }
 });
-$$('.popup-record').on('popup:open', function () {
+document.getElementById("popup-record").addEventListener("opened", function() {
     $$('#flow_number_of_sec').text("00");
     if (!debug_record) {
         pictureSource = navigator.camera.PictureSourceType;
@@ -56,7 +62,7 @@ $$('.popup-record').on('popup:open', function () {
         $$('.frecord-btn').addClass('frecord-btn-active');
     }
 });
-$$('.popup-record').on('popup:close', function () {
+document.getElementById("popup-record").addEventListener("closed", function() {
     $$('.frecord-btn').css({
         "display": "none"
     });
@@ -64,29 +70,36 @@ $$('.popup-record').on('popup:close', function () {
     stopCapture();
     current_page = "home";
 });
-$$('.popup-after-record').on('popup:open', function () {
+
+document.getElementById("popup-after-record").addEventListener("opened", function() {
     $(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
     current_page = "after-record";
 });
-$$('.popup-after-record').on('popup:close', function () {
+
+document.getElementById("popup-after-record").addEventListener("closed", function() {
     $(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
 });
 
-$$('.popup-after-story-record').on('popup:open', function () {
+document.getElementById("popup-after-story-record").addEventListener("opened", function() {
     $(".fvalidate-after_btn.story")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.story")[0].setAttribute("style", "");
     $(".floading-spinner.loading-story")[0].style.display = "none";
 });
-$$('.popup-after-story-record').on('popup:close', function () {
+document.getElementById("popup-after-story-record").addEventListener("closed", function() {
     $(".fvalidate-after_btn.story")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.story")[0].setAttribute("style", "");
     $(".floading-spinner.loading-story")[0].style.display = "none";
 });
-$$('.popup-story-record').on('popup:open', function () {
+
+// $$('.popup-story-record').on('popup:open', function () {
+//     $$('.story_flow_duration').text("00");
+//     current_page = "record-story";
+// });
+document.getElementById("popup-story-record").addEventListener("opened", function() {
     $$('.story_flow_duration').text("00");
     current_page = "record-story";
 });
@@ -107,20 +120,23 @@ $$('body').on('touchend', function () {
 
 $$('.frestart-after_btn').on('touchend', function () {
     if (current_page == "after-record") {
-        app.closeModal('.popup-after-record');
-        app.popup('.popup-record');
+        // app.closeModal('.popup-after-record');
+        Popup("popup-after-record", false);
+        // app.popup('.popup-record');
+        Popup("popup-record", true);
     } else {
         closeStoryRecord();
-        app.popup('.popup-story-record');
+        // app.popup('.popup-story-record');
+        Popup("popup-story-record", true);
     }
 });
 
 $$('.fcancel-after_btn').on('touchend', function () {
     if (current_page == "after-record") {
-        app.closeModal('.popup-after-record');
+        Popup("popup-after-record", false);
         current_page = "home";
     } else {
-        app.closeModal('.popup-after-story-record');
+        Popup("popup-after-story-record", false);
         current_page = "home";
     }
 });
@@ -128,8 +144,6 @@ $$('.fcancel-after_btn').on('touchend', function () {
 
 $$('.fvalidate-after_btn').on('touchend', function () {
     if (current_page == "after-record") {
-        // app.closeModal('.popup-after-record');
-        // current_page = "home";
         var data = {
             PrivatedId: window.localStorage.getItem("user_private_id"),
             Title: $(".finput_title").val(),
@@ -209,7 +223,8 @@ function UpdateRecordIndicator() {
 }
 
 function CloseAfterRecord() {
-    app.closeModal('.popup-after-record');
+    // app.closeModal('.popup-after-record');
+    Popup("popup-after-record", false);
     current_page = "home";
     TLCurrentIndex = 0;
     ServerManager.GetTimeline(0);
@@ -243,8 +258,11 @@ function Save(wavblob) {
     console.log("current page : " + current_page);
     if (current_page == "record") {
 
-        app.closeModal('.popup-record');
-        app.popup('.popup-after-record');
+        // app.closeModal('.popup-record');
+        Popup("popup-record", false);
+        // app.popup('.popup-after-record');
+        Popup("popup-after-record", true);
+
         if (!after_record_initialised) {
             var mySwiper4 = app.swiper('.swiper-4', {
                 pagination: '.swiper-4 .swiper-pagination',
@@ -293,8 +311,8 @@ function Save(wavblob) {
             new_block.finput_title.focus();
         }, 500);
     } else if (current_page == "record-story") {
-        app.closeModal('.popup-story-record');
-        app.popup('.popup-after-story-record');
+        Popup("popup-story-record", false);
+        Popup("popup-after-story-record", true);
         $(".after-story-record-block-container").html("");
         let block_params = {
             parent_element: $(".after-story-record-block-container"),
@@ -558,7 +576,7 @@ function toDataUrl(url, callback) {
 }
 
 function closeStoryRecord() {
-    app.closeModal('.popup-after-story-record');
+    Popup("popup-after-story-record", false);
     current_page = "home";
     console.log("close story record");
 }

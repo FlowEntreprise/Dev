@@ -4,9 +4,9 @@
     pointer-events: none;
     top: 0;
     left: 0;
-    height: 100vh;
+    height: calc(100 * var(--custom-vh));
     width: 100vw;
-    z-index: 99999;
+    z-index: 9999;
 }
 
 .popup_bg
@@ -14,7 +14,7 @@
     position: absolute;
     background-color: rgba(0, 0, 0, 0.4);
     opacity: 0;
-    height: 100vh;
+    height: calc(100 * var(--custom-vh));
     width: 100vw;
     transition-duration: 0.25s;
 }
@@ -23,8 +23,9 @@
 {
     position: absolute;
     background: white;
-    height: 100vh;
+    height: calc(100 * var(--custom-vh));
     width: 100vw;
-    transform: translate3d(0px, 100vh, 0px);
+    transform: translate3d(0px, calc(100* var(--custom-vh)), 0px);
     transition-duration: 0.5s;
+    transform-origin: top;
 }

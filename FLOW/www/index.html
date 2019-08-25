@@ -47,7 +47,7 @@
     <!-- Status bar overlay for fullscreen mode-->
     <div class="statusbar-overlay"></div>
     <!-- Views-->
-    <div class="views tabs">
+    <div class="views tabs" style="height: calc(100 * var(--custom-vh))">
         <div id="menu1" class="view view-main tab active">
             <div class="navbar no-border ftop_bar">
                 <div class="navbar-inner">
@@ -60,7 +60,7 @@
                             <li>
                                 <div class="fstory_block">
                                     <div class="fplus"></div>
-                                        <img src="src/icons/Account@3x.png" class="fstory_pic mystory_pic fnoshadow">
+                                    <img src="src/icons/Account@3x.png" class="fstory_pic mystory_pic fnoshadow">
                                     <div class="unread_shadow"></div>
                                 </div>
                             </li>
@@ -158,7 +158,7 @@
                     <a href="#tab1" class="fnav-btn fhome-btn tab-link active"></a>
                     <a href="#tab2" class="fnav-btn fexplore-btn tab-link"></a>
                     <div class="flow-btn-shadow"></div>
-                    <a href="#" data-popup=".popup-record" class="fnav-btn fflow-btn open-popup"></a>
+                    <a href="#" class="fnav-btn fflow-btn"></a>
                     <a href="#tab3" class="fnav-btn fmessages-btn tab-link"></a>
 
                     <a href="#tab4" class="fnav-btn fnotif-btn tab-link"></a>
@@ -173,20 +173,21 @@
 
             </div>
 
-            <div class="popup popup-record">
-                <div class="content-block">
+            <div class="custom_popup" id="popup-record">
+                <div class="popup_bg"></div>
+                <div class="popup_content">
                     <p id="flow_number_of_sec" class="fflow_duration">00</p>
                     <p class="fflow_duration fsec">sec</p>
-                    <p><a href="#" class="fclose_record close-popup">Close</a></p>
+                    <p><a href="#" class="fclose_record" onclick="Popup('popup-record', false)">Close</a></p>
 
-                    <!-- test -->
                     <div id="wave-container"></div>
                     <div class="sounds-record"></div>
                 </div>
             </div>
 
-            <div class="popup popup-after-record">
-                <div class="content-block">
+            <div class="custom_popup" id="popup-after-record">
+                <div class="popup_bg"></div>
+                <div class="popup_content">
                     <div class="after-record-block-container"></div>
                     <label class="fbackground-after-txt">Background</label>
                     <div class="fcamera-after"></div>
@@ -263,20 +264,22 @@
                 </div>
             </div>
 
-            <div class="popup popup-story-record">
-                <div class="content-block">
+
+            <div class="custom_popup" id="popup-story-record">
+                <div class="popup_bg"></div>
+                <div class="popup_content">
                     <p id="flow_story_number_of_sec" class="fflow_duration story_flow_duration">00</p>
                     <p class="fflow_duration fsec">sec</p>
-                    <p><a href="#" class="fclose_record close-popup">Close</a></p>
+                    <p><a href="#" class="fclose_record" onclick="Popup('popup-story-record', false)">Close</a></p>
 
-                    <!-- test -->
                     <div id="wave-container" class="story-record-wave"></div>
                     <div class="sounds-record"></div>
                 </div>
             </div>
 
-            <div class="popup popup-after-story-record">
-                <div class="content-block">
+            <div class="custom_popup" id="popup-after-story-record">
+                <div class="popup_bg"></div>
+                <div class="popup_content">
                     <div class="after-story-record-block-container"></div>
                     <label class="fbackground-after-story-txt">Background</label>
                     <div class="frandom-color-btn" onclick="new_block.randomColorGradient()"><label
@@ -284,25 +287,7 @@
                     <div class="frestart-after_btn"></div>
                     <div class="fvalidate-after_btn story"></div>
                     <div class="fcancel-after_btn"></div>
-                    <div class="floading-spinner loading-story"></div>
-                </div>
-            </div>
-            <div class="popup popup_comment">
-                <label class="fcomment_number">605 comments</label>
-                <img src="src/icons/cancel.png" class="close-popup fclose_comment">
-                <div class="popover">
-                    <div class="popover-angle"></div>
-                    <div class="popover-inner">
-                        <label class="fpopover_button fpopover_copy">COPY</label>
-                        <label class="fpopover_button fpopover_report">REPORT</label>
-                        <label class="fpopover_button fpopover_delete">DELETE</label>
-                    </div>
-                </div>
-                <div class="fblock_comment_content">
-                </div>
-                <div class="fwrite_comment">
-                    <input type="text" placeholder="Say something nice" maxlength="100" class="finput_comment">
-                    <img src="src/icons/send.png" class="fsend_comment">
+                    <div class="floading-spinner loading-story"></div>  
                 </div>
             </div>
 
@@ -345,12 +330,29 @@
     <div class="frecord-btn">
     </div>
 
-    <div class="custom_popup" id="popup-test">
+    <div class="custom_popup" id="popup-comment">
         <div class="popup_bg"></div>
-        <div class="popup_content"></div>
+        <div class="popup_content" style="border-radius: 15px 15px 0px 0px">
+            <label class="fcomment_number">605 comments</label>
+            <img src="src/icons/cancel.png" class="fclose_comment" onclick="Popup('popup-comment', false)">
+            <div class="popover">
+                <div class="popover-angle"></div>
+                <div class="popover-inner">
+                    <label class="fpopover_button fpopover_copy">COPY</label>
+                    <label class="fpopover_button fpopover_report">REPORT</label>
+                    <label class="fpopover_button fpopover_delete">DELETE</label>
+                </div>
+            </div>
+            <div class="fblock_comment_content">
+            </div>
+        </div>
     </div>
 
 
+    <div class="fwrite_comment">
+        <input type="text" placeholder="Say something nice" maxlength="100" class="finput_comment">
+        <img src="src/icons/send.png" class="fsend_comment">
+    </div>
 
 
     <script type="text/javascript" src="cordova.js"></script>

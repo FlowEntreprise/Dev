@@ -164,7 +164,7 @@ function RefreshStories() {
     /* ------------------------------------------------*/
     /*              REFRESH AFTER GETTING DATA         */
     /* ------------------------------------------------*/
-    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\"><div class=\"fplus\"></div><a href=\"#\" data-popup=\".popup-story-record\" class=\"open-story-record open-popup\"></a><img src=\"src/icons/Account@3x.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div></div></li>";
+    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-story-record', true)\"><div class=\"fplus\"></div><img src=\"src/icons/Account@3x.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div></div></li>";
     if (connected && window.localStorage.getItem("user_profile_pic")) {
         $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
     }
@@ -814,7 +814,7 @@ function PublishRecordedComment() {
 }
 
 ////////////////////////// RECORDING STORY //////////////////////////
-$$('.popup-story-record').on('popup:open', function () {
+document.getElementById("popup-story-record").addEventListener("opened", function() {
     $$('.frecord-btn').css({
         "display": "flex"
     });
@@ -822,7 +822,7 @@ $$('.popup-story-record').on('popup:open', function () {
     current_page = "record-story";
 });
 
-$$('.popup-story-record').on('popup:close', function () {
+document.getElementById("popup-story-record").addEventListener("closed", function() {
     $$('.frecord-btn').css({
         "display": "none"
     });

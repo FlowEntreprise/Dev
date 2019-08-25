@@ -28,12 +28,15 @@ function block(params) {
     this.privateID = params.PrivateId;
     this.Time = params.Times;
     this.block_id = block_id;
+    this.currentTime = 0;
 
     this.flowplay = function () {
         block.fplay_button.style.display = "none";
         block.fpause_button.style.display = "block";
         wave.start();
         waveform.style.display = "block";
+        console.log("duration : " + block.myaudio.duration);
+        console.log("currentTime : " + block.currentTime);
         block.myaudio.play();
         block.progress_div.style.display = 'block';
         block.progress_div.style.borderTopRightRadius = '0vw';
@@ -274,6 +277,7 @@ function block(params) {
     resize();
 
     this.myaudio = new Audio("src/sound/son.opus");
+    this.myaudioelement;
     if (params.audioURL) {
         this.myaudio = new Audio(params.audioURL);
         this.myaudio.volume = 1.0;
@@ -284,7 +288,6 @@ function block(params) {
 
         if (block.isPlaying && !block.seeking) {
             this.progress = Math.round(block.myaudio.currentTime * 100 / params.duration);
-            // console.log(this.progress);
             block.myRange.value = this.progress;
             block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
             if (block.progress_div.style.width > '99.8%' && block.progress_div.style.width < '101%') {
@@ -299,6 +302,7 @@ function block(params) {
         block.progress_div.style.borderTopRightRadius = '2vw';
         block.progress_div.style.width = '100%';
         block.flowpause();
+        block.currentTime = 0;
         setTimeout(function () {
             if (!block.isPlaying) {
                 block.progress_div.style.display = 'none';
@@ -309,21 +313,23 @@ function block(params) {
     };
 
     this.seek = function () {
-        this.progress = block.myRange.value;
-        this.time = this.progress * params.duration / 100;
-        block.myaudio.currentTime = this.time;
+        console.log("seek");
+        // this.progress = block.myRange.value;
+        // this.time = this.progress * params.duration / 100;
+        // block.myaudio.currentTime = Math.round(this.time);
+        block.myaudio.currentTime = block.currentTime;
         block.seeking = true;
         block.progress_div.style.display = "block";
         block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
         setTimeout(function () {
             block.seeking = false;
+            console.log("seeking = false");
         }, 600);
         block.flowplay();
-
+        console.log("flow play");
     };
 
     this.fplay_button.addEventListener('click', function () {
-
         stopAllBlocksAudio();
         block.flowplay(block);
     });
@@ -332,17 +338,19 @@ function block(params) {
     });
 
     this.myRange.addEventListener('change', function () {
+        console.log("change");
         block.seek();
     });
     this.myRange.addEventListener('input', function () {
+        console.log("input");
         this.focus();
         //block.wasPlaying = block.isPlaying; 
         block.flowpause();
         block.progress = block.myRange.value;
         if (block.progress > 99) block.progress = 99;
-        block.time = block.progress * params.duration / 100;
-        block.myaudio.currentTime = block.time;
-        block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
+        block.currentTime = block.progress * params.duration / 100;
+        // block.myaudio.currentTime = block.time;
+        block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
 
     });
 
@@ -365,7 +373,8 @@ function block(params) {
         }
         ServerManager.GetFlowComment(data);
 
-        app.popup('.popup_comment');
+        // app.popup('.popup_comment');
+        Popup("popup-comment", true, 30);
     });
 }
 // fonction permettant de colorier ou non les like, echo et comment.
@@ -516,13 +525,12 @@ function set_timestamp(timestamp) {
 
     }
 }
-
-$$('.popup_comment').on('popup:open', function () {
+document.getElementById("popup-comment").addEventListener("opened", function() {
     StatusBar.backgroundColorByHexString('#949494');
     StatusBar.styleLightContent();
 });
 
-$$('.popup_comment').on('popup:close', function () {
+document.getElementById("popup-comment").addEventListener("opened", function() {
     StatusBar.backgroundColorByHexString('#f7f7f8');
     StatusBar.styleDefault();
 });

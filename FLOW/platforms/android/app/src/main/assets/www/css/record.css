@@ -63,10 +63,8 @@ svg {
 }
 
 .fflow_duration {
-    margin: 0px !important;
-    position: relative;
-    margin-left: -15px !important;
-    margin-top: 13vh !important;
+    position: absolute;
+    top: 10vh;
     width: 100vw;
     text-align: center;
     font-family: 'Roboto-Regular';
@@ -75,9 +73,9 @@ svg {
 }
 
 .fsec {
+    position: absolute;
+    top: 18vh;
     font-size: 33px;
-    margin-top: -15px !important;
-    position: relative;
 }
 
 .fclose_record {

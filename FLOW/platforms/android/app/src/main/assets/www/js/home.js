@@ -180,12 +180,12 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 /********************************************************************/
 $(".finput_comment").focus(function () {
   console.log("an input was focused");
-  //DisableImmersiveMode();
+  // DisableImmersiveMode();
 });
 
 $(".finput_comment").blur(function () {
   console.log("an input was out focused");
-  //EnableImmersiveMode();
+  // EnableImmersiveMode();
 });
 
 function DisableImmersiveMode() {

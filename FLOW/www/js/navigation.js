@@ -139,11 +139,13 @@ function onBackKeyDown() {
     //alert(current_page);
     // Handle the back button
     if (current_page == "record") {
-        app.closeModal('.popup-record');
+        // app.closeModal('.popup-record');
+        Popup("popup-record", false);
         current_page = "home";
     }
     else if (current_page == "record-story") {
-        app.closeModal('.popup-story-record');
+        // app.closeModal('.popup-story-record');
+        Popup("popup-story-record", false);
         current_page = "home";    
     }
     else if (current_page == "connect-popup") {
@@ -151,13 +153,17 @@ function onBackKeyDown() {
         current_page = "home";
     }
     else if (current_page == "after-record") {
-        app.closeModal('.popup-after-record');
-        app.popup('.popup-record');
+        // app.closeModal('.popup-after-record');
+        // app.popup('.popup-record');
+        Popup("popup-after-record", false);
+        Popup("popup-record", true);
         current_page = "record";
     }
     else if (current_page == "after-story-record") {
-        app.closeModal('.popup-after-story-record');
-        app.popup('.popup-story-record');
+        // app.closeModal('.popup-after-story-record');
+        Popup("popup-after-story-record", false);
+        // app.popup('.popup-story-record');
+        Popup("popup-story-record", true);
         current_page = "record-story";
     }
     else if (current_page == "story") {

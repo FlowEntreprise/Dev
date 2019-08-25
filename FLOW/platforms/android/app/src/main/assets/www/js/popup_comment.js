@@ -173,10 +173,14 @@ function delete_comment(element) {
     $(element).remove();
 
 }
+document.getElementById("popup-comment").addEventListener("opened", function() {
+    $(".fwrite_comment")[0].style.display = "block";
+});
 
 //Notif lors d'un nouveau commentaire
 
-$$('.popup_comment').on('popup:close', function () {
+document.getElementById("popup-comment").addEventListener("closed", function() {
+    $(".fwrite_comment")[0].style.display = "none";
     var comment_lenght = current_flow_block.all_comment_blocks.length;
     if (comment_lenght > 0) {
         $(current_flow_block.fimg_impression_comment).attr('src', 'src/icons/Comment_filled.png');
