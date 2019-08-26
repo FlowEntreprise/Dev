@@ -374,7 +374,7 @@ function block(params) {
         ServerManager.GetFlowComment(data);
 
         // app.popup('.popup_comment');
-        Popup("popup-comment", true, 30);
+        Popup("popup-comment", true, 40);
     });
 }
 // fonction permettant de colorier ou non les like, echo et comment.

@@ -10,6 +10,7 @@ var appState = {
     flow_description: ""
 };
 
+
 var app = {
     // Application Constructor
     initialize: function () {
@@ -19,7 +20,11 @@ var app = {
 
     },
     onDeviceReady: function () {
-
+        setTimeout(function() {
+            navigator.splashscreen.hide();
+            StatusBar.backgroundColorByHexString("#f7f7f8");
+        }, 500);
+        
         this.receivedEvent('deviceready');
     },
     onPause: function () {

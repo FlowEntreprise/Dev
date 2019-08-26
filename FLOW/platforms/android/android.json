@@ -103,6 +103,10 @@
             {
               "xml": "<feature name=\"AudioInputCapture\"><param name=\"android-package\" value=\"com.exelerus.cordova.audioinputcapture.AudioInputCapture\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -225,7 +229,7 @@
                 "android:launchMode": "singleTop",
                 "android:name": "MainActivity",
                 "android:screenOrientation": "portrait",
-                "android:theme": "@android:style/Theme.Light.NoTitleBar",
+                "android:theme": "@style/MyTheme",
                 "android:windowSoftInputMode": "adjustResize"
               }
             }
@@ -391,6 +395,9 @@
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-audioinput": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -818,6 +825,14 @@
       "clobbers": [
         "audioinput"
       ]
+    },
+    {
+      "id": "cordova-plugin-splashscreen.SplashScreen",
+      "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+      "pluginId": "cordova-plugin-splashscreen",
+      "clobbers": [
+        "navigator.splashscreen"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -842,6 +857,7 @@
     "cordova-plugin-insomnia": "4.3.0",
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-media": "5.0.3",
-    "cordova-plugin-audioinput": "1.0.2"
+    "cordova-plugin-audioinput": "1.0.2",
+    "cordova-plugin-splashscreen": "4.0.0"
   }
 }

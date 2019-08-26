@@ -9,6 +9,7 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport"
         content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/splashscreen.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
     <link rel="stylesheet" type="text/css" href="css/explore.css">
@@ -44,6 +45,11 @@
 </head>
 
 <body>
+
+    <div class="splashscreen">
+        <div class="splashscreen-logo"></div>
+    </div>
+
     <!-- Status bar overlay for fullscreen mode-->
     <div class="statusbar-overlay"></div>
     <!-- Views-->
@@ -286,7 +292,7 @@
                     <div class="frestart-after_btn"></div>
                     <div class="fvalidate-after_btn story"></div>
                     <div class="fcancel-after_btn"></div>
-                    <div class="floading-spinner loading-story"></div>  
+                    <div class="floading-spinner loading-story"></div>
                 </div>
             </div>
 
@@ -352,6 +358,7 @@
         <input type="text" placeholder="Say something nice" maxlength="100" class="finput_comment">
         <img src="src/icons/send.png" class="fsend_comment">
     </div>
+
 
 
     <script type="text/javascript" src="cordova.js"></script>

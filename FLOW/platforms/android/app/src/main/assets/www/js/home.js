@@ -91,9 +91,9 @@ function PopFlow(data, LinkBuilder) {
     description: data.Description,
     pseudo: data.PrivateId,
     account_imageURL: profilePicLink,
-    ObjectId : data.ObjectId,
-    PrivateId : data.PrivateId,
-    Times :  data.Time
+    ObjectId: data.ObjectId,
+    PrivateId: data.PrivateId,
+    Times: data.Time
   };
   // console.log("pop flow " + block_params.PrivateId);
   var new_block = new block(block_params);
@@ -119,22 +119,23 @@ function UpdateTimeline(data) {
   console.log("updating timeline...");
   // console.log(data.Data);
   if (Array.isArray(data.Data)) {
-    if (TLCurrentIndex == 0) {
-      $(".list-block")[0].innerHTML = "";
-    }
-    for (let i = 0; i < data.Data.length; i++) {
-      PopFlow(data.Data[i], data.LinkBuilder);
-    }
-    console.log("timeline updated !");
-    pullToRefreshEnd();
-    TLCurrentIndex++;
-    if (data.Data.length < 5) {
-      CanRefreshTL = false;
-    } else {
-      CanRefreshTL = true;
-    }
-  }
-  else {
+    setTimeout(function () {
+      if (TLCurrentIndex == 0) {
+        $(".list-block")[0].innerHTML = "";
+      }
+      for (let i = 0; i < data.Data.length; i++) {
+        PopFlow(data.Data[i], data.LinkBuilder);
+      }
+      console.log("timeline updated !");
+      pullToRefreshEnd();
+      TLCurrentIndex++;
+      if (data.Data.length < 5) {
+        CanRefreshTL = false;
+      } else {
+        CanRefreshTL = true;
+      }
+    }, 500);
+  } else {
     CanRefreshTL = false;
   }
 }

@@ -386,6 +386,20 @@ module.exports = [
         "id": "cordova-plugin-audioinput.AudioInputCaptureProxy",
         "pluginId": "cordova-plugin-audioinput",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+        "id": "cordova-plugin-splashscreen.SplashScreen",
+        "pluginId": "cordova-plugin-splashscreen",
+        "clobbers": [
+            "navigator.splashscreen"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-splashscreen/src/browser/SplashScreenProxy.js",
+        "id": "cordova-plugin-splashscreen.SplashScreenProxy",
+        "pluginId": "cordova-plugin-splashscreen",
+        "runs": true
     }
 ];
 module.exports.metadata = 
@@ -412,7 +426,8 @@ module.exports.metadata =
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-media": "5.0.3",
     "cordova-plugin-audioinput": "1.0.2",
-    "cordova-plugin-compat": "1.2.0"
+    "cordova-plugin-compat": "1.2.0",
+    "cordova-plugin-splashscreen": "4.0.0"
 }
 // BOTTOM OF METADATA
 });

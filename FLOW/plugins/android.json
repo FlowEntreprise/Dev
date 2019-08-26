@@ -81,6 +81,9 @@
     },
     "cordova-plugin-audioinput": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {}

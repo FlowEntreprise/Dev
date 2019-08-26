@@ -27,11 +27,20 @@
     <platform name="android">
         <resource-file src="google-services.json" target="app/google-services.json" />
         <resource-file src="google-services.json" target="google-services.json" />
+        <preference name="SplashStatusBarBackgroundColor" value="#007EFF" />
+        <preference name="SplashNavigationBarBackgroundColor" value="#FF0054" />
+        <preference name="SplashScreen" value="screen"/>
+        <!-- <preference name="SplashScreenDelay" value="3000"/> -->
+        <preference name="AutoHideSplashScreen" value="false" />
+        <preference name="FadeSplashScreenDuration" value="0"/>
+        <splash src="res/screen/android/splash.png"></splash>
+        <preference name="ShowSplashScreenSpinner" value="true"/>
+        <preference name="SplashMaintainAspectRatio" value="true" />
     </platform>
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />
     <preference name="fullscreen" value="false" />
-    <preference name="StatusBarBackgroundColor" value="#f7f7f8" />
+    <preference name="StatusBarBackgroundColor" value="#007EEF" />
     <preference name="Hostname" value="app" />
     <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />

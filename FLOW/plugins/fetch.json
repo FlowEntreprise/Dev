@@ -190,5 +190,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-splashscreen": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/goinnn/cordova-plugin-splashscreen.git#4.0.0#colors"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }
