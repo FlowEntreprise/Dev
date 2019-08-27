@@ -122,22 +122,33 @@ function UpdateTimeline(data) {
     setTimeout(function () {
       if (TLCurrentIndex == 0) {
         $(".list-block")[0].innerHTML = "";
+        let loading_tl = document.createElement("div");
+        loading_tl.className = "loading_circle loading_tl";
+        $(".list-block")[0].appendChild(loading_tl);
       }
       for (let i = 0; i < data.Data.length; i++) {
         PopFlow(data.Data[i], data.LinkBuilder);
       }
+      if ($(".loading_tl")) $(".loading_tl").remove();
       console.log("timeline updated !");
       pullToRefreshEnd();
       TLCurrentIndex++;
       if (data.Data.length < 5) {
         CanRefreshTL = false;
+        let tick_tl = document.createElement("div");
+        tick_tl.className = "tick_icon";
+        $(".list-block")[0].appendChild(tick_tl);
       } else {
         CanRefreshTL = true;
+        let loading_tl = document.createElement("div");
+        loading_tl.className = "loading_circle loading_tl";
+        $(".list-block")[0].appendChild(loading_tl);
       }
     }, 500);
   } else {
     CanRefreshTL = false;
   }
+
 }
 /* 
 **************** RECUPERER FLOW AUDIO FROM BASE64 *********************

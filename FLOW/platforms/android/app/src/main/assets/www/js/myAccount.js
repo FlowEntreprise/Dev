@@ -273,6 +273,7 @@ function ShowMyFlow(flow) {
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
+            if ($(".loading_myaccount")) $(".loading_myaccount").remove();
             
             //console.log("Pop Flow");
             //console.log(new_block);
@@ -281,14 +282,17 @@ function ShowMyFlow(flow) {
         {
             indexMyFlow ++;
             MyFlowAdd = false;
-            //console.log("index" + indexMyFlow);
-            // window.alert("< 5 donc stop");
+            let tick_tl = document.createElement("div");
+            tick_tl.className = "tick_icon";
+            $("#MyActivity")[0].appendChild(tick_tl);
         }
         else
         {
             indexMyFlow ++;
             MyFlowAdd = true;
-            //console.log("index" + indexMyFlow);
+            let loading_tl = document.createElement("div");
+            loading_tl.className = "loading_circle loading_myaccount";
+            $("#MyActivity")[0].appendChild(loading_tl);
         }
     }
 }

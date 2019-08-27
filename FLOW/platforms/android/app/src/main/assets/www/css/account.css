@@ -154,3 +154,8 @@
     /* text-align: center; */
     margin-left: 26.25vw;
 }
+
+#UserActivity
+{
+    padding-bottom: 12vh !important;
+}

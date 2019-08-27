@@ -332,3 +332,8 @@
     width: 5vw;
     height: 5vw;
 }
+
+#MyActivity
+{
+    padding-bottom: 12vh !important;
+}

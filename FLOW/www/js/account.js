@@ -14,7 +14,7 @@ var profilePicLink;
 // var CanRefreshUser = true;
 // var UserCurrentIndex = 0;
 
-app.onPageInit('login-screen2', function (page) {    
+app.onPageInit('login-screen2', function (page) {
     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
     $(".fflow-btn").css("display", "none");
     $(".flow-btn-shadow").css("display", "none");
@@ -36,10 +36,10 @@ app.onPageInit('login-screen2', function (page) {
         checkScrollAccount();
     });
 
-    $("#fFollowButtunAccount").click(function(){
+    $("#fFollowButtunAccount").click(function () {
         // console.log(privateIDAccount);
         var ActionFollow = {
-            PrivateId : privateIDAccount
+            PrivateId: privateIDAccount
         };
         ServerManager.ActionFollow(ActionFollow);
         // console.log(ActionFollow);
@@ -49,7 +49,7 @@ app.onPageInit('login-screen2', function (page) {
         $("#fbigProfilPictureContainer").css("transform", "scale(1)");
     });
 
-    
+
 
     $("#returnProfilPicture").click(function () {
         $("#fbigProfilPictureContainer").css("transform", "scale(0)");
@@ -66,8 +66,8 @@ app.onPageInit('login-screen2', function (page) {
             $("#accountBannerScrollAccount").css("transform", "translate3d(0vw, -30vh, 0vh)");
             if (boolScrollTop) {
                 $(".ftabsAccount")[0].setAttribute("style", "height:94vh !important");
-    
-                
+
+
                 $(".fnavAccount").removeClass("fnavAccountTransitionDown");
                 $(".fnavAccount").addClass("fnavAccountTransitionTop");
                 $(".ftabsAccount").css("transition-duration", "0.4s");
@@ -115,15 +115,15 @@ app.onPageInit('login-screen2', function (page) {
 
     $("#tabCompte1").scroll(function () {
         var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-        if ( UserFlowAdd == true) {
+        if (UserFlowAdd == true) {
             if (Math.round($(this).scrollTop()) >= limit * 0.75) {
                 UserFlowAdd = false;
                 var addUserFlow = {
-                    Index : indexAccount,
-                    PrivateId : privateIDAccount 
+                    Index: indexAccount,
+                    PrivateId: privateIDAccount
                 };
                 ServerManager.GetUserFlow(addUserFlow);
-            } 
+            }
         }
     });
 });
@@ -133,8 +133,8 @@ function fInitialisationAccount(privateId) {
     privateIDAccount = privateId;
     indexAccount = 0;
     var getFlow = {
-        Index : indexAccount,
-        PrivateId : privateIDAccount
+        Index: indexAccount,
+        PrivateId: privateIDAccount
     };
     ServerManager.GetUserFlow(getFlow);
 
@@ -149,37 +149,29 @@ function fInitialisationAccount(privateId) {
     // console.log("privateIDAccount = " + privateIDAccount);
 }
 
-function manageFollow()
-{
+function manageFollow() {
     console.log(follow);
-    if(follow)
-    {
+    if (follow) {
         console.log(1);
         $("#fFollowButtunAccount").addClass("activeButtunFollow");
         $("#fFollowButtunAccount").text("FOLLOWING");
-    }
-    else
-    {
+    } else {
         console.log(2);
         $("#fFollowButtunAccount").removeClass("activeButtunFollow");
         $("#fFollowButtunAccount").text("FOLLOW");
     }
 }
 
-function manageFollowYou()
-{
-    if(followYou)
-    {
+function manageFollowYou() {
+    if (followYou) {
         $("#fFollowYouButtunAccount").css("display", "block");
-    }
-    else
-    {
+    } else {
         $("#fFollowYouButtunAccount").css("display", "none");
     }
 }
 
 function ShowUserProfile(response) {
-    console.log(response);  
+    console.log(response);
     bioCompte = response.Data.Bio;
     nameCompte = response.Data.FullName;
     followYou = JSON.parse(response.Data.HeFollowYou);
@@ -189,15 +181,15 @@ function ShowUserProfile(response) {
     manageFollowYou();
     $("#fbioCompte").append(bioCompte);
     $("#fnameCompte").html(nameCompte);
-    $("#privateID").html("@" +privateIDAccount);
+    $("#privateID").html("@" + privateIDAccount);
     const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data.ProfilePicture.name + '?';
     const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data.ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data.ProfilePicture.timestamp}`;
     profilePicLink = src_profile_img + param_profile_img;
     $("#fprofilPicture").css({
-        "background-image": "url('" + profilePicLink +"')"
-    });    
+        "background-image": "url('" + profilePicLink + "')"
+    });
     $("#fbigProfilPicture").css({
-        "background-image": "url('" +  profilePicLink + "')"
+        "background-image": "url('" + profilePicLink + "')"
     });
     var profilePicture = document.createElement('img');
     // var profilePicture = window.localStorage.getItem("user_profile_pic");
@@ -219,21 +211,18 @@ function ShowInfosUserNumber(data) {
     $("#ffLowBandeauChiffre").append(FlowBandeau);
     $("#ffollowersBandeauChiffre").html(Follower);
     $("#ffollowingBandeauChiffre").append(Following);
-} 
+}
 
 function ShowUserFlow(flow) {
     // console.log(UserFlowAdd);
     // console.log("------------------ show -----------------");
     // console.log(flow);
-    if(Array.isArray(flow.Data) == false)
-    { 
+    if (Array.isArray(flow.Data) == false) {
         UserFlowAdd = false;
-    }
-    else 
-    {
+    } else {
         var countFlow = 0;
         for (let i = 0; i < flow.Data.length; i++) {
-            countFlow ++;
+            countFlow++;
             let data = flow.Data[i];
             var image_link = undefined;
             var pattern_key = undefined;
@@ -244,11 +233,11 @@ function ShowUserFlow(flow) {
             } else {
                 pattern_key = data.Background.PatternKey;
             }
-            
+
             const src_flow = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
             const param_flow = `${flow.LinkBuilder.Params.hash}=${data.Audio.hash}&${flow.LinkBuilder.Params.time}=${data.Audio.timestamp}`;
             const flow_link = src_flow + param_flow;
-            
+
             const src_profile_img = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
             const param_profile_img = `${flow.LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${flow.LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
             var profilePicLink = src_profile_img + param_profile_img;
@@ -266,38 +255,38 @@ function ShowUserFlow(flow) {
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
+            if ($(".loading_account")) $(".loading_account").remove();
         }
-        if(countFlow < 5)
-        {
-            indexAccount ++;
+        if (countFlow < 5) {
+            indexAccount++;
             UserFlowAdd = false;
-        }
-        else
-        {
-            indexAccount ++;
+            let tick_tl = document.createElement("div");
+            tick_tl.className = "tick_icon";
+            $("#UserActivity")[0].appendChild(tick_tl);
+        } else {
+            indexAccount++;
             UserFlowAdd = true;
+            let loading_tl = document.createElement("div");
+            loading_tl.className = "loading_circle loading_account";
+            $("#UserActivity")[0].appendChild(loading_tl);
         }
     }
 }
 
 function ActionFollow(response) {
-    if(response.Follow !== undefined) {
+    if (response.Follow !== undefined) {
         follow = true;
         console.log("++");
-        Follower ++;
+        Follower++;
         $("#ffollowersBandeauChiffre").html(Follower);
-    }
-    else if(response.UnFollow !== undefined) {
+    } else if (response.UnFollow !== undefined) {
         follow = false;
         console.log("--");
-        Follower --;
+        Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    }
-    else {
+    } else {
         console.log(response);
     }
     console.log(Follower);
     manageFollow();
 }
-
-
