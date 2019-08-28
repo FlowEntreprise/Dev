@@ -198,5 +198,15 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-firebase-crashlytics": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-firebase-crashlytics@0.0.6"
+    },
+    "is_top_level": true,
+    "variables": {
+      "ANDROID_FIREBASE_CORE_VERSION": "16.0.1"
+    }
   }
 }

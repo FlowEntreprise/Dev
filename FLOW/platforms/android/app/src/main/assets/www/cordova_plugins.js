@@ -430,6 +430,14 @@ module.exports = [
     "clobbers": [
       "navigator.splashscreen"
     ]
+  },
+  {
+    "id": "cordova-plugin-firebase-crashlytics.FirebaseCrashlytics",
+    "file": "plugins/cordova-plugin-firebase-crashlytics/www/crashlytics.js",
+    "pluginId": "cordova-plugin-firebase-crashlytics",
+    "clobbers": [
+      "FirebaseCrashlytics"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -457,7 +465,8 @@ module.exports.metadata =
   "cordova-plugin-file": "6.0.2",
   "cordova-plugin-media": "5.0.3",
   "cordova-plugin-audioinput": "1.0.2",
-  "cordova-plugin-splashscreen": "4.0.0"
+  "cordova-plugin-splashscreen": "4.0.0",
+  "cordova-plugin-firebase-crashlytics": "0.0.6"
 };
 // BOTTOM OF METADATA
 });

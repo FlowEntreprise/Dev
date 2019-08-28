@@ -97,6 +97,7 @@ apply from: "../twitter-connect-plugin/flow-twitter.gradle"
 apply from: "../cordova-android-support-gradle-release/flow-cordova-android-support-gradle-release.gradle"
 apply from: "../cordova-support-google-services/flow-build.gradle"
 apply from: "../phonegap-plugin-multidex/flow-multidex.gradle"
+apply from: "../cordova-plugin-firebase-crashlytics/flow-firebase-crashlytics.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
@@ -282,6 +283,8 @@ dependencies {
     compile "com.android.support:support-v13:27.+"
     compile "me.leolin:ShortcutBadger:1.1.17@aar"
     compile "com.google.firebase:firebase-messaging:17.0.+"
+    compile "com.google.firebase:firebase-core:11.8.0"
+    compile "org.json:json:20171018"
     // SUB-PROJECT DEPENDENCIES END
     implementation 'com.google.firebase:firebase-core:16.0.1'
 }

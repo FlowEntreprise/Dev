@@ -10,6 +10,8 @@ var appState = {
     flow_description: ""
 };
 
+var crashlytics;
+var push;
 
 var app = {
     // Application Constructor
@@ -20,11 +22,11 @@ var app = {
 
     },
     onDeviceReady: function () {
-        setTimeout(function() {
+        setTimeout(function () {
             navigator.splashscreen.hide();
             StatusBar.backgroundColorByHexString("#f7f7f8");
         }, 500);
-        
+
         this.receivedEvent('deviceready');
     },
     onPause: function () {
@@ -96,7 +98,10 @@ var app = {
             online();
         }, false);
 
-        var push = PushNotification.init({
+        crashlytics = FirebaseCrashlytics.initialise();
+        crashlytics.logException("my caught exception");
+
+        push = PushNotification.init({
             android: {}
         });
 
@@ -184,7 +189,6 @@ function online() {
 
 /*
 J'ai remove ça du config.xml juste pour save ça qq part : 
-
 <preference name="AndroidLaunchMode" value="singleInstance" />
 <preference name="KeepRunning" value="true" />
 */

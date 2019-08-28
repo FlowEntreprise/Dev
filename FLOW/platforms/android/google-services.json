@@ -1,39 +1,37 @@
 {
   "project_info": {
-    "project_number": "378567875030",
-    "firebase_url": "https://flow-51ff9.firebaseio.com",
-    "project_id": "flow-51ff9",
-    "storage_bucket": "flow-51ff9.appspot.com"
+    "project_number": "320132615636",
+    "firebase_url": "https://flow-85249.firebaseio.com",
+    "project_id": "flow-85249",
+    "storage_bucket": "flow-85249.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:378567875030:android:11a3c2056457f1c8",
+        "mobilesdk_app_id": "1:320132615636:android:11a3c2056457f1c8",
         "android_client_info": {
           "package_name": "com.flowapp.flow"
         }
       },
       "oauth_client": [
         {
-          "client_id": "378567875030-nj2lep3i4ifpbu23cd0er5ktkh8rohms.apps.googleusercontent.com",
+          "client_id": "320132615636-8f4u2k95equ8nd8v6mvhaod4qm73j3fq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBxLyv0Uol9YYWvdqp-9ybvep-21YPMJDE"
+          "current_key": "AIzaSyCCf20X2XPj9NOSlda5E4M6mziBeC5NAWM"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "320132615636-8f4u2k95equ8nd8v6mvhaod4qm73j3fq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

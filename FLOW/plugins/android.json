@@ -84,6 +84,10 @@
     },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-firebase-crashlytics": {
+      "ANDROID_FIREBASE_VERSION": "11.8.0",
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {}
