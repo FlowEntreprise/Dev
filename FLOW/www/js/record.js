@@ -60,7 +60,7 @@ document.getElementById("popup-record").addEventListener("opened", function () {
     });
     $(".record-shadow")[0].style.display = "block";
     if (record_was_hold) {
-        $$('.frecord-btn').addClass('frecord-btn-active');
+        // $$('.frecord-btn').addClass('frecord-btn-active');
     }
     analytics.logEvent("open_record", {
         private_id: window.localStorage.getItem("user_private_id")
@@ -74,6 +74,7 @@ document.getElementById("popup-record").addEventListener("closed", function () {
     stopCapture();
     current_page = "home";
     analytics.setCurrentScreen(current_page);
+    record_was_hold = false;
 });
 
 document.getElementById("popup-after-record").addEventListener("opened", function () {
@@ -88,6 +89,7 @@ document.getElementById("popup-after-record").addEventListener("closed", functio
     $(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
+    record_was_hold = false;
 });
 
 document.getElementById("popup-after-story-record").addEventListener("opened", function () {
@@ -113,8 +115,10 @@ document.getElementById("popup-story-record").addEventListener("opened", functio
 
 $$('.frecord-btn').on('click', function () {
     if (recording) {
+        console.log("stop recording");
         stopCapture();
-    } else {
+    } else if (!record_was_hold) {
+        console.log("start recording");
         startCapture();
     }
 });
@@ -126,6 +130,8 @@ $$('body').on('touchend', function () {
 });
 
 $$('.frestart-after_btn').on('touchend', function () {
+    console.log("restart record");
+    record_was_hold = false;
     if (current_page == "after-record") {
         // app.closeModal('.popup-after-record');
         Popup("popup-after-record", false);
@@ -678,7 +684,9 @@ var startCapture = function () {
             recording = true;
             audioDataBuffer = [];
             start_time = Date.now();
-            $(".frecord_indicator")[0].style.display = "block";
+            $$('.frecord_indicator').css({
+                "display": "block"
+            });
             UpdateRecordIndicator();
             window.audioinput.start(captureCfg);
             $(".frecord-btn")[0].style.background = "url(\"src/icons/stop_icon.png\") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054)";
@@ -719,18 +727,19 @@ var startCapture = function () {
  * Stop the capture, encode the captured audio to WAV and show audio element in UI.
  */
 var stopCapture = function () {
+
+    $(".frecord-btn")[0].style.background = "url(\"src/icons/Record.png\") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054)";
+    $$('.frecord_indicator').css({
+        "display": "none",
+        "stroke-dasharray": "0 100"
+    });
     // try {
     if (window.audioinput && window.audioinput.isCapturing()) {
 
         if (window.audioinput) {
             // mediaRecorder.stop();
             window.audioinput.stop();
-            $$('.frecord_indicator').css({
-                "display": "none",
-                "stroke-dasharray": "0 100"
-            });
-            $(".frecord-btn")[0].style.background = "url(\"src/icons/Record.png\") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054)";
-
+            
             recording = false;
         }
         console.log("Encoding WAV...");

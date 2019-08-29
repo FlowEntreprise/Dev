@@ -40,7 +40,7 @@
 .fblock_comment_content {
     position: absolute;
     width: 100vw;
-    height: calc(59* var(--custom-vh));
+    height: calc(100% - 10* var(--custom-vh));
     top: calc(5.5* var(--custom-vh));
     overflow-y: scroll;
 }

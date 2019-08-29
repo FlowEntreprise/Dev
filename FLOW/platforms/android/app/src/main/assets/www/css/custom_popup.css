@@ -25,7 +25,19 @@
     background: white;
     height: calc(100 * var(--custom-vh));
     width: 100vw;
-    transform: translate3d(0px, calc(100* var(--custom-vh)), 0px);
     transition-duration: 0.5s;
     transform-origin: top;
 }
+
+.popup_content[animation-direction="up"] {
+    transform: translate3d(0px, calc(100* var(--custom-vh)), 0px);
+ }
+ .popup_content[animation-direction="down"] {
+    transform: translate3d(0px, calc(-100* var(--custom-vh)), 0px);
+ }
+ .popup_content[animation-direction="left"] {
+    transform: translate3d(-100vw, 0px, 0px);
+ }
+ .popup_content[animation-direction="right"] {
+    transform: translate3d(100vw, 0px, 0px);
+ }
