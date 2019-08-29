@@ -11,6 +11,7 @@ var appState = {
 };
 
 var crashlytics;
+var analytics;
 var push;
 
 var app = {
@@ -101,6 +102,9 @@ var app = {
         crashlytics = FirebaseCrashlytics.initialise();
         crashlytics.logException("my caught exception");
 
+        analytics = cordova.plugins.firebase.analytics;
+        analytics.setCurrentScreen(current_page);
+
         push = PushNotification.init({
             android: {}
         });
@@ -117,7 +121,10 @@ var app = {
         push.on('error', function (e) {
             console.log(e.message)
         });
+
+        CheckIfConnected();
     }
+
 
 };
 

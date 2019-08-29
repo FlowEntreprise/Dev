@@ -534,3 +534,4 @@ document.getElementById("popup-comment").addEventListener("opened", function() {
     StatusBar.backgroundColorByHexString('#f7f7f8');
     StatusBar.styleDefault();
 });
+

@@ -376,6 +376,7 @@ function CloseStory() {
         story_window = null;
         InStory = false;
         current_page = "home";
+        analytics.setCurrentScreen(current_page);
         StorySiriWave.stop();
     }, 400);
 
@@ -384,6 +385,7 @@ function CloseStory() {
     StatusBar.styleDefault();
     window.plugins.insomnia.allowSleepAgain();
 }
+
 
 function showStoryComments() {
     story_data[story_index].data[storyFlow_index].audio.pause();
@@ -820,6 +822,7 @@ document.getElementById("popup-story-record").addEventListener("opened", functio
     });
     $(".record-shadow")[0].style.display = "block";
     current_page = "record-story";
+    analytics.setCurrentScreen(current_page);
 });
 
 document.getElementById("popup-story-record").addEventListener("closed", function() {
@@ -829,4 +832,5 @@ document.getElementById("popup-story-record").addEventListener("closed", functio
     $(".record-shadow")[0].style.display = "none";
     StopRecording();
     current_page = "home";
+    analytics.setCurrentScreen(current_page);
 });

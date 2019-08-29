@@ -297,6 +297,7 @@ function ShowMyFlow(flow) {
     }
 }
 
+
 function ShowMyInfosUser(data) {
     console.log(data.NbFollowing);
     MyFlowBandeau = data.NbFlow;

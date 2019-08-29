@@ -61,16 +61,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "twitter-connect-plugin": {
-    "source": {
-      "type": "registry",
-      "id": "twitter-connect-plugin"
-    },
-    "is_top_level": true,
-    "variables": {
-      "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038"
-    }
-  },
   "cordova-plugin-camera": {
     "source": {
       "type": "registry",
@@ -205,8 +195,33 @@
       "id": "cordova-plugin-firebase-crashlytics@0.0.6"
     },
     "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-support-android-plugin": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-support-android-plugin"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-firebase-analytics": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-firebase-analytics@2.0.4"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-twitter3-connect-plugin": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/guylando/twitterkit3-plugin"
+    },
+    "is_top_level": true,
     "variables": {
-      "ANDROID_FIREBASE_CORE_VERSION": "16.0.1"
+      "TWITTER_KEY": "JwyvPlw7GcOvE8pXmRvqTyZL3",
+      "TWITTER_SECRET": "6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT"
     }
   }
 }

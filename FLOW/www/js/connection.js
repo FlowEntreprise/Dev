@@ -1,7 +1,7 @@
 //DisconnectUser();
 var connected = false;
 var user_token;
-CheckIfConnected();
+// CheckIfConnected();
 
 function ConnectUser() {
     console.log("user connected");
@@ -16,6 +16,7 @@ function ConnectUser() {
     app.closeModal('.popup-connect');
     ServerManager.GetStory();
     ServerManager.GetTimeline(0);
+    analytics.logEvent("user_connection", {private_id: window.localStorage.getItem("user_private_id")});
     //$( "#fswipe_area" ).css({"pointer-events": "all"});
 }
 
@@ -26,6 +27,7 @@ function DisconnectUser() {
         "display": "block"
     });
     app.showTab("#tab1");
+    analytics.logEvent("user_disconnection", {private_id: window.localStorage.getItem("user_private_id")});
     //$( "#fswipe_area" ).css({"pointer-events": "none"});
 }
 
@@ -33,6 +35,7 @@ $$('.fneed_connect').on('click', function () {
     if (!connected) {
         app.popup('.popup-connect');
         current_page = "connect-popup";
+        analytics.setCurrentScreen(current_page);
     }
 });
 

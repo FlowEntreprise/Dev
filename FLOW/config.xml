@@ -29,12 +29,11 @@
         <resource-file src="google-services.json" target="google-services.json" />
         <preference name="SplashStatusBarBackgroundColor" value="#007EFF" />
         <preference name="SplashNavigationBarBackgroundColor" value="#FF0054" />
-        <preference name="SplashScreen" value="screen"/>
-        <!-- <preference name="SplashScreenDelay" value="3000"/> -->
+        <preference name="SplashScreen" value="screen" />
         <preference name="AutoHideSplashScreen" value="false" />
-        <preference name="FadeSplashScreenDuration" value="0"/>
-        <splash src="res/screen/android/splash.png"></splash>
-        <preference name="ShowSplashScreenSpinner" value="true"/>
+        <preference name="FadeSplashScreenDuration" value="0" />
+        <splash src="res/screen/android/splash.png" />
+        <preference name="ShowSplashScreenSpinner" value="true" />
         <preference name="SplashMaintainAspectRatio" value="true" />
     </platform>
     <preference name="Orientation" value="portrait" />
@@ -59,9 +58,6 @@
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
     </plugin>
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
-    <plugin name="twitter-connect-plugin" spec="^0.6.0">
-        <variable name="FABRIC_KEY" value="1c7233ea28bcc14682e840d324ff7fbb32b9c038" />
-    </plugin>
     <plugin name="cordova-plugin-k-imagecropper" spec="^1.2.0">
         <variable name="ANDROID_SUPPORT_APPCOMPAT_VERSION" value="27.+" />
     </plugin>

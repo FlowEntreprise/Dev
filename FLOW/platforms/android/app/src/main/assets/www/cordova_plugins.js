@@ -170,14 +170,6 @@ module.exports = [
     ]
   },
   {
-    "id": "twitter-connect-plugin.TwitterConnect",
-    "file": "plugins/twitter-connect-plugin/www/TwitterConnect.js",
-    "pluginId": "twitter-connect-plugin",
-    "clobbers": [
-      "TwitterConnect"
-    ]
-  },
-  {
     "id": "phonegap-plugin-push.PushNotification",
     "file": "plugins/phonegap-plugin-push/www/push.js",
     "pluginId": "phonegap-plugin-push",
@@ -438,6 +430,22 @@ module.exports = [
     "clobbers": [
       "FirebaseCrashlytics"
     ]
+  },
+  {
+    "id": "cordova-plugin-firebase-analytics.FirebaseAnalytics",
+    "file": "plugins/cordova-plugin-firebase-analytics/www/FirebaseAnalytics.js",
+    "pluginId": "cordova-plugin-firebase-analytics",
+    "merges": [
+      "cordova.plugins.firebase.analytics"
+    ]
+  },
+  {
+    "id": "cordova-twitter3-connect-plugin.TwitterConnect",
+    "file": "plugins/cordova-twitter3-connect-plugin/www/TwitterConnect.js",
+    "pluginId": "cordova-twitter3-connect-plugin",
+    "clobbers": [
+      "TwitterConnect"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -452,7 +460,6 @@ module.exports.metadata =
   "cordova-plugin-statusbar": "2.4.2",
   "cordova-plugin-whitelist": "1.3.3",
   "cordova.plugins.diagnostic": "4.0.11",
-  "twitter-connect-plugin": "0.6.0",
   "cordova-android-support-gradle-release": "2.1.0",
   "cordova-support-google-services": "1.3.1",
   "phonegap-plugin-multidex": "1.0.0",
@@ -466,7 +473,10 @@ module.exports.metadata =
   "cordova-plugin-media": "5.0.3",
   "cordova-plugin-audioinput": "1.0.2",
   "cordova-plugin-splashscreen": "4.0.0",
-  "cordova-plugin-firebase-crashlytics": "0.0.6"
+  "cordova-plugin-firebase-crashlytics": "0.0.6",
+  "cordova-support-android-plugin": "1.0.1",
+  "cordova-plugin-firebase-analytics": "2.0.4",
+  "cordova-twitter3-connect-plugin": "1.0.5"
 };
 // BOTTOM OF METADATA
 });

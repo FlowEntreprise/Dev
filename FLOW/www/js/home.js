@@ -20,6 +20,7 @@ ptrContent.on('ptr:refresh', function (e) {
   // }, 1000);
 });
 
+
 ptrContent.on('ptr:pullstart', function (e) {
   console.log("pull start");
   $("#ptr_arrow").css("opacity", "1");

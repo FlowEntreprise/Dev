@@ -62,14 +62,6 @@ module.exports = [
         "runs": true
     },
     {
-        "file": "plugins/twitter-connect-plugin/www/TwitterConnect.js",
-        "id": "twitter-connect-plugin.TwitterConnect",
-        "pluginId": "twitter-connect-plugin",
-        "clobbers": [
-            "TwitterConnect"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
         "id": "cordova-plugin-camera.Camera",
         "pluginId": "cordova-plugin-camera",
@@ -408,6 +400,22 @@ module.exports = [
         "clobbers": [
             "FirebaseCrashlytics"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-firebase-analytics/www/FirebaseAnalytics.js",
+        "id": "cordova-plugin-firebase-analytics.FirebaseAnalytics",
+        "pluginId": "cordova-plugin-firebase-analytics",
+        "merges": [
+            "cordova.plugins.firebase.analytics"
+        ]
+    },
+    {
+        "file": "plugins/cordova-twitter3-connect-plugin/www/TwitterConnect.js",
+        "id": "cordova-twitter3-connect-plugin.TwitterConnect",
+        "pluginId": "cordova-twitter3-connect-plugin",
+        "clobbers": [
+            "TwitterConnect"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -421,7 +429,6 @@ module.exports.metadata =
     "cordova-plugin-facebook4": "4.2.1",
     "cordova-plugin-googleplus": "7.0.0",
     "cordova-plugin-inappbrowser": "3.0.0",
-    "twitter-connect-plugin": "0.6.0",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-k-imagecropper": "1.2.0",
     "cordova-android-support-gradle-release": "2.1.0",
@@ -436,7 +443,10 @@ module.exports.metadata =
     "cordova-plugin-audioinput": "1.0.2",
     "cordova-plugin-compat": "1.2.0",
     "cordova-plugin-splashscreen": "4.0.0",
-    "cordova-plugin-firebase-crashlytics": "0.0.6"
+    "cordova-plugin-firebase-crashlytics": "0.0.6",
+    "cordova-support-android-plugin": "1.0.1",
+    "cordova-plugin-firebase-analytics": "2.0.4",
+    "cordova-twitter3-connect-plugin": "1.0.5"
 }
 // BOTTOM OF METADATA
 });

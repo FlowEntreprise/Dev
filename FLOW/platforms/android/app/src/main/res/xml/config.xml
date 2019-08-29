@@ -34,9 +34,6 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="TwitterConnect">
-        <param name="android-package" value="com.manifestwebdesign.twitterconnect.TwitterConnect" />
-    </feature>
     <feature name="PushNotification">
         <param name="android-package" value="com.adobe.phonegap.push.PushPlugin" />
     </feature>
@@ -68,6 +65,17 @@
         <param name="android-package" value="uk.co.reallysmall.cordova.plugin.firebase.crashlytics.FirebaseCrashlyticsPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="FirebaseAnalytics">
+        <param name="android-package" value="by.chemerisuk.cordova.firebase.FirebaseAnalyticsPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="TwitterConnect">
+        <param name="android-package" value="com.manifestwebdesign.twitterconnect.TwitterConnect" />
+    </feature>
+    <widget>
+        <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
+        <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
+    </widget>
     <feature name="Diagnostic">
         <param name="android-package" value="cordova.plugins.Diagnostic" />
         <param name="onload" value="true" />

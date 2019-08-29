@@ -172,6 +172,8 @@ function onBackKeyDown() {
     else if (current_page == "home") {
         navigator.app.exitApp();
     }
+    analytics.setCurrentScreen(current_page);
 }
+
 
 
