@@ -13,6 +13,7 @@ var appState = {
 var crashlytics;
 var analytics;
 var push;
+var adm;
 
 var app = {
     // Application Constructor
@@ -123,6 +124,13 @@ var app = {
         });
 
         CheckIfConnected();
+
+        adm = AdMan.Mobile.getDefaultView(777, "audioTag", "sampleDivElement");
+        // adm.events.adReady = () => {
+        //     adm.show();
+        // };
+        // adm.preload();
+        // adm.start();
     }
 
 
