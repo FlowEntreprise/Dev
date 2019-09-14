@@ -12,7 +12,7 @@ var accountFlowAdd = true;
 var UserFlowAdd = true;
 var profilePicLink;
 
-$(".fnavAccount").css("transform", "translate3d(0vw, 7vh, 0vh)");
+$(".fnavAccount").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 
 
 document.getElementById("popup-account").addEventListener("opened", function () {

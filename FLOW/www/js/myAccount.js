@@ -7,7 +7,7 @@ var privateID;
 var indexMyFlow;
 var MyFlowAdd = true;
 
-$(".fnavMonCompte").css("transform", "translate3d(0vw, 7vh, 0vh)");
+$(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 
 document.getElementById("popup-myaccount").addEventListener("opened", function () {
     indexMyFlow = 0;
