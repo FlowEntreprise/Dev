@@ -16,6 +16,7 @@ $(".fnavAccount").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)),
 
 
 document.getElementById("popup-account").addEventListener("opened", function () {
+    current_page = "account";
     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
     $(".fflow-btn").css("display", "none");
     $(".flow-btn-shadow").css("display", "none");
@@ -116,6 +117,8 @@ document.getElementById("popup-account").addEventListener("opened", function () 
         // follow = "";
         // followYou = "";
         $(".fflow-btn").css("display", "block");
+        current_page = "home";
+        Popup("popup-account", false);
         // mainView.back();
     });
 

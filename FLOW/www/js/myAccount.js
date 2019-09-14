@@ -10,6 +10,7 @@ var MyFlowAdd = true;
 $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 
 document.getElementById("popup-myaccount").addEventListener("opened", function () {
+    current_page = "my-account";
     indexMyFlow = 0;
     $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
     $("#MyActivity")[0].innerHTML = "";
@@ -46,6 +47,8 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     $("#fgobackmonCompte").click(function () {
         // mainView.back();
         $(".fflow-btn").css("display", "block");
+        current_page = "home";
+        Popup("popup-myaccount", false);
         //$(".flow-btn-shadow").css("display", "block");
     });
 
@@ -271,18 +274,6 @@ function ShowMyFlow(flow) {
             loading_tl.className = "loading_circle loading_myaccount";
             $("#MyActivity")[0].appendChild(loading_tl);
         }
-    }
-}
-
-// cette fonction permet de legerement shake les block de flow quand on click sur son image de profil alors qu'on est deja dans mon compte
-function shake()             
-{
-
-    if($("#feditProfil"))
-    {
-    $(".fposter_photo").click(function(){
-        $("#tabMonCompte1").effect( "shake", {times:2}, 500 );
-     });
     }
 }
 
