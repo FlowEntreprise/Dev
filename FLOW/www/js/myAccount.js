@@ -262,6 +262,7 @@ function ShowMyFlow(flow) {
             let block_params = {
                 parent_element: $("#MyActivity"),
                 afterblock: false,
+                ObjectId: data.ObjectId,
                 audioURL: flow_link,
                 duration: data.Duration,
                 patternKey: pattern_key,
@@ -269,7 +270,8 @@ function ShowMyFlow(flow) {
                 title: data.Title,
                 description: data.Description,
                 pseudo: data.PrivateId,
-                account_imageURL: profilePicLink
+                account_imageURL: profilePicLink,
+                Times: data.Time
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
@@ -297,6 +299,17 @@ function ShowMyFlow(flow) {
     }
 }
 
+// cette fonction permet de legerement shake les block de flow quand on click sur son image de profil alors qu'on est deja dans mon compte
+function shake()             
+{
+
+    if($("#feditProfil"))
+    {
+    $(".fposter_photo").click(function(){
+        $("#tabMonCompte1").effect( "shake", {times:2}, 500 );
+     });
+    }
+}
 
 function ShowMyInfosUser(data) {
     console.log(data.NbFollowing);

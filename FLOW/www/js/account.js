@@ -244,6 +244,7 @@ function ShowUserFlow(flow) {
             let block_params = {
                 parent_element: $("#UserActivity"),
                 afterblock: false,
+                ObjectId: data.ObjectId,
                 audioURL: flow_link,
                 duration: data.Duration,
                 patternKey: pattern_key,
@@ -251,7 +252,8 @@ function ShowUserFlow(flow) {
                 title: data.Title,
                 description: data.Description,
                 pseudo: data.PrivateId,
-                account_imageURL: profilePicLink
+                account_imageURL: profilePicLink,
+                Times: data.Time
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
