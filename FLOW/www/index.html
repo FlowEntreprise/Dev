@@ -60,7 +60,8 @@
                     <div class="fhome-bar">
                         <div class="ftitle">FLOW</div>
                         <div class="fneed_connect" style="right: 0px; top: 0px; height: 10vh"></div>
-                        <a href="../www/pages/myAccount.html" class="faccount open-login-screen"></a>
+                        <!-- <a href="../www/pages/myAccount.html" class="faccount open-login-screen"></a> -->
+                        <div class="faccount" onclick="Popup('popup-myaccount', true)"></div>
                         <div class="fstories_title">Stories</div>
                         <ul class="fstory_list">
                             <li>
@@ -296,28 +297,127 @@
                 </div>
             </div>
 
-            <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+            <div class="custom_popup" id="popup-myaccount">
+                <div class="popup_bg"></div>
+                <div class="popup_content" animation-direction="left">
+                    <div class="page no-navbar no-toolbar no-swipeback fbackgroundMonCompte">
+                        <div id="accountBannerScroll">
+                            <div id="freturnMonCompte" onclick="Popup('popup-myaccount', false)">
+                                <img src="src/icons/Retour@3x.png" id="fgobackmonCompte">
+                            </div>
+                            <div id="fbandeauMonCompte">
+                                <div class="finfoBandeau" id="ffLowBandeau">Flows</div>
+                                <div class="finfoBandeau" id="ffollowersBandeau">Followers</div>
+                                <div class="finfoBandeau" id="ffollowingBandeau">Following</div>
+                                <div id="fflowmyBandeauChiffre"></div>
+                                <div id="ffollowersmyBandeauChiffre"></div>
+                                <div id="ffollowingmyBandeauChiffre"></div>
+                            </div>
+                            <div id="fmyprofilPicture"></div>
+                            <div id="fnameMonCompte">Loading</div>
+                            <div id="myprivateID"></div>
+                            <div id="fbioMonCompte"></div>
+                            <div id="feditProfil">EDIT PROFIL</div>
+                        </div>
+                        <div class="toolbar no-border fnavMonCompte fnavMonCompteTransitionTop">
+                            <div class="toolbar-inner sizeTollBar">
+                                <a href="#tabMonCompte1" class="fnav-btn tab-link MonCompte active">My Activity</a>
+                                <a href="#tabMonCompte2" class="fnav-btn tab-link MonCompte">Likes</a>
+                                <a href="#tabMonCompte3" class="fnav-btn tab-link MonCompte">Saved</a>
+                            </div>
+                        </div>
+                        <div class="tabs-swipeable-wrap ftabsMonCompte" id="AccountTabSize">
+                            <div class="tabs scrollEvent swiper-wrapper">
+                                <div id="tabMonCompte1" class="page-content tab active scrollMyAccunt">
+                                    <div class="content-block fblockMonCompte fblockMonComptePadding" id="MyActivity">
+                                    </div>
+                                </div>
+                                <div id="tabMonCompte2" class="page-content tab scrollMyAccunt">
+                                    <div id="MyLikes" class="content-block fblockMonCompte fblockMonComptePadding">
+                                    </div>
+                                </div>
+                                <div id="tabMonCompte3" class="page-content tab scrollMyAccunt">
+                                    <div class="content-block fblockMonCompte">Tous les flow Saved</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="fmybigProfilPictureContainer">
+                            <img src="src/icons/Trace78@3x.png" alt="" id="returnmyProfilPicture">
+                            <div id="fmybigProfilPicture"></div>
+                        </div>
+                        <div id="feditProfilePopupContainer"> </div>
+                        <div id="editProfilePopup">
+                            <img src="src/icons/cancel.png" id="fcloseProfilPopup">
+                            <div id="fprofilPicturePopup"></div>
+                            <input type="text" id="editProfileName">
+                            <textarea name="" id="feditBio" cols="25" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="custom_popup" id="popup-account">
+                <div class="popup_bg"></div>
+                <div class="popup_content" animation-direction="right">
+                    <div class="page no-navbar no-toolbar no-swipeback fbackgroundCompte">
+                        <div id="accountBannerScrollAccount">
+                            <div id="freturnCompte" onclick="Popup('popup-account', false)">
+                                <img src="../www/src/icons/Retour@3x.png" id="fgobackCompte">
+                            </div>
+                            <div id="fbandeauCompte">
+                                <div class="finfoBandeau" id="ffLowBandeau">Flows</div>
+                                <div class="finfoBandeau" id="ffollowersBandeau">Followers</div>
+                                <div class="finfoBandeau" id="ffollowingBandeau">Following</div>
+                                <div id="fflowBandeauChiffre"></div>
+                                <div id="ffollowersBandeauChiffre"></div>
+                                <div id="ffollowingBandeauChiffre"></div>
+                            </div>
+                            <div id="fprofilPicture"></div>
+                            <div id="fnameCompte"></div>
+                            <div id="privateID"></div>
+                            <div id="fbioCompte"></div>
+                            <div id="fFollowButtunAccount">FOLLOW</div>
+                            <div id="fFollowYouButtunAccount">follows you</div>
+                        </div>
+                        <div class="toolbar no-border fnavAccount fnavAccountTransitionTop">
+                            <div class="toolbar-inner sizeTollBarAccount">
+                                <a href="#tabCompte1" class="fnav-btn tab-link Compte active">Activity</a>
+                                <a href="#tabCompte2" class="fnav-btn tab-link Compte">Likes</a>
+                            </div>
+                        </div>
+                        <div class="tabs-swipeable-wrap ftabsAccount" id="AccountTabSize">
+                            <div class="tabs scrollEventAccount">
+                                <div id="tabCompte1" class="page-content tab active scrollAccunt">
+                                    <div class="content-block fblockCompte fblockAccountPadding" id="UserActivity">
+                                    </div>
+                                </div>
+                                <div id="tabCompte2" class="page-content tab scrollAccunt">
+                                    <div id="MyLikes" class="content-block fblockCompte fblockAccountPadding"></div>
+                                </div>
+                                <div id="tabCompte3" class="page-content tab scrollAccunt">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="fbigProfilPictureContainer">
+                            <img src="src/icons/Trace78@3x.png" alt="" id="returnProfilPicture">
+                            <div id="fbigProfilPicture"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="pages navbar-through toolbar-through">
                 <div class="page with-subnavbar">
-                    <!-- Tabs swipeable wrapper, required to switch tabs with swipes -->
                     <div class="tabs-swipeable-wrap">
-                        <!-- Tabs, tabs wrapper -->
                         <div class="tabs">
-                            <!-- Tab 1, active by default -->
                             <div id="tab1" class="page-content pull-to-refresh-content tab active hide-navbar-on-scroll"
                                 data-ptr-distance="55">
-
                             </div>
-                            <!-- Tab 2 -->
                             <div id="tab2" class="page-content tab hide-navbar-on-scroll">
-                                <!-- TAB 2 CONTENT -->
                             </div>
-
                             <div id="tab3" class="page-content tab">
-                                <!-- TAB 3 CONTENT -->
                             </div>
                             <div id="tab4" class="page-content tab">
-                                <!-- TAB 4 CONTENT -->
                             </div>
                         </div>
                     </div>
@@ -337,7 +437,7 @@
 
     <div class="custom_popup" id="popup-comment">
         <div class="popup_bg"></div>
-        <div class="popup_content" style="border-radius: 15px 15px 0px 0px" animation-direction="up"> 
+        <div class="popup_content" style="border-radius: 15px 15px 0px 0px" animation-direction="up">
             <label class="fcomment_number">605 comments</label>
             <img src="src/icons/cancel.png" class="fclose_comment" onclick="Popup('popup-comment', false)">
             <div class="popover">

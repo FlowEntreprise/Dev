@@ -105,7 +105,8 @@ function block(params) {
     this.ftop_part.appendChild(this.fpause_button);
 
     this.fposter_photo = document.createElement('a');
-    this.fposter_photo.setAttribute('href', '../www/pages/account.html');
+    // this.fposter_photo.setAttribute('href', '../www/pages/account.html');
+    this.fposter_photo.setAttribute("onclick", "Popup('popup-account', true)");
     this.fposter_photo.className = 'fposter_photo';
     this.fposter_photo.style.backgroundImage = "url('" + params.account_imageURL + "')";
     this.ftop_part.appendChild(this.fposter_photo);

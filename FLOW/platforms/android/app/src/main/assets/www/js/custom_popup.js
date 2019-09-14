@@ -30,10 +30,10 @@ function Popup(identifier, show, height = 0) {
         popup.children[0].style.opacity = "0";
         switch (animation_direction) {
             case "left":
-                popup.children[1].style.transform = "translate3d(-100vw, 0px, 0px)";
+                popup.children[1].style.transform = "translate3d(100vw, 0px, 0px)";
                 break;
             case "right":
-                popup.children[1].style.transform = "translate3d(100vw, 0px, 0px)";
+                popup.children[1].style.transform = "translate3d(-100vw, 0px, 0px)";
                 break;
             case "up":
                 popup.children[1].style.transform = "translate3d(0px, calc(100* var(--custom-vh)), 0px)";
