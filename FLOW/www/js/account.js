@@ -249,6 +249,7 @@ function ShowUserFlow(flow) {
             let block_params = {
                 parent_element: $("#UserActivity"),
                 afterblock: false,
+                ObjectId: data.ObjectId,
                 audioURL: flow_link,
                 duration: data.Duration,
                 patternKey: pattern_key,

@@ -164,7 +164,7 @@ function block(params) {
 
         this.fpost_tag = document.createElement('p');
         this.fpost_tag.className = 'fpost_tag';
-        this.fpost_tag.innerText = '#Fresh #Sumer';
+        this.fpost_tag.innerText = '';
         this.fbottom_part.appendChild(this.fpost_tag);
 
         this.flike = document.createElement('div');
@@ -363,19 +363,24 @@ function block(params) {
     $(this.fimg_impression_echo).on('click', function () {
 
         impression_coloring(this, 'echo', block.fimg_impression_echo);
+        $("#tabMonCompte1").effect( "shake", {times:2}, 500 );
     });
 
     $(this.fimg_impression_comment).on('click', function () {
-
+        $(".fblock_comment_content").html("");
+        var loading_comment = document.createElement("div");
+        loading_comment.className = "loading_circle loading_tl loading_comment";
+        $(".fblock_comment_content").append(loading_comment);
+        $(".fcomment_number").text("");
         current_flow_block = block;
         let data = {
 
             ObjectId: current_flow_block.ObjectId
-        }
+        };
         ServerManager.GetFlowComment(data);
 
-        // app.popup('.popup_comment');
         Popup("popup-comment", true, 40);
+        
     });
 }
 // fonction permettant de colorier ou non les like, echo et comment.
@@ -424,12 +429,28 @@ $(document).on('click', 'a.fposter_photo', function () {
     var parent = $(this).parent().parent();
     var parentBlockId = parent.attr("block_id");
     fInitialisationAccount(all_blocks[parentBlockId].privateID);
+    shake();
+
 });
 
 function get_all_comment(response) {
 
-    $(".fblock_comment_content").html("");
-    console.log(response);
+    
+    
+        var text_comment_number;
+        if(response == "ERROR GET COMMENT FLOW")
+        {            
+            $(".loading_comment").remove();
+            text_comment_number = " 0 commentaire";
+        }
+        else if(response.Data.length)
+        {
+            
+            (response.Data.length == 1) ? (text_comment_number = response.Data.length +" commentaire") : (text_comment_number = response.Data.length +" commentaires");
+        }
+        $(".fcomment_number").text(text_comment_number);
+    
+    console.log(response);    
     var i = 0;
     for (i = 0; i < response.Data.length; i++) {
 
@@ -446,14 +467,16 @@ function get_all_comment(response) {
             IsLike: response.Data[i].IsLike,
             IdComment: response.Data[i].IdComment
 
-        }
+        };
 
-        let block_commentaire = new block_comment(comment_data);
+       // $(".loading_tl").remove();
+        let block_commentaire = new block_comment(comment_data);        
         $(".fblock_comment_content").append(block_commentaire);
-
-    }
+        
+    } 
+    if($.trim($(".fblock_comment_content").html()) != ""){$(".loading_comment").remove();}
     impression_coloring(this, 'comment', block.fimg_impression_comment);
-
+    
 }
 
 var all_blocks = [];

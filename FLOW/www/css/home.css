@@ -175,7 +175,7 @@
     left: calc(50vw - 2.5vh);
     height: 5vh;
     width: 5vh;
-    background-image: url("../src/icons/loading_speed.png");
+    background-image: url("../src/icons/loading_speed_clockwise.png");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
