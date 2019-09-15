@@ -119,6 +119,7 @@ function onBackKeyDown() {
         Popup("popup-after-record", false);
         Popup("popup-record", true);
         current_page = "record";
+        stopAllBlocksAudio();
     }
     else if (current_page == "after-story-record") {
         // app.closeModal('.popup-after-story-record');
@@ -126,6 +127,7 @@ function onBackKeyDown() {
         // app.popup('.popup-story-record');
         Popup("popup-story-record", true);
         current_page = "record-story";
+        stopAllBlocksAudio();
     }
     else if (current_page == "story") {
         CloseStory();
@@ -133,13 +135,16 @@ function onBackKeyDown() {
     else if (current_page == "my-account") {
         Popup("popup-myaccount", false);
         current_page = "home";
+        stopAllBlocksAudio();
     }
     else if (current_page == "account") {
         Popup("popup-account", false);
         current_page = "home";
+        stopAllBlocksAudio();
     }
     else if (current_page == "home") {
         navigator.app.exitApp();
+        stopAllBlocksAudio();
     }
     analytics.setCurrentScreen(current_page);
 }

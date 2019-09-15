@@ -219,6 +219,7 @@ function RefreshStories() {
 }
 
 function SpawnStoryWindow(story_block) {
+    stopAllBlocksAudio();
     window.plugins.insomnia.keepAwake();
     story_window = document.createElement("div");
     story_window.className = "fstory_window";

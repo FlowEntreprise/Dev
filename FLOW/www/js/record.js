@@ -48,6 +48,7 @@ $$('.frecord-btn').on('taphold', function () {
     }
 });
 document.getElementById("popup-record").addEventListener("opened", function () {
+    stopAllBlocksAudio();
     $$('#flow_number_of_sec').text("00");
     if (!debug_record) {
         pictureSource = navigator.camera.PictureSourceType;
@@ -86,6 +87,7 @@ document.getElementById("popup-after-record").addEventListener("opened", functio
 });
 
 document.getElementById("popup-after-record").addEventListener("closed", function () {
+    stopAllBlocksAudio();
     $(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
@@ -98,6 +100,7 @@ document.getElementById("popup-after-story-record").addEventListener("opened", f
     $(".floading-spinner.loading-story")[0].style.display = "none";
 });
 document.getElementById("popup-after-story-record").addEventListener("closed", function () {
+    stopAllBlocksAudio();
     $(".fvalidate-after_btn.story")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.story")[0].setAttribute("style", "");
     $(".floading-spinner.loading-story")[0].style.display = "none";
@@ -108,6 +111,7 @@ document.getElementById("popup-after-story-record").addEventListener("closed", f
 //     current_page = "record-story";
 // });
 document.getElementById("popup-story-record").addEventListener("opened", function () {
+    stopAllBlocksAudio();
     $$('.story_flow_duration').text("00");
     current_page = "record-story";
     analytics.setCurrentScreen(current_page);
@@ -330,6 +334,7 @@ function Save(wavblob) {
             account_imageURL: window.localStorage.getItem("user_profile_pic")
         };
         new_block = new block(block_params);
+        all_blocks.push(new_block);
         // $(".frandom-color-btn").on("click", function() {new_block.randomColorGradient()});
         patternKey = new_block.patternKey;
         appState.patternKey = patternKey;
@@ -366,6 +371,7 @@ function Save(wavblob) {
             storyAfterBlock: true
         };
         new_block = new block(block_params);
+        all_blocks.push(new_block);
         patternKey = new_block.patternKey;
         appState.patternKey = patternKey;
         appState.recordTime = record_time;
