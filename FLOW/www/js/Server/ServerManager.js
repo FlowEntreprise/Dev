@@ -314,7 +314,7 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
 
-                get_all_comment(response);
+                get_all_comment(response,final_data.Data.IdComment);
                 // console.log("Comment sucessfully added to database :");
                 // console.log(response);
 

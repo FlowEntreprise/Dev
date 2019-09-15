@@ -120,8 +120,8 @@ function send_comment_to_server(data)
     var new_block_comment = new block_comment(comment_data);
     var i = 0;
     current_flow_block.all_comment_blocks.push(new_block_comment);
+    impression_coloring(this, 'comment', current_flow_block.fimg_impression_comment);
     console.log(current_flow_block.all_comment_blocks[0].fblock_comment);
-    
     console.log("Comment sucessfully added to database :");
     console.log("data du send comment to server"+data+"");
 }

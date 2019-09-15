@@ -361,7 +361,7 @@ function block(params) {
 
     $(this.fimg_impression_like).on('click', function () {
 
-        impression_coloring(this, 'like', block.fimg_impression_like);
+        impression_coloring(this, 'like', block.fimg_impression_like, block.ftxt_impression_like);
         current_flow_block = block;
         let data = {
 
@@ -387,8 +387,10 @@ function block(params) {
         current_flow_block = block;
         let data = {
 
-            ObjectId: current_flow_block.ObjectId
+            ObjectId: current_flow_block.ObjectId,
+            IsComment: current_flow_block.IsComment 
         };
+        //impression_coloring(this, 'comment', block.fimg_impression_comment);
         ServerManager.GetFlowComment(data);
 
         Popup("popup-comment", true, 40);
@@ -401,14 +403,18 @@ function impression_coloring(object, type, block_item, like_type) {
     switch (type) {
         case 'like':
             $(object).each(function () {
+                
+                let like_number = $(block_impression_number).text();
 
                 var attr_img_like = $(object).attr('src');
                 if (attr_img_like === 'src/icons/Like.png') {
                     $(block_item).attr('src', 'src/icons/Like_filled.png');
+                    $(block_impression_number).text(+like_number + 1);
                     push_notif_block('like', like_type);
                 }
                 if (attr_img_like === 'src/icons/Like_filled.png') {
                     $(block_item).attr('src', 'src/icons/Like.png');
+                    $(block_impression_number).text(+like_number - 1);
                 }
             });
             break;
@@ -430,7 +436,9 @@ function impression_coloring(object, type, block_item, like_type) {
             $(object).each(function () {
                 var attr_img_comment = $(object).attr('src');
                 var comment_length = current_flow_block.all_comment_blocks.length;
+                $(block_item).attr('src', 'src/icons/Comment_filled.png');
                 push_notif_block('comment');
+                
             });
             break;
     }
@@ -498,7 +506,6 @@ function get_all_comment(response) {
     if ($.trim($(".fblock_comment_content").html()) != "") {
         $(".loading_comment").remove();
     }
-    impression_coloring(this, 'comment', block.fimg_impression_comment);
 
 }
 
