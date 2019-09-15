@@ -817,7 +817,7 @@ function PublishRecordedComment() {
 
 ////////////////////////// RECORDING STORY //////////////////////////
 document.getElementById("popup-story-record").addEventListener("opened", function() {
-    $$('.frecord-btn').css({
+    $('.frecord-btn').css({
         "display": "flex"
     });
     $(".record-shadow")[0].style.display = "block";

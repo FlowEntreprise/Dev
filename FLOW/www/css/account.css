@@ -233,6 +233,10 @@
     background-color: white;
     transition: all 0.5s;
     z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.4);
+    transition-duration: 0.3s;
 }
 
 #fbigProfilPicture
@@ -252,7 +256,8 @@
 {
     position: absolute;
     top: calc(3* var(--custom-vh));
-    left: 3vw;  
+    right: 3vw;  
     background-color: none;
     color: none;
+    width: 7vw;
 }

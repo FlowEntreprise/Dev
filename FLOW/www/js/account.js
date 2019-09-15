@@ -56,13 +56,21 @@ document.getElementById("popup-account").addEventListener("opened", function () 
         ServerManager.ActionFollow(ActionFollow);
     });
     $('#fprofilPicture').click(function () {
-        $("#fbigProfilPictureContainer").css("transform", "scale(1)");
+        $("#fbigProfilPictureContainer").css({
+            "transform": "scale(1)",
+            "opacity": "1",
+            "pointer-events": "auto"
+        });
     });
 
 
 
     $("#returnProfilPicture").click(function () {
-        $("#fbigProfilPictureContainer").css("transform", "scale(0)");
+        $("#fbigProfilPictureContainer").css({
+            "transform": "scale(0.4)",
+            "opacity": "0",
+            "pointer-events": "none"
+        });
     });
 
     function checkScrollAccount() {
@@ -117,6 +125,10 @@ document.getElementById("popup-account").addEventListener("opened", function () 
         // follow = "";
         // followYou = "";
         $(".fflow-btn").css("display", "block");
+        $(".flow-btn-shadow").css("display", "block");
+        $(".fflow-btn").css("z-index", "1");
+        $(".flow-btn-shadow").css("z-index", "0");
+
         current_page = "home";
         Popup("popup-account", false);
         // mainView.back();

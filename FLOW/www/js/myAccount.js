@@ -47,6 +47,9 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     $("#fgobackmonCompte").click(function () {
         // mainView.back();
         $(".fflow-btn").css("display", "block");
+        $(".flow-btn-shadow").css("display", "block");
+        $(".fflow-btn").css("z-index", "1");
+        $(".flow-btn-shadow").css("z-index", "0");
         current_page = "home";
         Popup("popup-myaccount", false);
         //$(".flow-btn-shadow").css("display", "block");
@@ -120,7 +123,21 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     }
 
     $('#fmyprofilPicture').click(function () {
-        $("#fmybigProfilPictureContainer").css("transform", "scale(1)");
+        $("#fmybigProfilPictureContainer").css({
+            "transform": "scale(1)",
+            "opacity": "1",
+            "pointer-events": "auto"
+        });
+    });
+
+
+
+    $("#returnmyProfilPicture").click(function () {
+        $("#fmybigProfilPictureContainer").css({
+            "transform": "scale(0.4)",
+            "opacity": "0",
+            "pointer-events": "none"
+        });
     });
 
     $("#fmybigProfilPicture").css({
@@ -135,13 +152,13 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
         $("#fmybigProfilPictureContainer").css("background-color", swatches.Muted.getHex());
     });
 
-    $("#returnmyProfilPicture").click(function () {
-        $("#fmybigProfilPictureContainer").css("transform", "scale(0)");
-    });
-
     $("#feditProfil").click(function () {
         $("#feditProfilePopupContainer").css("opacity", "1");
-        $("#editProfilePopup").css("transform", "scale(1)");
+        $("#editProfilePopup").css({
+            "transform": "scale(1)",
+            "opacity": "1",
+            "pointer-events": "auto"
+        });
         $("#feditProfilePopupContainer").css("pointer-events", "auto");
         $("#fprofilPicturePopup").css({
             "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
@@ -160,7 +177,11 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
                 ServerManager.UpdateProfile(updateEditProfile);
             }
             $("#feditProfilePopupContainer").css("opacity", "0");
-            $("#editProfilePopup").css("transform", "scale(0)");
+            $("#editProfilePopup").css({
+                "transform": "scale(0.4)",
+                "opacity": "0",
+                "pointer-events": "none"
+            });
             $("#feditProfilePopupContainer").css("pointer-events", "none");
         }
     });

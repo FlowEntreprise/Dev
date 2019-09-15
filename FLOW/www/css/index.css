@@ -226,6 +226,8 @@ h1 {
 } */
 
 .fflow-btn {
+    position: relative;
+    display: block;
     margin-top: calc(-5* var(--custom-vh)) !important;
     height: calc(10* var(--custom-vh)) !important;
     width: calc(10* var(--custom-vh)) !important;
@@ -233,6 +235,7 @@ h1 {
     border-radius: 100%;
     /* background: url("../src/icons/Record.png") no-repeat 4vh 4vh;linear-gradient(#1A84EF, #FF0054); */
     background: url("../src/icons/Record.png") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054);
+    z-index: 10;
    
     /* background-size: 4vh;
     background-position: center;
@@ -242,6 +245,7 @@ h1 {
 .flow-btn-shadow
 {
     position: absolute;
+    display: block;
     height: 10vh !important;
     width: 10vh !important;
     left: calc(50vw - 5vh);
@@ -250,6 +254,7 @@ h1 {
     background: linear-gradient(#1A84EF, #FF0054);
     filter: blur(10px);
     opacity: 0.8 !important;
+    z-index: 5;
 }
 
 
