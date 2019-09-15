@@ -130,6 +130,14 @@ function onBackKeyDown() {
     else if (current_page == "story") {
         CloseStory();
     }
+    else if (current_page == "my-account") {
+        Popup("popup-myaccount", false);
+        current_page = "home";
+    }
+    else if (current_page == "account") {
+        Popup("popup-account", false);
+        current_page = "home";
+    }
     else if (current_page == "home") {
         navigator.app.exitApp();
     }
