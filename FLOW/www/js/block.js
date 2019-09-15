@@ -12,7 +12,9 @@ var block_id = 0;
     title: undefined,
     description: undefined,
     pseudo: undefined,
-    account_imageURL: undefined
+    account_imageURL: undefined,
+    Islike,
+    Iscomment
   };
  ****************************************/
 function block(params) {
@@ -29,6 +31,9 @@ function block(params) {
     this.Time = params.Times;
     this.block_id = block_id;
     this.currentTime = 0;
+    this.IsLike = params.IsLike;
+    this.IsComment = params.IsComment;
+    this.Likes = params.Likes; 
 
     this.flowplay = function () {
         block.fplay_button.style.display = "none";
@@ -171,11 +176,11 @@ function block(params) {
         this.fbottom_part.appendChild(this.flike);
         this.fimg_impression_like = document.createElement('img');
         this.fimg_impression_like.className = 'fimg_impression';
-        this.fimg_impression_like.src = 'src/icons/Like.png';
+        this.fimg_impression_like.src =  this.IsLike == 1 ?  'src/icons/Like_filled.png' : 'src/icons/Like.png' ;       
         this.flike.appendChild(this.fimg_impression_like);
         this.ftxt_impression_like = document.createElement('p');
         this.ftxt_impression_like.className = 'ftxt_impression';
-        this.ftxt_impression_like.innerText = '2.5k';
+        this.ftxt_impression_like.innerText = affichage_nombre(this.Likes,1);
         this.flike.appendChild(this.ftxt_impression_like);
 
         this.fecho = document.createElement('div');
@@ -195,7 +200,7 @@ function block(params) {
         this.fbottom_part.appendChild(this.fcomment);
         this.fimg_impression_comment = document.createElement('img');
         this.fimg_impression_comment.className = 'fimg_impression';
-        this.fimg_impression_comment.src = 'src/icons/Comment.png';
+        this.fimg_impression_comment.src = this.IsComment == 1 ? 'src/icons/Comment_filled.png' : 'src/icons/Comment.png' ;
         this.fcomment.appendChild(this.fimg_impression_comment);
         this.ftxt_impression_comment = document.createElement('p');
         this.ftxt_impression_comment.className = 'ftxt_impression';
@@ -357,6 +362,12 @@ function block(params) {
     $(this.fimg_impression_like).on('click', function () {
 
         impression_coloring(this, 'like', block.fimg_impression_like);
+        current_flow_block = block;
+        let data = {
+
+            ObjectId: current_flow_block.ObjectId
+        };
+        ServerManager.LikeFlow(data,current_flow_block);
     });
 
     $(this.fimg_impression_echo).on('click', function () {
@@ -485,7 +496,7 @@ function stopAllBlocksAudio() {
     all_blocks.map(a => a.flowpause(a));
 }
 
-function set_timestamp(timestamp) {
+function set_timestamp(timestamp) { // fonction qui permet d'afficher le temp ecoulé depuis un post (posté il y a 2h par exemple)
     var time_str = "";
     var time = Math.floor(timestamp);
     var now = Math.floor(Date.now() / 1000);
@@ -548,6 +559,45 @@ function set_timestamp(timestamp) {
 
     }
 }
+
+
+function affichage_nombre(number, decPlaces) { // cette fonction permet d'afficher les nombres de likes et autres (1200 devien 1.2 k)
+   
+    decPlaces = Math.pow(10, decPlaces);
+
+    // Enumerate number abbreviations
+    var abbrev = ["k", "m", "b", "t"];
+
+    // Go through the array backwards, so we do the largest first
+    for (var i = abbrev.length - 1; i >= 0; i--) {
+
+        // Convert array index to "1000", "1000000", etc
+        var size = Math.pow(10, (i + 1) * 3);
+
+        // If the number is bigger or equal do the abbreviation
+        if (size <= number) {
+            // Here, we multiply by decPlaces, round, and then divide by decPlaces.
+            // This gives us nice rounding to a particular decimal place.
+            var number = Math.round(number * decPlaces / size) / decPlaces;
+
+            // Handle special case where we round up to the next abbreviation
+            if((number == 1000) && (i < abbrev.length - 1)) {
+                number = 1;
+                i++;
+            }
+
+            // console.log(number);
+            // Add the letter for the abbreviation
+            number += abbrev[i];
+
+            // We are done... stop
+            break;
+        }
+    }
+    
+    return number;
+}
+
 document.getElementById("popup-comment").addEventListener("opened", function() {
     StatusBar.backgroundColorByHexString('#949494');
     StatusBar.styleLightContent();

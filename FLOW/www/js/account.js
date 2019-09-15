@@ -253,7 +253,10 @@ function ShowUserFlow(flow) {
                 description: data.Description,
                 pseudo: data.PrivateId,
                 account_imageURL: profilePicLink,
-                Times: data.Time
+                Times: data.Time,
+                IsLike: data.IsLike,
+                IsComment: data.IsComment,
+                Likes : data.Likes
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);

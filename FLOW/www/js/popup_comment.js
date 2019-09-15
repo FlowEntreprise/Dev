@@ -42,7 +42,7 @@ function block_comment(comment_data) {
     this.fnumber_like.innerHTML = comment_data.Like_number;
     $(this.fblock_comment).append(this.fnumber_like);
 
-    $(this.fcomment_like).on('click', function () {
+    $(this.fcomment_like).on('click', function () { // like d'un commentaire
         current_comment_block = block_comment;
         let data = {
 
