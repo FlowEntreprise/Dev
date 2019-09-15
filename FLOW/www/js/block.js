@@ -373,9 +373,7 @@ function block(params) {
     $(this.fimg_impression_echo).on('click', function () {
 
         impression_coloring(this, 'echo', block.fimg_impression_echo);
-        $("#tabMonCompte1").effect("shake", {
-            times: 2
-        }, 500);
+        shake("tabCompte1");
     });
 
     $(this.fimg_impression_comment).on('click', function () {
@@ -444,11 +442,14 @@ $(document).on('click', 'a.fposter_photo', function () {
         if (current_page != "my-account") {
             Popup("popup-myaccount", true);
         } else {
-            $("#tabMonCompte1").effect("shake", {times: 1, distance: 5}, 300);
+            // $("#tabMonCompte1").effect("shake", {times: 1, distance: 5}, 300);
+            shake("tabMonCompte1");
+
         }
     } else {
         if (current_page == "account" && privateIDAccount == all_blocks[parentBlockId].privateID) {
-            $("#tabCompte1").effect("shake", {times: 1, distance: 5}, 300);
+            // $("#tabCompte1").effect("shake", {times: 1, distance: 5}, 300);
+            shake("tabCompte1");
         } else {
             Popup("popup-account", true);
             fInitialisationAccount(all_blocks[parentBlockId].privateID);
@@ -456,6 +457,13 @@ $(document).on('click', 'a.fposter_photo', function () {
     }
 
 });
+
+function shake(element_id) {
+    let tabs = document.getElementById(element_id);
+    tabs.classList.remove("shake");
+    void tabs.offsetWidth;
+    tabs.classList.add("shake");
+}
 
 function get_all_comment(response) {
 

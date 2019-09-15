@@ -1,17 +1,14 @@
-.fbackgroundMonCompte
-{
+.fbackgroundMonCompte {
     background-color: white !important;
 }
 
-#freturnMonCompte
-{
+#freturnMonCompte {
     position: absolute;
     top: calc(4* var(--custom-vh));
     left: 3vw;
 }
 
-#fbandeauMonCompte
-{
+#fbandeauMonCompte {
     position: absolute;
     top: calc(4.5* var(--custom-vh));
     background-color: white;
@@ -22,8 +19,7 @@
     box-shadow: 0px 3px 8px rgba(120, 120, 120, 0.20);
 }
 
-#fmyprofilPicture
-{
+#fmyprofilPicture {
     position: absolute;
     top: calc(8.5* var(--custom-vh));
     left: 3.5vw;
@@ -38,23 +34,20 @@
     /* background-image: url("../src/pictures/follower2.jpg") !important; */
 }
 
-#fnameMonCompte
-{
+#fnameMonCompte {
     position: absolute;
     color: #1A84EF;
     font-size: 28px;
     left: 36vw;
     top: calc(13* var(--custom-vh));
-    font-family:Roboto-Regular;
+    font-family: Roboto-Regular;
 }
 
-.finfoBandeau
-{
+.finfoBandeau {
     color: #92ABB2;
 }
 
-#ffLowBandeau
-{
+#ffLowBandeau {
     position: absolute;
     top: calc(4.5* var(--custom-vh));
     right: 50vw;
@@ -62,8 +55,7 @@
     font-family: Roboto-Thin;
 }
 
-#ffollowersBandeau
-{
+#ffollowersBandeau {
     position: absolute;
     top: calc(4.5* var(--custom-vh));
     right: 28vw;
@@ -71,8 +63,7 @@
     font-family: Roboto-Thin;
 }
 
-#ffollowingBandeau
-{
+#ffollowingBandeau {
     position: absolute;
     top: calc(4.5* var(--custom-vh));
     right: 8vw;
@@ -80,43 +71,39 @@
     font-family: Roboto-Thin;
 }
 
-#fflowmyBandeauChiffre
-{
+#fflowmyBandeauChiffre {
     font-size: 22px;
     position: absolute;
     right: 46vw;
     top: calc(1* var(--custom-vh));
-    font-family:Roboto-Regular;
+    font-family: Roboto-Regular;
     color: #4A4A4A;
     width: 16vw;
     text-align: center;
 }
 
-#ffollowersmyBandeauChiffre
-{
+#ffollowersmyBandeauChiffre {
     font-size: 22px;
     position: absolute;
     right: 28vw;
     top: calc(1* var(--custom-vh));
-    font-family:Roboto-Regular;
+    font-family: Roboto-Regular;
     color: #4A4A4A;
     width: 16vw;
     text-align: center;
 }
 
-#ffollowingmyBandeauChiffre
-{
+#ffollowingmyBandeauChiffre {
     font-size: 22px;
     position: absolute;
     right: 8vw;
     top: calc(1* var(--custom-vh));
-    font-family:Roboto-Regular;
+    font-family: Roboto-Regular;
     width: 16vw;
     text-align: center;
 }
 
-#fbioMonCompte
-{
+#fbioMonCompte {
     color: #92ABB2;
     font-size: 15px;
     position: absolute;
@@ -124,8 +111,7 @@
     left: 36vw;
 }
 
-#feditProfil
-{
+#feditProfil {
     border: solid 1.5px #92ABB2;
     color: #92ABB2;
     border-radius: 22vw;
@@ -138,8 +124,7 @@
     left: 45vw;
 }
 
-.fnavMonCompte
-{
+.fnavMonCompte {
     position: absolute;
     top: calc(22* var(--custom-vh));
     font-size: 19px !important;
@@ -148,69 +133,59 @@
     width: 100vw !important;
 }
 
-.fnavMonCompteTransitionTop
-{
+.fnavMonCompteTransitionTop {
     transition-duration: 0.4s !important;
 }
 
-.fnavMonCompteTransitionDown
-{
+.fnavMonCompteTransitionDown {
     transition-duration: 0.2s !important;
 }
 
-.MonCompte
-{
+.MonCompte {
     color: #92ABB2 !important;
     filter: none !important;
     width: auto !important;
 }
 
-.MonCompte.active
-{
+.MonCompte.active {
     color: #1A84EF !important;
     filter: none !important;
     border-bottom: solid 2px #1A84EF;
     padding-top: 2px;
 }
 
-.ftabsMonCompte
-{
+.ftabsMonCompte {
     position: absolute !important;
     top: calc(32* var(--custom-vh));
     left: 0vw;
     transition-duration: 0.4s;
 }
 
-#myprivateID
-{
+#myprivateID {
     color: #1A84EF;
     position: absolute;
     font-size: 18px;
     left: 36vw;
     top: calc(17* var(--custom-vh));
-    font-family:Roboto-Regular;
+    font-family: Roboto-Regular;
     opacity: 0.5;
 }
 
-.fblockMonCompte
-{
+.fblockMonCompte {
     margin-top: 0vh !important;
     padding-left: 0vw !important;
     padding-right: 0vw !important;
 }
 
-.fblockMonComptePadding
-{
+.fblockMonComptePadding {
     padding-top: calc(1.5* var(--custom-vh)) !important;
 }
 
-#accountBannerScroll
-{
+#accountBannerScroll {
     transition-duration: 0.4s;
 }
 
-#fmybigProfilPictureContainer
-{
+#fmybigProfilPictureContainer {
     top: 0;
     position: absolute;
     transform: scale(0);
@@ -226,37 +201,33 @@
     transition-duration: 0.3s;
 }
 
-#fmybigProfilPicture
-{
+#fmybigProfilPicture {
     /* background-image: url("../src/pictures/girl1.jpg"); */
     position: absolute;
     z-index: 505;
     width: 101vw;
     height: calc(80* var(--custom-vh));
-    top:calc(10* var(--custom-vh));
+    top: calc(10* var(--custom-vh));
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
 }
 
-.sizeTollBar
-{
+.sizeTollBar {
     width: 85vw !important;
     margin-left: 7.5vw;
 }
 
-#returnmyProfilPicture
-{
+#returnmyProfilPicture {
     position: absolute;
     top: calc(3* var(--custom-vh));
-    right: 3vw;  
+    right: 3vw;
     background-color: none;
     color: none;
     width: 7vw;
 }
 
-#editProfilePopup
-{
+#editProfilePopup {
     position: absolute;
     /*transform: scale(0);*/
     width: 75vw;
@@ -274,8 +245,7 @@
     transition-duration: 0.3s;
 }
 
-#feditProfilePopupContainer
-{
+#feditProfilePopupContainer {
     position: absolute;
     /* transform: scale(0); */
     opacity: 0;
@@ -288,8 +258,7 @@
     pointer-events: none;
 }
 
-#fprofilPicturePopup
-{
+#fprofilPicturePopup {
     position: absolute;
     top: calc(3* var(--custom-vh));
     left: 22.5vw;
@@ -304,22 +273,21 @@
     /* background-image: url("../src/pictures/follower2.jpg") !important; */
 }
 
-#editProfileName
-{
+#editProfileName {
     position: absolute;
     border: none;
     border-bottom: solid 1px #1A84EF;
     width: 40vw;
     left: 17.5vw;
     top: calc(20* var(--custom-vh));
-    font-size: calc(3* var(--custom-vh));;
+    font-size: calc(3* var(--custom-vh));
+    ;
     color: #1A84EF;
-    font-family:Roboto-Regular;
+    font-family: Roboto-Regular;
     text-align: center;
 }
 
-#feditBio
-{
+#feditBio {
     position: absolute;
     top: calc(28* var(--custom-vh));
     left: 7.5vw;
@@ -332,8 +300,7 @@
     padding-left: 1vw;
 }
 
-#fcloseProfilPopup
-{
+#fcloseProfilPopup {
     position: absolute;
     top: calc(2* var(--custom-vh));
     right: 4vw;
@@ -341,7 +308,29 @@
     height: 5vw;
 }
 
-#MyActivity
-{
+#MyActivity {
     padding-bottom: 12vh !important;
+}
+
+.shake {
+    animation: shake 0.3s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes shake {
+    /* 10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    } */
+
+    /* 20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    } */
+
+    25%,
+    75% {
+        transform: translate3d(-2px, 0, 0);
+    }
+
+    50% {
+        transform: translate3d(2px, 0, 0);
+    }
 }
