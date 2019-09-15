@@ -159,3 +159,100 @@
 {
     padding-bottom: 12vh !important;
 }
+
+#fprofilPicture
+{
+    position: absolute;
+    top: calc(8.5* var(--custom-vh));
+    left: 3.5vw;
+    width: 27vw;
+    height: 27vw;
+    border-radius: 22vw;
+    box-shadow: 0px 3.5px 8px rgba(0, 0, 0, 0.20);
+    border: solid 3px white;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-image: url("../src/pictures/follower2.jpg") !important; */
+}
+
+#fflowBandeauChiffre
+{
+    font-size: 22px;
+    position: absolute;
+    right: 46vw;
+    top: calc(1* var(--custom-vh));
+    font-family:Roboto-Regular;
+    color: #4A4A4A;
+    width: 16vw;
+    text-align: center;
+}
+
+#ffollowersBandeauChiffre
+{
+    font-size: 22px;
+    position: absolute;
+    right: 28vw;
+    top: calc(1* var(--custom-vh));
+    font-family:Roboto-Regular;
+    color: #4A4A4A;
+    width: 16vw;
+    text-align: center;
+}
+
+#ffollowingBandeauChiffre
+{
+    font-size: 22px;
+    position: absolute;
+    right: 8vw;
+    top: calc(1* var(--custom-vh));
+    font-family:Roboto-Regular;
+    width: 16vw;
+    text-align: center;
+}
+
+#privateID
+{
+    color: #1A84EF;
+    position: absolute;
+    font-size: 18px;
+    left: 36vw;
+    top: calc(17* var(--custom-vh));
+    font-family:Roboto-Regular;
+    opacity: 0.5;
+}
+
+#fbigProfilPictureContainer
+{
+    top: 0;
+    position: absolute;
+    transform: scale(0);
+    width: 100vw;
+    height: calc(100* var(--custom-vh));
+    /* border-radius: 50%; */
+    background-color: white;
+    transition: all 0.5s;
+    z-index: 1000;
+}
+
+#fbigProfilPicture
+{
+    /* background-image: url("../src/pictures/girl1.jpg"); */
+    position: absolute;
+    z-index: 505;
+    width: 101vw;
+    height: calc(80* var(--custom-vh));
+    top:calc(10* var(--custom-vh));
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#returnProfilPicture
+{
+    position: absolute;
+    top: calc(3* var(--custom-vh));
+    left: 3vw;  
+    background-color: none;
+    color: none;
+}

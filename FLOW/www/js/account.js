@@ -11,13 +11,26 @@ var indexAccount;
 var accountFlowAdd = true;
 var UserFlowAdd = true;
 var profilePicLink;
-// var CanRefreshUser = true;
-// var UserCurrentIndex = 0;
 
-app.onPageInit('login-screen2', function (page) {
+$(".fnavAccount").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
+
+
+document.getElementById("popup-account").addEventListener("opened", function () {
+    current_page = "account";
     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
     $(".fflow-btn").css("display", "none");
     $(".flow-btn-shadow").css("display", "none");
+
+    $("#fflowBandeauChiffre").html("");
+    $("#ffollowersBandeauChiffre").html("");
+    $("#ffollowingBandeauChiffre").html("");
+    $("#fbioCompte").html("loading");
+    $("#fnameCompte").html("loading");
+    $("#privateID").html("loading");
+    $("#fprofilPicture").css({
+        "background-image": "none"
+    });
+
     var scroll_element = $("#tabCompte1");
     checkScrollAccount();
     $$('#tabCompte1').on('tab:show', function () {
@@ -37,13 +50,10 @@ app.onPageInit('login-screen2', function (page) {
     });
 
     $("#fFollowButtunAccount").click(function () {
-        // console.log(privateIDAccount);
         var ActionFollow = {
             PrivateId: privateIDAccount
         };
         ServerManager.ActionFollow(ActionFollow);
-        // console.log(ActionFollow);
-        // manageFollow();
     });
     $('#fprofilPicture').click(function () {
         $("#fbigProfilPictureContainer").css("transform", "scale(1)");
@@ -53,13 +63,11 @@ app.onPageInit('login-screen2', function (page) {
 
     $("#returnProfilPicture").click(function () {
         $("#fbigProfilPictureContainer").css("transform", "scale(0)");
-        //console.log("ok");
     });
 
     function checkScrollAccount() {
         var scroll = scroll_element.scrollTop();
         if (scroll >= 143 && $(".ftabsAccount")[0].style.height == "68%") {
-            // console.log("94vh");
             event.preventDefault();
             event.stopPropagation();
             $("scrollEventAccount").remove(".swiper-wrapper");
@@ -79,7 +87,6 @@ app.onPageInit('login-screen2', function (page) {
             $("scrollEventAccount").addClass(".swiper-wrapper");
         } else {
             if (scroll < 100 && $(".ftabsAccount")[0].style.height == "94vh") {
-                // console.log('NTM');
                 event.preventDefault();
                 event.stopPropagation();
                 if (boolScrollTop == false) {
@@ -110,7 +117,9 @@ app.onPageInit('login-screen2', function (page) {
         // follow = "";
         // followYou = "";
         $(".fflow-btn").css("display", "block");
-        mainView.back();
+        current_page = "home";
+        Popup("popup-account", false);
+        // mainView.back();
     });
 
     $("#tabCompte1").scroll(function () {
@@ -130,8 +139,15 @@ app.onPageInit('login-screen2', function (page) {
 
 
 function fInitialisationAccount(privateId) {
+    $("#UserActivity")[0].innerHTML = "";
+    let loading_tl = document.createElement("div");
+    loading_tl.className = "loading_circle loading_myaccount";
+    loading_tl.style.marginTop = "50%";
+    $("#UserActivity")[0].appendChild(loading_tl);
+
     privateIDAccount = privateId;
     indexAccount = 0;
+
     var getFlow = {
         Index: indexAccount,
         PrivateId: privateIDAccount
@@ -146,17 +162,13 @@ function fInitialisationAccount(privateId) {
         PrivateId: privateIDAccount
     };
     ServerManager.GetUserInfo(getUserInfoAccount);
-    // console.log("privateIDAccount = " + privateIDAccount);
 }
 
 function manageFollow() {
-    console.log(follow);
     if (follow) {
-        console.log(1);
         $("#fFollowButtunAccount").addClass("activeButtunFollow");
         $("#fFollowButtunAccount").text("FOLLOWING");
     } else {
-        console.log(2);
         $("#fFollowButtunAccount").removeClass("activeButtunFollow");
         $("#fFollowButtunAccount").text("FOLLOW");
     }
@@ -172,54 +184,50 @@ function manageFollowYou() {
 
 function ShowUserProfile(response) {
     console.log(response);
-    bioCompte = response.Data.Bio;
-    nameCompte = response.Data.FullName;
-    followYou = JSON.parse(response.Data.HeFollowYou);
-    follow = JSON.parse(response.Data.YouFollowHim);
-    console.log(follow);
-    manageFollow();
-    manageFollowYou();
-    $("#fbioCompte").append(bioCompte);
-    $("#fnameCompte").html(nameCompte);
-    $("#privateID").html("@" + privateIDAccount);
-    const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data.ProfilePicture.name + '?';
-    const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data.ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data.ProfilePicture.timestamp}`;
-    profilePicLink = src_profile_img + param_profile_img;
-    $("#fprofilPicture").css({
-        "background-image": "url('" + profilePicLink + "')"
-    });
-    $("#fbigProfilPicture").css({
-        "background-image": "url('" + profilePicLink + "')"
-    });
-    var profilePicture = document.createElement('img');
-    // var profilePicture = window.localStorage.getItem("user_profile_pic");
-    profilePicture.setAttribute('src', profilePicLink);
+    if (response.Data.PrivateId == privateIDAccount) {
+        bioCompte = response.Data.Bio;
+        nameCompte = response.Data.FullName;
+        followYou = JSON.parse(response.Data.HeFollowYou);
+        follow = JSON.parse(response.Data.YouFollowHim);
+        manageFollow();
+        manageFollowYou();
+        $("#fbioCompte").html(bioCompte);
+        $("#fnameCompte").html(nameCompte);
+        $("#privateID").html("@" + privateIDAccount);
+        const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data.ProfilePicture.name + '?';
+        const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data.ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data.ProfilePicture.timestamp}`;
+        profilePicLink = src_profile_img + param_profile_img;
+        $("#fprofilPicture").css({
+            "background-image": "url('" + profilePicLink + "')"
+        });
+        $("#fbigProfilPicture").css({
+            "background-image": "url('" + profilePicLink + "')"
+        });
+        var profilePicture = document.createElement('img');
+        profilePicture.setAttribute('src', profilePicLink);
 
-    profilePicture.addEventListener('load', function () {
-        var vibrant = new Vibrant(profilePicture);
-        var swatches = vibrant.swatches();
-        //console.log(swatches);
-        $("#fbigProfilPictureContainer").css("background-color", swatches.Muted.getHex());
-    });
+        profilePicture.addEventListener('load', function () {
+            var vibrant = new Vibrant(profilePicture);
+            var swatches = vibrant.swatches();
+            $("#fbigProfilPictureContainer").css("background-color", swatches.Muted.getHex());
+        });
+    }
 }
 
 function ShowInfosUserNumber(data) {
-    // console.log(data);
     FlowBandeau = data.NbFlow;
     Follower = data.NbFollower;
     Following = data.NbFollowing;
-    $("#ffLowBandeauChiffre").append(FlowBandeau);
+    $("#fflowBandeauChiffre").html(FlowBandeau);
     $("#ffollowersBandeauChiffre").html(Follower);
-    $("#ffollowingBandeauChiffre").append(Following);
+    $("#ffollowingBandeauChiffre").html(Following);
 }
 
 function ShowUserFlow(flow) {
-    // console.log(UserFlowAdd);
-    // console.log("------------------ show -----------------");
-    // console.log(flow);
+    console.log(flow.Data[0].PrivateId + "|" + privateIDAccount);
     if (Array.isArray(flow.Data) == false) {
         UserFlowAdd = false;
-    } else {
+    } else if (flow.Data[0].PrivateId == privateIDAccount) {
         var countFlow = 0;
         for (let i = 0; i < flow.Data.length; i++) {
             countFlow++;
@@ -257,6 +265,9 @@ function ShowUserFlow(flow) {
                 IsLike: data.IsLike,
                 IsComment: data.IsComment,
                 Likes : data.Likes
+                ObjectId: data.ObjectId,
+                PrivateId: data.PrivateId,
+                Times: data.Time
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
@@ -281,17 +292,12 @@ function ShowUserFlow(flow) {
 function ActionFollow(response) {
     if (response.Follow !== undefined) {
         follow = true;
-        console.log("++");
         Follower++;
         $("#ffollowersBandeauChiffre").html(Follower);
     } else if (response.UnFollow !== undefined) {
         follow = false;
-        console.log("--");
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    } else {
-        console.log(response);
-    }
-    console.log(Follower);
+    } else {}
     manageFollow();
 }

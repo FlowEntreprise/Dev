@@ -74,14 +74,13 @@ function block(params) {
 
     this.ftop_part = document.createElement('div');
     this.ftop_part.className = 'ftop_part';
-    
+
     if (params.patternKey != undefined) {
         this.patternKey = params.patternKey;
         this.ftop_part.style.backgroundImage = pattern = GeoPattern.generate(this.patternKey).toDataUrl();
     } else if (params.imageURL != undefined) {
         this.ftop_part.style.backgroundImage = "url('" + params.imageURL + "')";
-    }
-    else {
+    } else {
         this.patternKey = Date.now().toString();
         this.ftop_part.style.backgroundImage = pattern = GeoPattern.generate(this.patternKey).toDataUrl();
     }
@@ -110,7 +109,8 @@ function block(params) {
     this.ftop_part.appendChild(this.fpause_button);
 
     this.fposter_photo = document.createElement('a');
-    this.fposter_photo.setAttribute('href', '../www/pages/account.html');
+    // this.fposter_photo.setAttribute('href', '../www/pages/account.html');
+    // this.fposter_photo.setAttribute("onclick", "Popup('popup-account', true)");
     this.fposter_photo.className = 'fposter_photo';
     this.fposter_photo.style.backgroundImage = "url('" + params.account_imageURL + "')";
     this.ftop_part.appendChild(this.fposter_photo);
@@ -158,7 +158,7 @@ function block(params) {
         this.fpost_title = document.createElement('p');
         this.fpost_title.className = 'fpost_title';
         this.fpost_title.innerText = params.title;
-        this.fpost_title.setAttribute('maxlength',20);
+        this.fpost_title.setAttribute('maxlength', 20);
         this.fbottom_part.appendChild(this.fpost_title);
 
         this.fpost_description = document.createElement('p');
@@ -373,7 +373,9 @@ function block(params) {
     $(this.fimg_impression_echo).on('click', function () {
 
         impression_coloring(this, 'echo', block.fimg_impression_echo);
-        $("#tabMonCompte1").effect( "shake", {times:2}, 500 );
+        $("#tabMonCompte1").effect("shake", {
+            times: 2
+        }, 500);
     });
 
     $(this.fimg_impression_comment).on('click', function () {
@@ -390,7 +392,7 @@ function block(params) {
         ServerManager.GetFlowComment(data);
 
         Popup("popup-comment", true, 40);
-        
+
     });
 }
 // fonction permettant de colorier ou non les like, echo et comment.
@@ -438,29 +440,38 @@ function impression_coloring(object, type, block_item, like_type) {
 $(document).on('click', 'a.fposter_photo', function () {
     var parent = $(this).parent().parent();
     var parentBlockId = parent.attr("block_id");
-    fInitialisationAccount(all_blocks[parentBlockId].privateID);
-    shake();
+    if (all_blocks[parentBlockId].privateID == window.localStorage.getItem("user_private_id")) {
+        if (current_page != "my-account") {
+            Popup("popup-myaccount", true);
+        } else {
+            $("#tabMonCompte1").effect("shake", {times: 1, distance: 5}, 300);
+        }
+    } else {
+        if (current_page == "account" && privateIDAccount == all_blocks[parentBlockId].privateID) {
+            $("#tabCompte1").effect("shake", {times: 1, distance: 5}, 300);
+        } else {
+            Popup("popup-account", true);
+            fInitialisationAccount(all_blocks[parentBlockId].privateID);
+        }
+    }
 
 });
 
 function get_all_comment(response) {
 
-    
-    
-        var text_comment_number;
-        if(response == "ERROR GET COMMENT FLOW")
-        {            
-            $(".loading_comment").remove();
-            text_comment_number = " 0 commentaire";
-        }
-        else if(response.Data.length)
-        {
-            
-            (response.Data.length == 1) ? (text_comment_number = response.Data.length +" commentaire") : (text_comment_number = response.Data.length +" commentaires");
-        }
-        $(".fcomment_number").text(text_comment_number);
-    
-    console.log(response);    
+
+
+    var text_comment_number;
+    if (response == "ERROR GET COMMENT FLOW") {
+        $(".loading_comment").remove();
+        text_comment_number = " 0 commentaire";
+    } else if (response.Data.length) {
+
+        (response.Data.length == 1) ? (text_comment_number = response.Data.length + " commentaire") : (text_comment_number = response.Data.length + " commentaires");
+    }
+    $(".fcomment_number").text(text_comment_number);
+
+    console.log(response);
     var i = 0;
     for (i = 0; i < response.Data.length; i++) {
 
@@ -479,14 +490,16 @@ function get_all_comment(response) {
 
         };
 
-       // $(".loading_tl").remove();
-        let block_commentaire = new block_comment(comment_data);        
+        // $(".loading_tl").remove();
+        let block_commentaire = new block_comment(comment_data);
         $(".fblock_comment_content").append(block_commentaire);
-        
-    } 
-    if($.trim($(".fblock_comment_content").html()) != ""){$(".loading_comment").remove();}
+
+    }
+    if ($.trim($(".fblock_comment_content").html()) != "") {
+        $(".loading_comment").remove();
+    }
     impression_coloring(this, 'comment', block.fimg_impression_comment);
-    
+
 }
 
 var all_blocks = [];
@@ -513,25 +526,25 @@ function set_timestamp(timestamp) { // fonction qui permet d'afficher le temp ec
 
     var month_past = Math.floor(day_past / 28);
 
-    var year_past = Math.floor(month_past /12);
+    var year_past = Math.floor(month_past / 12);
 
     if (minute_past <= 59 && hour_past <= 0) {
 
-        (minute_past > -2 && minute_past < 2) ?  (time_str = "1 minute ago") : (time_str = "" + minute_past + " minutes ago") ;
+        (minute_past > -2 && minute_past < 2) ? (time_str = "1 minute ago") : (time_str = "" + minute_past + " minutes ago");
         return time_str;
 
     }
 
     if (hour_past > 0 && hour_past <= 23) {
-        
-        
+
+
         (hour_past > 1) ? (time_str = "" + hour_past + " hours ago") : (time_str = "" + hour_past + " hour ago");
         return time_str;
 
     }
 
     if (day_past > 0 && day_past < 7) {
-        
+
         (day_past > 1) ? (time_str = "" + day_past + " days ago") : (time_str = "" + day_past + " day ago");
         return time_str;
 
@@ -545,15 +558,15 @@ function set_timestamp(timestamp) { // fonction qui permet d'afficher le temp ec
     }
 
     if (month_past > 0 && month_past <= 12) {
-        
+
 
         (month_past < 2) ? (time_str = "" + month_past + " month ago") : (time_str = "" + month_past + " months ago");
         return time_str;
 
-    } 
-    
-    if (year_past > 0 ) {
-    
+    }
+
+    if (year_past > 0) {
+
         (year_past < 2) ? (time_str = "" + year_past + " year ago") : (time_str = "" + year_past + " years ago");
         return time_str;
 
@@ -599,12 +612,12 @@ function affichage_nombre(number, decPlaces) { // cette fonction permet d'affich
 }
 
 document.getElementById("popup-comment").addEventListener("opened", function() {
+document.getElementById("popup-comment").addEventListener("opened", function () {
     StatusBar.backgroundColorByHexString('#949494');
     StatusBar.styleLightContent();
 });
 
-document.getElementById("popup-comment").addEventListener("opened", function() {
+document.getElementById("popup-comment").addEventListener("opened", function () {
     StatusBar.backgroundColorByHexString('#f7f7f8');
     StatusBar.styleDefault();
 });
-

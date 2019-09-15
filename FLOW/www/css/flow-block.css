@@ -129,6 +129,7 @@
     left: 41.5vw;
     text-align: center;
     z-index: 2;
+    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.3));
 }
 
 .fpause_button {
@@ -140,6 +141,7 @@
     text-align: center;
     z-index: 2;
     display: none;
+    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.3));
 }
 
 .fbottom_part {
