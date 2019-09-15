@@ -10,6 +10,7 @@ const ServerParams = {
     AddFlowComment: "AddFlowComment",
     GetFlowComment: "GetFlowComment",
     LikeFlowComment: "Like/comment",
+    LikeFlow: "Like/Flow",
     UpdateProfileURL: "UpdateProfile",
     GetMultipleFlowURL: "GetMultipleFlow",
     GetMyUserInfosURL: "GetInfoUser",
@@ -347,6 +348,33 @@ class ServerManagerClass {
             },
             error: function (response) {
                 console.log("comment liked database error : ");
+                console.log(response);
+            }
+        });
+    }
+
+    LikeFlow(data, block) {
+        let final_data = {
+            Data: data,
+            Action: "LikeFlow",
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        var current_bock = block;
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.LikeFlow,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+
+                //impression_coloring(this, 'like', block.fcomment_like, "comment");
+                //color_like(current_bock, response.like === undefined ? false : true);
+                console.log("Flow sucessfully liked");
+                console.log(response);
+
+            },
+            error: function (response) {
+                console.log("Flow liked database error : ");
                 console.log(response);
             }
         });

@@ -232,7 +232,7 @@
 .ftxt_impression {
     position: absolute;
     top: calc(2* var(--custom-vh));
-    left: 2vw;
+    width : 10vw;
     color: #909597;
     font-size: 3.8vw ;
     font-weight: bold;
