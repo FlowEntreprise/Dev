@@ -611,13 +611,12 @@ function affichage_nombre(number, decPlaces) { // cette fonction permet d'affich
     return number;
 }
 
-document.getElementById("popup-comment").addEventListener("opened", function() {
 document.getElementById("popup-comment").addEventListener("opened", function () {
     StatusBar.backgroundColorByHexString('#949494');
     StatusBar.styleLightContent();
 });
 
-document.getElementById("popup-comment").addEventListener("opened", function () {
+document.getElementById("popup-comment").addEventListener("closed", function () {
     StatusBar.backgroundColorByHexString('#f7f7f8');
     StatusBar.styleDefault();
 });

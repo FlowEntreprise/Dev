@@ -273,10 +273,9 @@ function ShowUserFlow(flow) {
                 description: data.Description,
                 pseudo: data.PrivateId,
                 account_imageURL: profilePicLink,
-                Times: data.Time,
                 IsLike: data.IsLike,
                 IsComment: data.IsComment,
-                Likes : data.Likes
+                Likes : data.Likes,
                 ObjectId: data.ObjectId,
                 PrivateId: data.PrivateId,
                 Times: data.Time
