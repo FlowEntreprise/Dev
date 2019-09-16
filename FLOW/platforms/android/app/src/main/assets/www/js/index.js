@@ -9,6 +9,11 @@ var appState = {
     flow_title: "",
     flow_description: ""
 };
+
+var crashlytics;
+var analytics;
+var push;
+
 var registrationId;
 var app = {
     // Application Constructor
@@ -18,19 +23,16 @@ var app = {
         document.addEventListener('resume', this.onResume, false);
 
     },
-
-    // deviceready Event Handler
-    //
-    // Bind any cordova events here. Common events are:
-    // 'pause', 'resume', etc.
     onDeviceReady: function () {
+        setTimeout(function () {
+            navigator.splashscreen.hide();
+            StatusBar.backgroundColorByHexString("#f7f7f8");
+        }, 500);
+
         this.receivedEvent('deviceready');
     },
     onPause: function () {
-        // Here, we check to see if we are in the middle of taking a picture. If
-        // so, we want to save our state so that we can properly retrieve the
-        // plugin result in onResume(). We also save if we have already fetched
-        // an image URI
+
         console.log("pause");
         stopAllStoriesAudio();
         stopAllBlocksAudio();
@@ -40,34 +42,10 @@ var app = {
             console.log("app state saved");
         }
 
-        if (cordova.platformId == 'android') {
-            //ResetStatusBar();
-        }
-
-        if (mediaRecorder.state == "recording") {
-            mediaRecorder.stop();
-            console.log("stopped media recorder");
-        }
-        for (let i = 0; i < microphone.mediaStream.getTracks().length; i++) {
-            microphone.mediaStream.getTracks()[i].stop();
-        }
-
-        // if (cordova.platformId == 'android') {
-        //     StatusBar.show();
-        //     StatusBar.overlaysWebView(true);
-        //     StatusBar.backgroundColorByHexString('#00000000');
-        //     StatusBar.styleDefault();
-        // }
     },
     onResume: function (event) {
         console.log("resume");
-        if (cordova.platformId == 'android') {
-            //ResetStatusBar();
-        }
-        // Here we check for stored state and restore it if necessary. In your
-        // application, it's up to you to keep track of where any pending plugin
-        // results are coming from (i.e. what part of your code made the call)
-        // and what arguments you provided to the plugin if relevant
+
         var storedState = window.localStorage.getItem("app_state");
 
         if (storedState) {
@@ -113,88 +91,20 @@ var app = {
         }
     },
 
-
-
-
-
-
-
-
     // Update DOM on a Received Event
     receivedEvent: function (id) {
-        document.addEventListener("offline", function(){ offline();  }, false);
-        document.addEventListener("online", function(){ online(); }, false);  
+        document.addEventListener("offline", function () {
+            offline();
+        }, false);
+        document.addEventListener("online", function () {
+            online();
+        }, false);
 
-        if (cordova.platformId == 'android') {
-            // ResetStatusBar();
-            // statusBar.overlaysWebView(true);
-        }
+        crashlytics = FirebaseCrashlytics.initialise();
+        crashlytics.logException("my caught exception");
 
-        // if (AndroidFullScreen) {
-        //     // Extend your app underneath the status bar (Android 4.4+ only)
-        //     AndroidFullScreen.showUnderStatusBar();
-
-        //     // Extend your app underneath the system UI (Android 4.4+ only)
-        //     AndroidFullScreen.showUnderSystemUI();
-
-        //     // Hide system UI and keep it hidden (Android 4.4+ only)
-        //     AndroidFullScreen.immersiveMode();
-        // }
-
-        if (appState.needRestore) {
-
-            /////////////// NO NEED SINCE ALEXIS FIXED THE PROBLEM ON HIS PHONE
-            // pictureSource = navigator.camera.PictureSourceType;
-            // destinationType = navigator.camera.DestinationType;
-            // app.popup('.popup-after-record');
-            // if (!after_record_initialised) {
-            //     var mySwiper4 = app.swiper('.swiper-4', {
-            //         pagination: '.swiper-4 .swiper-pagination',
-            //         spaceBetween: 0,
-            //         slidesPerView: 3
-            //     });
-
-            //     mySwiper4.on('slideChangeStart', function () {
-            //         var target = "#" + $(".swiper-slide-next").attr("target");
-            //         app.showTab(target);
-            //     });
-            //     after_record_initialised = true;
-            //     current_page = "after-record";
-            // }
-            // $(".after-record-block-container").html("");
-            // console.log(appState);
-            // var myblob = b64toBlob(appState.blob64, "audio/opus");
-            // var myblobUrl = URL.createObjectURL(myblob);
-            // //console.log(appState.blob); 
-            // //var binaryData = [];
-            // //binaryData.push(appState.blob);
-            // //var myaudioURL = window.URL.createObjectURL(new Blob(binaryData, {'type': 'audio/opus; codecs=opus'}))
-            // console.log("generated audio url : " + myblobUrl);
-            // let block_params = {
-            //     parent_element: $(".after-record-block-container"),
-            //     afterblock: true,
-            //     audioURL: myblobUrl,
-            //     duration: appState.recordTime,
-            //     patternKey: appState.patternKey,
-            //     imageURL: null,
-            //     title: "",
-            //     description: "",
-            //     pseudo: window.localStorage.getItem("user_name"),
-            //     account_imageURL: window.localStorage.getItem("user_profile_pic")
-            // };
-            // new_block = new block(block_params);
-            // patternKey = new_block.patternKey;
-            // // setTimeout(() => {
-            // //     new_block.finput_title.focus();
-            // // }, 500);
-            // $(".finput_title").val(appState.flow_title);
-            // $(".finput_description").val(appState.flow_description);
-
-            // ///////////////
-
-            // onPhotoDataSuccess(appState.imageUri);
-            // appState.needRestore = false;
-        }
+        analytics = cordova.plugins.firebase.analytics;
+        analytics.setCurrentScreen(current_page);
 
     
 
@@ -218,7 +128,10 @@ var app = {
         push.on('error', function (e) {
             console.log(e.message);
         });
+
+        CheckIfConnected();
     }
+
 
 };
 
@@ -273,16 +186,13 @@ Storage.prototype.getObj = function (key) {
 }
 
 // Replace default alert by Sweet Alert
-window.alert = function(txt) {
+window.alert = function (txt) {
     swal(txt);
 };
 
 function offline() {
     console.log("you are offline");
     pullToRefreshEnd();
-    // if (current_page == "story") {
-    //     CloseStory();
-    // }
 }
 
 function online() {
@@ -293,7 +203,6 @@ function online() {
 
 /*
 J'ai remove ça du config.xml juste pour save ça qq part : 
-
 <preference name="AndroidLaunchMode" value="singleInstance" />
 <preference name="KeepRunning" value="true" />
 */

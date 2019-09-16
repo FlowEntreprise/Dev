@@ -10,6 +10,7 @@ const ServerParams = {
     AddFlowComment: "AddFlowComment",
     GetFlowComment: "GetFlowComment",
     LikeFlowComment: "Like/comment",
+    LikeFlow: "Like/Flow",
     UpdateProfileURL: "UpdateProfile",
     GetMultipleFlowURL: "GetMultipleFlow",
     GetMyUserInfosURL: "GetInfoUser",
@@ -314,7 +315,7 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
 
-                get_all_comment(response);
+                get_all_comment(response,final_data.Data.IdComment);
                 // console.log("Comment sucessfully added to database :");
                 // console.log(response);
 
@@ -348,6 +349,33 @@ class ServerManagerClass {
             },
             error: function (response) {
                 console.log("comment liked database error : ");
+                console.log(response);
+            }
+        });
+    }
+
+    LikeFlow(data, block) {
+        let final_data = {
+            Data: data,
+            Action: "LikeFlow",
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        var current_bock = block;
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.LikeFlow,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+
+                //impression_coloring(this, 'like', block.fcomment_like, "comment");
+                //color_like(current_bock, response.like === undefined ? false : true);
+                console.log("Flow sucessfully liked");
+                console.log(response);
+
+            },
+            error: function (response) {
+                console.log("Flow liked database error : ");
                 console.log(response);
             }
         });
@@ -516,17 +544,19 @@ class ServerManagerClass {
                 Index: data
             }
         };
-        // console.log(final_data);
+        console.log(final_data);
         $.ajax({
             type: "POST",
             url: ServerParams.ServerURL + ServerParams.GetTimeline,
             data: JSON.stringify(final_data),
             success: function (response) {
-                // console.log(response);
+                console.log("success");
+                console.log(response);
                 UpdateTimeline(response);
             },
             error: function (response) {
-                // console.log(response);
+                console.log("error");
+                console.log(response);
             }
         });
     }
@@ -568,7 +598,7 @@ class ServerManagerClass {
             type:"POST",
             url:"https://fcm.googleapis.com/fcm/send",
             headers : {
-                Authorization : 'key=' + 'AAAAWCRnWdY:APA91bFGlajHd1ZM9vP_yKzx-JKZBKVO9AyhR2Y05TaTLwt5dwMXft2zequeozBKTck48qwNnj53AH33mKhN8_TV_9HuiJ5ose88HN3UVuyJ1FQylFY6wVYxKrf1IkR0RLb_anOrx9Zc'
+                Authorization : 'key=' + 'AAAASolkDdQ:APA91bGQTqtjxefUeH3JhJQXP30B6d6TgHYN239VGsaX3-0qpBEH7_Wy_9MLiVOlniHQ9gqZcHt3q76d5QGb3It-qUIJfo954NZBmz9INY765rMn8S40Cz-fw5zTeBfoQVnZSE3oW4oL'
             },
             contentType: "application/json",
             dataType: "json",

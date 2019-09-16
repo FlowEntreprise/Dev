@@ -13,7 +13,6 @@ var destinationType;
 var image64;
 var patternKey;
 var blob;
-// var blob64;
 
 let options = {
     quality: 75,
@@ -23,144 +22,201 @@ let options = {
     targetHeight: 600
 };
 
-$$('.popup-record').on('popup:open', function () {
+
+$$('.fflow-btn').on('click', function () {
+    if (connected) {
+        Popup("popup-record", true);
+        $$('.frecord-btn').css({
+            "display": "flex"
+        });
+    } else {
+        Popup("popup-connect", true, 45);
+    }
+});
+$$('.fflow-btn').on('taphold', function () {
+    if (connected) {
+        console.log("Hold Record !");
+        // app.popup('.popup-record');
+        Popup("popup-record", true);
+        $$('.frecord-btn').css({
+            "display": "flex"
+        });
+        $(".record-shadow")[0].style.display = "block";
+        record_was_hold = true;
+        startCapture();
+    }
+    else {
+        Popup("popup-connect", true, 45);
+    }
+});
+$$('.frecord-btn').on('taphold', function () {
+    if (!recording && !record_was_hold) {
+        console.log("Hold Record !");
+        record_was_hold = true;
+        startCapture();
+    }
+});
+document.getElementById("popup-record").addEventListener("opened", function () {
+    stopAllBlocksAudio();
     $$('#flow_number_of_sec').text("00");
     if (!debug_record) {
         pictureSource = navigator.camera.PictureSourceType;
         destinationType = navigator.camera.DestinationType;
     }
     current_page = "record";
-});
-$$('.popup-story-record').on('popup:open', function () {
-    $$('.story_flow_duration').text("00");
-    current_page = "record-story";
-});
-$$('.fflow-btn').on('taphold', function () {
-    console.log("Hold Record !");
-    app.popup('.popup-record');
-    $$('.frecord-btn').css({
-        "display": "flex"
-    });
-    $(".record-shadow")[0].style.display = "block";
-    record_was_hold = true;
-    StartRecording();
-});
-$$('.frecord-btn').on('taphold', function () {
-    if (!recording && !record_was_hold) {
-        console.log("Hold Record !");
-        record_was_hold = true;
-        StartRecording();
-    }
-});
-$$('.popup-record').on('popup:close', function () {
-    $$('.frecord-btn').css({
-        "display": "none"
-    });
-    $(".record-shadow")[0].style.display = "none";
-    StopRecording();
-    current_page = "home";
-});
-
-$$('.popup-record').on('popup:open', function () {
+    analytics.setCurrentScreen(current_page);
     $$('.frecord-btn').css({
         "display": "flex"
     });
     $(".record-shadow")[0].style.display = "block";
     if (record_was_hold) {
-        $$('.frecord-btn').addClass('frecord-btn-active');
+        // $$('.frecord-btn').addClass('frecord-btn-active');
     }
+    analytics.logEvent("open_record", {
+        private_id: window.localStorage.getItem("user_private_id")
+    });
 });
-$$('.popup-after-record').on('popup:open', function () {
+document.getElementById("popup-record").addEventListener("closed", function () {
+    $$('.frecord-btn').css({
+        "display": "none"
+    });
+    $(".record-shadow")[0].style.display = "none";
+    stopCapture();
+    current_page = "home";
+    analytics.setCurrentScreen(current_page);
+    record_was_hold = false;
+});
+
+document.getElementById("popup-after-record").addEventListener("opened", function () {
     $(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
     current_page = "after-record";
+    analytics.setCurrentScreen(current_page);
 });
-$$('.popup-after-record').on('popup:close', function () {
+
+document.getElementById("popup-after-record").addEventListener("closed", function () {
+    stopAllBlocksAudio();
     $(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
+    record_was_hold = false;
 });
 
-$$('.popup-after-story-record').on('popup:open', function () {
+document.getElementById("popup-after-story-record").addEventListener("opened", function () {
     $(".fvalidate-after_btn.story")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.story")[0].setAttribute("style", "");
     $(".floading-spinner.loading-story")[0].style.display = "none";
 });
-$$('.popup-after-story-record').on('popup:close', function () {
+document.getElementById("popup-after-story-record").addEventListener("closed", function () {
+    stopAllBlocksAudio();
     $(".fvalidate-after_btn.story")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.story")[0].setAttribute("style", "");
     $(".floading-spinner.loading-story")[0].style.display = "none";
 });
 
+// $$('.popup-story-record').on('popup:open', function () {
+//     $$('.story_flow_duration').text("00");
+//     current_page = "record-story";
+// });
+document.getElementById("popup-story-record").addEventListener("opened", function () {
+    stopAllBlocksAudio();
+    $$('.story_flow_duration').text("00");
+    current_page = "record-story";
+    analytics.setCurrentScreen(current_page);
+});
 
 $$('.frecord-btn').on('click', function () {
     if (recording) {
-        StopRecording();
-    } else {
-        StartRecording();
+        console.log("stop recording");
+        stopCapture();
+    } else if (!record_was_hold) {
+        console.log("start recording");
+        startCapture();
     }
 });
 
 $$('body').on('touchend', function () {
     if (recording && record_was_hold) {
-        StopRecording();
+        stopCapture();
     }
 });
 
 $$('.frestart-after_btn').on('touchend', function () {
+    console.log("restart record");
+    record_was_hold = false;
     if (current_page == "after-record") {
-        app.closeModal('.popup-after-record');
-        app.popup('.popup-record');
+        // app.closeModal('.popup-after-record');
+        Popup("popup-after-record", false);
+        // app.popup('.popup-record');
+        Popup("popup-record", true);
+        analytics.logEvent("restart_record_flow", {
+            private_id: window.localStorage.getItem("user_private_id")
+        });
     } else {
         closeStoryRecord();
-        app.popup('.popup-story-record');
+        // app.popup('.popup-story-record');
+        Popup("popup-story-record", true);
+        analytics.logEvent("restart_record_story", {
+            private_id: window.localStorage.getItem("user_private_id")
+        });
     }
 });
 
 $$('.fcancel-after_btn').on('touchend', function () {
     if (current_page == "after-record") {
-        app.closeModal('.popup-after-record');
+        Popup("popup-after-record", false);
         current_page = "home";
+        analytics.setCurrentScreen(current_page);
     } else {
-        app.closeModal('.popup-after-story-record');
+        Popup("popup-after-story-record", false);
         current_page = "home";
+        analytics.setCurrentScreen(current_page);
     }
 });
 
 
 $$('.fvalidate-after_btn').on('touchend', function () {
     if (current_page == "after-record") {
-        // app.closeModal('.popup-after-record');
-        // current_page = "home";
-        var data = {
-            PrivatedId: window.localStorage.getItem("user_private_id"),
-            Title: $(".finput_title").val(),
-            Image: image64 ? image64 : patternKey,
-            Description: $(".finput_description").val(),
-            Tags: [],
-            Sound: appState.blob64,
-            Duration: record_time,
-            Time : "0" 
+        if ($(".finput_title").val().replace(/\s+/g, '').length > 0) {
+            var data = {
+                PrivatedId: window.localStorage.getItem("user_private_id"),
+                Title: $(".finput_title").val(),
+                Image: image64 ? image64 : patternKey,
+                Description: $(".finput_description").val(),
+                Tags: [],
+                Sound: appState.blob64,
+                Duration: record_time,
+                Time: "0"
+            }
+            console.log(data);
+            // Socket.client.send("Flow", "AddFlow", data); --OLD
+            // floading-spinner loading-record-flow
+            $(".fvalidate-after_btn.record")[0].style.pointerEvents = "none";
+            $(".fvalidate-after_btn.record")[0].setAttribute("style", "background: linear-gradient(to bottom, #1A84EF, #FF0054)");
+            $(".floading-spinner.loading-record-flow")[0].style.display = "block";
+            setTimeout(function () {
+                ServerManager.AddFlow(data);
+                analytics.logEvent("upload_flow", {
+                    private_id: data.PrivatedId,
+                    title: data.Title,
+                    description: data.Description,
+                    duration: data.Duration
+                });
+            }, 100);
+            image64 = null;
+            patternKey = null;
+        } else {
+            alert("Flow title can't be empty");
+            $(".finput_title").focus();
         }
-        console.log(data);
-        // Socket.client.send("Flow", "AddFlow", data); --OLD
-        // floading-spinner loading-record-flow
-        $(".fvalidate-after_btn.record")[0].style.pointerEvents = "none";
-        $(".fvalidate-after_btn.record")[0].setAttribute("style", "background: linear-gradient(to bottom, #1A84EF, #FF0054)");
-        $(".floading-spinner.loading-record-flow")[0].style.display = "block";
-        setTimeout(function () {
-            ServerManager.AddFlow(data);
-        }, 100);
-        image64 = null;
-        patternKey = null;
     } else {
         let storydata = {
             PrivatedId: window.localStorage.getItem("user_private_id"),
             Sound: appState.blob64,
             Duration: record_time,
             Color: last_story_color,
-            Time : "0" 
+            Time: "0"
         };
         console.log("Send story to server");
         $(".fvalidate-after_btn.story")[0].style.pointerEvents = "none";
@@ -169,6 +225,10 @@ $$('.fvalidate-after_btn').on('touchend', function () {
 
         setTimeout(function () {
             ServerManager.AddStory(storydata);
+            analytics.logEvent("upload_story", {
+                private_id: storydata.PrivatedId,
+                duration: storydata.Duration
+            });
         }, 100);
     }
 });
@@ -180,117 +240,6 @@ $$('.fgallery-after').on('click', function () {
     GetPhotoFromGallery();
 });
 
-function StartRecording() {
-    if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/) && !debug_record) {
-        //------------------ PERMISSIONS -------------------------------//
-        var permissions = cordova.plugins.permissions;
-        var list = [
-            permissions.RECORD_AUDIO
-            //permissions.WRITE_EXTERNAL_STORAGE
-        ];
-
-        function error() {
-            alert('Record audio permission not given');
-        }
-
-        function success(status) {
-            if (!status.hasPermission) error();
-            else {
-                setup();
-                recording = true;
-                console.log("start recording...");
-                start_time = Date.now();
-                UpdateRecordIndicator();
-
-                if (current_page == "record" || current_page == "record-story") {
-                    $$('.frecord-btn').addClass('frecord-btn-active');
-                } else if (current_page == "story") {
-                    $$('.fstory_addcomment_btn').addClass('active');
-                    $(".comment_record_popup").css({
-                        "opacity": "1",
-                        "pointer-events": "auto"
-                    });
-                }
-            }
-        }
-
-        permissions.hasPermission(permissions.RECORD_AUDIO, function (status) {
-            if (status.hasPermission) {
-                setup();
-                if (current_page == "record" || current_page == "record-story") {
-                    $$('.frecord-btn').addClass('frecord-btn-active');
-                } else if (current_page == "story") {
-                    $$('.fstory_addcomment_btn').addClass('active');
-                    $(".comment_record_popup").css({
-                        "opacity": "1",
-                        "pointer-events": "auto"
-                    });
-                }
-                recording = true;
-                console.log("start recording...");
-                start_time = Date.now();
-                UpdateRecordIndicator();
-            } else {
-                permissions.requestPermissions(list, success, error);
-            }
-        });
-    } else {
-        setup();
-        if (current_page == "record" || current_page == "record-story") {
-            $$('.frecord-btn').addClass('frecord-btn-active');
-        } else if (current_page == "story") {
-            $$('.fstory_addcomment_btn').addClass('active');
-            $(".comment_record_popup").css({
-                "opacity": "1",
-                "pointer-events": "auto"
-            });
-        }
-        recording = true;
-        console.log("start recording...");
-        start_time = Date.now();
-        UpdateRecordIndicator();
-    }
-
-}
-
-function StopRecording() {
-
-    window.plugins.insomnia.allowSleepAgain();
-    //siriWave.stop();
-    if (recording) {
-        mediaRecorder.stop();
-    }
-
-    recording = false;
-    record_was_hold = false;
-    console.log("stop recording.");
-    if (current_page == "record" || current_page == "record-story") {
-        $$('.frecord-btn').removeClass('frecord-btn-active');
-        $$('.frecord_indicator').css({
-            "stroke-dasharray": "0 100"
-        });
-    } else if (current_page == "story") {
-        $$('.fstory_addcomment_btn').removeClass('active');
-        $$('.fstory_addcomment_btn')[0].style.display = "none";
-        let value = 0;
-        let css = "rgba(0, 0, 0, 0) conic-gradient(white 0deg, white " + value + "%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
-        $(".fstory_addcomment_loading").css({
-            "background": css
-        });
-        if (arguments[0] == "cancel") {
-            console.log("recording canceled");
-        } else {
-            $(".validate_record_comment")[0].style.display = "block";
-            $(".listen_record_comment")[0].style.display = "block";
-        }
-        // $(".comment_record_popup").css({"opacity": "1", "pointer-events": "none"});
-    }
-    //document.getElementById("Error1").innerText = "Record Audio Stop";
-    //record.style.background = ""; 
-    //record.style.color = "";
-    //stop.disabled = true;
-    //record.disabled = false;
-}
 
 function UpdateRecordIndicator() {
     record_time = (Date.now() - start_time) / 1000;
@@ -299,9 +248,7 @@ function UpdateRecordIndicator() {
     } else if (current_page == "record-story") {
         $$('#flow_story_number_of_sec').text(format(Math.round(record_time)));
     }
-    // $$('.frecord_indicator').css({
-    //     "stroke-dasharray": Math.round(6.73 * record_time) + " 100"
-    // });
+
     if (recording && record_time <= 15) {
         setTimeout(function () {
             if (recording) {
@@ -320,13 +267,15 @@ function UpdateRecordIndicator() {
             }
         }, 100);
     } else {
-        StopRecording();
+        stopCapture();
     }
 }
 
 function CloseAfterRecord() {
-    app.closeModal('.popup-after-record');
+    // app.closeModal('.popup-after-record');
+    Popup("popup-after-record", false);
     current_page = "home";
+    analytics.setCurrentScreen(current_page);
     TLCurrentIndex = 0;
     ServerManager.GetTimeline(0);
 }
@@ -352,101 +301,16 @@ $$('.fflow-btn').on('touchstart', function () {
 });
 
 
-
-//-------------------------------------------------------------//
-var BitsPerSecondDefault = "12000";
-var soundClips = document.querySelector('.sounds-record');
-// var canvas2 = document.getElementById('siri_classic').children;
-var chunks = [];
-var mediaRecorder;
-
-function setup() {
-
-    window.plugins.insomnia.keepAwake();
-
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        var constraints = {
-            audio: true
-        };
-
-        chunks = [];
-
-        var onSuccess = function (stream) {
-            //siriWave.start();
-
-            mediaRecorder = new MediaRecorder(stream, {
-                audioBitsPerSecond: BitsPerSecondDefault
-            });
-            mediaRecorder.onstop = function (e) {
-                Save(mediaRecorder);
-            }
-
-            mediaRecorder.ondataavailable = function (e) {
-                chunks.push(e.data);
-            }
-
-            mediaRecorder.start();
-            wave(stream);
-        }
-
-        var onError = function (err) {
-            alert("error : recording failed.");
-            alert(err);
-        }
-
-        navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
-    } else {
-        alert("error : can't access media device");
-    }
-}
-//-------------- SAVE ---------------------------//
-var i = 1;
-
-function Save(mediaRecorder) {
-    //var recordName = prompt("Name For your record", "Flow_v" + i);
-    // var recordName = "myflow_" + i;
-    // var recordContainer = document.createElement('article');
-    // var recordLabel = document.createElement('p');
-    // var audio = document.createElement('audio');
-    // var deleteButton = document.createElement('button');
-    // recordContainer.classList.add('record');
-    // audio.setAttribute('controls', "");
-    // deleteButton.textContent = "Delete";
-    // deleteButton.className = "delete";
-
-    // if (recordName === null) {
-    //     recordLabel.textContent = "Flow";
-    // } else {
-    //     recordLabel.textContent = recordName;
-    // }
-    blob = new Blob(chunks, {
-        'type': 'audio/opus; codecs=opus'
-    });
-    // recordLabel.textContent += " Size : " + precisionRound(blob.size / 1024, 2) + "Ko | rec with " + mediaRecorder.audioBitsPerSecond + " Kbps";
-    // //socket.emit('AddFlow', blob);
-    // recordContainer.appendChild(audio);
-    // recordContainer.appendChild(recordLabel);
-    // recordContainer.appendChild(deleteButton);
-    // soundClips.appendChild(recordContainer);
-
-    // audio.controls = true;
-
-    chunks = [];
-
+function Save(wavblob) {
+    blob = wavblob.slice(0, wavblob.size, "audio/opus; codecs=opus");
     var audioURL = window.URL.createObjectURL(blob);
-    // audio.src = audioURL;
-    // i++;
 
-
-    // deleteButton.onclick = function (e) {
-    //     evtTgt = e.target;
-    //     evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
-    // }
     console.log("current page : " + current_page);
     if (current_page == "record") {
 
-        app.closeModal('.popup-record');
-        app.popup('.popup-after-record');
+        Popup("popup-record", false);
+        Popup("popup-after-record", true);
+
         if (!after_record_initialised) {
             var mySwiper4 = app.swiper('.swiper-4', {
                 pagination: '.swiper-4 .swiper-pagination',
@@ -461,6 +325,7 @@ function Save(mediaRecorder) {
             after_record_initialised = true;
             current_page = "after-record";
             console.log("after record");
+            analytics.setCurrentScreen(current_page);
         }
         $(".after-record-block-container").html("");
         let block_params = {
@@ -476,6 +341,7 @@ function Save(mediaRecorder) {
             account_imageURL: window.localStorage.getItem("user_profile_pic")
         };
         new_block = new block(block_params);
+        all_blocks.push(new_block);
         // $(".frandom-color-btn").on("click", function() {new_block.randomColorGradient()});
         patternKey = new_block.patternKey;
         appState.patternKey = patternKey;
@@ -495,8 +361,8 @@ function Save(mediaRecorder) {
             new_block.finput_title.focus();
         }, 500);
     } else if (current_page == "record-story") {
-        app.closeModal('.popup-story-record');
-        app.popup('.popup-after-story-record');
+        Popup("popup-story-record", false);
+        Popup("popup-after-story-record", true);
         $(".after-story-record-block-container").html("");
         let block_params = {
             parent_element: $(".after-story-record-block-container"),
@@ -512,6 +378,7 @@ function Save(mediaRecorder) {
             storyAfterBlock: true
         };
         new_block = new block(block_params);
+        all_blocks.push(new_block);
         patternKey = new_block.patternKey;
         appState.patternKey = patternKey;
         appState.recordTime = record_time;
@@ -519,6 +386,7 @@ function Save(mediaRecorder) {
         appState.flow_title = $(".finput_title").val();
         appState.flow_description = $(".finput_description").val();
         current_page = "after-story-record";
+        analytics.setCurrentScreen(current_page);
         var reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onloadend = function () {
@@ -548,32 +416,6 @@ function precisionRound(number, precision) {
     return Math.round(number * factor) / factor;
 }
 
-//------------------ PERMISSIONS -------------------------------//
-
-// var list = [
-//     permissions.CAMERA,
-//     permissions.RECORD_AUDIO
-//   ];
-
-//   permissions.hasPermission(list, callback, null);
-
-//   function error() {
-//     console.warn('Record audio permission not given');
-//   }
-
-//   function success( status ) {
-//     if( !status.hasPermission ) {
-
-//       permissions.requestPermissions(
-//         list,
-//         function(status) {
-//           if( !status.hasPermission ) error();
-//         },
-//         error);
-//     }
-//   }
-
-// ---------------------------------------------------------------------- //
 var siriWave = new SiriWaveRecord({
     container: document.getElementById('wave-container'),
     width: 300,
@@ -610,34 +452,33 @@ function Lerp(value1, value2, amount) {
     return value1 + (value2 - value1) * amount;
 }
 var smoothVolume = 0;
+var smoothValue = 0;
+var sound_data = [];
 
-function wave(stream) {
-    audioContext = new AudioContext();
-    analyser = audioContext.createAnalyser();
-    microphone = audioContext.createMediaStreamSource(stream);
-    javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
+function drawCurveAnim() {
 
-    analyser.smoothingTimeConstant = 0.8;
-    analyser.fftSize = 1024;
-
-    microphone.connect(analyser);
-    analyser.connect(javascriptNode);
-    javascriptNode.connect(audioContext.destination);
-    javascriptNode.onaudioprocess = function () {
-        var array = new Uint8Array(analyser.frequencyBinCount);
-        analyser.getByteFrequencyData(array);
-        var values = 0;
-        var length = array.length;
+    if (sound_data.length > 0) {
+        let length = 255;
+        let total = 0;
         for (var i = 0; i < length; i++) {
-            values += (array[i]);
+            let val = Math.abs(sound_data[i]) * 3270;
+            if (val > 1) {
+                total += val;
+            }
         }
-
-        var average = values / length;
-        // smoothVolume = Lerp(smoothVolume,average,0.25);
-        smoothVolume = average;
+        var average = Math.min(30, total / length);
+        var smoothValue = average;
+        if (smoothValue < average) {
+            smoothValue += 3;
+        } else if (smoothValue > average) {
+            smoothValue -= 1.5;
+        }
+        smoothValue = Math.max(2, smoothValue);
+        smoothVolume = Lerp(smoothVolume, smoothValue, 0.25);
+        // $$('#flow_number_of_sec').text(Math.round(smoothVolume));
         if (current_page == "record") {
             if (recording) {
-                siriWave.amplitude = (smoothVolume * 0.02) + 0.1;
+                siriWave.amplitude = (Math.round(smoothVolume) * 0.02) + 0.1;
                 siriWave.speed = 0.2;
             } else {
                 siriWave.amplitude = 0;
@@ -645,16 +486,21 @@ function wave(stream) {
             }
         } else {
             if (recording) {
-                siriWaveStory.amplitude = (smoothVolume * 0.02) + 0.1;
+                siriWaveStory.amplitude = (Math.round(smoothVolume) * 0.02) + 0.1;
                 siriWaveStory.speed = 0.2;
             } else {
                 siriWaveStory.amplitude = 0;
                 siriWaveStory.speed = 0;
             }
         }
-        // siriWave.speed = smoothVolume*0.004;
+
     }
+
+    requestAnimationFrame(drawCurveAnim);
 }
+
+drawCurveAnim();
+
 
 function TakePhoto() {
     console.log("take photo");
@@ -764,7 +610,7 @@ function getPhoto() {
 
 function onFail(message) {
     appState.takingPicture = false;
-    alert('Failed because: ' + message);
+    // alert('Failed because: ' + message);
 }
 
 function toDataUrl(url, callback) {
@@ -782,7 +628,208 @@ function toDataUrl(url, callback) {
 }
 
 function closeStoryRecord() {
-    app.closeModal('.popup-after-story-record');
+    Popup("popup-after-story-record", false);
     current_page = "home";
+    analytics.setCurrentScreen(current_page);
     console.log("close story record");
 }
+
+/*----------------------------------------------- */
+/*-------------- NEW AUDIO RECORD --------------- */
+/*----------------------------------------------- */
+
+
+
+
+// Capture configuration object
+var captureCfg = {};
+
+// Audio Buffer
+var audioDataBuffer = [];
+/**
+ * Called continuously while AudioInput capture is running.
+ */
+function onAudioInputCapture(evt) {
+    try {
+        if (evt && evt.data) {
+            // Add the chunk to the buffer
+            let data = Array.from(evt.data);
+            audioDataBuffer = audioDataBuffer.concat(data);
+            // wave(data);
+            sound_data = data;
+            // console.log(Array.from(evt.data));
+            // wave(Array.from(evt.data));
+        } else {
+            console.log("Unknown audioinput event: " + JSON.stringify(evt));
+        }
+    } catch (ex) {
+        console.log("onAudioInputCapture ex: " + ex);
+    }
+}
+
+
+/**
+ * Called when a plugin error happens.
+ */
+function onAudioInputError(error) {
+    console.log("onAudioInputError event recieved: " + JSON.stringify(error));
+}
+
+var mediaRecorder;
+/**
+ * Start capturing audio.
+ */
+var startCapture = function () {
+    // siriWave.amplitude = (20 * 0.02) + 0.1;
+    // siriWave.speed = 0.2;
+    try {
+        if (window.audioinput && !window.audioinput.isCapturing()) {
+            captureCfg = {
+                sampleRate: 120000,
+                bufferSize: 16384,
+                // format: window.audioinput.FORMAT.PCM_16BIT,
+                audioSourceType: 0
+            };
+
+
+            ///////////////////////////////
+            console.log("Microphone input starting...");
+            recording = true;
+            audioDataBuffer = [];
+            start_time = Date.now();
+            $$('.frecord_indicator').css({
+                "display": "block"
+            });
+            UpdateRecordIndicator();
+            window.audioinput.start(captureCfg);
+            $(".frecord-btn")[0].style.background = "url(\"src/icons/stop_icon.png\") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054)";
+            console.log("Microphone input started!");
+
+            // getMicrophonePermission(function () {
+            //     // Record for visualizer only //
+            //     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            //         var constraints = {
+            //             audio: true
+            //         };
+
+            //         chunks = [];
+
+            //         var onSuccess = function (stream) {
+            //             //mediaRecorder.start();
+            //             wave(stream);
+            //         }
+
+            //         var onError = function (err) {
+            //             alert("error : recording failed.");
+            //             alert(err);
+            //         }
+
+            //         navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
+            //     } else {
+            //         alert("error : can't access media device");
+            //     }
+            // });
+        }
+    } catch (e) {
+        console.log("startCapture exception: " + e);
+    }
+};
+
+
+/**
+ * Stop the capture, encode the captured audio to WAV and show audio element in UI.
+ */
+var stopCapture = function () {
+
+    $(".frecord-btn")[0].style.background = "url(\"src/icons/Record.png\") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054)";
+    $$('.frecord_indicator').css({
+        "display": "none",
+        "stroke-dasharray": "0 100"
+    });
+    // try {
+    if (window.audioinput && window.audioinput.isCapturing()) {
+
+        if (window.audioinput) {
+            // mediaRecorder.stop();
+            window.audioinput.stop();
+
+            recording = false;
+        }
+        console.log("Encoding WAV...");
+        var encoder = new WavAudioEncoder(window.audioinput.getCfg().sampleRate, window.audioinput.getCfg().channels);
+        encoder.encode([audioDataBuffer]);
+
+        console.log("Encoding WAV finished");
+
+        var blob = encoder.finish("audio/wav");
+
+        console.log("BLOB created");
+
+        // var audioURL = window.URL.createObjectURL(blob);
+        // console.log(audioURL);
+        Save(blob);
+        /* var reader = new FileReader();
+
+        reader.onload = function (evt) {
+            var audio = document.createElement("AUDIO");
+            audio.controls = true;
+            audio.src = audioURL;//evt.target.result;
+            audio.type = "audio/wav";
+            document.getElementById("recording-list").appendChild(audio);
+            console.log("Audio created");
+            audioDataBuffer = [];
+        };
+
+        console.log("Loading from BLOB");
+        reader.readAsDataURL(blob); */
+    }
+    // }
+    // catch (e) {
+    //     console.log("stopCapture exception: " + e);
+    // }
+};
+
+var onDeviceReady = function () {
+    if (window.cordova && window.audioinput) {
+        // Subscribe to audioinput events
+        //
+        window.addEventListener('audioinput', onAudioInputCapture, false);
+        window.addEventListener('audioinputerror', onAudioInputError, false);
+
+        console.log("cordova-plugin-audioinput successfully initialised");
+    } else {
+        console.log("cordova-plugin-audioinput not found!");
+    }
+};
+
+document.addEventListener('deviceready', onDeviceReady, false);
+
+/**
+ *
+ * @param onSuccess
+ * @param onDenied
+ * @param onError
+ */
+var getMicrophonePermission = function (onSuccess, onDenied, onError) {
+    window.audioinput.checkMicrophonePermission(function (hasPermission) {
+        try {
+            if (hasPermission) {
+                if (onSuccess) onSuccess();
+            } else {
+                window.audioinput.getMicrophonePermission(function (hasPermission, message) {
+                    try {
+                        if (hasPermission) {
+                            if (onSuccess) onSuccess();
+                        } else {
+                            if (onDenied) onDenied("User denied permission to record: " + message);
+                        }
+                    } catch (ex) {
+                        if (onError) onError("Start after getting permission exception: " + ex);
+                    }
+                });
+            }
+        } catch (ex) {
+            if (onError) onError("getMicrophonePermission exception: " + ex);
+        }
+    });
+};

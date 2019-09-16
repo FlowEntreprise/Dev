@@ -1,6 +1,5 @@
 var nameMonCompte;
 var bioMonCompte;
-var mainView = app.addView('.view-main');
 var MyFlowBandeau;
 var MyFollower;
 var MyFollowing;
@@ -8,12 +7,24 @@ var privateID;
 var indexMyFlow;
 var MyFlowAdd = true;
 
-app.onPageInit('login-screen', function (page) {
+$(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
+
+document.getElementById("popup-myaccount").addEventListener("opened", function () {
+    stopAllBlocksAudio();
+    current_page = "my-account";
+    analytics.setCurrentScreen(current_page);
     indexMyFlow = 0;
     $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
+    $("#MyActivity")[0].innerHTML = "";
+    let loading_tl = document.createElement("div");
+    loading_tl.className = "loading_circle loading_myaccount";
+    loading_tl.style.marginTop = "50%";
+    $("#MyActivity")[0].appendChild(loading_tl);
+    $("#fnameMonCompte").html(nameMonCompte);
+    $("#fbioMonCompte").html(bioMonCompte);
     var getFlow = {
-        Index : indexMyFlow,
-        PrivateId : window.localStorage.getItem("user_private_id")
+        Index: indexMyFlow,
+        PrivateId: window.localStorage.getItem("user_private_id")
     };
     ServerManager.GetMyFlow(getFlow);
 
@@ -29,16 +40,22 @@ app.onPageInit('login-screen', function (page) {
     bioMonCompte = window.localStorage.getItem("user_bio") || "";
     $(".fflow-btn").css("display", "none");
     $(".flow-btn-shadow").css("display", "none");
-    $("#fprofilPicture").css({
+    $("#fmyprofilPicture").css({
         "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
     });
     $("#fnameMonCompte").html(nameMonCompte);
-    $("#privateID").html("@" + privateID);
-    $("#fbioMonCompte").append(bioMonCompte);
-
+    $("#myprivateID").html("@" + privateID);
+    $("#fbioMonCompte").html(bioMonCompte);
     $("#fgobackmonCompte").click(function () {
-        mainView.back();
+        // mainView.back();
         $(".fflow-btn").css("display", "block");
+        $(".flow-btn-shadow").css("display", "block");
+        $(".fflow-btn").css("z-index", "1");
+        $(".flow-btn-shadow").css("z-index", "0");
+        current_page = "home";
+        analytics.setCurrentScreen(current_page);
+        Popup("popup-myaccount", false);
+        stopAllBlocksAudio();
         //$(".flow-btn-shadow").css("display", "block");
     });
 
@@ -76,7 +93,7 @@ app.onPageInit('login-screen', function (page) {
             if (boolScrollTop) {
                 $(".ftabsMonCompte")[0].setAttribute("style", "height:94vh !important");
 
-                
+
                 $(".fnavMonCompte").removeClass("fnavMonCompteTransitionDown");
                 $(".fnavMonCompte").addClass("fnavMonCompteTransitionTop");
                 $(".ftabsMonCompte").css("transition-duration", "0.4s");
@@ -109,33 +126,43 @@ app.onPageInit('login-screen', function (page) {
         position = scroll;
     }
 
-    $('#fprofilPicture').click(function () {
-        $("#fbigProfilPictureContainer").css("transform", "scale(1)");
+    $('#fmyprofilPicture').click(function () {
+        $("#fmybigProfilPictureContainer").css({
+            "transform": "scale(1)",
+            "opacity": "1",
+            "pointer-events": "auto"
+        });
     });
 
-    $("#fbigProfilPicture").css({
+
+
+    $("#returnmyProfilPicture").click(function () {
+        $("#fmybigProfilPictureContainer").css({
+            "transform": "scale(0.4)",
+            "opacity": "0",
+            "pointer-events": "none"
+        });
+    });
+
+    $("#fmybigProfilPicture").css({
         "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
     });
     var profilePicture = document.createElement('img');
-    // var profilePicture = window.localStorage.getItem("user_profile_pic");
     profilePicture.setAttribute('src', window.localStorage.getItem("user_profile_pic"));
 
     profilePicture.addEventListener('load', function () {
         var vibrant = new Vibrant(profilePicture);
         var swatches = vibrant.swatches();
-        //console.log(swatches);
-        $("#fbigProfilPictureContainer").css("background-color", swatches.Muted.getHex());
-    });
-
-    $("#returnProfilPicture").click(function () {
-        $("#fbigProfilPictureContainer").css("transform", "scale(0)");
-        //console.log("ok");
+        $("#fmybigProfilPictureContainer").css("background-color", swatches.Muted.getHex());
     });
 
     $("#feditProfil").click(function () {
-        //$("#editProfilePopup").css("transform", "scale(1)");
         $("#feditProfilePopupContainer").css("opacity", "1");
-        $("#editProfilePopup").css("transform", "scale(1)");
+        $("#editProfilePopup").css({
+            "transform": "scale(1)",
+            "opacity": "1",
+            "pointer-events": "auto"
+        });
         $("#feditProfilePopupContainer").css("pointer-events", "auto");
         $("#fprofilPicturePopup").css({
             "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
@@ -145,16 +172,31 @@ app.onPageInit('login-screen', function (page) {
     });
 
     $("#fcloseProfilPopup").click(function () {
-        if($.trim($("#editProfileName").val()) != "") 
-        {
-            if($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte)
-            {
-                var updateEditProfile =  {
-                    FullName : $("#editProfileName").val(),
+        if ($.trim($("#editProfileName").val()) != "") {
+            if ($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte) {
+                var updateEditProfile = {
+                    FullName: $("#editProfileName").val(),
                     Biography: $("#feditBio").val()
                 };
-                //console.log("Profile name:" +updateEditProfile.FullName);
-                //console.log("Profile bio:" +updateEditProfile.Biography);
+                ServerManager.UpdateProfile(updateEditProfile);
+            }
+            $("#feditProfilePopupContainer").css("opacity", "0");
+            $("#editProfilePopup").css({
+                "transform": "scale(0.4)",
+                "opacity": "0",
+                "pointer-events": "none"
+            });
+            $("#feditProfilePopupContainer").css("pointer-events", "none");
+        }
+    });
+
+    $("#feditProfilePopupContainer").click(function () {
+        if ($.trim($("#editProfileName").val()) != "") {
+            if ($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte) {
+                var updateEditProfile = {
+                    FullName: $("#editProfileName").val(),
+                    Biography: $("#feditBio").val()
+                };
                 ServerManager.UpdateProfile(updateEditProfile);
             }
             $("#feditProfilePopupContainer").css("opacity", "0");
@@ -163,60 +205,25 @@ app.onPageInit('login-screen', function (page) {
         }
     });
 
-    $("#feditProfilePopupContainer").click(function() {
-        if($.trim($("#editProfileName").val()) != "") 
-        {
-            if($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte)
-            {
-                var updateEditProfile =  {
-                    FullName : $("#editProfileName").val(),
-                    Biography: $("#feditBio").val()
-                };
-                //console.log("Profile name:" +updateEditProfile.FullName);
-                //console.log("Profile bio:" +updateEditProfile.Biography);
-                ServerManager.UpdateProfile(updateEditProfile);
-            }
-            $("#feditProfilePopupContainer").css("opacity", "0");
-            $("#editProfilePopup").css("transform", "scale(0)");
-            $("#feditProfilePopupContainer").css("pointer-events", "none");
-        }
-    });
-
-    $("#tabMonCompte1").scroll(function() {
+    $("#tabMonCompte1").scroll(function () {
         var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-        if(MyFlowAdd == true ) {
+        if (MyFlowAdd == true) {
             if (Math.round($(this).scrollTop()) >= limit * 0.75) {
                 MyFlowAdd = false;
                 var addMyFlow = {
-                    Index : indexMyFlow,
-                    PrivateId : window.localStorage.getItem("user_private_id")
+                    Index: indexMyFlow,
+                    PrivateId: window.localStorage.getItem("user_private_id")
                 };
                 ServerManager.GetMyFlow(addMyFlow);
             }
         }
-        // console.log("MyflowAdd = " + MyFlowAdd);
-        // var $this = $(this);
-        // var $results = $("#MyActivity");
-        // var limit = Math.max(   $this[0].scrollHeight, 
-        //                         $this[0].offsetHeight, 
-        //                         $results[0].clientHeight, 
-        //                         $results[0].scrollHeight, 
-        //                         $results[0].offsetHeight );
-        // if(MyFlowAdd == true ) {
-        //     if (Math.round($this.scrollTop() + $this.height()) == limit) {
-        //         MyFlowAdd = false;
-        //         var addMyFlow = {
-        //             Index : indexMyFlow,
-        //             PrivateId : window.localStorage.getItem("user_private_id")
-        //         };
-        //         //console.log(addMyFlow);
-        //         ServerManager.GetMyFlow(addMyFlow);
-        //     }
-        // }
+
     });
+    // first_open_myaccount = false;
+    // }
 });
 
-function UpdateProfile (profileName, profileBio) {
+function UpdateProfile(profileName, profileBio) {
     $("#fnameMonCompte").html(profileName);
     window.localStorage.setItem("user_name", profileName);
     $("#fbioMonCompte").html(profileBio);
@@ -228,17 +235,14 @@ function UpdateProfile (profileName, profileBio) {
 function ShowMyFlow(flow) {
     //console.log("SHOW MY FLOW");
     //console.log(flow);
-    if(Array.isArray(flow.Data) == false)
-    { 
+    if (Array.isArray(flow.Data) == false) {
         MyFlowAdd = false;
         // window.alert("Plus de flow a recupt");
-    }
-    else 
-    {
+    } else {
         // flow.Data.reverse();
         var countFlow = 0;
         for (let i = 0; i < flow.Data.length; i++) {
-            countFlow ++;
+            countFlow++;
             let data = flow.Data[i];
             var image_link = undefined;
             var pattern_key = undefined;
@@ -249,11 +253,11 @@ function ShowMyFlow(flow) {
             } else {
                 pattern_key = data.Background.PatternKey;
             }
-            
+
             const src_flow = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
             const param_flow = `${flow.LinkBuilder.Params.hash}=${data.Audio.hash}&${flow.LinkBuilder.Params.time}=${data.Audio.timestamp}`;
             const flow_link = src_flow + param_flow;
-            
+
             const src_profile_img = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
             const param_profile_img = `${flow.LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${flow.LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
             var profilePicLink = src_profile_img + param_profile_img;
@@ -262,6 +266,7 @@ function ShowMyFlow(flow) {
             let block_params = {
                 parent_element: $("#MyActivity"),
                 afterblock: false,
+                ObjectId: data.ObjectId,
                 audioURL: flow_link,
                 duration: data.Duration,
                 patternKey: pattern_key,
@@ -270,27 +275,34 @@ function ShowMyFlow(flow) {
                 description: data.Description,
                 pseudo: data.PrivateId,
                 account_imageURL: profilePicLink,
+                IsLike: data.IsLike,
+                IsComment: data.IsComment,
+                Likes : data.Likes,
+                ObjectId: data.ObjectId,
+                PrivateId: data.PrivateId,
+                Times: data.Time,
+                Comments: data.Comments,
                 RegisterId : data.RegisterId,
-                Comments : data.Comments
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
-            
+            if ($(".loading_myaccount")) $(".loading_myaccount").remove();
+
             //console.log("Pop Flow");
             //console.log(new_block);
         }
-        if(countFlow < 5)
-        {
-            indexMyFlow ++;
+        if (countFlow < 5) {
+            indexMyFlow++;
             MyFlowAdd = false;
-            //console.log("index" + indexMyFlow);
-            // window.alert("< 5 donc stop");
-        }
-        else
-        {
-            indexMyFlow ++;
+            let tick_tl = document.createElement("div");
+            tick_tl.className = "tick_icon";
+            $("#MyActivity")[0].appendChild(tick_tl);
+        } else {
+            indexMyFlow++;
             MyFlowAdd = true;
-            //console.log("index" + indexMyFlow);
+            let loading_tl = document.createElement("div");
+            loading_tl.className = "loading_circle loading_myaccount";
+            $("#MyActivity")[0].appendChild(loading_tl);
         }
     }
 }
@@ -300,7 +312,7 @@ function ShowMyInfosUser(data) {
     MyFlowBandeau = data.NbFlow;
     MyFollower = data.NbFollower;
     MyFollowing = data.NbFollowing;
-    $("#ffLowBandeauChiffre").append(MyFlowBandeau);
-    $("#ffollowersBandeauChiffre").append(MyFollower);
-    $("#ffollowingBandeauChiffre").append(MyFollowing);
-}    
+    $("#fflowmyBandeauChiffre").html(MyFlowBandeau);
+    $("#ffollowersmyBandeauChiffre").html(MyFollower);
+    $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+}

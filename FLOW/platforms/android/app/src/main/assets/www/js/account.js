@@ -11,13 +11,28 @@ var indexAccount;
 var accountFlowAdd = true;
 var UserFlowAdd = true;
 var profilePicLink;
-// var CanRefreshUser = true;
-// var UserCurrentIndex = 0;
 
-app.onPageInit('login-screen2', function (page) {    
+$(".fnavAccount").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
+
+
+document.getElementById("popup-account").addEventListener("opened", function () {
+    stopAllBlocksAudio();
+    current_page = "account";
+    analytics.setCurrentScreen(current_page);
     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
     $(".fflow-btn").css("display", "none");
     $(".flow-btn-shadow").css("display", "none");
+
+    $("#fflowBandeauChiffre").html("");
+    $("#ffollowersBandeauChiffre").html("");
+    $("#ffollowingBandeauChiffre").html("");
+    $("#fbioCompte").html("loading");
+    $("#fnameCompte").html("loading");
+    $("#privateID").html("loading");
+    $("#fprofilPicture").css({
+        "background-image": "none"
+    });
+
     var scroll_element = $("#tabCompte1");
     checkScrollAccount();
     $$('#tabCompte1').on('tab:show', function () {
@@ -36,38 +51,41 @@ app.onPageInit('login-screen2', function (page) {
         checkScrollAccount();
     });
 
-    $("#fFollowButtunAccount").click(function(){
-        // console.log(privateIDAccount);
+    $("#fFollowButtunAccount").click(function () {
         var ActionFollow = {
-            PrivateId : privateIDAccount
+            PrivateId: privateIDAccount
         };
         ServerManager.ActionFollow(ActionFollow);
-        // console.log(ActionFollow);
-        // manageFollow();
     });
     $('#fprofilPicture').click(function () {
-        $("#fbigProfilPictureContainer").css("transform", "scale(1)");
+        $("#fbigProfilPictureContainer").css({
+            "transform": "scale(1)",
+            "opacity": "1",
+            "pointer-events": "auto"
+        });
     });
 
-    
+
 
     $("#returnProfilPicture").click(function () {
-        $("#fbigProfilPictureContainer").css("transform", "scale(0)");
-        //console.log("ok");
+        $("#fbigProfilPictureContainer").css({
+            "transform": "scale(0.4)",
+            "opacity": "0",
+            "pointer-events": "none"
+        });
     });
 
     function checkScrollAccount() {
         var scroll = scroll_element.scrollTop();
         if (scroll >= 143 && $(".ftabsAccount")[0].style.height == "68%") {
-            // console.log("94vh");
             event.preventDefault();
             event.stopPropagation();
             $("scrollEventAccount").remove(".swiper-wrapper");
             $("#accountBannerScrollAccount").css("transform", "translate3d(0vw, -30vh, 0vh)");
             if (boolScrollTop) {
                 $(".ftabsAccount")[0].setAttribute("style", "height:94vh !important");
-    
-                
+
+
                 $(".fnavAccount").removeClass("fnavAccountTransitionDown");
                 $(".fnavAccount").addClass("fnavAccountTransitionTop");
                 $(".ftabsAccount").css("transition-duration", "0.4s");
@@ -79,7 +97,6 @@ app.onPageInit('login-screen2', function (page) {
             $("scrollEventAccount").addClass(".swiper-wrapper");
         } else {
             if (scroll < 100 && $(".ftabsAccount")[0].style.height == "94vh") {
-                // console.log('NTM');
                 event.preventDefault();
                 event.stopPropagation();
                 if (boolScrollTop == false) {
@@ -110,31 +127,46 @@ app.onPageInit('login-screen2', function (page) {
         // follow = "";
         // followYou = "";
         $(".fflow-btn").css("display", "block");
-        mainView.back();
+        $(".flow-btn-shadow").css("display", "block");
+        $(".fflow-btn").css("z-index", "1");
+        $(".flow-btn-shadow").css("z-index", "0");
+
+        current_page = "home";
+        analytics.setCurrentScreen(current_page);
+        Popup("popup-account", false);
+        stopAllBlocksAudio();
+        // mainView.back();
     });
 
     $("#tabCompte1").scroll(function () {
         var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-        if ( UserFlowAdd == true) {
+        if (UserFlowAdd == true) {
             if (Math.round($(this).scrollTop()) >= limit * 0.75) {
                 UserFlowAdd = false;
                 var addUserFlow = {
-                    Index : indexAccount,
-                    PrivateId : privateIDAccount 
+                    Index: indexAccount,
+                    PrivateId: privateIDAccount
                 };
                 ServerManager.GetUserFlow(addUserFlow);
-            } 
+            }
         }
     });
 });
 
 
 function fInitialisationAccount(privateId) {
+    $("#UserActivity")[0].innerHTML = "";
+    let loading_tl = document.createElement("div");
+    loading_tl.className = "loading_circle loading_myaccount";
+    loading_tl.style.marginTop = "50%";
+    $("#UserActivity")[0].appendChild(loading_tl);
+
     privateIDAccount = privateId;
     indexAccount = 0;
+
     var getFlow = {
-        Index : indexAccount,
-        PrivateId : privateIDAccount
+        Index: indexAccount,
+        PrivateId: privateIDAccount
     };
     ServerManager.GetUserFlow(getFlow);
 
@@ -146,94 +178,75 @@ function fInitialisationAccount(privateId) {
         PrivateId: privateIDAccount
     };
     ServerManager.GetUserInfo(getUserInfoAccount);
-    // console.log("privateIDAccount = " + privateIDAccount);
 }
 
-function manageFollow()
-{
-    console.log(follow);
-    if(follow)
-    {
-        console.log(1);
+function manageFollow() {
+    if (follow) {
         $("#fFollowButtunAccount").addClass("activeButtunFollow");
         $("#fFollowButtunAccount").text("FOLLOWING");
-    }
-    else
-    {
-        console.log(2);
+    } else {
         $("#fFollowButtunAccount").removeClass("activeButtunFollow");
         $("#fFollowButtunAccount").text("FOLLOW");
     }
 }
 
-function manageFollowYou()
-{
-    if(followYou)
-    {
+function manageFollowYou() {
+    if (followYou) {
         $("#fFollowYouButtunAccount").css("display", "block");
-    }
-    else
-    {
+    } else {
         $("#fFollowYouButtunAccount").css("display", "none");
     }
 }
 
 function ShowUserProfile(response) {
-    console.log(response);  
-    bioCompte = response.Data.Bio;
-    nameCompte = response.Data.FullName;
-    followYou = JSON.parse(response.Data.HeFollowYou);
-    follow = JSON.parse(response.Data.YouFollowHim);
-    console.log(follow);
-    manageFollow();
-    manageFollowYou();
-    $("#fbioCompte").append(bioCompte);
-    $("#fnameCompte").html(nameCompte);
-    $("#privateID").html("@" +privateIDAccount);
-    const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data.ProfilePicture.name + '?';
-    const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data.ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data.ProfilePicture.timestamp}`;
-    profilePicLink = src_profile_img + param_profile_img;
-    $("#fprofilPicture").css({
-        "background-image": "url('" + profilePicLink +"')"
-    });    
-    $("#fbigProfilPicture").css({
-        "background-image": "url('" +  profilePicLink + "')"
-    });
-    var profilePicture = document.createElement('img');
-    // var profilePicture = window.localStorage.getItem("user_profile_pic");
-    profilePicture.setAttribute('src', profilePicLink);
+    console.log(response);
+    if (response.Data.PrivateId == privateIDAccount) {
+        bioCompte = response.Data.Bio;
+        nameCompte = response.Data.FullName;
+        followYou = JSON.parse(response.Data.HeFollowYou);
+        follow = JSON.parse(response.Data.YouFollowHim);
+        manageFollow();
+        manageFollowYou();
+        $("#fbioCompte").html(bioCompte);
+        $("#fnameCompte").html(nameCompte);
+        $("#privateID").html("@" + privateIDAccount);
+        const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data.ProfilePicture.name + '?';
+        const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data.ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data.ProfilePicture.timestamp}`;
+        profilePicLink = src_profile_img + param_profile_img;
+        $("#fprofilPicture").css({
+            "background-image": "url('" + profilePicLink + "')"
+        });
+        $("#fbigProfilPicture").css({
+            "background-image": "url('" + profilePicLink + "')"
+        });
+        var profilePicture = document.createElement('img');
+        profilePicture.setAttribute('src', profilePicLink);
 
-    profilePicture.addEventListener('load', function () {
-        var vibrant = new Vibrant(profilePicture);
-        var swatches = vibrant.swatches();
-        //console.log(swatches);
-        $("#fbigProfilPictureContainer").css("background-color", swatches.Muted.getHex());
-    });
+        profilePicture.addEventListener('load', function () {
+            var vibrant = new Vibrant(profilePicture);
+            var swatches = vibrant.swatches();
+            $("#fbigProfilPictureContainer").css("background-color", swatches.Muted.getHex());
+        });
+    }
 }
 
 function ShowInfosUserNumber(data) {
-    // console.log(data);
     FlowBandeau = data.NbFlow;
     Follower = data.NbFollower;
     Following = data.NbFollowing;
-    $("#ffLowBandeauChiffre").append(FlowBandeau);
+    $("#fflowBandeauChiffre").html(FlowBandeau);
     $("#ffollowersBandeauChiffre").html(Follower);
-    $("#ffollowingBandeauChiffre").append(Following);
-} 
+    $("#ffollowingBandeauChiffre").html(Following);
+}
 
 function ShowUserFlow(flow) {
-    // console.log(UserFlowAdd);
-    // console.log("------------------ show -----------------");
-    // console.log(flow);
-    if(Array.isArray(flow.Data) == false)
-    { 
+    console.log(flow.Data[0].PrivateId + "|" + privateIDAccount);
+    if (Array.isArray(flow.Data) == false) {
         UserFlowAdd = false;
-    }
-    else 
-    {
+    } else if (flow.Data[0].PrivateId == privateIDAccount) {
         var countFlow = 0;
         for (let i = 0; i < flow.Data.length; i++) {
-            countFlow ++;
+            countFlow++;
             let data = flow.Data[i];
             var image_link = undefined;
             var pattern_key = undefined;
@@ -244,17 +257,18 @@ function ShowUserFlow(flow) {
             } else {
                 pattern_key = data.Background.PatternKey;
             }
-            
+
             const src_flow = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
             const param_flow = `${flow.LinkBuilder.Params.hash}=${data.Audio.hash}&${flow.LinkBuilder.Params.time}=${data.Audio.timestamp}`;
             const flow_link = src_flow + param_flow;
-            
+
             const src_profile_img = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
             const param_profile_img = `${flow.LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${flow.LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
             var profilePicLink = src_profile_img + param_profile_img;
             let block_params = {
                 parent_element: $("#UserActivity"),
                 afterblock: false,
+                ObjectId: data.ObjectId,
                 audioURL: flow_link,
                 duration: data.Duration,
                 patternKey: pattern_key,
@@ -263,43 +277,44 @@ function ShowUserFlow(flow) {
                 description: data.Description,
                 pseudo: data.PrivateId,
                 account_imageURL: profilePicLink,
+                IsLike: data.IsLike,
+                IsComment: data.IsComment,
+                Likes : data.Likes,
+                ObjectId: data.ObjectId,
+                PrivateId: data.PrivateId,
+                Times: data.Time,
                 RegisterId : data.RegisterId,
                 Comments : data.Comments
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
+            if ($(".loading_account")) $(".loading_account").remove();
         }
-        if(countFlow < 5)
-        {
-            indexAccount ++;
+        if (countFlow < 5) {
+            indexAccount++;
             UserFlowAdd = false;
-        }
-        else
-        {
-            indexAccount ++;
+            let tick_tl = document.createElement("div");
+            tick_tl.className = "tick_icon";
+            $("#UserActivity")[0].appendChild(tick_tl);
+        } else {
+            indexAccount++;
             UserFlowAdd = true;
+            let loading_tl = document.createElement("div");
+            loading_tl.className = "loading_circle loading_account";
+            $("#UserActivity")[0].appendChild(loading_tl);
         }
     }
 }
 
 function ActionFollow(response) {
-    if(response.Follow !== undefined) {
+    if (response.Follow !== undefined) {
         follow = true;
-        console.log("++");
-        Follower ++;
+        Follower++;
         $("#ffollowersBandeauChiffre").html(Follower);
-    }
-    else if(response.UnFollow !== undefined) {
+    } else if (response.UnFollow !== undefined) {
         follow = false;
-        console.log("--");
-        Follower --;
+        Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    }
-    else {
-        console.log(response);
-    }
-    console.log(Follower);
+    } else {}
     manageFollow();
 }
-
-

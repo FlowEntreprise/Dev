@@ -164,7 +164,7 @@ function RefreshStories() {
     /* ------------------------------------------------*/
     /*              REFRESH AFTER GETTING DATA         */
     /* ------------------------------------------------*/
-    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\"><div class=\"fplus\"></div><a href=\"#\" data-popup=\".popup-story-record\" class=\"open-story-record open-popup\"></a><img src=\"src/icons/Account@3x.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div></div></li>";
+    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-story-record', true)\"><div class=\"fplus\"></div><img src=\"src/icons/Account@3x.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div></div></li>";
     if (connected && window.localStorage.getItem("user_profile_pic")) {
         $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
     }
@@ -219,6 +219,7 @@ function RefreshStories() {
 }
 
 function SpawnStoryWindow(story_block) {
+    stopAllBlocksAudio();
     window.plugins.insomnia.keepAwake();
     story_window = document.createElement("div");
     story_window.className = "fstory_window";
@@ -275,7 +276,7 @@ function SpawnStoryWindow(story_block) {
             $('.fstory_addcomment_btn').on('click', function () {
                 console.log("Tap Record !");
                 if (recording) {
-                    StopRecording();
+                    // StopRecording();
                 } else {
                     StartRecording();
                 }
@@ -376,6 +377,7 @@ function CloseStory() {
         story_window = null;
         InStory = false;
         current_page = "home";
+        analytics.setCurrentScreen(current_page);
         StorySiriWave.stop();
     }, 400);
 
@@ -384,6 +386,7 @@ function CloseStory() {
     StatusBar.styleDefault();
     window.plugins.insomnia.allowSleepAgain();
 }
+
 
 function showStoryComments() {
     story_data[story_index].data[storyFlow_index].audio.pause();
@@ -461,7 +464,7 @@ function loadStory(story_index, storyFlow_index) {
     $(".fstory_pseudo").text(story_data[story_index].private_id);
     $(".fstory_time").text(set_timestamp(story_data[story_index].data[storyFlow_index].time));
     story_pos = $($(".fstory_block")[parseInt(story_index) + 1]).position();
-    $(".fstory_indicator_list")[0].innerHTML = "";
+    if ($(".fstory_indicator_list")[0]) $(".fstory_indicator_list")[0].innerHTML = "";
     $(".fstory_pp")[0].style.backgroundImage = "url(" + story_data[story_index].user_picture + ")";
     // $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].darkColor + ");";
     let color_gradient = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].data[storyFlow_index].darkColor + ")";
@@ -784,7 +787,7 @@ function loadStorySeen() {
 }
 
 function closeRecordComment() {
-    StopRecording("cancel");
+    // StopRecording("cancel");
     $(".comment_record_popup").css({
         "opacity": "0",
         "pointer-events": "none"
@@ -814,19 +817,21 @@ function PublishRecordedComment() {
 }
 
 ////////////////////////// RECORDING STORY //////////////////////////
-$$('.popup-story-record').on('popup:open', function () {
-    $$('.frecord-btn').css({
+document.getElementById("popup-story-record").addEventListener("opened", function() {
+    $('.frecord-btn').css({
         "display": "flex"
     });
     $(".record-shadow")[0].style.display = "block";
     current_page = "record-story";
+    analytics.setCurrentScreen(current_page);
 });
 
-$$('.popup-story-record').on('popup:close', function () {
+document.getElementById("popup-story-record").addEventListener("closed", function() {
     $$('.frecord-btn').css({
         "display": "none"
     });
     $(".record-shadow")[0].style.display = "none";
-    StopRecording();
+    // StopRecording();
     current_page = "home";
+    analytics.setCurrentScreen(current_page);
 });

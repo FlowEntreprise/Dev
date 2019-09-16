@@ -20,6 +20,7 @@ ptrContent.on('ptr:refresh', function (e) {
   // }, 1000);
 });
 
+
 ptrContent.on('ptr:pullstart', function (e) {
   console.log("pull start");
   $("#ptr_arrow").css("opacity", "1");
@@ -51,6 +52,7 @@ $("#tab1").scroll(function () {
       //   PrivateId: window.localStorage.getItem("user_private_id")
       // };
       console.log("Get Flow on Server");
+      console.log("TLCurrentIndex : " + TLCurrentIndex);
       ServerManager.GetTimeline(TLCurrentIndex);
       //console.log(addMyFlow);
       //ServerManager.GetMyFlow(addMyFlow);
@@ -90,11 +92,14 @@ function PopFlow(data, LinkBuilder) {
     description: data.Description,
     pseudo: data.PrivateId,
     account_imageURL: profilePicLink,
-    ObjectId : data.ObjectId,
-    PrivateId : data.PrivateId,
-    Times :  data.Time,
+    ObjectId: data.ObjectId,
+    PrivateId: data.PrivateId,
+    Times: data.Time,
+    IsLike: data.IsLike,
+    IsComment: data.IsComment,
+    Likes: data.Likes,
+    Comments: data.Comments,
     RegisterId : data.RegisterId,
-    Comments : data.Comments
   };
   // console.log("pop flow " + block_params.PrivateId);
   var new_block = new block(block_params);
@@ -120,24 +125,37 @@ function UpdateTimeline(data) {
   console.log("updating timeline...");
   // console.log(data.Data);
   if (Array.isArray(data.Data)) {
-    if (TLCurrentIndex == 0) {
-      $(".list-block")[0].innerHTML = "";
-    }
-    for (let i = 0; i < data.Data.length; i++) {
-      PopFlow(data.Data[i], data.LinkBuilder);
-    }
-    console.log("timeline updated !");
-    pullToRefreshEnd();
-    TLCurrentIndex++;
-    if (data.Data.length < 5) {
-      CanRefreshTL = false;
-    } else {
-      CanRefreshTL = true;
-    }
-  }
-  else {
+    setTimeout(function () {
+      if ($(".loading_tl")) $(".loading_tl").remove();
+      if (TLCurrentIndex == 0) {
+        $(".list-block")[0].innerHTML = "";
+        let loading_tl = document.createElement("div");
+        loading_tl.className = "loading_circle loading_tl";
+        $(".list-block")[0].appendChild(loading_tl);
+      }
+      for (let i = 0; i < data.Data.length; i++) {
+        PopFlow(data.Data[i], data.LinkBuilder);
+      }
+      if ($(".loading_tl")) $(".loading_tl").remove();
+      console.log("timeline updated !");
+      pullToRefreshEnd();
+      TLCurrentIndex++;
+      if (data.Data.length < 5) {
+        CanRefreshTL = false;
+        let tick_tl = document.createElement("div");
+        tick_tl.className = "tick_icon";
+        $(".list-block")[0].appendChild(tick_tl);
+      } else {
+        CanRefreshTL = true;
+        let loading_tl = document.createElement("div");
+        loading_tl.className = "loading_circle loading_tl";
+        $(".list-block")[0].appendChild(loading_tl);
+      }
+    }, 500);
+  } else {
     CanRefreshTL = false;
   }
+
 }
 /* 
 **************** RECUPERER FLOW AUDIO FROM BASE64 *********************
@@ -181,12 +199,12 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 /********************************************************************/
 $(".finput_comment").focus(function () {
   console.log("an input was focused");
-  //DisableImmersiveMode();
+  // DisableImmersiveMode();
 });
 
 $(".finput_comment").blur(function () {
   console.log("an input was out focused");
-  //EnableImmersiveMode();
+  // EnableImmersiveMode();
 });
 
 function DisableImmersiveMode() {

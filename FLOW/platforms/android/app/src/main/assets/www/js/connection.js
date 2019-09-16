@@ -1,7 +1,7 @@
 //DisconnectUser();
 var connected = false;
 var user_token;
-CheckIfConnected();
+// CheckIfConnected();
 
 function ConnectUser() {
     console.log("user connected");
@@ -13,14 +13,23 @@ function ConnectUser() {
         "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
     });
     $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
-    app.closeModal('.popup-connect');
+    // app.closeModal('.popup-connect');
+    Popup("popup-connect", false);
     ServerManager.GetStory();
     ServerManager.GetTimeline(0);
-    let data = 
-        {
-            RegisterId : registrationId
-        }
-        ServerManager.UpdateRegisterId(data);
+
+    let loading_tl = document.createElement("div");
+    loading_tl.className = "loading_circle loading_tl";
+    $(".list-block")[0].appendChild(loading_tl);
+    loading_tl.style.marginTop = "60%";
+
+    analytics.logEvent("user_connection", {
+        private_id: window.localStorage.getItem("user_private_id")
+    });
+    let data = {
+        RegisterId: registrationId
+    }
+    ServerManager.UpdateRegisterId(data);
     //$( "#fswipe_area" ).css({"pointer-events": "all"});
 }
 
@@ -31,13 +40,18 @@ function DisconnectUser() {
         "display": "block"
     });
     app.showTab("#tab1");
+    analytics.logEvent("user_disconnection", {
+        private_id: window.localStorage.getItem("user_private_id")
+    });
     //$( "#fswipe_area" ).css({"pointer-events": "none"});
 }
 
 $$('.fneed_connect').on('click', function () {
     if (!connected) {
-        app.popup('.popup-connect');
+        // app.popup('.popup-connect');
+        Popup("popup-connect", true, 45);
         current_page = "connect-popup";
+        analytics.setCurrentScreen(current_page);
     }
 });
 
@@ -76,15 +90,15 @@ function getBase64Image(imgUrl, callback) {
 
     // onload fires when the image is fully loadded, and has width and height
 
-    img.onload = function(){
+    img.onload = function () {
 
-      var canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      var ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
-      var dataURL = canvas.toDataURL("image/png");
-      callback(dataURL); // the base64 string
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        var dataURL = canvas.toDataURL("image/png");
+        callback(dataURL); // the base64 string
 
     };
 
@@ -94,12 +108,22 @@ function getBase64Image(imgUrl, callback) {
 
 }
 
-$$('.popup-connect').on('popup:open', function () {
+document.getElementById("popup-connect").addEventListener("opened", function () {
     StatusBar.backgroundColorByHexString('#949494');
-    StatusBar.styleLightContent();    
+    StatusBar.styleLightContent();
 });
 
-$$('.popup-connect').on('popup:close', function () {
+document.getElementById("popup-connect").addEventListener("closed", function () {
     StatusBar.backgroundColorByHexString('#f7f7f8');
-    StatusBar.styleDefault();    
+    StatusBar.styleDefault();
 });
+
+// $$('.popup-connect').on('popup:open', function () {
+//     StatusBar.backgroundColorByHexString('#949494');
+//     StatusBar.styleLightContent();    
+// });
+
+// $$('.popup-connect').on('popup:close', function () {
+//     StatusBar.backgroundColorByHexString('#f7f7f8');
+//     StatusBar.styleDefault();    
+// });

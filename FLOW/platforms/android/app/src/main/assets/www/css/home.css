@@ -125,6 +125,7 @@
 
 .list-block {
     margin: 0 !important;
+    padding-bottom: 12vh;
 }
 
 .preloader {
@@ -165,4 +166,55 @@
 #menu1>.toolbar {
     bottom: auto !important;
     top: calc(93* var(--custom-vh));
+}
+
+.loading_circle
+{
+    position: absolute;
+    margin-top: 1.5vh;
+    left: calc(50vw - 2.5vh);
+    height: 5vh;
+    width: 5vh;
+    background-image: url("../src/icons/loading_speed_clockwise.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.tick_icon
+{
+    position: absolute;
+    margin-top: 1.5vh;
+    left: calc(50vw - 2vh);
+    height: 4vh;
+    width: 4vh;
+    background-image: url("../src/icons/tick.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.preloader {
+    margin-top: 15px !important;
+    margin-left: -22px !important;
+    top: 0 !important;
+    left: calc(50% - 22px);
+    height: 34px !important;
+    width: 44px !important;
+    background-image: url("../src/icons/loading_speed.png") !important;
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    animation-play-state: paused !important;
+}
+
+.pull-to-refresh-arrow
+{
+    background-image: url("../src/icons/ptr_arrow.png") !important;
+    width: 20px !important;
+    height: 20px !important;
+    left: calc(50% - 10px) !important;
+    margin-left: 0px !important;
+    margin-top: 0px !important;
+    background-size: contain !important;
 }

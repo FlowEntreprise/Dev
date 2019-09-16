@@ -12,7 +12,9 @@ var block_id = 0;
     title: undefined,
     description: undefined,
     pseudo: undefined,
-    account_imageURL: undefined
+    account_imageURL: undefined,
+    Islike,
+    Iscomment
   };
  ****************************************/
 function block(params) {
@@ -28,6 +30,10 @@ function block(params) {
     this.privateID = params.PrivateId;
     this.Time = params.Times;
     this.block_id = block_id;
+    this.currentTime = 0;
+    this.IsLike = params.IsLike;
+    this.IsComment = params.IsComment;
+    this.Likes = params.Likes;
     this.RegisterId = params.RegisterId;
     this.Comments = params.Comments;
 
@@ -36,32 +42,25 @@ function block(params) {
         block.fpause_button.style.display = "block";
         wave.start();
         waveform.style.display = "block";
+        console.log("duration : " + block.myaudio.duration);
+        console.log("currentTime : " + block.currentTime);
         block.myaudio.play();
-        // console.log(block.myRange);
         block.progress_div.style.display = 'block';
         block.progress_div.style.borderTopRightRadius = '0vw';
         block.isPlaying = true;
-        //console.log("play");
         block.myRange.style.pointerEvents = "all";
     };
 
 
 
     this.flowpause = function () {
-
-
         block.fplay_button.style.display = "block";
         block.fpause_button.style.display = "none";
-        //this.player1.pause();
         waveform.style.display = "none";
-
-        //waveform.removeChild(waveform.firstChild);
         wave.stop();
         block.isPlaying = false;
         block.myaudio.pause();
-        //console.log("pause");
         block.myRange.style.pointerEvents = "none";
-
     };
 
 
@@ -77,19 +76,16 @@ function block(params) {
 
     this.ftop_part = document.createElement('div');
     this.ftop_part.className = 'ftop_part';
-    /*--------------------------*/
+
     if (params.patternKey != undefined) {
         this.patternKey = params.patternKey;
         this.ftop_part.style.backgroundImage = pattern = GeoPattern.generate(this.patternKey).toDataUrl();
     } else if (params.imageURL != undefined) {
         this.ftop_part.style.backgroundImage = "url('" + params.imageURL + "')";
-    }
-    // Erreur, on génère un pattern random
-    else {
+    } else {
         this.patternKey = Date.now().toString();
         this.ftop_part.style.backgroundImage = pattern = GeoPattern.generate(this.patternKey).toDataUrl();
     }
-    /*---------------------------*/
     this.block_flow.appendChild(this.ftop_part);
 
     this.myRange = document.createElement('input');
@@ -111,12 +107,12 @@ function block(params) {
     this.fpause_button = document.createElement('img');
     this.fpause_button.className = 'fpause_button';
     this.fpause_button.id = 'pauseBtn';
-    // fpause_button.style.visibility = 'hidden';
     this.fpause_button.src = 'src/icons/pause.png';
     this.ftop_part.appendChild(this.fpause_button);
 
     this.fposter_photo = document.createElement('a');
-    this.fposter_photo.setAttribute('href', '../www/pages/account.html');
+    // this.fposter_photo.setAttribute('href', '../www/pages/account.html');
+    // this.fposter_photo.setAttribute("onclick", "Popup('popup-account', true)");
     this.fposter_photo.className = 'fposter_photo';
     this.fposter_photo.style.backgroundImage = "url('" + params.account_imageURL + "')";
     this.ftop_part.appendChild(this.fposter_photo);
@@ -161,22 +157,10 @@ function block(params) {
         this.fdots.innerText = '...';
         this.ftop_part.appendChild(this.fdots);
 
-        // this.ffollower1 = document.createElement('div');
-        // this.ffollower1.className = 'ffollower1';
-        // this.ftop_part.appendChild(this.ffollower1);
-
-        // this.ffollower2 = document.createElement('div');
-        // this.ffollower2.className = 'ffollower2';
-        // this.ftop_part.appendChild(this.ffollower2);
-
-        // this.ffollower3 = document.createElement('div');
-        // this.ffollower3.className = 'ffollower3';
-        // this.ftop_part.appendChild(this.ffollower3);
-
         this.fpost_title = document.createElement('p');
         this.fpost_title.className = 'fpost_title';
         this.fpost_title.innerText = params.title;
-        this.fpost_title.setAttribute('maxlength',20);
+        this.fpost_title.setAttribute('maxlength', 20);
         this.fbottom_part.appendChild(this.fpost_title);
 
         this.fpost_description = document.createElement('p');
@@ -186,7 +170,7 @@ function block(params) {
 
         this.fpost_tag = document.createElement('p');
         this.fpost_tag.className = 'fpost_tag';
-        this.fpost_tag.innerText = '#Fresh #Sumer';
+        this.fpost_tag.innerText = '';
         this.fbottom_part.appendChild(this.fpost_tag);
 
         this.flike = document.createElement('div');
@@ -194,11 +178,11 @@ function block(params) {
         this.fbottom_part.appendChild(this.flike);
         this.fimg_impression_like = document.createElement('img');
         this.fimg_impression_like.className = 'fimg_impression';
-        this.fimg_impression_like.src = 'src/icons/Like.png';
+        this.fimg_impression_like.src =  this.IsLike == 1 ?  'src/icons/Like_filled.png' : 'src/icons/Like.png' ;       
         this.flike.appendChild(this.fimg_impression_like);
         this.ftxt_impression_like = document.createElement('p');
         this.ftxt_impression_like.className = 'ftxt_impression';
-        this.ftxt_impression_like.innerText = '2.5k';
+        this.ftxt_impression_like.innerText = affichage_nombre(this.Likes,1);
         this.flike.appendChild(this.ftxt_impression_like);
 
         this.fecho = document.createElement('div');
@@ -218,11 +202,11 @@ function block(params) {
         this.fbottom_part.appendChild(this.fcomment);
         this.fimg_impression_comment = document.createElement('img');
         this.fimg_impression_comment.className = 'fimg_impression';
-        this.fimg_impression_comment.src = 'src/icons/Comment.png';
+        this.fimg_impression_comment.src = this.IsComment == 1 ? 'src/icons/Comment_filled.png' : 'src/icons/Comment.png' ;
         this.fcomment.appendChild(this.fimg_impression_comment);
         this.ftxt_impression_comment = document.createElement('p');
         this.ftxt_impression_comment.className = 'ftxt_impression';
-        this.ftxt_impression_comment.innerText = '605';
+        this.ftxt_impression_comment.innerText = affichage_nombre(this.Comments,1);
         this.fcomment.appendChild(this.ftxt_impression_comment);
 
 
@@ -232,8 +216,6 @@ function block(params) {
         this.finput_title.placeholder = 'Tap to edit title';
         this.finput_title.maxLength = "25";
         this.finput_title.onkeypress = this.title_enter;
-        // this.finput_title.onfocus = clean_placeholder;
-        // this.finput_title.onblur = reset_placeholder_title;
         this.fbottom_part.appendChild(this.finput_title);
 
         this.finput_description = document.createElement('textarea');
@@ -244,7 +226,6 @@ function block(params) {
     }
 
     this.randomColorGradient = function () {
-        //console.log("generate random gradient");
         let color_start = "#000000".replace(/0/g, function () {
             return (~~(Math.random() * 16)).toString(16);
         });
@@ -273,7 +254,6 @@ function block(params) {
 
         waveform.style.opacity = "0";
         block.randomColorGradient();
-        // this.waveform.style.opacity = 0;
     }
 
     var wave;
@@ -299,31 +279,22 @@ function block(params) {
         wave.canvas.height = height;
         wave.canvas.width = width;
         wave.container.style.margin = -(height / 2) + 'px auto';
-
-        // Update the position of the slider.
-        // block.sound = player1.playlist[player1.index].howl;
-        // if (block.sound) {
-        //     var vol = block.sound.volume();
-        //     var barWidth = (vol * 0.9);
-        //     sliderBtn.style.left = (window.innerWidth * barWidth + window.innerWidth * 0.05 - 25) + 'px';
-        // }
     };
     window.addEventListener('resize', resize);
     resize();
 
     this.myaudio = new Audio("src/sound/son.opus");
+    this.myaudioelement;
     if (params.audioURL) {
-        //console.log("custom audio url : " + params.audioURL);
         this.myaudio = new Audio(params.audioURL);
+        this.myaudio.volume = 1.0;
     }
-    //console.log(this.myaudio);
 
     this.isPlaying = false;
     this.myaudio.ontimeupdate = function () {
 
         if (block.isPlaying && !block.seeking) {
             this.progress = Math.round(block.myaudio.currentTime * 100 / params.duration);
-            // console.log(this.progress);
             block.myRange.value = this.progress;
             block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
             if (block.progress_div.style.width > '99.8%' && block.progress_div.style.width < '101%') {
@@ -334,11 +305,11 @@ function block(params) {
     };
 
     this.myaudio.onended = function () {
-        //console.log("end of audio");
         waveform.style.display = "none";
         block.progress_div.style.borderTopRightRadius = '2vw';
         block.progress_div.style.width = '100%';
         block.flowpause();
+        block.currentTime = 0;
         setTimeout(function () {
             if (!block.isPlaying) {
                 block.progress_div.style.display = 'none';
@@ -349,22 +320,23 @@ function block(params) {
     };
 
     this.seek = function () {
-        this.progress = block.myRange.value;
-        //if (this.progress > 99) this.progress = 99;
-        this.time = this.progress * params.duration / 100;
-        block.myaudio.currentTime = this.time;
+        console.log("seek");
+        // this.progress = block.myRange.value;
+        // this.time = this.progress * params.duration / 100;
+        // block.myaudio.currentTime = Math.round(this.time);
+        block.myaudio.currentTime = block.currentTime;
         block.seeking = true;
         block.progress_div.style.display = "block";
         block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
         setTimeout(function () {
             block.seeking = false;
+            console.log("seeking = false");
         }, 600);
         block.flowplay();
-
+        console.log("flow play");
     };
 
     this.fplay_button.addEventListener('click', function () {
-
         stopAllBlocksAudio();
         block.flowplay(block);
     });
@@ -373,29 +345,37 @@ function block(params) {
     });
 
     this.myRange.addEventListener('change', function () {
+        console.log("change");
         block.seek();
     });
     this.myRange.addEventListener('input', function () {
+        console.log("input");
         this.focus();
         //block.wasPlaying = block.isPlaying; 
         block.flowpause();
         block.progress = block.myRange.value;
         if (block.progress > 99) block.progress = 99;
-        block.time = block.progress * params.duration / 100;
-        block.myaudio.currentTime = block.time;
-        block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
+        block.currentTime = block.progress * params.duration / 100;
+        // block.myaudio.currentTime = block.time;
+        block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
 
     });
 
     $(this.fimg_impression_like).on('click', function () {
 
+        current_flow_block = block;
         impression_coloring(this, 'like', block);
+        let data = {
+
+            ObjectId: current_flow_block.ObjectId
+        };
+        ServerManager.LikeFlow(data,current_flow_block);
     });
 
     $(this.fimg_impression_echo).on('click', function () {
 
         impression_coloring(this, 'echo', block.fimg_impression_echo);
-        
+        shake("tabCompte1");
     });
 
 /*----------------------TEST_LAURE------------*/
@@ -408,15 +388,22 @@ $(this.fdots).on('click', function () {
 /*----------------------FIN_TEST_LAURE------------*/
 
     $(this.fimg_impression_comment).on('click', function () {
-
+        $(".fblock_comment_content").html("");
+        var loading_comment = document.createElement("div");
+        loading_comment.className = "loading_circle loading_tl loading_comment";
+        $(".fblock_comment_content").append(loading_comment);
+        $(".fcomment_number").text("");
         current_flow_block = block;
         let data = {
 
-            ObjectId: current_flow_block.ObjectId
-        }
+            ObjectId: current_flow_block.ObjectId,
+            IsComment: current_flow_block.IsComment 
+        };
+        //impression_coloring(this, 'comment', block.fimg_impression_comment);
         ServerManager.GetFlowComment(data);
 
-        app.popup('.popup_comment');
+        Popup("popup-comment", true, 40);
+
     });
 }
 // fonction permettant de colorier ou non les like, echo et comment.
@@ -425,15 +412,20 @@ function impression_coloring(object, type, block, like_type) {
     switch (type) {
         case 'like':
             $(object).each(function () {
+                
+                
+                let like_number = $(block.ftxt_impression_like).text();
 
                 var attr_img_like = $(object).attr('src');
                 if (attr_img_like === 'src/icons/Like.png') {
                     $(block.fimg_impression_like).attr('src', 'src/icons/Like_filled.png');
+                    $(block.ftxt_impression_like).text(+like_number + 1);
                     push_notif_block('like', like_type);
                     send_notif_to_user(block,"like_flow");
                 }
-                if (attr_img_like === 'src/icons/Like_filled.png') {
+                if (attr_img_like === 'src/icons/Like_filled.png') {                    
                     $(block.fimg_impression_like).attr('src', 'src/icons/Like.png');
+                    $(block.ftxt_impression_like).text(+like_number - 1);
                 }
             });
             break;
@@ -455,7 +447,9 @@ function impression_coloring(object, type, block, like_type) {
             $(object).each(function () {
                 var attr_img_comment = $(object).attr('src');
                 var comment_length = current_flow_block.all_comment_blocks.length;
+                $(block.fimg_impression_comment).attr('src', 'src/icons/Comment_filled.png');
                 push_notif_block('comment');
+                
             });
             break;
     }
@@ -465,12 +459,47 @@ function impression_coloring(object, type, block, like_type) {
 $(document).on('click', 'a.fposter_photo', function () {
     var parent = $(this).parent().parent();
     var parentBlockId = parent.attr("block_id");
-    fInitialisationAccount(all_blocks[parentBlockId].privateID);
+    if (all_blocks[parentBlockId].privateID == window.localStorage.getItem("user_private_id")) {
+        if (current_page != "my-account") {
+            Popup("popup-myaccount", true);
+        } else {
+            // $("#tabMonCompte1").effect("shake", {times: 1, distance: 5}, 300);
+            shake("tabMonCompte1");
+
+        }
+    } else {
+        if (current_page == "account" && privateIDAccount == all_blocks[parentBlockId].privateID) {
+            // $("#tabCompte1").effect("shake", {times: 1, distance: 5}, 300);
+            shake("tabCompte1");
+        } else {
+            Popup("popup-account", true);
+            fInitialisationAccount(all_blocks[parentBlockId].privateID);
+        }
+    }
+
 });
+
+function shake(element_id) {
+    let tabs = document.getElementById(element_id);
+    tabs.classList.remove("shake");
+    void tabs.offsetWidth;
+    tabs.classList.add("shake");
+}
 
 function get_all_comment(response) {
 
-    $(".fblock_comment_content").html("");
+
+
+    var text_comment_number;
+    if (response == "ERROR GET COMMENT FLOW") {
+        $(".loading_comment").remove();
+        text_comment_number = " 0 commentaire";
+    } else if (response.Data.length) {
+
+        (response.Data.length == 1) ? (text_comment_number = response.Data.length + " commentaire") : (text_comment_number = response.Data.length + " commentaires");
+    }
+    $(".fcomment_number").text(text_comment_number);
+
     console.log(response);
     var i = 0;
     for (i = 0; i < response.Data.length; i++) {
@@ -490,11 +519,14 @@ function get_all_comment(response) {
             RegisterId : response.Data[i].RegisterId
         }
 
+        // $(".loading_tl").remove();
         let block_commentaire = new block_comment(comment_data);
         $(".fblock_comment_content").append(block_commentaire);
 
     }
-    impression_coloring(this, 'comment', block.fimg_impression_comment);
+    if ($.trim($(".fblock_comment_content").html()) != "") {
+        $(".loading_comment").remove();
+    }
 
 }
 
@@ -505,11 +537,7 @@ function stopAllBlocksAudio() {
     all_blocks.map(a => a.flowpause(a));
 }
 
-// $("#button2").click(function () {
-//     var new_block = new block();
-//     all_blocks.push(new_block);
-// });
-function set_timestamp(timestamp) {
+function set_timestamp(timestamp) { // fonction qui permet d'afficher le temp ecoulé depuis un post (posté il y a 2h par exemple)
     var time_str = "";
     var time = Math.floor(timestamp);
     var now = Math.floor(Date.now() / 1000);
@@ -526,25 +554,25 @@ function set_timestamp(timestamp) {
 
     var month_past = Math.floor(day_past / 28);
 
-    var year_past = Math.floor(month_past /12);
+    var year_past = Math.floor(month_past / 12);
 
     if (minute_past <= 59 && hour_past <= 0) {
 
-        (minute_past > -2 && minute_past < 2) ?  (time_str = "1 minute ago") : (time_str = "" + minute_past + " minutes ago") ;
+        (minute_past > -2 && minute_past < 2) ? (time_str = "1 minute ago") : (time_str = "" + minute_past + " minutes ago");
         return time_str;
 
     }
 
     if (hour_past > 0 && hour_past <= 23) {
-        
-        
+
+
         (hour_past > 1) ? (time_str = "" + hour_past + " hours ago") : (time_str = "" + hour_past + " hour ago");
         return time_str;
 
     }
 
     if (day_past > 0 && day_past < 7) {
-        
+
         (day_past > 1) ? (time_str = "" + day_past + " days ago") : (time_str = "" + day_past + " day ago");
         return time_str;
 
@@ -558,40 +586,65 @@ function set_timestamp(timestamp) {
     }
 
     if (month_past > 0 && month_past <= 12) {
-        
+
 
         (month_past < 2) ? (time_str = "" + month_past + " month ago") : (time_str = "" + month_past + " months ago");
         return time_str;
 
-    } 
-    
-    if (year_past > 0 ) {
-    
+    }
+
+    if (year_past > 0) {
+
         (year_past < 2) ? (time_str = "" + year_past + " year ago") : (time_str = "" + year_past + " years ago");
         return time_str;
 
     }
-
- /*   else if (hour_past > 167) {
-        posted_date = new Date(timestamp);
-        var day = posted_date.getDate();
-        var month = posted_date.toLocaleString('en-us', {
-            month: 'short'
-        });
-        var year = ((posted_date.getFullYear()).toString()).slice(2);
-        Time = day + " " + month + " " + year;
-        return Time;
-
-    }
-*/
 }
 
-$$('.popup_comment').on('popup:open', function () {
+
+function affichage_nombre(number, decPlaces) { // cette fonction permet d'afficher les nombres de likes et autres (1200 devien 1.2 k)
+   
+    decPlaces = Math.pow(10, decPlaces);
+
+    // Enumerate number abbreviations
+    var abbrev = ["k", "m", "b", "t"];
+
+    // Go through the array backwards, so we do the largest first
+    for (var i = abbrev.length - 1; i >= 0; i--) {
+
+        // Convert array index to "1000", "1000000", etc
+        var size = Math.pow(10, (i + 1) * 3);
+
+        // If the number is bigger or equal do the abbreviation
+        if (size <= number) {
+            // Here, we multiply by decPlaces, round, and then divide by decPlaces.
+            // This gives us nice rounding to a particular decimal place.
+            var number = Math.round(number * decPlaces / size) / decPlaces;
+
+            // Handle special case where we round up to the next abbreviation
+            if((number == 1000) && (i < abbrev.length - 1)) {
+                number = 1;
+                i++;
+            }
+
+            // console.log(number);
+            // Add the letter for the abbreviation
+            number += abbrev[i];
+
+            // We are done... stop
+            break;
+        }
+    }
+    
+    return number;
+}
+
+document.getElementById("popup-comment").addEventListener("opened", function () {
     StatusBar.backgroundColorByHexString('#949494');
     StatusBar.styleLightContent();
 });
 
-$$('.popup_comment').on('popup:close', function () {
+document.getElementById("popup-comment").addEventListener("closed", function () {
     StatusBar.backgroundColorByHexString('#f7f7f8');
     StatusBar.styleDefault();
 });

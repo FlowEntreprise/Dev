@@ -9,6 +9,7 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport"
         content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/splashscreen.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
     <link rel="stylesheet" type="text/css" href="css/explore.css">
@@ -21,6 +22,8 @@
     <link rel="stylesheet" type="text/css" href="css/account.css">
     <link rel="stylesheet" type="text/css" href="css/story.css">
     <link rel="stylesheet" type="text/css" href="css/popup_comment.css">
+
+    <link rel="stylesheet" type="text/css" href="css/custom_popup.css">
 
 
     <!-- <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.md.colors.min.css">
@@ -42,23 +45,29 @@
 </head>
 
 <body>
+
+    <div class="splashscreen">
+        <div class="splashscreen-logo"></div>
+    </div>
+
     <!-- Status bar overlay for fullscreen mode-->
     <div class="statusbar-overlay"></div>
     <!-- Views-->
-    <div class="views tabs">
+    <div class="views tabs" style="height: calc(100 * var(--custom-vh))">
         <div id="menu1" class="view view-main tab active">
             <div class="navbar no-border ftop_bar">
                 <div class="navbar-inner">
                     <div class="fhome-bar">
                         <div class="ftitle">FLOW</div>
                         <div class="fneed_connect" style="right: 0px; top: 0px; height: 10vh"></div>
-                        <a href="../www/pages/myAccount.html" class="faccount open-login-screen"></a>
+                        <!-- <a href="../www/pages/myAccount.html" class="faccount open-login-screen"></a> -->
+                        <div class="faccount" onclick="Popup('popup-myaccount', true)"></div>
                         <div class="fstories_title">Stories</div>
                         <ul class="fstory_list">
                             <li>
                                 <div class="fstory_block">
                                     <div class="fplus"></div>
-                                        <img src="src/icons/Account@3x.png" class="fstory_pic mystory_pic fnoshadow">
+                                    <img src="src/icons/Account@3x.png" class="fstory_pic mystory_pic fnoshadow">
                                     <div class="unread_shadow"></div>
                                 </div>
                             </li>
@@ -156,7 +165,7 @@
                     <a href="#tab1" class="fnav-btn fhome-btn tab-link active"></a>
                     <a href="#tab2" class="fnav-btn fexplore-btn tab-link"></a>
                     <div class="flow-btn-shadow"></div>
-                    <a href="#" data-popup=".popup-record" class="fnav-btn fflow-btn open-popup"></a>
+                    <a href="#" class="fnav-btn fflow-btn"></a>
                     <a href="#tab3" class="fnav-btn fmessages-btn tab-link"></a>
 
                     <a href="#tab4" class="fnav-btn fnotif-btn tab-link"></a>
@@ -171,20 +180,21 @@
 
             </div>
 
-            <div class="popup popup-record">
-                <div class="content-block">
+            <div class="custom_popup" id="popup-record">
+                <div class="popup_bg"></div>
+                <div class="popup_content" animation-direction="up">
                     <p id="flow_number_of_sec" class="fflow_duration">00</p>
                     <p class="fflow_duration fsec">sec</p>
-                    <p><a href="#" class="fclose_record close-popup">Close</a></p>
+                    <div class="fclose_record" onclick="Popup('popup-record', false)"></div>
 
-                    <!-- test -->
                     <div id="wave-container"></div>
                     <div class="sounds-record"></div>
                 </div>
             </div>
 
-            <div class="popup popup-after-record">
-                <div class="content-block">
+            <div class="custom_popup" id="popup-after-record">
+                <div class="popup_bg"></div>
+                <div class="popup_content" animation-direction="up">
                     <div class="after-record-block-container"></div>
                     <label class="fbackground-after-txt">Background</label>
                     <div class="fcamera-after"></div>
@@ -229,8 +239,9 @@
                 </div>
             </div>
 
-            <div class="popup popup-connect">
-                <div class="content-block">
+            <div class="custom_popup" id="popup-connect">
+                <div class="popup_bg"></div>
+                <div class="popup_content" style="border-radius: 15px 15px 0px 0px" animation-direction="up">
                     <p id="fpopup-connect-msg-inscription">Un compte est nécessaire pour réaliser cette action</p>
                     <div id="fcontent_logo_reseaux_sociaux">
                         <a href=""><img src="../www/src/icons/google@3x.png" alt="logo google"
@@ -261,20 +272,27 @@
                 </div>
             </div>
 
-            <div class="popup popup-story-record">
+            <!-- <div class="popup popup-connect">
                 <div class="content-block">
+                    
+                </div>
+            </div> -->
+
+
+            <div class="custom_popup" id="popup-story-record">
+                <div class="popup_bg"></div>
+                <div class="popup_content" animation-direction="up">
                     <p id="flow_story_number_of_sec" class="fflow_duration story_flow_duration">00</p>
                     <p class="fflow_duration fsec">sec</p>
-                    <p><a href="#" class="fclose_record close-popup">Close</a></p>
-
-                    <!-- test -->
+                    <div class="fclose_record" onclick="Popup('popup-story-record', false)"></div>
                     <div id="wave-container" class="story-record-wave"></div>
                     <div class="sounds-record"></div>
                 </div>
             </div>
 
-            <div class="popup popup-after-story-record">
-                <div class="content-block">
+            <div class="custom_popup" id="popup-after-story-record">
+                <div class="popup_bg"></div>
+                <div class="popup_content" animation-direction="up">
                     <div class="after-story-record-block-container"></div>
                     <label class="fbackground-after-story-txt">Background</label>
                     <div class="frandom-color-btn" onclick="new_block.randomColorGradient()"><label
@@ -285,47 +303,128 @@
                     <div class="floading-spinner loading-story"></div>
                 </div>
             </div>
-            <div class="popup popup_comment">
-                <label class="fcomment_number">605 comments</label>
-                <img src="src/icons/cancel.png" class="close-popup fclose_comment">
-                <div class="popover">
-                    <div class="popover-angle"></div>
-                    <div class="popover-inner">
-                        <label class="fpopover_button fpopover_copy">COPY</label>
-                        <label class="fpopover_button fpopover_report">REPORT</label>
-                        <label class="fpopover_button fpopover_delete">DELETE</label>
+
+            <div class="custom_popup" id="popup-myaccount">
+                <div class="popup_bg"></div>
+                <div class="popup_content" animation-direction="left">
+                    <div class="page no-navbar no-toolbar no-swipeback fbackgroundMonCompte">
+                        <div id="accountBannerScroll">
+                            <div id="freturnMonCompte">
+                                <img src="src/icons/Retour@3x.png" id="fgobackmonCompte">
+                            </div>
+                            <div id="fbandeauMonCompte">
+                                <div class="finfoBandeau" id="ffLowBandeau">Flows</div>
+                                <div class="finfoBandeau" id="ffollowersBandeau">Followers</div>
+                                <div class="finfoBandeau" id="ffollowingBandeau">Following</div>
+                                <div id="fflowmyBandeauChiffre"></div>
+                                <div id="ffollowersmyBandeauChiffre"></div>
+                                <div id="ffollowingmyBandeauChiffre"></div>
+                            </div>
+                            <div id="fmyprofilPicture"></div>
+                            <div id="fnameMonCompte">Loading</div>
+                            <div id="myprivateID"></div>
+                            <div id="fbioMonCompte"></div>
+                            <div id="feditProfil">EDIT PROFIL</div>
+                        </div>
+                        <div class="toolbar no-border fnavMonCompte fnavMonCompteTransitionTop">
+                            <div class="toolbar-inner sizeTollBar">
+                                <a href="#tabMonCompte1" class="fnav-btn tab-link MonCompte active">My Activity</a>
+                                <a href="#tabMonCompte2" class="fnav-btn tab-link MonCompte">Likes</a>
+                                <a href="#tabMonCompte3" class="fnav-btn tab-link MonCompte">Saved</a>
+                            </div>
+                        </div>
+                        <div class="tabs-swipeable-wrap ftabsMonCompte" id="AccountTabSize">
+                            <div class="tabs scrollEvent swiper-wrapper">
+                                <div id="tabMonCompte1" class="page-content tab active scrollMyAccunt">
+                                    <div class="content-block fblockMonCompte fblockMonComptePadding" id="MyActivity">
+                                    </div>
+                                </div>
+                                <div id="tabMonCompte2" class="page-content tab scrollMyAccunt">
+                                    <div id="MyLikes" class="content-block fblockMonCompte fblockMonComptePadding">
+                                    </div>
+                                </div>
+                                <div id="tabMonCompte3" class="page-content tab scrollMyAccunt">
+                                    <div class="content-block fblockMonCompte">Tous les flow Saved</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="fmybigProfilPictureContainer">
+                            <img src="src/icons/cancel.png" alt="" id="returnmyProfilPicture">
+                            <div id="fmybigProfilPicture"></div>
+                        </div>
+                        <div id="feditProfilePopupContainer"> </div>
+                        <div id="editProfilePopup">
+                            <img src="src/icons/cancel.png" id="fcloseProfilPopup">
+                            <div id="fprofilPicturePopup"></div>
+                            <input type="text" id="editProfileName">
+                            <textarea name="" id="feditBio" cols="25" rows="3"></textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="fblock_comment_content">
-                </div>
-                <div class="fwrite_comment">
-                    <input type="text" placeholder="Say something nice" maxlength="100" class="finput_comment">
-                    <img src="src/icons/send.png" class="fsend_comment">
                 </div>
             </div>
 
-            <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+            <div class="custom_popup" id="popup-account">
+                <div class="popup_bg"></div>
+                <div class="popup_content" animation-direction="right">
+                    <div class="page no-navbar no-toolbar no-swipeback fbackgroundCompte">
+                        <div id="accountBannerScrollAccount">
+                            <div id="freturnCompte">
+                                <img src="../www/src/icons/Retour@3x.png" id="fgobackCompte">
+                            </div>
+                            <div id="fbandeauCompte">
+                                <div class="finfoBandeau" id="ffLowBandeau">Flows</div>
+                                <div class="finfoBandeau" id="ffollowersBandeau">Followers</div>
+                                <div class="finfoBandeau" id="ffollowingBandeau">Following</div>
+                                <div id="fflowBandeauChiffre"></div>
+                                <div id="ffollowersBandeauChiffre"></div>
+                                <div id="ffollowingBandeauChiffre"></div>
+                            </div>
+                            <div id="fprofilPicture"></div>
+                            <div id="fnameCompte"></div>
+                            <div id="privateID"></div>
+                            <div id="fbioCompte"></div>
+                            <div id="fFollowButtunAccount">FOLLOW</div>
+                            <div id="fFollowYouButtunAccount">follows you</div>
+                        </div>
+                        <div class="toolbar no-border fnavAccount fnavAccountTransitionTop">
+                            <div class="toolbar-inner sizeTollBarAccount">
+                                <a href="#tabCompte1" class="fnav-btn tab-link Compte active">Activity</a>
+                                <a href="#tabCompte2" class="fnav-btn tab-link Compte">Likes</a>
+                            </div>
+                        </div>
+                        <div class="tabs-swipeable-wrap ftabsAccount" id="AccountTabSize">
+                            <div class="tabs scrollEventAccount">
+                                <div id="tabCompte1" class="page-content tab active scrollAccunt">
+                                    <div class="content-block fblockCompte fblockAccountPadding" id="UserActivity">
+                                    </div>
+                                </div>
+                                <div id="tabCompte2" class="page-content tab scrollAccunt">
+                                    <div id="MyLikes" class="content-block fblockCompte fblockAccountPadding"></div>
+                                </div>
+                                <div id="tabCompte3" class="page-content tab scrollAccunt">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="fbigProfilPictureContainer">
+                            <img src="src/icons/cancel.png" alt="" id="returnProfilPicture">
+                            <div id="fbigProfilPicture"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="pages navbar-through toolbar-through">
                 <div class="page with-subnavbar">
-                    <!-- Tabs swipeable wrapper, required to switch tabs with swipes -->
                     <div class="tabs-swipeable-wrap">
-                        <!-- Tabs, tabs wrapper -->
                         <div class="tabs">
-                            <!-- Tab 1, active by default -->
                             <div id="tab1" class="page-content pull-to-refresh-content tab active hide-navbar-on-scroll"
                                 data-ptr-distance="55">
-
                             </div>
-                            <!-- Tab 2 -->
                             <div id="tab2" class="page-content tab hide-navbar-on-scroll">
-                                <!-- TAB 2 CONTENT -->
                             </div>
-
                             <div id="tab3" class="page-content tab">
-                                <!-- TAB 3 CONTENT -->
                             </div>
                             <div id="tab4" class="page-content tab">
-                                <!-- TAB 4 CONTENT -->
                             </div>
                         </div>
                     </div>
@@ -339,18 +438,43 @@
     <svg viewBox="0 0 32 32">
         <circle class="frecord_indicator" r="16" cx="16" cy="16" />
     </svg>
-    <div class="flow-btn-shadow record-shadow"></div>
+    <div class="record-shadow"></div>
     <div class="frecord-btn">
+    </div>
+
+    <div class="custom_popup" id="popup-comment">
+        <!-- popup de commentaire--->
+        <div class="popup_bg"></div>
+        <div class="popup_content" style="border-radius: 15px 15px 0px 0px" animation-direction="up">
+            <label class="fcomment_number"></label>
+            <img src="src/icons/cancel.png" class="fclose_comment" onclick="Popup('popup-comment', false)">
+            <div class="popover">
+                <div class="popover-angle"></div>
+                <div class="popover-inner">
+                    <label class="fpopover_button fpopover_copy">COPY</label>
+                    <label class="fpopover_button fpopover_report">REPORT</label>
+                    <label class="fpopover_button fpopover_delete">DELETE</label>
+                </div>
+            </div>
+            <div class="fblock_comment_content">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="fwrite_comment">
+        <input type="text" placeholder="Say something nice" maxlength="100" class="finput_comment">
+        <img src="src/icons/send.png" class="fsend_comment">
     </div>
 
 
 
-
     <script type="text/javascript" src="cordova.js"></script>
-
+    <script type="text/javascript" src="Dependencies/WavEncoder/WavAudioEncoder.min.js"></script>
     <script src="js/Server/ServerManager.js"></script>
 
     <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/custom_popup.js"></script>
     <script type="text/javascript" src="js/block.js"></script>
     <script type="text/javascript" src="js/connection.js"></script>
     <script type="text/javascript" src="js/story.js"></script>

@@ -40,7 +40,7 @@
 .fblock_comment_content {
     position: absolute;
     width: 100vw;
-    height: calc(59* var(--custom-vh));
+    height: calc(100% - 10* var(--custom-vh));
     top: calc(5.5* var(--custom-vh));
     overflow-y: scroll;
 }
@@ -118,13 +118,15 @@
     height: calc(5.5* var(--custom-vh));
     border-top: 0.1px solid #92ABB2;
     width: 100vw;
-    bottom: calc(0* var(--custom-vh));
+    bottom: 0;
     box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
     background-color: #fff;
+    z-index: 99999;
+    display: none;
 }
 
 .finput_comment {
-     position: absolute; 
+    position: absolute; 
     width: 75vw;
     height: calc(4.85* var(--custom-vh));
     border: none;

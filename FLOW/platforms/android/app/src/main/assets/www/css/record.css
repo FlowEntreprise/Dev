@@ -63,10 +63,8 @@ svg {
 }
 
 .fflow_duration {
-    margin: 0px !important;
-    position: relative;
-    margin-left: -15px !important;
-    margin-top: 13vh !important;
+    position: absolute;
+    top: 10vh;
     width: 100vw;
     text-align: center;
     font-family: 'Roboto-Regular';
@@ -75,16 +73,21 @@ svg {
 }
 
 .fsec {
+    position: absolute;
+    top: 18vh;
     font-size: 33px;
-    margin-top: -15px !important;
-    position: relative;
 }
 
 .fclose_record {
     position: absolute;
-    top: 5vh;
-    right: 2vh;
-    color: #92ABB2;
+    top: 3vh;
+    right: 5vw;
+    width: 5vw;
+    height: 2.5vh;
+    background-image: url("../src/icons/cancel.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* --------------------------------------------------- */
@@ -133,6 +136,16 @@ svg {
 
 .record-shadow
 {
-    z-index: 40000; 
+    position: absolute;
+    display: block;
+    height: 10vh !important;
+    width: 10vh !important;
+    left: calc(50vw - 5vh);
+    bottom: 1vh;
+    border-radius: 100%;
+    background: linear-gradient(#1A84EF, #FF0054);
+    filter: blur(10px);
+    opacity: 0.8 !important;
+    z-index: 40000 !important; 
     display: none;
 }

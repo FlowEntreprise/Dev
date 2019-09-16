@@ -23,6 +23,7 @@ $(".ffacebook_btn").on("click", function () {
     ConnectFB();
 });
 $(".fgoogle_btn").on("click", function () {
+    console.log("google clicked");
     google_conn();
 });
 $(".finsta_btn").on("click", function () {
