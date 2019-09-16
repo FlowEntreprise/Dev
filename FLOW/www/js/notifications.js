@@ -1,6 +1,10 @@
-function block_notification_like(type) { //type permet de defini si c'est le like d'un flow ou le like d'un commentaire
+function block_notification_like(type,data) { //type permet de defini si c'est le like d'un flow ou le like d'un commentaire
     this.seen = false;
     var block_notification_like = this;
+    /*this.full_name = data.full_name; // nom de celui qui a send la notif
+    this.item_tile = data.item_tile; // le contenue de la notif, text de commentaire ou titre de flow
+    this.photo_link = data.photo_link; // lien de la photo de celui qui a send la notif
+    this.timestamp = data.time;*/
     this.block_notification_like = document.createElement('div');
     this.block_notification_like.className = 'fblock_notification';
     $("#tab4").prepend(this.block_notification_like);
@@ -192,7 +196,7 @@ function send_notif_to_user(block,type)
 
     let sender_fullname = window.localStorage.getItem("user_name");
     let sender_privateId = window.localStorage.getItem("user_private_id");
-
+    
     if(registrationId == block.RegisterId) 
     {
         console.log("on peut pas s'envoyer des notifs à soit même voyons");
@@ -200,12 +204,14 @@ function send_notif_to_user(block,type)
     else{
     switch (type) {
         case 'like_flow':
-        
+
+            
             data = {
         
                 "data" : {
                  "title":sender_fullname,          
-                 "message":"@" + sender_privateId  + " liked your flow : "  + $(block.fpost_title).text()
+                 "message":"@" + sender_privateId  + " liked your flow : "  + $(block.fpost_title).text(),
+                 "type":"like_flow"
                },
                "to":block.RegisterId
                //registrationId
@@ -220,7 +226,8 @@ function send_notif_to_user(block,type)
         
                     "data" : {
                      "title":sender_fullname,          
-                     "message": "@" + sender_privateId +" commented : "+ block.Comment
+                     "message": "@" + sender_privateId +" commented : "+ block.Comment,
+                     "type":"send_comment"
                    },
                    "to":block.current_flow_block.RegisterId
                    //registrationId
@@ -235,7 +242,8 @@ function send_notif_to_user(block,type)
         
                     "data" : {
                      "title":sender_fullname,          
-                     "message": "@" + sender_privateId +" liked your comment : "+ block.fcomment_text
+                     "message": "@" + sender_privateId +" liked your comment : "+ block.fcomment_text,
+                     "type":"like_comment"
                    },
                    "to":block.RegisterId
                    //registrationId

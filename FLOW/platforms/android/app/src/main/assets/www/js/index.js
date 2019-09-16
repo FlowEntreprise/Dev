@@ -210,7 +210,9 @@ var app = {
         });
 
         push.on('notification', function (data) {
-            alert("Title:" + data.title + " Message:" + data.message);
+            if(data.additionalData.type == "like_flow"){push_notif_block('like');}
+            if(data.additionalData.type == "send_comment"){push_notif_block('comment');}
+            if(data.additionalData.type == "like_comment"){push_notif_block('like',"comment");}         
         });
 
         push.on('error', function (e) {
