@@ -104,11 +104,19 @@ function onBackKeyDown() {
     if (current_page == "record") {
         // app.closeModal('.popup-record');
         Popup("popup-record", false);
+        if (recording) {
+            console.log("stop recording");
+            stopCapture(false);
+        }
         current_page = "home";
     }
     else if (current_page == "record-story") {
         // app.closeModal('.popup-story-record');
         Popup("popup-story-record", false);
+        if (recording) {
+            console.log("stop recording");
+            stopCapture(false);
+        }
         current_page = "home";    
     }
     else if (current_page == "connect-popup") {

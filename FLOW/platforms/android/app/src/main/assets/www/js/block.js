@@ -412,15 +412,13 @@ function impression_coloring(object, type, block, like_type) {
     switch (type) {
         case 'like':
             $(object).each(function () {
-                
-                
+                                
                 let like_number = $(block.ftxt_impression_like).text();
 
                 var attr_img_like = $(object).attr('src');
                 if (attr_img_like === 'src/icons/Like.png') {
                     $(block.fimg_impression_like).attr('src', 'src/icons/Like_filled.png');
-                    $(block.ftxt_impression_like).text(+like_number + 1);
-                    push_notif_block('like', like_type);
+                    $(block.ftxt_impression_like).text(+like_number + 1);                    
                     send_notif_to_user(block,"like_flow");
                 }
                 if (attr_img_like === 'src/icons/Like_filled.png') {                    
@@ -434,8 +432,7 @@ function impression_coloring(object, type, block, like_type) {
             $(object).each(function () {
                 var attr_img_echo = $(object).attr('src');
                 if (attr_img_echo === 'src/icons/Echo.png') {
-                    $(block.fimg_impression_echo).attr('src', 'src/icons/Echo_filled.png');
-                    push_notif_block('echo');
+                    $(block.fimg_impression_echo).attr('src', 'src/icons/Echo_filled.png');                    
                 }
                 if (attr_img_echo === 'src/icons/Echo_filled.png') {
                     $(block.fimg_impression_echo).attr('src', 'src/icons/Echo.png');
@@ -447,8 +444,7 @@ function impression_coloring(object, type, block, like_type) {
             $(object).each(function () {
                 var attr_img_comment = $(object).attr('src');
                 var comment_length = current_flow_block.all_comment_blocks.length;
-                $(block.fimg_impression_comment).attr('src', 'src/icons/Comment_filled.png');
-                push_notif_block('comment');
+                $(block.fimg_impression_comment).attr('src', 'src/icons/Comment_filled.png');                
                 
             });
             break;
