@@ -31,22 +31,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
-        "id": "cordova-plugin-googleplus.GooglePlus",
-        "pluginId": "cordova-plugin-googleplus",
-        "clobbers": [
-            "window.plugins.googleplus"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-googleplus/src/browser/GooglePlusProxy.js",
-        "id": "cordova-plugin-googleplus.GooglePlusProxy",
-        "pluginId": "cordova-plugin-googleplus",
-        "clobbers": [
-            "GooglePlus"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
         "id": "cordova-plugin-inappbrowser.inappbrowser",
         "pluginId": "cordova-plugin-inappbrowser",
@@ -416,6 +400,22 @@ module.exports = [
         "clobbers": [
             "TwitterConnect"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
+        "id": "cordova-plugin-googleplus.GooglePlus",
+        "pluginId": "cordova-plugin-googleplus",
+        "clobbers": [
+            "window.plugins.googleplus"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-googleplus/src/browser/GooglePlusProxy.js",
+        "id": "cordova-plugin-googleplus.GooglePlusProxy",
+        "pluginId": "cordova-plugin-googleplus",
+        "clobbers": [
+            "GooglePlus"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -427,7 +427,6 @@ module.exports.metadata =
     "cordova-plugin-whitelist": "1.3.3",
     "cordova.plugins.diagnostic": "4.0.11",
     "cordova-plugin-facebook4": "4.2.1",
-    "cordova-plugin-googleplus": "7.0.0",
     "cordova-plugin-inappbrowser": "3.0.0",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-k-imagecropper": "1.2.0",
@@ -446,7 +445,8 @@ module.exports.metadata =
     "cordova-plugin-firebase-crashlytics": "0.0.6",
     "cordova-support-android-plugin": "1.0.1",
     "cordova-plugin-firebase-analytics": "2.0.4",
-    "cordova-twitter3-connect-plugin": "1.0.5"
+    "cordova-twitter3-connect-plugin": "1.0.5",
+    "cordova-plugin-googleplus": "8.1.1"
 }
 // BOTTOM OF METADATA
 });

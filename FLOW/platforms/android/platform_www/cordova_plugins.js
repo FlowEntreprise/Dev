@@ -49,14 +49,6 @@ module.exports = [
     ]
   },
   {
-    "id": "cordova-plugin-googleplus.GooglePlus",
-    "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
-    "pluginId": "cordova-plugin-googleplus",
-    "clobbers": [
-      "window.plugins.googleplus"
-    ]
-  },
-  {
     "id": "cordova-plugin-inappbrowser.inappbrowser",
     "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
     "pluginId": "cordova-plugin-inappbrowser",
@@ -446,6 +438,14 @@ module.exports = [
     "clobbers": [
       "TwitterConnect"
     ]
+  },
+  {
+    "id": "cordova-plugin-googleplus.GooglePlus",
+    "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
+    "pluginId": "cordova-plugin-googleplus",
+    "clobbers": [
+      "window.plugins.googleplus"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -454,7 +454,6 @@ module.exports.metadata =
   "cordova-plugin-android-permissions": "1.0.0",
   "cordova-plugin-camera": "4.0.3",
   "cordova-plugin-facebook4": "4.2.1",
-  "cordova-plugin-googleplus": "7.0.0",
   "cordova-plugin-inappbrowser": "3.0.0",
   "cordova-plugin-k-imagecropper": "1.2.0",
   "cordova-plugin-statusbar": "2.4.2",
@@ -476,7 +475,8 @@ module.exports.metadata =
   "cordova-plugin-firebase-crashlytics": "0.0.6",
   "cordova-support-android-plugin": "1.0.1",
   "cordova-plugin-firebase-analytics": "2.0.4",
-  "cordova-twitter3-connect-plugin": "1.0.5"
+  "cordova-twitter3-connect-plugin": "1.0.5",
+  "cordova-plugin-googleplus": "8.1.1"
 };
 // BOTTOM OF METADATA
 });

@@ -52,11 +52,6 @@
         <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false" />
         <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" />
     </plugin>
-    <plugin name="cordova-plugin-googleplus" spec="7.0.0">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.320132615636-8f4u2k95equ8nd8v6mvhaod4qm73j3fq"/>
-        <variable name="WEB_APPLICATION_CLIENT_ID" value="320132615636-8f4u2k95equ8nd8v6mvhaod4qm73j3fq.apps.googleusercontent.com" />
-        <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
-    </plugin>
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
     <plugin name="cordova-plugin-k-imagecropper" spec="^1.2.0">
         <variable name="ANDROID_SUPPORT_APPCOMPAT_VERSION" value="27.+" />

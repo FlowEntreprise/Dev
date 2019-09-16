@@ -45,14 +45,6 @@
               "count": 1
             },
             {
-              "xml": "<feature name=\"GooglePlus\"><param name=\"android-package\" value=\"nl.xservices.plugins.GooglePlus\" /><param name=\"onload\" value=\"true\" /></feature>",
-              "count": 1
-            },
-            {
-              "xml": "<access origin=\"https://accounts.google.com/*\" />",
-              "count": 1
-            },
-            {
               "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
               "count": 1
             },
@@ -114,6 +106,14 @@
             },
             {
               "xml": "<feature name=\"TwitterConnect\"><param name=\"android-package\" value=\"com.manifestwebdesign.twitterconnect.TwitterConnect\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"GooglePlus\"><param name=\"android-package\" value=\"nl.xservices.plugins.GooglePlus\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<access origin=\"https://accounts.google.com/*\" />",
               "count": 1
             }
           ],
@@ -185,14 +185,6 @@
           ],
           "/manifest": [
             {
-              "xml": "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />",
-              "count": 1
-            },
-            {
               "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
               "count": 1
             },
@@ -206,6 +198,14 @@
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />",
               "count": 1
             }
           ],
@@ -353,10 +353,6 @@
       "FACEBOOK_ANDROID_SDK_VERSION": "4.40.0",
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova-plugin-googleplus": {
-      "PLAY_SERVICES_VERSION": "11.8.0",
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
     "cordova-plugin-inappbrowser": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
@@ -429,6 +425,10 @@
       "TWITTER_KEY": "JwyvPlw7GcOvE8pXmRvqTyZL3",
       "TWITTER_SECRET": "6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT",
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-googleplus": {
+      "PLAY_SERVICES_VERSION": "15.0.1",
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {},
@@ -479,14 +479,6 @@
       "pluginId": "cordova-plugin-facebook4",
       "clobbers": [
         "facebookConnectPlugin"
-      ]
-    },
-    {
-      "id": "cordova-plugin-googleplus.GooglePlus",
-      "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
-      "pluginId": "cordova-plugin-googleplus",
-      "clobbers": [
-        "window.plugins.googleplus"
       ]
     },
     {
@@ -879,13 +871,20 @@
       "clobbers": [
         "TwitterConnect"
       ]
+    },
+    {
+      "id": "cordova-plugin-googleplus.GooglePlus",
+      "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
+      "pluginId": "cordova-plugin-googleplus",
+      "clobbers": [
+        "window.plugins.googleplus"
+      ]
     }
   ],
   "plugin_metadata": {
     "cordova-plugin-android-permissions": "1.0.0",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-facebook4": "4.2.1",
-    "cordova-plugin-googleplus": "7.0.0",
     "cordova-plugin-inappbrowser": "3.0.0",
     "cordova-plugin-k-imagecropper": "1.2.0",
     "cordova-plugin-statusbar": "2.4.2",
@@ -907,6 +906,7 @@
     "cordova-plugin-firebase-crashlytics": "0.0.6",
     "cordova-support-android-plugin": "1.0.1",
     "cordova-plugin-firebase-analytics": "2.0.4",
-    "cordova-twitter3-connect-plugin": "1.0.5"
+    "cordova-twitter3-connect-plugin": "1.0.5",
+    "cordova-plugin-googleplus": "8.1.1"
   }
 }
