@@ -26,6 +26,10 @@ function ConnectUser() {
     analytics.logEvent("user_connection", {
         private_id: window.localStorage.getItem("user_private_id")
     });
+    let data = {
+        RegisterId: registrationId
+    }
+    ServerManager.UpdateRegisterId(data);
     //$( "#fswipe_area" ).css({"pointer-events": "all"});
 }
 

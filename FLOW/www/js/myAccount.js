@@ -281,7 +281,8 @@ function ShowMyFlow(flow) {
                 ObjectId: data.ObjectId,
                 PrivateId: data.PrivateId,
                 Times: data.Time,
-                Comments: data.Comments
+                Comments: data.Comments,
+                RegisterId : data.RegisterId,
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);

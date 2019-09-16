@@ -34,7 +34,8 @@ function block(params) {
     this.IsLike = params.IsLike;
     this.IsComment = params.IsComment;
     this.Likes = params.Likes;
-    this.Comments = params.Comments; 
+    this.RegisterId = params.RegisterId;
+    this.Comments = params.Comments;
 
     this.flowplay = function () {
         block.fplay_button.style.display = "none";
@@ -377,6 +378,15 @@ function block(params) {
         shake("tabCompte1");
     });
 
+/*----------------------TEST_LAURE------------*/
+
+$(this.fdots).on('click', function () {
+
+    $("#registration_test").val(registrationId);
+});
+
+/*----------------------FIN_TEST_LAURE------------*/
+
     $(this.fimg_impression_comment).on('click', function () {
         $(".fblock_comment_content").html("");
         var loading_comment = document.createElement("div");
@@ -411,6 +421,7 @@ function impression_coloring(object, type, block, like_type) {
                     $(block.fimg_impression_like).attr('src', 'src/icons/Like_filled.png');
                     $(block.ftxt_impression_like).text(+like_number + 1);
                     push_notif_block('like', like_type);
+                    send_notif_to_user(block,"like_flow");
                 }
                 if (attr_img_like === 'src/icons/Like_filled.png') {                    
                     $(block.fimg_impression_like).attr('src', 'src/icons/Like.png');
@@ -427,7 +438,7 @@ function impression_coloring(object, type, block, like_type) {
                     push_notif_block('echo');
                 }
                 if (attr_img_echo === 'src/icons/Echo_filled.png') {
-                    $(block_item).attr('src', 'src/icons/Echo.png');
+                    $(block.fimg_impression_echo).attr('src', 'src/icons/Echo.png');
                 }
             });
             break;
@@ -504,9 +515,9 @@ function get_all_comment(response) {
             Like_number: response.Data[i].Likes,
             Time: response.Data[i].Time,
             IsLike: response.Data[i].IsLike,
-            IdComment: response.Data[i].IdComment
-
-        };
+            IdComment: response.Data[i].IdComment,
+            RegisterId : response.Data[i].RegisterId
+        }
 
         // $(".loading_tl").remove();
         let block_commentaire = new block_comment(comment_data);

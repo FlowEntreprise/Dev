@@ -6,6 +6,7 @@ function block_comment(comment_data) {
     var block_comment = this;
     this.Id = comment_data.IdComment;
     this.is_liked = comment_data.IsLike;
+    this.RegisterId = comment_data.RegisterId;
     this.fcomment_text = comment_data.Comment;
     this.fblock_comment = document.createElement('div');
     this.fblock_comment.className = 'fblock_comment';
@@ -46,8 +47,8 @@ function block_comment(comment_data) {
         current_comment_block = block_comment;
         let data = {
 
-            ObjectId : current_comment_block.Id
-        }
+            ObjectId : current_comment_block.Id,
+        };        
         ServerManager.LikeFlowComment(data,current_comment_block);
     });
 
@@ -106,6 +107,8 @@ var account_imageURL = "src/pictures/notif1.png";
 
 function send_comment_to_server(data)
 {
+
+       
     var comment_data = {
         PrivateId      : window.localStorage.getItem("user_private_id"),
         ProfilePicture : window.localStorage.getItem("user_profile_pic"),
@@ -113,9 +116,12 @@ function send_comment_to_server(data)
         Like_number    : "0",
         Time           : "0" ,
         IsLike         : 0,
-        IdComment      : data.IdComment
+        IdComment      : data.IdComment,
+        RegistrationId : registrationId,
+        current_flow_block : current_flow_block
+    };
 
-    }
+    send_notif_to_user(comment_data,"send_comment");
 
     var new_block_comment = new block_comment(comment_data);
     var i = 0;
@@ -184,13 +190,14 @@ document.getElementById("popup-comment").addEventListener("closed", function() {
 });
 
 
-function color_like(block,like)
+function color_like(block,like) // like des commentaires
 {
     console.log("chris color like");
     if(like)
     {
-            console.log("chris color is like like like ");
+        console.log("chris color is like like like ");
         $(block.fcomment_like).attr('src', 'src/icons/Like_filled.png');
+        send_notif_to_user(block,"like_comment");
         block.is_liked = 1;
         block.fnumber_like.innerHTML = parseInt(block.fnumber_like.innerHTML) + 1;
     }

@@ -14,6 +14,7 @@ var crashlytics;
 var analytics;
 var push;
 
+var registrationId;
 var app = {
     // Application Constructor
     initialize: function () {
@@ -105,21 +106,27 @@ var app = {
         analytics = cordova.plugins.firebase.analytics;
         analytics.setCurrentScreen(current_page);
 
-        push = PushNotification.init({
+    
+
+        var push = PushNotification.init({
             android: {}
         });
 
         push.on('registration', function (data) {
             // data.registrationId
             console.log(data.registrationId);
+            registrationId = data.registrationId;
+
         });
 
         push.on('notification', function (data) {
-            alert("Title:" + data.title + " Message:" + data.message);
+            if(data.additionalData.type == "like_flow"){push_notif_block('like');}
+            if(data.additionalData.type == "send_comment"){push_notif_block('comment');}
+            if(data.additionalData.type == "like_comment"){push_notif_block('like',"comment");}         
         });
 
         push.on('error', function (e) {
-            console.log(e.message)
+            console.log(e.message);
         });
 
         CheckIfConnected();
@@ -190,7 +197,7 @@ function offline() {
 
 function online() {
     console.log("you are online");
-    ServerManager.GetStory();
+    ServerManager.GetStory();   
 }
 
 
