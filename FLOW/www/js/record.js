@@ -24,21 +24,30 @@ let options = {
 
 
 $$('.fflow-btn').on('click', function () {
-    Popup("popup-record", true);
-    $$('.frecord-btn').css({
-        "display": "flex"
-    });
+    if (connected) {
+        Popup("popup-record", true);
+        $$('.frecord-btn').css({
+            "display": "flex"
+        });
+    } else {
+        Popup("popup-connect", true, 45);
+    }
 });
 $$('.fflow-btn').on('taphold', function () {
-    console.log("Hold Record !");
-    // app.popup('.popup-record');
-    Popup("popup-record", true);
-    $$('.frecord-btn').css({
-        "display": "flex"
-    });
-    $(".record-shadow")[0].style.display = "block";
-    record_was_hold = true;
-    startCapture();
+    if (connected) {
+        console.log("Hold Record !");
+        // app.popup('.popup-record');
+        Popup("popup-record", true);
+        $$('.frecord-btn').css({
+            "display": "flex"
+        });
+        $(".record-shadow")[0].style.display = "block";
+        record_was_hold = true;
+        startCapture();
+    }
+    else {
+        Popup("popup-connect", true, 45);
+    }
 });
 $$('.frecord-btn').on('taphold', function () {
     if (!recording && !record_was_hold) {
@@ -743,7 +752,7 @@ var stopCapture = function () {
         if (window.audioinput) {
             // mediaRecorder.stop();
             window.audioinput.stop();
-            
+
             recording = false;
         }
         console.log("Encoding WAV...");
@@ -824,4 +833,3 @@ var getMicrophonePermission = function (onSuccess, onDenied, onError) {
         }
     });
 };
-
