@@ -187,19 +187,66 @@ function push_notif_block(notification_type,like_type) {
 }
 
 
-function send_notif_to_user(type)
+function send_notif_to_user(block,type)
 {
 
-    data = {
+    let sender_fullname = window.localStorage.getItem("user_name");
+    let sender_privateId = window.localStorage.getItem("user_private_id");
+
+    if(registrationId == block.RegisterId) 
+    {
+        console.log("on peut pas s'envoyer des notifs à soit même voyons");
+    }
+    else{
+    switch (type) {
+        case 'like_flow':
         
-         "data" : {
-          "title":"Wsh vous datez",          
-          "message":" chris Liked your flow"
-        },
-        "to":"cFNHtgxyYkg:APA91bHhOi2QaGkHq-0i4ESM09uC45KTV8vtKqfLhWWLH2SPj95ai0iwc1sVQynHljwWMq13xIFYxJUyeqHfASVFXjxZlTOqIBADOSG_W7lMMQ0ojhiCXNkfrsBEnBHTU9gkgNLVbCpZ"
-        //registrationId
-    };
-    ServerManager.Send_notif(data);
+            data = {
+        
+                "data" : {
+                 "title":sender_fullname,          
+                 "message":"@" + sender_privateId  + " liked your flow : "  + $(block.fpost_title).text()
+               },
+               "to":block.RegisterId
+               //registrationId
+           };
+           ServerManager.Send_notif(data);
+       
+            break;
+
+        case 'send_comment':
+
+                data = {
+        
+                    "data" : {
+                     "title":sender_fullname,          
+                     "message": "@" + sender_privateId +" commented : "+ block.Comment
+                   },
+                   "to":block.current_flow_block.RegisterId
+                   //registrationId
+               };
+               ServerManager.Send_notif(data);
+
+            break;
+/*
+        case 'like_comment':
+
+               data = {
+        
+                    "data" : {
+                     "title":sender_fullname,          
+                     "message": "@" + sender_privateId +" commented : "+ block.Comment
+                   },
+                   "to":block.current_flow_block.RegisterId
+                   //registrationId
+               };
+               ServerManager.Send_notif(data);
+
+            break;
+*/
+
+        }
+    }    
 
 }
 

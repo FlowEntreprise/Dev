@@ -92,7 +92,9 @@ function PopFlow(data, LinkBuilder) {
     account_imageURL: profilePicLink,
     ObjectId : data.ObjectId,
     PrivateId : data.PrivateId,
-    Times :  data.Time
+    Times :  data.Time,
+    RegisterId : data.RegisterId,
+    Comments : data.Comments
   };
   // console.log("pop flow " + block_params.PrivateId);
   var new_block = new block(block_params);

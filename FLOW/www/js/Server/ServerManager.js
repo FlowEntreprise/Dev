@@ -15,7 +15,8 @@ const ServerParams = {
     GetMyUserInfosURL: "GetInfoUser",
     GetTimeline: "GetTimeline",
     GetUserProfil: "GetProfil",
-    ActionFollowProfil: 'Follow'
+    ActionFollowProfil: 'Follow',
+    UpdateRegisterId : "UpdateRegisterId"
 };
 const apiTypes = {
     Twitter: 'twitter',
@@ -529,6 +530,36 @@ class ServerManagerClass {
             }
         });
     }
+
+    //UpdateRegisterId
+    
+
+    UpdateRegisterId(data) {
+        let final_data = {
+            Data: data,
+            Action: "RegisterId",
+            TokenId : window.localStorage.getItem("user_token")
+        };
+        // console.log(final_data.Data);
+        
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.UpdateRegisterId,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                 console.log('registerId update sucessfully: ');
+                console.log(response);
+                
+            },
+            error: function (response) {
+                 console.log("registerId update error : ");
+                console.log(response);
+                // console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
+            }
+        });
+    }
+
+    
 
     Send_notif(data)
     {

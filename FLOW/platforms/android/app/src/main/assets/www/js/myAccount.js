@@ -269,7 +269,9 @@ function ShowMyFlow(flow) {
                 title: data.Title,
                 description: data.Description,
                 pseudo: data.PrivateId,
-                account_imageURL: profilePicLink
+                account_imageURL: profilePicLink,
+                RegisterId : data.RegisterId,
+                Comments : data.Comments
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);

@@ -285,7 +285,7 @@ function offline() {
 
 function online() {
     console.log("you are online");
-    ServerManager.GetStory();
+    ServerManager.GetStory();   
 }
 
 

@@ -16,6 +16,11 @@ function ConnectUser() {
     app.closeModal('.popup-connect');
     ServerManager.GetStory();
     ServerManager.GetTimeline(0);
+    let data = 
+        {
+            RegisterId : registrationId
+        }
+        ServerManager.UpdateRegisterId(data);
     //$( "#fswipe_area" ).css({"pointer-events": "all"});
 }
 

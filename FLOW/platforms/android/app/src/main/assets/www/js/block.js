@@ -28,6 +28,8 @@ function block(params) {
     this.privateID = params.PrivateId;
     this.Time = params.Times;
     this.block_id = block_id;
+    this.RegisterId = params.RegisterId;
+    this.Comments = params.Comments;
 
     this.flowplay = function () {
         block.fplay_button.style.display = "none";
@@ -387,12 +389,13 @@ function block(params) {
 
     $(this.fimg_impression_like).on('click', function () {
 
-        impression_coloring(this, 'like', block.fimg_impression_like);
+        impression_coloring(this, 'like', block);
     });
 
     $(this.fimg_impression_echo).on('click', function () {
 
         impression_coloring(this, 'echo', block.fimg_impression_echo);
+        
     });
 
 /*----------------------TEST_LAURE------------*/
@@ -417,7 +420,7 @@ $(this.fdots).on('click', function () {
     });
 }
 // fonction permettant de colorier ou non les like, echo et comment.
-function impression_coloring(object, type, block_item, like_type) {
+function impression_coloring(object, type, block, like_type) {
 
     switch (type) {
         case 'like':
@@ -425,12 +428,12 @@ function impression_coloring(object, type, block_item, like_type) {
 
                 var attr_img_like = $(object).attr('src');
                 if (attr_img_like === 'src/icons/Like.png') {
-                    $(block_item).attr('src', 'src/icons/Like_filled.png');
+                    $(block.fimg_impression_like).attr('src', 'src/icons/Like_filled.png');
                     push_notif_block('like', like_type);
-                    send_notif_to_user();
+                    send_notif_to_user(block,"like_flow");
                 }
                 if (attr_img_like === 'src/icons/Like_filled.png') {
-                    $(block_item).attr('src', 'src/icons/Like.png');
+                    $(block.fimg_impression_like).attr('src', 'src/icons/Like.png');
                 }
             });
             break;
@@ -439,11 +442,11 @@ function impression_coloring(object, type, block_item, like_type) {
             $(object).each(function () {
                 var attr_img_echo = $(object).attr('src');
                 if (attr_img_echo === 'src/icons/Echo.png') {
-                    $(block_item).attr('src', 'src/icons/Echo_filled.png');
+                    $(block.fimg_impression_echo).attr('src', 'src/icons/Echo_filled.png');
                     push_notif_block('echo');
                 }
                 if (attr_img_echo === 'src/icons/Echo_filled.png') {
-                    $(block_item).attr('src', 'src/icons/Echo.png');
+                    $(block.fimg_impression_echo).attr('src', 'src/icons/Echo.png');
                 }
             });
             break;
@@ -483,8 +486,8 @@ function get_all_comment(response) {
             Like_number: response.Data[i].Likes,
             Time: response.Data[i].Time,
             IsLike: response.Data[i].IsLike,
-            IdComment: response.Data[i].IdComment
-
+            IdComment: response.Data[i].IdComment,
+            RegisterId : response.Data[i].RegisterId
         }
 
         let block_commentaire = new block_comment(comment_data);
