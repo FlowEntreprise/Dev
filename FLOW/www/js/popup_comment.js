@@ -6,6 +6,7 @@ function block_comment(comment_data) {
     var block_comment = this;
     this.Id = comment_data.IdComment;
     this.is_liked = comment_data.IsLike;
+    this.RegisterId = comment_data.RegisterId;
     this.fcomment_text = comment_data.Comment;
     this.fblock_comment = document.createElement('div');
     this.fblock_comment.className = 'fblock_comment';

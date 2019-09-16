@@ -228,22 +228,21 @@ function send_notif_to_user(block,type)
                ServerManager.Send_notif(data);
 
             break;
-/*
+
         case 'like_comment':
 
                data = {
         
                     "data" : {
                      "title":sender_fullname,          
-                     "message": "@" + sender_privateId +" commented : "+ block.Comment
+                     "message": "@" + sender_privateId +" liked your comment : "+ block.fcomment_text
                    },
-                   "to":block.current_flow_block.RegisterId
+                   "to":block.RegisterId
                    //registrationId
                };
                ServerManager.Send_notif(data);
 
             break;
-*/
 
         }
     }    
