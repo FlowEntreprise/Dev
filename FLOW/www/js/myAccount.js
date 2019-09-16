@@ -280,7 +280,8 @@ function ShowMyFlow(flow) {
                 Likes : data.Likes,
                 ObjectId: data.ObjectId,
                 PrivateId: data.PrivateId,
-                Times: data.Time
+                Times: data.Time,
+                Comments: data.Comments
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
