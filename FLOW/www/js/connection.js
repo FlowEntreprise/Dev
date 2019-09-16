@@ -104,12 +104,12 @@ function getBase64Image(imgUrl, callback) {
 
 }
 
-document.getElementById("popup-connect").on("opened", function () {
+document.getElementById("popup-connect").addEventListener("opened", function () {
     StatusBar.backgroundColorByHexString('#949494');
     StatusBar.styleLightContent();
 });
 
-document.getElementById("popup-connect").on("closed", function () {
+document.getElementById("popup-connect").addEventListener("closed", function () {
     StatusBar.backgroundColorByHexString('#f7f7f8');
     StatusBar.styleDefault();
 });
