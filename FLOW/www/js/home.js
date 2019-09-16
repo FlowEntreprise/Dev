@@ -97,7 +97,8 @@ function PopFlow(data, LinkBuilder) {
     Times: data.Time,
     IsLike: data.IsLike,
     IsComment: data.IsComment,
-    Likes: data.Likes
+    Likes: data.Likes,
+    Comments: data.Comments
   };
   // console.log("pop flow " + block_params.PrivateId);
   var new_block = new block(block_params);

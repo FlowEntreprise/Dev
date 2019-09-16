@@ -33,7 +33,8 @@ function block(params) {
     this.currentTime = 0;
     this.IsLike = params.IsLike;
     this.IsComment = params.IsComment;
-    this.Likes = params.Likes; 
+    this.Likes = params.Likes;
+    this.Comments = params.Comments; 
 
     this.flowplay = function () {
         block.fplay_button.style.display = "none";
@@ -204,7 +205,7 @@ function block(params) {
         this.fcomment.appendChild(this.fimg_impression_comment);
         this.ftxt_impression_comment = document.createElement('p');
         this.ftxt_impression_comment.className = 'ftxt_impression';
-        this.ftxt_impression_comment.innerText = '605';
+        this.ftxt_impression_comment.innerText = affichage_nombre(this.Comments,1);
         this.fcomment.appendChild(this.ftxt_impression_comment);
 
 
@@ -361,8 +362,8 @@ function block(params) {
 
     $(this.fimg_impression_like).on('click', function () {
 
-        impression_coloring(this, 'like', block.fimg_impression_like, block.ftxt_impression_like);
         current_flow_block = block;
+        impression_coloring(this, 'like', block);
         let data = {
 
             ObjectId: current_flow_block.ObjectId
@@ -396,23 +397,24 @@ function block(params) {
     });
 }
 // fonction permettant de colorier ou non les like, echo et comment.
-function impression_coloring(object, type, block_item, like_type) {
+function impression_coloring(object, type, block, like_type) {
 
     switch (type) {
         case 'like':
             $(object).each(function () {
                 
-                let like_number = $(block_impression_number).text();
+                
+                let like_number = $(block.ftxt_impression_like).text();
 
                 var attr_img_like = $(object).attr('src');
                 if (attr_img_like === 'src/icons/Like.png') {
-                    $(block_item).attr('src', 'src/icons/Like_filled.png');
-                    $(block_impression_number).text(+like_number + 1);
+                    $(block.fimg_impression_like).attr('src', 'src/icons/Like_filled.png');
+                    $(block.ftxt_impression_like).text(+like_number + 1);
                     push_notif_block('like', like_type);
                 }
-                if (attr_img_like === 'src/icons/Like_filled.png') {
-                    $(block_item).attr('src', 'src/icons/Like.png');
-                    $(block_impression_number).text(+like_number - 1);
+                if (attr_img_like === 'src/icons/Like_filled.png') {                    
+                    $(block.fimg_impression_like).attr('src', 'src/icons/Like.png');
+                    $(block.ftxt_impression_like).text(+like_number - 1);
                 }
             });
             break;
@@ -421,7 +423,7 @@ function impression_coloring(object, type, block_item, like_type) {
             $(object).each(function () {
                 var attr_img_echo = $(object).attr('src');
                 if (attr_img_echo === 'src/icons/Echo.png') {
-                    $(block_item).attr('src', 'src/icons/Echo_filled.png');
+                    $(block.fimg_impression_echo).attr('src', 'src/icons/Echo_filled.png');
                     push_notif_block('echo');
                 }
                 if (attr_img_echo === 'src/icons/Echo_filled.png') {
@@ -434,7 +436,7 @@ function impression_coloring(object, type, block_item, like_type) {
             $(object).each(function () {
                 var attr_img_comment = $(object).attr('src');
                 var comment_length = current_flow_block.all_comment_blocks.length;
-                $(block_item).attr('src', 'src/icons/Comment_filled.png');
+                $(block.fimg_impression_comment).attr('src', 'src/icons/Comment_filled.png');
                 push_notif_block('comment');
                 
             });
