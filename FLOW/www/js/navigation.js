@@ -59,7 +59,8 @@ $$('#tab3').on('tab:show', function () {
     if (!connected) {
         setTimeout(function () {
             app.showTab("#tab1");
-            app.popup('.popup-connect');
+            // app.popup('.popup-connect');
+            Popup("popup-connect", true, 45);
         }, 100);
     }
 
@@ -73,7 +74,8 @@ $$('#tab4').on('tab:show', function () {
     if (!connected) {
         setTimeout(function () {
             app.showTab("#tab1");
-            app.popup('.popup-connect');
+            // app.popup('.popup-connect');
+            Popup("popup-connect", true, 45);
         }, 100);
     }
 
@@ -110,7 +112,8 @@ function onBackKeyDown() {
         current_page = "home";    
     }
     else if (current_page == "connect-popup") {
-        app.closeModal('.popup-connect');
+        // app.closeModal('.popup-connect');
+        Popup("popup-connect", false);
         current_page = "home";
     }
     else if (current_page == "after-record") {

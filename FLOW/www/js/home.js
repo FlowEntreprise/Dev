@@ -97,7 +97,7 @@ function PopFlow(data, LinkBuilder) {
     Times: data.Time,
     IsLike: data.IsLike,
     IsComment: data.IsComment,
-    Likes : data.Likes
+    Likes: data.Likes
   };
   // console.log("pop flow " + block_params.PrivateId);
   var new_block = new block(block_params);
@@ -124,6 +124,7 @@ function UpdateTimeline(data) {
   // console.log(data.Data);
   if (Array.isArray(data.Data)) {
     setTimeout(function () {
+      if ($(".loading_tl")) $(".loading_tl").remove();
       if (TLCurrentIndex == 0) {
         $(".list-block")[0].innerHTML = "";
         let loading_tl = document.createElement("div");

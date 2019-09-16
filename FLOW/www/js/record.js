@@ -299,9 +299,7 @@ function Save(wavblob) {
     console.log("current page : " + current_page);
     if (current_page == "record") {
 
-        // app.closeModal('.popup-record');
         Popup("popup-record", false);
-        // app.popup('.popup-after-record');
         Popup("popup-after-record", true);
 
         if (!after_record_initialised) {
