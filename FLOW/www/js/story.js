@@ -276,7 +276,7 @@ function SpawnStoryWindow(story_block) {
             $('.fstory_addcomment_btn').on('click', function () {
                 console.log("Tap Record !");
                 if (recording) {
-                    StopRecording();
+                    // StopRecording();
                 } else {
                     StartRecording();
                 }
@@ -464,7 +464,7 @@ function loadStory(story_index, storyFlow_index) {
     $(".fstory_pseudo").text(story_data[story_index].private_id);
     $(".fstory_time").text(set_timestamp(story_data[story_index].data[storyFlow_index].time));
     story_pos = $($(".fstory_block")[parseInt(story_index) + 1]).position();
-    $(".fstory_indicator_list")[0].innerHTML = "";
+    if ($(".fstory_indicator_list")[0]) $(".fstory_indicator_list")[0].innerHTML = "";
     $(".fstory_pp")[0].style.backgroundImage = "url(" + story_data[story_index].user_picture + ")";
     // $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].darkColor + ");";
     let color_gradient = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].data[storyFlow_index].darkColor + ")";
@@ -787,7 +787,7 @@ function loadStorySeen() {
 }
 
 function closeRecordComment() {
-    StopRecording("cancel");
+    // StopRecording("cancel");
     $(".comment_record_popup").css({
         "opacity": "0",
         "pointer-events": "none"
@@ -831,7 +831,7 @@ document.getElementById("popup-story-record").addEventListener("closed", functio
         "display": "none"
     });
     $(".record-shadow")[0].style.display = "none";
-    StopRecording();
+    // StopRecording();
     current_page = "home";
     analytics.setCurrentScreen(current_page);
 });
