@@ -147,11 +147,19 @@ function onBackKeyDown() {
         Popup("popup-myaccount", false);
         current_page = "home";
         stopAllBlocksAudio();
+        $(".fflow-btn").css("display", "block");
+        $(".flow-btn-shadow").css("display", "block");
+        $(".fflow-btn").css("z-index", "1");
+        $(".flow-btn-shadow").css("z-index", "0");
     }
     else if (current_page == "account") {
         Popup("popup-account", false);
         current_page = "home";
         stopAllBlocksAudio();
+        $(".fflow-btn").css("display", "block");
+        $(".flow-btn-shadow").css("display", "block");
+        $(".fflow-btn").css("z-index", "1");
+        $(".flow-btn-shadow").css("z-index", "0");
     }
     else if (current_page == "home") {
         navigator.app.exitApp();

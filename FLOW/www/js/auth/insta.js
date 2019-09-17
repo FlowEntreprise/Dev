@@ -1,5 +1,3 @@
-
-
 function login_insta() {
     console.log('enter login');
     $.oauth2({
@@ -8,27 +6,37 @@ function login_insta() {
         logout_url: 'https://instagram.com/accounts/logout',
         client_id: 'c45b4c4cbad345f59ffaa62a91fd932d',
         redirect_uri: 'http://alexis-dacosta.fr/',
-        other_params: {scope:'likes'}
-    }, function(token, response){
+        other_params: {
+            scope: 'likes'
+        }
+    }, function (token, response) {
         //makeAPICalls(token);
         //alert(token);
-        //console.log(token);
-        //console.log(response);
+        console.log(token);
+        console.log(response);
         getData(token);
-    }, function(error, response){
-        alert(error);
-        //console.log(error);
+        $(".loading_connect").css({
+            "opacity": "1",
+            "pointer-events": "auto"
+        });
+    }, function (error, response) {
+        $(".loading_connect").css({
+            "opacity": "0",
+            "pointer-events": "none"
+        });
+        // alert(error);
+        console.log(error);
         //alert(error);
-    }); 
+    });
 }
 
-function getData(accessToken){
+function getData(accessToken) {
     //alert(accessToken);
     $.ajax({
         type: "GET",
         dataType: "jsonp",
-        url: "https://api.instagram.com/v1/users/self/?access_token="+accessToken,
-        success: function(reponse){
+        url: "https://api.instagram.com/v1/users/self/?access_token=" + accessToken,
+        success: function (reponse) {
             var user_name = reponse.data.username;
             var full_name = reponse.data.full_name;
             var media = reponse.data.counts['media'];
@@ -40,8 +48,6 @@ function getData(accessToken){
             var Id = reponse.data.id;
             // var test = {Name:user_name,Full:full_name,Picture:Ppicture};
 
-
-            
             // alert('nombre de media: '+media);
             // alert('follow: '+follows);
             // alert('follower: '+followed_by);
@@ -58,6 +64,14 @@ function getData(accessToken){
             // Socket.client.send('Inscription','Instagram',reponse.data); -- OLD
             ServerManager.Connect(apiTypes.Instagram, reponse.data);
             //alert(txt);
+        },
+        error: function (response) {
+            // console.log("Connection error : ");
+            console.log(response);
+            $(".loading_connect").css({
+                "opacity": "0",
+                "pointer-events": "none"
+            });
         }
     });
 }

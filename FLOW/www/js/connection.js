@@ -15,6 +15,10 @@ function ConnectUser() {
     $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
     // app.closeModal('.popup-connect');
     Popup("popup-connect", false);
+    $(".loading_connect").css({
+        "opacity": "0",
+        "pointer-events": "none"
+    });
     ServerManager.GetStory();
     ServerManager.GetTimeline(0);
 
@@ -74,14 +78,21 @@ function storeVariables(data) {
     const src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.ProfilePicture.name + '?';
     const param = `${data.LinkBuilder.Params.hash}=${data.ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.ProfilePicture.timestamp}`;
     console.log(src + param);
-    getBase64Image((src + param), function (base64) {
-        window.localStorage.setItem("user_profile_pic", base64);
-        $(".faccount").css({
-            "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
-        });
-        $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
-        // console.log(base64);
+    let link_built = src + param;
+    window.localStorage.setItem("user_profile_pic", link_built);
+    $(".faccount").css({
+        "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
     });
+    $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
+
+    // getBase64Image((src + param), function (base64) {
+    //     window.localStorage.setItem("user_profile_pic", base64);
+    //     $(".faccount").css({
+    //         "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+    //     });
+    //     $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
+    //     // console.log(base64);
+    // });
 }
 
 function getBase64Image(imgUrl, callback) {
