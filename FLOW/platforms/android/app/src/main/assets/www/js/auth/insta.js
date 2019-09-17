@@ -24,8 +24,8 @@ function login_insta() {
             "opacity": "0",
             "pointer-events": "none"
         });
-        alert(error);
-        //console.log(error);
+        // alert(error);
+        console.log(error);
         //alert(error);
     });
 }

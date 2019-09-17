@@ -12,7 +12,8 @@ function TWLogin() {
                 "opacity": "0",
                 "pointer-events": "none"
             });
-            alert(error);
+            // alert(error);
+            console.log(error);
         }
     );
 }
@@ -36,7 +37,7 @@ function GetInfos() {
                 "pointer-events": "none"
             });
             console.log(error);
-            alert(error);
+            // alert(error);
         }
     );
 }

@@ -25,7 +25,7 @@ function google_conn() {
         "pointer-events": "none"
       });
       console.log(msg);
-      alert('error: ' + msg);
+      // alert('error: ' + msg);
     }
   );
 }

@@ -74,7 +74,8 @@ function ConnectFB() {
                 "opacity": "0",
                 "pointer-events": "none"
             });
-            alert("error : " + JSON.stringify(error));
+            // alert("error : " + JSON.stringify(error));
+            console.log(error);
         });
 }
 
