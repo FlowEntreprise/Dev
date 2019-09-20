@@ -85,14 +85,6 @@ function storeVariables(data) {
     });
     $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
 
-    // getBase64Image((src + param), function (base64) {
-    //     window.localStorage.setItem("user_profile_pic", base64);
-    //     $(".faccount").css({
-    //         "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
-    //     });
-    //     $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
-    //     // console.log(base64);
-    // });
 }
 
 function getBase64Image(imgUrl, callback) {

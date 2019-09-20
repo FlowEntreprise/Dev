@@ -412,6 +412,7 @@ function impression_coloring(object, type, block, like_type) {
     switch (type) {
         case 'like':
             $(object).each(function () {
+
                 let like_number = $(block.ftxt_impression_like).text();
 
                 var attr_img_like = $(object).attr('src');
