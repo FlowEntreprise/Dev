@@ -617,3 +617,15 @@
   display: none;
 }
 
+.fclose_story_record
+{
+    position: absolute;
+    top: 3vh;
+    right: 5vw;
+    width: 5vw;
+    height: 2.5vh;
+    background-image: url("../src/icons/cancel.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}

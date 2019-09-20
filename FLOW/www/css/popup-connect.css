@@ -77,3 +77,37 @@
 .funderline {
     text-decoration: underline;
 }
+
+.loading_connect
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    background-color: rgba(0, 0, 0, 0.4);
+    transition-duration: 0.3s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading_connect_txt
+{
+    position: absolute;
+    top: 30vh;
+    left: 0;
+    width: 100vw;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+}
+
+.loading-connect-spinner
+{
+    position: absolute;
+    top: 35vh !important;
+    bottom: auto !important;
+    display: block !important;
+    /* left: ; */
+}

@@ -244,7 +244,7 @@ function EnableImmersiveMode() {
 }
 
 $("#target").focus(function () {
-  alert("Handler for .focus() called.");
+  console.log("Handler for .focus() called.");
 });
 
 function successFunction() {

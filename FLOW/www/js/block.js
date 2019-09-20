@@ -178,11 +178,11 @@ function block(params) {
         this.fbottom_part.appendChild(this.flike);
         this.fimg_impression_like = document.createElement('img');
         this.fimg_impression_like.className = 'fimg_impression';
-        this.fimg_impression_like.src =  this.IsLike == 1 ?  'src/icons/Like_filled.png' : 'src/icons/Like.png' ;       
+        this.fimg_impression_like.src = this.IsLike == 1 ? 'src/icons/Like_filled.png' : 'src/icons/Like.png';
         this.flike.appendChild(this.fimg_impression_like);
         this.ftxt_impression_like = document.createElement('p');
         this.ftxt_impression_like.className = 'ftxt_impression';
-        this.ftxt_impression_like.innerText = affichage_nombre(this.Likes,1);
+        this.ftxt_impression_like.innerText = affichage_nombre(this.Likes, 1);
         this.flike.appendChild(this.ftxt_impression_like);
 
         this.fecho = document.createElement('div');
@@ -202,11 +202,11 @@ function block(params) {
         this.fbottom_part.appendChild(this.fcomment);
         this.fimg_impression_comment = document.createElement('img');
         this.fimg_impression_comment.className = 'fimg_impression';
-        this.fimg_impression_comment.src = this.IsComment == 1 ? 'src/icons/Comment_filled.png' : 'src/icons/Comment.png' ;
+        this.fimg_impression_comment.src = this.IsComment == 1 ? 'src/icons/Comment_filled.png' : 'src/icons/Comment.png';
         this.fcomment.appendChild(this.fimg_impression_comment);
         this.ftxt_impression_comment = document.createElement('p');
         this.ftxt_impression_comment.className = 'ftxt_impression';
-        this.ftxt_impression_comment.innerText = affichage_nombre(this.Comments,1);
+        this.ftxt_impression_comment.innerText = affichage_nombre(this.Comments, 1);
         this.fcomment.appendChild(this.ftxt_impression_comment);
 
 
@@ -369,7 +369,7 @@ function block(params) {
 
             ObjectId: current_flow_block.ObjectId
         };
-        ServerManager.LikeFlow(data,current_flow_block);
+        ServerManager.LikeFlow(data, current_flow_block);
     });
 
     $(this.fimg_impression_echo).on('click', function () {
@@ -378,14 +378,14 @@ function block(params) {
         shake("tabCompte1");
     });
 
-/*----------------------TEST_LAURE------------*/
+    /*----------------------TEST_LAURE------------*/
 
-$(this.fdots).on('click', function () {
+    $(this.fdots).on('click', function () {
 
-    $("#registration_test").val(registrationId);
-});
+        $("#registration_test").val(registrationId);
+    });
 
-/*----------------------FIN_TEST_LAURE------------*/
+    /*----------------------FIN_TEST_LAURE------------*/
 
     $(this.fimg_impression_comment).on('click', function () {
         $(".fblock_comment_content").html("");
@@ -397,7 +397,7 @@ $(this.fdots).on('click', function () {
         let data = {
 
             ObjectId: current_flow_block.ObjectId,
-            IsComment: current_flow_block.IsComment 
+            IsComment: current_flow_block.IsComment
         };
         //impression_coloring(this, 'comment', block.fimg_impression_comment);
         ServerManager.GetFlowComment(data);
@@ -412,16 +412,16 @@ function impression_coloring(object, type, block, like_type) {
     switch (type) {
         case 'like':
             $(object).each(function () {
-                                
+
                 let like_number = $(block.ftxt_impression_like).text();
 
                 var attr_img_like = $(object).attr('src');
                 if (attr_img_like === 'src/icons/Like.png') {
                     $(block.fimg_impression_like).attr('src', 'src/icons/Like_filled.png');
-                    $(block.ftxt_impression_like).text(+like_number + 1);                    
-                    send_notif_to_user(block,"like_flow");
+                    $(block.ftxt_impression_like).text(+like_number + 1);
+                    send_notif_to_user(block, "like_flow");
                 }
-                if (attr_img_like === 'src/icons/Like_filled.png') {                    
+                if (attr_img_like === 'src/icons/Like_filled.png') {
                     $(block.fimg_impression_like).attr('src', 'src/icons/Like.png');
                     $(block.ftxt_impression_like).text(+like_number - 1);
                 }
@@ -432,7 +432,7 @@ function impression_coloring(object, type, block, like_type) {
             $(object).each(function () {
                 var attr_img_echo = $(object).attr('src');
                 if (attr_img_echo === 'src/icons/Echo.png') {
-                    $(block.fimg_impression_echo).attr('src', 'src/icons/Echo_filled.png');                    
+                    $(block.fimg_impression_echo).attr('src', 'src/icons/Echo_filled.png');
                 }
                 if (attr_img_echo === 'src/icons/Echo_filled.png') {
                     $(block.fimg_impression_echo).attr('src', 'src/icons/Echo.png');
@@ -444,8 +444,8 @@ function impression_coloring(object, type, block, like_type) {
             $(object).each(function () {
                 var attr_img_comment = $(object).attr('src');
                 var comment_length = current_flow_block.all_comment_blocks.length;
-                $(block.fimg_impression_comment).attr('src', 'src/icons/Comment_filled.png');                
-                
+                $(block.fimg_impression_comment).attr('src', 'src/icons/Comment_filled.png');
+
             });
             break;
     }
@@ -498,27 +498,29 @@ function get_all_comment(response) {
 
     console.log(response);
     var i = 0;
-    for (i = 0; i < response.Data.length; i++) {
+    if (response.Data) {
+        for (i = 0; i < response.Data.length; i++) {
 
-        const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data[i].ProfilePicture.name + '?';
-        const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data[i].ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data[i].ProfilePicture.timestamp}`;
-        var profilePicLink = src_profile_img + param_profile_img;
+            const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data[i].ProfilePicture.name + '?';
+            const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data[i].ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data[i].ProfilePicture.timestamp}`;
+            var profilePicLink = src_profile_img + param_profile_img;
 
-        var comment_data = {
-            PrivateId: response.Data[i].PrivateId,
-            ProfilePicture: profilePicLink,
-            Comment: response.Data[i].Comment,
-            Like_number: response.Data[i].Likes,
-            Time: response.Data[i].Time,
-            IsLike: response.Data[i].IsLike,
-            IdComment: response.Data[i].IdComment,
-            RegisterId : response.Data[i].RegisterId
+            var comment_data = {
+                PrivateId: response.Data[i].PrivateId,
+                ProfilePicture: profilePicLink,
+                Comment: response.Data[i].Comment,
+                Like_number: response.Data[i].Likes,
+                Time: response.Data[i].Time,
+                IsLike: response.Data[i].IsLike,
+                IdComment: response.Data[i].IdComment,
+                RegisterId: response.Data[i].RegisterId
+            }
+
+            // $(".loading_tl").remove();
+            let block_commentaire = new block_comment(comment_data);
+            $(".fblock_comment_content").append(block_commentaire);
+
         }
-
-        // $(".loading_tl").remove();
-        let block_commentaire = new block_comment(comment_data);
-        $(".fblock_comment_content").append(block_commentaire);
-
     }
     if ($.trim($(".fblock_comment_content").html()) != "") {
         $(".loading_comment").remove();
@@ -599,7 +601,7 @@ function set_timestamp(timestamp) { // fonction qui permet d'afficher le temp ec
 
 
 function affichage_nombre(number, decPlaces) { // cette fonction permet d'afficher les nombres de likes et autres (1200 devien 1.2 k)
-   
+
     decPlaces = Math.pow(10, decPlaces);
 
     // Enumerate number abbreviations
@@ -618,7 +620,7 @@ function affichage_nombre(number, decPlaces) { // cette fonction permet d'affich
             var number = Math.round(number * decPlaces / size) / decPlaces;
 
             // Handle special case where we round up to the next abbreviation
-            if((number == 1000) && (i < abbrev.length - 1)) {
+            if ((number == 1000) && (i < abbrev.length - 1)) {
                 number = 1;
                 i++;
             }
@@ -631,7 +633,7 @@ function affichage_nombre(number, decPlaces) { // cette fonction permet d'affich
             break;
         }
     }
-    
+
     return number;
 }
 
