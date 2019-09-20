@@ -32,13 +32,7 @@
         <preference name="SplashScreen" value="screen" />
         <preference name="AutoHideSplashScreen" value="false" />
         <preference name="FadeSplashScreenDuration" value="0" />
-        <!-- <splash src="res/screen/android/splash.png" /> -->
-        <splash src="res/screen/android/drawable-hdpi/splash.png" density="port-hdpi"/>
-        <splash src="res/screen/android/drawable-ldpi/splash.png" density="port-ldpi"/>
-        <splash src="res/screen/android/drawable-mdpi/splash.png" density="port-mdpi"/>
-        <splash src="res/screen/android/drawable-xhdpi/splash.png" density="port-xhdpi"/>
-        <splash src="res/screen/android/drawable-xxhdpi/splash.png" density="port-xxhdpi"/>
-        <splash src="res/screen/android/drawable-xxxhdpi/splash.png" density="port-xxxhdpi"/>
+       <!-- <splash src="res/screen/android/splash.png" />   --> 
         <preference name="ShowSplashScreenSpinner" value="true" />
         <preference name="SplashMaintainAspectRatio" value="true" />
     </platform>

@@ -64,18 +64,9 @@ FacebookInAppBrowser.settings.timeoutDuration = 7500;
 // });
 
 function ConnectFB() {
-    $(".loading_connect").css({
-        "opacity": "1",
-        "pointer-events": "auto"
-    });
     facebookConnectPlugin.login(["public_profile", "user_birthday", "email"], fbLoginSuccess,
         function loginError(error) {
-            $(".loading_connect").css({
-                "opacity": "0",
-                "pointer-events": "none"
-            });
-            // alert("error : " + JSON.stringify(error));
-            console.log(error);
+            alert("error : " + JSON.stringify(error));
         });
 }
 
@@ -86,21 +77,18 @@ function fbLoginSuccess(info) {
             console.log("Result: ", result);
             //alert("success : "+result);
             //alert(result.email + " "+result.birthday);
-
-            //document.getElementById("infos").innerHTML = JSON.stringify(result);
-            //Transport(socket, result, "facebook");
+            
+           //document.getElementById("infos").innerHTML = JSON.stringify(result);
+           //Transport(socket, result, "facebook");
             //alert(result.name +" "+ result.email + " " + result.birthday + " " + result.picture.data.url + " " + result.id);
             // Socket.client.send('Inscription','Facebook',result); -- OLD
             ServerManager.Connect(apiTypes.Facebook, result);
         },
         function onError(error) {
             //alert("error : "+error);
-            $(".loading_connect").css({
-                "opacity": "0",
-                "pointer-events": "none"
-            });
             console.error("Failed: ", error);
             //alert(result.email + " "+result.birthday);
             //document.getElementById("infos").innerHTML = "results : " + result.email + " " + result.birthday +" "+result.name + " "+ result.profile_pic+ " "+ result.id;
         });
 }
+

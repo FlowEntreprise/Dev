@@ -15,10 +15,6 @@ function ConnectUser() {
     $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
     // app.closeModal('.popup-connect');
     Popup("popup-connect", false);
-    $(".loading_connect").css({
-        "opacity": "0",
-        "pointer-events": "none"
-    });
     ServerManager.GetStory();
     ServerManager.GetTimeline(0);
 

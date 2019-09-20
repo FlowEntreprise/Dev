@@ -28,12 +28,6 @@
     <allow-intent href="market:*" />
     <resource-file src="google-services.json" target="app/google-services.json" />
     <resource-file src="google-services.json" target="google-services.json" />
-    <splash density="port-hdpi" src="res/screen/android/drawable-hdpi/splash.png" />
-    <splash density="port-ldpi" src="res/screen/android/drawable-ldpi/splash.png" />
-    <splash density="port-mdpi" src="res/screen/android/drawable-mdpi/splash.png" />
-    <splash density="port-xhdpi" src="res/screen/android/drawable-xhdpi/splash.png" />
-    <splash density="port-xxhdpi" src="res/screen/android/drawable-xxhdpi/splash.png" />
-    <splash density="port-xxxhdpi" src="res/screen/android/drawable-xxxhdpi/splash.png" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />

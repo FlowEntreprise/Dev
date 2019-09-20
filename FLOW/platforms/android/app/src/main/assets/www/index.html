@@ -62,13 +62,13 @@
                         <div class="fneed_connect" style="right: 0px; top: 0px; height: 10vh"></div>
                         <!-- <a href="../www/pages/myAccount.html" class="faccount open-login-screen"></a> -->
                         <div class="faccount" onclick="Popup('popup-myaccount', true)"></div>
-                        <!-- <div class="fstories_title">Stories</div> -->
+                        <div class="fstories_title">Stories</div>
                         <ul class="fstory_list">
                             <li>
                                 <div class="fstory_block">
-                                    <img src="src/icons/plus.png" class="fstory_pic mystory_pic fnoshadow">
+                                    <div class="fplus"></div>
+                                    <img src="src/icons/Account@3x.png" class="fstory_pic mystory_pic fnoshadow">
                                     <div class="unread_shadow"></div>
-                                    <label class="fstory_user" onclick="Popup('popup-connect')">Your story</label>
                                 </div>
                             </li>
                             <!-- <li>
@@ -185,7 +185,7 @@
                 <div class="popup_content" animation-direction="up">
                     <p id="flow_number_of_sec" class="fflow_duration">00</p>
                     <p class="fflow_duration fsec">sec</p>
-                    <div class="fclose_record"></div>
+                    <div class="fclose_record" onclick="Popup('popup-record', false)"></div>
 
                     <div id="wave-container"></div>
                     <div class="sounds-record"></div>
@@ -284,7 +284,7 @@
                 <div class="popup_content" animation-direction="up">
                     <p id="flow_story_number_of_sec" class="fflow_duration story_flow_duration">00</p>
                     <p class="fflow_duration fsec">sec</p>
-                    <div class="fclose_story_record" onclick="Popup('popup-story-record', false)"></div>
+                    <div class="fclose_record" onclick="Popup('popup-story-record', false)"></div>
                     <div id="wave-container" class="story-record-wave"></div>
                     <div class="sounds-record"></div>
                 </div>
@@ -468,11 +468,6 @@
     <div class="fwrite_comment">
         <input type="text" placeholder="Say something nice" maxlength="100" class="finput_comment">
         <img src="src/icons/send.png" class="fsend_comment">
-    </div>
-
-    <div class="loading_connect">
-        <label class="loading_connect_txt">Connection</label>
-        <div class="floading-spinner loading-connect-spinner"></div>
     </div>
 
 

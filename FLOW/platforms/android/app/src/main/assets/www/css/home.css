@@ -11,7 +11,7 @@
 
 .faccount {
     position: absolute;
-    top: calc(0* var(--custom-vh) + 7px);
+    top:  calc(0* var(--custom-vh) + 7px);
     right: 10px;
     width: 35px;
     height: 35px;
@@ -20,7 +20,6 @@
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 50px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .fstories_title {
@@ -49,23 +48,20 @@
 
 .fstory_list li,
 .fexplore_list li {
-    display: -webkit-inline-box;
+    display: inline-block;
 }
 
 .fstory_block {
-    text-align: center;
-    width: calc(6.5* var(--custom-vh));
-    height: calc(6.5* var(--custom-vh));
+    width: calc(8* var(--custom-vh));
+    height: calc(8* var(--custom-vh));
     border: double 3px transparent;
     border-radius: 50%;
     background-image: linear-gradient(white, white), linear-gradient(white, white);
     background-origin: border-box;
     background-clip: content-box, border-box;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
-    margin-right: 3vw;
-    margin-left: 3vw;
-    display: flex;
-    justify-content: center;
+    margin-right: 2vw;
+    text-align: center;
 }
 
 .fstory_list .unread {
@@ -75,8 +71,8 @@
 .unread_shadow {
     z-index: -15;
     position: absolute;
-    height: calc(6.5* var(--custom-vh));
-    width: calc(6.5* var(--custom-vh));
+    height: calc(8* var(--custom-vh));
+    width: calc(8* var(--custom-vh));
     border-radius: 50%;
     background-image: linear-gradient(#1A84EF, #FF0054);
     filter: blur(10px);
@@ -90,31 +86,15 @@
 
 .fstory_pic {
     position: absolute;
-    margin-top: calc(0.25* var(--custom-vh));
-    height: calc(6* var(--custom-vh));
-    width: calc(6* var(--custom-vh));
+    margin-top: calc(0.5* var(--custom-vh));
+    margin-left: calc(-3.5* var(--custom-vh));
+    height: calc(7* var(--custom-vh));
+    width: calc(7* var(--custom-vh));
     display: inline-block;
     vertical-align: middle;
     object-fit: cover;
     border-radius: 50%;
     /* box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2); */
-}
-
-.mystory_pic {
-    margin-top: calc(1.75* var(--custom-vh)) !important;
-    margin-left: auto !important;
-    height: calc(3* var(--custom-vh)) !important;
-    width: calc(3* var(--custom-vh)) !important;
-    object-fit: contain !important;
-}
-
-.fstory_user
-{
-    white-space: nowrap;
-    color: #92ABB2;
-    font-size: 13px;
-    font-family: "Roboto-Regular";
-    margin-top: calc(7.5 * var(--custom-vh));
 }
 
 .fnoshadow {
@@ -168,7 +148,8 @@
     opacity: 0;
 }
 
-.fred_dot_toolbar_new_notif {
+.fred_dot_toolbar_new_notif
+{
     position: absolute;
     z-index: 1;
     top: 3vw;
@@ -177,7 +158,7 @@
     height: 3vw;
     border-radius: 3vw;
     background-color: #FF0054;
-    border: 1px solid red;
+    border : 1px solid red;
     display: none;
     pointer-events: none;
 }
@@ -187,7 +168,8 @@
     top: calc(93* var(--custom-vh));
 }
 
-.loading_circle {
+.loading_circle
+{
     position: absolute;
     margin-top: 1.5vh;
     left: calc(50vw - 2.5vh);
@@ -199,7 +181,8 @@
     background-repeat: no-repeat;
 }
 
-.tick_icon {
+.tick_icon
+{
     position: absolute;
     margin-top: 1.5vh;
     left: calc(50vw - 2vh);
@@ -225,7 +208,8 @@
     animation-play-state: paused !important;
 }
 
-.pull-to-refresh-arrow {
+.pull-to-refresh-arrow
+{
     background-image: url("../src/icons/ptr_arrow.png") !important;
     width: 20px !important;
     height: 20px !important;
