@@ -120,9 +120,33 @@ var app = {
         });
 
         push.on('notification', function (data) {
-            if(data.additionalData.type == "like_flow"){push_notif_block('like');}
-            if(data.additionalData.type == "send_comment"){push_notif_block('comment');}
-            if(data.additionalData.type == "like_comment"){push_notif_block('like',"comment");}         
+
+            if(data.additionalData.type == "like_flow"){                
+                $(".flabel_in_app_notif").text(data.title + " liked your flow");
+                $(".f_in_app_notif").css("margin-top", "-40vw");
+                setTimeout(function(){
+                    $(".f_in_app_notif").css("margin-top", "5vw");
+                  }, 2000);
+                push_notif_block('like',data);
+            }
+            if(data.additionalData.type == "send_comment"){
+
+                $(".flabel_in_app_notif").text(data.title + " commented your flow");
+                $(".f_in_app_notif").css("margin-top", "-40vw");
+                setTimeout(function(){
+                    $(".f_in_app_notif").css("margin-top", "5vw");
+                  }, 2000);
+                push_notif_block('comment',data);
+            }
+            if(data.additionalData.type == "like_comment"){
+
+                $(".flabel_in_app_notif").text(data.title + " liked your comment");
+                $(".f_in_app_notif").css("margin-top", "-40vw");
+                setTimeout(function(){
+                    $(".f_in_app_notif").css("margin-top", "5vw");
+                  }, 2000);
+                push_notif_block('like',data);
+            }         
         });
 
         push.on('error', function (e) {

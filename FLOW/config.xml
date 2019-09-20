@@ -32,7 +32,7 @@
         <preference name="SplashScreen" value="screen" />
         <preference name="AutoHideSplashScreen" value="false" />
         <preference name="FadeSplashScreenDuration" value="0" />
-        <splash src="res/screen/android/splash.png" />
+       <!-- <splash src="res/screen/android/splash.png" />   --> 
         <preference name="ShowSplashScreenSpinner" value="true" />
         <preference name="SplashMaintainAspectRatio" value="true" />
     </platform>
@@ -75,6 +75,5 @@
     <plugin name="cordova-plugin-media" spec="^5.0.3" />
     <plugin name="cordova-plugin-audioinput" spec="^1.0.2" />
     <plugin name="cordova-plugin-compat" spec="^1.2.0" />
-    <engine name="android" spec="^7.1.4" />
     <engine name="browser" spec="^6.0.0" />
 </widget>

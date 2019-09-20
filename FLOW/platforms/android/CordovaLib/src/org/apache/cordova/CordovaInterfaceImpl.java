@@ -138,11 +138,7 @@ public class CordovaInterfaceImpl implements CordovaInterface {
      */
     public boolean onActivityResult(int requestCode, int resultCode, Intent intent) {
         CordovaPlugin callback = activityResultCallback;
-        // CHANGED BY THOMAS TO TRY MAKE CAMERA KILLING APP WORKING AGAIN
-        // original :
-        //if(callback == null && initCallbackService != null) {
-        // modified :
-        if( initCallbackService != null) {
+        if(callback == null && initCallbackService != null) {
             // The application was restarted, but had defined an initial callback
             // before being shut down.
             savedResult = new ActivityResultHolder(requestCode, resultCode, intent);

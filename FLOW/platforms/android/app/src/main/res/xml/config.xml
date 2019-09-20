@@ -3,113 +3,8 @@
     <feature name="Permissions">
         <param name="android-package" value="com.android.plugins.Permissions" />
     </feature>
-    <feature name="Camera">
-        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
-    </feature>
-    <feature name="FacebookConnectPlugin">
-        <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
-        <param name="onload" value="true" />
-    </feature>
-    <access origin="https://m.facebook.com" />
-    <access origin="https://graph.facebook.com" />
-    <access origin="https://api.facebook.com" />
-    <access origin="https://*.fbcdn.net" />
-    <access origin="https://*.akamaihd.net" />
-    <feature name="InAppBrowser">
-        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
-    </feature>
-    <feature name="KImageCropper">
-        <param name="android-package" value="in.co.indusnet.plugins.cordova.imagecropper.KImageCropper" />
-    </feature>
-    <feature name="StatusBar">
-        <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="Whitelist">
-        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="PushNotification">
-        <param name="android-package" value="com.adobe.phonegap.push.PushPlugin" />
-    </feature>
-    <feature name="AndroidFullScreen">
-        <param name="android-package" value="com.mesmotronic.plugins.FullScreenPlugin" />
-    </feature>
-    <feature name="NetworkStatus">
-        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
-    </feature>
-    <feature name="Insomnia">
-        <param name="android-package" value="nl.xservices.plugins.Insomnia" />
-    </feature>
-    <feature name="File">
-        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
-        <param name="onload" value="true" />
-    </feature>
-    <allow-navigation href="cdvfile:*" />
-    <feature name="Media">
-        <param name="android-package" value="org.apache.cordova.media.AudioHandler" />
-    </feature>
     <feature name="AudioInputCapture">
         <param name="android-package" value="com.exelerus.cordova.audioinputcapture.AudioInputCapture" />
-    </feature>
-    <feature name="SplashScreen">
-        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="FirebaseCrashlytics">
-        <param name="android-package" value="uk.co.reallysmall.cordova.plugin.firebase.crashlytics.FirebaseCrashlyticsPlugin" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="FirebaseAnalytics">
-        <param name="android-package" value="by.chemerisuk.cordova.firebase.FirebaseAnalyticsPlugin" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="TwitterConnect">
-        <param name="android-package" value="com.manifestwebdesign.twitterconnect.TwitterConnect" />
-    </feature>
-    <feature name="GooglePlus">
-        <param name="android-package" value="nl.xservices.plugins.GooglePlus" />
-        <param name="onload" value="true" />
-    </feature>
-    <access origin="https://accounts.google.com/*" />
-    <widget>
-        <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
-        <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
-    </widget>
-    <feature name="Diagnostic">
-        <param name="android-package" value="cordova.plugins.Diagnostic" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="Diagnostic_Location">
-        <param name="android-package" value="cordova.plugins.Diagnostic_Location" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="Diagnostic_Bluetooth">
-        <param name="android-package" value="cordova.plugins.Diagnostic_Bluetooth" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="Diagnostic_Wifi">
-        <param name="android-package" value="cordova.plugins.Diagnostic_Wifi" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="Diagnostic_Camera">
-        <param name="android-package" value="cordova.plugins.Diagnostic_Camera" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="Diagnostic_Notifications">
-        <param name="android-package" value="cordova.plugins.Diagnostic_Notifications" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="Diagnostic_NFC">
-        <param name="android-package" value="cordova.plugins.Diagnostic_NFC" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="Diagnostic_External_Storage">
-        <param name="android-package" value="cordova.plugins.Diagnostic_External_Storage" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="Keyboard">
-        <param name="android-package" onload="true" value="io.ionic.keyboard.IonicKeyboard" />
     </feature>
     <name>FLOW</name>
     <description>
@@ -133,9 +28,7 @@
     <allow-intent href="market:*" />
     <resource-file src="google-services.json" target="app/google-services.json" />
     <resource-file src="google-services.json" target="google-services.json" />
-    <splash src="res/screen/android/splash.png" />
     <preference name="loglevel" value="DEBUG" />
-    <preference name="android-minSdkVersion" value="15" />
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />
     <preference name="fullscreen" value="false" />

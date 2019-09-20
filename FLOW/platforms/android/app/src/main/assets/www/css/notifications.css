@@ -17,8 +17,7 @@
     left: 2vw;
     border-radius: calc(7* var(--custom-vh));
     border: 1.5px solid rgb(255, 0, 84);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    background-image: url(../src/pictures/notif1.png);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);    
     background-size: cover;
     background-position: center;
 }
@@ -31,8 +30,7 @@
     left: 2vw;
     border-radius: calc(7* var(--custom-vh));
     border: 1.5px solid rgb(152,57,198);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    background-image: url(../src/pictures/notif2.jpg);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);    
     background-size: cover;
     background-position: center;
 }
@@ -46,7 +44,6 @@
     border-radius: calc(7* var(--custom-vh));
     border: 1.5px solid rgb(26,132,239); 
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    background-image: url(../src/pictures/notif3.jpg);
     background-size: cover;
     background-position: center;
 }

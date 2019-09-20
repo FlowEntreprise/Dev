@@ -224,6 +224,29 @@ h1 {
     background-image: url("../src/icons/FLOW@3x.png");
     transition-duration: 1s;
 } */
+.f_in_app_notif
+{
+    position: absolute;
+    width: 90vw;
+    margin-left: 5vw;
+    height: calc(7* var(--custom-vh));
+    line-height : calc(7* var(--custom-vh));
+    margin-top: 5vw;
+    background-color: #fff;
+    border-radius: 2vw;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 9999999999999999999999999999999999;
+    transition-duration: 0.4s;
+}
+
+.flabel_in_app_notif
+{
+    font-size: 5.5vw;
+    color: #92ABB2;
+    font-weight: bold;
+    font-family: Roboto;
+}
 
 .fflow-btn {
     position: relative;

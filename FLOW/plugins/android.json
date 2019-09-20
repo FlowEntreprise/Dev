@@ -7,94 +7,17 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-android-permissions": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-camera": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-facebook4": {
-      "APP_ID": "502054883649562",
-      "APP_NAME": "FLOW",
-      "FACEBOOK_HYBRID_APP_EVENTS": "false",
-      "FACEBOOK_ANDROID_SDK_VERSION": "4.40.0",
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-inappbrowser": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-k-imagecropper": {
-      "ANDROID_SUPPORT_APPCOMPAT_VERSION": "27.+",
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova.plugins.diagnostic": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
     "cordova-android-support-gradle-release": {
       "ANDROID_SUPPORT_VERSION": "27.+",
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova-support-google-services": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "phonegap-plugin-multidex": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "phonegap-plugin-push": {
-      "ANDROID_SUPPORT_V13_VERSION": "27.+",
-      "FCM_VERSION": "17.0.+"
-    },
-    "cordova-plugin-browsersync": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-ionic-keyboard": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-fullscreen": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-network-information": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-insomnia": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-file": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-media": {
+    "cordova-plugin-android-permissions": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-audioinput": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-firebase-crashlytics": {
-      "ANDROID_FIREBASE_VERSION": "11.8.0",
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-support-android-plugin": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-firebase-analytics": {
-      "FIREBASE_CORE_VERSION": "16.0.+",
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-twitter3-connect-plugin": {
-      "TWITTER_KEY": "JwyvPlw7GcOvE8pXmRvqTyZL3",
-      "TWITTER_SECRET": "6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT",
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-googleplus": {
-      "PLAY_SERVICES_VERSION": "15.0.1",
+    "cordova-plugin-browsersync": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
