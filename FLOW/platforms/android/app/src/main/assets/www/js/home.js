@@ -121,10 +121,14 @@ function UpdateTimeline(data) {
       }
     }, 500);
   } else {
-    if ($(".loading_tl")) $(".loading_tl").remove();
-    CanRefreshTL = false;
-    pullToRefreshEnd();
+    stopTLRefresh();
   }
+}
+
+function stopTLRefresh() {
+  if ($(".loading_tl")) $(".loading_tl").remove();
+  CanRefreshTL = false;
+  pullToRefreshEnd();
 }
 
 $(".finput_comment").focus(function () {
