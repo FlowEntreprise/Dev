@@ -30,10 +30,14 @@ function ConnectUser() {
     analytics.logEvent("user_connection", {
         private_id: window.localStorage.getItem("user_private_id")
     });
-    let data = {
-        RegisterId: registrationId
-    }
-    ServerManager.UpdateRegisterId(data);
+
+    setTimeout(function(){
+        let data = {
+            RegisterId: registrationId
+        }
+        ServerManager.UpdateRegisterId(data);
+    }, 100);
+ 
     //$( "#fswipe_area" ).css({"pointer-events": "all"});
 }
 
