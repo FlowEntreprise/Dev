@@ -30,13 +30,11 @@ function ConnectUser() {
     analytics.logEvent("user_connection", {
         private_id: window.localStorage.getItem("user_private_id")
     });
-    
+
     setTimeout(function(){
         let data = {
             RegisterId: registrationId
         }
-        console.log("update register id : ");
-        console.log(data);
         ServerManager.UpdateRegisterId(data);
     }, 100);
  

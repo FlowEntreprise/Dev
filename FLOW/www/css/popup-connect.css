@@ -9,7 +9,7 @@
     font-size: 2.5vh;
     text-align: center;
     width: 76vw;
-    margin-left: 8vw;
+    margin-left: 12vw;
 }
 
 .fsize_img_reseaux_sociaux {
@@ -22,6 +22,7 @@
 
 #ftrait_gauche {
     width: 35vw;
+    left: 5vw;
     border-top: solid 1.5px #92ABB2;
     position: absolute;
 }
@@ -35,9 +36,10 @@
 
 #fentretrait {
     position: absolute;
-    width: 4vw;
-    margin-left: 42vw;
+    width: 100vw;
+    left: 0;
     margin-top: -2vh;
+    text-align: center;
     font-size: 3vh;
 }
 
@@ -51,6 +53,8 @@
     padding-bottom: 1.2vh;
     text-align: center;
     font-size: 2.5vh;
+    width: 90vw;
+    margin-left: 5vw;
 }
 
 #fpolitique {
