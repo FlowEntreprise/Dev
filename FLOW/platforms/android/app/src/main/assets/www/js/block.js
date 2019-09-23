@@ -374,8 +374,7 @@ function block(params) {
 
     $(this.fimg_impression_echo).on('click', function () {
 
-        impression_coloring(this, 'echo', block.fimg_impression_echo);
-        shake("tabCompte1");
+        impression_coloring(this, 'echo', block.fimg_impression_echo);        
     });
 
     /*----------------------TEST_LAURE------------*/

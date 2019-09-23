@@ -51,7 +51,7 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
     });
 }
 
-function block_notification_echo() {
+function block_notification_echo(data) {
     this.seen = false;
     var block_notification_echo = this;
     this.block_notification_echo = document.createElement('div');
@@ -99,9 +99,12 @@ function block_notification_echo() {
 
 }
 
-function block_notification_comment() {
+function block_notification_comment(data) {
     this.seen = false;
     var block_notification_comment = this;
+    this.full_name = data.title; // nom de celui qui a send la notif
+    this.message = data.additionalData.post_texte; // le contenue de la notif, text de commentaire ou titre de flow
+    this.photo_link = data.additionalData.profil_pic; // lien de la photo de celui qui a send la notif
     this.block_notification_comment = document.createElement('div');
     this.block_notification_comment.className = 'fblock_notification';
     $("#tab4").prepend(this.block_notification_comment);
@@ -118,7 +121,7 @@ function block_notification_comment() {
 
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
-    this.fnotif_label.innerText = this.full_name + ' comment your flow';
+    this.fnotif_label.innerText = this.full_name + ' commented your flow';
     this.block_notification_comment.appendChild(this.fnotif_label);
 
     this.fnotif_text = document.createElement('label');
@@ -183,11 +186,11 @@ function push_notif_block(notification_type,like_type) {
             all_notifications_block.push(new_notif_like);
             break;
         case 'echo':
-            var new_notif_echo = new block_notification_echo();
+            var new_notif_echo = new block_notification_echo(like_type);
             all_notifications_block.push(new_notif_echo);
             break;
         case 'comment':
-            var new_notif_comment = new block_notification_comment();
+            var new_notif_comment = new block_notification_comment(like_type);
             all_notifications_block.push(new_notif_comment);
             break;
     }

@@ -121,32 +121,42 @@ var app = {
 
         push.on('notification', function (data) {
 
-            if(data.additionalData.type == "like_flow"){                
-                $(".flabel_in_app_notif").text(data.title + " liked your flow");
-                $(".f_in_app_notif").css("margin-top", "-40vw");
-                setTimeout(function(){
-                    $(".f_in_app_notif").css("margin-top", "5vw");
-                  }, 2000);
-                push_notif_block('like',data);
-            }
-            if(data.additionalData.type == "send_comment"){
+            if(data.additionalData.foreground == false){
 
-                $(".flabel_in_app_notif").text(data.title + " commented your flow");
-                $(".f_in_app_notif").css("margin-top", "-40vw");
-                setTimeout(function(){
-                    $(".f_in_app_notif").css("margin-top", "5vw");
-                  }, 2000);
-                push_notif_block('comment',data);
-            }
-            if(data.additionalData.type == "like_comment"){
+                Popup("popup-flow-specifique", true);
 
-                $(".flabel_in_app_notif").text(data.title + " liked your comment");
-                $(".f_in_app_notif").css("margin-top", "-40vw");
-                setTimeout(function(){
-                    $(".f_in_app_notif").css("margin-top", "5vw");
-                  }, 2000);
-                push_notif_block('like',data);
-            }         
+            }
+            else
+            {
+        
+                if(data.additionalData.type == "like_flow"){                
+                    $(".flabel_in_app_notif").text(data.title + " liked your flow");
+                    $(".f_in_app_notif").css("margin-top", "-40vw");
+                    setTimeout(function(){
+                        $(".f_in_app_notif").css("margin-top", "5vw");
+                    }, 2000);
+                    push_notif_block('like',data);
+                }
+                if(data.additionalData.type == "send_comment"){
+
+                    $(".flabel_in_app_notif").text(data.title + " commented your flow");
+                    $(".f_in_app_notif").css("margin-top", "-40vw");
+                    setTimeout(function(){
+                        $(".f_in_app_notif").css("margin-top", "5vw");
+                    }, 2000);
+                    push_notif_block('comment',data);
+                }
+                if(data.additionalData.type == "like_comment"){
+
+                    $(".flabel_in_app_notif").text(data.title + " liked your comment");
+                    $(".f_in_app_notif").css("margin-top", "-40vw");
+                    setTimeout(function(){
+                        $(".f_in_app_notif").css("margin-top", "5vw");
+                    }, 2000);
+                    push_notif_block('like',data);
+                }  
+            
+            }
         });
 
         push.on('error', function (e) {
