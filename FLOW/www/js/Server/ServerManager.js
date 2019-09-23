@@ -557,12 +557,10 @@ class ServerManagerClass {
             error: function (response) {
                 console.log("error");
                 console.log(response);
+                StopRefreshTL();
             }
         });
-    }
-
-    //UpdateRegisterId
-    
+    }    
 
     UpdateRegisterId(data) {
         let final_data = {
