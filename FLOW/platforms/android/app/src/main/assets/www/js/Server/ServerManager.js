@@ -16,6 +16,7 @@ const ServerParams = {
     GetMyUserInfosURL: "GetInfoUser",
     GetTimeline: "GetTimeline",
     GetUserProfil: "GetProfil",
+    GetSingle : "GetSingle",
     ActionFollowProfil: 'Follow',
     UpdateRegisterId : "UpdateRegisterId"
 };
@@ -561,6 +562,32 @@ class ServerManagerClass {
             }
         });
     }    
+
+    GetSingle(data) {
+        let final_data = {
+            
+            Data: data,            
+            TokenId : window.localStorage.getItem("user_token")
+            
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetSingle,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                console.log("success dans la recuperation de flow unique");
+                flow_specifique(response);
+                
+            },
+            error: function (response) {
+                console.log(response);
+                console.log("error dans la recuperation de flow unique");
+                
+            }
+        });
+    }
 
     UpdateRegisterId(data) {
         let final_data = {

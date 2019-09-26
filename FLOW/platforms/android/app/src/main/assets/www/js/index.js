@@ -123,7 +123,12 @@ var app = {
 
             if(data.additionalData.foreground == false){
 
-                Popup("popup-flow-specifique", true);
+                var myApp = new Framework7();
+                var data_flow = {
+                    IdFlow : data.additionalData.sender_info.IdFlow
+                };
+                ServerManager.GetSingle(data_flow);             
+                myApp.popup('.popup-about');                 
 
             }
             else
@@ -213,11 +218,11 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 }
 
 Storage.prototype.setObj = function (key, obj) {
-    return this.setItem(key, JSON.stringify(obj))
-}
+    return this.setItem(key, JSON.stringify(obj));
+};
 Storage.prototype.getObj = function (key) {
-    return JSON.parse(this.getItem(key))
-}
+    return JSON.parse(this.getItem(key));
+};
 
 // Replace default alert by Sweet Alert
 window.alert = function (txt) {

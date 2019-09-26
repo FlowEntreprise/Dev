@@ -1,9 +1,9 @@
 function block_notification_like(data) { //type permet de defini si c'est le like d'un flow ou le like d'un commentaire
     this.seen = false;
     var block_notification_like = this;
-    this.full_name = data.title; // nom de celui qui a send la notif
-    this.message = data.additionalData.post_texte; // le contenue de la notif, text de commentaire ou titre de flow
-    this.photo_link = data.additionalData.profil_pic; // lien de la photo de celui qui a send la notif
+    this.full_name = data.additionalData.sender_info.fullname; // nom de celui qui a send la notif
+    this.message = data.additionalData.sender_info.post_texte; // le contenue de la notif, text de commentaire ou titre de flow
+    this.photo_link = data.additionalData.sender_info.profil_pic; // lien de la photo de celui qui a send la notif
     //this.timestamp = data.time;
     this.like_comment = data.additionalData.type;
     this.block_notification_like = document.createElement('div');
@@ -12,7 +12,7 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
 
     this.fphoto_block_notif = document.createElement('div');
     this.fphoto_block_notif.className = 'fphoto_block_notif_like';
-    this.fphoto_block_notif.style.backgroundImage = "url('" + data.additionalData.sender_photo + "')";
+    this.fphoto_block_notif.style.backgroundImage = "url('" + data.additionalData.sender_info.profil_pic + "')";
     this.block_notification_like.appendChild(this.fphoto_block_notif);
 
     this.ftype_notif = document.createElement('img');
@@ -60,7 +60,7 @@ function block_notification_echo(data) {
 
     this.fphoto_block_notif = document.createElement('div');
     this.fphoto_block_notif.className = 'fphoto_block_notif_echo';
-    this.fphoto_block_notif.style.backgroundImage = "url('" + data.additionalData.sender_photo + "')";
+    this.fphoto_block_notif.style.backgroundImage = "url('" + data.additionalData.sender_info.profil_pic + "')";
     this.block_notification_echo.appendChild(this.fphoto_block_notif);
 
     this.ftype_notif = document.createElement('img');
@@ -102,16 +102,16 @@ function block_notification_echo(data) {
 function block_notification_comment(data) {
     this.seen = false;
     var block_notification_comment = this;
-    this.full_name = data.title; // nom de celui qui a send la notif
-    this.message = data.additionalData.post_texte; // le contenue de la notif, text de commentaire ou titre de flow
-    this.photo_link = data.additionalData.profil_pic; // lien de la photo de celui qui a send la notif
+    this.full_name = data.additionalData.sender_info.fullname; // nom de celui qui a send la notif
+    this.message = data.additionalData.sender_info.comment_text; // le contenue de la notif, text de commentaire ou titre de flow
+    this.photo_link = data.additionalData.sender_info.profil_pic; // lien de la photo de celui qui a send la notif
     this.block_notification_comment = document.createElement('div');
     this.block_notification_comment.className = 'fblock_notification';
     $("#tab4").prepend(this.block_notification_comment);
 
     this.fphoto_block_notif = document.createElement('div');
     this.fphoto_block_notif.className = 'fphoto_block_notif_comment';
-    this.fphoto_block_notif.style.backgroundImage = "url('" + data.additionalData.sender_photo + "')";
+    this.fphoto_block_notif.style.backgroundImage = "url('" + data.additionalData.sender_info.profil_pic + "')";
     this.block_notification_comment.appendChild(this.fphoto_block_notif);
 
     this.ftype_notif = document.createElement('img');
@@ -201,11 +201,13 @@ function push_notif_block(notification_type,like_type) {
 function send_notif_to_user(block,type)
 {
 
-    let sender_info = { 
+    var sender_info = { 
                         fullname : window.localStorage.getItem("user_name"),
                         privateId : window.localStorage.getItem("user_private_id"),
                         profil_pic : window.localStorage.getItem("user_profile_pic"),
-                        post_texte : $(block.fpost_title).text()
+                        post_texte : $(block.fpost_title).text(),
+                        comment_text : block.fcomment_text,
+                        IdFlow : block.ObjectId
                         };
     
     if(registrationId == block.RegisterId) 
@@ -223,8 +225,7 @@ function send_notif_to_user(block,type)
                  "title" : sender_info.fullname,          
                  "message" : "@" + sender_info.privateId  + " liked your flow : "  + sender_info.post_texte,
                  "type" : "like_flow",
-                 "sender_photo" : sender_info.profil_pic,
-                 "post_texte" : sender_info.post_texte
+                 "sender_info" : sender_info        
                },
                "to":block.RegisterId
                //registrationId
@@ -241,8 +242,7 @@ function send_notif_to_user(block,type)
                      "title" : sender_info.fullname,          
                      "message": "@" + sender_info.privateId +" commented : "+ block.Comment,
                      "type" : "send_comment",
-                     "sender_photo" : sender_info.profil_pic,
-                     "post_texte" : block.Comment
+                     "sender_info" : sender_info
                    },
                    "to":block.current_flow_block.RegisterId
                    //registrationId
@@ -259,8 +259,7 @@ function send_notif_to_user(block,type)
                      "title" : sender_info.fullname,          
                      "message" : "@" + sender_info.privateId +" liked your comment : "+ block.fcomment_text,
                      "type" : "like_comment",
-                     "sender_photo" : sender_info.profil_pic,
-                     "post_texte" : block.fcomment_text
+                     "sender_info" : sender_info
                    },
                    "to":block.RegisterId
                    //registrationId
