@@ -4,6 +4,7 @@ var current_comment_block;
 function block_comment(comment_data) {
 
     var block_comment = this;
+    this.Flow_block_id = comment_data.Flow_block_id;
     this.Id = comment_data.IdComment;
     this.is_liked = comment_data.IsLike;
     this.RegisterId = comment_data.RegisterId;
