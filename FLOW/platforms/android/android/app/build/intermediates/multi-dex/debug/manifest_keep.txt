@@ -1,0 +1,2 @@
+# Referenced at C:\Users\thoma\Documents\PROJETS_persos\FLOW\GitHub\Dev\Dev\FLOW\platforms\android\app\build\intermediates\manifests\full\debug\AndroidManifest.xml:63
+-keep class android.support.multidex.MultiDexApplication { <init>(...); }

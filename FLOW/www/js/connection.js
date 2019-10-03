@@ -133,4 +133,3 @@ document.getElementById("popup-connect").addEventListener("closed", function () 
 // $$('.popup-connect').on('popup:close', function () {
 //     StatusBar.backgroundColorByHexString('#f7f7f8');
 //     StatusBar.styleDefault();    
-// });

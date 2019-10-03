@@ -1,0 +1,14 @@
+.fclose_specifique {
+    width: 4vw;
+    position: absolute;
+    right: 4.5vw;
+    top: calc(2* var(--custom-vh));
+    opacity: 1 !important;
+}
+
+.flow_specifique_container {
+
+    padding: 0 !important;
+    position: absolute;
+    top: calc(3* var(--custom-vh));
+}
