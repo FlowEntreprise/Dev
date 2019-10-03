@@ -7,13 +7,6 @@
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     overflow-y: hidden;
-    z-index: 9999999999999999 !important;
-}
-
-#popup-comment
-{
-    position: absolute;
-    z-index: 99999 !important;    
 }
 
 .fclose_comment {
@@ -36,10 +29,10 @@
 }
 
 .fcomment_number {
-    width: 90vw;
+    width: 40vw;
     text-align: center;
     position: absolute;
-    left: 5vw;
+    left: 30vw;
     top: calc(2* var(--custom-vh));
     font-size: 5vw;
 }

@@ -316,7 +316,7 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
 
-                get_all_comment(response,final_data.Data);
+                get_all_comment(response,final_data.Data.IdComment);
                 // console.log("Comment sucessfully added to database :");
                 // console.log(response);
 
@@ -578,7 +578,7 @@ class ServerManagerClass {
             success: function (response) {
                 console.log(response);
                 console.log("success dans la recuperation de flow unique");
-                flow_specifique(response.Data,response.LinkBuilder);
+                flow_specifique(response);
                 
             },
             error: function (response) {
