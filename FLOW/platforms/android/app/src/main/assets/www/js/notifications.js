@@ -4,8 +4,8 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
     this.full_name = data.additionalData.sender_info.fullname; // nom de celui qui a send la notif
     this.message = data.additionalData.sender_info.post_texte; // le contenue de la notif, text de commentaire ou titre de flow
     this.photo_link = data.additionalData.sender_info.profil_pic; // lien de la photo de celui qui a send la notif
-    //this.timestamp = data.time;
     this.like_comment = data.additionalData.type;
+    if(block_notification_like.like_comment == "like_comment"){this.message = data.additionalData.sender_info.like_comment_text;}
     this.block_notification_like = document.createElement('div');
     this.block_notification_like.className = 'fblock_notification';
     $("#tab4").prepend(this.block_notification_like);
@@ -23,7 +23,7 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
     this.fnotif_label.innerText = this.full_name + ' liked your flow';
-    if(this.like_comment == "like_comment"){this.fnotif_label.innerText = this.full_name + ' liked your comment';}
+    if(block_notification_like.like_comment == "like_comment"){this.fnotif_label.innerText = this.full_name + ' liked your comment';}
     this.block_notification_like.appendChild(this.fnotif_label);
 
     this.fnotif_text = document.createElement('label');
@@ -48,6 +48,17 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
         $(block_notification_like.fred_dot_border).css('display', 'none');
         set_seen(block_notification_like);
         check_seen();
+        $(".flow_specifique_container").html("");
+        let myApp = new Framework7();
+        let data_flow = {
+            IdFlow : data.additionalData.sender_info.IdFlow
+        };
+        ServerManager.GetSingle(data_flow);             
+        myApp.popup('.popup-specifique');
+        if(block_notification_like.like_comment == "like_comment"){
+        
+            display_all_comments(data);
+        }
     });
 }
 
@@ -146,6 +157,14 @@ function block_notification_comment(data) {
         $(block_notification_comment.fred_dot_border).css('display', 'none');
         set_seen(block_notification_comment);
         check_seen();
+        $(".flow_specifique_container").html("");
+        let myApp = new Framework7();
+        let data_flow = {
+            IdFlow : data.additionalData.sender_info.IdFlow
+        };
+        ServerManager.GetSingle(data_flow);             
+        myApp.popup('.popup-specifique');
+        display_all_comments(data);
     });
 
 }
@@ -201,13 +220,17 @@ function push_notif_block(notification_type,like_type) {
 function send_notif_to_user(block,type)
 {
 
+
+    let prepare_id_flow = block.ObjectId ? block.ObjectId : block.Flow_block_id;
+    if(prepare_id_flow == undefined){prepare_id_flow = block.current_flow_block.ObjectId;}
     var sender_info = { 
                         fullname : window.localStorage.getItem("user_name"),
                         privateId : window.localStorage.getItem("user_private_id"),
                         profil_pic : window.localStorage.getItem("user_profile_pic"),
-                        post_texte : $(block.fpost_title).text(),
-                        comment_text : block.fcomment_text,
-                        IdFlow : block.ObjectId
+                        post_texte : $(block.fpost_title).text(), // texte like de flow
+                        comment_text : block.Comment, // texte commentaire genre le vrai commenaire t'a capté
+                        like_comment_text : block.fcomment_text, // texte lorsque l'on like un commentaire
+                        IdFlow : prepare_id_flow
                         };
     
     if(registrationId == block.RegisterId) 

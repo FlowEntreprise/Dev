@@ -120,48 +120,24 @@ var app = {
         });
 
         push.on('notification', function (data) {
-
-            if(data.additionalData.foreground == false){
-
-                var myApp = new Framework7();
-                var data_flow = {
+            /*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
+            pas dans l'application */
+            if(data.additionalData.foreground == false){ 
+                
+                $(".flow_specifique_container").html("");
+                let myApp = new Framework7();
+                let data_flow = {
                     IdFlow : data.additionalData.sender_info.IdFlow
                 };
                 ServerManager.GetSingle(data_flow);             
-                myApp.popup('.popup-about');                 
-
+                myApp.popup('.popup-specifique');                 
+                if(data.additionalData.type == "send_comment" || data.additionalData.type == "like_comment" )
+                {
+                    display_all_comments(data);
+                }
             }
-            else
-            {
-        
-                if(data.additionalData.type == "like_flow"){                
-                    $(".flabel_in_app_notif").text(data.title + " liked your flow");
-                    $(".f_in_app_notif").css("margin-top", "-40vw");
-                    setTimeout(function(){
-                        $(".f_in_app_notif").css("margin-top", "5vw");
-                    }, 2000);
-                    push_notif_block('like',data);
-                }
-                if(data.additionalData.type == "send_comment"){
-
-                    $(".flabel_in_app_notif").text(data.title + " commented your flow");
-                    $(".f_in_app_notif").css("margin-top", "-40vw");
-                    setTimeout(function(){
-                        $(".f_in_app_notif").css("margin-top", "5vw");
-                    }, 2000);
-                    push_notif_block('comment',data);
-                }
-                if(data.additionalData.type == "like_comment"){
-
-                    $(".flabel_in_app_notif").text(data.title + " liked your comment");
-                    $(".f_in_app_notif").css("margin-top", "-40vw");
-                    setTimeout(function(){
-                        $(".f_in_app_notif").css("margin-top", "5vw");
-                    }, 2000);
-                    push_notif_block('like',data);
-                }  
+            notif_recieved(data);
             
-            }
         });
 
         push.on('error', function (e) {

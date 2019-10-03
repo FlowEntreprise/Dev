@@ -374,7 +374,7 @@ function block(params) {
 
     $(this.fimg_impression_echo).on('click', function () {
 
-        impression_coloring(this, 'echo', block.fimg_impression_echo);        
+        impression_coloring(this, 'echo', block.fimg_impression_echo);
     });
 
     /*----------------------TEST_LAURE------------*/
@@ -387,24 +387,32 @@ function block(params) {
     /*----------------------FIN_TEST_LAURE------------*/
 
     $(this.fimg_impression_comment).on('click', function () {
+
+        current_flow_block = block;
+        display_all_comments(current_flow_block);
+    });
+
+    
+}
+    function display_all_comments(block) //fonction permettant d'affiher tout les commentaires
+    {
         $(".fblock_comment_content").html("");
         var loading_comment = document.createElement("div");
         loading_comment.className = "loading_circle loading_tl loading_comment";
         $(".fblock_comment_content").append(loading_comment);
         $(".fcomment_number").text("");
-        current_flow_block = block;
+        let ObjectId = block.ObjectId ? block.ObjectId : block.additionalData.sender_info.IdFlow;
         let data = {
 
-            ObjectId: current_flow_block.ObjectId,
-            IsComment: current_flow_block.IsComment
-        };
-        //impression_coloring(this, 'comment', block.fimg_impression_comment);
+            ObjectId: ObjectId,
+            IsComment: block.IsComment
+        };        
         ServerManager.GetFlowComment(data);
-
         Popup("popup-comment", true, 40);
+    }
 
-    });
-}
+
+
 // fonction permettant de colorier ou non les like, echo et comment.
 function impression_coloring(object, type, block, like_type) {
 
@@ -451,7 +459,7 @@ function impression_coloring(object, type, block, like_type) {
 
 }
 
-$(document).on('click', 'a.fposter_photo', function () {
+$(document).on('click', 'a.fposter_photo, .fimg_user, .fphoto_block_notif_like', function () {
     var parent = $(this).parent().parent();
     var parentBlockId = parent.attr("block_id");
     if (all_blocks[parentBlockId].privateID == window.localStorage.getItem("user_private_id")) {
@@ -481,7 +489,7 @@ function shake(element_id) {
     tabs.classList.add("shake");
 }
 
-function get_all_comment(response) {
+function get_all_comment(response,data_block) {
 
 
 
@@ -512,7 +520,8 @@ function get_all_comment(response) {
                 Time: response.Data[i].Time,
                 IsLike: response.Data[i].IsLike,
                 IdComment: response.Data[i].IdComment,
-                RegisterId: response.Data[i].RegisterId
+                RegisterId: response.Data[i].RegisterId,
+                Flow_block_id: data_block.ObjectId
             }
 
             // $(".loading_tl").remove();
