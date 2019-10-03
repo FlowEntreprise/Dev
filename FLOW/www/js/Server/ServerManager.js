@@ -483,7 +483,7 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
-                ActionFollow(response);
+                FollowResponse(response);
             },
             error: function (response) {}
         });
