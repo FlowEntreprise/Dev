@@ -89,10 +89,10 @@ $$('.fnav-btn').on('touchstart', function () {
 });
 
 function PlayNavRipple(element) {
-    element.removeClass('fripple');
-    setTimeout(function () {
-        element.addClass('fripple');
-    }, 10);
+    // element.removeClass('fripple');
+    // setTimeout(function () {
+    //     element.addClass('fripple');
+    // }, 10);
 }
 
 document.addEventListener("backbutton", onBackKeyDown, false);

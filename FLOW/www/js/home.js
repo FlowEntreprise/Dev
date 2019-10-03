@@ -121,11 +121,11 @@ function UpdateTimeline(data) {
       }
     }, 500);
   } else {
-    stopTLRefresh();
+    StopRefreshTL();
   }
 }
 
-function stopTLRefresh() {
+function StopRefreshTL() {
   if ($(".loading_tl")) $(".loading_tl").remove();
   CanRefreshTL = false;
   pullToRefreshEnd();

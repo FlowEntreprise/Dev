@@ -9,6 +9,7 @@
     border-radius: 2vw;
     box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
     font-family: Roboto;
+    transform: translateZ(0)
 }
 
 .fposter_photo {
@@ -339,45 +340,6 @@
 
 }
 
-
-/* Loading */
-#loading {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin: -35px;
-    width: 70px;
-    height: 70px;
-    background-color: #fff;
-    border-radius: 100%;
-    -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
-    animation: sk-scaleout 1.0s infinite ease-in-out;
-    display: none;
-}
-
-@-webkit-keyframes sk-scaleout {
-    0% {
-        -webkit-transform: scale(0)
-    }
-
-    100% {
-        -webkit-transform: scale(1.0);
-        opacity: 0;
-    }
-}
-
-@keyframes sk-scaleout {
-    0% {
-        -webkit-transform: scale(0);
-        transform: scale(0);
-    }
-
-    100% {
-        -webkit-transform: scale(1.0);
-        transform: scale(1.0);
-        opacity: 0;
-    }
-}
 
 /* 
     progresse bar plus foncé-----------------------DONE
