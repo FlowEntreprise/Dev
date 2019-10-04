@@ -392,7 +392,15 @@ function block(params) {
         display_all_comments(current_flow_block);
     });
 
-    
+    $(this.fposter_photo).on('click',function(){
+
+        let data = 
+        {
+            private_Id : block.privateID,
+            user_private_Id : window.localStorage.getItem("user_private_id") 
+        };
+        go_to_account(data);
+    });
 }
     function display_all_comments(block) //fonction permettant d'affiher tout les commentaires
     {
@@ -458,12 +466,14 @@ function impression_coloring(object, type, block, like_type) {
     }
 
 }
-
+/*
 $(document).on('click', 'a.fposter_photo, .fimg_user, .fphoto_block_notif_like', function () {
+    
     var parent = $(this).parent().parent();
     var parentBlockId = parent.attr("block_id");
     if (all_blocks[parentBlockId].privateID == window.localStorage.getItem("user_private_id")) {
         if (current_page != "my-account") {
+            Popup("popup-specifique", false);
             Popup("popup-myaccount", true);
         } else {
             shake("tabMonCompte1");
@@ -479,6 +489,33 @@ $(document).on('click', 'a.fposter_photo, .fimg_user, .fphoto_block_notif_like',
     }
 
 });
+*/
+
+function go_to_account(data) //fonction permettant apres click sur sa photo d'aller sur le compte de l'utilisateur
+{
+
+    if (data.private_Id == data.user_private_Id) {
+        if (current_page != "my-account") {
+            Popup("popup-specifique", false);
+            Popup("popup-comment", false);
+            Popup("popup-account", false);
+            Popup("popup-myaccount", true);
+        } else {
+            shake("tabMonCompte1");
+            Popup("popup-comment", false);
+        }
+    } else {
+        if (current_page == "account" && privateIDAccount == data.private_Id) {
+            shake("tabCompte1");
+            Popup("popup-comment", false);
+        } else {
+            Popup("popup-comment", false);
+            Popup("popup-account", true);
+            fInitialisationAccount(data.private_Id);
+        }
+    }
+}
+
 
 function shake(element_id) {
     let tabs = document.getElementById(element_id);

@@ -6,6 +6,7 @@ function block_comment(comment_data) {
     var block_comment = this;
     this.Flow_block_id = comment_data.Flow_block_id;
     this.Id = comment_data.IdComment;
+    this.private_Id = comment_data.PrivateId;
     this.is_liked = comment_data.IsLike;
     this.RegisterId = comment_data.RegisterId;
     this.fcomment_text = comment_data.Comment;
@@ -67,6 +68,16 @@ function block_comment(comment_data) {
         current_comment_block = block_comment;
         app.popover('.popover', clickedLink);
 
+    });
+
+    $(this.fimg_user).on('click',function(){
+
+        let data = 
+        {
+            private_Id : block_comment.private_Id,
+            user_private_Id : window.localStorage.getItem("user_private_id") 
+        };
+        go_to_account(data);
     });
 
 }

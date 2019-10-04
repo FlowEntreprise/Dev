@@ -464,12 +464,24 @@
         </div>
     </div>
       
-    <div class="popup popup-specifique" id="popup-specifique"> <!-- affiche un flow specifique à la reception d'une notif -->
+    <!-- <div class="popup popup-specifique" id="popup-specifique">  affiche un flow specifique à la reception d'une notif 
         <img src="src/icons/cancel.png"  class="fclose_specifique" onclick="Popup('popup-specifique', false)">
         <div class="content-block flow_specifique_container">          
-          <!-- <p><a href="#" class="close-popup"><img src="src/icons/cancel.png"></a></p> -->
+           <p><a href="#" class="close-popup"><img src="src/icons/cancel.png"></a></p> 
         </div>
-      </div>
+       </div> -->
+
+
+      <div class="custom_popup" id="popup-specifique">
+        <div class="popup_bg"></div>
+        <div class="popup_content" animation-direction="up">
+        <img src="src/icons/cancel.png"  class="fclose_specifique" onclick="Popup('popup-specifique', false)">
+        <div class="flow_specifique_container">
+
+        </div>
+        </div>
+    </div>
+
 
     <div class="f_in_app_notif" >
         <label class="flabel_in_app_notif">Chris liked your flow</label>

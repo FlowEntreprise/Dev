@@ -5,6 +5,7 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
     this.message = data.additionalData.sender_info.post_texte; // le contenue de la notif, text de commentaire ou titre de flow
     this.photo_link = data.additionalData.sender_info.profil_pic; // lien de la photo de celui qui a send la notif
     this.like_comment = data.additionalData.type;
+    this.private_Id = data.additionalData.sender_info.privateId;
     if(block_notification_like.like_comment == "like_comment"){this.message = data.additionalData.sender_info.like_comment_text;}
     this.block_notification_like = document.createElement('div');
     this.block_notification_like.className = 'fblock_notification';
@@ -54,11 +55,22 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
             IdFlow : data.additionalData.sender_info.IdFlow
         };
         ServerManager.GetSingle(data_flow);             
-        myApp.popup('.popup-specifique');
+        Popup("popup-specifique", true);
         if(block_notification_like.like_comment == "like_comment"){
         
             display_all_comments(data);
         }
+    });
+
+    $(this.fphoto_block_notif).on('click',function(event){
+
+        let data = 
+        {
+            private_Id : block_notification_like.private_Id,
+            user_private_Id : window.localStorage.getItem("user_private_id") 
+        };
+        go_to_account(data);
+        event.stopPropagation();
     });
 }
 
@@ -115,7 +127,8 @@ function block_notification_comment(data) {
     var block_notification_comment = this;
     this.full_name = data.additionalData.sender_info.fullname; // nom de celui qui a send la notif
     this.message = data.additionalData.sender_info.comment_text; // le contenue de la notif, text de commentaire ou titre de flow
-    this.photo_link = data.additionalData.sender_info.profil_pic; // lien de la photo de celui qui a send la notif
+    this.photo_link = data.additionalData.sender_info.profil_pic;
+    this.private_Id = data.additionalData.sender_info.privateId; // lien de la photo de celui qui a send la notif
     this.block_notification_comment = document.createElement('div');
     this.block_notification_comment.className = 'fblock_notification';
     $("#tab4").prepend(this.block_notification_comment);
@@ -163,8 +176,20 @@ function block_notification_comment(data) {
             IdFlow : data.additionalData.sender_info.IdFlow
         };
         ServerManager.GetSingle(data_flow);             
-        myApp.popup('.popup-specifique');
+        Popup("popup-specifique", true);
         display_all_comments(data);
+    });
+    
+
+    $(this.fphoto_block_notif).on('click',function(event){
+
+        let data = 
+        {
+            private_Id : block_notification_comment.private_Id,
+            user_private_Id : window.localStorage.getItem("user_private_id") 
+        };
+        go_to_account(data);
+        event.stopPropagation();
     });
 
 }
