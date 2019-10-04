@@ -118,7 +118,7 @@ function send_comment_to_server(data)
         Time           : "0" ,
         IsLike         : 0,
         IdComment      : data.IdComment,
-        RegistrationId : registrationId,
+        RegisterId : registrationId,
         current_flow_block : current_flow_block
     };
 
