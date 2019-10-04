@@ -52,10 +52,11 @@ document.getElementById("popup-account").addEventListener("opened", function () 
     });
 
     $("#fFollowButtunAccount").click(function () {
-        var ActionFollow = {
+        $(this)[0].style.pointerEvents = "none";
+        let data = {
             PrivateId: privateIDAccount
         };
-        ServerManager.ActionFollow(ActionFollow);
+        ServerManager.ActionFollow(data);
     });
     $('#fprofilPicture').click(function () {
         $("#fbigProfilPictureContainer").css({
@@ -306,7 +307,7 @@ function ShowUserFlow(flow) {
     }
 }
 
-function ActionFollow(response) {
+function FollowResponse(response) {
     if (response.Follow !== undefined) {
         follow = true;
         Follower++;
@@ -316,5 +317,6 @@ function ActionFollow(response) {
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
     } else {}
+    $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow();
 }

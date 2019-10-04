@@ -466,13 +466,11 @@ $(document).on('click', 'a.fposter_photo, .fimg_user, .fphoto_block_notif_like',
         if (current_page != "my-account") {
             Popup("popup-myaccount", true);
         } else {
-            // $("#tabMonCompte1").effect("shake", {times: 1, distance: 5}, 300);
             shake("tabMonCompte1");
 
         }
     } else {
         if (current_page == "account" && privateIDAccount == all_blocks[parentBlockId].privateID) {
-            // $("#tabCompte1").effect("shake", {times: 1, distance: 5}, 300);
             shake("tabCompte1");
         } else {
             Popup("popup-account", true);
