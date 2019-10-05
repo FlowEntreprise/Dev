@@ -130,7 +130,7 @@ var app = {
                     IdFlow : data.additionalData.sender_info.IdFlow
                 };
                 ServerManager.GetSingle(data_flow);             
-                myApp.popup('.popup-specifique');                 
+                Popup("popup-specifique", true);
                 if(data.additionalData.type == "send_comment" || data.additionalData.type == "like_comment" )
                 {
                     display_all_comments(data);

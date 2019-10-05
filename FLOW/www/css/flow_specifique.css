@@ -1,5 +1,5 @@
 .fclose_specifique {
-    width: 4vw;
+    width: 6vw;
     position: absolute;
     right: 4.5vw;
     top: calc(2* var(--custom-vh));
@@ -7,8 +7,7 @@
 }
 
 .flow_specifique_container {
-
     padding: 0 !important;
     position: absolute;
-    top: calc(3* var(--custom-vh));
+    top: calc(5* var(--custom-vh));
 }

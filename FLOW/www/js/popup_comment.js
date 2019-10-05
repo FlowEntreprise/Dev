@@ -6,6 +6,7 @@ function block_comment(comment_data) {
     var block_comment = this;
     this.Flow_block_id = comment_data.Flow_block_id;
     this.Id = comment_data.IdComment;
+    this.private_Id = comment_data.PrivateId;
     this.is_liked = comment_data.IsLike;
     this.RegisterId = comment_data.RegisterId;
     this.fcomment_text = comment_data.Comment;
@@ -69,6 +70,16 @@ function block_comment(comment_data) {
 
     });
 
+    $(this.fimg_user).on('click',function(){
+
+        let data = 
+        {
+            private_Id : block_comment.private_Id,
+            user_private_Id : window.localStorage.getItem("user_private_id") 
+        };
+        go_to_account(data);
+    });
+
 }
 
 $(".fpopover_button").on("click", function () {
@@ -122,8 +133,11 @@ function send_comment_to_server(data)
         current_flow_block : current_flow_block
     };
 
+    let comment_number = parseInt($(".fcomment_number").text());
+    comment_number = comment_number + 1;
+    $(".fcomment_number").text(comment_number + " commentaires");
+    $(current_flow_block.ftxt_impression_comment).text(comment_number);
     send_notif_to_user(comment_data,"send_comment");
-
     var new_block_comment = new block_comment(comment_data);
     var i = 0;
     current_flow_block.all_comment_blocks.push(new_block_comment);
