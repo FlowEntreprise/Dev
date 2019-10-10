@@ -106,7 +106,7 @@ function block(params) {
 
     this.floading_flow = document.createElement('img');
     this.floading_flow.className = 'floading_flow';
-    this.floading_flow.src = 'src/icons/cancel.png';
+    this.floading_flow.src = 'src/icons/loading_circle.gif';
     this.ftop_part.appendChild(this.floading_flow);
 
     this.fplay_button = document.createElement('img');

@@ -224,5 +224,13 @@
       "WEB_APPLICATION_CLIENT_ID": "320132615636-8f4u2k95equ8nd8v6mvhaod4qm73j3fq.apps.googleusercontent.com",
       "PLAY_SERVICES_VERSION": "15.0.1"
     }
+  },
+  "com.rjfun.cordova.httpd": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/floatinghotpot/cordova-httpd.git"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

@@ -122,6 +122,9 @@
     "cordova-plugin-googleplus": {
       "WEB_APPLICATION_CLIENT_ID": "320132615636-8f4u2k95equ8nd8v6mvhaod4qm73j3fq.apps.googleusercontent.com",
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "com.rjfun.cordova.httpd": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {},
@@ -542,6 +545,14 @@
       "clobbers": [
         "GooglePlus"
       ]
+    },
+    {
+      "file": "plugins/com.rjfun.cordova.httpd/www/CorHttpd.js",
+      "id": "com.rjfun.cordova.httpd.CorHttpd",
+      "pluginId": "com.rjfun.cordova.httpd",
+      "clobbers": [
+        "cordova.plugins.CorHttpd"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -570,6 +581,7 @@
     "cordova-support-android-plugin": "1.0.1",
     "cordova-plugin-firebase-analytics": "2.0.4",
     "cordova-twitter3-connect-plugin": "1.0.5",
-    "cordova-plugin-googleplus": "8.1.1"
+    "cordova-plugin-googleplus": "8.1.1",
+    "com.rjfun.cordova.httpd": "0.9.2"
   }
 }
