@@ -416,6 +416,22 @@ module.exports = [
         "clobbers": [
             "GooglePlus"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-vibration/src/browser/Vibration.js",
+        "id": "cordova-plugin-vibration.Vibration",
+        "pluginId": "cordova-plugin-vibration",
+        "merges": [
+            "navigator"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-vibration/www/vibration.js",
+        "id": "cordova-plugin-vibration.notification",
+        "pluginId": "cordova-plugin-vibration",
+        "merges": [
+            "navigator"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -446,7 +462,8 @@ module.exports.metadata =
     "cordova-support-android-plugin": "1.0.1",
     "cordova-plugin-firebase-analytics": "2.0.4",
     "cordova-twitter3-connect-plugin": "1.0.5",
-    "cordova-plugin-googleplus": "8.1.1"
+    "cordova-plugin-googleplus": "8.1.1",
+    "cordova-plugin-vibration": "3.1.1"
 }
 // BOTTOM OF METADATA
 });

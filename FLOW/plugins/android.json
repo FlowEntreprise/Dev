@@ -19,6 +19,9 @@
     },
     "cordova-plugin-browsersync": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-vibration": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {}

@@ -14,7 +14,7 @@ var crashlytics;
 var analytics;
 var push;
 
-var registrationId;
+var registrationId,noteId;
 var app = {
     // Application Constructor
     initialize: function () {
@@ -109,19 +109,25 @@ var app = {
     
 
         var push = PushNotification.init({
-            android: {}
+            android: {"vibrate": true}
         });
 
         push.on('registration', function (data) {
             // data.registrationId
             console.log(data.registrationId);
             registrationId = data.registrationId;
+            noteId = 0;
 
         });
 
+        
+
+        // Retrieve Firebase Messaging object.
+        
         push.on('notification', function (data) {
             /*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
             pas dans l'application */
+            
             if(data.additionalData.foreground == false){ 
                 
                 $(".flow_specifique_container").html("");
