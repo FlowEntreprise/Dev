@@ -115,6 +115,10 @@
             {
               "xml": "<access origin=\"https://accounts.google.com/*\" />",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"CorHttpd\"><param name=\"android-package\" value=\"com.rjfun.cordova.httpd.CorHttpd\" /></feature>",
+              "count": 1
             }
           ],
           "widget": [
@@ -146,7 +150,7 @@
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
-              "count": 1
+              "count": 2
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",
@@ -162,7 +166,7 @@
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
-              "count": 1
+              "count": 2
             }
           ],
           "application": [
@@ -431,6 +435,7 @@
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-vibration": {
+    "com.rjfun.cordova.httpd": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -882,6 +887,14 @@
       "clobbers": [
         "window.plugins.googleplus"
       ]
+    },
+    {
+      "id": "com.rjfun.cordova.httpd.CorHttpd",
+      "file": "plugins/com.rjfun.cordova.httpd/www/CorHttpd.js",
+      "pluginId": "com.rjfun.cordova.httpd",
+      "clobbers": [
+        "cordova.plugins.CorHttpd"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -911,6 +924,7 @@
     "cordova-plugin-firebase-analytics": "2.0.4",
     "cordova-twitter3-connect-plugin": "1.0.5",
     "cordova-plugin-googleplus": "8.1.1",
-    "cordova-plugin-vibration": "3.1.1"
+    "cordova-plugin-vibration": "3.1.1",
+    "com.rjfun.cordova.httpd": "0.9.2"
   }
 }

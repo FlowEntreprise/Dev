@@ -228,9 +228,14 @@
   "cordova-plugin-vibration": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-vibration@^3.1.1"
+      "id": "cordova-plugin-vibration@^3.1.1"},
+      
+  "com.rjfun.cordova.httpd": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/floatinghotpot/cordova-httpd.git"
     },
     "is_top_level": true,
     "variables": {}
-  }
+  }}
 }

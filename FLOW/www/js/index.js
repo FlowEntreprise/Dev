@@ -13,6 +13,8 @@ var appState = {
 var crashlytics;
 var analytics;
 var push;
+var httpd = null;
+var worker;
 
 var registrationId,noteId;
 var app = {
@@ -106,7 +108,22 @@ var app = {
         analytics = cordova.plugins.firebase.analytics;
         analytics.setCurrentScreen(current_page);
 
-    
+        httpd = (cordova && cordova.plugins && cordova.plugins.CorHttpd) ? cordova.plugins.CorHttpd : null;
+
+        httpd.startServer({
+            'www_root': 'js/worker/',
+            'port': 8080,
+            'localhost_only': true
+        }, function (url) {
+            // if server is up, it will return the url of http://<server ip>:port/
+            // the ip is the active network connection
+            // if no wifi or no cell, "127.0.0.1" will be returned.
+            console.log("server is started: " + url);
+            // createWorker();
+        }, function (error) {
+            console.log("failed to start server: " + error);
+        });
+
 
         var push = PushNotification.init({
             android: {"vibrate": true}
@@ -127,23 +144,22 @@ var app = {
         push.on('notification', function (data) {
             /*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
             pas dans l'application */
-            
-            if(data.additionalData.foreground == false){ 
-                
+                                        
+            if (data.additionalData.foreground == false) {
+
                 $(".flow_specifique_container").html("");
                 let myApp = new Framework7();
                 let data_flow = {
-                    IdFlow : data.additionalData.sender_info.IdFlow
+                    IdFlow: data.additionalData.sender_info.IdFlow
                 };
-                ServerManager.GetSingle(data_flow);             
+                ServerManager.GetSingle(data_flow);
                 Popup("popup-specifique", true);
-                if(data.additionalData.type == "send_comment" || data.additionalData.type == "like_comment" )
-                {
+                if (data.additionalData.type == "send_comment" || data.additionalData.type == "like_comment") {
                     display_all_comments(data);
                 }
             }
             notif_recieved(data);
-            
+
         });
 
         push.on('error', function (e) {
@@ -218,7 +234,7 @@ function offline() {
 
 function online() {
     console.log("you are online");
-    ServerManager.GetStory();   
+    ServerManager.GetStory();
 }
 
 

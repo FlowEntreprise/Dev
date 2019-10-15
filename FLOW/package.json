@@ -11,6 +11,7 @@
         "cordova-android": "^8.1.0",
         "cordova-android-support-gradle-release": "^2.1.0",
         "cordova-browser": "^6.0.0",
+        "cordova-httpd": "git+https://github.com/floatinghotpot/cordova-httpd.git",
         "cordova-plugin-android-permissions": "^1.0.0",
         "cordova-plugin-audioinput": "^1.0.2",
         "cordova-plugin-browsersync": "^1.1.0",
@@ -43,7 +44,8 @@
         "phonegap-plugin-multidex": "^1.0.0",
         "phonegap-plugin-push": "git+https://github.com/phonegap/phonegap-plugin-push.git",
         "plist": "^1.2.0",
-        "q": "^1.5.1"
+        "q": "^1.5.1",
+        "vorbis-encoder-js": "^1.0.2"
     },
     "cordova": {
         "plugins": {
@@ -93,7 +95,8 @@
                 "WEB_APPLICATION_CLIENT_ID": "320132615636-8f4u2k95equ8nd8v6mvhaod4qm73j3fq.apps.googleusercontent.com",
                 "PLAY_SERVICES_VERSION": "15.0.1"
             },
-            "cordova-plugin-vibration": {}
+            "cordova-plugin-vibration": {},
+            "com.rjfun.cordova.httpd": {}
         },
         "platforms": [
             "browser"

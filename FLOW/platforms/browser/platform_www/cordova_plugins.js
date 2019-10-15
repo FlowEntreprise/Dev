@@ -430,7 +430,13 @@ module.exports = [
         "id": "cordova-plugin-vibration.notification",
         "pluginId": "cordova-plugin-vibration",
         "merges": [
-            "navigator"
+            "navigator"]},
+            {
+        "file": "plugins/com.rjfun.cordova.httpd/www/CorHttpd.js",
+        "id": "com.rjfun.cordova.httpd.CorHttpd",
+        "pluginId": "com.rjfun.cordova.httpd",
+        "clobbers": [
+            "cordova.plugins.CorHttpd"
         ]
     }
 ];
@@ -463,7 +469,8 @@ module.exports.metadata =
     "cordova-plugin-firebase-analytics": "2.0.4",
     "cordova-twitter3-connect-plugin": "1.0.5",
     "cordova-plugin-googleplus": "8.1.1",
-    "cordova-plugin-vibration": "3.1.1"
+    "cordova-plugin-vibration": "3.1.1",
+    "com.rjfun.cordova.httpd": "0.9.2"
 }
 // BOTTOM OF METADATA
 });
