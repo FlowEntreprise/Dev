@@ -12,7 +12,6 @@ $$('#tab1').on('tab:show', function () {
     $(".navbar").css({"display": "block"});
     app.showNavbar($('.navbar'));
     canShowNavbar = true;
-    current_page = "home";
 
     $(".fhome-bar").css({
         "display": "block"
@@ -26,7 +25,6 @@ $$('#tab2').on('tab:show', function () {
     $(".navbar").css({"display": "block"});
     app.showNavbar($('.navbar'));
     canShowNavbar = true;
-    current_page = "explore";
 
     $(".fhome-bar").css({
         "display": "none"
@@ -57,7 +55,6 @@ $$('#tab3').on('tab:show', function () {
     $(".navbar").css({"display": "none"});
     app.hideNavbar($('.navbar'));
     canShowNavbar = false;
-    current_page = "messages";
 
     if (!connected) {
         setTimeout(function () {
@@ -73,7 +70,6 @@ $$('#tab4').on('tab:show', function () {
     $(".navbar").css({"display": "none"});
     app.hideNavbar($('.navbar'));
     canShowNavbar = false;
-    current_page = "notifications";
 
     if (!connected) {
         setTimeout(function () {

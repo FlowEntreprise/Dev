@@ -84,7 +84,6 @@ document.getElementById("popup-record").addEventListener("closed", function () {
     current_page = "home";
     analytics.setCurrentScreen(current_page);
     record_was_hold = false;
-    $(".frecord-btn")[0].classList.remove("frecord_loading_btn");
 });
 
 document.getElementById("popup-after-record").addEventListener("opened", function () {
@@ -132,7 +131,6 @@ $(".fclose_record")[0].addEventListener("click", function () {
         stopCapture(false);
     }
     Popup('popup-record', false);
-    $(".frecord-btn")[0].classList.remove("frecord_loading_btn");
 });
 
 $(".fclose_story_record")[0].addEventListener("click", function () {
@@ -141,17 +139,12 @@ $(".fclose_story_record")[0].addEventListener("click", function () {
         stopCapture(false);
     }
     Popup('popup-story-record', false);
-    $(".frecord-btn")[0].classList.remove("frecord_loading_btn");
 });
 
 $$('.frecord-btn').on('click', function () {
     if (recording) {
         console.log("stop recording");
-        if (record_time > 2) {
-            stopCapture(true);
-        } else {
-            stopCapture(false);
-        }
+        stopCapture(true);
     } else if (!record_was_hold) {
         console.log("start recording");
         startCapture();
@@ -160,11 +153,7 @@ $$('.frecord-btn').on('click', function () {
 
 $$('body').on('touchend', function () {
     if (recording && record_was_hold) {
-        if (record_time > 2) {
-            stopCapture(true);
-        } else {
-            stopCapture(false);
-        }
+        stopCapture(true);
     }
 });
 
@@ -327,11 +316,8 @@ $$('.fflow-btn').on('touchstart', function () {
 });
 
 
-function Save(blob) {
-    // blob = wavblob.slice(0, wavblob.size, "audio/opus; codecs=opus");
-    $(".frecord-btn")[0].classList.remove("frecord_loading_btn");
-    worker.terminate();
-
+function Save(wavblob) {
+    blob = wavblob.slice(0, wavblob.size, "audio/opus; codecs=opus");
     var audioURL = window.URL.createObjectURL(blob);
 
     console.log("current page : " + current_page);
@@ -381,9 +367,8 @@ function Save(blob) {
         var reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onloadend = function () {
-            blob64 = reader.result;
-            appState.blob64 = reader.result.replace("data:audio/ogg;base64,", "");
-            // appState.blob64 = reader.result;
+            //blob64 = reader.result;
+            appState.blob64 = reader.result.replace("data:audio/opus; codecs=opus;base64,", "");
             console.log(appState.blob64);
         }
 
@@ -420,9 +405,8 @@ function Save(blob) {
         var reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onloadend = function () {
-            blob64 = reader.result;
-            appState.blob64 = reader.result.replace("data:audio/ogg;base64,", "");
-            // appState.blob64 = reader.result;
+            //blob64 = reader.result;
+            appState.blob64 = reader.result.replace("data:audio/opus; codecs=opus;base64,", "");
             console.log(appState.blob64);
         }
 
@@ -663,7 +647,6 @@ function closeStoryRecord() {
     current_page = "home";
     analytics.setCurrentScreen(current_page);
     console.log("close story record");
-    $(".frecord-btn")[0].classList.remove("frecord_loading_btn");
 }
 
 /*----------------------------------------------- */
@@ -717,9 +700,8 @@ var startCapture = function () {
     try {
         if (window.audioinput && !window.audioinput.isCapturing()) {
             captureCfg = {
-                sampleRate: 16000,
-                bufferSize: 2048,
-                concatenateMaxChunks: 10,
+                sampleRate: 120000,
+                bufferSize: 16384,
                 // format: window.audioinput.FORMAT.PCM_16BIT,
                 audioSourceType: 0
             };
@@ -737,6 +719,31 @@ var startCapture = function () {
             window.audioinput.start(captureCfg);
             $(".frecord-btn")[0].style.background = "url(\"src/icons/stop_icon.png\") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054)";
             console.log("Microphone input started!");
+
+            // getMicrophonePermission(function () {
+            //     // Record for visualizer only //
+            //     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            //         var constraints = {
+            //             audio: true
+            //         };
+
+            //         chunks = [];
+
+            //         var onSuccess = function (stream) {
+            //             //mediaRecorder.start();
+            //             wave(stream);
+            //         }
+
+            //         var onError = function (err) {
+            //             alert("error : recording failed.");
+            //             alert(err);
+            //         }
+
+            //         navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
+            //     } else {
+            //         alert("error : can't access media device");
+            //     }
+            // });
         }
     } catch (e) {
         console.log("startCapture exception: " + e);
@@ -748,15 +755,12 @@ var startCapture = function () {
  * Stop the capture, encode the captured audio to WAV and show audio element in UI.
  */
 var stopCapture = function (save) {
-    record_was_hold = false;
+
     $(".frecord-btn")[0].style.background = "url(\"src/icons/Record.png\") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054)";
     $$('.frecord_indicator').css({
         "display": "none",
         "stroke-dasharray": "0 100"
     });
-    $$('#flow_number_of_sec').text("00");
-    $$('#flow_story_number_of_sec').text("00");
-    
     // try {
     if (window.audioinput && window.audioinput.isCapturing()) {
 
@@ -767,16 +771,39 @@ var stopCapture = function (save) {
             recording = false;
         }
         if (save) {
-            $(".frecord-btn")[0].classList.add("frecord_loading_btn");
             console.log("Encoding WAV...");
             var encoder = new WavAudioEncoder(window.audioinput.getCfg().sampleRate, window.audioinput.getCfg().channels);
             encoder.encode([audioDataBuffer]);
+
             console.log("Encoding WAV finished");
+
             var blob = encoder.finish("audio/wav");
+
             console.log("BLOB created");
-            EncodeOpus(blob);
+
+            // var audioURL = window.URL.createObjectURL(blob);
+            // console.log(audioURL);
+            Save(blob);
         }
+        /* var reader = new FileReader();
+
+        reader.onload = function (evt) {
+            var audio = document.createElement("AUDIO");
+            audio.controls = true;
+            audio.src = audioURL;//evt.target.result;
+            audio.type = "audio/wav";
+            document.getElementById("recording-list").appendChild(audio);
+            console.log("Audio created");
+            audioDataBuffer = [];
+        };
+
+        console.log("Loading from BLOB");
+        reader.readAsDataURL(blob); */
     }
+    // }
+    // catch (e) {
+    //     console.log("stopCapture exception: " + e);
+    // }
 };
 
 var onDeviceReady = function () {
@@ -823,52 +850,3 @@ var getMicrophonePermission = function (onSuccess, onDenied, onError) {
         }
     });
 };
-
-function EncodeOpus(blob) {
-    createWorker();
-    console.log(blob);
-    var f = blob;
-    var fr = new FileReader();
-    fr.onloadend = function () {
-        var args = [
-            f.name,
-            'encoded.opus'
-        ];
-        var inData = {};
-        inData[f.name] = new Uint8Array(fr.result);
-        var outData = {
-            'encoded.opus': {
-                'MIME': 'audio/ogg'
-            }
-        };
-        worker.postMessage({
-            command: 'encode',
-            args: args,
-            outData: outData,
-            fileData: inData
-        });
-    };
-    console.log(f);
-    fr.readAsArrayBuffer(f);
-}
-
-function createWorker() {
-    worker = new Worker('http://127.0.0.1:8080/EmsWorkerProxy.js');
-
-    // Listen for messages by the worker
-    worker.onmessage = function (e) {
-        if (e.data && e.data.reply === 'progress') {
-            vals = e.data.values;
-            if (vals[1]) {
-                // ... push the progress bar forward
-                console.log(vals[0] / vals[1] * 100);
-            }
-        } else if (e.data && e.data.reply === 'done') {
-            console.log(100);
-            for (fileName in e.data.values) {
-                // window.URL.createObjectURL(e.data.values[fileName].blob);
-                Save(e.data.values[fileName].blob);
-            }
-        }
-    };
-}
