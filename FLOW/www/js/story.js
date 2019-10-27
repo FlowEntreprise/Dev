@@ -15,6 +15,9 @@ var debug_record = false;
 var current_story_audio;
 var next_prev_delay = 200;
 var can_next_prev = true;
+var tryLoadTimeout;
+var story_view;
+var comment_view;
 
 // Version 4.0
 const pSBC = (p, c0, c1, l) => {
@@ -201,17 +204,17 @@ function RefreshStories() {
         story_shadow.className = "unread_shadow";
         let story_user = document.createElement("label");
         story_user.className = "fstory_user";
-        if (story_data[i].private_id ==  window.localStorage.getItem("user_private_id")) {
+        if (story_data[i].private_id == window.localStorage.getItem("user_private_id")) {
             $(".fstory_user")[0].innerHTML = "Add story";
             story_user.innerHTML = "Your story";
-        }
-        else {
+        } else {
             story_user.innerHTML = story_data[i].private_id;
         }
 
         story_block.appendChild(story_user);
         story_block.appendChild(story_img);
         story_block.appendChild(story_shadow);
+        // story_block.appendChild(loading_story);
         story_element.appendChild(story_block);
 
         $(".fstory_list")[0].appendChild(story_element);
@@ -231,7 +234,7 @@ function RefreshStories() {
 
 function SpawnStoryWindow(story_block) {
     stopAllBlocksAudio();
-    window.plugins.insomnia.keepAwake();
+    // window.plugins.insomnia.keepAwake();
     story_window = document.createElement("div");
     story_window.className = "fstory_window";
     story_pos = story_block.position();
@@ -246,6 +249,7 @@ function SpawnStoryWindow(story_block) {
     storyFlow_index = 0;
     document.body.appendChild(story_window);
     $(".fstory_window").load("pages/story.html", function () {
+        $(".loading_story")[0].src = "src/icons/loading_circle.gif";
         story_window.addEventListener('touchstart', handleTouchStart, false);
         story_window.addEventListener('touchmove', handleTouchMove, false);
         story_window.addEventListener('touchend', handleTouchEnd, false);
@@ -272,6 +276,9 @@ function SpawnStoryWindow(story_block) {
             story_window.style.transform = "translate3d(0px, 0px, 0px) scale3d(1, 1, 1)";
             story_window.style.opacity = "1";
 
+            story_view = $(".story_main_view")[0];
+            comment_view = $(".comments_main_view")[0];
+
             // setTimeout(function () {
             //     loadStory(story_index, storyFlow_index);
             // }, 500);
@@ -292,7 +299,6 @@ function SpawnStoryWindow(story_block) {
                     StartRecording();
                 }
             });
-
 
         }, 50);
     });
@@ -363,8 +369,8 @@ function handleTouchEnd(evt) {
             showStoryComments();
         } else if (direction == "down") {
             if (currentSection == "comments") {
-                stopAllStoriesAudio();
                 showStoryMain(true);
+                // stopAllStoriesAudio();
             } else {
                 CloseStory();
             }
@@ -374,6 +380,7 @@ function handleTouchEnd(evt) {
 
 function CloseStory() {
     stopAllStoriesAudio();
+    clearTimeout(tryLoadTimeout);
     if (StorySiriWave) {
         StorySiriWave.speed = 0;
         StorySiriWave.amplitude = 0;
@@ -395,37 +402,48 @@ function CloseStory() {
     RefreshStories();
     StatusBar.backgroundColorByHexString('#f7f7f8');
     StatusBar.styleDefault();
-    window.plugins.insomnia.allowSleepAgain();
+    // window.plugins.insomnia.allowSleepAgain();
 }
 
 
 function showStoryComments() {
+    clearTimeout(tryLoadTimeout);
     story_data[story_index].data[storyFlow_index].audio.pause();
     currentSection = "comments";
-    $(".story_main_view").css({
-        "transform": "translate3d(0px, -100vh, 0px)",
-        "opacity": "0"
-    });
-    $(".comments_main_view").css({
-        "transform": "translate3d(0px, -100vh, 0px)",
-        "opacity": "1"
-    });
+    story_view.style.transform = "translateY(-100vh)";
+    // story_view.style.opacity = "0";
+    comment_view.style.transform = "translateY(-100vh)";
+    // comment_view.style.opacity = "1";
+    // story_view.css({
+    //     "transform": "translate3d(0px, -100vh, 0px)",
+    //     "opacity": "0"
+    // });
+    // comment_view.css({
+    //     "transform": "translate3d(0px, -100vh, 0px)",
+    //     "opacity": "1"
+    // });
 }
 
 function showStoryMain(play_story) {
+    currentSection = "main";
+    story_view.style.transform = "translateY(0vh)";
+    // story_view.style.opacity = "1";
+    comment_view.style.transform = "translateY(0vh)";
+    // comment_view.style.opacity = "0";
+    // story_view.css({
+    //     "transform": "translate3d(0px, 0vh, 0px)",
+    //     "opacity": "1"
+    // });
+    // comment_view.css({
+    //     "transform": "translate3d(0px, 0vh, 0px)",
+    //     "opacity": "0"
+    // });
+
     if (play_story) {
         tryLoadStory(story_index, storyFlow_index);
-        // current_story_audio.audio.play();
+        current_story_audio.audio.play();
     }
-    currentSection = "main";
-    $(".story_main_view").css({
-        "transform": "translate3d(0px, 0vh, 0px)",
-        "opacity": "1"
-    });
-    $(".comments_main_view").css({
-        "transform": "translate3d(0px, 0vh, 0px)",
-        "opacity": "0"
-    });
+
 }
 
 function tryLoadStory(story_index, storyFlow_index) {
@@ -433,13 +451,13 @@ function tryLoadStory(story_index, storyFlow_index) {
         can_next_prev = false;
         // LOAD STORY FROM SERVER
         $(".fstory_pseudo").text("Loading");
-        $(".fstory_time").text("...");
+        $(".fstory_time").text("");
         story_pos = $($(".fstory_block")[parseInt(story_index) + 1]).position();
         $(".fstory_indicator_list")[0].innerHTML = "";
         $(".fstory_pp")[0].style.backgroundImage = "white";
         // $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].darkColor + ");";
-        let color_gradient = "linear-gradient(white, black)";
-        StatusBar.backgroundColorByHexString("#ffffff");
+        let color_gradient = "linear-gradient(black, black)";
+        StatusBar.backgroundColorByHexString("#000000");
         StatusBar.styleDefault();
         $(".fstory_window")[0].style.backgroundImage = color_gradient;
 
@@ -501,15 +519,33 @@ function loadStory(story_index, storyFlow_index) {
     if (current_story_audio) {
         current_story_audio.pause();
     }
-    current_story_audio = new Audio(story_data[story_index].data[storyFlow_index].audio.src);
-    current_story_audio.oncanplaythrough = function () {
-        if (current_story_audio) {
-            console.log("can play story");
-            current_story_audio.play();
-            StorySiriWave.speed = 0.2;
-            StorySiriWave.amplitude = 1;
-        }
-    }
+    // current_story_audio = new Audio(story_data[story_index].data[storyFlow_index].audio.src);
+    $(".loading_story")[0].style.opacity = "1";
+    document.getElementById("fstory_wave").style.opacity = "0";
+    current_story_audio = new Audio();
+    let local_story = FlowLoader.DownloadFlow(story_data[story_index].data[storyFlow_index].audio.src);
+    local_story.OnReady(function (url) {
+        console.log("local url : " + url);
+        current_story_audio.src = url;
+        current_story_audio.volume = 1.0;
+        $(".loading_story")[0].style.opacity = "0";
+        document.getElementById("fstory_wave").style.opacity = "1";
+        current_story_audio.play();
+        StorySiriWave.speed = 0.2;
+        StorySiriWave.amplitude = 1; 
+        // block.ready = true;
+        // block.floading_flow.style.display = "none";
+        // block.fplay_button.style.display = "block";
+        // block.fpause_button.style.display = "none";
+    });
+    // current_story_audio.oncanplaythrough = function () {
+    //     if (current_story_audio) {
+    //         console.log("can play story");
+    //         current_story_audio.play();
+    //         StorySiriWave.speed = 0.2;
+    //         StorySiriWave.amplitude = 1;
+    //     }
+    // }
     current_story_audio.ontimeupdate = function () {
         if (current_story_audio) {
             let progress = Math.floor(current_story_audio.currentTime * 100 / story_data[story_index].data[storyFlow_index].duration);
@@ -828,7 +864,7 @@ function PublishRecordedComment() {
 }
 
 ////////////////////////// RECORDING STORY //////////////////////////
-document.getElementById("popup-story-record").addEventListener("opened", function() {
+document.getElementById("popup-story-record").addEventListener("opened", function () {
     $('.frecord-btn').css({
         "display": "flex"
     });
@@ -837,7 +873,7 @@ document.getElementById("popup-story-record").addEventListener("opened", functio
     analytics.setCurrentScreen(current_page);
 });
 
-document.getElementById("popup-story-record").addEventListener("closed", function() {
+document.getElementById("popup-story-record").addEventListener("closed", function () {
     $$('.frecord-btn').css({
         "display": "none"
     });

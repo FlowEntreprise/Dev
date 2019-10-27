@@ -23,15 +23,13 @@ apply plugin: 'com.android.application'
 buildscript {
     repositories {
         mavenCentral()
-        maven {
-            url "https://maven.google.com"
-        }
+        maven { url "https://maven.google.com" }
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
         jcenter()
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        
     }
 }
 
@@ -44,7 +42,7 @@ allprojects {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1.0'
+    gradleVersion = '3.0.1'
 }
 
 // Configuration properties. Set these via environment variables, build-extras.gradle, or gradle.properties.
