@@ -72,6 +72,7 @@
     top: 45vh;
     width: 100vw;
     height: 20vh;
+    opacity: 0;
     /* background-color: red; */
 }
 
@@ -628,4 +629,22 @@
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.loading_story
+{
+    position: absolute;
+    top: calc(60vh - 100px);
+    left: calc(50vw - 100px);
+    width: 200px;
+    height: 200px;
+    background: url("../src/icons/loading_circle_sheet.png") left center;
+    animation: loading .8s steps(30) infinite;
+    transform: scale(0.3);
+}
+
+@keyframes loading {
+    100% {
+        background-position: -6000px;
+    }
 }
