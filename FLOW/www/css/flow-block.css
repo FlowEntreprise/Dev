@@ -122,20 +122,6 @@
     font-family: 'Times New Roman', Times, serif;
 }
 
-.floading_flow {
-    position: absolute;
-    width: 12vw;
-    height: calc(7* var(--custom-vh));
-    top: calc(9* var(--custom-vh));
-    left: 41.5vw;
-    text-align: center;
-    z-index: 2;
-    object-fit: contain;
-    object-position: center;
-    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.3));
-    transform: translateZ(0);
-}
-
 .fplay_button {
     position: absolute;
     width: 12vw;
@@ -144,7 +130,6 @@
     left: 41.5vw;
     text-align: center;
     z-index: 2;
-    display: none;
     filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.3));
 }
 

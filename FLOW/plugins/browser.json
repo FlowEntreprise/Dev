@@ -92,7 +92,7 @@
       "WEB_APPLICATION_CLIENT_ID": "320132615636-8f4u2k95equ8nd8v6mvhaod4qm73j3fq.apps.googleusercontent.com",
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "com.rjfun.cordova.httpd": {
+    "cordova-plugin-vibration": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },

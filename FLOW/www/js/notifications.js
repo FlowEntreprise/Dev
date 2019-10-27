@@ -6,7 +6,9 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
     this.photo_link = data.additionalData.sender_info.profil_pic; // lien de la photo de celui qui a send la notif
     this.like_comment = data.additionalData.type;
     this.private_Id = data.additionalData.sender_info.privateId;
-    if(block_notification_like.like_comment == "like_comment"){this.message = data.additionalData.sender_info.like_comment_text;}
+    if (block_notification_like.like_comment == "like_comment") {
+        this.message = data.additionalData.sender_info.like_comment_text;
+    }
     this.block_notification_like = document.createElement('div');
     this.block_notification_like.className = 'fblock_notification';
     $("#tab4").prepend(this.block_notification_like);
@@ -24,7 +26,9 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
     this.fnotif_label.innerText = this.full_name + ' liked your flow';
-    if(block_notification_like.like_comment == "like_comment"){this.fnotif_label.innerText = this.full_name + ' liked your comment';}
+    if (block_notification_like.like_comment == "like_comment") {
+        this.fnotif_label.innerText = this.full_name + ' liked your comment';
+    }
     this.block_notification_like.appendChild(this.fnotif_label);
 
     this.fnotif_text = document.createElement('label');
@@ -52,22 +56,21 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
         $(".flow_specifique_container").html("");
         let myApp = new Framework7();
         let data_flow = {
-            IdFlow : data.additionalData.sender_info.IdFlow
+            IdFlow: data.additionalData.sender_info.IdFlow
         };
-        ServerManager.GetSingle(data_flow);             
+        ServerManager.GetSingle(data_flow);
         Popup("popup-specifique", true);
-        if(block_notification_like.like_comment == "like_comment"){
-        
+        if (block_notification_like.like_comment == "like_comment") {
+
             display_all_comments(data);
         }
     });
 
-    $(this.fphoto_block_notif).on('click',function(event){
+    $(this.fphoto_block_notif).on('click', function (event) {
 
-        let data = 
-        {
-            private_Id : block_notification_like.private_Id,
-            user_private_Id : window.localStorage.getItem("user_private_id") 
+        let data = {
+            private_Id: block_notification_like.private_Id,
+            user_private_Id: window.localStorage.getItem("user_private_id")
         };
         go_to_account(data);
         event.stopPropagation();
@@ -173,20 +176,19 @@ function block_notification_comment(data) {
         $(".flow_specifique_container").html("");
         let myApp = new Framework7();
         let data_flow = {
-            IdFlow : data.additionalData.sender_info.IdFlow
+            IdFlow: data.additionalData.sender_info.IdFlow
         };
-        ServerManager.GetSingle(data_flow);             
+        ServerManager.GetSingle(data_flow);
         Popup("popup-specifique", true);
         display_all_comments(data);
     });
-    
 
-    $(this.fphoto_block_notif).on('click',function(event){
 
-        let data = 
-        {
-            private_Id : block_notification_comment.private_Id,
-            user_private_Id : window.localStorage.getItem("user_private_id") 
+    $(this.fphoto_block_notif).on('click', function (event) {
+
+        let data = {
+            private_Id: block_notification_comment.private_Id,
+            user_private_Id: window.localStorage.getItem("user_private_id")
         };
         go_to_account(data);
         event.stopPropagation();
@@ -221,7 +223,7 @@ function set_seen(object) {
 }
 
 //fonction qui permet de creer les blocs de notifs
-function push_notif_block(notification_type,like_type) {
+function push_notif_block(notification_type, like_type) {
 
     $(".fred_dot_toolbar_new_notif").css('display', 'block');
     switch (notification_type) {
@@ -238,87 +240,156 @@ function push_notif_block(notification_type,like_type) {
             all_notifications_block.push(new_notif_comment);
             break;
     }
-      
+
 }
 
 
-function send_notif_to_user(block,type)
-{
+function send_notif_to_user(block, type) {
 
 
     let prepare_id_flow = block.ObjectId ? block.ObjectId : block.Flow_block_id;
-    if(prepare_id_flow == undefined){prepare_id_flow = block.current_flow_block.ObjectId;}
-    var sender_info = { 
-                        fullname : window.localStorage.getItem("user_name"),
-                        privateId : window.localStorage.getItem("user_private_id"),
-                        profil_pic : window.localStorage.getItem("user_profile_pic"),
-                        post_texte : $(block.fpost_title).text(), // texte like de flow
-                        comment_text : block.Comment, // texte commentaire genre le vrai commenaire t'a capté
-                        like_comment_text : block.fcomment_text, // texte lorsque l'on like un commentaire
-                        IdFlow : prepare_id_flow
-                        };
-    
-    if(registrationId == block.RegisterId) 
-    {
-        console.log("on peut pas s'envoyer des notifs à soit même voyons");
+    let prepare_register_id = block.RegisterId;
+    if (prepare_id_flow == undefined) {
+        prepare_id_flow = block.current_flow_block.ObjectId;
+        prepare_register_id = block.current_flow_block.RegisterId;
     }
-    else{
-    switch (type) {
-        case 'like_flow':
+    
+    var sender_info = {
+        fullname: window.localStorage.getItem("user_name"),
+        privateId: window.localStorage.getItem("user_private_id"),
+        profil_pic: window.localStorage.getItem("user_profile_pic"),
+        post_texte: $(block.fpost_title).text(), // texte like de flow
+        comment_text: block.Comment, // texte commentaire genre le vrai commenaire t'a capté
+        like_comment_text: block.fcomment_text, // texte lorsque l'on like un commentaire
+        IdFlow: prepare_id_flow
+    };
 
-            
-            data = {
-        
-                "data" : {
-                 "title" : sender_info.fullname,          
-                 "message" : "@" + sender_info.privateId  + " liked your flow : "  + sender_info.post_texte,
-                 "type" : "like_flow",
-                 "sender_info" : sender_info        
-               },
-               "to":block.RegisterId
-               //registrationId
-           };
-           ServerManager.Send_notif(data);
-       
-            break;
+    if (registrationId == prepare_register_id) {
+        console.log("on peut pas s'envoyer des notifs à soit même voyons");
+    } else {
+        noteId++;
+        switch (type) {
+            case 'like_flow':
 
-        case 'send_comment':
 
                 data = {
-        
-                    "data" : {
-                     "title" : sender_info.fullname,          
-                     "message": "@" + sender_info.privateId +" commented : "+ block.Comment,
-                     "type" : "send_comment",
-                     "sender_info" : sender_info
-                   },
-                   "to":block.current_flow_block.RegisterId
-                   //registrationId
-               };
-               ServerManager.Send_notif(data);
+                    
+                    "to": block.RegisterId,                    
+                    "data": {
+                        "title": sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " liked your flow : " + sender_info.post_texte,                        
+                        "type": "like_flow",
+                        "sender_info": sender_info,                        
+                        "priority" : "high",
+                        "notId": noteId,
+                        "image": sender_info.profil_pic,
+                        "image-type": "circle"
+                                         
+                    },                    
+                };
+                ServerManager.Send_notif(data);
 
-            break;
+                break;
 
-        case 'like_comment':
+            case 'send_comment':
 
-               data = {
-        
-                    "data" : {
-                     "title" : sender_info.fullname,          
-                     "message" : "@" + sender_info.privateId +" liked your comment : "+ block.fcomment_text,
-                     "type" : "like_comment",
-                     "sender_info" : sender_info
-                   },
-                   "to":block.RegisterId
-                   //registrationId
-               };
-               ServerManager.Send_notif(data);
+                data = {
 
-            break;
+                    "to": block.current_flow_block.RegisterId,                    
+                    "data": {
+                        "title": sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " commented : " + block.Comment,                        
+                        "type": "send_comment",
+                        "sender_info": sender_info, 
+                        "notId": noteId,
+                        "image": sender_info.profil_pic,
+                        "image-type": "circle"                    
+                    }
+                };
+                ServerManager.Send_notif(data);
+
+                break;
+
+            case 'like_comment':
+
+                data = {
+
+                    "to": block.RegisterId,                    
+                    "data": {
+                        "title": sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " liked your comment : " + block.fcomment_text,                        
+                        "type": "like_comment",
+                        "sender_info": sender_info,
+                        "notId": noteId,
+                        "image": sender_info.profil_pic,
+                        "image-type": "circle"
+                    }
+                };
+                ServerManager.Send_notif(data);
+
+                break;
 
         }
-    }    
+    }
 
 }
 
 var all_notifications_block = [];
+
+/*
+ { 
+"to":"eBS", 
+ "notification" : {
+ "body" : "New announcement assigned",
+ "OrganizationId":"2",
+ "content_available" : true,
+ "priority" : "high",
+ "subtitle":"Elementary School",
+ "Title":"hello"
+ },
+ "data" : {
+ "priority" : "high",
+ "sound":"app_sound.wav",
+ "content_available" : true,
+ "bodyText" : "New Announcement assigned",
+ "organization" :"Elementary school"
+}
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+{ 
+"to":"dytUK6VYY6M:APA91bFKAbICMIwMonaVPSi0vsQKoER4lBR5E2XV3i2q9KNpn7RKAASUByZKMDtRUgwEna1NVkOX-n8kPyIan6tkHpsYve2hOBza2iJEsbywv16WVAygEgN5gc9ECqMQjFoAFLu6vWoq", 
+ "notification" : {
+ "body" : "New announcement mdmppr",
+ "OrganizationId":"2",
+ "content_available" : true,
+ "priority" : "high",
+ "subtitle":"chris",
+ "title":"CHRIS"
+ },
+ "data" : {
+ "priority" : "high",
+ "sound":"app_sound.wav",
+ "content_available" : true,
+ "bodyText" : "New Announcement assigned",
+ "organization" :"Elementary school",
+ "title":"chris"
+}
+}
+
+
+
+
+
+
+*/

@@ -74,7 +74,7 @@ function notif_recieved(data) {
             $(".f_in_app_notif").css("margin-top", "-40vw");
             setTimeout(function () {
                 $(".f_in_app_notif").css("margin-top", "5vw");
-            }, 2000);}
+            }, 2500);}
             push_notif_block('comment', data);
 
             break;

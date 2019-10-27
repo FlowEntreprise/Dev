@@ -72,9 +72,6 @@
         <param name="onload" value="true" />
     </feature>
     <access origin="https://accounts.google.com/*" />
-    <feature name="CorHttpd">
-        <param name="android-package" value="com.rjfun.cordova.httpd.CorHttpd" />
-    </feature>
     <widget>
         <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
         <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
