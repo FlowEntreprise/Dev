@@ -41,7 +41,6 @@
         <splash src="res/screen/android/drawable-xxxhdpi/splash.png" density="port-xxxhdpi"/>
         <preference name="ShowSplashScreenSpinner" value="true" />
         <preference name="SplashMaintainAspectRatio" value="true" />
-        <preference name="android-targetSdkVersion" value="29" />
     </platform>
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />
