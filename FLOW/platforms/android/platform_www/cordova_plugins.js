@@ -448,11 +448,11 @@ module.exports = [
     ]
   },
   {
-    "id": "cordova-plugin-fcm.FCMPlugin",
-    "file": "plugins/cordova-plugin-fcm/www/FCMPlugin.js",
-    "pluginId": "cordova-plugin-fcm",
+    "id": "com.rjfun.cordova.httpd.CorHttpd",
+    "file": "plugins/com.rjfun.cordova.httpd/www/CorHttpd.js",
+    "pluginId": "com.rjfun.cordova.httpd",
     "clobbers": [
-      "FCMPlugin"
+      "cordova.plugins.CorHttpd"
     ]
   }
 ];
@@ -485,8 +485,7 @@ module.exports.metadata =
   "cordova-plugin-firebase-analytics": "2.0.4",
   "cordova-twitter3-connect-plugin": "1.0.5",
   "cordova-plugin-googleplus": "8.1.1",
-  "cordova-plugin-vibration": "3.1.1",
-  "cordova-plugin-fcm": "2.1.2"
+  "com.rjfun.cordova.httpd": "0.9.2"
 };
 // BOTTOM OF METADATA
 });

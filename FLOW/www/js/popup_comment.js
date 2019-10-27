@@ -135,9 +135,7 @@ function send_comment_to_server(data)
 
     let comment_number = parseInt($(".fcomment_number").text());
     comment_number = comment_number + 1;
-    let comment_word;
-    comment_number == 1 ? comment_word = " commentaire" : comment_word = " commentaires";
-    $(".fcomment_number").text(comment_number + comment_word);
+    $(".fcomment_number").text(comment_number + " commentaires");
     $(current_flow_block.ftxt_impression_comment).text(comment_number);
     send_notif_to_user(comment_data,"send_comment");
     var new_block_comment = new block_comment(comment_data);

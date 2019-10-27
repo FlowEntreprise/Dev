@@ -36,31 +36,38 @@ function block(params) {
     this.Likes = params.Likes;
     this.RegisterId = params.RegisterId;
     this.Comments = params.Comments;
+    this.ready = false;
 
     this.flowplay = function () {
-        block.fplay_button.style.display = "none";
-        block.fpause_button.style.display = "block";
-        wave.start();
-        waveform.style.display = "block";
-        console.log("duration : " + block.myaudio.duration);
-        console.log("currentTime : " + block.currentTime);
-        block.myaudio.play();
-        block.progress_div.style.display = 'block';
-        block.progress_div.style.borderTopRightRadius = '0vw';
-        block.isPlaying = true;
-        block.myRange.style.pointerEvents = "all";
+        if (this.ready) {
+            block.fplay_button.style.display = "none";
+            block.fpause_button.style.display = "block";
+            wave.start();
+            waveform.style.display = "block";
+            console.log("duration : " + block.myaudio.duration);
+            console.log("currentTime : " + block.currentTime);
+            block.myaudio.play();
+            block.progress_div.style.display = 'block';
+            block.progress_div.style.borderTopRightRadius = '0vw';
+            block.isPlaying = true;
+            block.myRange.style.pointerEvents = "all";
+        } else {
+            console.log("audio not ready");
+        }
     };
 
 
 
     this.flowpause = function () {
-        block.fplay_button.style.display = "block";
-        block.fpause_button.style.display = "none";
-        waveform.style.display = "none";
-        wave.stop();
-        block.isPlaying = false;
-        block.myaudio.pause();
-        block.myRange.style.pointerEvents = "none";
+        if (this.ready) {
+            block.fplay_button.style.display = "block";
+            block.fpause_button.style.display = "none";
+            waveform.style.display = "none";
+            wave.stop();
+            block.isPlaying = false;
+            block.myaudio.pause();
+            block.myRange.style.pointerEvents = "none";
+        }
     };
 
 
@@ -97,6 +104,10 @@ function block(params) {
     this.ftop_part.appendChild(this.myRange);
 
 
+    this.floading_flow = document.createElement('img');
+    this.floading_flow.className = 'floading_flow';
+    this.floading_flow.src = 'src/icons/loading_circle.gif';
+    this.ftop_part.appendChild(this.floading_flow);
 
     this.fplay_button = document.createElement('img');
     this.fplay_button.className = 'fplay_button';
@@ -283,11 +294,18 @@ function block(params) {
     window.addEventListener('resize', resize);
     resize();
 
-    this.myaudio = new Audio("src/sound/son.opus");
-    this.myaudioelement;
+    this.myaudio = new Audio();
     if (params.audioURL) {
-        this.myaudio = new Audio(params.audioURL);
-        this.myaudio.volume = 1.0;
+        let local_flow = FlowLoader.DownloadFlow(params.audioURL);
+        local_flow.OnReady(function (url) {
+            console.log("local url : " + url);
+            block.myaudio.src = url;
+            block.myaudio.volume = 1.0;
+            block.ready = true;
+            block.floading_flow.style.display = "none";
+            block.fplay_button.style.display = "block";
+            block.fpause_button.style.display = "none";
+        });
     }
 
     this.isPlaying = false;
@@ -402,22 +420,23 @@ function block(params) {
         go_to_account(data);
     });
 }
-    function display_all_comments(block) //fonction permettant d'affiher tout les commentaires
-    {
-        $(".fblock_comment_content").html("");
-        var loading_comment = document.createElement("div");
-        loading_comment.className = "loading_circle loading_tl loading_comment";
-        $(".fblock_comment_content").append(loading_comment);
-        $(".fcomment_number").text("");
-        let ObjectId = block.ObjectId ? block.ObjectId : block.additionalData.sender_info.IdFlow;
-        let data = {
 
-            ObjectId: ObjectId,
-            IsComment: block.IsComment
-        };        
-        ServerManager.GetFlowComment(data);
-        Popup("popup-comment", true, 40);
-    }
+function display_all_comments(block) //fonction permettant d'affiher tout les commentaires
+{
+    $(".fblock_comment_content").html("");
+    var loading_comment = document.createElement("div");
+    loading_comment.className = "loading_circle loading_tl loading_comment";
+    $(".fblock_comment_content").append(loading_comment);
+    $(".fcomment_number").text("");
+    let ObjectId = block.ObjectId ? block.ObjectId : block.additionalData.sender_info.IdFlow;
+    let data = {
+
+        ObjectId: ObjectId,
+        IsComment: block.IsComment
+    };
+    ServerManager.GetFlowComment(data);
+    Popup("popup-comment", true, 40);
+}
 
 
 
@@ -524,7 +543,7 @@ function shake(element_id) {
     tabs.classList.add("shake");
 }
 
-function get_all_comment(response,data_block) {
+function get_all_comment(response, data_block) {
 
 
 

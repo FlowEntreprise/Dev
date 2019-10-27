@@ -3,6 +3,7 @@ var ptrContent = $$('.pull-to-refresh-content');
 ptrContent.on('ptr:refresh', function (e) {
   // Emulate 2s loading
   console.log("refreshing...");
+  stopAllBlocksAudio();
   TLCurrentIndex = 0;
   ServerManager.GetTimeline(0);
   ServerManager.GetStory();
@@ -18,6 +19,25 @@ ptrContent.on('ptr:pullstart', function (e) {
 ptrContent.on('ptr:pullend', function (e) {
   console.log("pull end");
   $("#ptr_arrow").css("opacity", "0");
+});
+$(".fhome-btn").on("click", function() {
+  // var home_scrolling = false;
+  if (current_page=="home") {
+    let element = document.getElementById("tab1");
+    // element.onscroll = function() {
+    //     home_scrolling = true;
+    // };
+    let last_scrollTop = element.scrollTop;
+    const scrollToTop = () => {
+      const c = element.scrollTop;
+      if (c > 0 && c <= last_scrollTop) {
+        window.requestAnimationFrame(scrollToTop);
+        element.scrollTo(0, c - c / 8);
+        last_scrollTop = c;
+      }
+    };
+    scrollToTop();
+  }
 });
 
 function pullToRefreshEnd() {

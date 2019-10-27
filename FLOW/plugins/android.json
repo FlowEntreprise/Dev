@@ -20,7 +20,7 @@
     "cordova-plugin-browsersync": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova-plugin-vibration": {
+    "com.rjfun.cordova.httpd": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
