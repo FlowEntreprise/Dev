@@ -37,6 +37,7 @@ function block(params) {
     this.RegisterId = params.RegisterId;
     this.Comments = params.Comments;
     this.ready = false;
+    this.last_like_time;
 
     this.flowplay = function () {
         if (this.ready) {
@@ -384,10 +385,10 @@ function block(params) {
         current_flow_block = block;
         impression_coloring(this, 'like', block);
         let data = {
-
+            
             ObjectId: current_flow_block.ObjectId
         };
-        ServerManager.LikeFlow(data, current_flow_block);
+        ServerManager.LikeFlow(data, current_flow_block);        
     });
 
     $(this.fimg_impression_echo).on('click', function () {
@@ -443,6 +444,7 @@ function display_all_comments(block) //fonction permettant d'affiher tout les co
 // fonction permettant de colorier ou non les like, echo et comment.
 function impression_coloring(object, type, block, like_type) {
 
+    let now = Date.now();
     switch (type) {
         case 'like':
             $(object).each(function () {
@@ -453,7 +455,20 @@ function impression_coloring(object, type, block, like_type) {
                 if (attr_img_like === 'src/icons/Like.png') {
                     $(block.fimg_impression_like).attr('src', 'src/icons/Like_filled.png');
                     $(block.ftxt_impression_like).text(+like_number + 1);
+                    if(block.last_like_time != undefined)
+                    {
+                    let last_like = Math.floor(((now - block.last_like_time) / 1000) / 60);
+                    if(last_like > 29)
+                    {
                     send_notif_to_user(block, "like_flow");
+                    block.last_like_time = Date.now();
+                    }
+                    }
+                    else if(block.last_like_time == undefined)
+                    {
+                        send_notif_to_user(block, "like_flow");
+                        block.last_like_time = Date.now();
+                    }
                 }
                 if (attr_img_like === 'src/icons/Like_filled.png') {
                     $(block.fimg_impression_like).attr('src', 'src/icons/Like.png');

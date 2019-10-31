@@ -10,6 +10,7 @@ function block_comment(comment_data) {
     this.is_liked = comment_data.IsLike;
     this.RegisterId = comment_data.RegisterId;
     this.fcomment_text = comment_data.Comment;
+    this.last_like_time;
     this.fblock_comment = document.createElement('div');
     this.fblock_comment.className = 'fblock_comment';
     $(".fblock_comment_content").prepend(this.fblock_comment);
@@ -21,7 +22,7 @@ function block_comment(comment_data) {
 
     this.fid_user = document.createElement('label');
     this.fid_user.className = 'fid_user';
-    this.fid_user.innerHTML = "@"+comment_data.PrivateId+"";
+    this.fid_user.innerHTML = "@" + comment_data.PrivateId + "";
     $(this.fblock_comment).append(this.fid_user);
 
     this.fblock_comment_comment = document.createElement('p');
@@ -31,13 +32,13 @@ function block_comment(comment_data) {
 
     this.fdate = document.createElement('label');
     this.fdate.className = 'fdate';
-    this.fdate.innerHTML = comment_data.Time == "0" ?  " 1 minute ago" : set_timestamp(comment_data.Time);
+    this.fdate.innerHTML = comment_data.Time == "0" ? " 1 minute ago" : set_timestamp(comment_data.Time);
     $(this.fblock_comment_comment).append(this.fdate);
 
     this.fcomment_like = document.createElement('img');
     this.fcomment_like.className = 'fcomment_like';
-    this.fcomment_like.src = this.is_liked == 0 ? "src/icons/Like.png" : "src/icons/Like_filled.png" ;
-    console.log("lethis que l'on veut tu connais :  "+this.is_liked+"");
+    this.fcomment_like.src = this.is_liked == 0 ? "src/icons/Like.png" : "src/icons/Like_filled.png";
+    console.log("lethis que l'on veut tu connais :  " + this.is_liked + "");
     $(this.fblock_comment).append(this.fcomment_like);
 
     this.fnumber_like = document.createElement('label');
@@ -46,12 +47,12 @@ function block_comment(comment_data) {
     $(this.fblock_comment).append(this.fnumber_like);
 
     $(this.fcomment_like).on('click', function () { // like d'un commentaire
-        current_comment_block = block_comment;
+        current_comment_block = block_comment;        
         let data = {
 
-            ObjectId : current_comment_block.Id,
-        };        
-        ServerManager.LikeFlowComment(data,current_comment_block);
+            ObjectId: current_comment_block.Id,
+        };
+        ServerManager.LikeFlowComment(data, current_comment_block);
     });
 
 
@@ -70,12 +71,11 @@ function block_comment(comment_data) {
 
     });
 
-    $(this.fimg_user).on('click',function(){
+    $(this.fimg_user).on('click', function () {
 
-        let data = 
-        {
-            private_Id : block_comment.private_Id,
-            user_private_Id : window.localStorage.getItem("user_private_id") 
+        let data = {
+            private_Id: block_comment.private_Id,
+            user_private_Id: window.localStorage.getItem("user_private_id")
         };
         go_to_account(data);
     });
@@ -117,34 +117,33 @@ var account_imageURL = "src/pictures/notif1.png";
 
 //post de commentaire
 
-function send_comment_to_server(data)
-{
+function send_comment_to_server(data) {
 
-       
+
     var comment_data = {
-        PrivateId      : window.localStorage.getItem("user_private_id"),
-        ProfilePicture : window.localStorage.getItem("user_profile_pic"),
-        Comment        : data.Comment,
-        Like_number    : "0",
-        Time           : "0" ,
-        IsLike         : 0,
-        IdComment      : data.IdComment,
-        RegisterId : registrationId,
-        current_flow_block : current_flow_block
+        PrivateId: window.localStorage.getItem("user_private_id"),
+        ProfilePicture: window.localStorage.getItem("user_profile_pic"),
+        Comment: data.Comment,
+        Like_number: "0",
+        Time: "0",
+        IsLike: 0,
+        IdComment: data.IdComment,
+        RegisterId: registrationId,
+        current_flow_block: current_flow_block
     };
 
     let comment_number = parseInt($(".fcomment_number").text());
     comment_number = comment_number + 1;
     $(".fcomment_number").text(comment_number + " commentaires");
     $(current_flow_block.ftxt_impression_comment).text(comment_number);
-    send_notif_to_user(comment_data,"send_comment");
+    send_notif_to_user(comment_data, "send_comment");
     var new_block_comment = new block_comment(comment_data);
     var i = 0;
     current_flow_block.all_comment_blocks.push(new_block_comment);
     impression_coloring(this, 'comment', current_flow_block);
     console.log(current_flow_block.all_comment_blocks[0].fblock_comment);
     console.log("Comment sucessfully added to database :");
-    console.log("data du send comment to server"+data+"");
+    console.log("data du send comment to server" + data + "");
 }
 
 $('.fsend_comment').on('click', function () {
@@ -153,18 +152,17 @@ $('.fsend_comment').on('click', function () {
 
     let data = {
 
-        ObjectId : current_flow_block.ObjectId,
-        Comment : comment
+        ObjectId: current_flow_block.ObjectId,
+        Comment: comment
     }
-    
+
 
     if (comment == "") {
         alert("Commentaire vide !!!");
-    } 
-    else {
+    } else {
 
         $(".finput_comment").val("");
-        
+
         ServerManager.AddFlowComment(data);
     }
 
@@ -194,30 +192,42 @@ function delete_comment(element) {
     $(element).remove();
 
 }
-document.getElementById("popup-comment").addEventListener("opened", function() {
+document.getElementById("popup-comment").addEventListener("opened", function () {
     $(".fwrite_comment")[0].style.display = "block";
 });
 
 //Notif lors d'un nouveau commentaire
 
-document.getElementById("popup-comment").addEventListener("closed", function() {
-    $(".fwrite_comment")[0].style.display = "none"; 
+document.getElementById("popup-comment").addEventListener("closed", function () {
+    $(".fwrite_comment")[0].style.display = "none";
 });
 
 
-function color_like(block,like) // like des commentaires
+function color_like(block, like) // like des commentaires
 {
+    let now = Date.now();
     console.log("chris color like");
-    if(like)
-    {
+    if (like) {
         console.log("chris color is like like like ");
-        $(block.fcomment_like).attr('src', 'src/icons/Like_filled.png');
-        send_notif_to_user(block,"like_comment");
+        $(block.fcomment_like).attr('src', 'src/icons/Like_filled.png');        
         block.is_liked = 1;
         block.fnumber_like.innerHTML = parseInt(block.fnumber_like.innerHTML) + 1;
-    }
-    else
-    {
+        if(block.last_like_time != undefined)
+                    {
+                    let last_like = Math.floor(((now - block.last_like_time) / 1000) / 60);
+                    if(last_like > 29)
+                    {
+                    send_notif_to_user(block, "like_comment");
+                    block.last_like_time = Date.now();
+                    }
+                    }
+                    else if(block.last_like_time == undefined)
+                    {
+                        send_notif_to_user(block, "like_comment");
+                        block.last_like_time = Date.now();
+                    }
+
+    } else {
         $(block.fcomment_like).attr('src', 'src/icons/Like.png');
         block.is_liked = 0;
         block.fnumber_like.innerHTML = parseInt(block.fnumber_like.innerHTML) - 1;
