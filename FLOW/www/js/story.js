@@ -78,13 +78,14 @@ class Story {
 
 class StoryFlow {
     constructor() {
+        this.id = "";
         this.time = "...";
         this.audio = new Audio("src/sound/son.opus");
         this.duration = 0;
         this.comments = [];
-        for (let i = 0; i < 5; i++) {
-            this.comments.push(new StoryComment());
-        }
+        // for (let i = 0; i < 5; i++) {
+        //     this.comments.push(new StoryComment());
+        // }
         this.seen = [];
         for (let i = 0; i < 15; i++) {
             this.seen.push(new StorySeen());
@@ -100,6 +101,7 @@ class StoryComment {
         this.private_id = "Pamela";
         this.user_picture = "src/pictures/girl1.jpg";
         this.isPlaying = false;
+        this.ready = false;
     }
 }
 
@@ -286,24 +288,84 @@ function SpawnStoryWindow(story_block) {
             tryLoadStory(story_index, storyFlow_index);
             showStoryMain(false);
 
-            $('.fstory_addcomment_btn').on('taphold', function () {
-                console.log("Hold Record !");
-                record_was_hold = true;
-                StartRecording();
-            });
-            $('.fstory_addcomment_btn').on('click', function () {
-                console.log("Tap Record !");
-                if (recording) {
-                    // StopRecording();
+            $$('.fstory_addcomment_btn').on('taphold', function () {
+                if (connected) {
+                    record_was_hold = true;
+                    stop_comments();
+                    startCapture();
+                    $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")"
                 } else {
-                    StartRecording();
+                    Popup("popup-connect", true, 45);
                 }
+            });
+            $$('.fstory_addcomment_btn').on('click', function () {
+                if (recording) {
+                    console.log("stop recording");
+                    if (record_time > 2) {
+                        stopCapture(true);
+                    } else {
+                        stopCapture(false);
+                    }
+                } else if (!record_was_hold) {
+                    console.log("start recording");
+                    stop_comments();
+                    startCapture();
+                    $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")"
+                }
+            });
+            $$('.fstory_addcomment_confirm').on('touchend', function () {
+                let story_comment = {
+                    ObjectId: story_data[story_index].data[storyFlow_index].id,
+                    // PrivatedId: window.localStorage.getItem("user_private_id"),
+                    Sound: appState.blob64,
+                    Duration: record_time,
+                };
+
+                console.log(story_comment);
+                console.log("Send story comment to server");
+                $(".fstory_addcomment_cancel")[0].style.opacity = 0.5;
+                $(".fstory_addcomment_cancel")[0].style.pointerEvents = "none";
+                $(".fstory_addcomment_confirm")[0].style.pointerEvents = "none";
+                $(".fstory_addcomment_confirm")[0].style.backgroundImage = "url(\"src/icons/loading_circle.gif\")";
+                // $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
+                // $(".fstory_addcomment_btn")[0].style.opacity = 1;
+
+                setTimeout(function () {
+                    ServerManager.AddStoryComment(story_comment);
+                    analytics.logEvent("upload_story_comment", {
+                        private_id: story_comment.PrivatedId,
+                        duration: story_comment.Duration
+                    });
+                }, 100);
+            });
+            $$('.fstory_addcomment_cancel').on('touchend', function () {
+                $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
+                $(".fstory_addcomment_btn")[0].style.opacity = 1;
+
+                // setTimeout(function () {
+                //     ServerManager.AddStory(storydata);
+                //     analytics.logEvent("upload_story_comment", {
+                //         private_id: story_comment.PrivatedId,
+                //         duration: story_comment.Duration
+                //     });
+                // }, 100);
             });
 
         }, 50);
     });
 }
 
+function story_comment_uploaded() {
+    $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
+    $(".fstory_addcomment_btn")[0].style.opacity = 1;
+
+    $(".fstory_addcomment_cancel")[0].style.opacity = 1;
+    $(".fstory_addcomment_cancel")[0].style.pointerEvents = "auto";
+    $(".fstory_addcomment_confirm")[0].style.pointerEvents = "auto";
+    $(".fstory_addcomment_confirm")[0].style.backgroundImage = "url(\"src/icons/validate.png\")";
+
+    refresh_story_comments();
+}
 
 
 
@@ -411,20 +473,21 @@ function showStoryComments() {
     story_data[story_index].data[storyFlow_index].audio.pause();
     currentSection = "comments";
     story_view.style.transform = "translateY(-100vh)";
-    // story_view.style.opacity = "0";
     comment_view.style.transform = "translateY(-100vh)";
-    // comment_view.style.opacity = "1";
-    // story_view.css({
-    //     "transform": "translate3d(0px, -100vh, 0px)",
-    //     "opacity": "0"
-    // });
-    // comment_view.css({
-    //     "transform": "translate3d(0px, -100vh, 0px)",
-    //     "opacity": "1"
-    // });
+    refresh_story_comments();
+}
+
+function refresh_story_comments() {
+    let data = {
+        index: 0,
+        objectId: story_data[story_index].data[storyFlow_index].id
+    }
+    ServerManager.GetStoryComments(data); 
 }
 
 function showStoryMain(play_story) {
+    stop_comments();
+
     currentSection = "main";
     story_view.style.transform = "translateY(0vh)";
     // story_view.style.opacity = "1";
@@ -443,7 +506,6 @@ function showStoryMain(play_story) {
         tryLoadStory(story_index, storyFlow_index);
         current_story_audio.audio.play();
     }
-
 }
 
 function tryLoadStory(story_index, storyFlow_index) {
@@ -475,6 +537,7 @@ function GetStoryForUserFromServer(data) {
         let story_flow = new StoryFlow();
         story_flow.time = data.Data[i].Time;
         story_flow.duration = parseFloat(data.Data[i].Duration);
+        story_flow.id = data.Data[i].ObjectId;
         story_flow.color = data.Data[i].Color;
         story_flow.darkColor = pSBC(-0.8, story_flow.color);
         let src_flow = 'https://' + data.LinkBuilder.Hostname + '/stories/' + data.Data[i].Audio.name + '?';
@@ -532,7 +595,7 @@ function loadStory(story_index, storyFlow_index) {
         document.getElementById("fstory_wave").style.opacity = "1";
         current_story_audio.play();
         StorySiriWave.speed = 0.2;
-        StorySiriWave.amplitude = 1; 
+        StorySiriWave.amplitude = 1;
         // block.ready = true;
         // block.floading_flow.style.display = "none";
         // block.fplay_button.style.display = "block";
@@ -607,9 +670,10 @@ function loadStory(story_index, storyFlow_index) {
 
     window.localStorage.setObj("story_read", story_read);
 
-    loadStoryComments();
+    // loadStoryComments();
     loadStorySeen();
 }
+
 
 function previousStory() {
     if (can_next_prev) {
@@ -697,29 +761,56 @@ function stopAllStoriesAudio() {
     }
 }
 
-function loadStoryComments() {
+function stop_comments() {
+    if (story_data[story_index].data[storyFlow_index] != null) {
+        for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
+            let com = story_data[story_index].data[storyFlow_index].comments[i];
+            $("div[comment_id='" + i + "']")[0].style.backgroundImage = "url('src/icons/play.png')";
+            com.audio.pause();
+            com.audio.currentTime = 0;
+            com.isPlaying = false;
+        }
+    }
+}
+
+function loadStoryComments(data) {
+    story_data[story_index].data[storyFlow_index].comments = [];
     $(".fstory_comment_list")[0].innerHTML = "";
-    for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
+    let i = 0;
+    for (let comment of data.Data) {
+        let com = new StoryComment();
+        com.private_id = comment.PrivateId;
+        com.time = set_timestamp(comment.Time);
+        let src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + comment.ProfilePicture.name + '?';
+        let param = `${data.LinkBuilder.Params.hash}=${comment.ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${comment.ProfilePicture.timestamp}`;
+        com.user_picture = src + param;
+        let src_comment_audio = 'https://' + data.LinkBuilder.Hostname + '/comments/' + comment.Audio.name + '?';
+        let param_comment_audio = `${data.LinkBuilder.Params.hash}=${comment.Audio.hash}&${data.LinkBuilder.Params.time}=${comment.Audio.timestamp}`;
+        com.ready = false;
+        com.audio = new Audio();
+
         let comment_li = document.createElement("li");
         comment_li.className = "fstory_comment_li";
         let comment_time = document.createElement("label");
-        comment_time.innerHTML = story_data[story_index].data[storyFlow_index].comments[i].time;
+        comment_time.innerHTML = com.time;
         comment_time.className = "fstory_comment_time";
         let comment_loading = document.createElement("div");
         comment_loading.className = "fstory_comment_loading";
         comment_loading.setAttribute("comment_loading_id", i);
         let comment_pp = document.createElement("div");
         comment_pp.className = "fstory_comment_pp";
-        comment_pp.style.backgroundImage = "url(" + story_data[story_index].data[storyFlow_index].comments[i].user_picture + ")";
+        comment_pp.style.backgroundImage = "url(" + com.user_picture + ")";
         let comment_play = document.createElement("div");
         comment_play.setAttribute("comment_id", i);
         comment_play.className = "fstory_comment_play";
         comment_play.onclick = function () {
-            playStoryComment(story_data[story_index].data[storyFlow_index].comments[i], comment_play)
+            if (com.ready) {
+                playStoryComment(com, comment_play)
+            }
         };
         let comment_pseudo = document.createElement("label");
         comment_pseudo.className = "fstory_comment_pseudo";
-        comment_pseudo.innerHTML = story_data[story_index].data[storyFlow_index].comments[i].private_id;
+        comment_pseudo.innerHTML = com.private_id;
 
         comment_li.appendChild(comment_time);
         comment_li.appendChild(comment_loading);
@@ -727,11 +818,24 @@ function loadStoryComments() {
         comment_li.appendChild(comment_play);
         comment_li.appendChild(comment_pseudo);
         $(".fstory_comment_list")[0].appendChild(comment_li);
+
+        comment_play.style.backgroundImage = "url(\"src/icons/loading_circle.gif\")";
+        let local_comment = FlowLoader.DownloadFlow(src_comment_audio + param_comment_audio);
+        local_comment.OnReady(function (url) {
+            console.log("local url : " + url);
+            com.audio.src = url;
+            com.ready = true;
+            comment_play.style.backgroundImage = "url(\"src/icons/play.png\")";
+        });
+        // com.audio = new Audio(src_comment_audio + param_comment_audio);
+        // console.log(src_comment_audio + param_comment_audio);
+        story_data[story_index].data[storyFlow_index].comments.push(com);
+        i++;
     }
 }
 
 function playStoryComment(comment, htmlelement) {
-    // stop all comments
+    // stop all comments except current one
     for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
         let com = story_data[story_index].data[storyFlow_index].comments[i];
         if (com != comment) {

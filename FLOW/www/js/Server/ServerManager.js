@@ -18,8 +18,11 @@ const ServerParams = {
     GetUserProfil: "GetProfil",
     GetSingle : "GetSingle",
     ActionFollowProfil: 'Follow',
-    UpdateRegisterId : "UpdateRegisterId"
+    UpdateRegisterId : "UpdateRegisterId",
+    AddStoryComment: "AddStoryComment",
+    GetStoryComments: "GetStoryComment"
 };
+
 const apiTypes = {
     Twitter: 'twitter',
     Google: 'google',
@@ -266,6 +269,7 @@ class ServerManagerClass {
                 // console.log("User story sucessfully recovered from database :");
                 // console.log(response);
                 GetStoryForUserFromServer(response);
+                console.log(response);
                 //PopFlow(response);
             },
             error: function (response) {
@@ -639,6 +643,51 @@ class ServerManagerClass {
 
 
     }
+
+    AddStoryComment(data) {
+        let final_data = {
+            Data: data,
+            Action: "AddStoryComment",
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.AddStoryComment,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                story_comment_uploaded();
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    GetStoryComments(data) {
+        let final_data = {
+            TokenId: window.localStorage.getItem("user_token"),
+            Data: {
+                Index: data.index,
+                ObjectId: data.objectId
+            }
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetStoryComments,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                loadStoryComments(response);
+                // UpdateTimeline(response);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }    
 }
 
 var ServerManager = new ServerManagerClass();
