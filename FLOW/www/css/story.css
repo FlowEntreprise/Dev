@@ -302,6 +302,7 @@
     background-position: center;
     background-repeat: no-repeat;
     filter: brightness(3);
+    display: none;
 }
 
 .fstory_seen_txt
@@ -314,6 +315,7 @@
     color: white;
     font-family: "Roboto-Regular";
     font-size: 13px;
+    display: none;
 }
 
 .fstory_comment_list

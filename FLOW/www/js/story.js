@@ -87,6 +87,7 @@ class StoryFlow {
         //     this.comments.push(new StoryComment());
         // }
         this.seen = [];
+        this.seen_number = 5;
         for (let i = 0; i < 15; i++) {
             this.seen.push(new StorySeen());
         }
@@ -482,7 +483,7 @@ function refresh_story_comments() {
         index: 0,
         objectId: story_data[story_index].data[storyFlow_index].id
     }
-    ServerManager.GetStoryComments(data); 
+    ServerManager.GetStoryComments(data);
 }
 
 function showStoryMain(play_story) {
@@ -544,6 +545,7 @@ function GetStoryForUserFromServer(data) {
         let param_flow = `${data.LinkBuilder.Params.hash}=${data.Data[i].Audio.hash}&${data.LinkBuilder.Params.time}=${data.Data[i].Audio.timestamp}`;
         let audio_link = src_flow + param_flow;
         story_flow.audio = new Audio(audio_link);
+        story_flow.seen_number = data.Data[i].NbView;
         story_data[story_index].data.push(story_flow);
     }
 
@@ -552,6 +554,7 @@ function GetStoryForUserFromServer(data) {
 
 function loadStory(story_index, storyFlow_index) {
     console.log("LOAD STORY");
+    $(".fstory_comment_list")[0].innerHTML = "";
     can_next_prev = true;
     $(".fstory_pseudo").text(story_data[story_index].private_id);
     $(".fstory_time").text(set_timestamp(story_data[story_index].data[storyFlow_index].time));
@@ -596,6 +599,26 @@ function loadStory(story_index, storyFlow_index) {
         current_story_audio.play();
         StorySiriWave.speed = 0.2;
         StorySiriWave.amplitude = 1;
+        if (story_data[story_index].private_id != window.localStorage.getItem("user_private_id")) {
+            $(".fstory_seen_icon")[0].style.display = "none";
+            $(".fstory_seen_txt")[0].style.display = "none";
+            
+            let data = {
+                ObjectId: story_data[story_index].data[storyFlow_index].id
+            }
+            ServerManager.AddStoryView(data);
+        }
+        else {
+            $(".fstory_seen_icon")[0].style.display = "block";
+            $(".fstory_seen_txt")[0].style.display = "block";
+        }
+        // UNIQUEMENT SI C'EST MA STORY :
+        // let data = {
+        //     Index: 0,
+        //     ObjectId: story_data[story_index].data[storyFlow_index].id
+        // }
+        // ServerManager.GetStoryView(data);
+
         // block.ready = true;
         // block.floading_flow.style.display = "none";
         // block.fplay_button.style.display = "block";
@@ -671,7 +694,9 @@ function loadStory(story_index, storyFlow_index) {
     window.localStorage.setObj("story_read", story_read);
 
     // loadStoryComments();
-    loadStorySeen();
+    // loadStorySeen();
+    $(".fstory_seen_txt")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
+    $(".seen_number")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
 }
 
 
@@ -765,7 +790,10 @@ function stop_comments() {
     if (story_data[story_index].data[storyFlow_index] != null) {
         for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
             let com = story_data[story_index].data[storyFlow_index].comments[i];
-            $("div[comment_id='" + i + "']")[0].style.backgroundImage = "url('src/icons/play.png')";
+            let div_comment = $("div[comment_id='" + i + "']")[0];
+            if (div_comment) {
+                div_comment.style.backgroundImage = "url('src/icons/play.png')";
+            }
             com.audio.pause();
             com.audio.currentTime = 0;
             com.isPlaying = false;
@@ -894,6 +922,12 @@ function smoothUpdateBar(loading_com, comment) {
 
 function ShowSeenPopup() {
     inSeenPopup = true;
+    let data = {
+        Index: 0,
+        ObjectId: story_data[story_index].data[storyFlow_index].id
+    }
+    story_data[story_index].data[storyFlow_index].seen = [];
+    ServerManager.GetStoryView(data);
     $(".seen_popup_bg").css({
         "opacity": "0.3",
         "pointer-events": "auto"
@@ -914,10 +948,19 @@ function CloseSeenPopup() {
     });
 }
 
-function loadStorySeen() {
-    $(".fstory_seen_txt")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen.length;
-    $(".seen_number")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen.length;
+function loadStorySeen(data) {
+    $(".fstory_seen_txt")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
+    $(".seen_number")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
     $(".seen_ul")[0].innerHTML = "";
+    for (let i = 0; i < data.Data.length; i++) {
+        let new_StorySeen = new StorySeen();
+        new_StorySeen.private_id = "@" + data.Data[i].PrivateId;
+        new_StorySeen.time = "Seen " + set_timestamp(data.Data[i].LastStory);
+        let src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Data[i].ProfilePicture.name + '?';
+        let param = `${data.LinkBuilder.Params.hash}=${data.Data[i].ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.Data[i].ProfilePicture.timestamp}`;
+        new_StorySeen.user_picture = src + param;
+        story_data[story_index].data[storyFlow_index].seen.push(new_StorySeen);
+    }
     for (let i = 0; i < story_data[story_index].data[storyFlow_index].seen.length; i++) {
         let seen_li = document.createElement("li");
         seen_li.className = "seen_li";
@@ -926,6 +969,7 @@ function loadStorySeen() {
         seen_pseudo.className = "seen_pseudo";
         let seen_pp = document.createElement("div");
         seen_pp.className = "seen_pp";
+        seen_pp.style.backgroundImage = "url(" + story_data[story_index].data[storyFlow_index].seen[i].user_picture + ")";
         let seen_time = document.createElement("label");
         seen_time.innerHTML = story_data[story_index].data[storyFlow_index].seen[i].time;
         seen_time.className = "seen_time";
