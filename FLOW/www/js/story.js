@@ -955,7 +955,7 @@ function loadStorySeen(data) {
     for (let i = 0; i < data.Data.length; i++) {
         let new_StorySeen = new StorySeen();
         new_StorySeen.private_id = "@" + data.Data[i].PrivateId;
-        new_StorySeen.time = "Seen " + set_timestamp(data.Data[i].LastStory);
+        new_StorySeen.time = "Seen " + set_timestamp(data.Data[i].LastStoryView );        
         let src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Data[i].ProfilePicture.name + '?';
         let param = `${data.LinkBuilder.Params.hash}=${data.Data[i].ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.Data[i].ProfilePicture.timestamp}`;
         new_StorySeen.user_picture = src + param;
