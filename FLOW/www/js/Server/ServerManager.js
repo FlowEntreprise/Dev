@@ -16,13 +16,17 @@ const ServerParams = {
     GetMyUserInfosURL: "GetInfoUser",
     GetTimeline: "GetTimeline",
     GetUserProfil: "GetProfil",
-    GetSingle : "GetSingle",
+    GetSingle: "GetSingle",
     ActionFollowProfil: 'Follow',
     UpdateRegisterId : "UpdateRegisterId",
     GetFollowerOfUser : "GetFollowerOfUser",
-    GetFollowingOfUser : "GetFollowingOfUser"
-
+    GetFollowingOfUser : "GetFollowingOfUser",
+    AddStoryComment: "AddStoryComment",
+    GetStoryComments: "GetStoryComment",
+    AddStoryView: "AddStoryView",
+    GetStoryView: "GetStoryView"
 };
+
 const apiTypes = {
     Twitter: 'twitter',
     Google: 'google',
@@ -266,8 +270,8 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.GetUserStoryURL,
             data: JSON.stringify(final_data),
             success: function (response) {
-                // console.log("User story sucessfully recovered from database :");
-                // console.log(response);
+                console.log("User story sucessfully recovered from database :");
+                console.log(response);
                 GetStoryForUserFromServer(response);
                 //PopFlow(response);
             },
@@ -319,7 +323,7 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
 
-                get_all_comment(response,final_data.Data);
+                get_all_comment(response, final_data.Data);
                 // console.log("Comment sucessfully added to database :");
                 // console.log(response);
 
@@ -458,9 +462,9 @@ class ServerManagerClass {
     GetUserInfo(data) {
         let final_data = {
             Data: data,
-            TokenId : window.localStorage.getItem("user_token")
+            TokenId: window.localStorage.getItem("user_token")
         };
-        console.log("final data = " );
+        console.log("final data = ");
         console.log(final_data);
         $.ajax({
             type: "POST",
@@ -523,7 +527,7 @@ class ServerManagerClass {
     ActionFollow(data) {
         let final_data = {
             Data: data,
-            TokenId : window.localStorage.getItem("user_token")
+            TokenId: window.localStorage.getItem("user_token")
         };
         console.log(final_data);
         $.ajax({
@@ -542,10 +546,10 @@ class ServerManagerClass {
         let final_data = {
             Data: data,
             Action: "UpdateProfile",
-            TokenId : window.localStorage.getItem("user_token")
+            TokenId: window.localStorage.getItem("user_token")
         };
         // console.log(final_data.Data);
-        
+
         $.ajax({
             type: "POST",
             url: ServerParams.ServerURL + ServerParams.UpdateProfileURL,
@@ -567,7 +571,7 @@ class ServerManagerClass {
         let final_data = {
             Data: data,
             Action: "AddFlow",
-            TokenId : window.localStorage.getItem("user_token")
+            TokenId: window.localStorage.getItem("user_token")
         };
 
         $.ajax({
@@ -610,14 +614,14 @@ class ServerManagerClass {
                 StopRefreshTL();
             }
         });
-    }    
+    }
 
     GetSingle(data) {
         let final_data = {
-            
-            Data: data,            
-            TokenId : window.localStorage.getItem("user_token")
-            
+
+            Data: data,
+            TokenId: window.localStorage.getItem("user_token")
+
         };
         console.log(final_data);
         $.ajax({
@@ -627,13 +631,13 @@ class ServerManagerClass {
             success: function (response) {
                 console.log(response);
                 console.log("success dans la recuperation de flow unique");
-                flow_specifique(response.Data,response.LinkBuilder);
-                
+                flow_specifique(response.Data, response.LinkBuilder);
+
             },
             error: function (response) {
                 console.log(response);
                 console.log("error dans la recuperation de flow unique");
-                
+
             }
         });
     }
@@ -642,43 +646,40 @@ class ServerManagerClass {
         let final_data = {
             Data: data,
             Action: "RegisterId",
-            TokenId : window.localStorage.getItem("user_token")
+            TokenId: window.localStorage.getItem("user_token")
         };
         // console.log(final_data.Data);
-        
+
         $.ajax({
             type: "POST",
             url: ServerParams.ServerURL + ServerParams.UpdateRegisterId,
             data: JSON.stringify(final_data),
             success: function (response) {
-                 console.log('registerId update sucessfully: ');
+                console.log('registerId update sucessfully: ');
                 console.log(response);
-                
+
             },
             error: function (response) {
-                 console.log("registerId update error : ");
+                console.log("registerId update error : ");
                 console.log(response);
                 // console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
             }
         });
     }
 
-    
-
-    Send_notif(data)
-    {
+    Send_notif(data) {
         $.ajax({
 
-            type:"POST",
-            url:"https://fcm.googleapis.com/fcm/send",
-            headers : {
-                Authorization : 'key=' + 'AAAASolkDdQ:APA91bGQTqtjxefUeH3JhJQXP30B6d6TgHYN239VGsaX3-0qpBEH7_Wy_9MLiVOlniHQ9gqZcHt3q76d5QGb3It-qUIJfo954NZBmz9INY765rMn8S40Cz-fw5zTeBfoQVnZSE3oW4oL'
+            type: "POST",
+            url: "https://fcm.googleapis.com/fcm/send",
+            headers: {
+                Authorization: 'key=' + 'AAAASolkDdQ:APA91bGQTqtjxefUeH3JhJQXP30B6d6TgHYN239VGsaX3-0qpBEH7_Wy_9MLiVOlniHQ9gqZcHt3q76d5QGb3It-qUIJfo954NZBmz9INY765rMn8S40Cz-fw5zTeBfoQVnZSE3oW4oL'
             },
             contentType: "application/json",
             dataType: "json",
-            data : JSON.stringify(data),
+            data: JSON.stringify(data),
             success: function (response) {
-               console.log("Notif envoyé avec succes");                
+                console.log("Notif envoyé avec succes");
             },
             error: function (response) {
                 console.log("La notif n'a pas été envoyé");
@@ -687,6 +688,98 @@ class ServerManagerClass {
         });
 
 
+    }
+
+    AddStoryComment(data) {
+        let final_data = {
+            Data: data,
+            Action: "AddStoryComment",
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.AddStoryComment,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                story_comment_uploaded();
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    GetStoryComments(data) {
+        let final_data = {
+            TokenId: window.localStorage.getItem("user_token"),
+            Data: {
+                Index: data.index,
+                ObjectId: data.objectId
+            }
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetStoryComments,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                if (response.Data) {
+                    loadStoryComments(response);
+                }
+                // UpdateTimeline(response);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    AddStoryView(data) {
+        let final_data = {
+            Data: data,
+            Action: "AddStoryView",
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.AddStoryView,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                // story_comment_uploaded();
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    GetStoryView(data) {
+        let final_data = {
+            TokenId: window.localStorage.getItem("user_token"),
+            Data: {
+                Index: data.Index,
+                ObjectId: data.ObjectId
+            }
+        };
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetStoryView,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                if (response.Data) {
+                    loadStorySeen(response);
+                }
+                // loadStoryComments(response);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
     }
 }
 

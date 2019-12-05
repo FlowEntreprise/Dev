@@ -259,6 +259,7 @@ $$('.fvalidate-after_btn').on('touchend', function () {
     }
 });
 
+
 $$('.fcamera-after').on('click', function () {
     TakePhoto();
 });
@@ -286,6 +287,7 @@ function UpdateRecordIndicator() {
                 } else if (current_page == "story") {
                     let css = "rgba(0, 0, 0, 0) conic-gradient(white 0deg, white " + value + "%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
                     $(".fstory_addcomment_loading").css({
+                        "opacity": 0.5,
                         "background": css
                     });
                 }
@@ -430,15 +432,26 @@ function Save(blob) {
             new_block.finput_title.focus();
         }, 500);
     } else if (current_page == "story") {
-        playing_recorded_com = false;
-        recorded_com = new Audio(audioURL);
-        recorded_com.currentTime = 0;
-        $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/play.png')";
-        recorded_com.onended = function () {
-            recorded_com.pause();
-            $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/play.png')";
-            playing_recorded_com = false;
+        console.log("recorded story comment");
+        $(".fstory_addcomment_confirmation")[0].style.opacity = 1;
+        $(".fstory_addcomment_btn")[0].style.opacity = 0;
+        $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";
+        var reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = function () {
+            blob64 = reader.result;
+            appState.blob64 = reader.result.replace("data:audio/ogg;base64,", "");
+            console.log(appState.blob64);
         }
+        // playing_recorded_com = false;
+        // recorded_com = new Audio(audioURL);
+        // recorded_com.currentTime = 0;
+        // $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/play.png')";
+        // recorded_com.onended = function () {
+        //     recorded_com.pause();
+        //     $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/play.png')";
+        //     playing_recorded_com = false;
+        // }
     }
 }
 
@@ -756,7 +769,12 @@ var stopCapture = function (save) {
     });
     $$('#flow_number_of_sec').text("00");
     $$('#flow_story_number_of_sec').text("00");
-    
+
+    if (current_page == "story") {
+        $(".fstory_addcomment_loading")[0].style.opacity = 0;
+        $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/loading_circle.gif\")";
+    }
+
     // try {
     if (window.audioinput && window.audioinput.isCapturing()) {
 
@@ -775,6 +793,9 @@ var stopCapture = function (save) {
             var blob = encoder.finish("audio/wav");
             console.log("BLOB created");
             EncodeOpus(blob);
+        }
+        else {
+            $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";
         }
     }
 };

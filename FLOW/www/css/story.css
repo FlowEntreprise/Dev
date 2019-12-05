@@ -239,6 +239,57 @@
     z-index: 10;
 }
 
+.fstory_addcomment_confirm
+{
+    position: absolute;
+    bottom: 3vh;
+    height: 20vw;
+    width: 20vw;
+    left: 53vw;
+    border-radius: 100%;
+    background-color: transparent;
+    background-image: url("../src/icons/validate.png");
+    background-size: 12vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: solid 2px white;
+
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20vw;
+    color: white;
+    font-size: 46px;
+    font-family: "Roboto-Light";
+    z-index: 10;
+}
+
+.fstory_addcomment_cancel
+{
+    position: absolute;
+    bottom: 3vh;
+    height: 20vw;
+    width: 20vw;
+    left: 27vw;
+    border-radius: 100%;
+    background-color: transparent;
+    background-image: url("../src/icons/cancel.png");
+    background-size: 7vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: solid 2px white;
+    filter: brightness(10);
+
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20vw;
+    color: white;
+    font-size: 46px;
+    font-family: "Roboto-Light";
+    z-index: 10;
+}
+
+
+
 .fstory_seen_icon
 {
     position: absolute;
@@ -251,6 +302,7 @@
     background-position: center;
     background-repeat: no-repeat;
     filter: brightness(3);
+    display: none;
 }
 
 .fstory_seen_txt
@@ -263,6 +315,7 @@
     color: white;
     font-family: "Roboto-Regular";
     font-size: 13px;
+    display: none;
 }
 
 .fstory_comment_list
@@ -286,16 +339,17 @@
 
 .fstory_comment_time {
     position: absolute;
-    margin-left: 2vw;
+    margin-left: 0vw;
     margin-top: 4vh;
     color: white;
     font-family: "Roboto-Light";
     font-size: 13px;
+    text-align: center;
 }
 
 .fstory_comment_pseudo {
     position: absolute;
-    margin-left: 35vw;
+    margin-left: 45vw;
     margin-top: 3.5vh;
     color: white;
     font-family: "Roboto-Regular";
@@ -305,7 +359,7 @@
 .fstory_comment_pp {
     position: absolute;
     margin-top: 1vh;
-    margin-left: 15vw;
+    margin-left: 25vw;
     height: 8vh;
     width: 8vh;
     border-radius: 100%;
@@ -321,7 +375,7 @@
 .fstory_comment_loading {
     position: absolute;
     margin-top: 0.5vh;
-    margin-left: calc(15vw - 0.5vh);
+    margin-left: calc(25vw - 0.5vh);
     height: 9vh;
     width: 9vh;
     background: conic-gradient(white 0 0%, transparent 0 100%);
@@ -333,7 +387,7 @@
 {
     position: absolute;
     margin-top: 1vh;
-    margin-left: 15vw;
+    margin-left: 25vw;
     height: 8vh;
     width: 8vh;
     border-radius: 100%;
@@ -647,4 +701,9 @@
     100% {
         background-position: -6000px;
     }
+}
+
+.fstory_addcomment_confirmation
+{
+    opacity: 0;
 }
