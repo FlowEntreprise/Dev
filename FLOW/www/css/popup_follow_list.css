@@ -1,0 +1,134 @@
+#popup-follow-list-content {
+    border-top-left-radius: 15px !important;
+    border-top-right-radius: 15px !important;
+}
+
+.popup_follow_list_title {
+    width: 90vw;
+    text-align: center;
+    position: absolute;
+    left: 5vw;
+    top: calc(2* var(--custom-vh));
+    font-size: 5vw;
+}
+
+.fclose_follow_list {
+    width: 4vw;
+    position: absolute;
+    right: 4.5vw;
+    top: calc(2* var(--custom-vh));
+    opacity: 1 !important;
+}
+
+.flow_follow_list_container {
+    padding: 0 !important;
+    position: absolute;
+    top: calc(6* var(--custom-vh));
+    border-top: 0.5px solid #92ABB2;
+    width: 100vw;
+    height: calc(110% - 10* var(--custom-vh));
+    overflow-y: scroll;
+}
+
+.f_block_user {
+    position: relative;
+    height: calc(12* var(--custom-vh));
+    background-color: #fff;
+    border-bottom: 0.5px solid #92ABB2
+}
+
+
+.f_block_user_tag {
+    /* block pour taguer dans un commentaire*/
+    position: relative;
+    height: calc(10* var(--custom-vh));
+    background-color: #fff;
+}
+
+.f_block_user:active,
+.f_block_user_tag:active {
+    background-color: #f1f8fe;
+}
+
+.f_user_photo {
+    background-image: url("www/src/pictures/notif2.jpg");
+    position: absolute;
+    width: calc(7.5* var(--custom-vh));
+    height: calc(7.5* var(--custom-vh));
+    top: calc(1* var(--custom-vh));
+    left: 2vw;
+    border-radius: calc(7.5* var(--custom-vh));
+    border: 1.5px solid rgb(255, 255, 255);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-size: cover;
+    background-position: center;
+}
+
+.f_user_fullname {
+    position: absolute;
+    top: 1.5vh;
+    left: 21vw;
+    color: #1A84EF;
+    font-family: Roboto-Regular;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.f_user_private_id {
+    position: absolute;
+    top: 4vh;
+    left: 21vw;
+    color: #1A84EF;
+    font-family: Roboto-Regular;
+    opacity: 0.5;
+}
+
+.f_user_bio {
+    position: absolute;
+    top: 7vh;
+    left: 21vw;
+    color: #92ABB2;
+    font-size: 3.3vw;
+}
+
+.following_button {
+    position: absolute;
+    border: solid 1.5px #1A84EF;
+    color: #1A84EF;
+    border-radius: 22vw;
+    width: 65px;
+    text-align: center;
+    font-size: 10px;
+    padding: 2px;
+    top: calc(4.20* var(--custom-vh));
+    right: 5vw;
+}
+
+.follow_you_button {
+    width: 60px;
+    position: absolute;
+    top: calc(4.4* var(--custom-vh));
+    left: 80vw;
+    
+}
+
+.follow_you_icon
+{
+    width: 8%;
+    position: absolute;
+    right: 5vw;
+}
+
+.follow_you_button_tag {
+    /* bouton follows you pour les block de tag dans un commentaire*/
+    background-color: #92ABB2;
+    border-radius: 22vw;
+    width: 60px;
+    text-align: center;
+    font-size: 10px;
+    padding: 2px;
+    position: absolute;
+    top: calc(3.4* var(--custom-vh));
+    left: 80vw;
+    color: white;
+}

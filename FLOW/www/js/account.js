@@ -54,7 +54,8 @@ document.getElementById("popup-account").addEventListener("opened", function () 
     $("#fFollowButtunAccount").click(function () {
         $(this)[0].style.pointerEvents = "none";
         let data = {
-            PrivateId: privateIDAccount
+            PrivateId: privateIDAccount,
+            type : "profile_follow"
         };
         ServerManager.ActionFollow(data);
     });
@@ -181,15 +182,40 @@ function fInitialisationAccount(privateId) {
     ServerManager.GetUserInfo(getUserInfoAccount);
 }
 
-function manageFollow() {
+function manageFollow(type,element) { // html_element est element html qui doit etre affecté
+   if(type == "profile_follow")
+   {
+   
     if (follow) {
         $("#fFollowButtunAccount").addClass("activeButtunFollow");
         $("#fFollowButtunAccount").text("FOLLOWING");
+        
     } else {
         $("#fFollowButtunAccount").removeClass("activeButtunFollow");
         $("#fFollowButtunAccount").text("FOLLOW");
+        
     }
+    }
+
+    if(type == "block_user_follow")
+   {
+   
+    if (follow) {        
+        $(element.following_button).text("FOLLOWING");
+        $(element.following_button).addClass("activeButtunFollow");
+        MyFollowing = +MyFollowing + 1;
+        $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+        
+    } else {
+        $(element.following_button).text("FOLLOW");
+        $(element.following_button).removeClass("activeButtunFollow");
+        MyFollowing = +MyFollowing - 1;
+        $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+    }
+    }
+
 }
+//#fFollowButtunAccount
 
 function manageFollowYou() {
     if (followYou) {
@@ -206,7 +232,7 @@ function ShowUserProfile(response) {
         nameCompte = response.Data.FullName;
         followYou = JSON.parse(response.Data.HeFollowYou);
         follow = JSON.parse(response.Data.YouFollowHim);
-        manageFollow();
+        manageFollow("profile_follow");
         manageFollowYou();
         $("#fbioCompte").html(bioCompte);
         $("#fnameCompte").html(nameCompte);
@@ -307,7 +333,7 @@ function ShowUserFlow(flow) {
     }
 }
 
-function FollowResponse(response) {
+function FollowResponse(response,type,element) {
     if (response.Follow !== undefined) {
         follow = true;
         Follower++;
@@ -318,5 +344,5 @@ function FollowResponse(response) {
         $("#ffollowersBandeauChiffre").html(Follower);
     } else {}
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
-    manageFollow();
+    manageFollow(type,element);    
 }

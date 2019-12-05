@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="css/popup_comment.css">
     <link rel="stylesheet" type="text/css" href="css/flow_specifique.css">    
     <link rel="stylesheet" type="text/css" href="css/custom_popup.css">
+    <link rel="stylesheet" type="text/css" href="css/popup_follow_list.css">
 
 
     <!-- <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.md.colors.min.css">
@@ -319,7 +320,7 @@
                             <div id="fbandeauMonCompte">
                                 <div class="finfoBandeau" id="ffLowBandeau">Flows</div>
                                 <div class="finfoBandeau" id="ffollowersBandeau">Followers</div>
-                                <div class="finfoBandeau" id="ffollowingBandeau">Following</div>
+                                <div class="finfoBandeau" id="ffollowingBandeau">Followings</div>
                                 <div id="fflowmyBandeauChiffre"></div>
                                 <div id="ffollowersmyBandeauChiffre"></div>
                                 <div id="ffollowingmyBandeauChiffre"></div>
@@ -378,7 +379,7 @@
                             <div id="fbandeauCompte">
                                 <div class="finfoBandeau" id="ffLowBandeau">Flows</div>
                                 <div class="finfoBandeau" id="ffollowersBandeau">Followers</div>
-                                <div class="finfoBandeau" id="ffollowingBandeau">Following</div>
+                                <div class="finfoBandeau" id="ffollowingBandeau">Followings</div>
                                 <div id="fflowBandeauChiffre"></div>
                                 <div id="ffollowersBandeauChiffre"></div>
                                 <div id="ffollowingBandeauChiffre"></div>
@@ -387,8 +388,8 @@
                             <div id="fnameCompte"></div>
                             <div id="privateID"></div>
                             <div id="fbioCompte"></div>
-                            <div id="fFollowButtunAccount">FOLLOW</div>
-                            <div id="fFollowYouButtunAccount">follows you</div>
+                            <div id="fFollowButtunAccount">Follow</div>
+                            <div id="fFollowYouButtunAccount">Follows You</div>
                         </div>
                         <div class="toolbar no-border fnavAccount fnavAccountTransitionTop">
                             <div class="toolbar-inner sizeTollBarAccount">
@@ -474,11 +475,31 @@
        </div> -->
 
 
-      <div class="custom_popup" id="popup-specifique">
+    <div class="custom_popup" id="popup-specifique">
         <div class="popup_bg"></div>
         <div class="popup_content" animation-direction="up">
         <img src="src/icons/cancel.png"  class="fclose_specifique" onclick="Popup('popup-specifique', false)">
         <div class="flow_specifique_container">
+
+        </div>
+        </div>
+    </div>
+
+    <div class="custom_popup" id="popup-follow-list">
+        <div class="popup_bg"></div>
+        <div class="popup_content" id="popup-follow-list-content" animation-direction="up">
+        <label class="popup_follow_list_title">Followers</label>
+        <img src="src/icons/cancel.png"  class="fclose_follow_list" onclick="Popup('popup-follow-list', false)">
+        <div class="flow_follow_list_container">
+
+         <!--  <div class="f_block_user">
+                <div class="f_user_photo"></div>                    
+                <label class="f_user_fullname">King Chris</label>
+                <label class="f_user_private_id">@king_chriis</label>
+                <label class="f_user_bio">don't waste my time</label>
+            <div class="following_button">Following</div>
+            <div class="follow_you_button">Follows You</div>
+            </div> -->
 
         </div>
         </div>
@@ -525,6 +546,7 @@
     <script type="text/javascript" src="js/myAccount.js"></script>
     <script type="text/javascript" src="js/account.js"></script>
     <script type="text/javascript" src="js/flow_specifique.js"></script>
+    <script type="text/javascript" src="js/popup_follow_list.js"></script>
 </body>
 
 </html>

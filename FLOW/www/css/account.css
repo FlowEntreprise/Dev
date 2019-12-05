@@ -73,10 +73,11 @@
 {
     position: absolute;
     color: #1A84EF;
-    font-size: 28px;
+    font-size: 6vw;
     left: 36vw;
     top: 13vh;
     font-family:Roboto-Regular;
+    font-weight: 500;
 }
 
 #fbioCompte
@@ -215,7 +216,7 @@
 {
     color: #1A84EF;
     position: absolute;
-    font-size: 18px;
+    font-size: 4.5vw;
     left: 36vw;
     top: calc(17* var(--custom-vh));
     font-family:Roboto-Regular;

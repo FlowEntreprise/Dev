@@ -58,7 +58,7 @@
 #ffollowersBandeau {
     position: absolute;
     top: calc(4.5* var(--custom-vh));
-    right: 28vw;
+    right: 26.5vw;
     font-size: 16px;
     font-family: Roboto-Thin;
 }
@@ -66,7 +66,7 @@
 #ffollowingBandeau {
     position: absolute;
     top: calc(4.5* var(--custom-vh));
-    right: 8vw;
+    right: 3.5vw;
     font-size: 16px;
     font-family: Roboto-Thin;
 }

@@ -148,6 +148,7 @@ function UpdateTimeline(data) {
 function StopRefreshTL() {
   if ($(".loading_tl")) $(".loading_tl").remove();
   CanRefreshTL = false;
+  CanRefreshFollowList = false;
   pullToRefreshEnd();
 }
 

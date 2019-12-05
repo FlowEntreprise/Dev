@@ -171,6 +171,11 @@ $('.fsend_comment').on('click', function () {
 //input des commentaires
 $(".finput_comment").keyup(function () {
 
+
+    $(".finput_comment").keypress(function(event) {
+        console.log("la touche pressé est :" + event.key);
+    });
+
     if (($(".finput_comment").val()).trim() != "") {
         $(".fsend_comment").css('filter', 'brightness(100%)');
         $(".fsend_comment").css('pointer-events', 'auto');

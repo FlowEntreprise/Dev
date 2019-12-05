@@ -533,6 +533,7 @@ function go_to_account(data) //fonction permettant apres click sur sa photo d'al
             Popup("popup-specifique", false);
             Popup("popup-comment", false);
             Popup("popup-account", false);
+            Popup("popup-follow-list",false);
             Popup("popup-myaccount", true);
         } else {
             shake("tabMonCompte1");
@@ -542,8 +543,10 @@ function go_to_account(data) //fonction permettant apres click sur sa photo d'al
         if (current_page == "account" && privateIDAccount == data.private_Id) {
             shake("tabCompte1");
             Popup("popup-comment", false);
+            Popup("popup-follow-list",false);
         } else {
             Popup("popup-comment", false);
+            Popup("popup-follow-list",false);
             Popup("popup-account", true);
             fInitialisationAccount(data.private_Id);
         }

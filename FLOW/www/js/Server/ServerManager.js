@@ -18,7 +18,10 @@ const ServerParams = {
     GetUserProfil: "GetProfil",
     GetSingle : "GetSingle",
     ActionFollowProfil: 'Follow',
-    UpdateRegisterId : "UpdateRegisterId"
+    UpdateRegisterId : "UpdateRegisterId",
+    GetFollowerOfUser : "GetFollowerOfUser",
+    GetFollowingOfUser : "GetFollowingOfUser"
+
 };
 const apiTypes = {
     Twitter: 'twitter',
@@ -471,6 +474,52 @@ class ServerManagerClass {
         });
     }
 
+    GetFollowerOfUser(data) {
+        let final_data = {
+            
+            TokenId: window.localStorage.getItem("user_token"),
+            Data: {
+                Index: data.Index,
+                PrivateId: data.PrivateId
+            }
+        };
+        console.log("final data = " );
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetFollowerOfUser,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                UpdateUsersList(response);
+            },
+            error: function (response) {}
+        });
+    }
+
+    GetFollowingOfUser(data) {
+        let final_data = {
+            
+            TokenId: window.localStorage.getItem("user_token"),
+            Data: {
+                Index: data.Index,
+                PrivateId: data.PrivateId
+            }
+        };
+        console.log("final data = " );
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetFollowingOfUser,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                UpdateUsersList(response);
+            },
+            error: function (response) {}
+        });
+    }
+
     ActionFollow(data) {
         let final_data = {
             Data: data,
@@ -483,7 +532,7 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
-                FollowResponse(response);
+                FollowResponse(response,data.type,data.block_user);
             },
             error: function (response) {}
         });
