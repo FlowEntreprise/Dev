@@ -1,4 +1,5 @@
-function block_notification_like(data) { //type permet de defini si c'est le like d'un flow ou le like d'un commentaire
+
+    function block_notification_like(data) { //type permet de defini si c'est le like d'un flow ou le like d'un commentaire
     this.seen = false;
     var block_notification_like = this;
     this.full_name = data.additionalData.sender_info.fullname; // nom de celui qui a send la notif
@@ -241,12 +242,14 @@ function push_notif_block(notification_type,like_type) {
       
 }
 
+//https://github.com/phonegap/phonegap-plugin-push/blob/master/docs/PAYLOAD.md
 
 function send_notif_to_user(block,type)
 {
 
 
     let prepare_id_flow = block.ObjectId ? block.ObjectId : block.Flow_block_id;
+    let prepare_id_registerId = block.RegisterId ? block.RegisterId : block.current_flow_block.RegisterId;
     if(prepare_id_flow == undefined){prepare_id_flow = block.current_flow_block.ObjectId;}
     var sender_info = { 
                         fullname : window.localStorage.getItem("user_name"),
@@ -256,16 +259,14 @@ function send_notif_to_user(block,type)
                         comment_text : block.Comment, // texte commentaire genre le vrai commenaire t'a capté
                         like_comment_text : block.fcomment_text, // texte lorsque l'on like un commentaire
                         IdFlow : prepare_id_flow
-                        };
-    
-    if(registrationId == block.RegisterId) 
+                        };        
+
+
+if( (registrationId != prepare_id_registerId) ||
+ (registrationId == prepare_id_registerId && block.tag_user_RegisterId != "" && registrationId != block.tag_user_RegisterId))
     {
-        console.log("on peut pas s'envoyer des notifs à soit même voyons");
-    }
-    else{
     switch (type) {
         case 'like_flow':
-
             
             data = {
         
@@ -273,7 +274,8 @@ function send_notif_to_user(block,type)
                  "title" : sender_info.fullname,          
                  "message" : "@" + sender_info.privateId  + " liked your flow : "  + sender_info.post_texte,
                  "type" : "like_flow",
-                 "sender_info" : sender_info        
+                 "sender_info" : sender_info,
+                 "force-start": 1      
                },
                "to":block.RegisterId
                //registrationId
@@ -290,9 +292,28 @@ function send_notif_to_user(block,type)
                      "title" : sender_info.fullname,          
                      "message": "@" + sender_info.privateId +" commented : "+ block.Comment,
                      "type" : "send_comment",
-                     "sender_info" : sender_info
+                     "sender_info" : sender_info,
+                     "force-start": 1
                    },
                    "to":block.current_flow_block.RegisterId
+                   //registrationId
+               };
+               ServerManager.Send_notif(data);
+
+            break;
+
+            case 'tag_in_comment':
+
+                data = {
+        
+                    "data" : {
+                     "title" : sender_info.fullname,          
+                     "message": block.Comment,
+                     "type" : "send_comment",
+                     "sender_info" : sender_info,
+                     "force-start": 1
+                   },
+                   "to":block.tag_user_RegisterId
                    //registrationId
                };
                ServerManager.Send_notif(data);
@@ -307,7 +328,8 @@ function send_notif_to_user(block,type)
                      "title" : sender_info.fullname,          
                      "message" : "@" + sender_info.privateId +" liked your comment : "+ block.fcomment_text,
                      "type" : "like_comment",
-                     "sender_info" : sender_info
+                     "sender_info" : sender_info,
+                     "force-start": 1
                    },
                    "to":block.RegisterId
                    //registrationId
@@ -317,8 +339,13 @@ function send_notif_to_user(block,type)
             break;
 
         }
-    }    
+    } 
+    
+    else{
+        console.log("on peut pas s'envoyer des notifs à soit même voyons");
+    }
 
 }
 
 var all_notifications_block = [];
+

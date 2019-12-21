@@ -1,4 +1,5 @@
 "use_strict";
+
 var block_id = 0;
 
 /*********** BLOCK PARAMS *************
@@ -598,6 +599,11 @@ function get_all_comment(response, data_block) {
 
             // $(".loading_tl").remove();
             let block_commentaire = new block_comment(comment_data);
+            $(block_commentaire.fblock_comment_comment).each(function() {
+                $(this).html($(this).text()
+                            .replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>'));
+            });
+
             $(".fblock_comment_content").append(block_commentaire);
 
         }
@@ -726,3 +732,5 @@ document.getElementById("popup-comment").addEventListener("closed", function () 
     StatusBar.backgroundColorByHexString('#f7f7f8');
     StatusBar.styleDefault();
 });
+
+

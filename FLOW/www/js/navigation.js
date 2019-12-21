@@ -1,4 +1,5 @@
-var canShowNavbar = true;
+
+    var canShowNavbar = true;
 var explore_tabs_initialised = false;
 
 $("#tab1").load("pages/home.html");
@@ -171,6 +172,8 @@ function onBackKeyDown() {
     }
     analytics.setCurrentScreen(current_page);
 }
+
+
 
 
 

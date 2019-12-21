@@ -1,3 +1,4 @@
+
 function flow_specifique(data, LinkBuilder) {
 
     var image_link = undefined;
@@ -91,4 +92,5 @@ function notif_recieved(data) {
 
             break;
     }
-}
+}   
+

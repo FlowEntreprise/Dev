@@ -1,4 +1,5 @@
-var record_was_hold = false;
+
+    var record_was_hold = false;
 var recording = false;
 var record_time = 0;
 
@@ -893,3 +894,4 @@ function createWorker() {
         }
     };
 }
+

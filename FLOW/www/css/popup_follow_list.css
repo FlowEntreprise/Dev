@@ -1,6 +1,16 @@
+#popup-follow-list{
+    z-index: 9999999 !important;
+}
+
+#span_identification
+{
+    color : purple;
+}
+
 #popup-follow-list-content {
     border-top-left-radius: 15px !important;
     border-top-right-radius: 15px !important;
+    
 }
 
 .popup_follow_list_title {

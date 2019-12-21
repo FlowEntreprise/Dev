@@ -1,5 +1,6 @@
 var all_users_block = [];
-var my_followers;
+var my_followers = false;
+var all_tagged_users = [];
 //block qui correspond à utilisateur de la liste des followers et follwing
 function block_user(follow_list, data) //follow_list true correspond au block user de la liste des utilisateur que l'on peu identifier dans un commentaire
 {
@@ -11,6 +12,22 @@ function block_user(follow_list, data) //follow_list true correspond au block us
   this.block_user = document.createElement('div');
   follow_list == false ? this.block_user.className = 'f_block_user' : this.block_user.className = 'f_block_user_tag';
   $(".flow_follow_list_container").append(this.block_user);
+
+  if (follow_list == true) {
+    $(this.block_user).on('click', function () {
+      $('#finput_comment').focus();
+      $("#finput_comment").val(string_input_comment.join(" ") + data.PrivateId + " ");
+      $('.regex-example').highlightWithinTextarea({
+        highlight: /@[^ ]+/gi
+      });   
+      let data_user = {
+        private_Id : "@"+data.PrivateId,
+        RegisterId : data.RegisterId
+      };   
+      all_tagged_users.push(data_user);
+      Popup("popup-follow-list", false, -5);     
+    });
+  }
 
   this.fphoto_block_user = document.createElement('div');
   this.fphoto_block_user.className = 'f_user_photo';
@@ -47,7 +64,6 @@ function block_user(follow_list, data) //follow_list true correspond au block us
       this.following_button.className = 'following_button';
     }
 
-
     $(this.following_button).on('click', function () {
 
       let data_user = {
@@ -67,7 +83,9 @@ function block_user(follow_list, data) //follow_list true correspond au block us
       $(this.following_button).removeClass("activeButtunFollow");
       this.following_button.innerText = "Follow";
     }
-    this.block_user.appendChild(this.following_button);
+    if (this.following_button) {
+      this.block_user.appendChild(this.following_button);
+    }
   }
 
   if (data.HeFollowYou == "true" && my_followers == false) {
@@ -82,19 +100,18 @@ function block_user(follow_list, data) //follow_list true correspond au block us
 
 //click affichage followers
 $("#ffollowersBandeau,#ffollowersmyBandeauChiffre,#ffollowersBandeauChiffre").on('click', function (event) {
-  $(".popup_follow_list_title").text("Followers");  
+  $(".popup_follow_list_title").text("Followers");
   $(".flow_follow_list_container").html("");
-  var target = $( event.target );
-  if ( target.is( "#ffollowersmyBandeauChiffre" ) ) {
+  let target = $(event.target);
+
+  console.log("la target est :" + target);
+  if (target.is("#ffollowersmyBandeauChiffre")) {
     my_followers = true;
-  }
-  else
-  {
-    my_followers = false;
   }
   var data_followers = {
     PrivateId: privateIDAccount,
-    Index: 0
+    Index: 0,
+    follow_list: false
   };
   if (current_page == "my-account") {
 
@@ -106,12 +123,18 @@ $("#ffollowersBandeau,#ffollowersmyBandeauChiffre,#ffollowersBandeauChiffre").on
 });
 
 //click affichage following
-$("#ffollowingBandeau,#ffollowingmyBandeauChiffre,#ffollowingBandeauChiffre").on('click', function () { //
+$("#ffollowingBandeau,#ffollowingmyBandeauChiffre,#ffollowingBandeauChiffre").on('click', function (event) { //
   $(".popup_follow_list_title").text("Followings");
-  $(".flow_follow_list_container").html("");  
+  $(".flow_follow_list_container").html("");
+  let target = $(event.target);
+  console.log("la target est :" + target)
+  if (target.is("#ffollowingmyBandeauChiffre")) {
+    my_followers = false;
+  }
   var data_following = {
     PrivateId: privateIDAccount,
-    Index: 0
+    Index: 0,
+    follow_list: false
   };
   if (current_page == "my-account") {
 
@@ -122,9 +145,57 @@ $("#ffollowingBandeau,#ffollowingmyBandeauChiffre,#ffollowingBandeauChiffre").on
 
 });
 
+/*
+function createRange(node, chars, range) {
+  if (!range) {
+    range = document.createRange();
+    range.selectNode(node);
+    range.setStart(node, 0);
+  }
 
-let CanRefreshFollowList = true;
-let FollowListCurrentIndex = 0;
+  if (chars.count === 0) {
+    range.setEnd(node, chars.count);
+  } else if (node && chars.count > 0) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      if (node.textContent.length < chars.count) {
+        chars.count -= node.textContent.length;
+      } else {
+        range.setEnd(node, chars.count);
+        chars.count = 0;
+      }
+    } else {
+      for (var lp = 0; lp < node.childNodes.length; lp++) {
+        range = createRange(node.childNodes[lp], chars, range);
+
+        if (chars.count === 0) {
+          break;
+        }
+      }
+    }
+  }
+
+  return range;
+}
+
+function setCurrentCursorPosition(chars) {
+  if (chars >= 0) {
+    var selection = window.getSelection();
+
+    range = createRange(document.getElementById("finput_comment").parentNode, {
+      count: chars
+    });
+
+    if (range) {
+      range.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+  }
+}
+*/
+
+var CanRefreshFollowList = true;
+var FollowListCurrentIndex = 0;
 $(".flow_follow_list_container").scroll(function () {
   var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
   if (CanRefreshFollowList == true) {
@@ -139,7 +210,7 @@ $(".flow_follow_list_container").scroll(function () {
 });
 
 
-function UpdateUsersList(data) {
+function UpdateUsersList(data, follow_list) {
   console.log("updating users list...");
   // console.log(data.Data);
   if (Array.isArray(data)) {
@@ -152,7 +223,7 @@ function UpdateUsersList(data) {
         $(".flow_follow_list_container")[0].appendChild(loading_tl);
       }
       for (let i = 0; i < data.length; i++) {
-        let user = new block_user(false, data[i]);
+        let user = new block_user(follow_list, data[i]);
         all_users_block.push(user);
       }
       if ($(".loading_tl")) $(".loading_tl").remove();

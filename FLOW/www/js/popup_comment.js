@@ -1,5 +1,13 @@
+
 var parent = $(".fblock_comment_content");
 var current_comment_block;
+// $(document).ready(function() {
+//     $('.regex-example').highlightWithinTextarea({
+//             highlight: /@[^ ]+/gi
+//     });
+   
+// });
+
 
 function block_comment(comment_data) {
 
@@ -47,7 +55,7 @@ function block_comment(comment_data) {
     $(this.fblock_comment).append(this.fnumber_like);
 
     $(this.fcomment_like).on('click', function () { // like d'un commentaire
-        current_comment_block = block_comment;        
+        current_comment_block = block_comment;
         let data = {
 
             ObjectId: current_comment_block.Id,
@@ -55,11 +63,9 @@ function block_comment(comment_data) {
         ServerManager.LikeFlowComment(data, current_comment_block);
     });
 
-
     $$(this.fid_user).on('taphold', function () {
         var clickedLink = this;
         app.popover('.popover', clickedLink);
-
 
     });
 
@@ -76,6 +82,16 @@ function block_comment(comment_data) {
         let data = {
             private_Id: block_comment.private_Id,
             user_private_Id: window.localStorage.getItem("user_private_id")
+        };
+        go_to_account(data);
+    });
+
+    $(block_comment).find("span").on('click',function()
+    {
+        let data = 
+        {
+            private_Id : $(this).text().slice(1),
+            user_private_Id : window.localStorage.getItem("user_private_id") 
         };
         go_to_account(data);
     });
@@ -128,17 +144,36 @@ function send_comment_to_server(data) {
         Time: "0",
         IsLike: 0,
         IdComment: data.IdComment,
-        RegisterId: registrationId,
-        current_flow_block: current_flow_block
+        //RegisterId: registrationId,
+        current_flow_block: current_flow_block,
+        tag_user_RegisterId : ""
     };
 
     let comment_number = parseInt($(".fcomment_number").text());
+    let tableau_comment_to_tag_users = data.Comment.split(" ");
     comment_number = comment_number + 1;
     $(".fcomment_number").text(comment_number + " commentaires");
     $(current_flow_block.ftxt_impression_comment).text(comment_number);
     send_notif_to_user(comment_data, "send_comment");
-    var new_block_comment = new block_comment(comment_data);
-    var i = 0;
+
+    for(let i = 0; i < tableau_comment_to_tag_users.length; i++)
+    {
+        if(tableau_comment_to_tag_users[i].slice(0,1) == "@")
+        {
+            for( let i_all_tag = 0; i_all_tag < all_tagged_users.length; i_all_tag++ )
+            {
+                if(tableau_comment_to_tag_users[i] == all_tagged_users[i_all_tag].private_Id)
+                {
+                    comment_data.tag_user_RegisterId = all_tagged_users[i_all_tag].RegisterId;
+                    send_notif_to_user(comment_data, "tag_in_comment");
+                }
+            }
+            
+        }
+    }
+    all_tagged_users.length = 0;
+    $(".hwt-backdrop").html(" ");
+    var new_block_comment = new block_comment(comment_data);    
     current_flow_block.all_comment_blocks.push(new_block_comment);
     impression_coloring(this, 'comment', current_flow_block);
     console.log(current_flow_block.all_comment_blocks[0].fblock_comment);
@@ -146,44 +181,86 @@ function send_comment_to_server(data) {
     console.log("data du send comment to server" + data + "");
 }
 
+
+
 $('.fsend_comment').on('click', function () {
 
-    var comment = ($(".finput_comment").val()).trim();
+    var comment = ($("#finput_comment").val()).trim();
 
     let data = {
 
         ObjectId: current_flow_block.ObjectId,
         Comment: comment
-    }
+    };
 
 
     if (comment == "") {
         alert("Commentaire vide !!!");
     } else {
 
-        $(".finput_comment").val("");
+        $("#finput_comment").val("");
 
         ServerManager.AddFlowComment(data);
     }
 
 });
 
+
+
+
+var string_input_comment;
+
 //input des commentaires
-$(".finput_comment").keyup(function () {
 
+$("#finput_comment").keyup(function () {
 
-    $(".finput_comment").keypress(function(event) {
-        console.log("la touche pressé est :" + event.key);
-    });
-
-    if (($(".finput_comment").val()).trim() != "") {
+    if (($("#finput_comment").val()).trim() != "") {
         $(".fsend_comment").css('filter', 'brightness(100%)');
         $(".fsend_comment").css('pointer-events', 'auto');
-    } else if (($(".finput_comment").val()).trim() == "") {
+    } else if (($("#finput_comment").val()).trim() == "") {
         $(".fsend_comment").css('filter', 'brightness(200%)');
         $(".fsend_comment").css('pointer-events', 'none');
     }
+
+    string_input_comment = $("#finput_comment").val();
+    string_input_comment = string_input_comment.split(" ");
+
+    for(let i = 0; i < string_input_comment.length; i++)
+    {
+        if(string_input_comment[(string_input_comment.length) - 1] == "@")
+        {
+            $(".flow_follow_list_container").html("");
+            let data_following = {
+                PrivateId: window.localStorage.getItem("user_private_id"),
+                Index: 0,
+                follow_list: true
+            };
+            ServerManager.GetFollowerOfUser(data_following);
+            Popup("popup-follow-list", true, -5);
+            
+        }
+        else{
+            Popup("popup-follow-list", false, -5);
+        }
+    }
+
+    
+    
+
+    
+    var str1 = $("#finput_comment").val();
+    var str2;
+    console.log(str1);
 });
+
+
+
+
+
+
+
+
+
 
 //supression de commentaire
 function delete_comment(element) {
@@ -214,23 +291,19 @@ function color_like(block, like) // like des commentaires
     console.log("chris color like");
     if (like) {
         console.log("chris color is like like like ");
-        $(block.fcomment_like).attr('src', 'src/icons/Like_filled.png');        
+        $(block.fcomment_like).attr('src', 'src/icons/Like_filled.png');
         block.is_liked = 1;
         block.fnumber_like.innerHTML = parseInt(block.fnumber_like.innerHTML) + 1;
-        if(block.last_like_time != undefined)
-                    {
-                    let last_like = Math.floor(((now - block.last_like_time) / 1000) / 60);
-                    if(last_like > 29)
-                    {
-                    send_notif_to_user(block, "like_comment");
-                    block.last_like_time = Date.now();
-                    }
-                    }
-                    else if(block.last_like_time == undefined)
-                    {
-                        send_notif_to_user(block, "like_comment");
-                        block.last_like_time = Date.now();
-                    }
+        if (block.last_like_time != undefined) {
+            let last_like = Math.floor(((now - block.last_like_time) / 1000) / 60);
+            if (last_like > 29) {
+                send_notif_to_user(block, "like_comment");
+                block.last_like_time = Date.now();
+            }
+        } else if (block.last_like_time == undefined) {
+            send_notif_to_user(block, "like_comment");
+            block.last_like_time = Date.now();
+        }
 
     } else {
         $(block.fcomment_like).attr('src', 'src/icons/Like.png');
@@ -241,3 +314,4 @@ function color_like(block, like) // like des commentaires
 }
 ///////-----mettre le array all comment block dans le block_flow--------/////////
 //// FAIRE scroll onto view flow specifique/////////
+

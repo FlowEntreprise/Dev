@@ -1,4 +1,5 @@
-var nameMonCompte;
+
+    var nameMonCompte;
 var bioMonCompte;
 var MyFlowBandeau;
 var MyFollower;
@@ -316,3 +317,4 @@ function ShowMyInfosUser(data) {
     $("#ffollowersmyBandeauChiffre").html(MyFollower);
     $("#ffollowingmyBandeauChiffre").html(MyFollowing);
 }
+
