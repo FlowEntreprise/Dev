@@ -49,48 +49,5 @@ function flow_specifique(data, LinkBuilder) {
 
 }
 
-function notif_recieved(data) {
-
-    var notif_type = data.additionalData.type;
-
-
-    switch (notif_type) {
-        case 'like_flow':
-
-            if (data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " liked your flow");
-                $(".f_in_app_notif").css("margin-top", "-40vw");
-                setTimeout(function () {
-                    $(".f_in_app_notif").css("margin-top", "5vw");
-                }, 2000);
-            }
-            push_notif_block('like', data);
-
-            break;
-
-        case 'send_comment':
-
-            if (data.additionalData.foreground == true) {
-            $(".flabel_in_app_notif").text(data.title + " commented your flow");
-            $(".f_in_app_notif").css("margin-top", "-40vw");
-            setTimeout(function () {
-                $(".f_in_app_notif").css("margin-top", "5vw");
-            }, 2000);}
-            push_notif_block('comment', data);
-
-            break;
-
-        case 'like_comment':
-
-                if (data.additionalData.foreground == true) {
-            $(".flabel_in_app_notif").text(data.title + " liked your comment");
-            $(".f_in_app_notif").css("margin-top", "-40vw");
-            setTimeout(function () {
-                $(".f_in_app_notif").css("margin-top", "5vw");
-            }, 2000);}
-            push_notif_block('like', data);
-
-            break;
-    }
-}   
+   
 

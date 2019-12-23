@@ -146,7 +146,7 @@ function block_notification_comment(data) {
 
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
-    this.fnotif_label.innerText = this.full_name + ' commented your flow';
+    this.fnotif_label.innerText = this.full_name;
     this.block_notification_comment.appendChild(this.fnotif_label);
 
     this.fnotif_text = document.createElement('label');
@@ -256,14 +256,14 @@ function send_notif_to_user(block,type)
                         privateId : window.localStorage.getItem("user_private_id"),
                         profil_pic : window.localStorage.getItem("user_profile_pic"),
                         post_texte : $(block.fpost_title).text(), // texte like de flow
-                        comment_text : block.Comment, // texte commentaire genre le vrai commenaire t'a capté
+                        comment_text : block.Comment_text, // texte commentaire genre le vrai commenaire t'a capté
                         like_comment_text : block.fcomment_text, // texte lorsque l'on like un commentaire
                         IdFlow : prepare_id_flow
                         };        
 
 
 if( (registrationId != prepare_id_registerId) ||
- (registrationId == prepare_id_registerId && block.tag_user_RegisterId != "" && registrationId != block.tag_user_RegisterId))
+ (registrationId == prepare_id_registerId && block.tag_user_RegisterId != undefined && registrationId != block.tag_user_RegisterId))
     {
     switch (type) {
         case 'like_flow':
@@ -290,7 +290,7 @@ if( (registrationId != prepare_id_registerId) ||
         
                     "data" : {
                      "title" : sender_info.fullname,          
-                     "message": "@" + sender_info.privateId +" commented : "+ block.Comment,
+                     "message": "@" + sender_info.privateId +" commented : "+ block.Comment_text,
                      "type" : "send_comment",
                      "sender_info" : sender_info,
                      "force-start": 1
@@ -308,7 +308,7 @@ if( (registrationId != prepare_id_registerId) ||
         
                     "data" : {
                      "title" : sender_info.fullname,          
-                     "message": block.Comment,
+                     "message": block.Comment_text,
                      "type" : "send_comment",
                      "sender_info" : sender_info,
                      "force-start": 1
@@ -345,6 +345,52 @@ if( (registrationId != prepare_id_registerId) ||
         console.log("on peut pas s'envoyer des notifs à soit même voyons");
     }
 
+}
+
+
+function notif_recieved(data) {
+
+    var notif_type = data.additionalData.type;
+
+
+    switch (notif_type) {
+        case 'like_flow':
+
+            if (data.additionalData.foreground == true) {
+                $(".flabel_in_app_notif").text(data.title + " liked your flow");
+                $(".f_in_app_notif").css("margin-top", "-40vw");
+                setTimeout(function () {
+                    $(".f_in_app_notif").css("margin-top", "5vw");
+                }, 2000);
+            }
+            push_notif_block('like', data);
+
+            break;
+
+        case 'send_comment':
+
+            if (data.additionalData.foreground == true) {
+            $(".flabel_in_app_notif").text(data.title + " commented your flow");
+            $(".f_in_app_notif").css("margin-top", "-40vw");
+            setTimeout(function () {
+                $(".f_in_app_notif").css("margin-top", "5vw");
+            }, 2000);}
+            push_notif_block('comment', data);
+
+            break;
+
+        case 'like_comment':
+
+                if (data.additionalData.foreground == true) {
+            $(".flabel_in_app_notif").text(data.title + " liked your comment");
+            $(".f_in_app_notif").css("margin-top", "-40vw");
+            setTimeout(function () {
+                $(".f_in_app_notif").css("margin-top", "5vw");
+            }, 2000);}
+            push_notif_block('like', data);
+
+            break;
+    }
 }
 
 var all_notifications_block = [];

@@ -121,8 +121,7 @@
 
 .fwrite_comment {
     position: absolute;
-    height: calc(5.5* var(--custom-vh));
-    border-top: 0.1px solid #92ABB2;
+    height: calc(5.5* var(--custom-vh));    
     width: 100vw;    
     box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
     background-color: #fff;
@@ -151,9 +150,10 @@
     font-size: calc(2* var(--custom-vh)) !important;
     color: #4A4A4A;
     padding-top: 2vh !important;
+    resize: none;
 }
 
-.finput_comment::placeholder {
+#finput_comment::placeholder {
     color: #92ABB2;
 }
 
@@ -163,11 +163,11 @@
     display: inline-block;
 }
 
-.finput_comment:focus {
+#finput_comment:focus {
     outline: none;
 }
 
-.finput_comment::placeholder {
+#finput_comment::placeholder {
     color: #4A4A4A;
     font-family: "Roboto-Light";
 }

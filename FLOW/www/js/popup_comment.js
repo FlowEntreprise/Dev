@@ -86,7 +86,7 @@ function block_comment(comment_data) {
         go_to_account(data);
     });
 
-    $(block_comment).find("span").on('click',function()
+   /* $(block_comment).find("span").on('click',function()
     {
         let data = 
         {
@@ -94,7 +94,7 @@ function block_comment(comment_data) {
             user_private_Id : window.localStorage.getItem("user_private_id") 
         };
         go_to_account(data);
-    });
+    });*/
 
 }
 
@@ -136,17 +136,18 @@ var account_imageURL = "src/pictures/notif1.png";
 function send_comment_to_server(data) {
 
 
-    var comment_data = {
+    let comment_data = {
         PrivateId: window.localStorage.getItem("user_private_id"),
         ProfilePicture: window.localStorage.getItem("user_profile_pic"),
-        Comment: data.Comment,
+        Comment: data.Comment.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>'),
+        Comment_text : data.Comment,
         Like_number: "0",
         Time: "0",
         IsLike: 0,
         IdComment: data.IdComment,
         //RegisterId: registrationId,
         current_flow_block: current_flow_block,
-        tag_user_RegisterId : ""
+        tag_user_RegisterId : undefined
     };
 
     let comment_number = parseInt($(".fcomment_number").text());
@@ -182,7 +183,6 @@ function send_comment_to_server(data) {
 }
 
 
-
 $('.fsend_comment').on('click', function () {
 
     var comment = ($("#finput_comment").val()).trim();
@@ -207,6 +207,15 @@ $('.fsend_comment').on('click', function () {
 
 
 
+
+$(document).on('click','.tagged_users',function(){   
+    let tagged_user_private_id = ($(this).text()).slice(1);
+    let data = {
+        private_Id: tagged_user_private_id,
+        user_private_Id: window.localStorage.getItem("user_private_id")
+    };
+    go_to_account(data);
+});
 
 var string_input_comment;
 
@@ -243,23 +252,11 @@ $("#finput_comment").keyup(function () {
             Popup("popup-follow-list", false, -5);
         }
     }
-
-    
-    
-
     
     var str1 = $("#finput_comment").val();
     var str2;
     console.log(str1);
 });
-
-
-
-
-
-
-
-
 
 
 //supression de commentaire
