@@ -20,9 +20,9 @@ ptrContent.on('ptr:pullend', function (e) {
   console.log("pull end");
   $("#ptr_arrow").css("opacity", "0");
 });
-$(".fhome-btn").on("click", function() {
+$(".fhome-btn").on("click", function () {
   // var home_scrolling = false;
-  if (current_page=="home") {
+  if (current_page == "home") {
     let element = document.getElementById("tab1");
     // element.onscroll = function() {
     //     home_scrolling = true;
@@ -99,7 +99,7 @@ function PopFlow(data, LinkBuilder) {
     IsComment: data.IsComment,
     Likes: data.Likes,
     Comments: data.Comments,
-    RegisterId : data.RegisterId,
+    RegisterId: data.RegisterId,
   };
 
   var new_block = new block(block_params);
@@ -111,6 +111,7 @@ function PopFlow(data, LinkBuilder) {
 
 function UpdateTimeline(data) {
   console.log("updating timeline...");
+  stopAllBlocksAudio();
   // console.log(data.Data);
   if (Array.isArray(data.Data)) {
     setTimeout(function () {

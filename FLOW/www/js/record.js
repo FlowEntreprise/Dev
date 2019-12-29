@@ -433,9 +433,9 @@ function Save(blob) {
         }, 500);
     } else if (current_page == "story") {
         console.log("recorded story comment");
-        $(".fstory_addcomment_confirmation")[0].style.opacity = 1;
-        $(".fstory_addcomment_btn")[0].style.opacity = 0;
-        $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";
+        // $(".fstory_addcomment_confirmation")[0].style.opacity = 1;
+        // $(".fstory_addcomment_btn")[0].style.opacity = 0;
+        // $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";
         var reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onloadend = function () {
@@ -443,15 +443,31 @@ function Save(blob) {
             appState.blob64 = reader.result.replace("data:audio/ogg;base64,", "");
             console.log(appState.blob64);
         }
-        // playing_recorded_com = false;
-        // recorded_com = new Audio(audioURL);
-        // recorded_com.currentTime = 0;
-        // $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/play.png')";
-        // recorded_com.onended = function () {
-        //     recorded_com.pause();
-        //     $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/play.png')";
-        //     playing_recorded_com = false;
-        // }
+
+        let story_comment = {
+            ObjectId: story_data[story_index].data[storyFlow_index].id,
+            // PrivatedId: window.localStorage.getItem("user_private_id"),
+            Sound: appState.blob64,
+            Duration: record_time,
+        };
+
+        console.log(story_comment);
+        console.log("Send story comment to server");
+        // $(".fstory_addcomment_cancel")[0].style.opacity = 0.5;
+        // $(".fstory_addcomment_cancel")[0].style.pointerEvents = "none";
+        // $(".fstory_addcomment_confirm")[0].style.pointerEvents = "none";
+        $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/loading_circle.gif\")";
+        $(".fstory_addcomment_btn")[0].style.pointerEvents = "none";
+        // $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
+        // $(".fstory_addcomment_btn")[0].style.opacity = 1;
+
+        setTimeout(function () {
+            ServerManager.AddStoryComment(story_comment);
+            analytics.logEvent("upload_story_comment", {
+                private_id: story_comment.PrivatedId,
+                duration: story_comment.Duration
+            });
+        }, 100);
     }
 }
 
@@ -793,8 +809,7 @@ var stopCapture = function (save) {
             var blob = encoder.finish("audio/wav");
             console.log("BLOB created");
             EncodeOpus(blob);
-        }
-        else {
+        } else if (current_page == "story") {
             $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";
         }
     }

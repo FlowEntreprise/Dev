@@ -357,13 +357,16 @@ function SpawnStoryWindow(story_block) {
 }
 
 function story_comment_uploaded() {
-    $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
-    $(".fstory_addcomment_btn")[0].style.opacity = 1;
+    // $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
+    // $(".fstory_addcomment_btn")[0].style.opacity = 1;
 
-    $(".fstory_addcomment_cancel")[0].style.opacity = 1;
-    $(".fstory_addcomment_cancel")[0].style.pointerEvents = "auto";
-    $(".fstory_addcomment_confirm")[0].style.pointerEvents = "auto";
-    $(".fstory_addcomment_confirm")[0].style.backgroundImage = "url(\"src/icons/validate.png\")";
+    $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";
+    $(".fstory_addcomment_btn")[0].style.pointerEvents = "auto";
+
+    // $(".fstory_addcomment_cancel")[0].style.opacity = 1;
+    // $(".fstory_addcomment_cancel")[0].style.pointerEvents = "auto";
+    // $(".fstory_addcomment_confirm")[0].style.pointerEvents = "auto";
+    // $(".fstory_addcomment_confirm")[0].style.backgroundImage = "url(\"src/icons/validate.png\")";
 
     refresh_story_comments();
 }
@@ -602,13 +605,12 @@ function loadStory(story_index, storyFlow_index) {
         if (story_data[story_index].private_id != window.localStorage.getItem("user_private_id")) {
             $(".fstory_seen_icon")[0].style.display = "none";
             $(".fstory_seen_txt")[0].style.display = "none";
-            
+
             let data = {
                 ObjectId: story_data[story_index].data[storyFlow_index].id
             }
             ServerManager.AddStoryView(data);
-        }
-        else {
+        } else {
             $(".fstory_seen_icon")[0].style.display = "block";
             $(".fstory_seen_txt")[0].style.display = "block";
         }
@@ -703,7 +705,7 @@ function loadStory(story_index, storyFlow_index) {
 function previousStory() {
     if (can_next_prev) {
         current_story_audio.pause();
-        if (current_story_audio.currentTime < 0.5) {
+        if (current_story_audio.currentTime < 1) {
             stopAllStoriesAudio();
             if (storyFlow_index > 0) {
                 storyFlow_index--;
@@ -955,7 +957,7 @@ function loadStorySeen(data) {
     for (let i = 0; i < data.Data.length; i++) {
         let new_StorySeen = new StorySeen();
         new_StorySeen.private_id = "@" + data.Data[i].PrivateId;
-        new_StorySeen.time = "Seen " + set_timestamp(data.Data[i].LastStoryView );        
+        new_StorySeen.time = "Seen " + set_timestamp(data.Data[i].LastStoryView);
         let src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Data[i].ProfilePicture.name + '?';
         let param = `${data.LinkBuilder.Params.hash}=${data.Data[i].ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.Data[i].ProfilePicture.timestamp}`;
         new_StorySeen.user_picture = src + param;

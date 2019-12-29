@@ -47,7 +47,7 @@ function block_comment(comment_data) {
     $(this.fblock_comment).append(this.fnumber_like);
 
     $(this.fcomment_like).on('click', function () { // like d'un commentaire
-        current_comment_block = block_comment;        
+        current_comment_block = block_comment;
         let data = {
 
             ObjectId: current_comment_block.Id,
@@ -172,7 +172,7 @@ $('.fsend_comment').on('click', function () {
 $(".finput_comment").keyup(function () {
 
 
-    $(".finput_comment").keypress(function(event) {
+    $(".finput_comment").keypress(function (event) {
         console.log("la touche pressé est :" + event.key);
     });
 
@@ -199,12 +199,14 @@ function delete_comment(element) {
 }
 document.getElementById("popup-comment").addEventListener("opened", function () {
     $(".fwrite_comment")[0].style.display = "block";
+    in_comments = true;
 });
 
 //Notif lors d'un nouveau commentaire
 
 document.getElementById("popup-comment").addEventListener("closed", function () {
     $(".fwrite_comment")[0].style.display = "none";
+    in_comments = false;
 });
 
 
@@ -214,23 +216,19 @@ function color_like(block, like) // like des commentaires
     console.log("chris color like");
     if (like) {
         console.log("chris color is like like like ");
-        $(block.fcomment_like).attr('src', 'src/icons/Like_filled.png');        
+        $(block.fcomment_like).attr('src', 'src/icons/Like_filled.png');
         block.is_liked = 1;
         block.fnumber_like.innerHTML = parseInt(block.fnumber_like.innerHTML) + 1;
-        if(block.last_like_time != undefined)
-                    {
-                    let last_like = Math.floor(((now - block.last_like_time) / 1000) / 60);
-                    if(last_like > 29)
-                    {
-                    send_notif_to_user(block, "like_comment");
-                    block.last_like_time = Date.now();
-                    }
-                    }
-                    else if(block.last_like_time == undefined)
-                    {
-                        send_notif_to_user(block, "like_comment");
-                        block.last_like_time = Date.now();
-                    }
+        if (block.last_like_time != undefined) {
+            let last_like = Math.floor(((now - block.last_like_time) / 1000) / 60);
+            if (last_like > 29) {
+                send_notif_to_user(block, "like_comment");
+                block.last_like_time = Date.now();
+            }
+        } else if (block.last_like_time == undefined) {
+            send_notif_to_user(block, "like_comment");
+            block.last_like_time = Date.now();
+        }
 
     } else {
         $(block.fcomment_like).attr('src', 'src/icons/Like.png');

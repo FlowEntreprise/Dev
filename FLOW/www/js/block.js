@@ -385,10 +385,10 @@ function block(params) {
         current_flow_block = block;
         impression_coloring(this, 'like', block);
         let data = {
-            
+
             ObjectId: current_flow_block.ObjectId
         };
-        ServerManager.LikeFlow(data, current_flow_block);        
+        ServerManager.LikeFlow(data, current_flow_block);
     });
 
     $(this.fimg_impression_echo).on('click', function () {
@@ -411,12 +411,11 @@ function block(params) {
         display_all_comments(current_flow_block);
     });
 
-    $(this.fposter_photo).on('click',function(){
+    $(this.fposter_photo).on('click', function () {
 
-        let data = 
-        {
-            private_Id : block.privateID,
-            user_private_Id : window.localStorage.getItem("user_private_id") 
+        let data = {
+            private_Id: block.privateID,
+            user_private_Id: window.localStorage.getItem("user_private_id")
         };
         go_to_account(data);
     });
@@ -455,17 +454,13 @@ function impression_coloring(object, type, block, like_type) {
                 if (attr_img_like === 'src/icons/Like.png') {
                     $(block.fimg_impression_like).attr('src', 'src/icons/Like_filled.png');
                     $(block.ftxt_impression_like).text(+like_number + 1);
-                    if(block.last_like_time != undefined)
-                    {
-                    let last_like = Math.floor(((now - block.last_like_time) / 1000) / 60);
-                    if(last_like > 29)
-                    {
-                    send_notif_to_user(block, "like_flow");
-                    block.last_like_time = Date.now();
-                    }
-                    }
-                    else if(block.last_like_time == undefined)
-                    {
+                    if (block.last_like_time != undefined) {
+                        let last_like = Math.floor(((now - block.last_like_time) / 1000) / 60);
+                        if (last_like > 29) {
+                            send_notif_to_user(block, "like_flow");
+                            block.last_like_time = Date.now();
+                        }
+                    } else if (block.last_like_time == undefined) {
                         send_notif_to_user(block, "like_flow");
                         block.last_like_time = Date.now();
                     }
@@ -533,7 +528,7 @@ function go_to_account(data) //fonction permettant apres click sur sa photo d'al
             Popup("popup-specifique", false);
             Popup("popup-comment", false);
             Popup("popup-account", false);
-            Popup("popup-follow-list",false);
+            Popup("popup-follow-list", false);
             Popup("popup-myaccount", true);
         } else {
             shake("tabMonCompte1");
@@ -543,10 +538,10 @@ function go_to_account(data) //fonction permettant apres click sur sa photo d'al
         if (current_page == "account" && privateIDAccount == data.private_Id) {
             shake("tabCompte1");
             Popup("popup-comment", false);
-            Popup("popup-follow-list",false);
+            Popup("popup-follow-list", false);
         } else {
             Popup("popup-comment", false);
-            Popup("popup-follow-list",false);
+            Popup("popup-follow-list", false);
             Popup("popup-account", true);
             fInitialisationAccount(data.private_Id);
         }
