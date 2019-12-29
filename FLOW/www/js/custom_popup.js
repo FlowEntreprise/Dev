@@ -1,3 +1,4 @@
+
 /**
  * @param {string} identifier - html popup element id.
  * @param {boolean} show - show or hide popup (true or false).
@@ -52,4 +53,5 @@ $(".popup_bg").each(function () {
     this.addEventListener("click", function () {
         Popup(this.parentElement.id, false);
     });
-});
+});   
+

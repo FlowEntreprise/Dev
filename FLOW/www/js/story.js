@@ -1,4 +1,5 @@
-var story_window;
+
+    var story_window;
 var story_pos;
 var StorySiriWave;
 var currentSection = "main";
@@ -1032,3 +1033,4 @@ document.getElementById("popup-story-record").addEventListener("closed", functio
     current_page = "home";
     analytics.setCurrentScreen(current_page);
 });
+

@@ -7,13 +7,12 @@
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     overflow-y: hidden;
-    z-index: 9999999999999999 !important;
+    z-index: 999999999999 !important;
 }
 
-#popup-comment
-{
+#popup-comment {
     position: absolute;
-    z-index: 99999 !important;    
+    z-index: 99999 !important;
 }
 
 .fclose_comment {
@@ -30,8 +29,8 @@
 
 }
 
-.fblock_comment:active,.fpopover_button:active
-{
+.fblock_comment:active,
+.fpopover_button:active {
     background-color: #A9A9A9;
 }
 
@@ -77,9 +76,9 @@
 .fblock_comment_comment {
     position: relative;
     left: 20.5vw;
-    display : block;
+    display: block;
     overflow-wrap: break-word;
-    max-width : 100%;
+    max-width: 100%;
     top: calc(4.5* var(--custom-vh));
     max-width: 68vw;
     height: calc(7* var(--custom-vh));
@@ -122,29 +121,53 @@
 
 .fwrite_comment {
     position: absolute;
-    height: calc(5.5* var(--custom-vh));
-    border-top: 0.1px solid #92ABB2;
-    width: 100vw;
-    bottom: 0;
+    height: calc(5.5* var(--custom-vh));    
+    width: 100vw;    
     box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
     background-color: #fff;
-    z-index: 99999;
-    display: none;
+    z-index: 99999999999;
+    display: none;  
+    bottom: 0vh;  
 }
 
-.finput_comment {
-    position: absolute; 
-    width: 75vw;
-    height: calc(4.85* var(--custom-vh));
+
+
+.hwt-backdrop {
+    left: 4.4vw !important;
+
+}
+
+.tagged_users
+{
+    font-weight: bold;
+    color: dodgerblue;
+}
+#finput_comment{
+    width: 85vw !important;
+    left: 5vw !important;
     border: none;
-    top: calc(0.15* var(--custom-vh));
-    font-size: calc(2* var(--custom-vh));
+    height: 7vh !important;    
+    font-size: calc(2* var(--custom-vh)) !important;
     color: #4A4A4A;
-    left: 5vw;
-    /* margin-top: 120%; */
+    padding-top: 2vh !important;
+    resize: none;
 }
 
-.finput_comment::placeholder {
+#finput_comment::placeholder {
+    color: #92ABB2;
+}
+
+[contenteditable]:empty:before {
+    content: attr(data-placeholder);
+    color: #92ABB2;
+    display: inline-block;
+}
+
+#finput_comment:focus {
+    outline: none;
+}
+
+#finput_comment::placeholder {
     color: #4A4A4A;
     font-family: "Roboto-Light";
 }
@@ -159,15 +182,13 @@
     pointer-events: none;
 }
 
-.popover-inner
-{
+.popover-inner {
     height: calc(20* var(--custom-vh));
 }
 
 
 
-.fpopover_button
-{
+.fpopover_button {
     position: absolute;
     width: 100%;
     text-align: center;
@@ -179,26 +200,22 @@
 }
 
 
-.popover,.popover-angle:after
-{
+.popover,
+.popover-angle:after {
     background-color: #fff;
     left: 7.5vw !important;
     width: 85vw !important;
 }
 
 
-.fpopover_copy
-{
+.fpopover_copy {
     top: calc(3* var(--custom-vh));
 }
 
-.fpopover_report
-{
+.fpopover_report {
     top: calc(7* var(--custom-vh));
 }
 
-.fpopover_delete
-{
+.fpopover_delete {
     top: calc(11* var(--custom-vh));
 }
-

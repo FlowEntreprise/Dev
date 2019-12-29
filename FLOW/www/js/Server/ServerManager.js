@@ -495,7 +495,7 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
-                UpdateUsersList(response);
+                UpdateUsersList(response,data.follow_list);
             },
             error: function (response) {}
         });
@@ -518,7 +518,7 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
-                UpdateUsersList(response);
+                UpdateUsersList(response,data.follow_list);
             },
             error: function (response) {}
         });

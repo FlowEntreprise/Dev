@@ -1,3 +1,4 @@
+
 //DisconnectUser();
 var connected = false;
 var user_token;
@@ -132,4 +133,5 @@ document.getElementById("popup-connect").addEventListener("closed", function () 
 
 // $$('.popup-connect').on('popup:close', function () {
 //     StatusBar.backgroundColorByHexString('#f7f7f8');
-//     StatusBar.styleDefault();    
+//     StatusBar.styleDefault();       
+

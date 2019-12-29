@@ -1,4 +1,5 @@
 "use_strict";
+
 var block_id = 0;
 
 /*********** BLOCK PARAMS *************
@@ -589,10 +590,18 @@ function get_all_comment(response, data_block) {
                 IdComment: response.Data[i].IdComment,
                 RegisterId: response.Data[i].RegisterId,
                 Flow_block_id: data_block.ObjectId
-            }
+            };
 
-            // $(".loading_tl").remove();
+            comment_data.Comment = comment_data.Comment.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
             let block_commentaire = new block_comment(comment_data);
+            block_commentaire.chris_test = "chacal";
+            /*$(block_commentaire.fblock_comment_comment).each(function() {
+
+                console.log( $(this).html($(this).text()));
+                $(this).html($(this).text()
+                            .replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>'));
+            });*/
+
             $(".fblock_comment_content").append(block_commentaire);
 
         }
@@ -721,3 +730,5 @@ document.getElementById("popup-comment").addEventListener("closed", function () 
     StatusBar.backgroundColorByHexString('#f7f7f8');
     StatusBar.styleDefault();
 });
+
+

@@ -101,6 +101,11 @@ var app = {
         document.addEventListener("online", function () {
             online();
         }, false);
+        
+
+
+       
+
 
         crashlytics = FirebaseCrashlytics.initialise();
         crashlytics.logException("my caught exception");
