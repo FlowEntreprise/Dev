@@ -36,8 +36,8 @@
     top: calc(6* var(--custom-vh));
     border-top: 0.5px solid #92ABB2;
     width: 100vw;
-    height: calc(110% - 10* var(--custom-vh));
-    overflow-y: scroll;
+    height: calc(100% - 10* var(--custom-vh));
+    overflow: scroll !important;
 }
 
 .f_block_user {

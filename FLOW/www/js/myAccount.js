@@ -1,5 +1,5 @@
 
-    var nameMonCompte;
+var nameMonCompte;
 var bioMonCompte;
 var MyFlowBandeau;
 var MyFollower;

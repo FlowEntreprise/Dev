@@ -24,7 +24,10 @@ const ServerParams = {
     AddStoryComment: "AddStoryComment",
     GetStoryComments: "GetStoryComment",
     AddStoryView: "AddStoryView",
-    GetStoryView: "GetStoryView"
+    GetStoryView: "GetStoryView",
+    AddNotificationToUser : "AddNotificationToUser",
+    UpdateNotificationToView : "UpdateNotificationToView",
+    GetNotificationOfUser : "GetNotificationOfUser"
 };
 
 const apiTypes = {
@@ -667,7 +670,75 @@ class ServerManagerClass {
         });
     }
 
+    AddNotificationToUser(data) {
+        let final_data ={
+            Data : data,            
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.AddNotificationToUser,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response); 
+                console.log("notif added to bdd");
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    UpdateNotificationToView(data) {
+        let final_data ={
+            Data : data,            
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.UpdateNotificationToView,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                console.log("notif set to seen");                
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    GetNotificationOfUser(data) {
+        let final_data = {
+            Data: data,
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetNotificationOfUser,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                
+                UpdateNotificationList(response);                
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
     Send_notif(data) {
+
+        var data_notif_to_bdd ={
+            TypeNotification : data.data.type,
+            RegisterIdOfUserToNotify : data.to,
+            Content : data.data.sender_info.comment_text,
+            IdFlow : data.data.sender_info.IdFlow
+
+        };
         $.ajax({
 
             type: "POST",
@@ -678,7 +749,14 @@ class ServerManagerClass {
             contentType: "application/json",
             dataType: "json",
             data: JSON.stringify(data),
+            
             success: function (response) {
+/*
+                TypeNotification : data.data.type
+                RegisterIdOfUserToNotify : data.to
+                Content : data.data.message
+*/
+                ServerManager.AddNotificationToUser(data_notif_to_bdd);
                 console.log("Notif envoyé avec succes");
             },
             error: function (response) {

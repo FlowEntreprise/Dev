@@ -17,6 +17,7 @@ function block_comment(comment_data) {
     this.is_liked = comment_data.IsLike;
     this.RegisterId = comment_data.RegisterId;
     this.fcomment_text = comment_data.Comment;
+    this.Comment_text = comment_data.Comment_text;
     this.last_like_time;
     this.fblock_comment = document.createElement('div');
     this.fblock_comment.className = 'fblock_comment';
@@ -154,19 +155,24 @@ function send_comment_to_server(data) {
     comment_number = comment_number + 1;
     $(".fcomment_number").text(comment_number + " commentaires");
     $(current_flow_block.ftxt_impression_comment).text(comment_number);
-    send_notif_to_user(comment_data, "send_comment");
+    if(comment_data.Comment == comment_data.Comment_text)
+    {
+        send_notif_to_user(comment_data, "send_comment");
+    }
 
-    for (let i = 0; i < tableau_comment_to_tag_users.length; i++) {
-        if (tableau_comment_to_tag_users[i].slice(0, 1) == "@") {
-            for (let i_all_tag = 0; i_all_tag < all_tagged_users.length; i_all_tag++) {
-                if (tableau_comment_to_tag_users[i] == all_tagged_users[i_all_tag].private_Id) {
-                    comment_data.tag_user_RegisterId = all_tagged_users[i_all_tag].RegisterId;
-                    send_notif_to_user(comment_data, "tag_in_comment");
+    else{
+            for (let i = 0; i < tableau_comment_to_tag_users.length; i++) {
+                if (tableau_comment_to_tag_users[i].slice(0, 1) == "@") {
+                    for (let i_all_tag = 0; i_all_tag < all_tagged_users.length; i_all_tag++) {
+                        if (tableau_comment_to_tag_users[i] == all_tagged_users[i_all_tag].private_Id) {
+                            comment_data.tag_user_RegisterId = all_tagged_users[i_all_tag].RegisterId;
+                            send_notif_to_user(comment_data, "tag_in_comment");
+                        }
+                    }
+
                 }
             }
-
         }
-    }
     all_tagged_users.length = 0;
     $(".hwt-backdrop").html(" ");
     var new_block_comment = new block_comment(comment_data);
@@ -240,11 +246,21 @@ $("#finput_comment").keyup(function () {
                 Index: 0,
                 follow_list: true
             };
-            ServerManager.GetFollowerOfUser(data_following);
+            if (current_page == "my-account") {
+
+                data_following.PrivateId = window.localStorage.getItem("user_private_id");
+              }
+              else
+              {
+                data_following.PrivateId = privateIDAccount;
+              }
+            ServerManager.GetFollowingOfUser(data_following);            
             Popup("popup-follow-list", true, -5);
+            FollowListCurrentIndex = 0;            
 
         } else {
-            Popup("popup-follow-list", false, -5);
+            Popup("popup-follow-list", false, -5);            
+            FollowListCurrentIndex = 0;
         }
     }
 
