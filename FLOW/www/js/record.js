@@ -147,11 +147,12 @@ $(".fclose_story_record")[0].addEventListener("click", function () {
 $$('.frecord-btn').on('click', function () {
     if (recording) {
         console.log("stop recording");
-        if (record_time > 2) {
-            stopCapture(true);
-        } else {
-            stopCapture(false);
-        }
+        // if (record_time > 2) {
+        //     stopCapture(true);
+        // } else {
+        //     stopCapture(false);
+        // }
+        stopCapture(true);
     } else if (!record_was_hold) {
         console.log("start recording");
         startCapture();
@@ -160,11 +161,12 @@ $$('.frecord-btn').on('click', function () {
 
 $$('body').on('touchend', function () {
     if (recording && record_was_hold) {
-        if (record_time > 2) {
-            stopCapture(true);
-        } else {
-            stopCapture(false);
-        }
+        // if (record_time > 2) {
+        //     stopCapture(true);
+        // } else {
+        //     stopCapture(false);
+        // }
+        stopCapture(true);
     }
 });
 
