@@ -5,8 +5,11 @@ let canRefreshFlows = true;
 let exploreCurrentIndex = 0;
 let canRefreshTop50 = true;
 $(".fsearch-bar")[0].addEventListener("focus", function () {
+    app.destroyPullToRefresh(ptrContent_explore);
     $(".search_results")[0].style.opacity = 1;
     $(".search_results")[0].style.pointerEvents = "auto";
+    $(".list-block-top50")[0].style.opacity = 0;
+    $(".list-block-top50")[0].style.pointerEvents = "none";
     $(".explore-swiper")[0].style.display = "none";
     $(".search_back")[0].style.display = "block";
     searching = true;
@@ -16,14 +19,20 @@ $(".fsearch-bar")[0].addEventListener("focus", function () {
 });
 $(".fsearch-bar")[0].addEventListener("blur", function () {
     if (!searching) {
+        app.initPullToRefresh(ptrContent_explore);
         $(".search_results")[0].style.opacity = 0;
         $(".search_results")[0].style.pointerEvents = "none";
+        $(".list-block-top50")[0].style.opacity = 1;
+        $(".list-block-top50")[0].style.pointerEvents = "auto";
         $(".explore-swiper")[0].style.display = "block";
     }
 });
 $(".search_back")[0].addEventListener("click", function () {
+    app.initPullToRefresh(ptrContent_explore);
     $(".search_results")[0].style.opacity = 0;
     $(".search_results")[0].style.pointerEvents = "none";
+    $(".list-block-top50")[0].style.opacity = 1;
+    $(".list-block-top50")[0].style.pointerEvents = "auto";
     $(".explore-swiper")[0].style.display = "block";
     $(".search_back")[0].style.display = "none";
     searching = false;

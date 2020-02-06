@@ -1,5 +1,4 @@
-
-    var record_was_hold = false;
+var record_was_hold = false;
 var recording = false;
 var record_time = 0;
 
@@ -443,17 +442,24 @@ function Save(blob) {
             blob64 = reader.result;
             appState.blob64 = reader.result.replace("data:audio/ogg;base64,", "");
             console.log(appState.blob64);
+
+            let story_comment = {
+                ObjectId: story_data[story_index].data[storyFlow_index].id,
+                // PrivatedId: window.localStorage.getItem("user_private_id"),
+                Sound: appState.blob64,
+                Duration: record_time,
+            };
+
+            console.log(story_comment);
+            console.log("Send story comment to server");
+
+            ServerManager.AddStoryComment(story_comment);
+            analytics.logEvent("upload_story_comment", {
+                private_id: story_comment.PrivatedId,
+                duration: story_comment.Duration
+            });
         }
 
-        let story_comment = {
-            ObjectId: story_data[story_index].data[storyFlow_index].id,
-            // PrivatedId: window.localStorage.getItem("user_private_id"),
-            Sound: appState.blob64,
-            Duration: record_time,
-        };
-
-        console.log(story_comment);
-        console.log("Send story comment to server");
         // $(".fstory_addcomment_cancel")[0].style.opacity = 0.5;
         // $(".fstory_addcomment_cancel")[0].style.pointerEvents = "none";
         // $(".fstory_addcomment_confirm")[0].style.pointerEvents = "none";
@@ -462,13 +468,7 @@ function Save(blob) {
         // $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
         // $(".fstory_addcomment_btn")[0].style.opacity = 1;
 
-        setTimeout(function () {
-            ServerManager.AddStoryComment(story_comment);
-            analytics.logEvent("upload_story_comment", {
-                private_id: story_comment.PrivatedId,
-                duration: story_comment.Duration
-            });
-        }, 100);
+
     }
 }
 
@@ -909,4 +909,3 @@ function createWorker() {
         }
     };
 }
-
