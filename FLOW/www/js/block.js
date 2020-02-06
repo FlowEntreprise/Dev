@@ -86,7 +86,7 @@ function block(params) {
     this.ftop_part = document.createElement('div');
     this.ftop_part.className = 'ftop_part';
 
-    if (params.patternKey != undefined) {
+    if (params.patternKey != undefined && params.patternKey.length > 0) {
         this.patternKey = params.patternKey;
         this.ftop_part.style.backgroundImage = pattern = GeoPattern.generate(this.patternKey).toDataUrl();
     } else if (params.imageURL != undefined) {
@@ -730,5 +730,3 @@ document.getElementById("popup-comment").addEventListener("closed", function () 
     StatusBar.backgroundColorByHexString('#f7f7f8');
     StatusBar.styleDefault();
 });
-
-

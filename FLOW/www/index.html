@@ -22,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="css/account.css">
     <link rel="stylesheet" type="text/css" href="css/story.css">
     <link rel="stylesheet" type="text/css" href="css/popup_comment.css">
-    <link rel="stylesheet" type="text/css" href="css/flow_specifique.css">    
+    <link rel="stylesheet" type="text/css" href="css/flow_specifique.css">
     <link rel="stylesheet" type="text/css" href="css/custom_popup.css">
     <link rel="stylesheet" type="text/css" href="css/popup_follow_list.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.highlight-within-textarea.css">
@@ -42,9 +42,10 @@
     <script type="text/javascript" src="Dependencies/Vibrant/Vibrant.min.js"></script>
     <script type="text/javascript" src="Dependencies/SweetAlert/sweetalert.min.js"></script>
     <script type="text/javascript" src="Dependencies/LameJS/Lamejs.all.js"></script>
+    <!-- <script type="text/javascript" src="Dependencies/PullToRefreshJS/pulltorefresh.js"></script> -->
     <script type="text/javascript" src="js/auth/cordova.oauth2.js"></script>
     <script type="text/javascript" src="js/auth/phonegap.facebook.inappbrowser.js"></script>
-    
+
     <title>FLOW</title>
 </head>
 
@@ -116,7 +117,9 @@
 
                     <div class="fexplore-bar">
                         <input class="fsearch-bar" placeholder="Explore" />
-                        <div class="swiper-container swiper-3">
+                        <div class="search_icon"></div>
+                        <div class="search_back"></div>
+                        <div class="swiper-container swiper-3 explore-swiper">
                             <div class="swiper-pagination"></div>
                             <div class="fexplore_bg_div"></div>
                             <div class="swiper-wrapper fexplore_wrapper">
@@ -197,7 +200,7 @@
             </div>
 
 
-            
+
             <div class="custom_popup" id="popup-after-record">
                 <div class="popup_bg"></div>
                 <div class="popup_content" animation-direction="up">
@@ -426,7 +429,7 @@
                             <div id="tab1" class="page-content pull-to-refresh-content tab active hide-navbar-on-scroll"
                                 data-ptr-distance="55">
                             </div>
-                            <div id="tab2" class="page-content tab hide-navbar-on-scroll">
+                            <div id="tab2" class="page-content pull-to-refresh-content tab hide-navbar-on-scroll" data-ptr-distance="55">
                             </div>
                             <div id="tab3" class="page-content tab">
                             </div>
@@ -447,8 +450,8 @@
     <div class="record-shadow"></div>
     <div class="frecord-btn">
     </div>
-    
-      
+
+
     <div class="custom_popup" id="popup-comment">
         <!-- popup de commentaire--->
         <div class="popup_bg"></div>
@@ -467,7 +470,7 @@
             </div>
         </div>
     </div>
-      
+
     <!-- <div class="popup popup-specifique" id="popup-specifique">  affiche un flow specifique à la reception d'une notif 
         <img src="src/icons/cancel.png"  class="fclose_specifique" onclick="Popup('popup-specifique', false)">
         <div class="content-block flow_specifique_container">          
@@ -479,21 +482,21 @@
     <div class="custom_popup" id="popup-specifique">
         <div class="popup_bg"></div>
         <div class="popup_content" animation-direction="up">
-        <img src="src/icons/cancel.png"  class="fclose_specifique" onclick="Popup('popup-specifique', false)">
-        <div class="flow_specifique_container">
+            <img src="src/icons/cancel.png" class="fclose_specifique" onclick="Popup('popup-specifique', false)">
+            <div class="flow_specifique_container">
 
-        </div>
+            </div>
         </div>
     </div>
 
     <div class="custom_popup" id="popup-follow-list">
         <div class="popup_bg"></div>
         <div class="popup_content" id="popup-follow-list-content" animation-direction="up">
-        <label class="popup_follow_list_title">Followers</label>
-        <img src="src/icons/cancel.png"  class="fclose_follow_list" onclick="Popup('popup-follow-list', false)">
-        <div class="flow_follow_list_container">
+            <label class="popup_follow_list_title">Followers</label>
+            <img src="src/icons/cancel.png" class="fclose_follow_list" onclick="Popup('popup-follow-list', false)">
+            <div class="flow_follow_list_container">
 
-         <!--  <div class="f_block_user">
+                <!--  <div class="f_block_user">
                 <div class="f_user_photo"></div>                    
                 <label class="f_user_fullname">King Chris</label>
                 <label class="f_user_private_id">@king_chriis</label>
@@ -502,18 +505,19 @@
             <div class="follow_you_button">Follows You</div>
             </div> -->
 
-        </div>
+            </div>
         </div>
     </div>
 
 
-    <div class="f_in_app_notif" >
+    <div class="f_in_app_notif">
         <label class="flabel_in_app_notif">Chris liked your flow</label>
     </div>
 
 
     <div class="fwrite_comment">
-            <textarea class="regex-example" placeholder="Say something nice" maxlength="100" id="finput_comment" rows="1" class="finput_comment"></textarea>            
+        <textarea class="regex-example" placeholder="Say something nice" maxlength="100" id="finput_comment" rows="1"
+            class="finput_comment"></textarea>
         <img src="src/icons/send.png" class="fsend_comment">
     </div>
 
@@ -535,6 +539,7 @@
     <script type="text/javascript" src="js/connection.js"></script>
     <script type="text/javascript" src="js/story.js"></script>
     <script type="text/javascript" src="js/home.js"></script>
+    <script type="text/javascript" src="js/explore.js"></script>
     <script type="text/javascript" src="js/notifications.js"></script>
     <script type="text/javascript" src="js/navigation.js"></script>
     <script type="text/javascript" src="js/record.js"></script>

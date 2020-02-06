@@ -1,4 +1,3 @@
-
 var ptrContent = $$('.pull-to-refresh-content');
 // Add 'refresh' listener on it
 ptrContent.on('ptr:refresh', function (e) {
@@ -65,34 +64,34 @@ $("#tab1").scroll(function () {
 function PopFlow(data, LinkBuilder) {
   var image_link = undefined;
   var pattern_key = undefined;
-  if (data.Background.PatternKey == undefined) {
-    const src_img = 'https://' + LinkBuilder.Hostname + ':' + LinkBuilder.Port + '/images/' + data.Background.name + '?';
-    const param_img = `${LinkBuilder.Params.hash}=${data.Background.hash}&${LinkBuilder.Params.time}=${data.Background.timestamp}`;
-    image_link = src_img + param_img;
-  } else {
-    pattern_key = data.Background.PatternKey;
-  }
+  // if (data.Background.PatternKey == undefined) {
+  //   const src_img = 'https://' + LinkBuilder.Hostname + ':' + LinkBuilder.Port + '/images/' + data.Background.name + '?';
+  //   const param_img = `${LinkBuilder.Params.hash}=${data.Background.hash}&${LinkBuilder.Params.time}=${data.Background.timestamp}`;
+  //   image_link = src_img + param_img;
+  // } else {
+  //   pattern_key = data.Background.PatternKey;
+  // }
 
-  const src_flow = 'https://' + LinkBuilder.Hostname + ':' + LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
-  const param_flow = `${LinkBuilder.Params.hash}=${data.Audio.hash}&${LinkBuilder.Params.time}=${data.Audio.timestamp}`;
-  const flow_link = src_flow + param_flow;
+  // const src_flow = 'https://' + LinkBuilder.Hostname + ':' + LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
+  // const param_flow = `${LinkBuilder.Params.hash}=${data.Audio.hash}&${LinkBuilder.Params.time}=${data.Audio.timestamp}`;
+  // const flow_link = src_flow + param_flow;
 
-  const src_profile_img = 'https://' + LinkBuilder.Hostname + ':' + LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
-  const param_profile_img = `${LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
-  var profilePicLink = src_profile_img + param_profile_img;
+  // const src_profile_img = 'https://' + LinkBuilder.Hostname + ':' + LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
+  // const param_profile_img = `${LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
+  // var profilePicLink = src_profile_img + param_profile_img;
   // console.log(profilePicLink);
   // console.log(image_link);
   let block_params = {
-    parent_element: $(".list-block"),
+    parent_element: $(".list-block")[0],
     afterblock: false,
-    audioURL: flow_link,
+    audioURL: data.Audio,
     duration: data.Duration,
-    patternKey: pattern_key,
-    imageURL: image_link,
+    patternKey: data.Background.PatternKey,
+    imageURL: data.Background,
     title: data.Title,
     description: data.Description,
     pseudo: data.PrivateId,
-    account_imageURL: profilePicLink,
+    account_imageURL: data.ProfilePicture,
     ObjectId: data.ObjectId,
     PrivateId: data.PrivateId,
     Times: data.Time,
@@ -225,5 +224,4 @@ function trace(value) {
 var _root = document.documentElement;
 var _myvar = window.innerHeight / 100;
 _root.style.setProperty("--custom-vh", _myvar + "px");
-_root.style.setProperty("--custom-vh2", "0px");    
-
+_root.style.setProperty("--custom-vh2", "0px");

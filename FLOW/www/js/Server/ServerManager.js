@@ -18,13 +18,16 @@ const ServerParams = {
     GetUserProfil: "GetProfil",
     GetSingle: "GetSingle",
     ActionFollowProfil: 'Follow',
-    UpdateRegisterId : "UpdateRegisterId",
-    GetFollowerOfUser : "GetFollowerOfUser",
-    GetFollowingOfUser : "GetFollowingOfUser",
+    UpdateRegisterId: "UpdateRegisterId",
+    GetFollowerOfUser: "GetFollowerOfUser",
+    GetFollowingOfUser: "GetFollowingOfUser",
     AddStoryComment: "AddStoryComment",
     GetStoryComments: "GetStoryComment",
     AddStoryView: "AddStoryView",
-    GetStoryView: "GetStoryView"
+    GetStoryView: "GetStoryView",
+    SearchUser: "SearchUserForTabExplore",
+    SearchFlow: "SearchFlowForTabExplore",
+    GetTop50: "GetTop50"
 };
 
 const apiTypes = {
@@ -480,14 +483,14 @@ class ServerManagerClass {
 
     GetFollowerOfUser(data) {
         let final_data = {
-            
+
             TokenId: window.localStorage.getItem("user_token"),
             Data: {
                 Index: data.Index,
                 PrivateId: data.PrivateId
             }
         };
-        console.log("final data = " );
+        console.log("final data = ");
         console.log(final_data);
         $.ajax({
             type: "POST",
@@ -495,7 +498,7 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
-                UpdateUsersList(response,data.follow_list);
+                UpdateUsersList(response, data.follow_list);
             },
             error: function (response) {}
         });
@@ -503,14 +506,14 @@ class ServerManagerClass {
 
     GetFollowingOfUser(data) {
         let final_data = {
-            
+
             TokenId: window.localStorage.getItem("user_token"),
             Data: {
                 Index: data.Index,
                 PrivateId: data.PrivateId
             }
         };
-        console.log("final data = " );
+        console.log("final data = ");
         console.log(final_data);
         $.ajax({
             type: "POST",
@@ -518,7 +521,7 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
-                UpdateUsersList(response,data.follow_list);
+                UpdateUsersList(response, data.follow_list);
             },
             error: function (response) {}
         });
@@ -536,7 +539,7 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
-                FollowResponse(response,data.type,data.block_user);
+                FollowResponse(response, data.type, data.block_user);
             },
             error: function (response) {}
         });
@@ -775,6 +778,82 @@ class ServerManagerClass {
                     loadStorySeen(response);
                 }
                 // loadStoryComments(response);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    SearchUser(data) {
+        let final_data = {
+            // TokenId: window.localStorage.getItem("user_token"),
+            Data: {
+                Index: data.Index,
+                Search: data.Search
+            }
+        };
+        let tokken = window.localStorage.getItem("user_token");
+        if (tokken.length > 0) {
+            final_data.TokenId = tokken;
+        }
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.SearchUser,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                SpawnUserSearch(response);
+            },
+            error: function (response) {
+                a
+                console.log(response);
+            }
+        });
+    }
+
+    SearchFlow(data) {
+        let final_data = {
+            // TokenId: window.localStorage.getItem("user_token"),
+            Data: {
+                Index: data.Index,
+                Search: data.Search
+            }
+        };
+        let tokken = window.localStorage.getItem("user_token");
+        if (tokken.length > 0) {
+            final_data.TokenId = tokken;
+        }
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.SearchFlow,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                SpawnFlowSearch(response);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    GetTop50(data) {
+        let final_data = {
+            TokenId: window.localStorage.getItem("user_token"),
+            Data: {
+                Index: data.Index,
+            }
+        }
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetTop50,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                UpdateTop50(response);
             },
             error: function (response) {
                 console.log(response);
