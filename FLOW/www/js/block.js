@@ -531,6 +531,7 @@ function go_to_account(data) //fonction permettant apres click sur sa photo d'al
             Popup("popup-account", false);
             Popup("popup-follow-list", false);
             Popup("popup-myaccount", true);
+            current_page = "my-account";
         } else {
             shake("tabMonCompte1");
             Popup("popup-comment", false);
@@ -544,6 +545,7 @@ function go_to_account(data) //fonction permettant apres click sur sa photo d'al
             Popup("popup-comment", false);
             Popup("popup-follow-list", false);
             Popup("popup-account", true);
+            current_page = "account";
             fInitialisationAccount(data.private_Id);
         }
     }
@@ -584,6 +586,7 @@ function get_all_comment(response, data_block) {
                 PrivateId: response.Data[i].PrivateId,
                 ProfilePicture: profilePicLink,
                 Comment: response.Data[i].Comment,
+                Comment_text: response.Data[i].Comment,
                 Like_number: response.Data[i].Likes,
                 Time: response.Data[i].Time,
                 IsLike: response.Data[i].IsLike,

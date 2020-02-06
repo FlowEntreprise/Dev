@@ -117,8 +117,13 @@ $("#ffollowersBandeau,#ffollowersmyBandeauChiffre,#ffollowersBandeauChiffre").on
 
     data_followers.PrivateId = window.localStorage.getItem("user_private_id");
   }
+  else
+  {
+    data_followers.PrivateId = privateIDAccount;
+  }
   ServerManager.GetFollowerOfUser(data_followers);
   Popup("popup-follow-list", true, 30);
+  FollowListCurrentIndex = 0;
 
 });
 
@@ -127,7 +132,7 @@ $("#ffollowingBandeau,#ffollowingmyBandeauChiffre,#ffollowingBandeauChiffre").on
   $(".popup_follow_list_title").text("Followings");
   $(".flow_follow_list_container").html("");
   let target = $(event.target);
-  console.log("la target est :" + target)
+  console.log("la target est :" + target);
   if (target.is("#ffollowingmyBandeauChiffre")) {
     my_followers = false;
   }
@@ -140,62 +145,20 @@ $("#ffollowingBandeau,#ffollowingmyBandeauChiffre,#ffollowingBandeauChiffre").on
 
     data_following.PrivateId = window.localStorage.getItem("user_private_id");
   }
+  else
+  {
+    data_following.PrivateId = privateIDAccount;
+  }
   ServerManager.GetFollowingOfUser(data_following);
   Popup("popup-follow-list", true, 30);
+  FollowListCurrentIndex = 0;
 
 });
 
-/*
-function createRange(node, chars, range) {
-  if (!range) {
-    range = document.createRange();
-    range.selectNode(node);
-    range.setStart(node, 0);
-  }
-
-  if (chars.count === 0) {
-    range.setEnd(node, chars.count);
-  } else if (node && chars.count > 0) {
-    if (node.nodeType === Node.TEXT_NODE) {
-      if (node.textContent.length < chars.count) {
-        chars.count -= node.textContent.length;
-      } else {
-        range.setEnd(node, chars.count);
-        chars.count = 0;
-      }
-    } else {
-      for (var lp = 0; lp < node.childNodes.length; lp++) {
-        range = createRange(node.childNodes[lp], chars, range);
-
-        if (chars.count === 0) {
-          break;
-        }
-      }
-    }
-  }
-
-  return range;
-}
-
-function setCurrentCursorPosition(chars) {
-  if (chars >= 0) {
-    var selection = window.getSelection();
-
-    range = createRange(document.getElementById("finput_comment").parentNode, {
-      count: chars
-    });
-
-    if (range) {
-      range.collapse(false);
-      selection.removeAllRanges();
-      selection.addRange(range);
-    }
-  }
-}
-*/
-
-var CanRefreshFollowList = true;
-var FollowListCurrentIndex = 0;
+let CanRefreshFollowList = true;
+let FollowListCurrentIndex = 0;
+var data_update_followers_list = {
+};
 $(".flow_follow_list_container").scroll(function () {
   var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
   if (CanRefreshFollowList == true) {
@@ -203,8 +166,17 @@ $(".flow_follow_list_container").scroll(function () {
       CanRefreshFollowList = false;
       console.log("Get followers on Server");
       console.log("FollowListCurrentIndex : " + FollowListCurrentIndex);
-      ServerManager.GetFollowerOfUser(FollowListCurrentIndex);
-      ServerManager.GetFollowingOfUser(FollowListCurrentIndex);
+      data_update_followers_list.PrivateId = privateIDAccount;
+      data_update_followers_list.Index = FollowListCurrentIndex;      
+      if (current_page == "my-account") {
+        data_update_followers_list.PrivateId = window.localStorage.getItem("user_private_id");
+      }
+      else
+  {
+    data_followers.PrivateId = privateIDAccount;
+  }
+      ServerManager.GetFollowerOfUser(data_update_followers_list);
+      ServerManager.GetFollowingOfUser(data_update_followers_list);
     }
   }
 });
@@ -223,14 +195,15 @@ function UpdateUsersList(data, follow_list) {
         $(".flow_follow_list_container")[0].appendChild(loading_tl);
       }
       for (let i = 0; i < data.length; i++) {
-        let user = new block_user(follow_list, data[i]);
+        let user = new block_user(follow_list, data[i]);        
         all_users_block.push(user);
       }
-      if ($(".loading_tl")) $(".loading_tl").remove();
-      console.log("timeline updated !");
-      pullToRefreshEnd();
       FollowListCurrentIndex++;
-      if (data.length < 11) {
+      data_update_followers_list.follow_list = follow_list;
+      if ($(".loading_tl")) $(".loading_tl").remove();
+      console.log("user updated !");
+      pullToRefreshEnd();      
+      if (data.length < 10) {
         CanRefreshFollowList = false;
         let tick_tl = document.createElement("div");
         tick_tl.className = "tick_icon";

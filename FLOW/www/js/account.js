@@ -14,7 +14,6 @@ var profilePicLink;
 
 $(".fnavAccount").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 
-
 document.getElementById("popup-account").addEventListener("opened", function () {
     stopAllBlocksAudio();
     current_page = "account";
