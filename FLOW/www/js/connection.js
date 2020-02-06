@@ -1,4 +1,3 @@
-
 //DisconnectUser();
 var connected = false;
 var user_token;
@@ -22,14 +21,13 @@ function ConnectUser() {
     });
     ServerManager.GetStory();
     ServerManager.GetTimeline(0);
-    let data_notification = 
-        {
-            PrivateId : window.localStorage.getItem("user_private_id"),
-            Index : 0
-        };
-        ServerManager.GetNotificationOfUser(data_notification);
+    let data_notification = {
+        PrivateId: window.localStorage.getItem("user_private_id"),
+        Index: 0
+    };
+    ServerManager.GetNotificationOfUser(data_notification);
     let loading_tl = document.createElement("div");
-    loading_tl.className = "loading_circle loading_tl";
+    loading_tl.className = "loading-spinner loading_tl";
     $(".list-block")[0].appendChild(loading_tl);
     loading_tl.style.marginTop = "60%";
 
@@ -37,13 +35,13 @@ function ConnectUser() {
         private_id: window.localStorage.getItem("user_private_id")
     });
 
-    setTimeout(function(){
+    setTimeout(function () {
         let data = {
             RegisterId: registrationId
         }
         ServerManager.UpdateRegisterId(data);
     }, 100);
- 
+
     //$( "#fswipe_area" ).css({"pointer-events": "all"});
 }
 
@@ -139,4 +137,3 @@ document.getElementById("popup-connect").addEventListener("closed", function () 
 // $$('.popup-connect').on('popup:close', function () {
 //     StatusBar.backgroundColorByHexString('#f7f7f8');
 //     StatusBar.styleDefault();       
-

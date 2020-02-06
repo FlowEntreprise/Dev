@@ -340,7 +340,7 @@ function UpdateTop50(data) {
             if (exploreCurrentIndex == 0) {
                 $(".list-block-top50")[0].innerHTML = "";
                 let loading_tl = document.createElement("div");
-                loading_tl.className = "loading_circle loading_tl";
+                loading_tl.className = "loading-spinner loading_tl";
                 $(".list-block-top50")[0].appendChild(loading_tl);
             }
             for (let i = 0; i < data.length; i++) {
@@ -383,7 +383,7 @@ function UpdateTop50(data) {
             } else {
                 canRefreshTop50 = true;
                 let loading_tl = document.createElement("div");
-                loading_tl.className = "loading_circle loading_tl";
+                loading_tl.className = "loading-spinner loading_tl";
                 $(".list-block-top50")[0].appendChild(loading_tl);
             }
         }, 500);

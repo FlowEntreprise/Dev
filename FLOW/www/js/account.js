@@ -158,7 +158,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
 function fInitialisationAccount(privateId) {
     $("#UserActivity")[0].innerHTML = "";
     let loading_tl = document.createElement("div");
-    loading_tl.className = "loading_circle loading_myaccount";
+    loading_tl.className = "loading-spinner loading_myaccount";
     loading_tl.style.marginTop = "50%";
     $("#UserActivity")[0].appendChild(loading_tl);
 
@@ -324,7 +324,7 @@ function ShowUserFlow(flow) {
             indexAccount++;
             UserFlowAdd = true;
             let loading_tl = document.createElement("div");
-            loading_tl.className = "loading_circle loading_account";
+            loading_tl.className = "loading-spinner loading_account";
             $("#UserActivity")[0].appendChild(loading_tl);
         }
     }

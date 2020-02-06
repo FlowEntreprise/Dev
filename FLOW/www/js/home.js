@@ -119,7 +119,7 @@ function UpdateTimeline(data) {
       if (TLCurrentIndex == 0) {
         $(".list-block")[0].innerHTML = "";
         let loading_tl = document.createElement("div");
-        loading_tl.className = "loading_circle loading_tl";
+        loading_tl.className = "loading-spinner loading_tl";
         $(".list-block")[0].appendChild(loading_tl);
       }
       for (let i = 0; i < data.Data.length; i++) {
@@ -137,7 +137,7 @@ function UpdateTimeline(data) {
       } else {
         CanRefreshTL = true;
         let loading_tl = document.createElement("div");
-        loading_tl.className = "loading_circle loading_tl";
+        loading_tl.className = "loading-spinner loading_tl";
         $(".list-block")[0].appendChild(loading_tl);
       }
     }, 500);

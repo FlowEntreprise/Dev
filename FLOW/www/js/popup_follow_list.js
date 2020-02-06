@@ -19,13 +19,13 @@ function block_user(follow_list, data) //follow_list true correspond au block us
       $("#finput_comment").val(string_input_comment.join(" ") + data.PrivateId + " ");
       $('.regex-example').highlightWithinTextarea({
         highlight: /@[^ ]+/gi
-      });   
+      });
       let data_user = {
-        private_Id : "@"+data.PrivateId,
-        RegisterId : data.RegisterId
-      };   
+        private_Id: "@" + data.PrivateId,
+        RegisterId: data.RegisterId
+      };
       all_tagged_users.push(data_user);
-      Popup("popup-follow-list", false, -5);     
+      Popup("popup-follow-list", false, -5);
     });
   }
 
@@ -116,9 +116,7 @@ $("#ffollowersBandeau,#ffollowersmyBandeauChiffre,#ffollowersBandeauChiffre").on
   if (current_page == "my-account") {
 
     data_followers.PrivateId = window.localStorage.getItem("user_private_id");
-  }
-  else
-  {
+  } else {
     data_followers.PrivateId = privateIDAccount;
   }
   ServerManager.GetFollowerOfUser(data_followers);
@@ -144,9 +142,7 @@ $("#ffollowingBandeau,#ffollowingmyBandeauChiffre,#ffollowingBandeauChiffre").on
   if (current_page == "my-account") {
 
     data_following.PrivateId = window.localStorage.getItem("user_private_id");
-  }
-  else
-  {
+  } else {
     data_following.PrivateId = privateIDAccount;
   }
   ServerManager.GetFollowingOfUser(data_following);
@@ -157,8 +153,7 @@ $("#ffollowingBandeau,#ffollowingmyBandeauChiffre,#ffollowingBandeauChiffre").on
 
 let CanRefreshFollowList = true;
 let FollowListCurrentIndex = 0;
-var data_update_followers_list = {
-};
+var data_update_followers_list = {};
 $(".flow_follow_list_container").scroll(function () {
   var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
   if (CanRefreshFollowList == true) {
@@ -167,14 +162,12 @@ $(".flow_follow_list_container").scroll(function () {
       console.log("Get followers on Server");
       console.log("FollowListCurrentIndex : " + FollowListCurrentIndex);
       data_update_followers_list.PrivateId = privateIDAccount;
-      data_update_followers_list.Index = FollowListCurrentIndex;      
+      data_update_followers_list.Index = FollowListCurrentIndex;
       if (current_page == "my-account") {
         data_update_followers_list.PrivateId = window.localStorage.getItem("user_private_id");
+      } else {
+        data_followers.PrivateId = privateIDAccount;
       }
-      else
-  {
-    data_followers.PrivateId = privateIDAccount;
-  }
       ServerManager.GetFollowerOfUser(data_update_followers_list);
       ServerManager.GetFollowingOfUser(data_update_followers_list);
     }
@@ -191,18 +184,18 @@ function UpdateUsersList(data, follow_list) {
       if (FollowListCurrentIndex == 0) {
         $(".flow_follow_list_container")[0].innerHTML = "";
         let loading_tl = document.createElement("div");
-        loading_tl.className = "loading_circle loading_tl";
+        loading_tl.className = "loading-spinner loading_tl";
         $(".flow_follow_list_container")[0].appendChild(loading_tl);
       }
       for (let i = 0; i < data.length; i++) {
-        let user = new block_user(follow_list, data[i]);        
+        let user = new block_user(follow_list, data[i]);
         all_users_block.push(user);
       }
       FollowListCurrentIndex++;
       data_update_followers_list.follow_list = follow_list;
       if ($(".loading_tl")) $(".loading_tl").remove();
       console.log("user updated !");
-      pullToRefreshEnd();      
+      pullToRefreshEnd();
       if (data.length < 10) {
         CanRefreshFollowList = false;
         let tick_tl = document.createElement("div");
@@ -211,7 +204,7 @@ function UpdateUsersList(data, follow_list) {
       } else {
         CanRefreshFollowList = true;
         let loading_tl = document.createElement("div");
-        loading_tl.className = "loading_circle loading_tl";
+        loading_tl.className = "loading-spinner loading_tl";
         $(".flow_follow_list_container")[0].appendChild(loading_tl);
       }
     }, 500);

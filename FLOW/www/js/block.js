@@ -426,7 +426,7 @@ function display_all_comments(block) //fonction permettant d'affiher tout les co
 {
     $(".fblock_comment_content").html("");
     var loading_comment = document.createElement("div");
-    loading_comment.className = "loading_circle loading_tl loading_comment";
+    loading_comment.className = "loading-spinner loading_tl loading_comment";
     $(".fblock_comment_content").append(loading_comment);
     $(".fcomment_number").text("");
     let ObjectId = block.ObjectId ? block.ObjectId : block.additionalData.sender_info.IdFlow;
