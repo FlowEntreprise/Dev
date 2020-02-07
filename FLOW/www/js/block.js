@@ -81,6 +81,23 @@ function block(params) {
     this.block_flow.className = 'fflow';
     this.block_flow.setAttribute("block_id", this.block_id);
     block_id++;
+    if (params.LikeBy || params.CommentBy) {
+        let indicator_txt = "";
+        let indicator_icon = "";
+        if (params.LikeBy != null) {
+            indicator_txt = params.LikeBy + " liked this";
+            indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Like.png' width='15vw' height='30vw' align='middle'>";
+        }
+        if (params.CommentBy != null) {
+            indicator_txt = params.CommentBy + " commented this";
+            indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Comment.png' width='15vw' height='30vw' align='middle'>";
+        }
+        let tl_indicator = document.createElement("p");
+        tl_indicator.className = "tl_indicator";
+        tl_indicator.innerHTML = indicator_icon + indicator_txt;
+        this.block_flow.style.marginTop = "14vw";
+        this.block_flow.appendChild(tl_indicator);
+    }
     params.parent_element.append(this.block_flow);
 
     this.ftop_part = document.createElement('div');

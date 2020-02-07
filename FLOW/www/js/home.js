@@ -100,6 +100,8 @@ function PopFlow(data, LinkBuilder) {
     Likes: data.Likes,
     Comments: data.Comments,
     RegisterId: data.RegisterId,
+    CommentBy: data.CommentBy,
+    LikeBy: data.LikeBy
   };
 
   var new_block = new block(block_params);
@@ -114,6 +116,18 @@ function UpdateTimeline(data) {
   stopAllBlocksAudio();
   // console.log(data.Data);
   if (Array.isArray(data.Data)) {
+    let unique_data = [];
+    for (let index in data.Data) {
+      let unique = true;
+      for (let i in unique_data) {
+        if (unique_data[i].ObjectId == data.Data[index].ObjectId) {
+          unique = false;
+        }
+      }
+      if (unique) {
+        unique_data.push(data.Data[index]);
+      }
+    }
     setTimeout(function () {
       if ($(".loading_tl")) $(".loading_tl").remove();
       if (TLCurrentIndex == 0) {
@@ -122,14 +136,14 @@ function UpdateTimeline(data) {
         loading_tl.className = "loading-spinner loading_tl";
         $(".list-block")[0].appendChild(loading_tl);
       }
-      for (let i = 0; i < data.Data.length; i++) {
-        PopFlow(data.Data[i], data.LinkBuilder);
+      for (let i = 0; i < unique_data.length; i++) {
+        PopFlow(unique_data[i], data.LinkBuilder);
       }
       if ($(".loading_tl")) $(".loading_tl").remove();
       console.log("timeline updated !");
       pullToRefreshEnd();
       TLCurrentIndex++;
-      if (data.Data.length < 5) {
+      if (unique_data.length < 5) {
         CanRefreshTL = false;
         let tick_tl = document.createElement("div");
         tick_tl.className = "tick_icon";
