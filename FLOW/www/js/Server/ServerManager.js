@@ -18,16 +18,17 @@ const ServerParams = {
     GetUserProfil: "GetProfil",
     GetSingle: "GetSingle",
     ActionFollowProfil: 'Follow',
-    UpdateRegisterId : "UpdateRegisterId",
-    GetFollowerOfUser : "GetFollowerOfUser",
-    GetFollowingOfUser : "GetFollowingOfUser",
+    UpdateRegisterId: "UpdateRegisterId",
+    GetFollowerOfUser: "GetFollowerOfUser",
+    GetFollowingOfUser: "GetFollowingOfUser",
     AddStoryComment: "AddStoryComment",
     GetStoryComments: "GetStoryComment",
     AddStoryView: "AddStoryView",
     GetStoryView: "GetStoryView",
-    AddNotificationToUser : "AddNotificationToUser",
-    UpdateNotificationToView : "UpdateNotificationToView",
-    GetNotificationOfUser : "GetNotificationOfUser"
+    AddNotificationToUser: "AddNotificationToUser",
+    UpdateNotificationToView: "UpdateNotificationToView",
+    GetNotificationOfUser: "GetNotificationOfUser",
+    SearchUserForTabExplore: "SearchUserForTabExplore"
 };
 
 const apiTypes = {
@@ -41,7 +42,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-    constructor() {}
+    constructor() { }
 
     /* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
      * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions 
@@ -442,7 +443,7 @@ class ServerManagerClass {
                 console.log(response);
                 ShowMyInfosUser(response);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -458,7 +459,7 @@ class ServerManagerClass {
                 console.log("getInfosUserNumber");
                 ShowInfosUserNumber(response);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -477,43 +478,44 @@ class ServerManagerClass {
                 //console.log(response);
                 ShowUserProfile(response);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
     GetFollowerOfUser(data) {
         let final_data = {
-            
+
             TokenId: window.localStorage.getItem("user_token"),
             Data: {
                 Index: data.Index,
                 PrivateId: data.PrivateId
             }
         };
-        console.log("final data = " );
+        console.log("final data = ");
         console.log(final_data);
         $.ajax({
             type: "POST",
             url: ServerParams.ServerURL + ServerParams.GetFollowerOfUser,
             data: JSON.stringify(final_data),
             success: function (response) {
+                console.log("nombre de follower thomas ");
                 console.log(response);
-                UpdateUsersList(response,data.follow_list);
+                UpdateFollowersList(response, data.follow_list);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
     GetFollowingOfUser(data) {
         let final_data = {
-            
+
             TokenId: window.localStorage.getItem("user_token"),
             Data: {
                 Index: data.Index,
                 PrivateId: data.PrivateId
             }
         };
-        console.log("final data = " );
+        console.log("final data = ");
         console.log(final_data);
         $.ajax({
             type: "POST",
@@ -521,9 +523,14 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
-                UpdateUsersList(response,data.follow_list);
+                if (data.follow_list == true) {
+                    UpdateIdentificationList(response, data.follow_list);
+                }
+                else {
+                    UpdatefollowingsList(response, data.follow_list);
+                }
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -539,9 +546,9 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
-                FollowResponse(response,data.type,data.block_user);
+                FollowResponse(response, data.type, data.block_user);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -671,8 +678,8 @@ class ServerManagerClass {
     }
 
     AddNotificationToUser(data) {
-        let final_data ={
-            Data : data,            
+        let final_data = {
+            Data: data,
             TokenId: window.localStorage.getItem("user_token")
         };
         console.log(final_data);
@@ -681,7 +688,7 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.AddNotificationToUser,
             data: JSON.stringify(final_data),
             success: function (response) {
-                console.log(response); 
+                console.log(response);
                 console.log("notif added to bdd");
             },
             error: function (response) {
@@ -690,9 +697,34 @@ class ServerManagerClass {
         });
     }
 
+
+    SearchUserForTabExplore(data) {
+        let final_data = {
+            Data: {
+                Index: data.Index,
+                Search: data.Search
+            },
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.SearchUserForTabExplore,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                console.log("recherche de users");
+                get_users_with_follow(response.Data);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
     UpdateNotificationToView(data) {
-        let final_data ={
-            Data : data,            
+        let final_data = {
+            Data: data,
             TokenId: window.localStorage.getItem("user_token")
         };
         console.log(final_data);
@@ -702,7 +734,7 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
-                console.log("notif set to seen");                
+                console.log("notif set to seen");
             },
             error: function (response) {
                 console.log(response);
@@ -721,8 +753,8 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.GetNotificationOfUser,
             data: JSON.stringify(final_data),
             success: function (response) {
-                
-                UpdateNotificationList(response);                
+
+                UpdateNotificationList(response);
             },
             error: function (response) {
                 console.log(response);
@@ -732,11 +764,11 @@ class ServerManagerClass {
 
     Send_notif(data) {
 
-        var data_notif_to_bdd ={
-            TypeNotification : data.data.type,
-            RegisterIdOfUserToNotify : data.to,
-            Content : data.data.sender_info.comment_text,
-            IdFlow : data.data.sender_info.IdFlow
+        var data_notif_to_bdd = {
+            TypeNotification: data.data.type,
+            RegisterIdOfUserToNotify: data.to,
+            Content: data.data.sender_info.comment_text,
+            IdFlow: data.data.sender_info.IdFlow
 
         };
         $.ajax({
@@ -749,13 +781,13 @@ class ServerManagerClass {
             contentType: "application/json",
             dataType: "json",
             data: JSON.stringify(data),
-            
+
             success: function (response) {
-/*
-                TypeNotification : data.data.type
-                RegisterIdOfUserToNotify : data.to
-                Content : data.data.message
-*/
+                /*
+                                TypeNotification : data.data.type
+                                RegisterIdOfUserToNotify : data.to
+                                Content : data.data.message
+                */
                 ServerManager.AddNotificationToUser(data_notif_to_bdd);
                 console.log("Notif envoyé avec succes");
             },

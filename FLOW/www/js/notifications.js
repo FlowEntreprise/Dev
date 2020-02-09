@@ -29,7 +29,7 @@ else
 
 this.block_notification_like = document.createElement('div');
 this.block_notification_like.className = 'fblock_notification';
-$("#tab4").append(this.block_notification_like);
+$(".list-notif-block").append(this.block_notification_like);
 
 this.fphoto_block_notif = document.createElement('div');
 this.fphoto_block_notif.className = 'fphoto_block_notif_like';
@@ -102,7 +102,7 @@ function block_notification_echo(data) {
     var block_notification_echo = this;
     this.block_notification_echo = document.createElement('div');
     this.block_notification_echo.className = 'fblock_notification';
-    $("#tab4").append(this.block_notification_echo);
+    $(".list-notif-block").append(this.block_notification_echo);
     
     this.fphoto_block_notif = document.createElement('div');
     this.fphoto_block_notif.className = 'fphoto_block_notif_echo';
@@ -174,7 +174,7 @@ function block_notification_comment(data) {
     
     this.block_notification_comment = document.createElement('div');
     this.block_notification_comment.className = 'fblock_notification';
-    $("#tab4").append(this.block_notification_comment);
+    $(".list-notif-block").append(this.block_notification_comment);
     
     this.fphoto_block_notif = document.createElement('div');
     this.fphoto_block_notif.className = 'fphoto_block_notif_comment';
@@ -244,7 +244,7 @@ function block_notification_comment(data) {
 $(".fnotif-btn").on("click",function(){
     if(notification_list_empty == true)
     {
-        $("#tab4").html("");
+        $(".list-notif-block").html("");
         let data_notification = 
         {
             PrivateId : window.localStorage.getItem("user_private_id"),
@@ -255,6 +255,67 @@ $(".fnotif-btn").on("click",function(){
 });
 */
 // cette fonction de fdp est copié collé 4 fois dans le code putin de merde
+
+
+$(".fnotif-btn").on("click", function () {
+    // var home_scrolling = false;
+    if (current_page == "notifications") {
+      let element = document.getElementById("tab4");
+      // element.onscroll = function() {
+      //     home_scrolling = true;
+      // };
+      let last_scrollTop = element.scrollTop;
+      const scrollToTop = () => {
+        const c = element.scrollTop;
+        if (c > 0 && c <= last_scrollTop) {
+          window.requestAnimationFrame(scrollToTop);
+          element.scrollTo(0, c - c / 8);
+          last_scrollTop = c;
+        }
+      };
+      scrollToTop();
+    }
+  });
+
+
+var ptrNotif = $$('.pull-to-refresh-content');
+// Add 'refresh' listener on it
+ptrNotif.on('ptr:refresh', function (e) {
+  // Emulate 2s loading
+  console.log("refreshing...");
+  NotificationListCurrentIndex = 0;
+  let data_update_Notification_list = {
+    PrivateId : window.localStorage.getItem("user_private_id"),
+    Index :NotificationListCurrentIndex
+};
+ServerManager.GetNotificationOfUser(data_update_Notification_list);
+});
+
+
+ptrNotif.on('ptr:pullstart', function (e) {
+  console.log("pull start");
+  $("#ptr_arrow_notif").css("opacity", "1");
+
+});
+
+ptrNotif.on('ptr:pullend', function (e) {
+    console.log("pull end");
+    $("#ptr_arrow_notif").css("opacity", "0");
+  });
+
+  function pullToRefreshEnd() {
+    console.log("refreshed !");
+    $("#ptr_arrow_notif").css("opacity", "0");
+    app.pullToRefreshDone();
+  }
+
+  function StopRefreshTL() {
+    if ($(".loading_tl")) $(".loading_tl").remove();
+    CanRefreshTL = false;
+    CanRefreshFollowList = false;
+    pullToRefreshEnd();
+  }
+
 
 let CanRefreshNotificationList = true;
 let NotificationListCurrentIndex = 0;
@@ -280,10 +341,10 @@ function UpdateNotificationList(data) {
         setTimeout(function () {
             if ($(".loading_tl")) $(".loading_tl").remove();
             if (NotificationListCurrentIndex == 0) {
-                $("#tab4")[0].innerHTML = "";
+                $(".list-notif-block")[0].innerHTML = "";
                 let loading_tl = document.createElement("div");
                 loading_tl.className = "loading_circle loading_tl";
-                $("#tab4")[0].appendChild(loading_tl);
+                $(".list-notif-block")[0].appendChild(loading_tl);
             }
             for (let i = 0; i < data.Data.length; i++) {
                 pop_notif_block(data.Data[i]);
@@ -295,13 +356,13 @@ function UpdateNotificationList(data) {
                 CanRefreshNotificationList = false;
                 let tick_tl = document.createElement("div");
                 tick_tl.className = "tick_icon";
-                $("#tab4")[0].appendChild(tick_tl);
+                $(".list-notif-block")[0].appendChild(tick_tl);
                 
             } else {
                 CanRefreshNotificationList = true;
                 let loading_tl = document.createElement("div");
                 loading_tl.className = "loading_circle loading_tl";
-                $("#tab4")[0].appendChild(loading_tl);
+                $(".list-notif-block")[0].appendChild(loading_tl);
             }
         }, 500);
         notification_list_empty = false;
@@ -346,7 +407,7 @@ function set_seen(object) {
 //fonction qui permet de creer les blocs de notifs
 function push_notif_block(notification_type,like_type) {
     
-    if(like_type.IsView ==(0))
+    if(like_type.IsView == "0")
     {
         $(".fred_dot_toolbar_new_notif").css('display', 'block');
     }    
