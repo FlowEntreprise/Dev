@@ -54,7 +54,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
         $(this)[0].style.pointerEvents = "none";
         let data = {
             PrivateId: privateIDAccount,
-            type : "profile_follow"
+            type: "profile_follow"
         };
         ServerManager.ActionFollow(data);
     });
@@ -158,7 +158,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
 function fInitialisationAccount(privateId) {
     $("#UserActivity")[0].innerHTML = "";
     let loading_tl = document.createElement("div");
-    loading_tl.className = "loading_circle loading_myaccount";
+    loading_tl.className = "loading-spinner loading_myaccount";
     loading_tl.style.marginTop = "50%";
     $("#UserActivity")[0].appendChild(loading_tl);
 
@@ -181,36 +181,34 @@ function fInitialisationAccount(privateId) {
     ServerManager.GetUserInfo(getUserInfoAccount);
 }
 
-function manageFollow(type,element) { // html_element est element html qui doit etre affecté
-   if(type == "profile_follow")
-   {
-   
-    if (follow) {
-        $("#fFollowButtunAccount").addClass("activeButtunFollow");
-        $("#fFollowButtunAccount").text("FOLLOWING");
-        
-    } else {
-        $("#fFollowButtunAccount").removeClass("activeButtunFollow");
-        $("#fFollowButtunAccount").text("FOLLOW");
-        
-    }
+function manageFollow(type, element) { // html_element est element html qui doit etre affecté
+    if (type == "profile_follow") {
+
+        if (follow) {
+            $("#fFollowButtunAccount").addClass("activeButtunFollow");
+            $("#fFollowButtunAccount").text("FOLLOWING");
+
+        } else {
+            $("#fFollowButtunAccount").removeClass("activeButtunFollow");
+            $("#fFollowButtunAccount").text("FOLLOW");
+
+        }
     }
 
-    if(type == "block_user_follow")
-   {
-   
-    if (follow) {        
-        $(element.following_button).text("FOLLOWING");
-        $(element.following_button).addClass("activeButtunFollow");
-        MyFollowing = +MyFollowing + 1;
-        $("#ffollowingmyBandeauChiffre").html(MyFollowing);
-        
-    } else {
-        $(element.following_button).text("FOLLOW");
-        $(element.following_button).removeClass("activeButtunFollow");
-        MyFollowing = +MyFollowing - 1;
-        $("#ffollowingmyBandeauChiffre").html(MyFollowing);
-    }
+    if (type == "block_user_follow") {
+
+        if (follow) {
+            $(element.following_button).text("FOLLOWING");
+            $(element.following_button).addClass("activeButtunFollow");
+            MyFollowing = +MyFollowing + 1;
+            $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+
+        } else {
+            $(element.following_button).text("FOLLOW");
+            $(element.following_button).removeClass("activeButtunFollow");
+            MyFollowing = +MyFollowing - 1;
+            $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+        }
     }
 
 }
@@ -305,12 +303,12 @@ function ShowUserFlow(flow) {
                 account_imageURL: profilePicLink,
                 IsLike: data.IsLike,
                 IsComment: data.IsComment,
-                Likes : data.Likes,
+                Likes: data.Likes,
                 ObjectId: data.ObjectId,
                 PrivateId: data.PrivateId,
                 Times: data.Time,
-                RegisterId : data.RegisterId,
-                Comments : data.Comments
+                RegisterId: data.RegisterId,
+                Comments: data.Comments
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
@@ -326,13 +324,13 @@ function ShowUserFlow(flow) {
             indexAccount++;
             UserFlowAdd = true;
             let loading_tl = document.createElement("div");
-            loading_tl.className = "loading_circle loading_account";
+            loading_tl.className = "loading-spinner loading_account";
             $("#UserActivity")[0].appendChild(loading_tl);
         }
     }
 }
 
-function FollowResponse(response,type,element) {
+function FollowResponse(response, type, element) {
     if (response.Follow !== undefined) {
         follow = true;
         Follower++;
@@ -343,5 +341,5 @@ function FollowResponse(response,type,element) {
         $("#ffollowersBandeauChiffre").html(Follower);
     } else {}
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
-    manageFollow(type,element);    
+    manageFollow(type, element);
 }

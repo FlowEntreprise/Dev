@@ -25,10 +25,13 @@ const ServerParams = {
     GetStoryComments: "GetStoryComment",
     AddStoryView: "AddStoryView",
     GetStoryView: "GetStoryView",
+    SearchUser: "SearchUserForTabExplore",
+    SearchUserForTabExplore: "SearchUserForTabExplore",
+    SearchFlow: "SearchFlowForTabExplore",
+    GetTop50: "GetTop50",
     AddNotificationToUser: "AddNotificationToUser",
     UpdateNotificationToView: "UpdateNotificationToView",
-    GetNotificationOfUser: "GetNotificationOfUser",
-    SearchUserForTabExplore: "SearchUserForTabExplore"
+    GetNotificationOfUser: "GetNotificationOfUser"
 };
 
 const apiTypes = {
@@ -885,6 +888,82 @@ class ServerManagerClass {
                     loadStorySeen(response);
                 }
                 // loadStoryComments(response);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    SearchUser(data) {
+        let final_data = {
+            // TokenId: window.localStorage.getItem("user_token"),
+            Data: {
+                Index: data.Index,
+                Search: data.Search
+            }
+        };
+        let tokken = window.localStorage.getItem("user_token");
+        if (tokken.length > 0) {
+            final_data.TokenId = tokken;
+        }
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.SearchUser,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                SpawnUserSearch(response);
+            },
+            error: function (response) {
+                a
+                console.log(response);
+            }
+        });
+    }
+
+    SearchFlow(data) {
+        let final_data = {
+            // TokenId: window.localStorage.getItem("user_token"),
+            Data: {
+                Index: data.Index,
+                Search: data.Search
+            }
+        };
+        let tokken = window.localStorage.getItem("user_token");
+        if (tokken.length > 0) {
+            final_data.TokenId = tokken;
+        }
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.SearchFlow,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                SpawnFlowSearch(response);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    GetTop50(data) {
+        let final_data = {
+            TokenId: window.localStorage.getItem("user_token"),
+            Data: {
+                Index: data.Index,
+            }
+        }
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetTop50,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                UpdateTop50(response);
             },
             error: function (response) {
                 console.log(response);

@@ -1,4 +1,3 @@
-
 var nameMonCompte;
 var bioMonCompte;
 var MyFlowBandeau;
@@ -18,7 +17,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
     $("#MyActivity")[0].innerHTML = "";
     let loading_tl = document.createElement("div");
-    loading_tl.className = "loading_circle loading_myaccount";
+    loading_tl.className = "loading-spinner loading_myaccount";
     loading_tl.style.marginTop = "50%";
     $("#MyActivity")[0].appendChild(loading_tl);
     $("#fnameMonCompte").html(nameMonCompte);
@@ -278,12 +277,12 @@ function ShowMyFlow(flow) {
                 account_imageURL: profilePicLink,
                 IsLike: data.IsLike,
                 IsComment: data.IsComment,
-                Likes : data.Likes,
+                Likes: data.Likes,
                 ObjectId: data.ObjectId,
                 PrivateId: data.PrivateId,
                 Times: data.Time,
                 Comments: data.Comments,
-                RegisterId : data.RegisterId,
+                RegisterId: data.RegisterId,
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
@@ -302,7 +301,7 @@ function ShowMyFlow(flow) {
             indexMyFlow++;
             MyFlowAdd = true;
             let loading_tl = document.createElement("div");
-            loading_tl.className = "loading_circle loading_myaccount";
+            loading_tl.className = "loading-spinner loading_myaccount";
             $("#MyActivity")[0].appendChild(loading_tl);
         }
     }
@@ -317,4 +316,3 @@ function ShowMyInfosUser(data) {
     $("#ffollowersmyBandeauChiffre").html(MyFollower);
     $("#ffollowingmyBandeauChiffre").html(MyFollowing);
 }
-

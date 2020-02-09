@@ -1,4 +1,3 @@
-
 var ptrContent = $$('.pull-to-refresh-content');
 // Add 'refresh' listener on it
 ptrContent.on('ptr:refresh', function (e) {
@@ -69,8 +68,7 @@ function PopFlow(data, LinkBuilder) {
     pattern_key = data.Background.PatternKey;
 
   }
-  else
-  {
+  else {
     image_link = data.Background;
   }
   const flow_link = data.Audio;
@@ -79,16 +77,16 @@ function PopFlow(data, LinkBuilder) {
   // console.log(profilePicLink);
   // console.log(image_link);
   let block_params = {
-    parent_element: $(".list-block"),
+    parent_element: $(".list-block")[0],
     afterblock: false,
-    audioURL: flow_link,
+    audioURL: data.Audio,
     duration: data.Duration,
-    patternKey: pattern_key,
-    imageURL: image_link,
+    patternKey: data.Background.PatternKey,
+    imageURL: data.Background,
     title: data.Title,
     description: data.Description,
     pseudo: data.PrivateId,
-    account_imageURL: profilePicLink,
+    account_imageURL: data.ProfilePicture,
     ObjectId: data.ObjectId,
     PrivateId: data.PrivateId,
     Times: data.Time,
@@ -97,6 +95,8 @@ function PopFlow(data, LinkBuilder) {
     Likes: data.Likes,
     Comments: data.Comments,
     RegisterId: data.RegisterId,
+    CommentBy: data.CommentBy,
+    LikeBy: data.LikeBy
   };
 
   var new_block = new block(block_params);
@@ -111,22 +111,34 @@ function UpdateTimeline(data) {
   stopAllBlocksAudio();
   // console.log(data.Data);
   if (Array.isArray(data.Data)) {
+    let unique_data = [];
+    for (let index in data.Data) {
+      let unique = true;
+      for (let i in unique_data) {
+        if (unique_data[i].ObjectId == data.Data[index].ObjectId) {
+          unique = false;
+        }
+      }
+      if (unique) {
+        unique_data.push(data.Data[index]);
+      }
+    }
     setTimeout(function () {
       if ($(".loading_tl")) $(".loading_tl").remove();
       if (TLCurrentIndex == 0) {
         $(".list-block")[0].innerHTML = "";
         let loading_tl = document.createElement("div");
-        loading_tl.className = "loading_circle loading_tl";
+        loading_tl.className = "loading-spinner loading_tl";
         $(".list-block")[0].appendChild(loading_tl);
       }
-      for (let i = 0; i < data.Data.length; i++) {
-        PopFlow(data.Data[i], data.LinkBuilder);
+      for (let i = 0; i < unique_data.length; i++) {
+        PopFlow(unique_data[i], data.LinkBuilder);
       }
       if ($(".loading_tl")) $(".loading_tl").remove();
       console.log("timeline updated !");
       pullToRefreshEnd();
       TLCurrentIndex++;
-      if (data.Data.length < 15) {
+      if (unique_data.length < 5) {
         CanRefreshTL = false;
         let tick_tl = document.createElement("div");
         tick_tl.className = "tick_icon";
@@ -134,7 +146,7 @@ function UpdateTimeline(data) {
       } else {
         CanRefreshTL = true;
         let loading_tl = document.createElement("div");
-        loading_tl.className = "loading_circle loading_tl";
+        loading_tl.className = "loading-spinner loading_tl";
         $(".list-block")[0].appendChild(loading_tl);
       }
     }, 500);
@@ -221,4 +233,4 @@ function trace(value) {
 var _root = document.documentElement;
 var _myvar = window.innerHeight / 100;
 _root.style.setProperty("--custom-vh", _myvar + "px");
-_root.style.setProperty("--custom-vh2", "0px");    
+_root.style.setProperty("--custom-vh2", "0px");
