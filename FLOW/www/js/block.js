@@ -547,7 +547,9 @@ function go_to_account(data) //fonction permettant apres click sur sa photo d'al
             Popup("popup-specifique", false);
             Popup("popup-comment", false);
             Popup("popup-account", false);
-            Popup("popup-follow-list", false);
+            Popup("popup-followers", false);
+            Popup("popup-followings", false);
+            Popup("popup-identification", false);
             Popup("popup-myaccount", true);
             current_page = "my-account";
         } else {
@@ -558,10 +560,14 @@ function go_to_account(data) //fonction permettant apres click sur sa photo d'al
         if (current_page == "account" && privateIDAccount == data.private_Id) {
             shake("tabCompte1");
             Popup("popup-comment", false);
-            Popup("popup-follow-list", false);
+            Popup("popup-followers", false);
+            Popup("popup-followings", false);
+            Popup("popup-identification", false);
         } else {
             Popup("popup-comment", false);
-            Popup("popup-follow-list", false);
+            Popup("popup-followers", false);
+            Popup("popup-followings", false);
+            Popup("popup-identification", false);
             Popup("popup-account", true);
             current_page = "account";
             fInitialisationAccount(data.private_Id);

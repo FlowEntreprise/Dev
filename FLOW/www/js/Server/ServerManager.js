@@ -26,6 +26,7 @@ const ServerParams = {
     AddStoryView: "AddStoryView",
     GetStoryView: "GetStoryView",
     SearchUser: "SearchUserForTabExplore",
+    SearchUserForTabExplore: "SearchUserForTabExplore",
     SearchFlow: "SearchFlowForTabExplore",
     GetTop50: "GetTop50",
     AddNotificationToUser: "AddNotificationToUser",
@@ -44,7 +45,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-    constructor() {}
+    constructor() { }
 
     /* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
      * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions 
@@ -445,7 +446,7 @@ class ServerManagerClass {
                 console.log(response);
                 ShowMyInfosUser(response);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -461,7 +462,7 @@ class ServerManagerClass {
                 console.log("getInfosUserNumber");
                 ShowInfosUserNumber(response);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -480,7 +481,7 @@ class ServerManagerClass {
                 //console.log(response);
                 ShowUserProfile(response);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -500,10 +501,11 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.GetFollowerOfUser,
             data: JSON.stringify(final_data),
             success: function (response) {
+                console.log("nombre de follower thomas ");
                 console.log(response);
-                UpdateUsersList(response, data.follow_list);
+                UpdateFollowersList(response, data.follow_list);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -524,9 +526,14 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
-                UpdateUsersList(response, data.follow_list);
+                if (data.follow_list == true) {
+                    UpdateIdentificationList(response, data.follow_list);
+                }
+                else {
+                    UpdatefollowingsList(response, data.follow_list);
+                }
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -544,7 +551,7 @@ class ServerManagerClass {
                 console.log(response);
                 FollowResponse(response, data.type, data.block_user);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -686,6 +693,31 @@ class ServerManagerClass {
             success: function (response) {
                 console.log(response);
                 console.log("notif added to bdd");
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+
+    SearchUserForTabExplore(data) {
+        let final_data = {
+            Data: {
+                Index: data.Index,
+                Search: data.Search
+            },
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.SearchUserForTabExplore,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                console.log("recherche de users");
+                get_users_with_follow(response.Data);
             },
             error: function (response) {
                 console.log(response);

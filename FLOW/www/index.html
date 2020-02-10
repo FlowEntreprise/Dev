@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="css/popup_comment.css">
     <link rel="stylesheet" type="text/css" href="css/flow_specifique.css">
     <link rel="stylesheet" type="text/css" href="css/custom_popup.css">
+    <link rel="stylesheet" type="text/css" href="css/popup_follow.css">
     <link rel="stylesheet" type="text/css" href="css/popup_follow_list.css">
     <link rel="stylesheet" type="text/css" href="css/loading.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.highlight-within-textarea.css">
@@ -435,7 +436,7 @@
                             </div>
                             <div id="tab3" class="page-content tab">
                             </div>
-                            <div id="tab4" class="page-content tab">
+                            <div id="tab4" class="page-content pull-to-refresh-content tab" data-ptr-distance="55">
                             </div>
                         </div>
                     </div>
@@ -491,31 +492,40 @@
         </div>
     </div>
 
-    <div class="custom_popup" id="popup-follow-list">
+    <div class="custom_popup" id="popup-followers">
         <div class="popup_bg"></div>
-        <div class="popup_content" id="popup-follow-list-content" animation-direction="up">
-            <label class="popup_follow_list_title">Followers</label>
-            <img src="src/icons/cancel.png" class="fclose_follow_list" onclick="Popup('popup-follow-list', false)">
-            <div class="flow_follow_list_container">
-
-                <!--  <div class="f_block_user">
-                <div class="f_user_photo"></div>                    
-                <label class="f_user_fullname">King Chris</label>
-                <label class="f_user_private_id">@king_chriis</label>
-                <label class="f_user_bio">don't waste my time</label>
-            <div class="following_button">Following</div>
-            <div class="follow_you_button">Follows You</div>
-            </div> -->
-
+        <div class="popup_content" id="popup_followers_content" animation-direction="up">
+            <label class="popup_followers_title">Followers</label>
+            <img src="src/icons/cancel.png" class="fclose_followers" onclick="Popup('popup-followers', false)">
+            <div class="popup_followers_container">
             </div>
         </div>
     </div>
 
+    <div class="custom_popup" id="popup-followings">
+        <div class="popup_bg"></div>
+        <div class="popup_content" id="popup_followings_content" animation-direction="up">
+            <label class="popup_followings_title">Followings</label>
+            <img src="src/icons/cancel.png" class="fclose_followings" onclick="Popup('popup-followings', false)">
+            <div class="popup_followings_container">
+            </div>
+        </div>
+    </div>
+
+    <div class="custom_popup" id="popup-identification">
+        <!-- popup pour l'identification -->
+        <div class="popup_bg"></div>
+        <div class="popup_content" id="popup_follow_identification" animation-direction="up">
+            <img src="src/icons/cancel.png" class="fclose_identification"
+                onclick="Popup('popup-identification', false)">
+            <div class="popup_identification_container">
+            </div>
+        </div>
+    </div>
 
     <div class="f_in_app_notif">
         <label class="flabel_in_app_notif">Chris liked your flow</label>
     </div>
-
 
     <div class="fwrite_comment">
         <textarea class="regex-example" placeholder="Say something nice" maxlength="100" id="finput_comment" rows="1"
@@ -554,7 +564,7 @@
     <script type="text/javascript" src="js/myAccount.js"></script>
     <script type="text/javascript" src="js/account.js"></script>
     <script type="text/javascript" src="js/flow_specifique.js"></script>
-    <script type="text/javascript" src="js/popup_follow_list.js"></script>
+    <script type="text/javascript" src="js/popup_follow.js"></script>
     <script type="text/javascript" src="js/jquery.highlight-within-textarea.js"></script>
 </body>
 

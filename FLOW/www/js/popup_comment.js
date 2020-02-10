@@ -87,14 +87,14 @@ function block_comment(comment_data) {
     });
 
     /* $(block_comment).find("span").on('click',function()
-     {
-         let data = 
-         {
-             private_Id : $(this).text().slice(1),
-             user_private_Id : window.localStorage.getItem("user_private_id") 
-         };
-         go_to_account(data);
-     });*/
+    {
+        let data = 
+        {
+            private_Id : $(this).text().slice(1),
+            user_private_Id : window.localStorage.getItem("user_private_id") 
+        };
+        go_to_account(data);
+    });*/
 
 }
 
@@ -155,24 +155,23 @@ function send_comment_to_server(data) {
     comment_number = comment_number + 1;
     $(".fcomment_number").text(comment_number + " commentaires");
     $(current_flow_block.ftxt_impression_comment).text(comment_number);
-    if(comment_data.Comment == comment_data.Comment_text)
-    {
+    if (comment_data.Comment == comment_data.Comment_text) {
         send_notif_to_user(comment_data, "send_comment");
     }
 
-    else{
-            for (let i = 0; i < tableau_comment_to_tag_users.length; i++) {
-                if (tableau_comment_to_tag_users[i].slice(0, 1) == "@") {
-                    for (let i_all_tag = 0; i_all_tag < all_tagged_users.length; i_all_tag++) {
-                        if (tableau_comment_to_tag_users[i] == all_tagged_users[i_all_tag].private_Id) {
-                            comment_data.tag_user_RegisterId = all_tagged_users[i_all_tag].RegisterId;
-                            send_notif_to_user(comment_data, "tag_in_comment");
-                        }
+    else {
+        for (let i = 0; i < tableau_comment_to_tag_users.length; i++) {
+            if (tableau_comment_to_tag_users[i].slice(0, 1) == "@") {
+                for (let i_all_tag = 0; i_all_tag < all_tagged_users.length; i_all_tag++) {
+                    if (tableau_comment_to_tag_users[i] == all_tagged_users[i_all_tag].private_Id) {
+                        comment_data.tag_user_RegisterId = all_tagged_users[i_all_tag].RegisterId;
+                        send_notif_to_user(comment_data, "tag_in_comment");
                     }
-
                 }
+
             }
         }
+    }
     all_tagged_users.length = 0;
     $(".hwt-backdrop").html(" ");
     var new_block_comment = new block_comment(comment_data);
@@ -222,6 +221,11 @@ $(document).on('click', '.tagged_users', function () {
 });
 
 var string_input_comment;
+var all_search_users_with_follow = [];
+var all_search_users_without_follow = [];
+function get_users_with_follow(data) {
+    UpdateIdentificationList(data, true, "yes_search");
+};
 
 //input des commentaires
 
@@ -236,32 +240,45 @@ $("#finput_comment").keyup(function () {
     }
 
     string_input_comment = $("#finput_comment").val();
-    string_input_comment = string_input_comment.split(" ");
+    string_input_comment_split = string_input_comment.split(" ");
 
-    for (let i = 0; i < string_input_comment.length; i++) {
-        if (string_input_comment[(string_input_comment.length) - 1] == "@") {
-            $(".flow_follow_list_container").html("");
+    IdentificationListCurrentIndex = 0;
+    //ne plus looper sur tout le string_input_comment_split lenght
+    var split_lenght = string_input_comment_split.length;
+
+    if (string_input_comment_split[split_lenght - 1].slice(0, 1) == "@") {
+        IdentificationListCurrentIndex = 0;
+        if (string_input_comment_split[split_lenght - 1] == "@") {
+
             let data_following = {
                 PrivateId: window.localStorage.getItem("user_private_id"),
                 Index: 0,
                 follow_list: true
             };
-            if (current_page == "my-account") {
+            ServerManager.GetFollowingOfUser(data_following);
+            IdentificationListCurrentIndex = 0;
 
-                data_following.PrivateId = window.localStorage.getItem("user_private_id");
-              }
-              else
-              {
-                data_following.PrivateId = privateIDAccount;
-              }
-            ServerManager.GetFollowingOfUser(data_following);            
-            Popup("popup-follow-list", true, -5);
-            FollowListCurrentIndex = 0;            
-
-        } else {
-            Popup("popup-follow-list", false, -5);            
-            FollowListCurrentIndex = 0;
         }
+        if (string_input_comment_split[split_lenght - 1].length > 1 && string_input_comment_split[split_lenght - 1] != "@") {
+
+            for (let i = 0; i < 2; i++) {
+                let data_user_search =
+                {
+                    Index: IdentificationListCurrentIndex,
+                    Search: string_input_comment.slice(1, string_input_comment_split[split_lenght - 1].length)
+                };
+                ServerManager.SearchUserForTabExplore(data_user_search);
+                IdentificationListCurrentIndex++;
+                console.log("boucle :" + i);
+                console.log("current index :" + IdentificationListCurrentIndex);
+            }
+            $(".popup_identification_container")[0].innerHTML = "";
+        }
+        Popup("popup-identification", true, -6);
+    } else {
+        Popup("popup-identification", false, -5);
+        IdentificationListCurrentIndex = 0;
+
     }
 
     var str1 = $("#finput_comment").val();
