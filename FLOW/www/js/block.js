@@ -95,9 +95,10 @@ function block(params) {
         let tl_indicator = document.createElement("p");
         tl_indicator.className = "tl_indicator";
         tl_indicator.innerHTML = indicator_icon + indicator_txt;
-        this.block_flow.style.marginTop = "14vw";
+        // this.block_flow.style.marginTop = "12vw";
         this.block_flow.appendChild(tl_indicator);
     }
+    this.block_flow.style.marginTop = "12vw";
     params.parent_element.append(this.block_flow);
 
     this.ftop_part = document.createElement('div');
