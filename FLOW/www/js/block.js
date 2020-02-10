@@ -568,6 +568,7 @@ function go_to_account(data) //fonction permettant apres click sur sa photo d'al
             Popup("popup-followers", false);
             Popup("popup-followings", false);
             Popup("popup-identification", false);
+            Popup("popup-myaccount", false);
             Popup("popup-account", true);
             current_page = "account";
             fInitialisationAccount(data.private_Id);
