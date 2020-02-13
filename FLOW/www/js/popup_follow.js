@@ -25,6 +25,7 @@ function block_user(follow_list, target, data) //follow_list true correspond au 
   if (follow_list == true) {
     $(this.block_user).on('click', function () {
       $('#finput_comment').focus();
+      string_input_comment = string_input_comment.slice(0, string_input_comment.lastIndexOf("@") + 1);
       $("#finput_comment").val(string_input_comment + data.PrivateId + " ");
       $('.regex-example').highlightWithinTextarea({
         highlight: /@[^ ]+/gi
