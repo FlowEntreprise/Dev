@@ -15,6 +15,19 @@ var profilePicLink;
 $(".fnavAccount").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 
 document.getElementById("popup-account").addEventListener("opened", function () {
+    $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
+    $("scrollEventAccount").remove(".swiper-wrapper");
+    $("#accountBannerScrollAccount").css("transition-duration", "0.2s");
+    $("#accountBannerScrollAccount").css("transform", "translate3d(0vw, 0vh, 0vh)");
+    $(".fnavAccount").removeClass("fnavAccountTransitionTop");
+    $(".fnavAccount").addClass("fnavAccountTransitionDown");
+    $(".ftabsAccount").css("transition-duration", "0.2s");
+    var scrollTest = $(".scrollAccunt").scrollTop();
+    $(".fnavAccount").css("transform", "translate3d(0vw, 7vh, 0vh)");
+    $(".ftabsAccount").css("transform", "translate3d(0vw, 2vh, 0vh)");
+    boolScrollTop = true;
+    $("#UserActivity").addClass("fblockAccountPadding");
+
     stopAllBlocksAudio();
     current_page = "account";
     analytics.setCurrentScreen(current_page);

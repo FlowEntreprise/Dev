@@ -40,7 +40,9 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
     this.fnotif_label.innerText = '@' + this.private_Id + ' liked your flow';
-    if (block_notification_like.like_comment == "like_comment") { this.fnotif_label.innerText = '@' + this.private_Id + ' liked your comment'; }
+    if (block_notification_like.like_comment == "like_comment") {
+        this.fnotif_label.innerText = '@' + this.private_Id + ' liked your comment';
+    }
     this.block_notification_like.appendChild(this.fnotif_label);
 
     this.fnotif_text = document.createElement('label');
@@ -365,7 +367,7 @@ function UpdateNotificationList(data) {
             if (NotificationListCurrentIndex == 0) {
                 $(".list-notif-block")[0].innerHTML = "";
                 let loading_tl = document.createElement("div");
-                loading_tl.className = "loading_circle loading_tl";
+                loading_tl.className = "loading-spinner loading_tl";
                 $(".list-notif-block")[0].appendChild(loading_tl);
             }
             for (let i = 0; i < data.Data.length; i++) {
@@ -383,12 +385,12 @@ function UpdateNotificationList(data) {
             } else {
                 CanRefreshNotificationList = true;
                 let loading_tl = document.createElement("div");
-                loading_tl.className = "loading_circle loading_tl";
+                loading_tl.className = "loading-spinner loading_tl";
                 $(".list-notif-block")[0].appendChild(loading_tl);
             }
         }, 500);
         notification_list_empty = false;
-    } else { }
+    } else {}
 }
 
 // fin du copié collé de la fonction de scroll de fdp
@@ -471,8 +473,8 @@ function send_notif_to_user(block, type) {
     }
 
     if ((block.tag_user_RegisterId != undefined &&
-        block.tag_user_RegisterId != prepare_id_registerId &&
-        block.tag_user_RegisterId != registrationId) ||
+            block.tag_user_RegisterId != prepare_id_registerId &&
+            block.tag_user_RegisterId != registrationId) ||
         (block.tag_user_RegisterId == undefined &&
             registrationId != prepare_id_registerId)) {
         if (block.tag_user_RegisterId == undefined && type == "tag_in_comment") {
