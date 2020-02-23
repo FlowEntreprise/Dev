@@ -65,6 +65,7 @@ function block_user(follow_list, target, data) //follow_list true correspond au 
   this.block_user.appendChild(this.f_user_private_id);
   if (follow_list == false) {
 
+    $(this.f_user_private_id).removeClass("f_user_private_id").addClass("f_user_private_id_identification");
     this.f_user_bio = document.createElement('label'); //bio
     this.f_user_bio.className = 'f_user_bio';
     this.f_user_bio.innerText = data.Bio;

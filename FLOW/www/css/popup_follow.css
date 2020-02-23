@@ -93,6 +93,15 @@
     opacity: 0.5;
 }
 
+.f_user_private_id_identification {
+    position: absolute;
+    top: calc(3.7* var(--custom-vh));
+    left: 21vw;
+    color: #1A84EF;
+    font-family: Roboto-Regular;
+    opacity: 0.5;
+}
+
 .f_user_bio {
     position: absolute;
     top: 7vh;

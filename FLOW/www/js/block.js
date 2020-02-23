@@ -588,8 +588,6 @@ function shake(element_id) {
 
 function get_all_comment(response, data_block) {
 
-
-
     var text_comment_number;
     if (response == "ERROR GET COMMENT FLOW") {
         $(".loading_comment").remove();
