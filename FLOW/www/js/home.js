@@ -67,8 +67,7 @@ function PopFlow(data, LinkBuilder) {
   if (data.Background.PatternKey != undefined) {
     pattern_key = data.Background.PatternKey;
 
-  }
-  else {
+  } else {
     image_link = data.Background;
   }
   const flow_link = data.Audio;
