@@ -204,9 +204,11 @@
 
 .popover,
 .popover-angle:after {
-    background-color: #fff;
+    background-color: #fff !important;
     left: 7.5vw !important;
     width: 85vw !important;
+    z-index: 99999999999999999999999999999999999999999999999 !important;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1) !important;
 }
 
 
