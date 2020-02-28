@@ -1,0 +1,218 @@
+.after-record-block-container {
+    position: absolute;
+    left: 0;
+    top: calc(3* var(--custom-vh));
+}
+
+.finput_title {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: #92ABB2;
+    font-family: "Roboto-Regular";
+    border-style: none;
+    font-size: 20px;
+    margin-top: 8px;
+}
+
+.finput_title::placeholder {
+    color: #92ABB2;
+}
+
+.finput_description {
+    position: absolute;
+    width: 80vw;
+    left: 5vw;
+    text-align: center;
+    color: #92ABB2;
+    font-family: "Roboto-Regular";
+    border-style: none;
+    font-size: 15px;
+    margin-top: 41px;
+    opacity: 0.5;
+}
+
+.finput_description::placeholder {
+    color: #92ABB2;
+}
+
+
+input:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+
+textarea:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+
+.swiper-4 {
+    position: absolute !important;
+    top: calc(68* var(--custom-vh)) !important;
+    left: 0;
+    height: 120px !important;
+}
+
+.fbackground-after-txt {
+    position: absolute;
+    top: calc(48* var(--custom-vh));
+    left: 0;
+    width: 100vw;
+    font-family: "Roboto-Regular";
+    color: #92ABB2;
+    font-size: 25px;
+    text-align: center;
+}
+
+.fcamera-after {
+    position: absolute;
+    top: calc(53* var(--custom-vh));
+    left: 10vw;
+    width: 35vw;
+    height: calc(7* var(--custom-vh));
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    background-image: url("../src/icons/camera.png");
+    background-size: calc(5* var(--custom-vh)) auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.fgallery-after {
+    position: absolute;
+    top: calc(53* var(--custom-vh));
+    left: 55vw;
+    width: 35vw;
+    height: calc(7* var(--custom-vh));;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    background-image: url("../src/icons/gallery.png");
+    background-size: calc(5* var(--custom-vh)) auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.ffx-after-txt {
+    position: absolute;
+    top: calc(64* var(--custom-vh));
+    left: 0;
+    width: 100vw;
+    font-family: "Roboto-Regular";
+    color: #92ABB2;
+    font-size: 25px;
+    text-align: center;
+}
+
+.ffxbg_div {
+    position: absolute;
+    top: 10px;
+    left: 32.5vw;
+    width: 35vw;
+    height: 100px;
+    border-radius: 20px;
+    background: transparent;
+    /*background-image: linear-gradient(to right, #1A84EF, #dd136a) !important;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);*/
+    border: 2px solid #1A84EF;
+}
+
+.ffx_wrapper {
+    position: absolute;
+    z-index: 100;
+    top: 16px;
+    left: 0;
+    height: 100px !important;
+    width: 100vw !important;
+    /* background-color: rgba(255, 0, 0, 0.2); */
+}
+
+.ffx_text {
+    opacity: 0.5;
+    font-family: 'Roboto-Medium';
+    font-size: 23px;
+    color: #92ABB2;
+    height: 30px !important;
+}
+
+.ffx_text.swiper-slide-next {
+    opacity: 1 !important;
+    color: #1A84EF !important;
+}
+
+.swiper-slide.ffx_text span {
+    text-align: center;
+    display: block;
+    font-size: 21px;
+    margin-top: 5px;
+}
+
+.ffx_icon {
+    height: calc(4* var(--custom-vh));
+    width: 35vw;
+    height: 60px;
+    background-image: url("../src/icons/gallery.png");
+    background-size: calc(7* var(--custom-vh)) auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.frestart-after_btn {
+    position: absolute;
+    left: 15vw;
+    bottom: calc(4* var(--custom-vh));
+    height: 16vw;
+    width: 16vw;
+    background-color: white;
+    background-image: url("../src/icons/restart.png");
+    background-size: 8vw auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 100%;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+.fvalidate-after_btn {
+    position: absolute;
+    left: 39vw;
+    bottom: calc(2.5* var(--custom-vh));
+    height: 22vw;
+    width: 22vw;
+    background:  url(../src/icons/validate.png) center / 15vw auto no-repeat, linear-gradient(to bottom, #1A84EF, #FF0054);
+    /* background-size: 8vw auto;
+    background-position: center;
+    background-repeat: no-repeat; */
+    border-radius: 100%;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+.fcancel-after_btn {
+    position: absolute;
+    right: 15vw;
+    bottom: calc(4* var(--custom-vh));
+    height: 16vw;
+    width: 16vw;
+    background-color: white;
+    background-image: url("../src/icons/cancel.png");
+    background-size: 6vw auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 100%;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* .fvalidate-after_btn::after {
+    border-radius: 50%;
+    -webkit-animation: click-wave-record 0.65s;
+    -moz-animation: click-wave-record 0.65s;
+    animation: click-wave-record 0.65s;
+    background-image: linear-gradient(#1A84EF, #FF0054);
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: 100;
+    filter: brightness(200%);
+    filter: blur(5px);
+    margin-left: -3vw;
+    pointer-events: none;
+} */

@@ -12,6 +12,7 @@
         "cordova-android-support-gradle-release": "^2.1.0",
         "cordova-browser": "^6.0.0",
         "cordova-httpd": "git+https://github.com/floatinghotpot/cordova-httpd.git",
+        "cordova-ios": "^5.1.1",
         "cordova-plugin-android-permissions": "^1.0.0",
         "cordova-plugin-audioinput": "^1.0.2",
         "cordova-plugin-browsersync": "^1.1.0",
