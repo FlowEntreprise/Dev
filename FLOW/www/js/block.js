@@ -438,6 +438,29 @@ function block(params) {
         };
         go_to_account(data);
     });
+
+    $(this.fdots).on('click', function () {
+        var clickedLink = this;
+        current_flow_block = block;
+        app.popover('#popover_flow', clickedLink);
+    });
+
+}
+
+$(".fpopover_delete_flow").on("click", function () {
+    delete_flow(current_flow_block);
+});
+
+function delete_flow(element) {
+
+    for (var i = 0; i < all_blocks.length; i++) {
+        if (current_flow_block.ObjectId == all_blocks[i].ObjectId) {
+            all_blocks.splice(i, 1);
+
+        }
+    }
+
+    $(element).remove();
 }
 
 function display_all_comments(block) //fonction permettant d'affiher tout les commentaires

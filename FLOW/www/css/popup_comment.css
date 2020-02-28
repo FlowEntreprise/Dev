@@ -212,15 +212,15 @@
 }
 
 
-.fpopover_copy {
+.fpopover_copy_comment,.fpopover_copy_flow {
     top: calc(3* var(--custom-vh));
 }
 
-.fpopover_report {
+.fpopover_report_comment,.fpopover_report_flow {
     top: calc(7* var(--custom-vh));
 }
 
-.fpopover_delete {
+.fpopover_delete_comment,.fpopover_delete_flow {
     top: calc(11* var(--custom-vh));
 }
 

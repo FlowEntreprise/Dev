@@ -65,7 +65,7 @@ function block_comment(comment_data) {
 
     $$(this.fid_user).on('taphold', function () {
         var clickedLink = this;
-        app.popover('.popover', clickedLink);
+        app.popover('#popover_comment', clickedLink);
 
     });
 
@@ -73,7 +73,7 @@ function block_comment(comment_data) {
     $$(this.fblock_comment_comment).on('taphold', function () {
         var clickedLink = this;
         current_comment_block = block_comment;
-        app.popover('.popover', clickedLink);
+        app.popover('#popover_comment', clickedLink);
 
     });
 
@@ -105,15 +105,15 @@ $(".fpopover_button").on("click", function () {
     app.closeModal('.popover');
 });
 
-$(".fpopover_copy").on("click", function () {
+$(".fpopover_copy_comment").on("click", function () {
     copyToClipboard(current_comment_block.fcomment_text);
 });
 
-$(".fpopover_report").on("click", function () {
+$(".fpopover_report_comment").on("click", function () {
     alert("This comment was reported");
 });
 
-$(".fpopover_delete").on("click", function () {
+$(".fpopover_delete_comment").on("click", function () {
     console.log("delete");
     //var test = $(this.fimg_user).closest("div");
     delete_comment(current_comment_block.fblock_comment);
@@ -267,7 +267,7 @@ $("#finput_comment").keyup(function () {
                 let data_user_search =
                 {
                     Index: IdentificationListCurrentIndex,
-                    Search: string_input_comment.slice(1, string_input_comment_split[split_lenght - 1].length)
+                    Search: string_input_comment_split[split_lenght - 1].slice(1, string_input_comment_split[split_lenght - 1].length)
                 };
                 ServerManager.SearchUserForTabExplore(data_user_search);
                 IdentificationListCurrentIndex++;
@@ -311,7 +311,7 @@ document.getElementById("popup-comment").addEventListener("opened", function () 
 document.getElementById("popup-comment").addEventListener("closed", function () {
     $(".fwrite_comment")[0].style.display = "none";
     in_comments = false;
-    app.closeModal('.popover', animated);
+    app.closeModal('#popover_comment');
 
 });
 

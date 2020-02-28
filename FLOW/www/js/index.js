@@ -131,7 +131,14 @@ var app = {
 
 
         var push = PushNotification.init({
-            android: {}
+            android: {
+                //icon: 'www/src/icons/FLOW@3x.png'
+            },
+            ios: {
+                alert: 'true',
+                badge: 'true',
+                sound: 'true'
+            },
         });
 
         push.on('registration', function (data) {
