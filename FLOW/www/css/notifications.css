@@ -9,6 +9,19 @@
     box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
 }
 
+.fphoto_block_notif_follow {
+    position: absolute;
+    width: calc(7* var(--custom-vh));
+    height: calc(7* var(--custom-vh));
+    top: calc(1.5* var(--custom-vh));
+    left: 2vw;
+    border-radius: calc(7* var(--custom-vh));
+    border: 1.5px solid rgb(146, 171, 178);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);    
+    background-size: cover;
+    background-position: center;
+}
+
 .fphoto_block_notif_like {
     position: absolute;
     width: calc(7* var(--custom-vh));

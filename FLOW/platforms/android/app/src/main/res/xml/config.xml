@@ -151,6 +151,7 @@
     <preference name="Hostname" value="app" />
     <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
+    <preference name="deployment-target" value="7.0" />
     <preference name="SplashStatusBarBackgroundColor" value="#007EFF" />
     <preference name="SplashNavigationBarBackgroundColor" value="#FF0054" />
     <preference name="SplashScreen" value="screen" />

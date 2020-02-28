@@ -26,6 +26,7 @@ function ConnectUser() {
         Index: 0
     };
     ServerManager.GetNotificationOfUser(data_notification);
+    check_seen();
     let loading_tl = document.createElement("div");
     loading_tl.className = "loading-spinner loading_tl";
     $(".list-block")[0].appendChild(loading_tl);

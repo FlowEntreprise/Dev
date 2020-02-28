@@ -23,46 +23,46 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
         document.addEventListener('pause', this.onPause, false);
         document.addEventListener('resume', this.onResume, false);
-        
+
     },
     onDeviceReady: function () {
         setTimeout(function () {
             navigator.splashscreen.hide();
             StatusBar.backgroundColorByHexString("#f7f7f8");
         }, 500);
-        
+
         this.receivedEvent('deviceready');
     },
     onPause: function () {
-        
+
         console.log("pause");
         stopAllStoriesAudio();
         stopAllBlocksAudio();
-        
+
         // if (appState.takingPicture || appState.imageUri) {
         //     window.localStorage.setItem("app_state", JSON.stringify(appState));
         //     console.log("app state saved");
         // }
-        
+
     },
     onResume: function (event) {
         // console.log("resume");
-        
+
         // var storedState = window.localStorage.getItem("app_state");
-        
+
         // if (storedState) {
         //     appState = JSON.parse(storedState);
         // }
-        
+
         // console.log(appState);
         // console.log(event);
         // console.log(event.pendingResult);
-        
+
         // // Check to see if we need to restore an image we took
         // if (!appState.takingPicture && appState.imageUri) {
         //     console.log("restore picture...");
         //     console.log(appState.imageUri);
-        
+
         //     //appState.imageUri = event.pendingResult.result;
         //     appState.needRestore = false;
         // }
@@ -82,7 +82,7 @@ var app = {
         //         // result field
         //         console.log("restoring picture");
         //         console.log(event.pendingResult.result);
-        
+
         //         appState.imageUri = event.pendingResult.result;
         //         appState.needRestore = true;
         //     } else {
@@ -92,7 +92,7 @@ var app = {
         //     }
         // }
     },
-    
+
     // Update DOM on a Received Event
     receivedEvent: function (id) {
         document.addEventListener("offline", function () {
@@ -101,20 +101,20 @@ var app = {
         document.addEventListener("online", function () {
             online();
         }, false);
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
         crashlytics = FirebaseCrashlytics.initialise();
         crashlytics.logException("my caught exception");
-        
+
         analytics = cordova.plugins.firebase.analytics;
         analytics.setCurrentScreen(current_page);
-        
+
         httpd = (cordova && cordova.plugins && cordova.plugins.CorHttpd) ? cordova.plugins.CorHttpd : null;
-        
+
         httpd.startServer({
             'www_root': 'js/worker/',
             'port': 8080,
@@ -128,54 +128,66 @@ var app = {
         }, function (error) {
             console.log("failed to start server: " + error);
         });
-        
-        
+
+
         var push = PushNotification.init({
             android: {}
         });
-        
+
         push.on('registration', function (data) {
             // data.registrationId
             console.log(data.registrationId);
             registrationId = data.registrationId;
-            
+
         });
-        
+
         push.on('notification', function (data) {
             /*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
             pas dans l'application */
             if (data.additionalData.foreground == false) {
-                
-                $(".flow_specifique_container").html("");
-                let myApp = new Framework7();
-                let data_flow = {
-                    IdFlow: data.additionalData.sender_info.IdFlow
-                };
-                ServerManager.GetSingle(data_flow);
-                Popup("popup-specifique", true);
-                if (data.additionalData.type == "send_comment" || data.additionalData.type == "like_comment") {
-                    display_all_comments(data);
+
+
+                if (data.additionalData.type == "follow") {
+                    let data_go_to_account = {
+                        private_Id: data.additionalData.sender_info.privateId,
+                        user_private_Id: window.localStorage.getItem("user_private_id")
+                    };
+                    go_to_account(data_go_to_account);
+                }
+                else {
+
+
+                    $(".flow_specifique_container").html("");
+                    let myApp = new Framework7();
+                    let data_flow = {
+                        IdFlow: data.additionalData.sender_info.IdFlow
+                    };
+                    ServerManager.GetSingle(data_flow);
+                    Popup("popup-specifique", true);
+                    if (data.additionalData.type == "send_comment" || data.additionalData.type == "like_comment") {
+                        display_all_comments(data);
+                    }
                 }
             }
-            let data_notification = 
+            let data_notification =
             {
-                PrivateId : window.localStorage.getItem("user_private_id"),
-                Index : 0
+                PrivateId: window.localStorage.getItem("user_private_id"),
+                Index: 0
             };
-            NotificationListCurrentIndex = 0;            
+            NotificationListCurrentIndex = 0;
             ServerManager.GetNotificationOfUser(data_notification);
             //pop_notif_block(data);
-            
+
         });
-        
+
         push.on('error', function (e) {
             console.log(e.message);
         });
-        
+
         CheckIfConnected();
     }
-    
-    
+
+
 };
 
 app.initialize();
@@ -198,23 +210,23 @@ var storage = window.localStorage;
 function b64toBlob(b64Data, contentType, sliceSize) {
     contentType = contentType || '';
     sliceSize = sliceSize || 512;
-    
+
     var byteCharacters = atob(b64Data);
     var byteArrays = [];
-    
+
     for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
         var slice = byteCharacters.slice(offset, offset + sliceSize);
-        
+
         var byteNumbers = new Array(slice.length);
         for (var i = 0; i < slice.length; i++) {
             byteNumbers[i] = slice.charCodeAt(i);
         }
-        
+
         var byteArray = new Uint8Array(byteNumbers);
-        
+
         byteArrays.push(byteArray);
     }
-    
+
     var blob = new Blob(byteArrays, {
         type: contentType
     });
@@ -245,7 +257,7 @@ function online() {
 
 
 /*
-J'ai remove ça du config.xml juste pour save ça qq part : 
+J'ai remove ça du config.xml juste pour save ça qq part :
 <preference name="AndroidLaunchMode" value="singleInstance" />
 <preference name="KeepRunning" value="true" />
 */

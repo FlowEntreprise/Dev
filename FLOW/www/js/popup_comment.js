@@ -77,6 +77,8 @@ function block_comment(comment_data) {
 
     });
 
+
+
     $(this.fimg_user).on('click', function () {
 
         let data = {
@@ -309,6 +311,8 @@ document.getElementById("popup-comment").addEventListener("opened", function () 
 document.getElementById("popup-comment").addEventListener("closed", function () {
     $(".fwrite_comment")[0].style.display = "none";
     in_comments = false;
+    app.closeModal('.popover', animated);
+
 });
 
 
