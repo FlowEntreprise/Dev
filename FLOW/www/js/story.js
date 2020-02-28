@@ -19,6 +19,7 @@ var can_next_prev = true;
 var tryLoadTimeout;
 var story_view;
 var comment_view;
+var story_comment_index = 0;
 
 // Version 4.0
 const pSBC = (p, c0, c1, l) => {
@@ -68,6 +69,7 @@ class Story {
         this.user_picture = "src/pictures/girl1.jpg";
         this.data = [];
         this.lastStoryTime = 0;
+        this.register_id = "";
     }
 
     addStoryFlow(time) {
@@ -148,6 +150,7 @@ function UpdateStoryDataFromServer(data) {
             let userStory = new Story();
             userStory.id = i;
             userStory.private_id = data.Data[i].PrivateId;
+            userStory.register_id = data.Data[i].RegisterId;
             let src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Data[i].ProfilePicture.name + '?';
             let param = `${data.LinkBuilder.Params.hash}=${data.Data[i].ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.Data[i].ProfilePicture.timestamp}`;
             userStory.user_picture = src + param;
@@ -483,6 +486,7 @@ function showStoryComments() {
 }
 
 function refresh_story_comments() {
+    story_comment_index = 0;
     let data = {
         index: 0,
         objectId: story_data[story_index].data[storyFlow_index].id
@@ -805,8 +809,11 @@ function stop_comments() {
 }
 
 function loadStoryComments(data) {
-    story_data[story_index].data[storyFlow_index].comments = [];
-    $(".fstory_comment_list")[0].innerHTML = "";
+    // story_comment_index = 0;
+    if (story_comment_index == 0) {
+        story_data[story_index].data[storyFlow_index].comments = [];
+        $(".fstory_comment_list")[0].innerHTML = "";
+    }
     let i = 0;
     for (let comment of data.Data) {
         let com = new StoryComment();
@@ -863,6 +870,19 @@ function loadStoryComments(data) {
         story_data[story_index].data[storyFlow_index].comments.push(com);
         i++;
     }
+
+    $(".fstory_comment_list").scroll(function () {
+        var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+        if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+            story_comment_index += 1;
+            console.log("search_index : " + search_index);
+            let data = {
+                index: story_comment_index,
+                objectId: story_data[story_index].data[storyFlow_index].id
+            }
+            ServerManager.GetStoryComments(data);
+        }
+    });
 }
 
 function playStoryComment(comment, htmlelement) {
@@ -1033,4 +1053,3 @@ document.getElementById("popup-story-record").addEventListener("closed", functio
     current_page = "home";
     analytics.setCurrentScreen(current_page);
 });
-
