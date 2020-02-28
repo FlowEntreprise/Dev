@@ -19,6 +19,9 @@ var tryLoadTimeout;
 var story_view;
 var comment_view;
 var story_comment_index = 0;
+var story_seen_index = 0;
+var can_get_comment = true;
+var can_get_seen = true;
 
 // Version 4.0
 const pSBC = (p, c0, c1, l) => {
@@ -353,6 +356,20 @@ function SpawnStoryWindow(story_block) {
                 //         duration: story_comment.Duration
                 //     });
                 // }, 100);
+            });
+
+            $(".seen_ul").scroll(function () {
+                var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+                if (Math.round($(this).scrollTop()) >= limit * 0.75 && can_get_seen) {
+                    story_seen_index += 1;
+                    console.log("seen_index : " + story_seen_index);
+                    let data = {
+                        Index: story_seen_index,
+                        ObjectId: story_data[story_index].data[storyFlow_index].id
+                    }
+                    ServerManager.GetStoryView(data);
+                    can_get_seen = false;
+                }
             });
 
         }, 50);
@@ -699,8 +716,6 @@ function loadStory(story_index, storyFlow_index) {
 
     window.localStorage.setObj("story_read", story_read);
 
-    // loadStoryComments();
-    // loadStorySeen();
     $(".fstory_seen_txt")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
     $(".seen_number")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
 }
@@ -870,16 +885,23 @@ function loadStoryComments(data) {
         i++;
     }
 
+    if (data.Data.length < 10) {
+        can_get_comment = false;
+    } else {
+        can_get_comment = true;
+    }
+
     $(".fstory_comment_list").scroll(function () {
         var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-        if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+        if (Math.round($(this).scrollTop()) >= limit * 0.75 && can_get_comment) {
             story_comment_index += 1;
-            console.log("search_index : " + search_index);
+            console.log("story_comment_index : " + story_comment_index);
             let data = {
                 index: story_comment_index,
                 objectId: story_data[story_index].data[storyFlow_index].id
             }
             ServerManager.GetStoryComments(data);
+            can_get_comment = false;
         }
     });
 }
@@ -943,9 +965,11 @@ function smoothUpdateBar(loading_com, comment) {
 }
 
 function ShowSeenPopup() {
+    $(".seen_ul")[0].innerHTML = "";
+    story_seen_index = 0;
     inSeenPopup = true;
     let data = {
-        Index: 0,
+        Index: story_seen_index,
         ObjectId: story_data[story_index].data[storyFlow_index].id
     }
     story_data[story_index].data[storyFlow_index].seen = [];
@@ -958,6 +982,8 @@ function ShowSeenPopup() {
         "transform": "translate3d(0, 0, 0)"
     });
 }
+
+
 
 function CloseSeenPopup() {
     inSeenPopup = false;
@@ -973,7 +999,11 @@ function CloseSeenPopup() {
 function loadStorySeen(data) {
     $(".fstory_seen_txt")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
     $(".seen_number")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
-    $(".seen_ul")[0].innerHTML = "";
+    // $(".seen_ul")[0].innerHTML = "";
+    if (story_seen_index == 0) {
+        story_data[story_index].data[storyFlow_index].seen = [];
+    }
+
     for (let i = 0; i < data.Data.length; i++) {
         let new_StorySeen = new StorySeen();
         new_StorySeen.private_id = "@" + data.Data[i].PrivateId;
@@ -983,6 +1013,7 @@ function loadStorySeen(data) {
         new_StorySeen.user_picture = src + param;
         story_data[story_index].data[storyFlow_index].seen.push(new_StorySeen);
     }
+    $(".seen_ul")[0].innerHTML = "";
     for (let i = 0; i < story_data[story_index].data[storyFlow_index].seen.length; i++) {
         let seen_li = document.createElement("li");
         seen_li.className = "seen_li";
@@ -1000,6 +1031,11 @@ function loadStorySeen(data) {
         seen_li.appendChild(seen_pp);
         seen_li.appendChild(seen_time);
         $(".seen_ul")[0].appendChild(seen_li);
+    }
+    if (data.Data.length < 10) {
+        can_get_seen = false;
+    } else {
+        can_get_seen = true;
     }
 }
 
