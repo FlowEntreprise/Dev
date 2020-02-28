@@ -68,6 +68,7 @@ class Story {
         this.user_picture = "src/pictures/girl1.jpg";
         this.data = [];
         this.lastStoryTime = 0;
+        this.register_id = "";
     }
 
     addStoryFlow(time) {
@@ -148,6 +149,7 @@ function UpdateStoryDataFromServer(data) {
             let userStory = new Story();
             userStory.id = i;
             userStory.private_id = data.Data[i].PrivateId;
+            userStory.register_id = data.Data[i].RegisterId;
             let src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Data[i].ProfilePicture.name + '?';
             let param = `${data.LinkBuilder.Params.hash}=${data.Data[i].ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.Data[i].ProfilePicture.timestamp}`;
             userStory.user_picture = src + param;
