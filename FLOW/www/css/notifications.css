@@ -72,7 +72,7 @@
 
 .fnotif_label {
     position: absolute;
-    top: calc(2* var(--custom-vh));
+    top: calc(1.2* var(--custom-vh));
     left: 20vw;
     font-size: 3.6vw;
     color: #92ABB2;
@@ -84,10 +84,10 @@
 .fnotif_text {
     font-family: Roboto;
     position: absolute;
-    top: calc(4.5* var(--custom-vh));
+    top: calc(3.1* var(--custom-vh));
     left: 20vw;
     color: #92ABB2;
-    font-size: 3.5vw;
+    font-size: 3.4vw;
     width: 60VW;
 }
 
