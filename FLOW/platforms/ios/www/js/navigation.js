@@ -65,13 +65,14 @@ $$('#tab3').on('tab:show', function () {
     canShowNavbar = false;
     current_page = "messages";
 
-    if (!connected) {
-        setTimeout(function () {
-            app.showTab("#tab1");
-            // app.popup('.popup-connect');
-            Popup("popup-connect", true, 45);
-        }, 100);
-    }
+    // A REMETTRE PLUS TARD C'EST POUR TEST SUR IOS Opus2Wav sur la page messages
+    // if (!connected) {
+    //     setTimeout(function () {
+    //         app.showTab("#tab1");
+    //         // app.popup('.popup-connect');
+    //         Popup("popup-connect", true, 45);
+    //     }, 100);
+    // }
 
 });
 
