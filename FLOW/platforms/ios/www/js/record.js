@@ -892,7 +892,7 @@ function EncodeOpus(blob) {
 }
 
 function createWorker() {
-    worker = new Worker('http://127.0.0.1:8080/EmsWorkerProxy.js');
+    worker = new Worker('http://127.0.0.1:8080/OpusEncoder/EmsWorkerProxy.js');
 
     // Listen for messages by the worker
     worker.onmessage = function (e) {
@@ -908,6 +908,20 @@ function createWorker() {
                 // window.URL.createObjectURL(e.data.values[fileName].blob);
                 Save(e.data.values[fileName].blob);
             }
+        }
+    };
+}
+
+function opus2wav() {
+    var opustowavWorker = new Worker('http://127.0.0.1:8080/Opus2Wav/opustowavworker.js');
+    opustowavWorker.onmessage = function (message) {
+        if (message.data.status === "done") {
+            console.log(message.data.result);
+            document.getElementById("player").src = message.data.result;
+            document.getElementById("player").style.display = "block";
+        } else if (message.data.status === "message") {
+            document.getElementById("message").innerHTML = message.data.result;
+            console.log(message.data.result);
         }
     };
 }
