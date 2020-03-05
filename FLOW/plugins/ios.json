@@ -13,6 +13,10 @@
     "cordova-plugin-media": {
       "KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE": "NO",
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+    },
+    "twitter-connect-plugin": {
+      "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038",
+      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     }
   },
   "dependent_plugins": {

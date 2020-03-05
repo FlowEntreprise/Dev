@@ -432,6 +432,14 @@ module.exports = [
         "clobbers": [
             "window.Media"
         ]
+    },
+    {
+        "file": "plugins/twitter-connect-plugin/www/TwitterConnect.js",
+        "id": "twitter-connect-plugin.TwitterConnect",
+        "pluginId": "twitter-connect-plugin",
+        "clobbers": [
+            "TwitterConnect"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -464,7 +472,8 @@ module.exports.metadata =
     "cordova-plugin-googleplus": "8.1.1",
     "com.rjfun.cordova.httpd": "0.9.2",
     "cordova-plugin-httpd": "0.9.3",
-    "cordova-plugin-media": "5.0.3"
+    "cordova-plugin-media": "5.0.3",
+    "twitter-connect-plugin": "0.6.0"
 }
 // BOTTOM OF METADATA
 });

@@ -45,6 +45,7 @@
         "phonegap-plugin-push": "git+https://github.com/phonegap/phonegap-plugin-push.git",
         "plist": "^1.2.0",
         "q": "^1.5.1",
+        "twitter-connect-plugin": "^0.6.0",
         "vorbis-encoder-js": "^1.0.2"
     },
     "cordova": {
@@ -98,6 +99,9 @@
             "cordova-plugin-httpd": {},
             "cordova-plugin-media": {
                 "KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE": "NO"
+            },
+            "twitter-connect-plugin": {
+                "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038"
             }
         },
         "platforms": [

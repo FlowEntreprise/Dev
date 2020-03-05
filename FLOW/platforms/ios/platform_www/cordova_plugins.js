@@ -196,11 +196,20 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "window.Media"
       ]
+    },
+    {
+      "id": "twitter-connect-plugin.TwitterConnect",
+      "file": "plugins/twitter-connect-plugin/www/TwitterConnect.js",
+      "pluginId": "twitter-connect-plugin",
+      "clobbers": [
+        "TwitterConnect"
+      ]
     }
   ];
   module.exports.metadata = {
     "cordova-plugin-httpd": "0.9.3",
     "cordova-plugin-file": "6.0.2",
-    "cordova-plugin-media": "5.0.3"
+    "cordova-plugin-media": "5.0.3",
+    "twitter-connect-plugin": "0.6.0"
   };
 });

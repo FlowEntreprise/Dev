@@ -29,6 +29,9 @@
     <feature name="Media">
         <param name="ios-package" value="CDVSound" />
     </feature>
+    <feature name="TwitterConnect">
+        <param name="ios-package" value="TwitterConnect" />
+    </feature>
     <name>FLOW</name>
     <description>
         The Vocal Social Network.
@@ -45,9 +48,6 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application/activity[@android:name='MainActivity']">
-        <activity android:name="MainActivity" android:windowSoftInputMode="adjustResize" />
-    </edit-config>
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
     <preference name="AllowInlineMediaPlayback" value="true" />

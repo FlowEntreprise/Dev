@@ -1,5 +1,11 @@
 {
     "CFNetwork.framework": 1,
     "Foundation.framework": 1,
-    "Security.framework": 1
+    "Security.framework": 2,
+    "CoreText.framework": 1,
+    "AddressBook.framework": 1,
+    "QuartzCore.framework": 1,
+    "Accounts.framework": 1,
+    "Social.framework": 1,
+    "CoreData.framework": 1
 }

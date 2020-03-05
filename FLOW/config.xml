@@ -26,23 +26,6 @@
         <preference name="AllowInlineMediaPlayback" value="true" />
         <preference name="DisallowOverscroll" value="true"/>
     </platform>
-    <platform name="android">
-        <resource-file src="google-services.json" target="app/google-services.json" />
-        <resource-file src="google-services.json" target="google-services.json" />
-        <preference name="SplashStatusBarBackgroundColor" value="#007EFF" />
-        <preference name="SplashNavigationBarBackgroundColor" value="#FF0054" />
-        <preference name="SplashScreen" value="screen" />
-        <preference name="AutoHideSplashScreen" value="false" />
-        <preference name="FadeSplashScreenDuration" value="0" />
-        <splash density="port-hdpi" src="res/screen/android/drawable-hdpi/splash.png" />
-        <splash density="port-ldpi" src="res/screen/android/drawable-ldpi/splash.png" />
-        <splash density="port-mdpi" src="res/screen/android/drawable-mdpi/splash.png" />
-        <splash density="port-xhdpi" src="res/screen/android/drawable-xhdpi/splash.png" />
-        <splash density="port-xxhdpi" src="res/screen/android/drawable-xxhdpi/splash.png" />
-        <splash density="port-xxxhdpi" src="res/screen/android/drawable-xxxhdpi/splash.png" />
-        <preference name="ShowSplashScreenSpinner" value="true" />
-        <preference name="SplashMaintainAspectRatio" value="true" />
-    </platform>
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />
     <preference name="fullscreen" value="false" />
@@ -72,9 +55,6 @@
     <plugin name="phonegap-plugin-push" spec="git+https://github.com/phonegap/phonegap-plugin-push.git" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="2.1.3" />
     <plugin name="cordova-plugin-browsersync" spec="^1.1.0" />
-    <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application/activity[@android:name='MainActivity']">
-        <activity android:name="MainActivity" android:windowSoftInputMode="adjustResize" />
-    </edit-config>
     <plugin name="cordova-plugin-fullscreen" spec="^1.2.0" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <plugin name="cordova-plugin-insomnia" spec="https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git" />

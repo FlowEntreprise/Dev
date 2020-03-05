@@ -48,6 +48,17 @@
 		AB12A5220EE94BF892D0E533 /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = FDA36E2F4C0C4489AD1D1A38 /* CDVLocalFilesystem.m */; };
 		1806D364C6CF4E3A93B5B1A5 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8577A42E4AD24BA192D5065E /* CDVAssetLibraryFilesystem.m */; };
 		139A96DFF6DC461684D1572E /* CDVSound.m in Sources */ = {isa = PBXBuildFile; fileRef = F1A8617A180A4B8D8E001265 /* CDVSound.m */; };
+		553232508B934AA6B231D2BB /* TwitterConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BA10A78C9F4152843DA2BD /* TwitterConnect.m */; };
+		EFB411B317E94929B4F1A8A3 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 957EC5A59BD94E4081CE883C /* TwitterKitResources.bundle */; };
+		FD6C4BA637DC496EBA3BDED1 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2BCC9DF0BBD4D14AF824F91 /* Fabric.framework */; };
+		2A28BA8FB4854184B5784BE1 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DE537237670458284F8B4E5 /* TwitterKit.framework */; };
+		DECB0CE9D5C8483A9A2B404E /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B00E43F6D654ADFAD8D2265 /* TwitterCore.framework */; };
+		6D143CD0C55C41BDBFA56B20 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA094AAB34684EEDBD704300 /* CoreText.framework */; };
+		3D9A654DD1094D3CA80BDFD4 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F39281DC1BC46C6A309A979 /* AddressBook.framework */; };
+		1F51C4921B534C94ACA6F0C0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A965B09409BC4B418EC9193E /* QuartzCore.framework */; };
+		A248CEB5D4F4418A957AA2D6 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 756D8554A8EE4F3796DD6A58 /* Accounts.framework */; };
+		32F43EB4882E43FDAE6E8B8A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BEEFBA45F347B5AFF92BA1 /* Social.framework */; };
+		675DFCD8F9CF4133A04F2A5B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7246705A564D436386408315 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +170,18 @@
 		87492663326144E4AEFA63FE /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; name = "CDVAssetLibraryFilesystem.h"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		F1A8617A180A4B8D8E001265 /* CDVSound.m */ = {isa = PBXFileReference; name = "CDVSound.m"; path = "cordova-plugin-media/CDVSound.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		A00E961F8E084A6D89394AAA /* CDVSound.h */ = {isa = PBXFileReference; name = "CDVSound.h"; path = "cordova-plugin-media/CDVSound.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		63BA10A78C9F4152843DA2BD /* TwitterConnect.m */ = {isa = PBXFileReference; name = "TwitterConnect.m"; path = "twitter-connect-plugin/TwitterConnect.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		8830DF7F3CA64EE5A6B9F4C9 /* TwitterConnect.h */ = {isa = PBXFileReference; name = "TwitterConnect.h"; path = "twitter-connect-plugin/TwitterConnect.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		957EC5A59BD94E4081CE883C /* TwitterKitResources.bundle */ = {isa = PBXFileReference; name = "TwitterKitResources.bundle"; path = "TwitterKitResources.bundle"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.plug-in; explicitFileType = undefined; includeInIndex = 0; };
+		A2BCC9DF0BBD4D14AF824F91 /* Fabric.framework */ = {isa = PBXFileReference; name = "Fabric.framework"; path = "FLOW/Plugins/twitter-connect-plugin/Fabric.framework"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		2DE537237670458284F8B4E5 /* TwitterKit.framework */ = {isa = PBXFileReference; name = "TwitterKit.framework"; path = "FLOW/Plugins/twitter-connect-plugin/TwitterKit.framework"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		9B00E43F6D654ADFAD8D2265 /* TwitterCore.framework */ = {isa = PBXFileReference; name = "TwitterCore.framework"; path = "FLOW/Plugins/twitter-connect-plugin/TwitterCore.framework"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		DA094AAB34684EEDBD704300 /* CoreText.framework */ = {isa = PBXFileReference; name = "CoreText.framework"; path = "System/Library/Frameworks/CoreText.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		1F39281DC1BC46C6A309A979 /* AddressBook.framework */ = {isa = PBXFileReference; name = "AddressBook.framework"; path = "System/Library/Frameworks/AddressBook.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		A965B09409BC4B418EC9193E /* QuartzCore.framework */ = {isa = PBXFileReference; name = "QuartzCore.framework"; path = "System/Library/Frameworks/QuartzCore.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		756D8554A8EE4F3796DD6A58 /* Accounts.framework */ = {isa = PBXFileReference; name = "Accounts.framework"; path = "System/Library/Frameworks/Accounts.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		67BEEFBA45F347B5AFF92BA1 /* Social.framework */ = {isa = PBXFileReference; name = "Social.framework"; path = "System/Library/Frameworks/Social.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		7246705A564D436386408315 /* CoreData.framework */ = {isa = PBXFileReference; name = "CoreData.framework"; path = "System/Library/Frameworks/CoreData.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +193,15 @@
 				886476A52CB34E5B9C366406 /* CFNetwork.framework in Frameworks */,
 				5AAA8030FB954A6BB66AE145 /* Foundation.framework in Frameworks */,
 				436660EA90B74DC787D25F05 /* Security.framework in Frameworks */,
+				FD6C4BA637DC496EBA3BDED1 /* Fabric.framework in Frameworks */,
+				2A28BA8FB4854184B5784BE1 /* TwitterKit.framework in Frameworks */,
+				DECB0CE9D5C8483A9A2B404E /* TwitterCore.framework in Frameworks */,
+				6D143CD0C55C41BDBFA56B20 /* CoreText.framework in Frameworks */,
+				3D9A654DD1094D3CA80BDFD4 /* AddressBook.framework in Frameworks */,
+				1F51C4921B534C94ACA6F0C0 /* QuartzCore.framework in Frameworks */,
+				A248CEB5D4F4418A957AA2D6 /* Accounts.framework in Frameworks */,
+				32F43EB4882E43FDAE6E8B8A /* Social.framework in Frameworks */,
+				675DFCD8F9CF4133A04F2A5B /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +264,7 @@
 				3047A50E1AB8057F00498E2A /* config */,
 				8D1107310486CEB800E47090 /* FLOW-Info.plist */,
 				6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */,
+				957EC5A59BD94E4081CE883C /* TwitterKitResources.bundle */,
 			);
 			name = Resources;
 			path = FLOW/Resources;
@@ -243,6 +276,15 @@
 				DEE1E0195BB546EE8BD2CAAA /* CFNetwork.framework */,
 				110480A11E454E71BE3E348E /* Foundation.framework */,
 				CA9B419FA9CC4842B4D095B6 /* Security.framework */,
+				A2BCC9DF0BBD4D14AF824F91 /* Fabric.framework */,
+				2DE537237670458284F8B4E5 /* TwitterKit.framework */,
+				9B00E43F6D654ADFAD8D2265 /* TwitterCore.framework */,
+				DA094AAB34684EEDBD704300 /* CoreText.framework */,
+				1F39281DC1BC46C6A309A979 /* AddressBook.framework */,
+				A965B09409BC4B418EC9193E /* QuartzCore.framework */,
+				756D8554A8EE4F3796DD6A58 /* Accounts.framework */,
+				67BEEFBA45F347B5AFF92BA1 /* Social.framework */,
+				7246705A564D436386408315 /* CoreData.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -330,6 +372,8 @@
 				87492663326144E4AEFA63FE /* CDVAssetLibraryFilesystem.h */,
 				F1A8617A180A4B8D8E001265 /* CDVSound.m */,
 				A00E961F8E084A6D89394AAA /* CDVSound.h */,
+				63BA10A78C9F4152843DA2BD /* TwitterConnect.m */,
+				8830DF7F3CA64EE5A6B9F4C9 /* TwitterConnect.h */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -427,6 +471,7 @@
 				302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */,
 				0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */,
 				6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */,
+				EFB411B317E94929B4F1A8A3 /* TwitterKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +534,7 @@
 				AB12A5220EE94BF892D0E533 /* CDVLocalFilesystem.m in Sources */,
 				1806D364C6CF4E3A93B5B1A5 /* CDVAssetLibraryFilesystem.m in Sources */,
 				139A96DFF6DC461684D1572E /* CDVSound.m in Sources */,
+				553232508B934AA6B231D2BB /* TwitterConnect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,6 +572,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.flowapp.flow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"FLOW/Plugins/twitter-connect-plugin\"",
+					"\"FLOW/Plugins/twitter-connect-plugin\"",
+					"\"FLOW/Plugins/twitter-connect-plugin\"",
+				);
 			};
 			name = Debug;
 		};
@@ -553,6 +605,12 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"FLOW/Plugins/twitter-connect-plugin\"",
+					"\"FLOW/Plugins/twitter-connect-plugin\"",
+					"\"FLOW/Plugins/twitter-connect-plugin\"",
+				);
 			};
 			name = Release;
 		};
