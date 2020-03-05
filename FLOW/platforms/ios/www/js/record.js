@@ -919,6 +919,7 @@ function opus2wav() {
             console.log(message.data.result);
             document.getElementById("player").src = message.data.result;
             document.getElementById("player").style.display = "block";
+            opustowavWorker.terminate();
         } else if (message.data.status === "message") {
             document.getElementById("message").innerHTML = message.data.result;
             console.log(message.data.result);
