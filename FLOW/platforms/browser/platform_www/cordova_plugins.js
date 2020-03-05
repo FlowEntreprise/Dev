@@ -326,30 +326,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-media/www/MediaError.js",
-        "id": "cordova-plugin-media.MediaError",
-        "pluginId": "cordova-plugin-media",
-        "clobbers": [
-            "window.MediaError"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-media/www/Media.js",
-        "id": "cordova-plugin-media.Media",
-        "pluginId": "cordova-plugin-media",
-        "clobbers": [
-            "window.Media"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-media/www/browser/Media.js",
-        "id": "cordova-plugin-media.BrowserMedia",
-        "pluginId": "cordova-plugin-media",
-        "clobbers": [
-            "window.Media"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-audioinput/www/audioInputCapture.js",
         "id": "cordova-plugin-audioinput.AudioInput",
         "pluginId": "cordova-plugin-audioinput",
@@ -432,6 +408,30 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.CorHttpd"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media/www/MediaError.js",
+        "id": "cordova-plugin-media.MediaError",
+        "pluginId": "cordova-plugin-media",
+        "clobbers": [
+            "window.MediaError"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media/www/Media.js",
+        "id": "cordova-plugin-media.Media",
+        "pluginId": "cordova-plugin-media",
+        "clobbers": [
+            "window.Media"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media/www/browser/Media.js",
+        "id": "cordova-plugin-media.BrowserMedia",
+        "pluginId": "cordova-plugin-media",
+        "clobbers": [
+            "window.Media"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -454,7 +454,6 @@ module.exports.metadata =
     "cordova-plugin-network-information": "2.0.1",
     "cordova-plugin-insomnia": "4.3.0",
     "cordova-plugin-file": "6.0.2",
-    "cordova-plugin-media": "5.0.3",
     "cordova-plugin-audioinput": "1.0.2",
     "cordova-plugin-compat": "1.2.0",
     "cordova-plugin-splashscreen": "4.0.0",
@@ -464,7 +463,8 @@ module.exports.metadata =
     "cordova-twitter3-connect-plugin": "1.0.5",
     "cordova-plugin-googleplus": "8.1.1",
     "com.rjfun.cordova.httpd": "0.9.2",
-    "cordova-plugin-httpd": "0.9.3"
+    "cordova-plugin-httpd": "0.9.3",
+    "cordova-plugin-media": "5.0.3"
 }
 // BOTTOM OF METADATA
 });
