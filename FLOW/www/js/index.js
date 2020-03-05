@@ -27,6 +27,7 @@ var app = {
     },
     onDeviceReady: function () {
         setTimeout(function () {
+            console.log("salut salut");
             navigator.splashscreen.hide();
             // StatusBar.backgroundColorByHexString("#f7f7f8");
         }, 500);
