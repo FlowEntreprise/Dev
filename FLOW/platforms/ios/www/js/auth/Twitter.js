@@ -3,7 +3,7 @@ function TWLogin() {
         "opacity": "1",
         "pointer-events": "auto"
     });
-    TwitterConnect.login(
+    TwitterConnect.login({},
         function (result) {
             GetInfos();
         },

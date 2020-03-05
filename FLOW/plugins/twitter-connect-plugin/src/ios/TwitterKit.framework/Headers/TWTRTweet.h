@@ -1,34 +1,20 @@
-/*
- * Copyright (C) 2017 Twitter, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
+//
+//  TWTRTweet.h
+//
+//  Copyright (c) 2015 Twitter. All rights reserved.
+//
 
 #import <Foundation/Foundation.h>
-#import <TwitterKit/TWTRJSONConvertible.h>
 
 @class TWTRTweet;
 @class TWTRUser;
 
-NS_ASSUME_NONNULL_BEGIN
-
 /**
  *  `TWTRTweet` is an immutable representation of a Tweet.
  */
-@interface TWTRTweet : NSObject <NSCoding, TWTRJSONConvertible>
+@interface TWTRTweet : NSObject <NSCoding>
 
-#pragma mark - Properties
+# pragma mark - Properties
 
 /**
  *  The ID of the Twitter Tweet.
@@ -49,45 +35,33 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The Author of the Tweet.
  */
-@property (nonatomic, readonly) TWTRUser *author;
+@property (nonatomic, strong, readonly) TWTRUser *author;
 
 /**
- *  ID of the authenticated Twitter user this Tweet was loaded for. Some Tweet properties e.g. `isLiked`
- *  can vary depending on the authenticated user. Nil means the Tweet was loaded from the perspective
- *  of a logged-out user or the authenticated user could not be determined.
+ *  The number of times this Tweet was favorited.
  */
-@property (nonatomic, readonly, nullable) NSString *perspectivalUserID;
-
-/**
- *  The number of times this Tweet was liked.
- */
-@property (nonatomic, readonly) long long likeCount;
+@property (nonatomic, assign, readonly) long long favoriteCount;
 
 /**
  *  The number of times this Tweet was retweeted.
  */
-@property (nonatomic, readonly) long long retweetCount;
-
-/**
- *  The language of the Tweet.
- */
-@property (nonatomic, copy, readonly) NSString *languageCode;
+@property (nonatomic, assign, readonly) long long retweetCount;
 
 /**
  *  The Tweet this Tweet was a reply to.
  */
-@property (nonatomic, copy, readonly, nullable) NSString *inReplyToTweetID;
+@property (nonatomic, copy, readonly) NSString *inReplyToTweetID;
 
 /**
  *  The User ID this Tweet was a reply to.
  */
-@property (nonatomic, copy, readonly, nullable) NSString *inReplyToUserID;
+@property (nonatomic, copy, readonly) NSString *inReplyToUserID;
 
 /**
  *  The screen name of the user this Tweet was a reply to.
  *  @note This doesn't contain the `@` sign before the screen name.
  */
-@property (nonatomic, copy, readonly, nullable) NSString *inReplyToScreenName;
+@property (nonatomic, copy, readonly) NSString *inReplyToScreenName;
 
 /**
  *  The permalink URL for this Tweet.
@@ -99,18 +73,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSURL *permalink;
 
 /**
- *  Whether this Tweet was liked by the authenticated user.
+ *  Whether this Tweet was favorited by the authenticated user.
  *
  *  @warning The value of this property depends on the authenticated user.
  */
-@property (nonatomic, readonly) BOOL isLiked;
+@property (nonatomic, assign, readonly) BOOL isFavorited;
 
 /**
  *  Whether this Tweet was retweeted by the authenticated user.
  *
  *  @warning The value of this property depends on the authenticated user.
  */
-@property (nonatomic, readonly) BOOL isRetweeted;
+@property (nonatomic, assign, readonly) BOOL isRetweeted;
 
 /**
  *  The Tweet ID of the authenticated user's retweet of this Tweet. This will be `nil` if there is no
@@ -118,29 +92,28 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @warning The value of this property depends on the authenticated user.
  */
-@property (nonatomic, copy, readonly, nullable) NSString *retweetID;
+@property (nonatomic, copy, readonly) NSString *retweetID;
 
 /**
  *  The original, fully-hydrated Tweet that was retweeted. This corresponds to the `retweeted_status` API field.
  *  This is `nil` unless `self.isRetweet == YES`.
  */
-@property (nonatomic, readonly, nullable) TWTRTweet *retweetedTweet;
+@property (nonatomic, strong, readonly) TWTRTweet *retweetedTweet;
 
 /**
  *  Indicates whether this Tweet is a retweet of another Tweet.
  */
-@property (nonatomic, readonly) BOOL isRetweet;
+@property (nonatomic, assign, readonly) BOOL isRetweet;
+
+# pragma mark - Init
 
 /**
- * Indicates whether this Tweet is a Quote Tweet.
+ *  Creates a TWTRTweet instance from the dictionary of Twitter API JSON response.
+ *
+ *  @param dictionary A parsed dictionary of a single Twitter Tweet API JSON response.
+ *  @return TWTRTweet instance.
  */
-@property (nonatomic, readonly) BOOL isQuoteTweet;
-
-/**
- *  The original, fully-hydrated Tweet that was quoted.
- *  This is `nil` unless `self.isRetweet == YES`.
- */
-@property (nonatomic, readonly, nullable) TWTRTweet *quotedTweet;
+- (instancetype)initWithJSONDictionary:(NSDictionary *)dictionary;
 
 /**
  *  Creates an array of TWTRTweet instances from the array of Twitter API JSON response.
@@ -148,19 +121,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param array A parsed array of Tweet API JSON responses.
  *  @return An array of TWTRTweet instances.
  */
-+ (NSArray *)tweetsWithJSONArray:(nullable NSArray *)array;
-
-/**
- *  Creates a new Tweet instance with a new value for the `isLiked` boolean
- *  value which is the opposite of the current value.
- */
-- (TWTRTweet *)tweetWithLikeToggled;
-
-/**
- *  Tweet objects should be hyrdrated from a valid JSON object. See TWTRJSONConvertible for more information.
- */
-- (instancetype)init NS_UNAVAILABLE;
++ (NSArray *)tweetsWithJSONArray:(NSArray *)array;
 
 @end
-
-NS_ASSUME_NONNULL_END

@@ -1,26 +1,13 @@
-/*
- * Copyright (C) 2017 Twitter, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
+//
+//  TWTRTweetTableViewCell.h
+//
+//  Copyright (c) 2015 Twitter. All rights reserved.
+//
 
 #import <UIKit/UIKit.h>
-#import "TWTRTweetView.h"
 
 @class TWTRTweet;
-
-NS_ASSUME_NONNULL_BEGIN
+@class TWTRTweetView;
 
 /**
  *  A table view cell subclass which displays a Tweet.
@@ -30,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The Tweet view inside this cell. Holds all relevant text and images.
  */
-@property (nonatomic, readonly) TWTRTweetView *tweetView;
+@property (nonatomic, strong, readonly) TWTRTweetView *tweetView;
 
 /**
  *  Configures the existing Tweet view with a Tweet. Updates labels, images, and thumbnails.
@@ -40,25 +27,37 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)configureWithTweet:(TWTRTweet *)tweet;
 
 /**
- *  Returns how tall the Tweet view should be.
- *
- *  Uses the system to calculate the Auto Layout height. This is the same as
- *  calling sizeThatFits: on a cached TWTRTweetView instance to let the system
- *  calculate how tall the resulting view will be including the image, Retweet
- *  view, and optional action buttons.
- *
- *  Note: The Auto Layout engine will throw an exception if this is called
- *  on a background thread.
- *
- *  @param tweet           the Tweet
- *  @param style           the style of the Tweet view
- *  @param width           the width of the Tweet
- *  @param showActions     whether the Tweet view will be displaying actions
- *
- *  @return the calculated height of the Tweet view
+ *  Returns the height calculated using a given width. Usable from a background thread. This is the preferred approach to calculating height for tableview cells.
+
+     - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+         TWTRTweet *tweet = self.tweets[indexPath.row];
+         
+         // Grab the height for this cell
+         CGFloat height = [TWTRTweetTableViewCell heightForTweet:tweet width:CGRectGetWidth(self.view.bounds)];
+         return height;
+     }
+ 
+ *  @param width The table view cell width.
  */
-+ (CGFloat)heightForTweet:(TWTRTweet *)tweet style:(TWTRTweetViewStyle)style width:(CGFloat)width showingActions:(BOOL)showActions;
++ (CGFloat)heightForTweet:(TWTRTweet *)tweet width:(CGFloat)width;
+
+/**
+  DEPRECATED
+
+  Returns the height calculated using a given width. Generally just for use with prototype cells.
+ 
+    - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+        TWTRTweet *tweet = self.tweets[indexPath.row];
+        
+        // Grab the height for this cell
+        CGFloat height = [TWTRTweetTableViewCell heightForTweet:tweet width:CGRectGetWidth(self.view.bounds)];
+        return height;
+    }
+
+  @deprecated Use +heightForTweet:width: instead. Deprecated in version 1.3.0
+
+  @param width The table view cell width.
+ */
+- (CGFloat)calculatedHeightForWidth:(CGFloat)width __attribute__((deprecated("Use +heightForTweet:width: instead.")));
 
 @end
-
-NS_ASSUME_NONNULL_END

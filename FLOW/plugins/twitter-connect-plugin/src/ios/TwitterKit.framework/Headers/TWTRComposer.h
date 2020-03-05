@@ -1,19 +1,9 @@
-/*
- * Copyright (C) 2017 Twitter, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
+//
+//  TWTRComposer.h
+//  TwitterKit
+//
+//  Copyright (c) 2015 Twitter. All rights reserved.
+//
 
 #import <UIKit/UIKit.h>
 
@@ -51,7 +41,7 @@ typedef void (^TWTRComposerCompletion)(TWTRComposerResult result);
  *
  *  @return This will return NO if the receiver has already been presented (and therefore cannot be changed).
  */
-- (BOOL)setText:(nullable NSString *)text;
+- (BOOL)setText:(twtr_nullable NSString *)text;
 
 /**
  *  Sets an image attachment.
@@ -60,7 +50,7 @@ typedef void (^TWTRComposerCompletion)(TWTRComposerResult result);
  *
  *  @return This will return NO if the receiver has already been presented (and therefore cannot be changed).
  */
-- (BOOL)setImage:(nullable UIImage *)image;
+- (BOOL)setImage:(twtr_nullable UIImage *)image;
 
 /**
  *  Adds a URL to the contents of the Tweet message.
@@ -69,14 +59,27 @@ typedef void (^TWTRComposerCompletion)(TWTRComposerResult result);
  *
  *  @return This will return NO if the receiver has already been presented (and therefore cannot be changed).
  */
-- (BOOL)setURL:(nullable NSURL *)url;
+- (BOOL)setURL:(twtr_nullable NSURL *)url;
 
 /**
  * Presents the composer, with an optional completion handler from the specified view controller.
  * @param fromController The controller in which to present the composer from.
  * @param completion completion The completion handler, which has a single parameter indicating whether the user finished or cancelled the Tweet composition.
  */
-- (void)showFromViewController:(UIViewController *)fromController completion:(nullable TWTRComposerCompletion)completion;
+- (void)showFromViewController:(UIViewController *)fromController completion:(TWTRComposerCompletion)completion;
+
+@end
+
+@interface TWTRComposer (TWTRDeprecated)
+
+/**
+ * Presents the composer, with an optional completion handler.
+ *
+ * @param completion The completion handler, which has a single parameter indicating whether the user finished or cancelled the Tweet composition.
+ *  
+ * @warning This method is deprecated. Use `-showFromViewController:completion:` instead.
+ */
+- (void)showWithCompletion:(TWTRComposerCompletion)completion;
 
 @end
 

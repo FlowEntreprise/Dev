@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 #import "TwitterConnect.h"
 #import <Fabric/Fabric.h>
-#import <TwitterKit/TWTRKit.h>
+#import <TwitterKit/TwitterKit.h>
 
 @implementation TwitterConnect
 

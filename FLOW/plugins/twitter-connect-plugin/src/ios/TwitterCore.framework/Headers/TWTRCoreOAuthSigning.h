@@ -1,26 +1,13 @@
-/*
- * Copyright (C) 2017 Twitter, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
+//
+//  TWTRCoreOAuthSigning.h
+//
+//  Copyright (c) 2015 Twitter. All rights reserved.
+//
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
-FOUNDATION_EXTERN NSString *const TWTROAuthEchoRequestURLStringKey;
-FOUNDATION_EXTERN NSString *const TWTROAuthEchoAuthorizationHeaderKey;
+FOUNDATION_EXPORT NSString * const TWTROAuthEchoRequestURLStringKey;
+FOUNDATION_EXPORT NSString * const TWTROAuthEchoAuthorizationHeaderKey;
 
 @protocol TWTRCoreOAuthSigning <NSObject>
 
@@ -44,7 +31,7 @@ FOUNDATION_EXTERN NSString *const TWTROAuthEchoAuthorizationHeaderKey;
  *
  *  @see More information about OAuth Echo: https://dev.twitter.com/oauth/echo
  */
-- (NSDictionary *)OAuthEchoHeadersForRequestMethod:(NSString *)method URLString:(NSString *)URLString parameters:(nullable NSDictionary *)parameters error:(NSError **)error;
+- (NSDictionary *)OAuthEchoHeadersForRequestMethod:(NSString *)method URLString:(NSString *)URLString parameters:(NSDictionary *)parameters error:(NSError **)error __attribute__((nonnull(1, 2)));
 
 /**
  *  This method provides you with the OAuth signature, as well as the formed URL with the query string, to send a request to `verify_credentials`.
@@ -57,5 +44,3 @@ FOUNDATION_EXTERN NSString *const TWTROAuthEchoAuthorizationHeaderKey;
 - (NSDictionary *)OAuthEchoHeadersToVerifyCredentials;
 
 @end
-
-NS_ASSUME_NONNULL_END
