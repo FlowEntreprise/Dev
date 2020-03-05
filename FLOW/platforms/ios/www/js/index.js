@@ -129,18 +129,6 @@ var app = {
             console.log("failed to start server: " + error);
         });
 
-        var $$ = Dom7;
-
-        var app = new Framework7({
-            showBarsOnPageScrollEnd: false,
-            material: false,
-            tapHold: true,
-            input: {
-                scrollIntoViewOnFocus: true,
-                scrollIntoViewCentered: true,
-            } //enable tap hold events
-        });
-
 
         var push = PushNotification.init({
             android: {}
@@ -159,7 +147,6 @@ var app = {
             if (data.additionalData.foreground == false) {
 
                 $(".flow_specifique_container").html("");
-                let myApp = new Framework7();
                 let data_flow = {
                     IdFlow: data.additionalData.sender_info.IdFlow
                 };
@@ -191,7 +178,17 @@ var app = {
 
 app.initialize();
 
+var $$ = Dom7;
 
+var app = new Framework7({
+    showBarsOnPageScrollEnd: false,
+    material: false,
+    tapHold: true,
+    input: {
+        scrollIntoViewOnFocus: true,
+        scrollIntoViewCentered: true,
+    } //enable tap hold events
+});
 
 var storage = window.localStorage;
 
