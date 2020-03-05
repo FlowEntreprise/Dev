@@ -912,6 +912,7 @@ function createWorker() {
     };
 }
 
+/* not used 
 function opus2wav() {
     var opustowavWorker = new Worker('http://127.0.0.1:8080/Opus2Wav/opustowavworker.js');
     opustowavWorker.onmessage = function (message) {
@@ -930,3 +931,4 @@ function opus2wav() {
 function killWorker() {
     opustowavWorker.terminate();
 }
+*/

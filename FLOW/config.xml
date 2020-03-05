@@ -24,6 +24,7 @@
         <allow-intent href="itms-apps:*" />
         <preference name="deployment-target" value="7.0" />
         <preference name="AllowInlineMediaPlayback" value="true" />
+        <preference name="DisallowOverscroll" value="true"/>
     </platform>
     <platform name="android">
         <resource-file src="google-services.json" target="app/google-services.json" />
