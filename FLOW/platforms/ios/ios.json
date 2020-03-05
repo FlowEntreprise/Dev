@@ -16,9 +16,36 @@
             }
           ]
         }
+      },
+      "config.xml": {
+        "parents": {
+          "/*": [
+            {
+              "xml": "<feature name=\"CorHttpd\"><param name=\"ios-package\" value=\"CorHttpd\" /></feature>",
+              "count": 1
+            }
+          ]
+        }
       }
     }
   },
-  "installed_plugins": {},
-  "dependent_plugins": {}
+  "installed_plugins": {
+    "cordova-plugin-httpd": {
+      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+    }
+  },
+  "dependent_plugins": {},
+  "modules": [
+    {
+      "id": "cordova-plugin-httpd.CorHttpd",
+      "file": "plugins/cordova-plugin-httpd/www/CorHttpd.js",
+      "pluginId": "cordova-plugin-httpd",
+      "clobbers": [
+        "cordova.plugins.CorHttpd"
+      ]
+    }
+  ],
+  "plugin_metadata": {
+    "cordova-plugin-httpd": "0.9.3"
+  }
 }

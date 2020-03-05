@@ -19,6 +19,9 @@
         <param name="ios-package" value="CDVGestureHandler" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="CorHttpd">
+        <param name="ios-package" value="CorHttpd" />
+    </feature>
     <name>FLOW</name>
     <description>
         The Vocal Social Network.

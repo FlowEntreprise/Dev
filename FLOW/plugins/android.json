@@ -22,6 +22,9 @@
     },
     "com.rjfun.cordova.httpd": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-httpd": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {}

@@ -232,5 +232,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-httpd": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-httpd"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

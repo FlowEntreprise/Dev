@@ -454,6 +454,14 @@ module.exports = [
     "clobbers": [
       "cordova.plugins.CorHttpd"
     ]
+  },
+  {
+    "id": "cordova-plugin-httpd.CorHttpd",
+    "file": "plugins/cordova-plugin-httpd/www/CorHttpd.js",
+    "pluginId": "cordova-plugin-httpd",
+    "clobbers": [
+      "cordova.plugins.CorHttpd"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -485,7 +493,8 @@ module.exports.metadata =
   "cordova-plugin-firebase-analytics": "2.0.4",
   "cordova-twitter3-connect-plugin": "1.0.5",
   "cordova-plugin-googleplus": "8.1.1",
-  "com.rjfun.cordova.httpd": "0.9.2"
+  "com.rjfun.cordova.httpd": "0.9.2",
+  "cordova-plugin-httpd": "0.9.3"
 };
 // BOTTOM OF METADATA
 });
