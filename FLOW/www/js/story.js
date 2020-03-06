@@ -136,7 +136,6 @@ var story_data = [];
 // }
 
 // UpdateStoryDataFromServer();
-alert("story.js loaded");
 
 function UpdateStoryDataFromServer(data) {
     /* ------------------------------------------------*/
