@@ -23,14 +23,6 @@ module.exports = [
         "runs": true
     },
     {
-        "file": "plugins/cordova-plugin-facebook4/www/facebook-browser.js",
-        "id": "cordova-plugin-facebook4.FacebookConnectPluginBrowser",
-        "pluginId": "cordova-plugin-facebook4",
-        "clobbers": [
-            "facebookConnectPlugin"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
         "id": "cordova-plugin-inappbrowser.inappbrowser",
         "pluginId": "cordova-plugin-inappbrowser",
@@ -450,7 +442,6 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-whitelist": "1.3.3",
     "cordova.plugins.diagnostic": "4.0.11",
-    "cordova-plugin-facebook4": "4.2.1",
     "cordova-plugin-inappbrowser": "3.0.0",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-k-imagecropper": "1.2.0",
