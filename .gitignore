@@ -5,3 +5,6 @@ FLOW/platforms/android/app/src/main/assets/www
 FLOW/platforms/android/app/.gradle/
 FLOW/platforms/android/.gradle/
 FLOW/platforms/browser/www/
+FLOW/platforms/ios/FLOW.xcodeproj/project.pbxproj
+FLOW/platforms/ios/FLOW.xcodeproj/project.pbxproj
+FLOW/platforms/ios/FLOW.xcodeproj/project.pbxproj
