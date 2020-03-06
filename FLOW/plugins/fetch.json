@@ -138,7 +138,7 @@
   "cordova-plugin-audioinput": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-audioinput"
+      "id": "cordova-plugin-audioinput@^1.0.2"
     },
     "is_top_level": true,
     "variables": {}

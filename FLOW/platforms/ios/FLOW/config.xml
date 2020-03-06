@@ -49,6 +49,9 @@
         <param name="ios-package" onload="true" value="APPBackgroundMode" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="AudioInputCapture">
+        <param name="ios-package" value="CDVAudioInputCapture" />
+    </feature>
     <name>FLOW</name>
     <description>
         The Vocal Social Network.

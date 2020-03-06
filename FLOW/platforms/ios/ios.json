@@ -75,6 +75,10 @@
             {
               "xml": "<feature name=\"BackgroundMode\"><param name=\"ios-package\" onload=\"true\" value=\"APPBackgroundMode\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"AudioInputCapture\"><param name=\"ios-package\" value=\"CDVAudioInputCapture\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -128,6 +132,12 @@
               "xml": "<array><string>audio</string></array>",
               "count": 1
             }
+          ],
+          "NSMicrophoneUsageDescription": [
+            {
+              "xml": "<string>This app needs microphone access</string>",
+              "count": 1
+            }
           ]
         }
       }
@@ -159,6 +169,9 @@
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     },
     "cordova-plugin-background-mode": {
+      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+    },
+    "cordova-plugin-audioinput": {
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     }
   },
@@ -393,6 +406,14 @@
         "cordova.plugins.backgroundMode",
         "plugin.backgroundMode"
       ]
+    },
+    {
+      "id": "cordova-plugin-audioinput.AudioInput",
+      "file": "plugins/cordova-plugin-audioinput/www/audioInputCapture.js",
+      "pluginId": "cordova-plugin-audioinput",
+      "clobbers": [
+        "audioinput"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -402,6 +423,7 @@
     "twitter-connect-plugin": "0.6.0",
     "cordova-plugin-facebook4": "6.3.0",
     "cordova-plugin-device": "2.0.3",
-    "cordova-plugin-background-mode": "0.7.3"
+    "cordova-plugin-background-mode": "0.7.3",
+    "cordova-plugin-audioinput": "1.0.2"
   }
 }
