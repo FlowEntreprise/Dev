@@ -65,6 +65,10 @@
 		F6FF9C502B9F40C7B1619E32 /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9EFA66F0A744E9858267A5 /* DispatchQueueLogFormatter.m */; };
 		FD6C4BA637DC496EBA3BDED1 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2BCC9DF0BBD4D14AF824F91 /* Fabric.framework */; };
 		FD8301E2D0074CAAB9CC26AD /* HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFE94D419F640E0A18E9BD2 /* HTTPConnection.m */; };
+		4443AFE84D844CE083F161E7 /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 9830B6A963884F6E977FA185 /* CDVDevice.m */; };
+		FC4E0E324B7144A49E7B95C0 /* APPBackgroundMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FEE53C397B456AA5CEEC66 /* APPBackgroundMode.m */; };
+		56F5EF153F3943E8B0F99C56 /* APPMethodMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = 349E11205B3B4CBF8BECDB49 /* APPMethodMagic.m */; };
+		9EA73893F30A47AF8BF4C58D /* appbeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 95AC959D27A2429F86CDCC59 /* appbeep.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,6 +200,13 @@
 		F99B953141474E569F9526D8 /* DDFileLogger.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = "cordova-plugin-httpd/DDFileLogger.m"; sourceTree = "<group>"; };
 		FDA36E2F4C0C4489AD1D1A38 /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVLocalFilesystem.m; path = "cordova-plugin-file/CDVLocalFilesystem.m"; sourceTree = "<group>"; };
 		FE9EFA66F0A744E9858267A5 /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = DispatchQueueLogFormatter.m; path = "cordova-plugin-httpd/DispatchQueueLogFormatter.m"; sourceTree = "<group>"; };
+		9830B6A963884F6E977FA185 /* CDVDevice.m */ = {isa = PBXFileReference; name = "CDVDevice.m"; path = "cordova-plugin-device/CDVDevice.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		EB0BFCCFD1C448918E810A47 /* CDVDevice.h */ = {isa = PBXFileReference; name = "CDVDevice.h"; path = "cordova-plugin-device/CDVDevice.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		71FEE53C397B456AA5CEEC66 /* APPBackgroundMode.m */ = {isa = PBXFileReference; name = "APPBackgroundMode.m"; path = "cordova-plugin-background-mode/APPBackgroundMode.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		349E11205B3B4CBF8BECDB49 /* APPMethodMagic.m */ = {isa = PBXFileReference; name = "APPMethodMagic.m"; path = "cordova-plugin-background-mode/APPMethodMagic.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		DFD218E4DD384A39ACA8ED18 /* APPBackgroundMode.h */ = {isa = PBXFileReference; name = "APPBackgroundMode.h"; path = "cordova-plugin-background-mode/APPBackgroundMode.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		8383740F6A8F4154A88E454A /* APPMethodMagic.h */ = {isa = PBXFileReference; name = "APPMethodMagic.h"; path = "cordova-plugin-background-mode/APPMethodMagic.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		95AC959D27A2429F86CDCC59 /* appbeep.wav */ = {isa = PBXFileReference; name = "appbeep.wav"; path = "appbeep.wav"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,6 +297,7 @@
 				8D1107310486CEB800E47090 /* FLOW-Info.plist */,
 				6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */,
 				957EC5A59BD94E4081CE883C /* TwitterKitResources.bundle */,
+				95AC959D27A2429F86CDCC59 /* appbeep.wav */,
 			);
 			name = Resources;
 			path = FLOW/Resources;
@@ -401,6 +413,12 @@
 				A00E961F8E084A6D89394AAA /* CDVSound.h */,
 				63BA10A78C9F4152843DA2BD /* TwitterConnect.m */,
 				8830DF7F3CA64EE5A6B9F4C9 /* TwitterConnect.h */,
+				9830B6A963884F6E977FA185 /* CDVDevice.m */,
+				EB0BFCCFD1C448918E810A47 /* CDVDevice.h */,
+				71FEE53C397B456AA5CEEC66 /* APPBackgroundMode.m */,
+				349E11205B3B4CBF8BECDB49 /* APPMethodMagic.m */,
+				DFD218E4DD384A39ACA8ED18 /* APPBackgroundMode.h */,
+				8383740F6A8F4154A88E454A /* APPMethodMagic.h */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -511,6 +529,7 @@
 				0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */,
 				6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */,
 				EFB411B317E94929B4F1A8A3 /* TwitterKitResources.bundle in Resources */,
+				9EA73893F30A47AF8BF4C58D /* appbeep.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,6 +639,9 @@
 				1806D364C6CF4E3A93B5B1A5 /* CDVAssetLibraryFilesystem.m in Sources */,
 				139A96DFF6DC461684D1572E /* CDVSound.m in Sources */,
 				553232508B934AA6B231D2BB /* TwitterConnect.m in Sources */,
+				4443AFE84D844CE083F161E7 /* CDVDevice.m in Sources */,
+				FC4E0E324B7144A49E7B95C0 /* APPBackgroundMode.m in Sources */,
+				56F5EF153F3943E8B0F99C56 /* APPMethodMagic.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

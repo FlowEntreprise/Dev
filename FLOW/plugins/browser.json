@@ -101,7 +101,14 @@
       "FACEBOOK_HYBRID_APP_EVENTS": "false",
       "FACEBOOK_ANDROID_SDK_VERSION": "5.13.0",
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-background-mode": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    }
+  }
 }
