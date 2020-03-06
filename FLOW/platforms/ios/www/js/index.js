@@ -125,6 +125,7 @@ var app = {
             console.log("failed to start server: " + error);
         });
 
+        cordova.plugins.backgroundMode.enable(); //To Enable
 
         var push = PushNotification.init({
             android: {}
