@@ -717,6 +717,8 @@ var audioDataBuffer = [];
  * Called continuously while AudioInput capture is running.
  */
 function onAudioInputCapture(evt) {
+    console.log("mic input !");
+    console.log(evt);
     try {
         if (evt && evt.data) {
             // Add the chunk to the buffer
@@ -756,7 +758,8 @@ var startCapture = function () {
                 sampleRate: 16000,
                 bufferSize: 2048,
                 concatenateMaxChunks: 10,
-                // format: window.audioinput.FORMAT.PCM_16BIT,
+                format: window.audioinput.FORMAT.PCM_16BIT,
+                channels: 1,
                 audioSourceType: 0
             };
 
