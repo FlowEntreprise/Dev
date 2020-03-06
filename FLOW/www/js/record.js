@@ -13,6 +13,7 @@ var destinationType;
 var image64;
 var patternKey;
 var blob;
+var audioURL;
 
 let options = {
     quality: 75,
@@ -336,7 +337,7 @@ function Save(blob) {
     $(".frecord-btn")[0].classList.remove("frecord_loading_btn");
     worker.terminate();
 
-    var audioURL = window.URL.createObjectURL(blob);
+    // var audioURL = window.URL.createObjectURL(blob);
 
     console.log("current page : " + current_page);
     if (current_page == "record") {
@@ -811,6 +812,9 @@ var stopCapture = function (save) {
             console.log("Encoding WAV finished");
             var blob = encoder.finish("audio/wav");
             console.log("BLOB created");
+
+            audioURL = window.URL.createObjectURL(blob);
+
             EncodeOpus(blob);
         } else if (current_page == "story") {
             $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";
