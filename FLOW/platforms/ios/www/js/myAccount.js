@@ -12,7 +12,7 @@ $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)
 document.getElementById("popup-myaccount").addEventListener("opened", function () {
     stopAllBlocksAudio();
     current_page = "my-account";
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page); // because iOS
     indexMyFlow = 0;
     $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
     $("#MyActivity")[0].innerHTML = "";
