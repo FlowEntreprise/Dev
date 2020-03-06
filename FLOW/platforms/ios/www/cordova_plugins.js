@@ -204,21 +204,12 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "TwitterConnect"
       ]
-    },
-    {
-      "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
-      "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
-      "pluginId": "cordova-plugin-facebook4",
-      "clobbers": [
-        "facebookConnectPlugin"
-      ]
     }
   ];
   module.exports.metadata = {
     "cordova-plugin-httpd": "0.9.3",
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-media": "5.0.3",
-    "twitter-connect-plugin": "0.6.0",
-    "cordova-plugin-facebook4": "4.2.1"
+    "twitter-connect-plugin": "0.6.0"
   };
 });

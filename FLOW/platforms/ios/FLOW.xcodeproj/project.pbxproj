@@ -404,8 +404,6 @@
 				A00E961F8E084A6D89394AAA /* CDVSound.h */,
 				63BA10A78C9F4152843DA2BD /* TwitterConnect.m */,
 				8830DF7F3CA64EE5A6B9F4C9 /* TwitterConnect.h */,
-				579CDDE999804A6CBB5A627A /* FacebookConnectPlugin.m */,
-				BD9D225D666042A9805D2565 /* FacebookConnectPlugin.h */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -619,7 +617,6 @@
 				1806D364C6CF4E3A93B5B1A5 /* CDVAssetLibraryFilesystem.m in Sources */,
 				139A96DFF6DC461684D1572E /* CDVSound.m in Sources */,
 				553232508B934AA6B231D2BB /* TwitterConnect.m in Sources */,
-				48DD9A00262447F2AF41DCA9 /* FacebookConnectPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
