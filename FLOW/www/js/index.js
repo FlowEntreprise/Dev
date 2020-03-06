@@ -128,6 +128,17 @@ var app = {
         cordova.plugins.backgroundMode.enable(); //To Enable
         CheckIfConnected();
 
+        if (window.cordova && window.audioinput) {
+            // Subscribe to audioinput events
+            //
+            window.addEventListener('audioinput', onAudioInputCapture, false);
+            window.addEventListener('audioinputerror', onAudioInputError, false);
+
+            console.log("cordova-plugin-audioinput successfully initialised");
+        } else {
+            console.log("cordova-plugin-audioinput not found!");
+        }
+
         var push = PushNotification.init({
             android: {}
         });

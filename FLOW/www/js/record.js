@@ -362,7 +362,6 @@ function Save(blob) {
             //analytics.setCurrentScreen(current_page);
         }
         $(".after-record-block-container").html("");
-        console.log(audioURL);
         let block_params = {
             parent_element: $(".after-record-block-container"),
             afterblock: true,
@@ -400,7 +399,6 @@ function Save(blob) {
         Popup("popup-story-record", false);
         Popup("popup-after-story-record", true);
         $(".after-story-record-block-container").html("");
-        console.log(audioURL);
         let block_params = {
             parent_element: $(".after-story-record-block-container"),
             afterblock: true,
@@ -717,8 +715,6 @@ var audioDataBuffer = [];
  * Called continuously while AudioInput capture is running.
  */
 function onAudioInputCapture(evt) {
-    console.log("mic input !");
-    console.log(evt);
     try {
         if (evt && evt.data) {
             // Add the chunk to the buffer
@@ -726,7 +722,6 @@ function onAudioInputCapture(evt) {
             audioDataBuffer = audioDataBuffer.concat(data);
             // wave(data);
             sound_data = data;
-            console.log(data);
             // console.log(Array.from(evt.data));
             // wave(Array.from(evt.data));
         } else {
@@ -758,8 +753,7 @@ var startCapture = function () {
                 sampleRate: 16000,
                 bufferSize: 2048,
                 concatenateMaxChunks: 10,
-                format: window.audioinput.FORMAT.PCM_16BIT,
-                channels: 1,
+                // format: window.audioinput.FORMAT.PCM_16BIT,
                 audioSourceType: 0
             };
 
@@ -820,7 +814,6 @@ var stopCapture = function (save) {
             console.log("BLOB created");
 
             audioURL = window.URL.createObjectURL(blob);
-            console.log(audioURL + " blob created and audio url saved");
 
             EncodeOpus(blob);
         } else if (current_page == "story") {
@@ -829,20 +822,21 @@ var stopCapture = function (save) {
     }
 };
 
-var onDeviceReady = function () {
-    if (window.cordova && window.audioinput) {
-        // Subscribe to audioinput events
-        //
-        window.addEventListener('audioinput', onAudioInputCapture, false);
-        window.addEventListener('audioinputerror', onAudioInputError, false);
+// MOVED TO INDEX.JS FOR IOS
+// var onDeviceReady = function () {
+//     if (window.cordova && window.audioinput) {
+//         // Subscribe to audioinput events
+//         //
+//         window.addEventListener('audioinput', onAudioInputCapture, false);
+//         window.addEventListener('audioinputerror', onAudioInputError, false);
 
-        console.log("cordova-plugin-audioinput successfully initialised");
-    } else {
-        console.log("cordova-plugin-audioinput not found!");
-    }
-};
+//         console.log("cordova-plugin-audioinput successfully initialised");
+//     } else {
+//         console.log("cordova-plugin-audioinput not found!");
+//     }
+// };
 
-document.addEventListener('deviceready', onDeviceReady, false);
+// document.addEventListener('deviceready', onDeviceReady, false);
 
 /**
  *
