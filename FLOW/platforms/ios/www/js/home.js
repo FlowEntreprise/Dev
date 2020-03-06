@@ -67,8 +67,7 @@ function PopFlow(data, LinkBuilder) {
   if (data.Background.PatternKey != undefined) {
     pattern_key = data.Background.PatternKey;
 
-  }
-  else {
+  } else {
     image_link = data.Background;
   }
   const flow_link = data.Audio;
@@ -185,7 +184,7 @@ function DisableImmersiveMode() {
     _root.style.setProperty("--custom-vh2", 3.7 * _myvar + "px");
   }, 50);
   AndroidFullScreen.showSystemUI(successFunction, errorFunction);
-  StatusBar.styleDefault();
+  // StatusBar.styleDefault(); ios
   // }, 100);
 
 }

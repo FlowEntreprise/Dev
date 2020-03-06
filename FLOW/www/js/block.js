@@ -753,10 +753,10 @@ function affichage_nombre(number, decPlaces) { // cette fonction permet d'affich
 
 document.getElementById("popup-comment").addEventListener("opened", function () {
     StatusBar.backgroundColorByHexString('#949494');
-    StatusBar.styleLightContent();
+    // StatusBar.styleLightContent(); ios
 });
 
 document.getElementById("popup-comment").addEventListener("closed", function () {
     StatusBar.backgroundColorByHexString('#f7f7f8');
-    StatusBar.styleDefault();
+    // StatusBar.styleDefault(); ios
 });

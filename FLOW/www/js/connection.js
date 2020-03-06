@@ -121,13 +121,13 @@ function getBase64Image(imgUrl, callback) {
 }
 
 document.getElementById("popup-connect").addEventListener("opened", function () {
-    StatusBar.backgroundColorByHexString('#949494');
-    StatusBar.styleLightContent();
+    // StatusBar.backgroundColorByHexString('#949494'); ios
+    // StatusBar.styleLightContent(); ios
 });
 
 document.getElementById("popup-connect").addEventListener("closed", function () {
-    StatusBar.backgroundColorByHexString('#f7f7f8');
-    StatusBar.styleDefault();
+    // StatusBar.backgroundColorByHexString('#f7f7f8');ios
+    // StatusBar.styleDefault();ios
 });
 
 // $$('.popup-connect').on('popup:open', function () {
