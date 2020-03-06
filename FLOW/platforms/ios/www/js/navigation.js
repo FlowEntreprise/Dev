@@ -67,9 +67,9 @@ $$('#tab3').on('tab:show', function () {
 
     if (!connected) {
         setTimeout(function () {
-            app.showTab("#tab1");
+            //app.showTab("#tab1");
             // app.popup('.popup-connect');
-            Popup("popup-connect", true, 45);
+            //Popup("popup-connect", true, 45);
         }, 100);
     }
 
