@@ -54,7 +54,7 @@
             "cordova-plugin-statusbar": {},
             "cordova-plugin-android-permissions": {},
             "cordova-plugin-facebook4": {
-                "APP_ID": "com.flowapp.flow",
+                "APP_ID": "502054883649562",
                 "APP_NAME": "FLOW",
                 "FACEBOOK_HYBRID_APP_EVENTS": "false",
                 "FACEBOOK_ANDROID_SDK_VERSION": "4.40.0"

@@ -59,6 +59,11 @@
 		F6FF9C502B9F40C7B1619E32 /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9EFA66F0A744E9858267A5 /* DispatchQueueLogFormatter.m */; };
 		FD6C4BA637DC496EBA3BDED1 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2BCC9DF0BBD4D14AF824F91 /* Fabric.framework */; };
 		FD8301E2D0074CAAB9CC26AD /* HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFE94D419F640E0A18E9BD2 /* HTTPConnection.m */; };
+		48DD9A00262447F2AF41DCA9 /* FacebookConnectPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 579CDDE999804A6CBB5A627A /* FacebookConnectPlugin.m */; };
+		F275116C54764AE8B3021BFE /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17D3675F6DCE48E28E6966CE /* Bolts.framework */; };
+		5CC979A90ED64532BDF3AFA6 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B618F204BE6495FABA523C3 /* FBSDKCoreKit.framework */; };
+		AE876160A33740B28EE2E0A6 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70BB6932C4B4B3CB54AB8ED /* FBSDKLoginKit.framework */; };
+		84679C1688CE45D7BF355E77 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7A8898F7AEB4E438798B146 /* FBSDKShareKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,6 +187,12 @@
 		F99B953141474E569F9526D8 /* DDFileLogger.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = "cordova-plugin-httpd/DDFileLogger.m"; sourceTree = "<group>"; };
 		FDA36E2F4C0C4489AD1D1A38 /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVLocalFilesystem.m; path = "cordova-plugin-file/CDVLocalFilesystem.m"; sourceTree = "<group>"; };
 		FE9EFA66F0A744E9858267A5 /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = DispatchQueueLogFormatter.m; path = "cordova-plugin-httpd/DispatchQueueLogFormatter.m"; sourceTree = "<group>"; };
+		579CDDE999804A6CBB5A627A /* FacebookConnectPlugin.m */ = {isa = PBXFileReference; name = "FacebookConnectPlugin.m"; path = "cordova-plugin-facebook4/FacebookConnectPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		BD9D225D666042A9805D2565 /* FacebookConnectPlugin.h */ = {isa = PBXFileReference; name = "FacebookConnectPlugin.h"; path = "cordova-plugin-facebook4/FacebookConnectPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		17D3675F6DCE48E28E6966CE /* Bolts.framework */ = {isa = PBXFileReference; name = "Bolts.framework"; path = "FLOW/Plugins/cordova-plugin-facebook4/Bolts.framework"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		1B618F204BE6495FABA523C3 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; name = "FBSDKCoreKit.framework"; path = "FLOW/Plugins/cordova-plugin-facebook4/FBSDKCoreKit.framework"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		F70BB6932C4B4B3CB54AB8ED /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; name = "FBSDKLoginKit.framework"; path = "FLOW/Plugins/cordova-plugin-facebook4/FBSDKLoginKit.framework"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		B7A8898F7AEB4E438798B146 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; name = "FBSDKShareKit.framework"; path = "FLOW/Plugins/cordova-plugin-facebook4/FBSDKShareKit.framework"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +213,10 @@
 				A248CEB5D4F4418A957AA2D6 /* Accounts.framework in Frameworks */,
 				32F43EB4882E43FDAE6E8B8A /* Social.framework in Frameworks */,
 				675DFCD8F9CF4133A04F2A5B /* CoreData.framework in Frameworks */,
+				F275116C54764AE8B3021BFE /* Bolts.framework in Frameworks */,
+				5CC979A90ED64532BDF3AFA6 /* FBSDKCoreKit.framework in Frameworks */,
+				AE876160A33740B28EE2E0A6 /* FBSDKLoginKit.framework in Frameworks */,
+				84679C1688CE45D7BF355E77 /* FBSDKShareKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +300,10 @@
 				756D8554A8EE4F3796DD6A58 /* Accounts.framework */,
 				67BEEFBA45F347B5AFF92BA1 /* Social.framework */,
 				7246705A564D436386408315 /* CoreData.framework */,
+				17D3675F6DCE48E28E6966CE /* Bolts.framework */,
+				1B618F204BE6495FABA523C3 /* FBSDKCoreKit.framework */,
+				F70BB6932C4B4B3CB54AB8ED /* FBSDKLoginKit.framework */,
+				B7A8898F7AEB4E438798B146 /* FBSDKShareKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -374,6 +393,8 @@
 				A00E961F8E084A6D89394AAA /* CDVSound.h */,
 				63BA10A78C9F4152843DA2BD /* TwitterConnect.m */,
 				8830DF7F3CA64EE5A6B9F4C9 /* TwitterConnect.h */,
+				579CDDE999804A6CBB5A627A /* FacebookConnectPlugin.m */,
+				BD9D225D666042A9805D2565 /* FacebookConnectPlugin.h */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -535,6 +556,7 @@
 				1806D364C6CF4E3A93B5B1A5 /* CDVAssetLibraryFilesystem.m in Sources */,
 				139A96DFF6DC461684D1572E /* CDVSound.m in Sources */,
 				553232508B934AA6B231D2BB /* TwitterConnect.m in Sources */,
+				48DD9A00262447F2AF41DCA9 /* FacebookConnectPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +587,10 @@
 					"\"FLOW/Plugins/twitter-connect-plugin\"",
 					"\"FLOW/Plugins/twitter-connect-plugin\"",
 					"\"FLOW/Plugins/twitter-connect-plugin\"",
+					"\"FLOW/Plugins/cordova-plugin-facebook4\"",
+					"\"FLOW/Plugins/cordova-plugin-facebook4\"",
+					"\"FLOW/Plugins/cordova-plugin-facebook4\"",
+					"\"FLOW/Plugins/cordova-plugin-facebook4\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -599,6 +625,10 @@
 					"\"FLOW/Plugins/twitter-connect-plugin\"",
 					"\"FLOW/Plugins/twitter-connect-plugin\"",
 					"\"FLOW/Plugins/twitter-connect-plugin\"",
+					"\"FLOW/Plugins/cordova-plugin-facebook4\"",
+					"\"FLOW/Plugins/cordova-plugin-facebook4\"",
+					"\"FLOW/Plugins/cordova-plugin-facebook4\"",
+					"\"FLOW/Plugins/cordova-plugin-facebook4\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FLOW/FLOW-Prefix.pch";
