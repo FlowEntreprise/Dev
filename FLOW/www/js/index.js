@@ -126,6 +126,7 @@ var app = {
         });
 
         cordova.plugins.backgroundMode.enable(); //To Enable
+        CheckIfConnected();
 
         var push = PushNotification.init({
             android: {}
@@ -167,7 +168,6 @@ var app = {
             console.log(e.message);
         });
 
-        CheckIfConnected();
     }
 
 
