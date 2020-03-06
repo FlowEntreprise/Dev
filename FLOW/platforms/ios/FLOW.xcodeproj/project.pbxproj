@@ -35,7 +35,6 @@
 		436660EA90B74DC787D25F05 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9B419FA9CC4842B4D095B6 /* Security.framework */; };
 		4388CC5CF75A4E128CB3E2E8 /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D68C822174F468E90907635 /* ContextFilterLogFormatter.m */; };
 		4868C6A4AE894E0B95CAEE6D /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 36351432088B44FC8E0C58F6 /* WebSocket.m */; };
-		48DD9A00262447F2AF41DCA9 /* FacebookConnectPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 579CDDE999804A6CBB5A627A /* FacebookConnectPlugin.m */; };
 		553232508B934AA6B231D2BB /* TwitterConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BA10A78C9F4152843DA2BD /* TwitterConnect.m */; };
 		5AAA8030FB954A6BB66AE145 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 110480A11E454E71BE3E348E /* Foundation.framework */; };
 		5CC979A90ED64532BDF3AFA6 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B618F204BE6495FABA523C3 /* FBSDKCoreKit.framework */; };
@@ -51,7 +50,6 @@
 		96619C3B058A474F8FCC2663 /* DDRange.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FF999AA0A6493A8D634499 /* DDRange.m */; };
 		9730DF314F134DC9A3C546E1 /* HTTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 75933F4E63114D2293764D0C /* HTTPMessage.m */; };
 		A248CEB5D4F4418A957AA2D6 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 756D8554A8EE4F3796DD6A58 /* Accounts.framework */; };
-		AAC88FCB5D18DE4A9979F266 /* libPods-FLOW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 041B16ED9B88E474306F0D0A /* libPods-FLOW.a */; };
 		AB12A5220EE94BF892D0E533 /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = FDA36E2F4C0C4489AD1D1A38 /* CDVLocalFilesystem.m */; };
 		AE876160A33740B28EE2E0A6 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F70BB6932C4B4B3CB54AB8ED /* FBSDKLoginKit.framework */; };
 		AEFCD335F902408AA86B0E8E /* DDAbstractDatabaseLogger.h in Sources */ = {isa = PBXBuildFile; fileRef = 95CCFD3D5CB640DA9D7D070B /* DDAbstractDatabaseLogger.h */; };
@@ -59,6 +57,7 @@
 		D3AE14E7AD7F41CAAA4232EA /* MultipartMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 61BA3A8E71394DA1BBF099D8 /* MultipartMessageHeader.m */; };
 		D5BF7348A76E4D368C23C709 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C61DBC16D5ED42409692C815 /* DDTTYLogger.m */; };
 		DECB0CE9D5C8483A9A2B404E /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B00E43F6D654ADFAD8D2265 /* TwitterCore.framework */; };
+		E19B877C417AE5D9A07FD4F5 /* Pods_FLOW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D479DEA8DE3933D0154080E /* Pods_FLOW.framework */; };
 		ED5D4E13867C401685EA3B8D /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = F99B953141474E569F9526D8 /* DDFileLogger.m */; };
 		EFB411B317E94929B4F1A8A3 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 957EC5A59BD94E4081CE883C /* TwitterKitResources.bundle */; };
 		F275116C54764AE8B3021BFE /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17D3675F6DCE48E28E6966CE /* Bolts.framework */; };
@@ -95,7 +94,6 @@
 /* Begin PBXFileReference section */
 		006E84755ED74D528A45C431 /* HTTPServer.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = HTTPServer.m; path = "cordova-plugin-httpd/HTTPServer.m"; sourceTree = "<group>"; };
 		0207DA571B56EA530066E2B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = FLOW/Images.xcassets; sourceTree = SOURCE_ROOT; };
-		041B16ED9B88E474306F0D0A /* libPods-FLOW.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FLOW.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		061223822412560300992199 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		0A441AB1565D45F49C7D8F34 /* DDRange.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = DDRange.h; path = "cordova-plugin-httpd/DDRange.h"; sourceTree = "<group>"; };
 		0BC72F020AB4466AA19CE84E /* HTTPServer.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = HTTPServer.h; path = "cordova-plugin-httpd/HTTPServer.h"; sourceTree = "<group>"; };
@@ -132,7 +130,6 @@
 		43016377E52A4F78AD80DA04 /* MultipartMessageHeaderField.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = MultipartMessageHeaderField.h; path = "cordova-plugin-httpd/MultipartMessageHeaderField.h"; sourceTree = "<group>"; };
 		4D482950BACA4566BC5CF0F0 /* CDVFile.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVFile.h; path = "cordova-plugin-file/CDVFile.h"; sourceTree = "<group>"; };
 		5014D8E7827A4FDD8D1FA8C0 /* HTTPAsyncFileResponse.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = HTTPAsyncFileResponse.m; path = "cordova-plugin-httpd/HTTPAsyncFileResponse.m"; sourceTree = "<group>"; };
-		579CDDE999804A6CBB5A627A /* FacebookConnectPlugin.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = FacebookConnectPlugin.m; path = "cordova-plugin-facebook4/FacebookConnectPlugin.m"; sourceTree = "<group>"; };
 		5A724F3780D1444785E01984 /* HTTPAuthenticationRequest.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = HTTPAuthenticationRequest.h; path = "cordova-plugin-httpd/HTTPAuthenticationRequest.h"; sourceTree = "<group>"; };
 		5BA881FDD7094E37A333EC21 /* MultipartMessageHeaderField.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = MultipartMessageHeaderField.m; path = "cordova-plugin-httpd/MultipartMessageHeaderField.m"; sourceTree = "<group>"; };
 		5DFE94D419F640E0A18E9BD2 /* HTTPConnection.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = HTTPConnection.m; path = "cordova-plugin-httpd/HTTPConnection.m"; sourceTree = "<group>"; };
@@ -152,6 +149,7 @@
 		75933F4E63114D2293764D0C /* HTTPMessage.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = HTTPMessage.m; path = "cordova-plugin-httpd/HTTPMessage.m"; sourceTree = "<group>"; };
 		771B1BE6F90A49108B2A735D /* CDVLocalFilesystem.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVLocalFilesystem.h; path = "cordova-plugin-file/CDVLocalFilesystem.h"; sourceTree = "<group>"; };
 		7A0CBBDD87A24DB3B675BE5A /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = DispatchQueueLogFormatter.h; path = "cordova-plugin-httpd/DispatchQueueLogFormatter.h"; sourceTree = "<group>"; };
+		7D479DEA8DE3933D0154080E /* Pods_FLOW.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FLOW.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D68C822174F468E90907635 /* ContextFilterLogFormatter.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = ContextFilterLogFormatter.m; path = "cordova-plugin-httpd/ContextFilterLogFormatter.m"; sourceTree = "<group>"; };
 		7ECD548782E34B0E969B4789 /* HTTPRedirectResponse.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = HTTPRedirectResponse.m; path = "cordova-plugin-httpd/HTTPRedirectResponse.m"; sourceTree = "<group>"; };
 		7EE50CF9FFBC400BB7E4768C /* HTTPAsyncFileResponse.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = HTTPAsyncFileResponse.h; path = "cordova-plugin-httpd/HTTPAsyncFileResponse.h"; sourceTree = "<group>"; };
@@ -176,7 +174,6 @@
 		B492020316D74A05B3EA7037 /* HTTPConnection.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = HTTPConnection.h; path = "cordova-plugin-httpd/HTTPConnection.h"; sourceTree = "<group>"; };
 		B7A8898F7AEB4E438798B146 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "FLOW/Plugins/cordova-plugin-facebook4/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		BC4E25B98BD9421E9D9853BC /* HTTPFileResponse.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = HTTPFileResponse.m; path = "cordova-plugin-httpd/HTTPFileResponse.m"; sourceTree = "<group>"; };
-		BD9D225D666042A9805D2565 /* FacebookConnectPlugin.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = FacebookConnectPlugin.h; path = "cordova-plugin-facebook4/FacebookConnectPlugin.h"; sourceTree = "<group>"; };
 		C5A0BB6424C94BF1A6A64F52 /* CorHttpd.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CorHttpd.m; path = "cordova-plugin-httpd/CorHttpd.m"; sourceTree = "<group>"; };
 		C61DBC16D5ED42409692C815 /* DDTTYLogger.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = DDTTYLogger.m; path = "cordova-plugin-httpd/DDTTYLogger.m"; sourceTree = "<group>"; };
 		CA6FFB72C68B403F8271BCEF /* ContextFilterLogFormatter.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = ContextFilterLogFormatter.h; path = "cordova-plugin-httpd/ContextFilterLogFormatter.h"; sourceTree = "<group>"; };
@@ -224,7 +221,7 @@
 				AE876160A33740B28EE2E0A6 /* FBSDKLoginKit.framework in Frameworks */,
 				84679C1688CE45D7BF355E77 /* FBSDKShareKit.framework in Frameworks */,
 				061223842412560400992199 /* WebKit.framework in Frameworks */,
-				AAC88FCB5D18DE4A9979F266 /* libPods-FLOW.a in Frameworks */,
+				E19B877C417AE5D9A07FD4F5 /* Pods_FLOW.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,7 +249,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+		29B97314FDCFA39411CA2CEA = {
 			isa = PBXGroup;
 			children = (
 				EB87FDF41871DAF40020F90C /* config.xml */,
@@ -314,7 +311,7 @@
 				1B618F204BE6495FABA523C3 /* FBSDKCoreKit.framework */,
 				F70BB6932C4B4B3CB54AB8ED /* FBSDKLoginKit.framework */,
 				B7A8898F7AEB4E438798B146 /* FBSDKShareKit.framework */,
-				041B16ED9B88E474306F0D0A /* libPods-FLOW.a */,
+				7D479DEA8DE3933D0154080E /* Pods_FLOW.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -439,7 +436,7 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-				F37F85F72873D8CAAB0ADC32 /* [CP] Copy Pods Resources */,
+				71D763F5B87E5401DB37A41F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -472,7 +469,7 @@
 				en,
 				Base,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			mainGroup = 29B97314FDCFA39411CA2CEA;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -539,7 +536,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${SRCROOT}/Podfile.lock\" \"${SRCROOT}/Pods/\"\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		304B58A110DAC018002A0835 /* Copy www directory */ = {
@@ -557,22 +554,28 @@
 			shellScript = "\"$SRCROOT/FLOW/Scripts/copy-www-build-step.sh\"";
 			showEnvVarsInLog = 0;
 		};
-		F37F85F72873D8CAAB0ADC32 /* [CP] Copy Pods Resources */ = {
+		71D763F5B87E5401DB37A41F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FLOW/Pods-FLOW-resources.sh",
-				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-FLOW/Pods-FLOW-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FLOW/Pods-FLOW-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FLOW/Pods-FLOW-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
