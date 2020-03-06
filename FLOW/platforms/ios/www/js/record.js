@@ -362,6 +362,7 @@ function Save(blob) {
             //analytics.setCurrentScreen(current_page);
         }
         $(".after-record-block-container").html("");
+        console.log(audioURL);
         let block_params = {
             parent_element: $(".after-record-block-container"),
             afterblock: true,
@@ -399,6 +400,7 @@ function Save(blob) {
         Popup("popup-story-record", false);
         Popup("popup-after-story-record", true);
         $(".after-story-record-block-container").html("");
+        console.log(audioURL);
         let block_params = {
             parent_element: $(".after-story-record-block-container"),
             afterblock: true,
@@ -722,6 +724,7 @@ function onAudioInputCapture(evt) {
             audioDataBuffer = audioDataBuffer.concat(data);
             // wave(data);
             sound_data = data;
+            console.log(data);
             // console.log(Array.from(evt.data));
             // wave(Array.from(evt.data));
         } else {
@@ -814,6 +817,7 @@ var stopCapture = function (save) {
             console.log("BLOB created");
 
             audioURL = window.URL.createObjectURL(blob);
+            console.log(audioURL + " blob created and audio url saved");
 
             EncodeOpus(blob);
         } else if (current_page == "story") {
