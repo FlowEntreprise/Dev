@@ -90,9 +90,7 @@
             },
             "com.rjfun.cordova.httpd": {},
             "cordova-plugin-httpd": {},
-            "cordova-plugin-media": {
-                "KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE": "NO"
-            },
+            "cordova-plugin-media": {},
             "twitter-connect-plugin": {
                 "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038"
             }
