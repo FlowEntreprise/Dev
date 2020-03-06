@@ -432,6 +432,14 @@ module.exports = [
         "clobbers": [
             "TwitterConnect"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-facebook4/www/facebook-browser.js",
+        "id": "cordova-plugin-facebook4.FacebookConnectPluginBrowser",
+        "pluginId": "cordova-plugin-facebook4",
+        "clobbers": [
+            "facebookConnectPlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -464,7 +472,8 @@ module.exports.metadata =
     "com.rjfun.cordova.httpd": "0.9.2",
     "cordova-plugin-httpd": "0.9.3",
     "cordova-plugin-media": "5.0.3",
-    "twitter-connect-plugin": "0.6.0"
+    "twitter-connect-plugin": "0.6.0",
+    "cordova-plugin-facebook4": "6.3.0"
 }
 // BOTTOM OF METADATA
 });
