@@ -523,7 +523,7 @@ function tryLoadStory(story_index, storyFlow_index) {
         $(".fstory_pp")[0].style.backgroundImage = "white";
         // $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].darkColor + ");";
         let color_gradient = "linear-gradient(black, black)";
-        StatusBar.backgroundColorByHexString("#000000");
+        // StatusBar.backgroundColorByHexString("#000000"); ios
         // StatusBar.styleDefault(); ios
         $(".fstory_window")[0].style.backgroundImage = color_gradient;
 
