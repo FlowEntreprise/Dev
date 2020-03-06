@@ -53,7 +53,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
         $(".fflow-btn").css("z-index", "1");
         $(".flow-btn-shadow").css("z-index", "0");
         current_page = "home";
-        analytics.setCurrentScreen(current_page);
+        // analytics.setCurrentScreen(current_page);
         Popup("popup-myaccount", false);
         stopAllBlocksAudio();
         //$(".flow-btn-shadow").css("display", "block");

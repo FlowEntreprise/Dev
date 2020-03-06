@@ -63,7 +63,7 @@ $$('.fneed_connect').on('click', function () {
         // app.popup('.popup-connect');
         Popup("popup-connect", true, 45);
         current_page = "connect-popup";
-        analytics.setCurrentScreen(current_page);
+        // analytics.setCurrentScreen(current_page);
     }
 });
 

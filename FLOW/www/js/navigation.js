@@ -173,5 +173,5 @@ function onBackKeyDown() {
         navigator.app.exitApp();
         stopAllBlocksAudio();
     }
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page);
 }
