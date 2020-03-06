@@ -50,9 +50,10 @@ class FlowObj {
 
         xhr.onload = function () {
             if (this.status == 200) {
+                console.log(this.response);
                 // console.log("flow successfully downloaded !");
                 var blob = new Blob([this.response], {
-                    type: 'audio/opus'
+                    type: 'audio/mpeg'
                 });
                 // console.log("saving to local file...");
                 self.local_url = window.URL.createObjectURL(blob);
