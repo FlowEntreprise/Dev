@@ -164,198 +164,197 @@ function UpdateStoryDataFromServer(data) {
             }
         }
     }
-    // RefreshStories();
+    RefreshStories();
 }
 
-// function RefreshStories() {
-//     /* ------------------------------------------------*/
-//     /*              REFRESH AFTER GETTING DATA         */
-//     /* ------------------------------------------------*/
-//     $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-story-record', true)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div><label class=\"fstory_user\">Your story</label></div></li>";
-//     // if (connected && window.localStorage.getItem("user_profile_pic")) {
-//     //     $(".mystory_pic")[0].src = "src/icons/plus.png"//window.localStorage.getItem("user_profile_pic");
-//     // }
-//     for (var i = 0; i < story_data.length; i++) {
-//         let story_element = document.createElement("li");
-//         let story_block = document.createElement("div");
+function RefreshStories() {
+    /* ------------------------------------------------*/
+    /*              REFRESH AFTER GETTING DATA         */
+    /* ------------------------------------------------*/
+    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-story-record', true)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div><label class=\"fstory_user\">Your story</label></div></li>";
+    // if (connected && window.localStorage.getItem("user_profile_pic")) {
+    //     $(".mystory_pic")[0].src = "src/icons/plus.png"//window.localStorage.getItem("user_profile_pic");
+    // }
+    for (var i = 0; i < story_data.length; i++) {
+        let story_element = document.createElement("li");
+        let story_block = document.createElement("div");
 
-//         story_block.className = "fstory_block";
-//         story_block.onclick = function () {
-//             if (!InStory) {
-//                 current_page = "story";
-//                 SpawnStoryWindow($(this));
-//             }
-//         };
-//         // if (!story_read_ids.includes(story_data[i].id)) {
-//         //     story_block.className += " unread";
-//         // }
-//         let found = story_read.filter(x => x.private_id == story_data[i].private_id);
-//         console.log(story_data[i].private_id);
-//         console.log(story_data[i].lastStoryTime);
-//         console.log(found);
-//         // let found = story_read.find(function (element) {
-//         //     return element.private_id == story_data[i].private_id && element.lastStoryTime < story_data[i].lastStoryTime;
-//         // });
-//         if (found.length == 0 || found[0].lastStoryTime < story_data[i].lastStoryTime) {
-//             story_block.className += " unread";
-//         }
+        story_block.className = "fstory_block";
+        story_block.onclick = function () {
+            if (!InStory) {
+                current_page = "story";
+                SpawnStoryWindow($(this));
+            }
+        };
+        // if (!story_read_ids.includes(story_data[i].id)) {
+        //     story_block.className += " unread";
+        // }
+        let found = story_read.filter(x => x.private_id == story_data[i].private_id);
+        console.log(story_data[i].private_id);
+        console.log(story_data[i].lastStoryTime);
+        console.log(found);
+        // let found = story_read.find(function (element) {
+        //     return element.private_id == story_data[i].private_id && element.lastStoryTime < story_data[i].lastStoryTime;
+        // });
+        if (found.length == 0 || found[0].lastStoryTime < story_data[i].lastStoryTime) {
+            story_block.className += " unread";
+        }
 
-//         story_block.setAttribute("story_id", i);
-//         let story_img = document.createElement("img");
-//         story_img.className = "fstory_pic";
-//         story_img.src = story_data[i].user_picture;
-//         let story_shadow = document.createElement("div");
-//         story_shadow.className = "unread_shadow";
-//         let story_user = document.createElement("label");
-//         story_user.className = "fstory_user";
-//         if (story_data[i].private_id == window.localStorage.getItem("user_private_id")) {
-//             $(".fstory_user")[0].innerHTML = "Add story";
-//             story_user.innerHTML = "Your story";
-//         } else {
-//             story_user.innerHTML = story_data[i].private_id;
-//         }
+        story_block.setAttribute("story_id", i);
+        let story_img = document.createElement("img");
+        story_img.className = "fstory_pic";
+        story_img.src = story_data[i].user_picture;
+        let story_shadow = document.createElement("div");
+        story_shadow.className = "unread_shadow";
+        let story_user = document.createElement("label");
+        story_user.className = "fstory_user";
+        if (story_data[i].private_id == window.localStorage.getItem("user_private_id")) {
+            $(".fstory_user")[0].innerHTML = "Add story";
+            story_user.innerHTML = "Your story";
+        } else {
+            story_user.innerHTML = story_data[i].private_id;
+        }
 
-//         story_block.appendChild(story_user);
-//         story_block.appendChild(story_img);
-//         story_block.appendChild(story_shadow);
-//         // story_block.appendChild(loading_story);
-//         story_element.appendChild(story_block);
+        story_block.appendChild(story_user);
+        story_block.appendChild(story_img);
+        story_block.appendChild(story_shadow);
+        // story_block.appendChild(loading_story);
+        story_element.appendChild(story_block);
 
-//         $(".fstory_list")[0].appendChild(story_element);
+        $(".fstory_list")[0].appendChild(story_element);
 
-//         // $(".fstory_list").
-//     }
+        // $(".fstory_list").
+    }
 
-//     // $(".fstory_block").each(function () {
-//     //     this.addEventListener("click", function () {
-//     //         if (!InStory) {
-//     //             current_page = "story";
-//     //             SpawnStoryWindow($(this));
-//     //         }
-//     //     });
-//     // });
-// }
+    // $(".fstory_block").each(function () {
+    //     this.addEventListener("click", function () {
+    //         if (!InStory) {
+    //             current_page = "story";
+    //             SpawnStoryWindow($(this));
+    //         }
+    //     });
+    // });
+}
 
-// function SpawnStoryWindow(story_block) {
-//     stopAllBlocksAudio();
-//     // window.plugins.insomnia.keepAwake();
-//     story_window = document.createElement("div");
-//     story_window.className = "fstory_window";
-//     story_pos = story_block.position();
-//     story_window.style.transform = "scale3d(0.1, 0.1, 0.1) translate3d(" + (story_pos.left + (window.innerHeight / 100) * 2) * 10 + "px, " + (story_pos.top + (window.innerHeight / 100) * 6) * 10 + "px , 0px)";
-//     //story_window.style.top = story_pos.top + (window.innerHeight / 100) * 6 + "px";
-//     //story_window.style.left = story_pos.left + (window.innerHeight / 100) * 2 + "px";
-//     story_window.style.top = "0px";
-//     story_window.style.left = "0px";
-//     story_window.style.opacity = "0";
-//     story_window.style.opacity = "0";
-//     story_index = story_block[0].getAttribute("story_id");
-//     storyFlow_index = 0;
-//     document.body.appendChild(story_window);
-//     $(".fstory_window").load("pages/story.html", function () {
-//         $(".loading_story")[0].src = "src/icons/loading_circle.gif";
-//         story_window.addEventListener('touchstart', handleTouchStart, false);
-//         story_window.addEventListener('touchmove', handleTouchMove, false);
-//         story_window.addEventListener('touchend', handleTouchEnd, false);
-//         InStory = true;
-//         currentSection = "main";
-//         setTimeout(function () {
-//             console.log(document.getElementById('fstory_wave'));
-//             StorySiriWave = new SiriWaveRecord({
-//                 container: document.getElementById('fstory_wave'),
-//                 width: 300,
-//                 height: 300,
-//                 style: "ios",
-//                 color: "1A84EF",
-//                 cover: true,
-//                 lerpSpeed: 1,
-//                 story: true
-//             });
-//             StorySiriWave.start();
-//             StorySiriWave.speed = 0;
-//             StorySiriWave.amplitude = 0;
+function SpawnStoryWindow(story_block) {
+    stopAllBlocksAudio();
+    // window.plugins.insomnia.keepAwake();
+    story_window = document.createElement("div");
+    story_window.className = "fstory_window";
+    story_pos = story_block.position();
+    story_window.style.transform = "scale3d(0.1, 0.1, 0.1) translate3d(" + (story_pos.left + (window.innerHeight / 100) * 2) * 10 + "px, " + (story_pos.top + (window.innerHeight / 100) * 6) * 10 + "px , 0px)";
+    //story_window.style.top = story_pos.top + (window.innerHeight / 100) * 6 + "px";
+    //story_window.style.left = story_pos.left + (window.innerHeight / 100) * 2 + "px";
+    story_window.style.top = "0px";
+    story_window.style.left = "0px";
+    story_window.style.opacity = "0";
+    story_window.style.opacity = "0";
+    story_index = story_block[0].getAttribute("story_id");
+    storyFlow_index = 0;
+    document.body.appendChild(story_window);
+    $(".fstory_window").load("pages/story.html", function () {
+        $(".loading_story")[0].src = "src/icons/loading_circle.gif";
+        story_window.addEventListener('touchstart', handleTouchStart, false);
+        story_window.addEventListener('touchmove', handleTouchMove, false);
+        story_window.addEventListener('touchend', handleTouchEnd, false);
+        InStory = true;
+        currentSection = "main";
+        setTimeout(function () {
+            console.log(document.getElementById('fstory_wave'));
+            StorySiriWave = new SiriWaveRecord({
+                container: document.getElementById('fstory_wave'),
+                width: 300,
+                height: 300,
+                style: "ios",
+                color: "1A84EF",
+                cover: true,
+                lerpSpeed: 1,
+                story: true
+            });
+            StorySiriWave.start();
+            StorySiriWave.speed = 0;
+            StorySiriWave.amplitude = 0;
 
-//             story_window.style.top = "0px";
-//             story_window.style.left = "0px";
-//             story_window.style.transform = "translate3d(0px, 0px, 0px) scale3d(1, 1, 1)";
-//             story_window.style.opacity = "1";
+            story_window.style.top = "0px";
+            story_window.style.left = "0px";
+            story_window.style.transform = "translate3d(0px, 0px, 0px) scale3d(1, 1, 1)";
+            story_window.style.opacity = "1";
 
-//             story_view = $(".story_main_view")[0];
-//             comment_view = $(".comments_main_view")[0];
+            story_view = $(".story_main_view")[0];
+            comment_view = $(".comments_main_view")[0];
 
-//             // setTimeout(function () {
-//             //     loadStory(story_index, storyFlow_index);
-//             // }, 500);
-//             // OR
-//             tryLoadStory(story_index, storyFlow_index);
-//             showStoryMain(false);
+            // setTimeout(function () {
+            //     loadStory(story_index, storyFlow_index);
+            // }, 500);
+            // OR
+            tryLoadStory(story_index, storyFlow_index);
+            showStoryMain(false);
 
-//             $$('.fstory_addcomment_btn').on('taphold', function () {
-//                 if (connected) {
-//                     record_was_hold = true;
-//                     stop_comments();
-//                     startCapture();
-//                     $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")"
-//                 } else {
-//                     Popup("popup-connect", true, 45);
-//                 }
-//             });
-//             $$('.fstory_addcomment_btn').on('click', function () {
-//                 if (recording) {
-//                     console.log("stop recording");
-//                     if (record_time > 2) {
-//                         stopCapture(true);
-//                     } else {
-//                         stopCapture(false);
-//                     }
-//                 } else if (!record_was_hold) {
-//                     console.log("start recording");
-//                     stop_comments();
-//                     startCapture();
-//                     $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")"
-//                 }
-//             });
-//             $$('.fstory_addcomment_confirm').on('touchend', function () {
-//                 let story_comment = {
-//                     ObjectId: story_data[story_index].data[storyFlow_index].id,
-//                     // PrivatedId: window.localStorage.getItem("user_private_id"),
-//                     Sound: appState.blob64,
-//                     Duration: record_time,
-//                 };
+            $$('.fstory_addcomment_btn').on('taphold', function () {
+                if (connected) {
+                    record_was_hold = true;
+                    stop_comments();
+                    startCapture();
+                    $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")"
+                } else {
+                    Popup("popup-connect", true, 45);
+                }
+            });
+            $$('.fstory_addcomment_btn').on('click', function () {
+                if (recording) {
+                    console.log("stop recording");
+                    if (record_time > 2) {
+                        stopCapture(true);
+                    } else {
+                        stopCapture(false);
+                    }
+                } else if (!record_was_hold) {
+                    console.log("start recording");
+                    stop_comments();
+                    startCapture();
+                    $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")"
+                }
+            });
+            $$('.fstory_addcomment_confirm').on('touchend', function () {
+                let story_comment = {
+                    ObjectId: story_data[story_index].data[storyFlow_index].id,
+                    // PrivatedId: window.localStorage.getItem("user_private_id"),
+                    Sound: appState.blob64,
+                    Duration: record_time,
+                };
 
-//                 console.log(story_comment);
-//                 console.log("Send story comment to server");
-//                 $(".fstory_addcomment_cancel")[0].style.opacity = 0.5;
-//                 $(".fstory_addcomment_cancel")[0].style.pointerEvents = "none";
-//                 $(".fstory_addcomment_confirm")[0].style.pointerEvents = "none";
-//                 $(".fstory_addcomment_confirm")[0].style.backgroundImage = "url(\"src/icons/loading_circle.gif\")";
-//                 // $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
-//                 // $(".fstory_addcomment_btn")[0].style.opacity = 1;
+                console.log(story_comment);
+                console.log("Send story comment to server");
+                $(".fstory_addcomment_cancel")[0].style.opacity = 0.5;
+                $(".fstory_addcomment_cancel")[0].style.pointerEvents = "none";
+                $(".fstory_addcomment_confirm")[0].style.pointerEvents = "none";
+                $(".fstory_addcomment_confirm")[0].style.backgroundImage = "url(\"src/icons/loading_circle.gif\")";
+                // $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
+                // $(".fstory_addcomment_btn")[0].style.opacity = 1;
 
-//                 setTimeout(function () {
-//                     ServerManager.AddStoryComment(story_comment);
-//                     //analytics.logEvent("upload_story_comment", {
-//                     private_id: story_comment.PrivatedId,
-//                         duration: story_comment.Duration
-//                 });
-//             }, 100);
-//         });
-//         $$('.fstory_addcomment_cancel').on('touchend', function () {
-//             $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
-//             $(".fstory_addcomment_btn")[0].style.opacity = 1;
+                setTimeout(function () {
+                    ServerManager.AddStoryComment(story_comment);
+                    //analytics.logEvent("upload_story_comment", {
+                    private_id: story_comment.PrivatedId,
+                        duration: story_comment.Duration
+                });
+            }, 100);
+        });
+        $$('.fstory_addcomment_cancel').on('touchend', function () {
+            $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
+            $(".fstory_addcomment_btn")[0].style.opacity = 1;
 
-//             // setTimeout(function () {
-//             //     ServerManager.AddStory(storydata);
-//             //     //analytics.logEvent("upload_story_comment", {
-//             //         private_id: story_comment.PrivatedId,
-//             //         duration: story_comment.Duration
-//             //     });
-//             // }, 100);
-//         });
+            // setTimeout(function () {
+            //     ServerManager.AddStory(storydata);
+            //     //analytics.logEvent("upload_story_comment", {
+            //         private_id: story_comment.PrivatedId,
+            //         duration: story_comment.Duration
+            //     });
+            // }, 100);
+        });
 
-//     }, 50);
-// });
-// }
+    }, 50);
+}
 
 // function story_comment_uploaded() {
 //     // $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
