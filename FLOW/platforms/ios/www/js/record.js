@@ -754,7 +754,7 @@ var startCapture = function () {
                 bufferSize: 2048,
                 concatenateMaxChunks: 10,
                 // format: window.audioinput.FORMAT.PCM_16BIT,
-                audioSourceType: audioinput.AUDIOSOURCE_TYPE.CAMCORDER
+                audioSourceType: audioinput.AUDIOSOURCE_TYPE.DEFAULT
             };
 
 
