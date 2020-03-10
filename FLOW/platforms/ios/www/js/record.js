@@ -897,7 +897,9 @@ function EncodeOpus(blob) {
 }
 
 function createWorker() {
-    let blob = new Blob([document.querySelector('#opusEncoder').innerHTML]);
+    let blob = new Blob([document.querySelector('#opusEncoder').textContent], {
+        type: "text/javascript"
+    });
 
     worker = new Worker(window.URL.createObjectURL(blob));
     // worker = new Worker('http://127.0.0.1:8080/OpusEncoder/EmsWorkerProxy.js');
