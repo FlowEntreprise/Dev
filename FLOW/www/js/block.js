@@ -42,6 +42,7 @@ function block(params) {
 
     this.flowplay = function () {
         if (this.ready) {
+            cordova.plugins.backgroundMode.enable();
             block.fplay_button.style.display = "none";
             block.fpause_button.style.display = "block";
             wave.start();
@@ -61,6 +62,7 @@ function block(params) {
 
 
     this.flowpause = function () {
+        cordova.plugins.backgroundMode.disable();
         if (this.ready) {
             block.fplay_button.style.display = "block";
             block.fpause_button.style.display = "none";
