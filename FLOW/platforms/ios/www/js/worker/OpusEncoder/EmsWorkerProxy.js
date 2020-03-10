@@ -23,7 +23,7 @@
 /*global self: false, OpusEncoder: false, importScripts: false */
 /*jslint vars: false,  white: false */
 /*jshint onevar: false, white: false, laxbreak: true */
-( function( global ) {
+(function (global) {
 	'use strict';
 
 	/**
@@ -32,22 +32,24 @@
 	 *  @singleton
 	 */
 	global.EmsWorkerProxy = {
-		init: function() {
-			global.onmessage = function( e ) {
-				switch ( e.data.command ) {
+		init: function () {
+			global.onmessage = function (e) {
+				switch (e.data.command) {
 					case 'ping':
-						global.postMessage( { reply: 'pong' } );
+						global.postMessage({
+							reply: 'pong'
+						});
 						break;
 					case 'encode':
-						if ( !global.OpusEncoder )  {
-							importScripts( 'OpusEncoder.js' );
+						if (!global.OpusEncoder) {
+							importScripts('OpusEncoder.js');
 						}
-						OpusEncoder.encode( e.data );
+						OpusEncoder.encode(e.data);
 						break;
 					case 'prefetch':
-						if ( !global.OpusEncoder )  {
-							importScripts( 'OpusEncoder.js' );
-							OpusEncoder.prefetch( e.data );
+						if (!global.OpusEncoder) {
+							importScripts('OpusEncoder.js');
+							OpusEncoder.prefetch(e.data);
 						}
 						break;
 				}
@@ -56,4 +58,4 @@
 	};
 	global.EmsWorkerProxy.init();
 
-}( self ) );
+}(self));
