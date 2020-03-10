@@ -795,7 +795,7 @@
 			type="text/javascript"
 			src="js/jquery.highlight-within-textarea.js"
 		></script>
-		<div id="opusEncoder" style="display: none;">
+		<script id="opusEncoder" type="text/javascript">
 			/*!
 			 * Copyright © 2014 Rainer Rillke <lastname>@wikipedia.de
 			 *
@@ -838,13 +838,13 @@
 									break;
 								case "encode":
 									if (!global.OpusEncoder) {
-										importScripts("OpusEncoder.js");
+										importScripts("js/worker/OpusEncoder/OpusEncoder.js");
 									}
 									OpusEncoder.encode(e.data);
 									break;
 								case "prefetch":
 									if (!global.OpusEncoder) {
-										importScripts("OpusEncoder.js");
+										importScripts("js/worker/OpusEncoder/OpusEncoder.js");
 										OpusEncoder.prefetch(e.data);
 									}
 									break;
@@ -854,6 +854,6 @@
 				};
 				global.EmsWorkerProxy.init();
 			})(self);
-		</div>
+		</script>
 	</body>
 </html>
