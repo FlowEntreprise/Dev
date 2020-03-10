@@ -815,7 +815,8 @@ var stopCapture = function (save) {
 
             audioURL = window.URL.createObjectURL(blob);
 
-            EncodeOpus(blob);
+            // EncodeOpus(blob);
+            Save(blob);
         } else if (current_page == "story") {
             $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";
         }
