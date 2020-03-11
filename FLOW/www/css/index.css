@@ -50,14 +50,16 @@
 * {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     /* make transparent link selection, adjust last value opacity 0 to 1.0 */
-    -moz-user-select: none;
+    /* -moz-user-select: none;
     -webkit-user-select: none;
-    user-select: none;
+    user-select: none; */
 }
 
 ::-webkit-scrollbar {
-    width: 0px;  /* remove scrollbar space */
-    background: transparent;  /* optional: just make scrollbar invisible */
+    width: 0px;
+    /* remove scrollbar space */
+    background: transparent;
+    /* optional: just make scrollbar invisible */
 }
 
 
@@ -66,17 +68,17 @@ body {
     /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;
     /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;
+    /* -webkit-user-select: none; */
     /* prevent copy paste, to allow, change 'none' to 'text' */
     background-color: #E4E4E4;
     background-image: linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     background-image: -webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     background-image: -ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     background-image: -webkit-gradient(linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4));
+            left top,
+            left bottom,
+            color-stop(0, #A7A7A7),
+            color-stop(0.51, #E4E4E4));
     background-attachment: fixed;
     font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size: 12px;
@@ -224,13 +226,12 @@ h1 {
     background-image: url("../src/icons/FLOW@3x.png");
     transition-duration: 1s;
 } */
-.f_in_app_notif
-{
+.f_in_app_notif {
     position: absolute;
     width: 90vw;
     margin-left: 5vw;
     height: calc(7* var(--custom-vh));
-    line-height : calc(7* var(--custom-vh));
+    line-height: calc(7* var(--custom-vh));
     margin-top: 5vw;
     background-color: #fff;
     border-radius: 2vw;
@@ -240,8 +241,7 @@ h1 {
     transition-duration: 0.4s;
 }
 
-.flabel_in_app_notif
-{
+.flabel_in_app_notif {
     font-size: 4.2vw;
     color: #92ABB2;
     font-weight: bold;
@@ -260,14 +260,13 @@ h1 {
     /* background: url("../src/icons/Record.png") no-repeat 4vh 4vh;linear-gradient(#1A84EF, #FF0054); */
     background: url("../src/icons/Record.png") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054);
     z-index: 10;
-   
+
     /* background-size: 4vh;
     background-position: center;
     background-repeat: no-repeat; */
 }
 
-.flow-btn-shadow
-{
+.flow-btn-shadow {
     position: absolute;
     display: block;
     height: 10vh !important;
@@ -334,6 +333,3 @@ h1 {
         opacity: 0;
     }
 }
-
-
-
