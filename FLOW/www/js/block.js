@@ -382,10 +382,10 @@ function block(params) {
         block.flowpause(block);
     });
 
-    // this.myRange.addEventListener('change', function () {
-    //     console.log("change");
-    //     block.seek();
-    // });
+    this.myRange.addEventListener('change', function () {
+        console.log("change");
+        block.seek();
+    });
     // this.myRange.addEventListener('input', function () {
     //     console.log("input");
     //     this.focus();
@@ -399,8 +399,13 @@ function block(params) {
     //     event.stopPropagation();
     // });
 
-    this.myRange.addEventListener("touchend", function (e) {
+    this.myRange.addEventListener("touchstart", function (e) {
         iosPolyfill(e, this);
+        block.flowpause();
+        block.progress = block.myRange.value;
+        if (block.progress > 99) block.progress = 99;
+        block.currentTime = block.progress * params.duration / 100;
+        block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
     }, {
         passive: true
     });
