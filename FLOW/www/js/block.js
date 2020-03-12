@@ -384,8 +384,12 @@ function block(params) {
     });
 
     this.myRange.addEventListener('input', function () {
-        console.log("change");
-        block.seek();
+        // console.log("change");
+        // block.seek();
+        block.progress = block.myRange.value;
+        if (block.progress > 99) block.progress = 99;
+        block.currentTime = block.progress * params.duration / 100;
+        block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
     });
 
     this.myRange.addEventListener('touchend', function () {
