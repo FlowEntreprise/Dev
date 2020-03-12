@@ -382,7 +382,7 @@ function block(params) {
         block.flowpause(block);
     });
 
-    this.myRange.addEventListener('touchend', function () {
+    this.myRange.addEventListener('change', function () {
         console.log("change");
         block.seek();
     });
