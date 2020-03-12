@@ -359,6 +359,7 @@ function block(params) {
 
     this.seek = function () {
         console.log("seek");
+        console.log(block.myRange.value);
         this.progress = block.myRange.value;
         this.time = this.progress * params.duration / 100;
         block.myaudio.currentTime = Math.round(this.time);
