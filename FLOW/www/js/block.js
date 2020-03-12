@@ -396,7 +396,7 @@ function block(params) {
         block.currentTime = block.progress * params.duration / 100;
         // block.myaudio.currentTime = block.time;
         block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
-
+        event.stopPropagation();
     });
 
     $(this.fimg_impression_like).on('click', function () {
