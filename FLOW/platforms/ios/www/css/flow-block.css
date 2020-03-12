@@ -318,8 +318,8 @@
 }
 
 .fslider {
-	-webkit-appearance: none;
-	position: absolute;
+	/* -webkit-appearance: none; */
+	/* position: absolute; */
 	width: 95vw;
 	height: calc(6 * var(--custom-vh));
 	top: calc(9.5 * var(--custom-vh));
@@ -327,14 +327,14 @@
 	background: #d3d3d3;
 	outline: none;
 	left: -0.5vw;
-	opacity: 0;
+	opacity: 1;
 	z-index: 2;
 	pointer-events: none;
 }
 
 .fslider::-webkit-slider-thumb {
-	-webkit-appearance: none;
-	appearance: none;
+	/* -webkit-appearance: none; */
+	/* appearance: none; */
 	width: 25px;
 	height: 25px;
 	border-radius: 50%;
@@ -367,6 +367,7 @@
 	object-fit: contain;
 	object-position: 0px 1vw;
 }
+
 /* .tl_indicator > span {
 	height: 100%;
 	width: 35px;
