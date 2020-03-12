@@ -76,6 +76,7 @@
 		36D2A75A10B14D8494E32FE3 /* CDVJpegHeaderWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 966072925997412AA0EE3022 /* CDVJpegHeaderWriter.m */; };
 		AEF604687E4F42FC979C6B3D /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 079ED75CD71E4529BE6B026C /* ImageIO.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		A43CFD94EB3846E98C461DFE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 695EA991B4DB49D7823FF3C7 /* CoreLocation.framework */; };
+		3A664530E4794A6EB708EB6B /* CDVKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 61E7534AF7CF4ADBB218691F /* CDVKeyboard.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -246,6 +247,8 @@
 		B8FD1FD714B04A7EA1775E33 /* CDVExif.h */ = {isa = PBXFileReference; name = "CDVExif.h"; path = "cordova-plugin-camera/CDVExif.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		079ED75CD71E4529BE6B026C /* ImageIO.framework */ = {isa = PBXFileReference; name = "ImageIO.framework"; path = "System/Library/Frameworks/ImageIO.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		695EA991B4DB49D7823FF3C7 /* CoreLocation.framework */ = {isa = PBXFileReference; name = "CoreLocation.framework"; path = "System/Library/Frameworks/CoreLocation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		61E7534AF7CF4ADBB218691F /* CDVKeyboard.m */ = {isa = PBXFileReference; name = "CDVKeyboard.m"; path = "cordova-plugin-keyboard/CDVKeyboard.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		E7615434B2E64EB1A542764E /* CDVKeyboard.h */ = {isa = PBXFileReference; name = "CDVKeyboard.h"; path = "cordova-plugin-keyboard/CDVKeyboard.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -479,6 +482,8 @@
 				4388B7FE310D4DFB820ACE7C /* CDVCamera.h */,
 				95565E3008104D29BA382813 /* CDVJpegHeaderWriter.h */,
 				B8FD1FD714B04A7EA1775E33 /* CDVExif.h */,
+				61E7534AF7CF4ADBB218691F /* CDVKeyboard.m */,
+				E7615434B2E64EB1A542764E /* CDVKeyboard.h */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -652,6 +657,7 @@
 				45543D24A4BF40D4AB7EF7BB /* UIImage+CropScaleOrientation.m in Sources */,
 				7B2A325FBEEA4CAABDBF220B /* CDVCamera.m in Sources */,
 				36D2A75A10B14D8494E32FE3 /* CDVJpegHeaderWriter.m in Sources */,
+				3A664530E4794A6EB708EB6B /* CDVKeyboard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

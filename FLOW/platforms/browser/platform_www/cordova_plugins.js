@@ -469,6 +469,14 @@ module.exports = [
         "id": "cordova-plugin-background-mode.BackgroundMode.Proxy",
         "pluginId": "cordova-plugin-background-mode",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-keyboard/www/keyboard.js",
+        "id": "cordova-plugin-keyboard.keyboard",
+        "pluginId": "cordova-plugin-keyboard",
+        "clobbers": [
+            "window.Keyboard"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -504,7 +512,8 @@ module.exports.metadata =
     "twitter-connect-plugin": "0.6.0",
     "cordova-plugin-facebook4": "6.3.0",
     "cordova-plugin-device": "2.0.3",
-    "cordova-plugin-background-mode": "0.7.3"
+    "cordova-plugin-background-mode": "0.7.3",
+    "cordova-plugin-keyboard": "1.2.0"
 }
 // BOTTOM OF METADATA
 });

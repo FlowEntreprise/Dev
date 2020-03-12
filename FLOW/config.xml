@@ -25,6 +25,7 @@
         <preference name="deployment-target" value="7.0" />
         <preference name="AllowInlineMediaPlayback" value="true" />
         <preference name="DisallowOverscroll" value="true" />
+        <preference name="KeyboardShrinksView" value="true" /> 
     </platform>
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />

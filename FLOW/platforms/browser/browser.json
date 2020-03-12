@@ -178,6 +178,9 @@
     },
     "cordova-plugin-background-mode": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-keyboard": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {},
@@ -651,6 +654,14 @@
       "id": "cordova-plugin-background-mode.BackgroundMode.Proxy",
       "pluginId": "cordova-plugin-background-mode",
       "runs": true
+    },
+    {
+      "file": "plugins/cordova-plugin-keyboard/www/keyboard.js",
+      "id": "cordova-plugin-keyboard.keyboard",
+      "pluginId": "cordova-plugin-keyboard",
+      "clobbers": [
+        "window.Keyboard"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -684,6 +695,7 @@
     "twitter-connect-plugin": "0.6.0",
     "cordova-plugin-facebook4": "6.3.0",
     "cordova-plugin-device": "2.0.3",
-    "cordova-plugin-background-mode": "0.7.3"
+    "cordova-plugin-background-mode": "0.7.3",
+    "cordova-plugin-keyboard": "1.2.0"
   }
 }
