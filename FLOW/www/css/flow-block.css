@@ -322,7 +322,7 @@
 	appearance: none;
 	/* position: absolute; */
 	width: 95vw;
-	height: calc(6 * var(--custom-vh));
+	height: calc(25 * var(--custom-vh));
 	top: calc(9.5 * var(--custom-vh));
 	border-radius: 5px;
 	background: #d3d3d3;
