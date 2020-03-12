@@ -318,7 +318,8 @@
 }
 
 .fslider {
-	/* -webkit-appearance: none; */
+	-webkit-appearance: none;
+	appearance: none;
 	/* position: absolute; */
 	width: 95vw;
 	height: calc(6 * var(--custom-vh));
@@ -333,12 +334,12 @@
 }
 
 .fslider::-webkit-slider-thumb {
-	/* -webkit-appearance: none; */
-	/* appearance: none; */
+	-webkit-appearance: none;
+	appearance: none;
 	width: 25px;
 	height: 25px;
 	border-radius: 50%;
-	background: rgb(76, 91, 175);
+	background: #4caf50;
 }
 
 .fslider::-moz-range-thumb {
