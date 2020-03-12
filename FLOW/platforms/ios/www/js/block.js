@@ -359,9 +359,9 @@ function block(params) {
 
     this.seek = function () {
         console.log("seek");
-        // this.progress = block.myRange.value;
-        // this.time = this.progress * params.duration / 100;
-        // block.myaudio.currentTime = Math.round(this.time);
+        this.progress = block.myRange.value;
+        this.time = this.progress * params.duration / 100;
+        block.myaudio.currentTime = Math.round(this.time);
         block.myaudio.currentTime = block.currentTime;
         block.seeking = true;
         block.progress_div.style.display = "block";
