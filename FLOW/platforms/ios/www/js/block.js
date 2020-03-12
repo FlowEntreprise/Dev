@@ -370,8 +370,8 @@ function block(params) {
             block.seeking = false;
             console.log("seeking = false");
         }, 600);
-        block.flowplay();
-        console.log("flow play");
+        // block.flowplay();
+        // console.log("flow play");
     };
 
     this.fplay_button.addEventListener('click', function () {
@@ -385,6 +385,11 @@ function block(params) {
     this.myRange.addEventListener('input', function () {
         console.log("change");
         block.seek();
+    });
+
+    this.myRange.addEventListener('touchend', function () {
+        block.flowplay();
+        console.log("flow play");
     });
     // this.myRange.addEventListener('input', function () {
     //     console.log("input");
