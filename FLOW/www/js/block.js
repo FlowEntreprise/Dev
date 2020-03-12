@@ -393,7 +393,10 @@ function block(params) {
     });
 
     this.myRange.addEventListener('touchend', function () {
-        block.flowplay();
+        block.myaudio.currentTime = block.currentTime;
+        setTimeout(function () {
+            block.flowplay();
+        }, 100)
         console.log("flow play");
     });
     // this.myRange.addEventListener('input', function () {
