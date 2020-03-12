@@ -399,7 +399,9 @@ function block(params) {
     //     event.stopPropagation();
     // });
 
-    this.myRange.addEventListener("touchend", iosPolyfill, {
+    this.myRange.addEventListener("touchend", function (e) {
+        iosPolyfill(e, this);
+    }, {
         passive: true
     });
 
