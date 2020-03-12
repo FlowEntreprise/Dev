@@ -401,6 +401,7 @@ function block(params) {
 
     this.myRange.addEventListener("touchstart", function (e) {
         iosPolyfill(e, this);
+        this.focus();
         block.flowpause();
         block.progress = block.myRange.value;
         if (block.progress > 99) block.progress = 99;
