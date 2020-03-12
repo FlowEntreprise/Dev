@@ -382,22 +382,27 @@ function block(params) {
         block.flowpause(block);
     });
 
-    this.myRange.addEventListener('change', function () {
-        console.log("change");
-        block.seek();
+    // this.myRange.addEventListener('change', function () {
+    //     console.log("change");
+    //     block.seek();
+    // });
+    // this.myRange.addEventListener('input', function () {
+    //     console.log("input");
+    //     this.focus();
+    //     //block.wasPlaying = block.isPlaying; 
+    //     block.flowpause();
+    //     block.progress = block.myRange.value;
+    //     if (block.progress > 99) block.progress = 99;
+    //     block.currentTime = block.progress * params.duration / 100;
+    //     // block.myaudio.currentTime = block.time;
+    //     block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
+    //     event.stopPropagation();
+    // });
+
+    this.myRange.addEventListener("touchend", iosPolyfill, {
+        passive: true
     });
-    this.myRange.addEventListener('input', function () {
-        console.log("input");
-        this.focus();
-        //block.wasPlaying = block.isPlaying; 
-        block.flowpause();
-        block.progress = block.myRange.value;
-        if (block.progress > 99) block.progress = 99;
-        block.currentTime = block.progress * params.duration / 100;
-        // block.myaudio.currentTime = block.time;
-        block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
-        event.stopPropagation();
-    });
+
 
     $(this.fimg_impression_like).on('click', function () {
 
@@ -760,3 +765,22 @@ document.getElementById("popup-comment").addEventListener("closed", function () 
     StatusBar.backgroundColorByHexString('#f7f7f8');
     // StatusBar.styleDefault(); ios
 });
+
+function iosPolyfill(e, slider) {
+    var val = (e.pageX - slider.getBoundingClientRect().left) /
+        (slider.getBoundingClientRect().right - slider.getBoundingClientRect().left),
+        max = slider.getAttribute("max"),
+        segment = 1 / (max - 1),
+        segmentArr = [];
+
+    max++;
+
+    for (var i = 0; i < max; i++) {
+        segmentArr.push(segment * i);
+    }
+
+    var segCopy = JSON.parse(JSON.stringify(segmentArr)),
+        ind = segmentArr.sort((a, b) => Math.abs(val - a) - Math.abs(val - b))[0];
+
+    slider.value = segCopy.indexOf(ind) + 1;
+}
