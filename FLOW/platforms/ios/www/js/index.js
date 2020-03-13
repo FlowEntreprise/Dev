@@ -106,8 +106,8 @@ var app = {
         // crashlytics = FirebaseCrashlytics.initialise();
         // crashlytics.logException("my caught exception");
 
-        // analytics = cordova.plugins.firebase.analytics;
-        // analytics.setCurrentScreen(current_page);
+        analytics = cordova.plugins.firebase.analytics;
+        analytics.setCurrentScreen(current_page);
 
         httpd = (cordova && cordova.plugins && cordova.plugins.CorHttpd) ? cordova.plugins.CorHttpd : null;
 

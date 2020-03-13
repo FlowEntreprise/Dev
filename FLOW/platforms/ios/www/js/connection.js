@@ -31,9 +31,9 @@ function ConnectUser() {
     $(".list-block")[0].appendChild(loading_tl);
     loading_tl.style.marginTop = "60%";
 
-    // analytics.logEvent("user_connection", {
-    //     private_id: window.localStorage.getItem("user_private_id")
-    // });
+    analytics.logEvent("user_connection", {
+        private_id: window.localStorage.getItem("user_private_id")
+    });
 
     setTimeout(function () {
         let data = {
@@ -52,9 +52,9 @@ function DisconnectUser() {
         "display": "block"
     });
     app.showTab("#tab1");
-    // analytics.logEvent("user_disconnection", {
-    //     private_id: window.localStorage.getItem("user_private_id")
-    // });
+    analytics.logEvent("user_disconnection", {
+        private_id: window.localStorage.getItem("user_private_id")
+    });
     //$( "#fswipe_area" ).css({"pointer-events": "none"});
 }
 
@@ -63,7 +63,7 @@ $$('.fneed_connect').on('click', function () {
         // app.popup('.popup-connect');
         Popup("popup-connect", true, 45);
         current_page = "connect-popup";
-        // analytics.setCurrentScreen(current_page);
+        analytics.setCurrentScreen(current_page);
     }
 });
 
