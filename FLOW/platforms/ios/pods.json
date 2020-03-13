@@ -1,16 +1,5 @@
 {
     "declarations": {},
-    "sources": {
-        "https://github.com/CocoaPods/Specs.git": {
-            "source": "https://github.com/CocoaPods/Specs.git",
-            "count": 1
-        }
-    },
-    "libraries": {
-        "Firebase/Analytics": {
-            "name": "Firebase/Analytics",
-            "spec": "~> 6.1.0",
-            "count": 1
-        }
-    }
+    "sources": {},
+    "libraries": {}
 }

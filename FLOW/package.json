@@ -80,7 +80,9 @@
                 "ANDROID_FIREBASE_VERSION": "11.8.0"
             },
             "cordova-support-android-plugin": {},
-            "cordova-plugin-firebase-analytics": {},
+            "cordova-plugin-firebase-analytics": {
+                "FIREBASE_CORE_VERSION": "16.0.+"
+            },
             "cordova-twitter3-connect-plugin": {
                 "TWITTER_KEY": "JwyvPlw7GcOvE8pXmRvqTyZL3",
                 "TWITTER_SECRET": "6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT"

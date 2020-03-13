@@ -36,9 +36,6 @@
     },
     "cordova-plugin-keyboard": {
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
-    },
-    "cordova-plugin-firebase-analytics": {
-      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     }
   },
   "dependent_plugins": {
