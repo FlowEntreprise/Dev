@@ -335,7 +335,7 @@ $$('.fflow-btn').on('touchstart', function () {
 function Save(blob) {
     // blob = wavblob.slice(0, wavblob.size, "audio/opus; codecs=opus");
     $(".frecord-btn")[0].classList.remove("frecord_loading_btn");
-    worker.terminate();
+    // worker.terminate();
 
     // var audioURL = window.URL.createObjectURL(blob);
 
