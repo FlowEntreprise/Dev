@@ -12,7 +12,7 @@ $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)
 document.getElementById("popup-myaccount").addEventListener("opened", function () {
     stopAllBlocksAudio();
     current_page = "my-account";
-    analytics.setCurrentScreen(current_page); // because iOS
+    // analytics.setCurrentScreen(current_page); // because iOS
     indexMyFlow = 0;
     $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
     $("#MyActivity")[0].innerHTML = "";
@@ -53,7 +53,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
         $(".fflow-btn").css("z-index", "1");
         $(".flow-btn-shadow").css("z-index", "0");
         current_page = "home";
-        analytics.setCurrentScreen(current_page);
+        // analytics.setCurrentScreen(current_page);
         Popup("popup-myaccount", false);
         stopAllBlocksAudio();
         //$(".flow-btn-shadow").css("display", "block");

@@ -64,7 +64,7 @@ document.getElementById("popup-record").addEventListener("opened", function () {
         destinationType = navigator.camera.DestinationType;
     }
     current_page = "record";
-    analytics.setCurrentScreen(current_page);
+    //analytics.setCurrentScreen(current_page);
     $$('.frecord-btn').css({
         "display": "flex"
     });
@@ -72,9 +72,9 @@ document.getElementById("popup-record").addEventListener("opened", function () {
     if (record_was_hold) {
         // $$('.frecord-btn').addClass('frecord-btn-active');
     }
-    analytics.logEvent("open_record", {
-        private_id: window.localStorage.getItem("user_private_id")
-    });
+    //analytics.logEvent("open_record", {
+    // private_id: window.localStorage.getItem("user_private_id")
+    // });
 });
 document.getElementById("popup-record").addEventListener("closed", function () {
     $$('.frecord-btn').css({
@@ -83,7 +83,7 @@ document.getElementById("popup-record").addEventListener("closed", function () {
     $(".record-shadow")[0].style.display = "none";
     // stopCapture();
     current_page = "home";
-    analytics.setCurrentScreen(current_page);
+    //analytics.setCurrentScreen(current_page);
     record_was_hold = false;
     $(".frecord-btn")[0].classList.remove("frecord_loading_btn");
 });
@@ -93,7 +93,7 @@ document.getElementById("popup-after-record").addEventListener("opened", functio
     $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
     current_page = "after-record";
-    analytics.setCurrentScreen(current_page);
+    //analytics.setCurrentScreen(current_page);
 });
 
 document.getElementById("popup-after-record").addEventListener("closed", function () {
@@ -124,7 +124,7 @@ document.getElementById("popup-story-record").addEventListener("opened", functio
     stopAllBlocksAudio();
     $$('.story_flow_duration').text("00");
     current_page = "record-story";
-    analytics.setCurrentScreen(current_page);
+    //analytics.setCurrentScreen(current_page);
 });
 
 $(".fclose_record")[0].addEventListener("click", function () {
@@ -179,16 +179,16 @@ $$('.frestart-after_btn').on('touchend', function () {
         Popup("popup-after-record", false);
         // app.popup('.popup-record');
         Popup("popup-record", true);
-        analytics.logEvent("restart_record_flow", {
-            private_id: window.localStorage.getItem("user_private_id")
-        });
+        //analytics.logEvent("restart_record_flow", {
+        // private_id: window.localStorage.getItem("user_private_id")
+        // });
     } else {
         closeStoryRecord();
         // app.popup('.popup-story-record');
         Popup("popup-story-record", true);
-        analytics.logEvent("restart_record_story", {
-            private_id: window.localStorage.getItem("user_private_id")
-        });
+        //analytics.logEvent("restart_record_story", {
+        // private_id: window.localStorage.getItem("user_private_id")
+        // });
     }
 });
 
@@ -196,11 +196,11 @@ $$('.fcancel-after_btn').on('touchend', function () {
     if (current_page == "after-record") {
         Popup("popup-after-record", false);
         current_page = "home";
-        analytics.setCurrentScreen(current_page);
+        //analytics.setCurrentScreen(current_page);
     } else {
         Popup("popup-after-story-record", false);
         current_page = "home";
-        analytics.setCurrentScreen(current_page);
+        //analytics.setCurrentScreen(current_page);
     }
 });
 
@@ -226,12 +226,12 @@ $$('.fvalidate-after_btn').on('touchend', function () {
             $(".floading-spinner.loading-record-flow")[0].style.display = "block";
             setTimeout(function () {
                 ServerManager.AddFlow(data);
-                analytics.logEvent("upload_flow", {
-                    private_id: data.PrivatedId,
-                    title: data.Title,
-                    description: data.Description,
-                    duration: data.Duration
-                });
+                //analytics.logEvent("upload_flow", {
+                //     private_id: data.PrivatedId,
+                //         title: data.Title,
+                //         description: data.Description,
+                //         duration: data.Duration
+                // });
             }, 100);
             image64 = null;
             patternKey = null;
@@ -254,10 +254,10 @@ $$('.fvalidate-after_btn').on('touchend', function () {
 
         setTimeout(function () {
             ServerManager.AddStory(storydata);
-            analytics.logEvent("upload_story", {
-                private_id: storydata.PrivatedId,
-                duration: storydata.Duration
-            });
+            //analytics.logEvent("upload_story", {
+            //     private_id: storydata.PrivatedId,
+            //         duration: storydata.Duration
+            // });
         }, 100);
     }
 });
@@ -306,7 +306,7 @@ function CloseAfterRecord() {
     // app.closeModal('.popup-after-record');
     Popup("popup-after-record", false);
     current_page = "home";
-    analytics.setCurrentScreen(current_page);
+    //analytics.setCurrentScreen(current_page);
     TLCurrentIndex = 0;
     ServerManager.GetTimeline(0);
 }
@@ -359,7 +359,7 @@ function Save(blob) {
             after_record_initialised = true;
             current_page = "after-record";
             console.log("after record");
-            analytics.setCurrentScreen(current_page);
+            //analytics.setCurrentScreen(current_page);
         }
         $(".after-record-block-container").html("");
         let block_params = {
@@ -421,7 +421,7 @@ function Save(blob) {
         appState.flow_title = $(".finput_title").val();
         appState.flow_description = $(".finput_description").val();
         current_page = "after-story-record";
-        analytics.setCurrentScreen(current_page);
+        //analytics.setCurrentScreen(current_page);
         var reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onloadend = function () {
@@ -457,10 +457,10 @@ function Save(blob) {
             console.log("Send story comment to server");
 
             ServerManager.AddStoryComment(story_comment);
-            analytics.logEvent("upload_story_comment", {
-                private_id: story_comment.PrivatedId,
-                duration: story_comment.Duration
-            });
+            //analytics.logEvent("upload_story_comment", {
+            //     private_id: story_comment.PrivatedId,
+            //         duration: story_comment.Duration
+            // });
         }
 
         // $(".fstory_addcomment_cancel")[0].style.opacity = 0.5;
@@ -694,7 +694,7 @@ function toDataUrl(url, callback) {
 function closeStoryRecord() {
     Popup("popup-after-story-record", false);
     current_page = "home";
-    analytics.setCurrentScreen(current_page);
+    //analytics.setCurrentScreen(current_page);
     console.log("close story record");
     $(".frecord-btn")[0].classList.remove("frecord_loading_btn");
 }
