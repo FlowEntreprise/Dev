@@ -277,6 +277,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "window.Keyboard"
       ]
+    },
+    {
+      "id": "cordova-plugin-firebase-analytics.FirebaseAnalytics",
+      "file": "plugins/cordova-plugin-firebase-analytics/www/FirebaseAnalytics.js",
+      "pluginId": "cordova-plugin-firebase-analytics",
+      "merges": [
+        "cordova.plugins.firebase.analytics"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -289,6 +297,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-background-mode": "0.7.3",
     "cordova-plugin-audioinput": "1.0.2",
     "cordova-plugin-camera": "4.0.3",
-    "cordova-plugin-keyboard": "1.2.0"
+    "cordova-plugin-keyboard": "1.2.0",
+    "cordova-plugin-firebase-analytics": "2.0.4"
   };
 });

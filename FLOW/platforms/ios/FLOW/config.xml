@@ -100,4 +100,8 @@
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
     <preference name="deployment-target" value="7.0" />
     <preference name="KeyboardShrinksView" value="true" />
+    <feature name="FirebaseAnalytics">
+        <param name="ios-package" value="FirebaseAnalyticsPlugin" />
+        <param name="onload" value="true" />
+    </feature>
 </widget>
