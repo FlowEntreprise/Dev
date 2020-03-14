@@ -805,13 +805,17 @@ function affichage_nombre(number, decPlaces) { // cette fonction permet d'affich
 }
 
 document.getElementById("popup-comment").addEventListener("opened", function () {
-    StatusBar.backgroundColorByHexString('#949494');
-    // StatusBar.styleLightContent(); ios
+    if (window.cordova.platformId == "android") {
+        StatusBar.backgroundColorByHexString('#949494');
+        StatusBar.styleLightContent();
+    }
 });
 
 document.getElementById("popup-comment").addEventListener("closed", function () {
-    StatusBar.backgroundColorByHexString('#f7f7f8');
-    // StatusBar.styleDefault(); ios
+    if (window.cordova.platformId == "android") {
+        StatusBar.backgroundColorByHexString('#f7f7f8');
+        StatusBar.styleDefault();
+    }
 });
 
 function iosPolyfill(e, slider) {

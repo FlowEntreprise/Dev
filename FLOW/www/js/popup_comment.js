@@ -101,7 +101,6 @@ function block_comment(comment_data) {
 }
 
 $(".fpopover_button").on("click", function () {
-
     app.closeModal('.popover');
 });
 

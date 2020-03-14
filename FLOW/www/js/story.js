@@ -490,8 +490,10 @@ function CloseStory() {
     }, 400);
 
     RefreshStories();
-    // StatusBar.backgroundColorByHexString('#f7f7f8');ios
-    // StatusBar.styleDefault(); ios
+    if (window.cordova.platformId == "android") {
+        StatusBar.backgroundColorByHexString('#f7f7f8');
+        StatusBar.styleDefault();
+    }
     // window.plugins.insomnia.allowSleepAgain();
 }
 
@@ -548,8 +550,10 @@ function tryLoadStory(story_index, storyFlow_index) {
         $(".fstory_pp")[0].style.backgroundImage = "white";
         // $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].darkColor + ");";
         let color_gradient = "linear-gradient(black, black)";
-        // StatusBar.backgroundColorByHexString("#000000"); ios
-        // StatusBar.styleDefault(); ios
+        if (window.cordova.platformId == "android") {
+            StatusBar.backgroundColorByHexString("#000000");
+            StatusBar.styleDefault();
+        }
         $(".fstory_window")[0].style.backgroundImage = color_gradient;
 
         setTimeout(function () {
@@ -591,8 +595,11 @@ function loadStory(story_index, storyFlow_index) {
     $(".fstory_pp")[0].style.backgroundImage = "url(" + story_data[story_index].user_picture + ")";
     // $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].darkColor + ");";
     let color_gradient = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].data[storyFlow_index].darkColor + ")";
-    // StatusBar.backgroundColorByHexString(story_data[story_index].data[storyFlow_index].color); ios
-    // StatusBar.styleLightContent(); ios
+    if (window.cordova.platformId == "android") {
+        StatusBar.backgroundColorByHexString(story_data[story_index].data[storyFlow_index].color);
+        StatusBar.styleLightContent();
+    }
+
     $(".fstory_window")[0].style.backgroundImage = color_gradient;
     // story_data[storyFlow_index].data =/= story_data.data[storyFlow_index] à check
     for (var i = 0; i < story_data[story_index].data.length; i++) {
