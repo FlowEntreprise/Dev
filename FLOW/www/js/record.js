@@ -387,7 +387,7 @@ function Save(blob) {
         reader.readAsDataURL(blob);
         reader.onloadend = function () {
             blob64 = reader.result;
-            appState.blob64 = reader.result.replace("data:audio/ogg;base64,", "");
+            appState.blob64 = reader.result.replace("data:audio/wav;base64,", "");
             // appState.blob64 = reader.result;
             console.log(appState.blob64);
         }
@@ -426,7 +426,7 @@ function Save(blob) {
         reader.readAsDataURL(blob);
         reader.onloadend = function () {
             blob64 = reader.result;
-            appState.blob64 = reader.result.replace("data:audio/ogg;base64,", "");
+            appState.blob64 = reader.result.replace("data:audio/wav;base64,", "");
             // appState.blob64 = reader.result;
             console.log(appState.blob64);
         }
@@ -443,7 +443,7 @@ function Save(blob) {
         reader.readAsDataURL(blob);
         reader.onloadend = function () {
             blob64 = reader.result;
-            appState.blob64 = reader.result.replace("data:audio/ogg;base64,", "");
+            appState.blob64 = reader.result.replace("data:audio/wav;base64,", "");
             console.log(appState.blob64);
 
             let story_comment = {
