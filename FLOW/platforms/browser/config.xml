@@ -16,6 +16,9 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application/activity[@android:name='MainActivity']">
+        <activity android:name="MainActivity" android:windowSoftInputMode="adjustResize" />
+    </edit-config>
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />
     <preference name="fullscreen" value="false" />

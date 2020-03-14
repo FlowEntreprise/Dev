@@ -28,7 +28,7 @@ var app = {
     onDeviceReady: function () {
         setTimeout(function () {
             navigator.splashscreen.hide();
-            // StatusBar.backgroundColorByHexString("#f7f7f8");
+            StatusBar.backgroundColorByHexString("#f7f7f8");
         }, 500);
 
         this.receivedEvent('deviceready');
@@ -106,44 +106,29 @@ var app = {
 
 
 
-        if (window.cordova.platformId == "android") {
-            crashlytics = FirebaseCrashlytics.initialise();
-            crashlytics.logException("my caught exception");
 
-            analytics = cordova.plugins.firebase.analytics;
-            analytics.setCurrentScreen(current_page);
-        }
+        crashlytics = FirebaseCrashlytics.initialise();
+        crashlytics.logException("my caught exception");
+
+        analytics = cordova.plugins.firebase.analytics;
+        analytics.setCurrentScreen(current_page);
 
         httpd = (cordova && cordova.plugins && cordova.plugins.CorHttpd) ? cordova.plugins.CorHttpd : null;
 
-        // No need since no using workers anymore
-        // httpd.startServer({
-        //     'www_root': 'js/worker/',
-        //     'port': 8080,
-        //     'localhost_only': true
-        // }, function (url) {
-        //     // if server is up, it will return the url of http://<server ip>:port/
-        //     // the ip is the active network connection
-        //     // if no wifi or no cell, "127.0.0.1" will be returned.
-        //     console.log("server is started: " + url);
-        //     // createWorker();
-        // }, function (error) {
-        //     console.log("failed to start server: " + error);
-        // });
+        httpd.startServer({
+            'www_root': 'js/worker/',
+            'port': 8080,
+            'localhost_only': true
+        }, function (url) {
+            // if server is up, it will return the url of http://<server ip>:port/
+            // the ip is the active network connection
+            // if no wifi or no cell, "127.0.0.1" will be returned.
+            console.log("server is started: " + url);
+            // createWorker();
+        }, function (error) {
+            console.log("failed to start server: " + error);
+        });
 
-        cordova.plugins.backgroundMode.enable(); //To Enable
-        CheckIfConnected();
-
-        if (window.cordova && window.audioinput) {
-            // Subscribe to audioinput events
-            //
-            window.addEventListener('audioinput', onAudioInputCapture, false);
-            window.addEventListener('audioinputerror', onAudioInputError, false);
-
-            console.log("cordova-plugin-audioinput successfully initialised");
-        } else {
-            console.log("cordova-plugin-audioinput not found!");
-        }
 
         var push = PushNotification.init({
             android: {
@@ -175,7 +160,8 @@ var app = {
                         user_private_Id: window.localStorage.getItem("user_private_id")
                     };
                     go_to_account(data_go_to_account);
-                } else {
+                }
+                else {
 
 
                     $(".flow_specifique_container").html("");
@@ -190,7 +176,8 @@ var app = {
                     }
                 }
             }
-            let data_notification = {
+            let data_notification =
+            {
                 PrivateId: window.localStorage.getItem("user_private_id"),
                 Index: 0
             };

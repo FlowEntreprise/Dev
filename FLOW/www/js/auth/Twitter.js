@@ -19,7 +19,9 @@ function TWLogin() {
 }
 
 function GetInfos() {
-    TwitterConnect.showUser(
+    TwitterConnect.showUser({
+            "include_entities": false
+        },
         function (result) {
             var txt = result.name + " --- " + result.screen_name + " --- " + result.profile_image_url + " --- " + result.description + "---" + result.id;
             //document.getElementById('infos').innerHTML = txt;
@@ -36,8 +38,6 @@ function GetInfos() {
             });
             console.log(error);
             // alert(error);
-        }, {
-            "include_entities": false
-        },
+        }
     );
 }

@@ -285,7 +285,6 @@
 	opacity: 0.8;
 	-webkit-user-select: none;
 	user-select: none;
-	pointer-events: none;
 }
 
 #waveform:hover {
@@ -320,10 +319,9 @@
 
 .fslider {
 	-webkit-appearance: none;
-	appearance: none;
-	/* position: absolute; */
+	position: absolute;
 	width: 95vw;
-	height: calc(25 * var(--custom-vh));
+	height: calc(6 * var(--custom-vh));
 	top: calc(9.5 * var(--custom-vh));
 	border-radius: 5px;
 	background: #d3d3d3;
@@ -338,15 +336,15 @@
 	-webkit-appearance: none;
 	appearance: none;
 	width: 25px;
-	height: calc(25 * var(--custom-vh));
-	/* border-radius: 50%; */
-	background: #4caf50;
+	height: 25px;
+	border-radius: 50%;
+	background: rgb(76, 91, 175);
 }
 
 .fslider::-moz-range-thumb {
 	width: 25px;
-	height: calc(25 * var(--custom-vh));
-	/* border-radius: 50%; */
+	height: 25px;
+	border-radius: 50%;
 	background: #4caf50;
 }
 
@@ -369,7 +367,6 @@
 	object-fit: contain;
 	object-position: 0px 1vw;
 }
-
 /* .tl_indicator > span {
 	height: 100%;
 	width: 35px;

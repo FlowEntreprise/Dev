@@ -23,6 +23,14 @@ module.exports = [
         "runs": true
     },
     {
+        "file": "plugins/cordova-plugin-facebook4/www/facebook-browser.js",
+        "id": "cordova-plugin-facebook4.FacebookConnectPluginBrowser",
+        "pluginId": "cordova-plugin-facebook4",
+        "clobbers": [
+            "facebookConnectPlugin"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
         "id": "cordova-plugin-inappbrowser.inappbrowser",
         "pluginId": "cordova-plugin-inappbrowser",
@@ -318,6 +326,30 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/cordova-plugin-media/www/MediaError.js",
+        "id": "cordova-plugin-media.MediaError",
+        "pluginId": "cordova-plugin-media",
+        "clobbers": [
+            "window.MediaError"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media/www/Media.js",
+        "id": "cordova-plugin-media.Media",
+        "pluginId": "cordova-plugin-media",
+        "clobbers": [
+            "window.Media"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-media/www/browser/Media.js",
+        "id": "cordova-plugin-media.BrowserMedia",
+        "pluginId": "cordova-plugin-media",
+        "clobbers": [
+            "window.Media"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-audioinput/www/audioInputCapture.js",
         "id": "cordova-plugin-audioinput.AudioInput",
         "pluginId": "cordova-plugin-audioinput",
@@ -392,91 +424,6 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.CorHttpd"
         ]
-    },
-    {
-        "file": "plugins/cordova-plugin-httpd/www/CorHttpd.js",
-        "id": "cordova-plugin-httpd.CorHttpd",
-        "pluginId": "cordova-plugin-httpd",
-        "clobbers": [
-            "cordova.plugins.CorHttpd"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-media/www/MediaError.js",
-        "id": "cordova-plugin-media.MediaError",
-        "pluginId": "cordova-plugin-media",
-        "clobbers": [
-            "window.MediaError"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-media/www/Media.js",
-        "id": "cordova-plugin-media.Media",
-        "pluginId": "cordova-plugin-media",
-        "clobbers": [
-            "window.Media"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-media/www/browser/Media.js",
-        "id": "cordova-plugin-media.BrowserMedia",
-        "pluginId": "cordova-plugin-media",
-        "clobbers": [
-            "window.Media"
-        ]
-    },
-    {
-        "file": "plugins/twitter-connect-plugin/www/TwitterConnect.js",
-        "id": "twitter-connect-plugin.TwitterConnect",
-        "pluginId": "twitter-connect-plugin",
-        "clobbers": [
-            "TwitterConnect"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-facebook4/www/facebook-browser.js",
-        "id": "cordova-plugin-facebook4.FacebookConnectPluginBrowser",
-        "pluginId": "cordova-plugin-facebook4",
-        "clobbers": [
-            "facebookConnectPlugin"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-device/www/device.js",
-        "id": "cordova-plugin-device.device",
-        "pluginId": "cordova-plugin-device",
-        "clobbers": [
-            "device"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-device/src/browser/DeviceProxy.js",
-        "id": "cordova-plugin-device.DeviceProxy",
-        "pluginId": "cordova-plugin-device",
-        "runs": true
-    },
-    {
-        "file": "plugins/cordova-plugin-background-mode/www/background-mode.js",
-        "id": "cordova-plugin-background-mode.BackgroundMode",
-        "pluginId": "cordova-plugin-background-mode",
-        "clobbers": [
-            "cordova.plugins.backgroundMode",
-            "plugin.backgroundMode"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-background-mode/src/browser/BackgroundModeProxy.js",
-        "id": "cordova-plugin-background-mode.BackgroundMode.Proxy",
-        "pluginId": "cordova-plugin-background-mode",
-        "runs": true
-    },
-    {
-        "file": "plugins/cordova-plugin-keyboard/www/keyboard.js",
-        "id": "cordova-plugin-keyboard.keyboard",
-        "pluginId": "cordova-plugin-keyboard",
-        "clobbers": [
-            "window.Keyboard"
-        ]
     }
 ];
 module.exports.metadata = 
@@ -487,6 +434,7 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-whitelist": "1.3.3",
     "cordova.plugins.diagnostic": "4.0.11",
+    "cordova-plugin-facebook4": "4.2.1",
     "cordova-plugin-inappbrowser": "3.0.0",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-k-imagecropper": "1.2.0",
@@ -498,6 +446,7 @@ module.exports.metadata =
     "cordova-plugin-network-information": "2.0.1",
     "cordova-plugin-insomnia": "4.3.0",
     "cordova-plugin-file": "6.0.2",
+    "cordova-plugin-media": "5.0.3",
     "cordova-plugin-audioinput": "1.0.2",
     "cordova-plugin-compat": "1.2.0",
     "cordova-plugin-splashscreen": "4.0.0",
@@ -506,14 +455,7 @@ module.exports.metadata =
     "cordova-plugin-firebase-analytics": "2.0.4",
     "cordova-twitter3-connect-plugin": "1.0.5",
     "cordova-plugin-googleplus": "8.1.1",
-    "com.rjfun.cordova.httpd": "0.9.2",
-    "cordova-plugin-httpd": "0.9.3",
-    "cordova-plugin-media": "5.0.3",
-    "twitter-connect-plugin": "0.6.0",
-    "cordova-plugin-facebook4": "6.3.0",
-    "cordova-plugin-device": "2.0.3",
-    "cordova-plugin-background-mode": "0.7.3",
-    "cordova-plugin-keyboard": "1.2.0"
+    "com.rjfun.cordova.httpd": "0.9.2"
 }
 // BOTTOM OF METADATA
 });
