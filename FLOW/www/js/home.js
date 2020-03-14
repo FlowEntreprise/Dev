@@ -184,7 +184,7 @@ function DisableImmersiveMode() {
     _root.style.setProperty("--custom-vh2", 3.7 * _myvar + "px");
   }, 50);
   AndroidFullScreen.showSystemUI(successFunction, errorFunction);
-  StatusBar.styleDefault();
+  // StatusBar.styleDefault(); ios
   // }, 100);
 
 }

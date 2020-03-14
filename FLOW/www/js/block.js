@@ -42,6 +42,9 @@ function block(params) {
 
     this.flowplay = function () {
         if (this.ready) {
+            if (window.cordova.platformId == "ios") {
+                cordova.plugins.backgroundMode.enable();
+            }
             block.fplay_button.style.display = "none";
             block.fpause_button.style.display = "block";
             wave.start();
@@ -62,6 +65,9 @@ function block(params) {
 
     this.flowpause = function () {
         if (this.ready) {
+            if (window.cordova.platformId == "ios") {
+                cordova.plugins.backgroundMode.disable();
+            }
             block.fplay_button.style.display = "block";
             block.fpause_button.style.display = "none";
             waveform.style.display = "none";
@@ -359,9 +365,10 @@ function block(params) {
 
     this.seek = function () {
         console.log("seek");
-        // this.progress = block.myRange.value;
-        // this.time = this.progress * params.duration / 100;
-        // block.myaudio.currentTime = Math.round(this.time);
+        console.log(block.myRange.value);
+        this.progress = block.myRange.value;
+        this.time = this.progress * params.duration / 100;
+        block.myaudio.currentTime = Math.round(this.time);
         block.myaudio.currentTime = block.currentTime;
         block.seeking = true;
         block.progress_div.style.display = "block";
@@ -370,8 +377,8 @@ function block(params) {
             block.seeking = false;
             console.log("seeking = false");
         }, 600);
-        block.flowplay();
-        console.log("flow play");
+        // block.flowplay();
+        // console.log("flow play");
     };
 
     this.fplay_button.addEventListener('click', function () {
@@ -382,22 +389,47 @@ function block(params) {
         block.flowpause(block);
     });
 
-    this.myRange.addEventListener('change', function () {
-        console.log("change");
-        block.seek();
-    });
     this.myRange.addEventListener('input', function () {
-        console.log("input");
+        // console.log("change");
+        // block.seek();
+        block.progress = block.myRange.value;
+        if (block.progress > 99) block.progress = 99;
+        block.currentTime = block.progress * params.duration / 100;
+        block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
+    });
+
+    this.myRange.addEventListener('touchend', function () {
+        block.myaudio.currentTime = block.currentTime;
+        setTimeout(function () {
+            block.flowplay();
+        }, 100)
+        console.log("flow play");
+    });
+    // this.myRange.addEventListener('input', function () {
+    //     console.log("input");
+    //     this.focus();
+    //     //block.wasPlaying = block.isPlaying; 
+    //     block.flowpause();
+    //     block.progress = block.myRange.value;
+    //     if (block.progress > 99) block.progress = 99;
+    //     block.currentTime = block.progress * params.duration / 100;
+    //     // block.myaudio.currentTime = block.time;
+    //     block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
+    //     event.stopPropagation();
+    // });
+
+    this.myRange.addEventListener("touchstart", function (e) {
+        iosPolyfill(e, this);
         this.focus();
-        //block.wasPlaying = block.isPlaying; 
         block.flowpause();
         block.progress = block.myRange.value;
         if (block.progress > 99) block.progress = 99;
         block.currentTime = block.progress * params.duration / 100;
-        // block.myaudio.currentTime = block.time;
         block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
-
+    }, {
+        passive: true
     });
+
 
     $(this.fimg_impression_like).on('click', function () {
 
@@ -774,10 +806,29 @@ function affichage_nombre(number, decPlaces) { // cette fonction permet d'affich
 
 document.getElementById("popup-comment").addEventListener("opened", function () {
     StatusBar.backgroundColorByHexString('#949494');
-    StatusBar.styleLightContent();
+    // StatusBar.styleLightContent(); ios
 });
 
 document.getElementById("popup-comment").addEventListener("closed", function () {
     StatusBar.backgroundColorByHexString('#f7f7f8');
-    StatusBar.styleDefault();
+    // StatusBar.styleDefault(); ios
 });
+
+function iosPolyfill(e, slider) {
+    var val = (e.pageX - slider.getBoundingClientRect().left) /
+        (slider.getBoundingClientRect().right - slider.getBoundingClientRect().left),
+        max = slider.getAttribute("max"),
+        segment = 1 / (max - 1),
+        segmentArr = [];
+
+    max++;
+
+    for (var i = 0; i < max; i++) {
+        segmentArr.push(segment * i);
+    }
+
+    var segCopy = JSON.parse(JSON.stringify(segmentArr)),
+        ind = segmentArr.sort((a, b) => Math.abs(val - a) - Math.abs(val - b))[0];
+
+    slider.value = segCopy.indexOf(ind) + 1;
+}

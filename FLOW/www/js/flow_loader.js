@@ -1,5 +1,3 @@
-
-
 class FlowLoaderClass {
     constructor() {
         this.flows = [];
@@ -12,8 +10,7 @@ class FlowLoaderClass {
             let new_flow = new FlowObj(url);
             this.flows.push(new_flow);
             returned_flow = new_flow;
-        }
-        else {
+        } else {
             returned_flow = returned_flow[0];
         }
         return returned_flow;
@@ -23,7 +20,7 @@ class FlowLoaderClass {
 class FlowObj {
     constructor(url) {
         this.online_url = url;
-        this.fileName = url.substring(url.lastIndexOf('/')+1, url.lastIndexOf('.'));
+        this.fileName = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
         this.local_url = "";
         this.ready = false;
         this.LoadFromUrl(this.online_url);
@@ -32,11 +29,10 @@ class FlowObj {
     OnReady(callback) {
         let self = this;
         if (!this.ready) {
-            setTimeout(function() {
+            setTimeout(function () {
                 self.OnReady(callback);
             }, 50);
-        }
-        else {
+        } else {
             callback(self.local_url);
         }
     }
@@ -52,7 +48,7 @@ class FlowObj {
             if (this.status == 200) {
                 // console.log("flow successfully downloaded !");
                 var blob = new Blob([this.response], {
-                    type: 'audio/opus'
+                    type: 'audio/mpeg'
                 });
                 // console.log("saving to local file...");
                 self.local_url = window.URL.createObjectURL(blob);
@@ -70,11 +66,14 @@ class FlowObj {
 
     saveFile(dirEntry, fileData, fileName) {
         let self = this;
-        dirEntry.getFile(fileName, { create: true, exclusive: false }, function (fileEntry) {
-    
+        dirEntry.getFile(fileName, {
+            create: true,
+            exclusive: false
+        }, function (fileEntry) {
+
             self.writeFile(fileEntry, fileData);
-    
-        }, function(err) {
+
+        }, function (err) {
             console.error(err);
         });
     }
@@ -83,20 +82,19 @@ class FlowObj {
         let self = this;
         // Create a FileWriter object for our FileEntry (log.txt).
         fileEntry.createWriter(function (fileWriter) {
-    
-            fileWriter.onwriteend = function() {
+
+            fileWriter.onwriteend = function () {
                 // console.log("Successful file writed !");
                 self.ready = true;
             };
-    
-            fileWriter.onerror = function(e) {
+
+            fileWriter.onerror = function (e) {
                 console.log("Failed file write: " + e.toString());
             };
-    
+
             fileWriter.write(dataObj);
         });
     }
 }
 
-var FlowLoader = new FlowLoaderClass();    
-
+var FlowLoader = new FlowLoaderClass();
