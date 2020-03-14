@@ -173,5 +173,7 @@ function onBackKeyDown() {
         navigator.app.exitApp();
         stopAllBlocksAudio();
     }
-    // analytics.setCurrentScreen(current_page);
+    if (window.cordova.platformId == "android") {
+        analytics.setCurrentScreen(current_page);
+    }
 }

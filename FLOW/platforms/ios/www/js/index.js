@@ -28,7 +28,10 @@ var app = {
     onDeviceReady: function () {
         setTimeout(function () {
             navigator.splashscreen.hide();
-            // StatusBar.backgroundColorByHexString("#f7f7f8");
+            if (window.cordova.platformId == "android") {
+                StatusBar.backgroundColorByHexString("#f7f7f8");
+            }
+
         }, 500);
 
         this.receivedEvent('deviceready');
@@ -102,30 +105,37 @@ var app = {
             online();
         }, false);
 
-        // On remet ça plus tard dans ios
-        // crashlytics = FirebaseCrashlytics.initialise();
-        // crashlytics.logException("my caught exception");
 
-        // analytics = cordova.plugins.firebase.analytics;
-        // analytics.setCurrentScreen(current_page);
+
+
+
+        if (window.cordova.platformId == "android") {
+            crashlytics = FirebaseCrashlytics.initialise();
+            crashlytics.logException("my caught exception");
+
+            analytics = cordova.plugins.firebase.analytics;
+            analytics.setCurrentScreen(current_page);
+        }
 
         httpd = (cordova && cordova.plugins && cordova.plugins.CorHttpd) ? cordova.plugins.CorHttpd : null;
 
-        httpd.startServer({
-            'www_root': 'js/worker/',
-            'port': 8080,
-            'localhost_only': true
-        }, function (url) {
-            // if server is up, it will return the url of http://<server ip>:port/
-            // the ip is the active network connection
-            // if no wifi or no cell, "127.0.0.1" will be returned.
-            console.log("server is started: " + url);
-            // createWorker();
-        }, function (error) {
-            console.log("failed to start server: " + error);
-        });
-
-        cordova.plugins.backgroundMode.enable(); //To Enable
+        // No need since no using workers anymore
+        // httpd.startServer({
+        //     'www_root': 'js/worker/',
+        //     'port': 8080,
+        //     'localhost_only': true
+        // }, function (url) {
+        //     // if server is up, it will return the url of http://<server ip>:port/
+        //     // the ip is the active network connection
+        //     // if no wifi or no cell, "127.0.0.1" will be returned.
+        //     console.log("server is started: " + url);
+        //     // createWorker();
+        // }, function (error) {
+        //     console.log("failed to start server: " + error);
+        // });
+        if (window.cordova.platformId == "ios") {
+            cordova.plugins.backgroundMode.enable();
+        }
         CheckIfConnected();
 
         if (window.cordova && window.audioinput) {
@@ -140,7 +150,14 @@ var app = {
         }
 
         var push = PushNotification.init({
-            android: {}
+            android: {
+                //icon: 'www/src/icons/FLOW@3x.png'
+            },
+            ios: {
+                alert: 'true',
+                badge: 'true',
+                sound: 'true'
+            },
         });
 
         push.on('registration', function (data) {
@@ -155,14 +172,26 @@ var app = {
             pas dans l'application */
             if (data.additionalData.foreground == false) {
 
-                $(".flow_specifique_container").html("");
-                let data_flow = {
-                    IdFlow: data.additionalData.sender_info.IdFlow
-                };
-                ServerManager.GetSingle(data_flow);
-                Popup("popup-specifique", true);
-                if (data.additionalData.type == "send_comment" || data.additionalData.type == "like_comment") {
-                    display_all_comments(data);
+
+                if (data.additionalData.type == "follow") {
+                    let data_go_to_account = {
+                        private_Id: data.additionalData.sender_info.privateId,
+                        user_private_Id: window.localStorage.getItem("user_private_id")
+                    };
+                    go_to_account(data_go_to_account);
+                } else {
+
+
+                    $(".flow_specifique_container").html("");
+                    let myApp = new Framework7();
+                    let data_flow = {
+                        IdFlow: data.additionalData.sender_info.IdFlow
+                    };
+                    ServerManager.GetSingle(data_flow);
+                    Popup("popup-specifique", true);
+                    if (data.additionalData.type == "send_comment" || data.additionalData.type == "like_comment") {
+                        display_all_comments(data);
+                    }
                 }
             }
             let data_notification = {
@@ -179,6 +208,7 @@ var app = {
             console.log(e.message);
         });
 
+        CheckIfConnected();
     }
 
 
@@ -251,7 +281,7 @@ function online() {
 
 
 /*
-J'ai remove ça du config.xml juste pour save ça qq part : 
+J'ai remove ça du config.xml juste pour save ça qq part :
 <preference name="AndroidLaunchMode" value="singleInstance" />
 <preference name="KeepRunning" value="true" />
 */

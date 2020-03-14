@@ -42,7 +42,9 @@ function block(params) {
 
     this.flowplay = function () {
         if (this.ready) {
-            cordova.plugins.backgroundMode.enable();
+            if (window.cordova.platformId == "ios") {
+                cordova.plugins.backgroundMode.enable();
+            }
             block.fplay_button.style.display = "none";
             block.fpause_button.style.display = "block";
             wave.start();
@@ -63,7 +65,9 @@ function block(params) {
 
     this.flowpause = function () {
         if (this.ready) {
-            cordova.plugins.backgroundMode.disable();
+            if (window.cordova.platformId == "ios") {
+                cordova.plugins.backgroundMode.disable();
+            }
             block.fplay_button.style.display = "block";
             block.fpause_button.style.display = "none";
             waveform.style.display = "none";
@@ -466,6 +470,29 @@ function block(params) {
         };
         go_to_account(data);
     });
+
+    $(this.fdots).on('click', function () {
+        var clickedLink = this;
+        current_flow_block = block;
+        app.popover('#popover_flow', clickedLink);
+    });
+
+}
+
+$(".fpopover_delete_flow").on("click", function () {
+    delete_flow(current_flow_block);
+});
+
+function delete_flow(element) {
+
+    for (var i = 0; i < all_blocks.length; i++) {
+        if (current_flow_block.ObjectId == all_blocks[i].ObjectId) {
+            all_blocks.splice(i, 1);
+
+        }
+    }
+
+    $(element).remove();
 }
 
 function display_all_comments(block) //fonction permettant d'affiher tout les commentaires
@@ -615,8 +642,6 @@ function shake(element_id) {
 }
 
 function get_all_comment(response, data_block) {
-
-
 
     var text_comment_number;
     if (response == "ERROR GET COMMENT FLOW") {
@@ -780,13 +805,17 @@ function affichage_nombre(number, decPlaces) { // cette fonction permet d'affich
 }
 
 document.getElementById("popup-comment").addEventListener("opened", function () {
-    StatusBar.backgroundColorByHexString('#949494');
-    // StatusBar.styleLightContent(); ios
+    if (window.cordova.platformId == "android") {
+        StatusBar.backgroundColorByHexString('#949494');
+        StatusBar.styleLightContent();
+    }
 });
 
 document.getElementById("popup-comment").addEventListener("closed", function () {
-    StatusBar.backgroundColorByHexString('#f7f7f8');
-    // StatusBar.styleDefault(); ios
+    if (window.cordova.platformId == "android") {
+        StatusBar.backgroundColorByHexString('#f7f7f8');
+        StatusBar.styleDefault();
+    }
 });
 
 function iosPolyfill(e, slider) {

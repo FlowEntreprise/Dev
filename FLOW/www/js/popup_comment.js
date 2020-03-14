@@ -65,7 +65,7 @@ function block_comment(comment_data) {
 
     $$(this.fid_user).on('taphold', function () {
         var clickedLink = this;
-        app.popover('.popover', clickedLink);
+        app.popover('#popover_comment', clickedLink);
 
     });
 
@@ -73,9 +73,11 @@ function block_comment(comment_data) {
     $$(this.fblock_comment_comment).on('taphold', function () {
         var clickedLink = this;
         current_comment_block = block_comment;
-        app.popover('.popover', clickedLink);
+        app.popover('#popover_comment', clickedLink);
 
     });
+
+
 
     $(this.fimg_user).on('click', function () {
 
@@ -99,19 +101,18 @@ function block_comment(comment_data) {
 }
 
 $(".fpopover_button").on("click", function () {
-
     app.closeModal('.popover');
 });
 
-$(".fpopover_copy").on("click", function () {
+$(".fpopover_copy_comment").on("click", function () {
     copyToClipboard(current_comment_block.fcomment_text);
 });
 
-$(".fpopover_report").on("click", function () {
+$(".fpopover_report_comment").on("click", function () {
     alert("This comment was reported");
 });
 
-$(".fpopover_delete").on("click", function () {
+$(".fpopover_delete_comment").on("click", function () {
     console.log("delete");
     //var test = $(this.fimg_user).closest("div");
     delete_comment(current_comment_block.fblock_comment);
@@ -157,9 +158,7 @@ function send_comment_to_server(data) {
     $(current_flow_block.ftxt_impression_comment).text(comment_number);
     if (comment_data.Comment == comment_data.Comment_text) {
         send_notif_to_user(comment_data, "send_comment");
-    }
-
-    else {
+    } else {
         for (let i = 0; i < tableau_comment_to_tag_users.length; i++) {
             if (tableau_comment_to_tag_users[i].slice(0, 1) == "@") {
                 for (let i_all_tag = 0; i_all_tag < all_tagged_users.length; i_all_tag++) {
@@ -223,6 +222,7 @@ $(document).on('click', '.tagged_users', function () {
 var string_input_comment;
 var all_search_users_with_follow = [];
 var all_search_users_without_follow = [];
+
 function get_users_with_follow(data) {
     UpdateIdentificationList(data, true, "yes_search");
 };
@@ -262,10 +262,9 @@ $("#finput_comment").keyup(function () {
         if (string_input_comment_split[split_lenght - 1].length > 1 && string_input_comment_split[split_lenght - 1] != "@") {
 
             for (let i = 0; i < 2; i++) {
-                let data_user_search =
-                {
+                let data_user_search = {
                     Index: IdentificationListCurrentIndex,
-                    Search: string_input_comment.slice(1, string_input_comment_split[split_lenght - 1].length)
+                    Search: string_input_comment_split[split_lenght - 1].slice(1, string_input_comment_split[split_lenght - 1].length)
                 };
                 ServerManager.SearchUserForTabExplore(data_user_search);
                 IdentificationListCurrentIndex++;
@@ -309,6 +308,8 @@ document.getElementById("popup-comment").addEventListener("opened", function () 
 document.getElementById("popup-comment").addEventListener("closed", function () {
     $(".fwrite_comment")[0].style.display = "none";
     in_comments = false;
+    // app.closeModal('#popover_comment');
+
 });
 
 

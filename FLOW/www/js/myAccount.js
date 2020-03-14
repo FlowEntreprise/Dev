@@ -10,9 +10,24 @@ var MyFlowAdd = true;
 $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 
 document.getElementById("popup-myaccount").addEventListener("opened", function () {
+    $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
+    $("scrollEvent").remove(".swiper-wrapper");
+    $("#accountBannerScroll").css("transition-duration", "0.2s");
+    $("#accountBannerScroll").css("transform", "translate3d(0vw, 0vh, 0vh)");
+    $(".fnavMonCompte").removeClass("fnavMonCompteTransitionTop");
+    $(".fnavMonCompte").addClass("fnavMonCompteTransitionDown");
+    $(".ftabsMonCompte").css("transition-duration", "0.2s");
+    var scrollTest = $(".scrollMyAccunt").scrollTop();
+    $(".fnavMonCompte").css("transform", "translate3d(0vw, 7vh, 0vh)");
+    $(".ftabsMonCompte").css("transform", "translate3d(0vw, 2vh, 0vh)");
+    boolScrollTop = true;
+    $("#MyActivity").addClass("fblockMonComptePadding");
+
     stopAllBlocksAudio();
     current_page = "my-account";
-    // analytics.setCurrentScreen(current_page); // because iOS
+    if (window.cordova.platformId == "android") {
+        analytics.setCurrentScreen(current_page);
+    }
     indexMyFlow = 0;
     $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
     $("#MyActivity")[0].innerHTML = "";
@@ -53,7 +68,9 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
         $(".fflow-btn").css("z-index", "1");
         $(".flow-btn-shadow").css("z-index", "0");
         current_page = "home";
-        // analytics.setCurrentScreen(current_page);
+        if (window.cordova.platformId == "android") {
+            analytics.setCurrentScreen(current_page);
+        }
         Popup("popup-myaccount", false);
         stopAllBlocksAudio();
         //$(".flow-btn-shadow").css("display", "block");

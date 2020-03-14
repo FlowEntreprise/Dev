@@ -549,6 +549,7 @@ class ServerManagerClass {
             success: function (response) {
                 console.log(response);
                 FollowResponse(response, data.type, data.block_user);
+
             },
             error: function (response) {}
         });

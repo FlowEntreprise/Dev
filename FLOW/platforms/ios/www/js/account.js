@@ -11,13 +11,29 @@ var indexAccount;
 var accountFlowAdd = true;
 var UserFlowAdd = true;
 var profilePicLink;
+var register_id;
 
 $(".fnavAccount").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 
 document.getElementById("popup-account").addEventListener("opened", function () {
+    $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
+    $("scrollEventAccount").remove(".swiper-wrapper");
+    $("#accountBannerScrollAccount").css("transition-duration", "0.2s");
+    $("#accountBannerScrollAccount").css("transform", "translate3d(0vw, 0vh, 0vh)");
+    $(".fnavAccount").removeClass("fnavAccountTransitionTop");
+    $(".fnavAccount").addClass("fnavAccountTransitionDown");
+    $(".ftabsAccount").css("transition-duration", "0.2s");
+    var scrollTest = $(".scrollAccunt").scrollTop();
+    $(".fnavAccount").css("transform", "translate3d(0vw, 7vh, 0vh)");
+    $(".ftabsAccount").css("transform", "translate3d(0vw, 2vh, 0vh)");
+    boolScrollTop = true;
+    $("#UserActivity").addClass("fblockAccountPadding");
+
     stopAllBlocksAudio();
     current_page = "account";
-    // analytics.setCurrentScreen(current_page);
+    if (window.cordova.platformId == "android") {
+        analytics.setCurrentScreen(current_page);
+    }
     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
     $(".fflow-btn").css("display", "none");
     $(".flow-btn-shadow").css("display", "none");
@@ -50,14 +66,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
         checkScrollAccount();
     });
 
-    $("#fFollowButtunAccount").click(function () {
-        $(this)[0].style.pointerEvents = "none";
-        let data = {
-            PrivateId: privateIDAccount,
-            type: "profile_follow"
-        };
-        ServerManager.ActionFollow(data);
-    });
+
     $('#fprofilPicture').click(function () {
         $("#fbigProfilPictureContainer").css({
             "transform": "scale(1)",
@@ -133,7 +142,9 @@ document.getElementById("popup-account").addEventListener("opened", function () 
         $(".flow-btn-shadow").css("z-index", "0");
 
         current_page = "home";
-        // analytics.setCurrentScreen(current_page);
+        if (window.cordova.platformId == "android") {
+            analytics.setCurrentScreen(current_page);
+        }
         Popup("popup-account", false);
         stopAllBlocksAudio();
         // mainView.back();
@@ -154,6 +165,14 @@ document.getElementById("popup-account").addEventListener("opened", function () 
     });
 });
 
+$("#fFollowButtunAccount").click(function () {
+    $(this)[0].style.pointerEvents = "none";
+    let data = {
+        PrivateId: privateIDAccount,
+        type: "profile_follow"
+    };
+    ServerManager.ActionFollow(data);
+});
 
 function fInitialisationAccount(privateId) {
     $("#UserActivity")[0].innerHTML = "";
@@ -227,6 +246,7 @@ function ShowUserProfile(response) {
     if (response.Data.PrivateId == privateIDAccount) {
         bioCompte = response.Data.Bio;
         nameCompte = response.Data.FullName;
+        register_id = response.Data.RegisterId;
         followYou = JSON.parse(response.Data.HeFollowYou);
         follow = JSON.parse(response.Data.YouFollowHim);
         manageFollow("profile_follow");
@@ -335,6 +355,11 @@ function FollowResponse(response, type, element) {
         follow = true;
         Follower++;
         $("#ffollowersBandeauChiffre").html(Follower);
+        let data_notif_follow = {
+            sender_private_id: window.localStorage.getItem("user_private_id"),
+            RegisterId: register_id
+        };
+        send_notif_to_user(data_notif_follow, "follow");
     } else if (response.UnFollow !== undefined) {
         follow = false;
         Follower--;
