@@ -31,17 +31,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-facebook4": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-facebook4@4.2.1"
-    },
-    "is_top_level": true,
-    "variables": {
-      "APP_ID": "com.flowapp.flow",
-      "APP_NAME": "FLOW"
-    }
-  },
   "cordova-plugin-inappbrowser": {
     "source": {
       "type": "registry",
@@ -53,7 +42,7 @@
   "cordova-plugin-camera": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-camera@4.0.3"
+      "id": "cordova-plugin-camera@~4.0.3"
     },
     "is_top_level": true,
     "variables": {}
@@ -146,18 +135,10 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-media": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-media@5.0.3"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-audioinput": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-audioinput"
+      "id": "cordova-plugin-audioinput@^1.0.2"
     },
     "is_top_level": true,
     "variables": {}
@@ -229,6 +210,67 @@
     "source": {
       "type": "registry",
       "id": "https://github.com/floatinghotpot/cordova-httpd.git"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-httpd": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-httpd"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-media": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-media@^5.0.3"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "twitter-connect-plugin": {
+    "source": {
+      "type": "registry",
+      "id": "twitter-connect-plugin"
+    },
+    "is_top_level": true,
+    "variables": {
+      "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038"
+    }
+  },
+  "cordova-plugin-facebook4": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-facebook4@6.3.0"
+    },
+    "is_top_level": true,
+    "variables": {
+      "APP_ID": "502054883649562",
+      "APP_NAME": "FLOW"
+    }
+  },
+  "cordova-plugin-background-mode": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-background-mode"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-device": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-device"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-keyboard": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-keyboard"
     },
     "is_top_level": true,
     "variables": {}

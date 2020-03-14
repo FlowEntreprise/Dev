@@ -31,7 +31,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
 
     stopAllBlocksAudio();
     current_page = "account";
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page);
     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
     $(".fflow-btn").css("display", "none");
     $(".flow-btn-shadow").css("display", "none");
@@ -140,7 +140,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
         $(".flow-btn-shadow").css("z-index", "0");
 
         current_page = "home";
-        analytics.setCurrentScreen(current_page);
+        // analytics.setCurrentScreen(current_page);
         Popup("popup-account", false);
         stopAllBlocksAudio();
         // mainView.back();
