@@ -9,6 +9,7 @@ const ServerParams = {
     GetUserStoryURL: "GetUserStory",
     AddFlowComment: "AddFlowComment",
     GetFlowComment: "GetFlowComment",
+    GetFlowLikes: "GetFlowLikes",
     LikeFlowComment: "Like/comment",
     LikeFlow: "Like/Flow",
     UpdateProfileURL: "UpdateProfile",
@@ -338,6 +339,32 @@ class ServerManagerClass {
             error: function (response) {
                 // console.log("comment adding from database error : ");
                 // console.log(response);
+            }
+        });
+    }
+
+    GetFlowLikes(data) {
+        let final_data = {
+            Data: data,
+            Action: "GetFlowLikes",
+            TokenId: window.localStorage.getItem("user_token")
+        };
+
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetFlowLikes,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+
+                get_all_likes(response, final_data.Data);
+                // console.log("Comment sucessfully added to database :");
+                console.log(response);
+
+            },
+            error: function (response) {
+                // console.log("comment adding from database error : ");
+                console.log(response);
             }
         });
     }

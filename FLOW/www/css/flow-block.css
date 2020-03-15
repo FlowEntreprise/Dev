@@ -249,7 +249,7 @@
 	color: #909597;
 	font-size: 3.8vw;
 	font-weight: bold;
-	pointer-events: none;
+	/* pointer-events: none; */
 }
 
 #fbutton {

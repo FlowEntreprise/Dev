@@ -121,14 +121,14 @@
 
 .fwrite_comment {
     position: absolute;
-    height: calc(5.5* var(--custom-vh));    
-    width: 100vw;    
+    height: calc(5.5* var(--custom-vh));
+    width: 100vw;
     box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
     background-color: #fff;
     z-index: 99999999999;
-    display: none;  
+    display: none;
     bottom: 0vh;
-    padding-left: 2vw;  
+    padding-left: 2vw;
 }
 
 
@@ -138,16 +138,16 @@
 
 }
 
-.tagged_users
-{
+.tagged_users {
     font-weight: bold;
     color: dodgerblue;
 }
-#finput_comment{
+
+#finput_comment {
     width: 85vw !important;
     left: 5vw !important;
     border: none;
-    height: 7vh !important;    
+    height: 7vh !important;
     font-size: calc(2* var(--custom-vh)) !important;
     color: #4A4A4A;
     padding-top: 2vh !important;
@@ -212,19 +212,22 @@
 }
 
 
-.fpopover_copy_comment,.fpopover_copy_flow {
+.fpopover_copy_comment,
+.fpopover_copy_flow {
     top: calc(3* var(--custom-vh));
 }
 
-.fpopover_report_comment,.fpopover_report_flow {
+.fpopover_report_comment,
+.fpopover_report_flow {
     top: calc(7* var(--custom-vh));
 }
 
-.fpopover_delete_comment,.fpopover_delete_flow {
+.fpopover_delete_comment,
+.fpopover_delete_flow {
     top: calc(11* var(--custom-vh));
 }
 
 @font-face {
-	font-family: Roboto;
-	src: url("../src/fonts/Roboto-Light.ttf");
+    font-family: Roboto;
+    src: url("../src/fonts/Roboto-Light.ttf");
 }

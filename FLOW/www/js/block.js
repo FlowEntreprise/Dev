@@ -404,6 +404,13 @@ function block(params) {
             block.flowplay();
         }, 100)
         console.log("flow play");
+        current_flow_block
+    });
+
+    this.ftxt_impression_like.addEventListener('touchstart', function () {
+        Popup('popup-likes', true, 40);
+        current_flow_block = block;
+        display_all_likes(current_flow_block);
     });
     // this.myRange.addEventListener('input', function () {
     //     console.log("input");
@@ -504,7 +511,6 @@ function display_all_comments(block) //fonction permettant d'affiher tout les co
     $(".fcomment_number").text("");
     let ObjectId = block.ObjectId ? block.ObjectId : block.additionalData.sender_info.IdFlow;
     let data = {
-
         ObjectId: ObjectId,
         IsComment: block.IsComment
     };
@@ -512,6 +518,27 @@ function display_all_comments(block) //fonction permettant d'affiher tout les co
     Popup("popup-comment", true, 40);
 }
 
+function display_all_likes(block) //fonction permettant d'affiher tout les likes
+{
+    likes_index = 0;
+    CanRefreshLikes = true;
+    $(".fblock_likes_content").html("");
+    var loading_likes = document.createElement("div");
+    loading_likes.className = "loading-spinner loading_tl loading_likes";
+    $(".fblock_likes_content").append(loading_likes);
+    $(".flikes_number").text("");
+    let ObjectId = block.ObjectId ? block.ObjectId : block.additionalData.sender_info.IdFlow;
+    let data = {
+        Index: likes_index,
+        ObjectId: ObjectId,
+    };
+    ServerManager.GetFlowLikes(data);
+    Popup("popup-likes", true, 40);
+    let nb_likes = affichage_nombre(block.Likes, 1);
+    let like_str = "likes";
+    if (nb_likes == "0" || nb_likes == "1") like_str = "like";
+    $(".flikes_number").text(nb_likes + " " + like_str);
+}
 
 
 // fonction permettant de colorier ou non les like, echo et comment.
@@ -691,6 +718,59 @@ function get_all_comment(response, data_block) {
     }
     if ($.trim($(".fblock_comment_content").html()) != "") {
         $(".loading_comment").remove();
+    }
+
+}
+
+function get_all_likes(response) {
+    // if (response == "ERROR GET LIKES FLOW" || response.Data.length == 0) {
+    //     $(".loading_likes").remove();
+    //     text_likes_number = " 0 like";
+    // } else if (response.Data.length) {
+
+    //     (response.Data.length == 1) ? (text_likes_number = response.Data.length + " like") : (text_likes_number = response.Data.length + " likes");
+    // }
+    // $(".flikes_number").text(text_likes_number);
+
+    console.log(response);
+    var i = 0;
+    if (response.Data) {
+        likes_index++;
+        for (i = 0; i < response.Data.length; i++) {
+            let like_data = response.Data[i];
+            this.fblock_like = document.createElement('div');
+            this.fblock_like.className = 'fblock_like';
+            $(".fblock_likes_content").append(this.fblock_like);
+
+            this.fimg_user = document.createElement('div');
+            this.fimg_user.className = 'fimg_user';
+            $(this.fimg_user).css("background-image", "url(" + like_data.ProfilePicture + "");
+            $(this.fblock_like).append(this.fimg_user);
+
+            this.fid_user = document.createElement('label');
+            this.fid_user.className = 'fid_user_likes';
+            this.fid_user.innerHTML = "@" + like_data.PrivateId + "";
+            $(this.fblock_like).append(this.fid_user);
+
+            this.fimg_user.onclick = function () {
+                let data = {
+                    private_Id: like_data.PrivateId,
+                    user_private_Id: window.localStorage.getItem("user_private_id")
+                };
+                console.log(data);
+                Popup('popup-likes', false);
+                go_to_account(data);
+            };
+
+            // like_data.Comment = like_data.Comment.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
+
+            // let block_commentaire = new block_comment(like_data);
+            // block_commentaire.chris_test = "chacal";
+            console.log(like_data);
+        }
+    }
+    if ($.trim($(".fblock_likes_content").html()) != "") {
+        $(".loading_likes").remove();
     }
 
 }
