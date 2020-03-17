@@ -69,17 +69,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     $("#myprivateID").html("@" + privateID);
     $("#fbioMonCompte").html(bioMonCompte);
     $("#fgobackmonCompte").click(function () {
-        // mainView.back();
-        $(".fflow-btn").css("display", "block");
-        $(".flow-btn-shadow").css("display", "block");
-        $(".fflow-btn").css("z-index", "1");
-        $(".flow-btn-shadow").css("z-index", "0");
-        current_page = "home";
-        if (window.cordova.platformId == "android") {
-            analytics.setCurrentScreen(current_page);
-        }
         Popup("popup-myaccount", false);
-        stopAllBlocksAudio();
         //$(".flow-btn-shadow").css("display", "block");
     });
 
@@ -344,6 +334,18 @@ function ShowMyFlow(flow) {
         }
     }
 }
+
+document.getElementById("popup-myaccount").addEventListener("closed", function () {
+    $(".fflow-btn").css("display", "block");
+    $(".flow-btn-shadow").css("display", "block");
+    $(".fflow-btn").css("z-index", "1");
+    $(".flow-btn-shadow").css("z-index", "0");
+    current_page = "home";
+    if (window.cordova.platformId == "android") {
+        analytics.setCurrentScreen(current_page);
+    }
+    stopAllBlocksAudio();
+});
 
 function ShowMyLikedFlows(flow) {
     console.log("SHOW MY FLOW");
