@@ -246,6 +246,12 @@ function block(params) {
         this.ftxt_impression_comment.innerText = affichage_nombre(this.Comments, 1);
         this.fcomment.appendChild(this.ftxt_impression_comment);
 
+        this.ftxt_impression_like.addEventListener('touchstart', function () {
+            Popup('popup-likes', true, 40);
+            current_flow_block = block;
+            display_all_likes(current_flow_block);
+        });
+
 
     } else {
         this.finput_title = document.createElement('input');
@@ -407,11 +413,6 @@ function block(params) {
         current_flow_block
     });
 
-    this.ftxt_impression_like.addEventListener('touchstart', function () {
-        Popup('popup-likes', true, 40);
-        current_flow_block = block;
-        display_all_likes(current_flow_block);
-    });
     // this.myRange.addEventListener('input', function () {
     //     console.log("input");
     //     this.focus();

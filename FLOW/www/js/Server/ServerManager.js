@@ -17,6 +17,7 @@ const ServerParams = {
     GetMyUserInfosURL: "GetInfoUser",
     GetTimeline: "GetTimeline",
     GetUserProfil: "GetProfil",
+    GetLikedFlows: "GetLikedFlows",
     GetSingle: "GetSingle",
     ActionFollowProfil: 'Follow',
     UpdateRegisterId: "UpdateRegisterId",
@@ -435,6 +436,29 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 ShowMyFlow(response);
+            },
+            error: function (response) {
+
+            }
+        });
+    }
+
+    GetLikedFlows(data, mine) {
+        let final_data = {
+            TokenId: window.localStorage.getItem("user_token"),
+            Data: data
+        };
+        //console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetLikedFlows,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                if (mine) {
+                    ShowMyLikedFlows(response);
+                } else {
+                    ShowLikedFlows(response);
+                }
             },
             error: function (response) {
 
