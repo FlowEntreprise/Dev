@@ -136,7 +136,6 @@ var app = {
         if (window.cordova.platformId == "ios") {
             cordova.plugins.backgroundMode.enable();
         }
-        CheckIfConnected();
 
         if (window.cordova && window.audioinput) {
             // Subscribe to audioinput events
