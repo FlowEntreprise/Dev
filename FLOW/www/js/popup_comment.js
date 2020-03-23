@@ -40,13 +40,16 @@ function block_comment(comment_data) {
 
     this.fdate = document.createElement('label');
     this.fdate.className = 'fdate';
-    this.fdate.innerHTML = comment_data.Time == "0" ? " 1 minute ago" : set_timestamp(comment_data.Time);
+    this.fdate.innerHTML = comment_data.Time == "0" ? " il y a 1 minute" : set_timestamp(comment_data.Time);
     $(this.fblock_comment_comment).append(this.fdate);
 
     this.fcomment_like = document.createElement('img');
     this.fcomment_like.className = 'fcomment_like';
-    this.fcomment_like.src = this.is_liked == 0 ? "src/icons/Like.png" : "src/icons/Like_filled.png";
-    console.log("lethis que l'on veut tu connais :  " + this.is_liked + "");
+    if (connected) {
+        this.fcomment_like.src = this.is_liked == 0 ? "src/icons/Like.png" : "src/icons/Like_filled.png";
+    } else {
+        this.fcomment_like.src = "src/icons/Like.png";
+    }
     $(this.fblock_comment).append(this.fcomment_like);
 
     this.fnumber_like = document.createElement('label');
@@ -55,17 +58,21 @@ function block_comment(comment_data) {
     $(this.fblock_comment).append(this.fnumber_like);
 
     $(this.fcomment_like).on('click', function () { // like d'un commentaire
-        current_comment_block = block_comment;
-        let data = {
+        if (connected) {
+            current_comment_block = block_comment;
+            let data = {
 
-            ObjectId: current_comment_block.Id,
-        };
-        ServerManager.LikeFlowComment(data, current_comment_block);
+                ObjectId: current_comment_block.Id,
+            };
+            ServerManager.LikeFlowComment(data, current_comment_block);
+        } else {
+            Popup("popup-connect", true, 40);
+        }
     });
 
     $$(this.fid_user).on('taphold', function () {
         var clickedLink = this;
-        app.popover('#popover_comment', clickedLink);
+        // app.popover('#popover_comment', clickedLink);
 
     });
 
@@ -73,7 +80,7 @@ function block_comment(comment_data) {
     $$(this.fblock_comment_comment).on('taphold', function () {
         var clickedLink = this;
         current_comment_block = block_comment;
-        app.popover('#popover_comment', clickedLink);
+        // app.popover('#popover_comment', clickedLink);
 
     });
 
@@ -109,7 +116,7 @@ $(".fpopover_copy_comment").on("click", function () {
 });
 
 $(".fpopover_report_comment").on("click", function () {
-    alert("This comment was reported");
+    alert("Ce commentaire a été signalé");
 });
 
 $(".fpopover_delete_comment").on("click", function () {
@@ -194,7 +201,7 @@ $('.fsend_comment').on('click', function () {
 
 
     if (comment == "") {
-        alert("Commentaire vide !!!");
+        alert("Le commentaire est vide");
     } else {
 
         $("#finput_comment").val("");

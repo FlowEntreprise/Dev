@@ -24,6 +24,8 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
         this.IdNotif = data.IdNotif;
     }
 
+    if (this.message.length > 28) this.message = this.message.substring(0, 28) + "...";
+
     this.block_notification_like = document.createElement('div');
     this.block_notification_like.className = 'fblock_notification';
     $(".list-notif-block").append(this.block_notification_like);
@@ -40,9 +42,14 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
 
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
-    this.fnotif_label.innerText = '@' + this.private_Id + ' liked your flow';
+    this.fnotif_label.innerText = '@' + this.private_Id + ' a aimé ton flow';
     if (block_notification_like.like_comment == "like_comment") {
-        this.fnotif_label.innerText = '@' + this.private_Id + ' liked your comment';
+        let txt = '@' + this.private_Id + ' a aimé ton commentaire';
+        if (txt.length > 28) txt = txt.substring(0, 28) + "...";
+        this.fnotif_label.innerText = txt;
+        this.fnotif_label.style.top = "2.5vh";
+    } else {
+        this.fnotif_label.style.top = "3.7vh";
     }
     this.block_notification_like.appendChild(this.fnotif_label);
 
@@ -73,9 +80,15 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
 
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
-    this.fnotif_label.innerText = '@' + this.private_Id + ' liked your flow';
+    this.fnotif_label.style.top = "3.7vh";
+    this.fnotif_label.innerText = '@' + this.private_Id + ' a aimé ton flow';
     if (block_notification_like.like_comment == "like_comment") {
-        this.fnotif_label.innerText = '@' + this.private_Id + ' liked your comment';
+        let txt = '@' + this.private_Id + ' a aimé ton commentaire';
+        if (txt.length > 28) txt = txt.substring(0, 28) + "...";
+        this.fnotif_label.innerText = txt;
+        this.fnotif_label.style.top = "2.5vh";
+    } else {
+        this.fnotif_label.style.top = "3.7vh";
     }
     this.block_notification_like.appendChild(this.fnotif_label);
 
@@ -148,7 +161,7 @@ function block_notification_echo(data) {
 
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
-    this.fnotif_label.innerText = this.full_name + ' echoed your flow';
+    this.fnotif_label.innerText = this.full_name + ' a echo ton flow';
     this.block_notification_echo.appendChild(this.fnotif_label);
 
     this.fnotif_text = document.createElement('label');
@@ -310,7 +323,7 @@ function block_notification_follow(data) {
 
     this.fnotif_text = document.createElement('label');
     this.fnotif_text.className = 'fnotif_text';
-    this.fnotif_text.innerText = '@' + this.private_Id + " followed you";
+    this.fnotif_text.innerText = '@' + this.private_Id + " s'est abonné à toi";
     this.block_notification_follow.appendChild(this.fnotif_text);
 
     if (block_notification_follow.seen == false) {
@@ -400,14 +413,17 @@ function block_notification_story_comment(data) {
     this.ftype_notif.src = 'src/icons/follow_you.png';
     this.fphoto_block_notif.appendChild(this.ftype_notif);
 
-    this.fnotif_label = document.createElement('label');
-    this.fnotif_label.className = 'fnotif_label';
-    this.fnotif_label.innerText = '@' + this.private_Id;
-    this.block_notification_story_comment.appendChild(this.fnotif_label);
+    // this.fnotif_label = document.createElement('label');
+    // this.fnotif_label.className = 'fnotif_label';
+    // this.fnotif_label.innerText = '@' + this.private_Id;
+    // this.block_notification_story_comment.appendChild(this.fnotif_label);
 
     this.fnotif_text = document.createElement('label');
-    this.fnotif_text.className = 'fnotif_text';
-    this.fnotif_text.innerText = '@' + this.private_Id + " commented your story";
+    this.fnotif_text.className = 'fnotif_label';
+    this.fnotif_text.style.top = "3.7vh";
+    let txt = '@' + this.private_Id + " a réagi à ta story";
+    if (txt.length > 28) txt = txt.substring(0, 28) + "...";
+    this.fnotif_text.innerText = txt;
     this.block_notification_story_comment.appendChild(this.fnotif_text);
 
     if (block_notification_story_comment.seen == false) {
@@ -491,8 +507,7 @@ $(".fnotif-btn").on("click", function () {
             }
         };
         scrollToTop();
-    }
-    else {
+    } else {
         all_notifications_block.length = [];
     }
 });
@@ -587,7 +602,7 @@ function UpdateNotificationList(data) {
             }
         }, 500);
         notification_list_empty = false;
-    } else { }
+    } else {}
 }
 
 // fin du copié collé de la fonction de scroll de fdp
@@ -690,8 +705,8 @@ function send_notif_to_user(block, type) {
     }
 
     if ((block.tag_user_RegisterId != undefined &&
-        block.tag_user_RegisterId != prepare_id_registerId &&
-        block.tag_user_RegisterId != registrationId) ||
+            block.tag_user_RegisterId != prepare_id_registerId &&
+            block.tag_user_RegisterId != registrationId) ||
         (block.tag_user_RegisterId == undefined &&
             registrationId != prepare_id_registerId)) {
         if (block.tag_user_RegisterId == undefined && type == "tag_in_comment") {
@@ -704,7 +719,7 @@ function send_notif_to_user(block, type) {
 
                     "data": {
                         "title": "@" + sender_info.fullname,
-                        "message": "@" + sender_info.privateId + " commented your story " + sender_info.post_texte,
+                        "message": "@" + sender_info.privateId + " a réagi à ta story " + sender_info.post_texte,
                         "type": "story_comment",
                         "sender_info": sender_info,
                         "force-start": 1
@@ -722,7 +737,7 @@ function send_notif_to_user(block, type) {
 
                     "data": {
                         "title": "@" + sender_info.fullname,
-                        "message": "@" + sender_info.privateId + " followed you " + sender_info.post_texte,
+                        "message": "@" + sender_info.privateId + " s'est abonné à toi " + sender_info.post_texte,
                         "type": "follow",
                         "sender_info": sender_info,
                         "force-start": 1
@@ -740,7 +755,7 @@ function send_notif_to_user(block, type) {
 
                     "data": {
                         "title": "@" + sender_info.fullname,
-                        "message": "@" + sender_info.privateId + " liked your flow : " + sender_info.post_texte,
+                        "message": "@" + sender_info.privateId + " a aimé ton flow : " + sender_info.post_texte,
                         "type": "like_flow",
                         "sender_info": sender_info,
                         "force-start": 1
@@ -758,7 +773,7 @@ function send_notif_to_user(block, type) {
 
                     "data": {
                         "title": "@" + sender_info.fullname,
-                        "message": "@" + sender_info.privateId + " commented : " + block.Comment,
+                        "message": "@" + sender_info.privateId + " a commenté : " + block.Comment,
                         "type": "send_comment",
                         "sender_info": sender_info,
                         "force-start": 1
@@ -794,7 +809,7 @@ function send_notif_to_user(block, type) {
 
                     "data": {
                         "title": "@" + sender_info.fullname,
-                        "message": "@" + sender_info.privateId + " liked your comment : " + block.Comment_text,
+                        "message": "@" + sender_info.privateId + " a aimé ton commentaire : " + block.Comment_text,
                         "type": "like_comment",
                         "sender_info": sender_info,
                         "force-start": 1
@@ -828,7 +843,7 @@ function pop_notif_block(data) {
         case 'like_flow':
 
             if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " liked your flow");
+                $(".flabel_in_app_notif").text(data.title + " a aimé ton flow");
                 $(".f_in_app_notif").css("margin-top", "-40vw");
                 setTimeout(function () {
                     $(".f_in_app_notif").css("margin-top", "5vw");
@@ -841,7 +856,7 @@ function pop_notif_block(data) {
         case 'send_comment':
 
             if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " commented your flow");
+                $(".flabel_in_app_notif").text(data.title + " a commenté ton flow");
                 $(".f_in_app_notif").css("margin-top", "-40vw");
                 setTimeout(function () {
                     $(".f_in_app_notif").css("margin-top", "5vw");
@@ -854,7 +869,7 @@ function pop_notif_block(data) {
         case 'like_comment':
 
             if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " liked your comment");
+                $(".flabel_in_app_notif").text(data.title + " a aimé ton commentaire");
                 $(".f_in_app_notif").css("margin-top", "-40vw");
                 setTimeout(function () {
                     $(".f_in_app_notif").css("margin-top", "5vw");
@@ -867,7 +882,7 @@ function pop_notif_block(data) {
         case 'follow':
 
             if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " followed you");
+                $(".flabel_in_app_notif").text(data.title + " s'est abonné à toi");
                 $(".f_in_app_notif").css("margin-top", "-40vw");
                 setTimeout(function () {
                     $(".f_in_app_notif").css("margin-top", "5vw");
@@ -879,7 +894,7 @@ function pop_notif_block(data) {
         case 'story_comment':
 
             if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " commented your story");
+                $(".flabel_in_app_notif").text(data.title + " a réagi à ta s...");
                 $(".f_in_app_notif").css("margin-top", "-40vw");
                 setTimeout(function () {
                     $(".f_in_app_notif").css("margin-top", "5vw");

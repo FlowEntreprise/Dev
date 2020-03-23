@@ -38,6 +38,7 @@ class FlowObj {
     }
 
     LoadFromUrl(url) {
+        console.log(url);
         let self = this;
         var xhr = new XMLHttpRequest();
         // console.log("downloading flow from online url...");

@@ -51,7 +51,7 @@
 	background-size: contain;
 	background-repeat: no-repeat;
 	z-index: 10;
-	opacity: 0.5;
+	opacity: 1;
 }
 
 .search_back {
@@ -321,7 +321,7 @@
 
 .show_more_flows {
 	position: absolute;
-	top: calc(237 * var(--custom-vh));
+	top: calc(245 * var(--custom-vh));
 	width: 26vw;
 	left: 37vw;
 	height: calc(4 * var(--custom-vh));

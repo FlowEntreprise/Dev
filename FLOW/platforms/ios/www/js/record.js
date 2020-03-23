@@ -225,10 +225,10 @@ $$('.fcancel-after_btn').on('touchend', function () {
 
 $$('.fvalidate-after_btn').on('touchend', function () {
     if (current_page == "after-record") {
-        if ($(".finput_title").val().replace(/\s+/g, '').length > 0) {
+        if ($(".finput_description").val().replace(/\s+/g, '').length > 0) {
             var data = {
                 PrivatedId: window.localStorage.getItem("user_private_id"),
-                Title: $(".finput_title").val(),
+                Title: "",
                 Image: image64 ? image64 : patternKey,
                 Description: $(".finput_description").val(),
                 Tags: [],
@@ -256,8 +256,8 @@ $$('.fvalidate-after_btn').on('touchend', function () {
             image64 = null;
             patternKey = null;
         } else {
-            alert("Flow title can't be empty");
-            $(".finput_title").focus();
+            alert("La description d'un Flow ne peut pas être vide");
+            $(".finput_description").focus();
         }
     } else {
         let storydata = {
@@ -407,7 +407,7 @@ function Save(blob) {
         appState.patternKey = patternKey;
         appState.recordTime = record_time;
         appState.blob = blob;
-        appState.flow_title = $(".finput_title").val();
+        // appState.flow_title = $(".finput_title").val();
         appState.flow_description = $(".finput_description").val();
         var reader = new FileReader();
         reader.readAsDataURL(blob);
@@ -419,7 +419,7 @@ function Save(blob) {
         }
 
         setTimeout(() => {
-            new_block.finput_title.focus();
+            new_block.finput_description.focus();
         }, 500);
     } else if (current_page == "record-story") {
         Popup("popup-story-record", false);
@@ -444,7 +444,7 @@ function Save(blob) {
         appState.patternKey = patternKey;
         appState.recordTime = record_time;
         appState.blob = blob;
-        appState.flow_title = $(".finput_title").val();
+        // appState.flow_title = $(".finput_title").val();
         appState.flow_description = $(".finput_description").val();
         current_page = "after-story-record";
         if (window.cordova.platformId == "android") {
@@ -460,7 +460,7 @@ function Save(blob) {
         }
 
         setTimeout(() => {
-            new_block.finput_title.focus();
+            new_block.finput_description.focus();
         }, 500);
     } else if (current_page == "story") {
         console.log("recorded story comment");
@@ -605,7 +605,7 @@ function TakePhoto() {
     ];
 
     function error() {
-        alert('Camera permission not given');
+        alert('Permission photo non acordée');
     }
 
     function success(status) {
@@ -634,7 +634,7 @@ function GetPhotoFromGallery() {
     ];
 
     function error() {
-        alert('Gallery permission not given');
+        alert('Permission galerie photo non accordée');
     }
 
     function success(status) {
@@ -689,6 +689,7 @@ function capturePhoto() {
         quality: 75,
         allowEdit: false,
         destinationType: destinationType.FILE_URI,
+        correctOrientation: true //Corrects Android orientation quirks
     });
 }
 

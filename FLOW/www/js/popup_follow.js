@@ -66,10 +66,10 @@ function block_user(follow_list, target, data) //follow_list true correspond au 
   if (follow_list == false) {
 
     $(this.f_user_private_id).removeClass("f_user_private_id").addClass("f_user_private_id_identification");
-    this.f_user_bio = document.createElement('label'); //bio
-    this.f_user_bio.className = 'f_user_bio';
-    this.f_user_bio.innerText = data.Bio;
-    this.block_user.appendChild(this.f_user_bio);
+    // this.f_user_bio = document.createElement('label'); //bio
+    // this.f_user_bio.className = 'f_user_bio';
+    // this.f_user_bio.innerText = data.Bio;
+    // this.block_user.appendChild(this.f_user_bio);
 
     if (data.PrivateId != window.localStorage.getItem("user_private_id")) {
       this.following_button = document.createElement('div'); //
@@ -90,21 +90,23 @@ function block_user(follow_list, target, data) //follow_list true correspond au 
 
     if (data.YouFollowHim == "true") {
       $(this.following_button).addClass("activeButtunFollow");
-      $(this.following_button).text("FOLLOWING");
+      $(this.following_button).text("ABONNÉ");
     } else if (data.PrivateId != window.localStorage.getItem("user_private_id")) {
       $(this.following_button).removeClass("activeButtunFollow");
-      this.following_button.innerText = "Follow";
+      this.following_button.innerText = "S'ABONNER";
     }
     if (this.following_button) {
       this.block_user.appendChild(this.following_button);
     }
   }
-
+  console.log(data.HeFollowYou, my_followers);
   if (data.HeFollowYou == "true" && my_followers == false) {
-    this.follow_you_button = document.createElement('img');
-    this.follow_you_button.src = "src/icons/follow_you.png";
-    this.follow_you_button.className = "follow_you_icon";
+    this.follow_you_button = document.createElement('div');
+    this.follow_you_button.className = "follow_you_button";
     this.block_user.appendChild(this.follow_you_button);
+  } else {
+    // this.f_user_fullname.style.top = "calc(2.5 * var(--custom-vh))";
+    // this.f_user_private_id.style.top = "calc(5 * var(--custom-vh))";
   }
 
 
@@ -115,10 +117,13 @@ function block_user(follow_list, target, data) //follow_list true correspond au 
 
 $("#ffollowersBandeau,#ffollowersmyBandeauChiffre,#ffollowersBandeauChiffre").on('click', function (event) {
   let target = $(event.target);
-  console.log("la target est :" + target);
+  console.log(target);
   if (target.is("#ffollowersmyBandeauChiffre") || target.is("#fMyfollowersBandeau")) {
     my_followers = true;
+  } else {
+    my_followers = false;
   }
+  console.log(my_followers);
   let data_followers = {
     PrivateId: privateIDAccount,
     Index: 0,
@@ -127,8 +132,7 @@ $("#ffollowersBandeau,#ffollowersmyBandeauChiffre,#ffollowersBandeauChiffre").on
   if (current_page == "my-account") {
 
     data_followers.PrivateId = window.localStorage.getItem("user_private_id");
-  }
-  else {
+  } else {
     data_followers.PrivateId = privateIDAccount;
   }
 
@@ -154,16 +158,14 @@ $(".popup_followers_container").scroll(function () {
       CanRefreshFollowersList = false;
       console.log("Get followers on Server");
       console.log("FollowersListCurrentIndex : " + FollowersListCurrentIndex);
-      let data_followers_scroll =
-      {
+      let data_followers_scroll = {
         PrivateId: privateIDAccount,
         Index: FollowersListCurrentIndex,
         follow_list: false
       };
       if (current_page == "my-account" || current_page == "home") {
         data_followers_scroll.PrivateId = window.localStorage.getItem("user_private_id");
-      }
-      else {
+      } else {
         data_followers_scroll.PrivateId = privateIDAccount;
       }
       ServerManager.GetFollowerOfUser(data_followers_scroll);
@@ -217,6 +219,8 @@ $("#ffollowingBandeau,#ffollowingmyBandeauChiffre,#ffollowingBandeauChiffre").on
   console.log("la target est :" + target);
   if (target.is("#ffollowingsmyBandeauChiffre") || target.is("#fMyfollowingsBandeau")) {
     my_followings = true;
+  } else {
+    my_followers = false;
   }
   let data_followings = {
     PrivateId: privateIDAccount,
@@ -226,8 +230,7 @@ $("#ffollowingBandeau,#ffollowingmyBandeauChiffre,#ffollowingBandeauChiffre").on
   if (current_page == "my-account") {
 
     data_followings.PrivateId = window.localStorage.getItem("user_private_id");
-  }
-  else {
+  } else {
     data_followings.PrivateId = privateIDAccount;
   }
 
@@ -253,16 +256,14 @@ $(".popup_followings_container").scroll(function () {
       CanRefreshfollowingsList = false;
       console.log("Get followings on Server");
       console.log("followingsListCurrentIndex : " + followingsListCurrentIndex);
-      let data_followings_scroll =
-      {
+      let data_followings_scroll = {
         PrivateId: privateIDAccount,
         Index: followingsListCurrentIndex,
         follow_list: false
       };
       if (current_page == "my-account" || current_page == "home") {
         data_followings_scroll.PrivateId = window.localStorage.getItem("user_private_id");
-      }
-      else {
+      } else {
         data_followings_scroll.PrivateId = privateIDAccount;
       }
       ServerManager.GetFollowingOfUser(data_followings_scroll);
@@ -328,16 +329,14 @@ $(".popup_identification_container").scroll(function () {
       CanRefreshIdentificationList = false;
       console.log("Get Identification on Server");
       console.log("IdentificationListCurrentIndex : " + IdentificationListCurrentIndex);
-      let data_Identification_scroll =
-      {
+      let data_Identification_scroll = {
         PrivateId: privateIDAccount,
         Index: IdentificationListCurrentIndex,
         follow_list: true
       };
       if (current_page == "my-account" || current_page == "home") {
         data_Identification_scroll.PrivateId = window.localStorage.getItem("user_private_id");
-      }
-      else {
+      } else {
         data_Identification_scroll.PrivateId = privateIDAccount;
       }
       console.log("t'es dans le scroll des identification");
@@ -370,8 +369,10 @@ function UpdateIdentificationList(data, follow_list, search) {
       let search_lenght;
       if (search == "yes_search") {
         search_lenght = 5;
+      } else {
+        search_lenght = 10;
+        IdentificationListCurrentIndex++;
       }
-      else { search_lenght = 10; IdentificationListCurrentIndex++; }
       if (data.length < search_lenght) {
         CanRefreshIdentificationList = false;
         let tick_tl = document.createElement("div");

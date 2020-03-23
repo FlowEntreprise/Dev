@@ -4,7 +4,7 @@
 	margin-left: 5vw;
 	margin-right: 5vw;
 	margin-top: 5vw;
-	height: calc(37 * var(--custom-vh));
+	height: calc(35 * var(--custom-vh));
 	background-color: #ffffff;
 	border-radius: 2vw;
 	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
@@ -113,8 +113,8 @@
 
 .fdots {
 	position: absolute;
-	left: 82.5vw;
-	top: calc(-1.5 * var(--custom-vh));
+	left: 81vw;
+	top: calc(-2 * var(--custom-vh));
 	font-size: 7vw;
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 	font-weight: bold;
@@ -163,7 +163,7 @@
 .fbottom_part {
 	position: absolute;
 	width: 90vw;
-	height: calc(12 * var(--custom-vh));
+	height: calc(10 * var(--custom-vh));
 	top: calc(25 * var(--custom-vh));
 	background-color: #ffffff;
 	border-bottom-left-radius: 2vw;
@@ -179,20 +179,27 @@
 	font-size: 4.2vw;
 	left: 2vw;
 	font-weight: bold;
-	color: #909597;
+	color: #92abb2;
 	text-align: left;
 }
 
 .fpost_description {
-	position: absolute;
-	display: block;
-	width: 50vw;
-	height: calc(2.5 * var(--custom-vh));
-	font-size: 3vw;
+	position: relative;
+	display: table-cell;
+	vertical-align: middle;
+	overflow: hidden;
+	width: 65vw;
+	max-width: 65vw;
+	height: calc(6 * var(--custom-vh));
+	max-height: calc(6 * var(--custom-vh));
+	font-size: 15px;
 	left: 2vw;
-	top: calc(4.5 * var(--custom-vh));
-	color: #909597;
+	top: calc(2.5 * var(--custom-vh));
+	color: #92abb2;
 	text-align: left;
+	line-height: 18px;
+	/* background-color: red; */
+	font-family: Roboto-Regular;
 }
 
 .fpost_tag {
@@ -204,24 +211,15 @@
 	left: 2vw;
 	top: calc(6.5 * var(--custom-vh));
 	font-weight: bold;
-	color: #909597;
+	color: #92abb2;
 	text-align: left;
 }
 
 .flike {
 	position: absolute;
 	width: 10vw;
-	left: 58vw;
-	top: calc(3 * var(--custom-vh));
-	text-align: center;
-	height: calc(7 * var(--custom-vh));
-}
-
-.fecho {
-	position: absolute;
-	width: 10vw;
 	left: 68vw;
-	top: calc(3 * var(--custom-vh));
+	top: calc(2.5 * var(--custom-vh));
 	text-align: center;
 	height: calc(7 * var(--custom-vh));
 }
@@ -230,10 +228,19 @@
 	position: absolute;
 	width: 10vw;
 	left: 78vw;
-	top: calc(3 * var(--custom-vh));
+	top: calc(2.5 * var(--custom-vh));
 	text-align: center;
 	height: calc(7 * var(--custom-vh));
 }
+
+/* .fecho {
+	position: absolute;
+	width: 10vw;
+	left: 68vw;
+	top: calc(3 * var(--custom-vh));
+	text-align: center;
+	height: calc(7 * var(--custom-vh));
+} */
 
 .fimg_impression {
 	text-align: center;
@@ -246,10 +253,10 @@
 	position: absolute;
 	top: calc(2 * var(--custom-vh));
 	width: 10vw;
-	color: #909597;
+	color: #92abb2;
 	font-size: 3.8vw;
 	font-weight: bold;
-	pointer-events: none;
+	/* pointer-events: none; */
 }
 
 #fbutton {

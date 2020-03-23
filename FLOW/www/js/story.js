@@ -176,7 +176,7 @@ function RefreshStories() {
     /* ------------------------------------------------*/
     /*              REFRESH AFTER GETTING DATA         */
     /* ------------------------------------------------*/
-    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-story-record', true)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div><label class=\"fstory_user\">Your story</label></div></li>";
+    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-story-record', true)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div><label class=\"fstory_user\">Ta story</label></div></li>";
     // if (connected && window.localStorage.getItem("user_profile_pic")) {
     //     $(".mystory_pic")[0].src = "src/icons/plus.png"//window.localStorage.getItem("user_profile_pic");
     // }
@@ -214,8 +214,8 @@ function RefreshStories() {
         let story_user = document.createElement("label");
         story_user.className = "fstory_user";
         if (story_data[i].private_id == window.localStorage.getItem("user_private_id")) {
-            $(".fstory_user")[0].innerHTML = "Add story";
-            story_user.innerHTML = "Your story";
+            $(".fstory_user")[0].innerHTML = "Ajouter story";
+            story_user.innerHTML = "Ta story";
         } else {
             story_user.innerHTML = story_data[i].private_id;
         }

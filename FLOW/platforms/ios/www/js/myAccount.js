@@ -5,7 +5,9 @@ var MyFollower;
 var MyFollowing;
 var privateID;
 var indexMyFlow;
+var indexMyLike;
 var MyFlowAdd = true;
+var MyLikeAdd = true;
 
 $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 
@@ -18,8 +20,8 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     $(".fnavMonCompte").addClass("fnavMonCompteTransitionDown");
     $(".ftabsMonCompte").css("transition-duration", "0.2s");
     var scrollTest = $(".scrollMyAccunt").scrollTop();
-    $(".fnavMonCompte").css("transform", "translate3d(0vw, 7vh, 0vh)");
-    $(".ftabsMonCompte").css("transform", "translate3d(0vw, 2vh, 0vh)");
+    $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
+    $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(4 * var(--custom-vh)), 0vh)");
     boolScrollTop = true;
     $("#MyActivity").addClass("fblockMonComptePadding");
 
@@ -29,7 +31,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
         analytics.setCurrentScreen(current_page);
     }
     indexMyFlow = 0;
-    $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
+    indexMyLike = 0;
     $("#MyActivity")[0].innerHTML = "";
     let loading_tl = document.createElement("div");
     loading_tl.className = "loading-spinner loading_myaccount";
@@ -42,6 +44,11 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
         PrivateId: window.localStorage.getItem("user_private_id")
     };
     ServerManager.GetMyFlow(getFlow);
+    let data = {
+        Index: indexMyLike,
+        PrivateId: window.localStorage.getItem("user_private_id")
+    }
+    ServerManager.GetLikedFlows(data, true);
 
     var GetMyUserInfoNumber = {
         PrivateId: window.localStorage.getItem("user_private_id")
@@ -62,17 +69,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     $("#myprivateID").html("@" + privateID);
     $("#fbioMonCompte").html(bioMonCompte);
     $("#fgobackmonCompte").click(function () {
-        // mainView.back();
-        $(".fflow-btn").css("display", "block");
-        $(".flow-btn-shadow").css("display", "block");
-        $(".fflow-btn").css("z-index", "1");
-        $(".flow-btn-shadow").css("z-index", "0");
-        current_page = "home";
-        if (window.cordova.platformId == "android") {
-            analytics.setCurrentScreen(current_page);
-        }
         Popup("popup-myaccount", false);
-        stopAllBlocksAudio();
         //$(".flow-btn-shadow").css("display", "block");
     });
 
@@ -88,10 +85,10 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
         checkScroll();
     });
 
-    $$('#tabMonCompte3').on('tab:show', function () {
-        scroll_element = $("#tabMonCompte3");
-        checkScroll();
-    });
+    // $$('#tabMonCompte3').on('tab:show', function () {
+    //     scroll_element = $("#tabMonCompte3");
+    //     checkScroll();
+    // });
 
     var boolScrollTop = true;
 
@@ -133,8 +130,8 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
                     $(".fnavMonCompte").addClass("fnavMonCompteTransitionDown");
                     $(".ftabsMonCompte").css("transition-duration", "0.2s");
                     var scrollTest = $(".scrollMyAccunt").scrollTop();
-                    $(".fnavMonCompte").css("transform", "translate3d(0vw, 7vh, 0vh)");
-                    $(".ftabsMonCompte").css("transform", "translate3d(0vw, 2vh, 0vh)");
+                    $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
+                    $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(4 * var(--custom-vh)), 0vh)");
                     boolScrollTop = true;
                     $("#MyActivity").addClass("fblockMonComptePadding");
                 }
@@ -236,6 +233,21 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
         }
 
     });
+
+    $("#tabMonCompte2").scroll(function () {
+        var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+        if (MyLikeAdd == true) {
+            if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+                MyLikeAdd = false;
+                var data = {
+                    Index: indexMyLike,
+                    PrivateId: window.localStorage.getItem("user_private_id")
+                };
+                ServerManager.GetLikedFlows(data, true);
+            }
+        }
+
+    });
     // first_open_myaccount = false;
     // }
 });
@@ -324,6 +336,88 @@ function ShowMyFlow(flow) {
     }
 }
 
+document.getElementById("popup-myaccount").addEventListener("closed", function () {
+    $(".fflow-btn").css("display", "block");
+    $(".flow-btn-shadow").css("display", "block");
+    $(".fflow-btn").css("z-index", "1");
+    $(".flow-btn-shadow").css("z-index", "0");
+    current_page = "home";
+    if (window.cordova.platformId == "android") {
+        analytics.setCurrentScreen(current_page);
+    }
+    stopAllBlocksAudio();
+});
+
+function ShowMyLikedFlows(flow) {
+    console.log("SHOW MY FLOW");
+    console.log(flow);
+    if (Array.isArray(flow.Data) == false) {
+        MyLikeAdd = false;
+        // window.alert("Plus de flow a recupt");
+    } else {
+        // flow.Data.reverse();
+        let countFlow = 0;
+        for (let i = 0; i < flow.Data.length; i++) {
+            countFlow++;
+            let data = flow.Data[i];
+            var image_link = undefined;
+            var pattern_key = undefined;
+            if (data.Background.PatternKey == undefined) {
+                image_link = data.Background;
+            } else {
+                pattern_key = data.Background.PatternKey;
+            }
+
+            const flow_link = data.Audio;
+            console.log(flow_link);
+            var profilePicLink = data.ProfilePicture;
+            //console.log(profilePicLink);
+            //console.log(image_link);
+            let block_params = {
+                parent_element: $("#MyLikes"),
+                afterblock: false,
+                ObjectId: data.ObjectId,
+                audioURL: flow_link,
+                duration: data.Duration,
+                patternKey: pattern_key,
+                imageURL: image_link,
+                title: data.Title,
+                description: data.Description,
+                pseudo: data.PrivateId,
+                account_imageURL: profilePicLink,
+                IsLike: data.IsLike,
+                IsComment: data.IsComment,
+                Likes: data.Likes,
+                ObjectId: data.ObjectId,
+                PrivateId: data.PrivateId,
+                Times: data.Time,
+                Comments: data.Comments,
+                RegisterId: data.RegisterId,
+            };
+            var new_block = new block(block_params);
+            all_blocks.push(new_block);
+            if ($(".loading_myaccount")) $(".loading_myaccount").remove();
+
+            //console.log("Pop Flow");
+            //console.log(new_block);
+        }
+        console.log(countFlow);
+        if (countFlow < 5) {
+            indexMyLike++;
+            MyLikeAdd = false;
+            let tick_tl = document.createElement("div");
+            tick_tl.className = "tick_icon";
+            $("#MyLikes")[0].appendChild(tick_tl);
+        } else {
+            indexMyLike++;
+            MyLikeAdd = true;
+            let loading_tl = document.createElement("div");
+            loading_tl.className = "loading-spinner loading_myaccount";
+            $("#MyLikes")[0].appendChild(loading_tl);
+        }
+    }
+}
+
 function ShowMyInfosUser(data) {
     console.log(data.NbFollowing);
     MyFlowBandeau = data.NbFlow;
@@ -333,3 +427,7 @@ function ShowMyInfosUser(data) {
     $("#ffollowersmyBandeauChiffre").html(MyFollower);
     $("#ffollowingmyBandeauChiffre").html(MyFollowing);
 }
+
+$(".disconnect_btn")[0].addEventListener("touchstart", function () {
+    DisconnectUser();
+})

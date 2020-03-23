@@ -183,7 +183,7 @@
 	pointer-events: none;
 }
 
-#menu1 > .toolbar {
+#menu1>.toolbar {
 	bottom: auto !important;
 	top: calc(93 * var(--custom-vh));
 }
@@ -237,3 +237,48 @@
 	margin-top: 0px !important;
 	background-size: contain !important;
 }
+
+.empty_tl {
+	display: none;
+	position: absolute;
+	top: 20vh;
+	left: 0;
+	width: 100vw;
+	height: 80vh;
+	user-select: none;
+}
+
+.empty_tl>.title {
+	position: absolute;
+	top: 25vh;
+	left: 0;
+	width: 100vw;
+	font-family: Roboto-Bold;
+	text-align: center;
+	font-size: 20px;
+	color: #1a84ef;
+}
+
+.empty_tl>.txt {
+	position: absolute;
+	top: 30vh;
+	left: 10vw;
+	width: 80vw;
+	text-align: center;
+	font-family: Roboto-Regular;
+	color: #92abb2
+}
+
+.empty_tl>.btn {
+	position: absolute;
+    top: 37vh;
+    left: 15vw;
+    width: 70vw;
+    height: 5vh;
+    background: #1a84ef;
+    line-height: 5vh;
+    text-align: center;
+    font-family: Roboto-Regular;
+    color: white;
+    border-radius: 25px;
+    font-size: 15px;

@@ -29,3 +29,6 @@ $(".fgoogle_btn").on("click", function () {
 $(".finsta_btn").on("click", function () {
     login_insta();
 });
+$("#fbuton_inscription").on("click", function () {
+    alert("L'inscripton avec mail ou numero de téléphone n'est pas encore disponible dans cette version\nElle le sera très prochainement !");
+});

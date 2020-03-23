@@ -9,6 +9,7 @@ const ServerParams = {
     GetUserStoryURL: "GetUserStory",
     AddFlowComment: "AddFlowComment",
     GetFlowComment: "GetFlowComment",
+    GetFlowLikes: "GetFlowLikes",
     LikeFlowComment: "Like/comment",
     LikeFlow: "Like/Flow",
     UpdateProfileURL: "UpdateProfile",
@@ -16,6 +17,7 @@ const ServerParams = {
     GetMyUserInfosURL: "GetInfoUser",
     GetTimeline: "GetTimeline",
     GetUserProfil: "GetProfil",
+    GetLikedFlows: "GetLikedFlows",
     GetSingle: "GetSingle",
     ActionFollowProfil: 'Follow',
     UpdateRegisterId: "UpdateRegisterId",
@@ -342,6 +344,32 @@ class ServerManagerClass {
         });
     }
 
+    GetFlowLikes(data) {
+        let final_data = {
+            Data: data,
+            Action: "GetFlowLikes",
+            TokenId: window.localStorage.getItem("user_token")
+        };
+
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetFlowLikes,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+
+                get_all_likes(response, final_data.Data);
+                // console.log("Comment sucessfully added to database :");
+                console.log(response);
+
+            },
+            error: function (response) {
+                // console.log("comment adding from database error : ");
+                console.log(response);
+            }
+        });
+    }
+
     LikeFlowComment(data, block) {
         let final_data = {
             Data: data,
@@ -408,6 +436,28 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 ShowMyFlow(response);
+            },
+            error: function (response) {
+
+            }
+        });
+    }
+
+    GetLikedFlows(data, mine) {
+        let final_data = {
+            TokenId: window.localStorage.getItem("user_token"),
+            Data: data
+        };
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetLikedFlows,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                if (mine) {
+                    ShowMyLikedFlows(response);
+                } else {
+                    ShowLikedFlows(response);
+                }
             },
             error: function (response) {
 
@@ -904,7 +954,7 @@ class ServerManagerClass {
             }
         };
         let tokken = window.localStorage.getItem("user_token");
-        if (tokken.length > 0) {
+        if (tokken && tokken.length > 0) {
             final_data.TokenId = tokken;
         }
         console.log(final_data);
@@ -932,7 +982,7 @@ class ServerManagerClass {
             }
         };
         let tokken = window.localStorage.getItem("user_token");
-        if (tokken.length > 0) {
+        if (tokken && tokken.length > 0) {
             final_data.TokenId = tokken;
         }
         console.log(final_data);

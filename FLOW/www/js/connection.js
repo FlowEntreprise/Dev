@@ -6,6 +6,7 @@ var user_token;
 function ConnectUser() {
     console.log("user connected");
     connected = true;
+    $(".empty_tl")[0].style.display = "none";
     $(".fneed_connect").css({
         "display": "none"
     });
@@ -52,12 +53,20 @@ function DisconnectUser() {
     $(".fneed_connect").css({
         "display": "block"
     });
-    app.showTab("#tab1");
+    Popup("popup-myaccount", false);
+    app.showTab("#tab2");
+    $(".empty_tl")[0].style.display = "block";
+    $(".list-block")[0].innerHTML = "";
+    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-connect', true, 45)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\" /><div class=\"unread_shadow\"></div><label class=\"fstory_user\">Ta story</label></div></li>";
+    $(".faccount").css({
+        "background-image": "url('src/icons/Account@3x.png')"
+    });
     if (window.cordova.platformId == "android") {
         analytics.logEvent("user_disconnection", {
             private_id: window.localStorage.getItem("user_private_id")
         });
     }
+    window.localStorage.clear();
     //$( "#fswipe_area" ).css({"pointer-events": "none"});
 }
 
