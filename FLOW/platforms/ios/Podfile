@@ -2,7 +2,7 @@
 
 platform :ios, '7.0'
 
-target 'C:\Users\thoma\Documents\Projets_persos\FLOW\Dev\FLOW\platforms\ios\FLOW' do
-	project 'C:\Users\thoma\Documents\Projets_persos\FLOW\Dev\FLOW\platforms\ios\FLOW.xcodeproj'
-
+target 'FLOW' do
+	project 'FLOW.xcodeproj'
+	pod 'FirebaseMessaging', '~> 2.0.0'
 end

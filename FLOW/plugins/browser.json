@@ -40,9 +40,6 @@
     "phonegap-plugin-multidex": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "phonegap-plugin-push": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
     "cordova-plugin-fullscreen": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
@@ -106,6 +103,9 @@
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-keyboard": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "phonegap-plugin-push": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },

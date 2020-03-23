@@ -25,7 +25,7 @@
         <preference name="deployment-target" value="7.0" />
         <preference name="AllowInlineMediaPlayback" value="true" />
         <preference name="DisallowOverscroll" value="true" />
-        <preference name="KeyboardShrinksView" value="true" /> 
+        <preference name="KeyboardShrinksView" value="true" />
     </platform>
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />
@@ -47,7 +47,6 @@
     </plugin>
     <plugin name="cordova-support-google-services" spec="^1.3.1" />
     <plugin name="phonegap-plugin-multidex" spec="^1.0.0" />
-    <plugin name="phonegap-plugin-push" spec="git+https://github.com/phonegap/phonegap-plugin-push.git" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="2.1.3" />
     <plugin name="cordova-plugin-browsersync" spec="^1.1.0" />
     <plugin name="cordova-plugin-fullscreen" spec="^1.2.0" />

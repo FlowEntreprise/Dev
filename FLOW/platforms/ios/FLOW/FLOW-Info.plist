@@ -20,6 +20,15 @@
 	<string>1.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb502054883649562</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0.0</string>
 	<key>Fabric</key>
@@ -29,16 +38,34 @@
 		<key>Kits</key>
 		<array/>
 	</dict>
+	<key>FacebookAppID</key>
+	<string>502054883649562</string>
+	<key>FacebookDisplayName</key>
+	<string>FLOW</string>
+	<key>FacebookHybridAppEvents</key>
+	<string>false</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<true/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>m.facebook.com</key>
-			<dict/>
-			<key>graph.facebook.com</key>
-			<dict/>
+			<key>akamaihd.net</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 			<key>api.facebook.com</key>
 			<dict/>
 			<key>fbcdn.net</key>
@@ -46,19 +73,23 @@
 				<key>NSIncludesSubdomains</key>
 				<true/>
 			</dict>
-			<key>akamaihd.net</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-			</dict>
+			<key>graph.facebook.com</key>
+			<dict/>
+			<key>m.facebook.com</key>
+			<dict/>
 		</dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
 	</dict>
 	<key>NSMainNibFile</key>
-	<string/>
+	<string></string>
 	<key>NSMainNibFile~ipad</key>
-	<string/>
+	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs microphone access</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UIInterfaceOrientation</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -75,33 +106,5 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
-	</array>
-	<key>FacebookAppID</key>
-	<string>502054883649562</string>
-	<key>FacebookDisplayName</key>
-	<string>FLOW</string>
-	<key>FacebookHybridAppEvents</key>
-	<string>false</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb502054883649562</string>
-			</array>
-		</dict>
-	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>audio</string>
-	</array>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>This app needs microphone access</string>
 </dict>
 </plist>

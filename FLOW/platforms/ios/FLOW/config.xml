@@ -58,6 +58,9 @@
     <feature name="Keyboard">
         <param name="ios-package" onload="true" value="CDVKeyboard" />
     </feature>
+    <feature name="PushNotification">
+        <param name="ios-package" value="PushPlugin" />
+    </feature>
     <name>FLOW</name>
     <description>
         The Vocal Social Network.
