@@ -24,6 +24,8 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
         this.IdNotif = data.IdNotif;
     }
 
+    if (this.message.length > 28) this.message = this.message.substring(0, 28) + "...";
+
     this.block_notification_like = document.createElement('div');
     this.block_notification_like.className = 'fblock_notification';
     $(".list-notif-block").append(this.block_notification_like);
@@ -42,7 +44,12 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
     this.fnotif_label.className = 'fnotif_label';
     this.fnotif_label.innerText = '@' + this.private_Id + ' a aimé ton flow';
     if (block_notification_like.like_comment == "like_comment") {
-        this.fnotif_label.innerText = '@' + this.private_Id + ' a aimé ton commentaire';
+        let txt = '@' + this.private_Id + ' a aimé ton commentaire';
+        if (txt.length > 28) txt = txt.substring(0, 28) + "...";
+        this.fnotif_label.innerText = txt;
+        this.fnotif_label.style.top = "2.5vh";
+    } else {
+        this.fnotif_label.style.top = "3.7vh";
     }
     this.block_notification_like.appendChild(this.fnotif_label);
 
@@ -73,9 +80,15 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
 
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
+    this.fnotif_label.style.top = "3.7vh";
     this.fnotif_label.innerText = '@' + this.private_Id + ' a aimé ton flow';
     if (block_notification_like.like_comment == "like_comment") {
-        this.fnotif_label.innerText = '@' + this.private_Id + ' a aimé ton commentaire';
+        let txt = '@' + this.private_Id + ' a aimé ton commentaire';
+        if (txt.length > 28) txt = txt.substring(0, 28) + "...";
+        this.fnotif_label.innerText = txt;
+        this.fnotif_label.style.top = "2.5vh";
+    } else {
+        this.fnotif_label.style.top = "3.7vh";
     }
     this.block_notification_like.appendChild(this.fnotif_label);
 
@@ -400,14 +413,17 @@ function block_notification_story_comment(data) {
     this.ftype_notif.src = 'src/icons/follow_you.png';
     this.fphoto_block_notif.appendChild(this.ftype_notif);
 
-    this.fnotif_label = document.createElement('label');
-    this.fnotif_label.className = 'fnotif_label';
-    this.fnotif_label.innerText = '@' + this.private_Id;
-    this.block_notification_story_comment.appendChild(this.fnotif_label);
+    // this.fnotif_label = document.createElement('label');
+    // this.fnotif_label.className = 'fnotif_label';
+    // this.fnotif_label.innerText = '@' + this.private_Id;
+    // this.block_notification_story_comment.appendChild(this.fnotif_label);
 
     this.fnotif_text = document.createElement('label');
-    this.fnotif_text.className = 'fnotif_text';
-    this.fnotif_text.innerText = '@' + this.private_Id + " a commenté ta story";
+    this.fnotif_text.className = 'fnotif_label';
+    this.fnotif_text.style.top = "3.7vh";
+    let txt = '@' + this.private_Id + " a réagi à ta story";
+    if (txt.length > 28) txt = txt.substring(0, 28) + "...";
+    this.fnotif_text.innerText = txt;
     this.block_notification_story_comment.appendChild(this.fnotif_text);
 
     if (block_notification_story_comment.seen == false) {
@@ -703,7 +719,7 @@ function send_notif_to_user(block, type) {
 
                     "data": {
                         "title": "@" + sender_info.fullname,
-                        "message": "@" + sender_info.privateId + " a commenté ta story " + sender_info.post_texte,
+                        "message": "@" + sender_info.privateId + " a réagi à ta story " + sender_info.post_texte,
                         "type": "story_comment",
                         "sender_info": sender_info,
                         "force-start": 1
@@ -878,7 +894,7 @@ function pop_notif_block(data) {
         case 'story_comment':
 
             if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " a commenté ta story");
+                $(".flabel_in_app_notif").text(data.title + " a réagi à ta s...");
                 $(".f_in_app_notif").css("margin-top", "-40vw");
                 setTimeout(function () {
                     $(".f_in_app_notif").css("margin-top", "5vw");

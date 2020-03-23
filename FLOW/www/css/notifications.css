@@ -17,7 +17,7 @@
     left: 2vw;
     border-radius: calc(7* var(--custom-vh));
     border: 1.5px solid rgb(146, 171, 178);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);    
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     background-size: cover;
     background-position: center;
 }
@@ -30,7 +30,7 @@
     left: 2vw;
     border-radius: calc(7* var(--custom-vh));
     border: 1.5px solid rgb(255, 0, 84);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);    
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     background-size: cover;
     background-position: center;
 }
@@ -42,8 +42,8 @@
     top: calc(1.5* var(--custom-vh));
     left: 2vw;
     border-radius: calc(7* var(--custom-vh));
-    border: 1.5px solid rgb(152,57,198);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);    
+    border: 1.5px solid rgb(152, 57, 198);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     background-size: cover;
     background-position: center;
 }
@@ -55,7 +55,7 @@
     top: calc(1.5* var(--custom-vh));
     left: 2vw;
     border-radius: calc(7* var(--custom-vh));
-    border: 1.5px solid rgb(26,132,239); 
+    border: 1.5px solid rgb(26, 132, 239);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     background-size: cover;
     background-position: center;
@@ -72,7 +72,7 @@
 
 .fnotif_label {
     position: absolute;
-    top: calc(1.2* var(--custom-vh));
+    top: calc(2.5* var(--custom-vh));
     left: 20vw;
     font-size: 3.6vw;
     color: #92ABB2;
@@ -84,7 +84,7 @@
 .fnotif_text {
     font-family: Roboto;
     position: absolute;
-    top: calc(3.1* var(--custom-vh));
+    top: calc(5* var(--custom-vh));
     left: 20vw;
     color: #92ABB2;
     font-size: 3.4vw;
@@ -112,24 +112,22 @@
     background-color: rgba(255, 91, 91, 0.199);
 }
 
-.ftime
-{
+.ftime {
     position: absolute;
     top: calc(7* var(--custom-vh));
     right: 3.5vw;
     color: #92ABB2;
     font-size: 3vw;
     font-family: Roboto;
-    
+
 }
 
-.list-notif-block
-{
+.list-notif-block {
     margin: 0 !important;
     padding-bottom: 12vh;
 }
-.layer_notif
-{
+
+.layer_notif {
     margin-top: 0px !important;
 }
 
