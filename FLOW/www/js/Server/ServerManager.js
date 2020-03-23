@@ -448,7 +448,6 @@ class ServerManagerClass {
             TokenId: window.localStorage.getItem("user_token"),
             Data: data
         };
-        //console.log(final_data);
         $.ajax({
             type: "POST",
             url: ServerParams.ServerURL + ServerParams.GetLikedFlows,
@@ -955,7 +954,7 @@ class ServerManagerClass {
             }
         };
         let tokken = window.localStorage.getItem("user_token");
-        if (tokken.length > 0) {
+        if (tokken && tokken.length > 0) {
             final_data.TokenId = tokken;
         }
         console.log(final_data);
@@ -983,7 +982,7 @@ class ServerManagerClass {
             }
         };
         let tokken = window.localStorage.getItem("user_token");
-        if (tokken.length > 0) {
+        if (tokken && tokken.length > 0) {
             final_data.TokenId = tokken;
         }
         console.log(final_data);

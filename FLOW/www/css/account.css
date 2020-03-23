@@ -35,14 +35,15 @@
 #fFollowYouButtunAccount {
 	background-color: #92abb2;
 	border-radius: 22vw;
-	width: 80px;
+	width: 120px;
 	text-align: center;
 	font-size: 12px;
 	padding: 2.5px;
 	position: absolute;
 	top: calc(25.4 * var(--custom-vh));
-	left: 67vw;
+	left: 64vw;
 	color: white;
+	display: none;
 }
 
 #freturnCompte {
@@ -181,10 +182,10 @@
 #ffollowingBandeauChiffre {
 	font-size: 22px;
 	position: absolute;
-	right: 8vw;
+	right: 4vw;
 	top: calc(1 * var(--custom-vh));
 	font-family: Roboto-Regular;
-	width: 16vw;
+	width: 20vw;
 	text-align: center;
 }
 

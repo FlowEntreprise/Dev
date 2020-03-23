@@ -91,11 +91,11 @@ function block(params) {
         let indicator_txt = "";
         let indicator_icon = "";
         if (params.LikeBy != null) {
-            indicator_txt = params.LikeBy + " liked this";
+            indicator_txt = params.LikeBy + " a aimé ceci";
             indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Like.png' width='15vw' height='30vw' align='middle'>";
         }
         if (params.CommentBy != null) {
-            indicator_txt = params.CommentBy + " commented this";
+            indicator_txt = params.CommentBy + " a commenté ceci";
             indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Comment.png' width='15vw' height='30vw' align='middle'>";
         }
         let tl_indicator = document.createElement("p");
@@ -194,15 +194,15 @@ function block(params) {
         this.fdots.innerText = '...';
         this.ftop_part.appendChild(this.fdots);
 
-        this.fpost_title = document.createElement('p');
-        this.fpost_title.className = 'fpost_title';
-        this.fpost_title.innerText = params.title;
-        this.fpost_title.setAttribute('maxlength', 20);
-        this.fbottom_part.appendChild(this.fpost_title);
+        // this.fpost_title = document.createElement('p');
+        // this.fpost_title.className = 'fpost_title';
+        // this.fpost_title.innerText = params.title;
+        // this.fpost_title.setAttribute('maxlength', 20);
+        // this.fbottom_part.appendChild(this.fpost_title);
 
-        this.fpost_description = document.createElement('p');
+        this.fpost_description = document.createElement('div');
         this.fpost_description.className = 'fpost_description';
-        this.fpost_description.innerText = params.description;
+        this.fpost_description.innerHTML = params.description;
         this.fbottom_part.appendChild(this.fpost_description);
 
         this.fpost_tag = document.createElement('p');
@@ -222,17 +222,17 @@ function block(params) {
         this.ftxt_impression_like.innerText = affichage_nombre(this.Likes, 1);
         this.flike.appendChild(this.ftxt_impression_like);
 
-        this.fecho = document.createElement('div');
-        this.fecho.className = 'fecho';
-        this.fbottom_part.appendChild(this.fecho);
-        this.fimg_impression_echo = document.createElement('img');
-        this.fimg_impression_echo.className = 'fimg_impression';
-        this.fimg_impression_echo.src = 'src/icons/Echo.png';
-        this.fecho.appendChild(this.fimg_impression_echo);
-        this.ftxt_impression_echo = document.createElement('p');
-        this.ftxt_impression_echo.className = 'ftxt_impression';
-        this.ftxt_impression_echo.innerText = '8.2k';
-        this.fecho.appendChild(this.ftxt_impression_echo);
+        // this.fecho = document.createElement('div');
+        // this.fecho.className = 'fecho';
+        // this.fbottom_part.appendChild(this.fecho);
+        // this.fimg_impression_echo = document.createElement('img');
+        // this.fimg_impression_echo.className = 'fimg_impression';
+        // this.fimg_impression_echo.src = 'src/icons/Echo.png';
+        // this.fecho.appendChild(this.fimg_impression_echo);
+        // this.ftxt_impression_echo = document.createElement('p');
+        // this.ftxt_impression_echo.className = 'ftxt_impression';
+        // this.ftxt_impression_echo.innerText = '8.2k';
+        // this.fecho.appendChild(this.ftxt_impression_echo);
 
         this.fcomment = document.createElement('div');
         this.fcomment.className = 'fcomment';
@@ -254,17 +254,17 @@ function block(params) {
 
 
     } else {
-        this.finput_title = document.createElement('input');
-        this.finput_title.className = 'finput_title';
-        this.finput_title.placeholder = 'Tap to edit title';
-        this.finput_title.maxLength = "25";
-        this.finput_title.onkeypress = this.title_enter;
-        this.fbottom_part.appendChild(this.finput_title);
+        // this.finput_title = document.createElement('input');
+        // this.finput_title.className = 'finput_title';
+        // this.finput_title.placeholder = 'Tap to edit title';
+        // this.finput_title.maxLength = "25";
+        // this.finput_title.onkeypress = this.title_enter;
+        // this.fbottom_part.appendChild(this.finput_title);
 
         this.finput_description = document.createElement('textarea');
         this.finput_description.className = 'finput_description';
-        this.finput_description.placeholder = 'Tap to add description';
-        this.finput_description.maxLength = "50";
+        this.finput_description.placeholder = 'Touche pour ajouter une description';
+        this.finput_description.maxLength = "80";
         this.fbottom_part.appendChild(this.finput_description);
     }
 
@@ -438,16 +438,19 @@ function block(params) {
         passive: true
     });
 
-
+    // Like d'un flow
     $(this.fimg_impression_like).on('click', function () {
+        if (connected) {
+            current_flow_block = block;
+            impression_coloring(this, 'like', block);
+            let data = {
 
-        current_flow_block = block;
-        impression_coloring(this, 'like', block);
-        let data = {
-
-            ObjectId: current_flow_block.ObjectId
-        };
-        ServerManager.LikeFlow(data, current_flow_block);
+                ObjectId: current_flow_block.ObjectId
+            };
+            ServerManager.LikeFlow(data, current_flow_block);
+        } else {
+            Popup("popup-connect", true, 40);
+        }
     });
 
     $(this.fimg_impression_echo).on('click', function () {
@@ -536,8 +539,8 @@ function display_all_likes(block) //fonction permettant d'affiher tout les likes
     ServerManager.GetFlowLikes(data);
     Popup("popup-likes", true, 40);
     let nb_likes = affichage_nombre(block.Likes, 1);
-    let like_str = "likes";
-    if (nb_likes == "0" || nb_likes == "1") like_str = "like";
+    let like_str = "J'aime";
+    if (nb_likes == "0" || nb_likes == "1") like_str = "J'aime";
     $(".flikes_number").text(nb_likes + " " + like_str);
 }
 
@@ -804,7 +807,7 @@ function set_timestamp(timestamp) { // fonction qui permet d'afficher le temp ec
 
     if (minute_past <= 59 && hour_past <= 0) {
 
-        (minute_past > -2 && minute_past < 2) ? (time_str = "1 minute ago") : (time_str = "" + minute_past + " minutes ago");
+        (minute_past > -2 && minute_past < 2) ? (time_str = "il y a 1 minute") : (time_str = "il y a " + minute_past + " minutes");
         return time_str;
 
     }
@@ -812,21 +815,21 @@ function set_timestamp(timestamp) { // fonction qui permet d'afficher le temp ec
     if (hour_past > 0 && hour_past <= 23) {
 
 
-        (hour_past > 1) ? (time_str = "" + hour_past + " hours ago") : (time_str = "" + hour_past + " hour ago");
+        (hour_past > 1) ? (time_str = "il y a " + hour_past + " heures") : (time_str = "il y a " + hour_past + " heure");
         return time_str;
 
     }
 
     if (day_past > 0 && day_past < 7) {
 
-        (day_past > 1) ? (time_str = "" + day_past + " days ago") : (time_str = "" + day_past + " day ago");
+        (day_past > 1) ? (time_str = "il y a " + day_past + " jours") : (time_str = "il y a " + day_past + " jour");
         return time_str;
 
     }
 
     if (week_past >= 1 && week_past <= 5) {
 
-        (week_past == 1) ? (time_str = "" + week_past + " week ago") : (time_str = "" + week_past + " weeks ago");
+        (week_past == 1) ? (time_str = "il y a " + week_past + " semaine") : (time_str = "il y a " + week_past + " semaines");
         return time_str;
 
     }
@@ -834,14 +837,14 @@ function set_timestamp(timestamp) { // fonction qui permet d'afficher le temp ec
     if (month_past > 0 && month_past <= 12) {
 
 
-        (month_past < 2) ? (time_str = "" + month_past + " month ago") : (time_str = "" + month_past + " months ago");
+        (month_past < 2) ? (time_str = "il y a " + month_past + " mois") : (time_str = "il y a " + month_past + " mois");
         return time_str;
 
     }
 
     if (year_past > 0) {
 
-        (year_past < 2) ? (time_str = "" + year_past + " year ago") : (time_str = "" + year_past + " years ago");
+        (year_past < 2) ? (time_str = "il y a " + year_past + " an") : (time_str = "il y a " + year_past + " ans");
         return time_str;
 
     }

@@ -21,7 +21,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     $(".ftabsMonCompte").css("transition-duration", "0.2s");
     var scrollTest = $(".scrollMyAccunt").scrollTop();
     $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
-    $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(2 * var(--custom-vh)), 0vh)");
+    $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(4 * var(--custom-vh)), 0vh)");
     boolScrollTop = true;
     $("#MyActivity").addClass("fblockMonComptePadding");
 
@@ -32,7 +32,6 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     }
     indexMyFlow = 0;
     indexMyLike = 0;
-    $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
     $("#MyActivity")[0].innerHTML = "";
     let loading_tl = document.createElement("div");
     loading_tl.className = "loading-spinner loading_myaccount";
@@ -46,7 +45,8 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     };
     ServerManager.GetMyFlow(getFlow);
     let data = {
-        Index: indexMyLike
+        Index: indexMyLike,
+        PrivateId: window.localStorage.getItem("user_private_id")
     }
     ServerManager.GetLikedFlows(data, true);
 
@@ -131,7 +131,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
                     $(".ftabsMonCompte").css("transition-duration", "0.2s");
                     var scrollTest = $(".scrollMyAccunt").scrollTop();
                     $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
-                    $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(2 * var(--custom-vh)), 0vh)");
+                    $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(4 * var(--custom-vh)), 0vh)");
                     boolScrollTop = true;
                     $("#MyActivity").addClass("fblockMonComptePadding");
                 }
@@ -241,6 +241,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
                 MyLikeAdd = false;
                 var data = {
                     Index: indexMyLike,
+                    PrivateId: window.localStorage.getItem("user_private_id")
                 };
                 ServerManager.GetLikedFlows(data, true);
             }

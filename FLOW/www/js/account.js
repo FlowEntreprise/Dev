@@ -8,8 +8,10 @@ var FlowBandeau;
 var Follower;
 var Following;
 var indexAccount;
+var indexAccountLike;
 var accountFlowAdd = true;
 var UserFlowAdd = true;
+var UserLikeAdd = true;
 var profilePicLink;
 var register_id;
 
@@ -163,15 +165,33 @@ document.getElementById("popup-account").addEventListener("opened", function () 
             }
         }
     });
+
+    $("#tabCompte2").scroll(function () {
+        var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+        if (UserLikeAdd == true) {
+            if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+                UserLikeAdd = false;
+                var data = {
+                    Index: indexAccountLike,
+                    PrivateId: privateIDAccount
+                };
+                ServerManager.GetLikedFlows(data, false);
+            }
+        }
+    });
 });
 
 $("#fFollowButtunAccount").click(function () {
-    $(this)[0].style.pointerEvents = "none";
-    let data = {
-        PrivateId: privateIDAccount,
-        type: "profile_follow"
-    };
-    ServerManager.ActionFollow(data);
+    if (connected) {
+        $(this)[0].style.pointerEvents = "none";
+        let data = {
+            PrivateId: privateIDAccount,
+            type: "profile_follow"
+        };
+        ServerManager.ActionFollow(data);
+    } else {
+        Popup("popup-connect", true, 45);
+    }
 });
 
 function fInitialisationAccount(privateId) {
@@ -183,12 +203,18 @@ function fInitialisationAccount(privateId) {
 
     privateIDAccount = privateId;
     indexAccount = 0;
+    indexAccountLike = 0;
 
     var getFlow = {
         Index: indexAccount,
         PrivateId: privateIDAccount
     };
     ServerManager.GetUserFlow(getFlow);
+    let data = {
+        Index: indexAccountLike,
+        PrivateId: privateIDAccount
+    }
+    ServerManager.GetLikedFlows(data, false);
 
     var getInfosUserNumber = {
         PrivateId: privateIDAccount
@@ -205,11 +231,11 @@ function manageFollow(type, element) { // html_element est element html qui doit
 
         if (follow) {
             $("#fFollowButtunAccount").addClass("activeButtunFollow");
-            $("#fFollowButtunAccount").text("FOLLOWING");
+            $("#fFollowButtunAccount").text("ABONNÉ");
 
         } else {
             $("#fFollowButtunAccount").removeClass("activeButtunFollow");
-            $("#fFollowButtunAccount").text("FOLLOW");
+            $("#fFollowButtunAccount").text("S'ABONNER");
 
         }
     }
@@ -247,10 +273,12 @@ function ShowUserProfile(response) {
         bioCompte = response.Data.Bio;
         nameCompte = response.Data.FullName;
         register_id = response.Data.RegisterId;
-        followYou = JSON.parse(response.Data.HeFollowYou);
-        follow = JSON.parse(response.Data.YouFollowHim);
-        manageFollow("profile_follow");
-        manageFollowYou();
+        if (response.Data.HeFollowYou) {
+            followYou = JSON.parse(response.Data.HeFollowYou);
+            follow = JSON.parse(response.Data.YouFollowHim);
+            manageFollow("profile_follow");
+            manageFollowYou();
+        }
         $("#fbioCompte").html(bioCompte);
         $("#fnameCompte").html(nameCompte);
         $("#privateID").html("@" + privateIDAccount);
@@ -346,6 +374,68 @@ function ShowUserFlow(flow) {
             let loading_tl = document.createElement("div");
             loading_tl.className = "loading-spinner loading_account";
             $("#UserActivity")[0].appendChild(loading_tl);
+        }
+    }
+}
+
+function ShowLikedFlows(flow) {
+    console.log(flow);
+    if (Array.isArray(flow.Data) == false) {
+        UserLikeAdd = false;
+    } else {
+        var countFlow = 0;
+        for (let i = 0; i < flow.Data.length; i++) {
+            countFlow++;
+            let data = flow.Data[i];
+            var image_link = undefined;
+            var pattern_key = undefined;
+            if (data.Background.PatternKey == undefined) {
+                image_link = data.Background;
+            } else {
+                pattern_key = data.Background.PatternKey;
+            }
+
+            const flow_link = data.Audio;
+            console.log(flow_link);
+            var profilePicLink = data.ProfilePicture;
+
+            let block_params = {
+                parent_element: $("#UserLikes"),
+                afterblock: false,
+                ObjectId: data.ObjectId,
+                audioURL: flow_link,
+                duration: data.Duration,
+                patternKey: pattern_key,
+                imageURL: image_link,
+                title: data.Title,
+                description: data.Description,
+                pseudo: data.PrivateId,
+                account_imageURL: profilePicLink,
+                IsLike: data.IsLike,
+                IsComment: data.IsComment,
+                Likes: data.Likes,
+                ObjectId: data.ObjectId,
+                PrivateId: data.PrivateId,
+                Times: data.Time,
+                RegisterId: data.RegisterId,
+                Comments: data.Comments
+            };
+            var new_block = new block(block_params);
+            all_blocks.push(new_block);
+            if ($(".loading_account")) $(".loading_account").remove();
+        }
+        if (countFlow < 5) {
+            indexAccount++;
+            UserLikeAdd = false;
+            let tick_tl = document.createElement("div");
+            tick_tl.className = "tick_icon";
+            $("#UserLikes")[0].appendChild(tick_tl);
+        } else {
+            indexAccount++;
+            UserLikeAdd = true;
+            let loading_tl = document.createElement("div");
+            loading_tl.className = "loading-spinner loading_account";
+            $("#UserLikes")[0].appendChild(loading_tl);
         }
     }
 }
