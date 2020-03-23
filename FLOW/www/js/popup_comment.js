@@ -72,7 +72,7 @@ function block_comment(comment_data) {
 
     $$(this.fid_user).on('taphold', function () {
         var clickedLink = this;
-        app.popover('#popover_comment', clickedLink);
+        // app.popover('#popover_comment', clickedLink);
 
     });
 
@@ -80,7 +80,7 @@ function block_comment(comment_data) {
     $$(this.fblock_comment_comment).on('taphold', function () {
         var clickedLink = this;
         current_comment_block = block_comment;
-        app.popover('#popover_comment', clickedLink);
+        // app.popover('#popover_comment', clickedLink);
 
     });
 

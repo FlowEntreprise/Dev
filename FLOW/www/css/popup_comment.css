@@ -31,10 +31,10 @@
 	height: calc(13 * var(--custom-vh));
 }
 
-.fblock_comment:active,
+/* .fblock_comment:active,
 .fpopover_button:active {
 	background-color: #a9a9a9;
-}
+} */
 
 .fcomment_number {
 	width: 90vw;
