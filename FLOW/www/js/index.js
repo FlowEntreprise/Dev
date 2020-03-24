@@ -180,7 +180,9 @@ var app = {
                     go_to_account(data_go_to_account);
                 } else {
 
-
+                    if (window.cordova.platformId == "ios") {
+                        data.additionalData.sender_info = JSON.parse(data.additionalData.sender_info);
+                    }
                     $(".flow_specifique_container").html("");
                     let myApp = new Framework7();
                     let data_flow = {

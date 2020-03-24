@@ -602,7 +602,7 @@ function UpdateNotificationList(data) {
             }
         }, 500);
         notification_list_empty = false;
-    } else {}
+    } else { }
 }
 
 // fin du copié collé de la fonction de scroll de fdp
@@ -695,7 +695,7 @@ function send_notif_to_user(block, type) {
         fullname: window.localStorage.getItem("user_name"),
         privateId: window.localStorage.getItem("user_private_id"),
         profil_pic: window.localStorage.getItem("user_profile_pic"),
-        post_texte: $(block.fpost_title).text(), // texte like de flow
+        post_texte: $(block.fpost_description).text(), // texte like de flow
         comment_text: block.Comment_text, // texte commentaire genre le vrai commenaire t'a capté
         like_comment_text: block.fcomment_text, // texte lorsque l'on like un commentaire
         IdFlow: prepare_id_flow == undefined ? prepare_id_flow = "undefined" : prepare_id_flow
@@ -705,8 +705,8 @@ function send_notif_to_user(block, type) {
     }
 
     if ((block.tag_user_RegisterId != undefined &&
-            block.tag_user_RegisterId != prepare_id_registerId &&
-            block.tag_user_RegisterId != registrationId) ||
+        block.tag_user_RegisterId != prepare_id_registerId &&
+        block.tag_user_RegisterId != registrationId) ||
         (block.tag_user_RegisterId == undefined &&
             registrationId != prepare_id_registerId)) {
         if (block.tag_user_RegisterId == undefined && type == "tag_in_comment") {
@@ -717,6 +717,15 @@ function send_notif_to_user(block, type) {
 
                 data = {
 
+                    "notification": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " a réagi à ta story " + sender_info.post_texte,
+                        "type": "story_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
                     "data": {
                         "title": "@" + sender_info.fullname,
                         "message": "@" + sender_info.privateId + " a réagi à ta story " + sender_info.post_texte,
@@ -735,6 +744,15 @@ function send_notif_to_user(block, type) {
 
                 data = {
 
+                    "notification": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " s'est abonné à toi " + sender_info.post_texte,
+                        "type": "follow",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
                     "data": {
                         "title": "@" + sender_info.fullname,
                         "message": "@" + sender_info.privateId + " s'est abonné à toi " + sender_info.post_texte,
@@ -753,6 +771,15 @@ function send_notif_to_user(block, type) {
 
                 data = {
 
+                    "notification": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " a aimé ton flow : " + sender_info.post_texte,
+                        "type": "like_flow",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
                     "data": {
                         "title": "@" + sender_info.fullname,
                         "message": "@" + sender_info.privateId + " a aimé ton flow : " + sender_info.post_texte,
@@ -771,6 +798,15 @@ function send_notif_to_user(block, type) {
 
                 data = {
 
+                    "notification": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " a commenté : " + block.Comment,
+                        "type": "send_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
                     "data": {
                         "title": "@" + sender_info.fullname,
                         "message": "@" + sender_info.privateId + " a commenté : " + block.Comment,
@@ -789,6 +825,15 @@ function send_notif_to_user(block, type) {
 
                 data = {
 
+                    "notification": {
+                        "title": "@" + sender_info.fullname,
+                        "body": block.Comment,
+                        "type": "send_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
                     "data": {
                         "title": "@" + sender_info.fullname,
                         "message": block.Comment,
@@ -807,6 +852,15 @@ function send_notif_to_user(block, type) {
 
                 data = {
 
+                    "notification": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " a aimé ton commentaire : " + block.Comment_text,
+                        "type": "like_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
                     "data": {
                         "title": "@" + sender_info.fullname,
                         "message": "@" + sender_info.privateId + " a aimé ton commentaire : " + block.Comment_text,
