@@ -196,10 +196,12 @@ $("#fFollowButtunAccount").click(function () {
 
 function fInitialisationAccount(privateId) {
     $("#UserActivity")[0].innerHTML = "";
+    $("#UserLikes")[0].innerHTML = "";
     let loading_tl = document.createElement("div");
-    loading_tl.className = "loading-spinner loading_myaccount";
+    loading_tl.className = "loading-spinner loading_account";
     loading_tl.style.marginTop = "50%";
     $("#UserActivity")[0].appendChild(loading_tl);
+    $("#UserLikes")[0].appendChild(loading_tl);
 
     privateIDAccount = privateId;
     indexAccount = 0;
@@ -312,9 +314,14 @@ function ShowInfosUserNumber(data) {
 }
 
 function ShowUserFlow(flow) {
-    console.log(flow.Data[0].PrivateId + "|" + privateIDAccount);
-    if (Array.isArray(flow.Data) == false) {
+    if (Array.isArray(flow.Data) == false || flow.Data.length == 0) {
         UserFlowAdd = false;
+        if (indexAccount == 0) {
+            let no_flows = document.createElement("label");
+            no_flows.className = "empty_content";
+            no_flows.innerHTML = "Aucun flow publié";
+            $("#UserActivity")[0].appendChild(no_flows);
+        }
     } else if (flow.Data[0].PrivateId == privateIDAccount) {
         var countFlow = 0;
         for (let i = 0; i < flow.Data.length; i++) {
@@ -365,9 +372,9 @@ function ShowUserFlow(flow) {
         if (countFlow < 5) {
             indexAccount++;
             UserFlowAdd = false;
-            let tick_tl = document.createElement("div");
-            tick_tl.className = "tick_icon";
-            $("#UserActivity")[0].appendChild(tick_tl);
+            // let tick_tl = document.createElement("div");
+            // tick_tl.className = "tick_icon";
+            // $("#UserActivity")[0].appendChild(tick_tl);
         } else {
             indexAccount++;
             UserFlowAdd = true;
@@ -380,8 +387,15 @@ function ShowUserFlow(flow) {
 
 function ShowLikedFlows(flow) {
     console.log(flow);
-    if (Array.isArray(flow.Data) == false) {
+    if (Array.isArray(flow.Data) == false || flow.Data.length == 0) {
         UserLikeAdd = false;
+        if (indexAccountLike == 0) {
+            let no_flows = document.createElement("label");
+            no_flows.className = "empty_content";
+            no_flows.innerHTML = "Aucun flow aimé";
+            $("#UserLikes")[0].appendChild(no_flows);
+        }
+        if ($(".loading_account")) $(".loading_account").remove();
     } else {
         var countFlow = 0;
         for (let i = 0; i < flow.Data.length; i++) {
@@ -425,13 +439,13 @@ function ShowLikedFlows(flow) {
             if ($(".loading_account")) $(".loading_account").remove();
         }
         if (countFlow < 5) {
-            indexAccount++;
+            indexAccountLike++;
             UserLikeAdd = false;
-            let tick_tl = document.createElement("div");
-            tick_tl.className = "tick_icon";
-            $("#UserLikes")[0].appendChild(tick_tl);
+            // let tick_tl = document.createElement("div");
+            // tick_tl.className = "tick_icon";
+            // $("#UserLikes")[0].appendChild(tick_tl);
         } else {
-            indexAccount++;
+            indexAccountLike++;
             UserLikeAdd = true;
             let loading_tl = document.createElement("div");
             loading_tl.className = "loading-spinner loading_account";
