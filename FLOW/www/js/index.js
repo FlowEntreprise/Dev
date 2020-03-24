@@ -171,7 +171,9 @@ var app = {
             pas dans l'application */
             if (data.additionalData.foreground == false) {
 
-
+                if (window.cordova.platformId == "ios") {
+                    data.additionalData.sender_info = JSON.parse(data.additionalData.sender_info);
+                }
                 if (data.additionalData.type == "follow") {
                     let data_go_to_account = {
                         private_Id: data.additionalData.sender_info.privateId,
@@ -180,9 +182,6 @@ var app = {
                     go_to_account(data_go_to_account);
                 } else {
 
-                    if (window.cordova.platformId == "ios") {
-                        data.additionalData.sender_info = JSON.parse(data.additionalData.sender_info);
-                    }
                     $(".flow_specifique_container").html("");
                     let myApp = new Framework7();
                     let data_flow = {
