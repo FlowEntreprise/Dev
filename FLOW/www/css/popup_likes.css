@@ -1,3 +1,9 @@
+.popup_likes
+{
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+
+}
 .fclose_likes {
 	width: 4vw;
 	position: absolute;
