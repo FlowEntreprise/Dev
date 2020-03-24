@@ -120,8 +120,8 @@
 
 .follow_you_button {
 	position: absolute;
-	top: calc(4.2 * var(--custom-vh));
-	right: 4vw;
+	top: calc(25.1 * var(--custom-vh));
+	left: 64vw;
 	width: 25px;
 	height: 25px;
 	background-image: url("../src/icons/follow_you.png");

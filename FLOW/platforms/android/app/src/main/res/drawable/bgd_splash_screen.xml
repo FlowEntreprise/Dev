@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:drawable="@drawable/bgd_gradient"/>
+	<!-- <item>
+		<bitmap android:src="@drawable/wave_small"
+		        android:gravity="fill_horizontal"
+			/>
+	</item> -->
+</layer-list>

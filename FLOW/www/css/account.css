@@ -33,17 +33,17 @@
 }
 
 #fFollowYouButtunAccount {
-	background-color: #92abb2;
-	border-radius: 22vw;
-	width: 120px;
-	text-align: center;
-	font-size: 12px;
-	padding: 2.5px;
 	position: absolute;
-	top: calc(25.4 * var(--custom-vh));
-	left: 64vw;
-	color: white;
-	display: none;
+	top: calc(4.2 * var(--custom-vh));
+	right: 4vw;
+	width: 25px;
+	height: 25px;
+	background-image: url("../src/icons/follow_you.png");
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	border: solid 1.5px #92abb2;
+	border-radius: 25px;
 }
 
 #freturnCompte {
