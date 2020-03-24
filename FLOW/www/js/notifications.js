@@ -43,13 +43,11 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
     this.fnotif_label.innerText = '@' + this.private_Id + ' a aimé ton flow';
+    this.fnotif_label.style.top = "2.5vh";
     if (block_notification_like.like_comment == "like_comment") {
         let txt = '@' + this.private_Id + ' a aimé ton commentaire';
         if (txt.length > 28) txt = txt.substring(0, 28) + "...";
         this.fnotif_label.innerText = txt;
-        this.fnotif_label.style.top = "2.5vh";
-    } else {
-        this.fnotif_label.style.top = "3.7vh";
     }
     this.block_notification_like.appendChild(this.fnotif_label);
 
@@ -80,15 +78,12 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
 
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
-    this.fnotif_label.style.top = "3.7vh";
+    this.fnotif_label.style.top = "2.5vh";
     this.fnotif_label.innerText = '@' + this.private_Id + ' a aimé ton flow';
     if (block_notification_like.like_comment == "like_comment") {
         let txt = '@' + this.private_Id + ' a aimé ton commentaire';
         if (txt.length > 28) txt = txt.substring(0, 28) + "...";
         this.fnotif_label.innerText = txt;
-        this.fnotif_label.style.top = "2.5vh";
-    } else {
-        this.fnotif_label.style.top = "3.7vh";
     }
     this.block_notification_like.appendChild(this.fnotif_label);
 
@@ -602,7 +597,7 @@ function UpdateNotificationList(data) {
             }
         }, 500);
         notification_list_empty = false;
-    } else { }
+    } else {}
 }
 
 // fin du copié collé de la fonction de scroll de fdp
@@ -705,8 +700,8 @@ function send_notif_to_user(block, type) {
     }
 
     if ((block.tag_user_RegisterId != undefined &&
-        block.tag_user_RegisterId != prepare_id_registerId &&
-        block.tag_user_RegisterId != registrationId) ||
+            block.tag_user_RegisterId != prepare_id_registerId &&
+            block.tag_user_RegisterId != registrationId) ||
         (block.tag_user_RegisterId == undefined &&
             registrationId != prepare_id_registerId)) {
         if (block.tag_user_RegisterId == undefined && type == "tag_in_comment") {
