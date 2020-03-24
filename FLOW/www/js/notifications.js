@@ -688,7 +688,7 @@ function send_notif_to_user(block, type) {
 
     let prepare_id_flow = block.ObjectId ? block.ObjectId : block.Flow_block_id;
     let prepare_id_registerId = block.RegisterId ? block.RegisterId : block.current_flow_block.RegisterId;
-    if (prepare_id_flow == undefined && type != "follow") {
+    if (prepare_id_flow == undefined && type != "follow" && type != "story_comment") {
         prepare_id_flow = block.current_flow_block.ObjectId;
     }
     var sender_info = {

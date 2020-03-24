@@ -51,11 +51,11 @@ const pSBC = (p, c0, c1, l) => {
         b: 0,
         a: -1
     } : {
-        r: 255,
-        g: 255,
-        b: 255,
-        a: -1
-    }, p = P ? p * -1 : p, P = 1 - p;
+            r: 255,
+            g: 255,
+            b: 255,
+            a: -1
+        }, p = P ? p * -1 : p, P = 1 - p;
     if (!f || !t) return null;
     if (l) r = m(P * f.r + p * t.r), g = m(P * f.g + p * t.g), b = m(P * f.b + p * t.b);
     else r = m((P * f.r ** 2 + p * t.r ** 2) ** 0.5), g = m((P * f.g ** 2 + p * t.g ** 2) ** 0.5), b = m((P * f.b ** 2 + p * t.b ** 2) ** 0.5);
@@ -381,7 +381,12 @@ function SpawnStoryWindow(story_block) {
 function story_comment_uploaded() {
     // $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
     // $(".fstory_addcomment_btn")[0].style.opacity = 1;
-
+    let story_comment_data =
+    {
+        sender_private_id: window.localStorage.getItem("user_private_id"),
+        RegisterId: story_data[story_index].register_id
+    }
+    send_notif_to_user(story_comment_data, "story_comment");
     $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";
     $(".fstory_addcomment_btn")[0].style.pointerEvents = "auto";
 
