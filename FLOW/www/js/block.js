@@ -524,6 +524,7 @@ function display_all_comments(block) //fonction permettant d'affiher tout les co
 
 function display_all_likes(block) //fonction permettant d'affiher tout les likes
 {
+    console.log("display_all_likes");
     likes_index = 0;
     CanRefreshLikes = true;
     $(".fblock_likes_content").html("");
@@ -737,6 +738,7 @@ function get_all_likes(response) {
     // $(".flikes_number").text(text_likes_number);
 
     console.log(response);
+    console.log(likes_index);
     var i = 0;
     if (response.Data) {
         likes_index++;
@@ -761,7 +763,6 @@ function get_all_likes(response) {
                     private_Id: like_data.PrivateId,
                     user_private_Id: window.localStorage.getItem("user_private_id")
                 };
-                console.log(data);
                 Popup('popup-likes', false);
                 go_to_account(data);
             };
@@ -770,7 +771,6 @@ function get_all_likes(response) {
 
             // let block_commentaire = new block_comment(like_data);
             // block_commentaire.chris_test = "chacal";
-            console.log(like_data);
         }
     }
     if ($.trim($(".fblock_likes_content").html()) != "") {
