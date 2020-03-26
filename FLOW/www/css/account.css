@@ -48,13 +48,13 @@
 
 #freturnCompte {
 	position: absolute;
-	top: 4vh;
+	top: calc(4 * var(--custom-vh));
 	left: 3vw;
 }
 
 #fbandeauCompte {
 	position: absolute;
-	top: 4.5vh;
+	top: calc(4.5 * var(--custom-vh));
 	background-color: white;
 	right: 0vw;
 	width: 65vw;
@@ -68,7 +68,7 @@
 	color: #1a84ef;
 	font-size: 6vw;
 	left: 36vw;
-	top: 13vh;
+	top: calc(13 * var(--custom-vh));
 	font-family: Roboto-Regular;
 	font-weight: 500;
 }
@@ -77,7 +77,7 @@
 	color: #92abb2;
 	font-size: 15px;
 	position: absolute;
-	top: 21vh;
+	top: calc(21 * var(--custom-vh));
 	left: 36vw;
 }
 
@@ -87,7 +87,7 @@
 
 .fnavAccount {
 	position: absolute;
-	top: 22vh;
+	top: calc(22 * var(--custom-vh));
 	font-size: 19px !important;
 	background-color: white !important;
 	box-shadow: none !important;
@@ -117,7 +117,7 @@
 
 .ftabsAccount {
 	/* position: absolute !important; */
-	top: 32vh;
+	top: calc(32 * var(--custom-vh));
 	left: 0vw;
 	transition-duration: 0.4s;
 }
@@ -129,7 +129,7 @@
 }
 
 .fblockAccountPadding {
-	padding-top: 1.5vh !important;
+	padding-top: calc(1.5 * var(--custom-vh)) !important;
 }
 
 .sizeTollBarAccount {
@@ -139,7 +139,7 @@
 }
 
 #UserActivity {
-	padding-bottom: 12vh !important;
+	padding-bottom: calc(12 * var(--custom-vh)) !important;
 }
 
 #fprofilPicture {

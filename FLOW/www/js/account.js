@@ -245,13 +245,13 @@ function manageFollow(type, element) { // html_element est element html qui doit
     if (type == "block_user_follow") {
 
         if (follow) {
-            $(element.following_button).text("FOLLOWING");
+            $(element.following_button).text("ABONNÉ");
             $(element.following_button).addClass("activeButtunFollow");
             MyFollowing = +MyFollowing + 1;
             $("#ffollowingmyBandeauChiffre").html(MyFollowing);
 
         } else {
-            $(element.following_button).text("FOLLOW");
+            $(element.following_button).text("S'ABONNER");
             $(element.following_button).removeClass("activeButtunFollow");
             MyFollowing = +MyFollowing - 1;
             $("#ffollowingmyBandeauChiffre").html(MyFollowing);
