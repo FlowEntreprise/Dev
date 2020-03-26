@@ -569,6 +569,11 @@ function UpdateNotificationList(data) {
     console.log("updating notification list...");
     // console.log(data.Data);
     if (Array.isArray(data.Data)) {
+        if (data.Data.length > 0) {
+            $(".no_notif")[0].style.display = "none";
+        } else {
+            $(".no_notif")[0].style.display = "block";
+        }
         setTimeout(function () {
             if ($(".loading_tl")) $(".loading_tl").remove();
             if (NotificationListCurrentIndex == 0) {
@@ -597,7 +602,9 @@ function UpdateNotificationList(data) {
             }
         }, 500);
         notification_list_empty = false;
-    } else {}
+    } else {
+        $(".no_notif")[0].style.display = "block";
+    }
 }
 
 // fin du copié collé de la fonction de scroll de fdp
