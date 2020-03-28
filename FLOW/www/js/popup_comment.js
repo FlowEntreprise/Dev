@@ -16,6 +16,7 @@ function block_comment(comment_data) {
     this.private_Id = comment_data.PrivateId;
     this.is_liked = comment_data.IsLike;
     this.RegisterId = comment_data.RegisterId;
+    this.LastOs = comment_data.LastOs;
     this.fcomment_text = comment_data.Comment;
     this.Comment_text = comment_data.Comment_text;
     this.last_like_time;

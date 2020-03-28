@@ -320,6 +320,7 @@ function ShowMyFlow(flow) {
                 Times: data.Time,
                 Comments: data.Comments,
                 RegisterId: data.RegisterId,
+                LastOs: data.LastOs
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);

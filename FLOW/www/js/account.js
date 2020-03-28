@@ -14,6 +14,7 @@ var UserFlowAdd = true;
 var UserLikeAdd = true;
 var profilePicLink;
 var register_id;
+var LastOs;
 
 $(".fnavAccount").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 
@@ -275,6 +276,7 @@ function ShowUserProfile(response) {
         bioCompte = response.Data.Bio;
         nameCompte = response.Data.FullName;
         register_id = response.Data.RegisterId;
+        LastOs = response.Data.LastOs;
         if (response.Data.HeFollowYou) {
             followYou = JSON.parse(response.Data.HeFollowYou);
             follow = JSON.parse(response.Data.YouFollowHim);
@@ -359,10 +361,10 @@ function ShowUserFlow(flow) {
                 IsLike: data.IsLike,
                 IsComment: data.IsComment,
                 Likes: data.Likes,
-                ObjectId: data.ObjectId,
                 PrivateId: data.PrivateId,
                 Times: data.Time,
                 RegisterId: data.RegisterId,
+                LastOs: data.LastOs,
                 Comments: data.Comments
             };
             var new_block = new block(block_params);
@@ -432,6 +434,7 @@ function ShowLikedFlows(flow) {
                 PrivateId: data.PrivateId,
                 Times: data.Time,
                 RegisterId: data.RegisterId,
+                LastOs: data.LastOs,
                 Comments: data.Comments
             };
             var new_block = new block(block_params);
@@ -461,14 +464,15 @@ function FollowResponse(response, type, element) {
         $("#ffollowersBandeauChiffre").html(Follower);
         let data_notif_follow = {
             sender_private_id: window.localStorage.getItem("user_private_id"),
-            RegisterId: register_id
+            RegisterId: register_id,
+            LastOs: LastOs
         };
         send_notif_to_user(data_notif_follow, "follow");
     } else if (response.UnFollow !== undefined) {
         follow = false;
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    } else {}
+    } else { }
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }

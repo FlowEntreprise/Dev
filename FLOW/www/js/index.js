@@ -133,9 +133,6 @@ var app = {
         // }, function (error) {
         //     console.log("failed to start server: " + error);
         // });
-        if (window.cordova.platformId == "ios") {
-            cordova.plugins.backgroundMode.enable();
-        }
 
         if (window.cordova && window.audioinput) {
             // Subscribe to audioinput events
