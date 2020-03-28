@@ -72,6 +72,7 @@ class Story {
         this.data = [];
         this.lastStoryTime = 0;
         this.register_id = "";
+        this.LastOs = "";
     }
 
     addStoryFlow(time) {
@@ -153,6 +154,7 @@ function UpdateStoryDataFromServer(data) {
             userStory.id = i;
             userStory.private_id = data.Data[i].PrivateId;
             userStory.register_id = data.Data[i].RegisterId;
+            userStory.LastOs = data.Data[i].LastOs;
             let src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Data[i].ProfilePicture.name + '?';
             let param = `${data.LinkBuilder.Params.hash}=${data.Data[i].ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.Data[i].ProfilePicture.timestamp}`;
             userStory.user_picture = src + param;
@@ -384,7 +386,8 @@ function story_comment_uploaded() {
     let story_comment_data =
     {
         sender_private_id: window.localStorage.getItem("user_private_id"),
-        RegisterId: story_data[story_index].register_id
+        RegisterId: story_data[story_index].register_id,
+        LastOs: story_data[story_index].LastOs
     }
     send_notif_to_user(story_comment_data, "story_comment");
     $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";

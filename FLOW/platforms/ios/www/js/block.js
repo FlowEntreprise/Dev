@@ -36,6 +36,7 @@ function block(params) {
     this.IsComment = params.IsComment;
     this.Likes = params.Likes;
     this.RegisterId = params.RegisterId;
+    this.LastOs = params.LastOs;
     this.Comments = params.Comments;
     this.ready = false;
     this.last_like_time;
@@ -410,7 +411,7 @@ function block(params) {
             block.flowplay();
         }, 100)
         console.log("flow play");
-        current_flow_block
+        //current_flow_block
     });
 
     // this.myRange.addEventListener('input', function () {
@@ -704,6 +705,7 @@ function get_all_comment(response, data_block) {
                 IsLike: response.Data[i].IsLike,
                 IdComment: response.Data[i].IdComment,
                 RegisterId: response.Data[i].RegisterId,
+                LastOs: response.Data[i].LastOs,
                 Flow_block_id: data_block.ObjectId
             };
 

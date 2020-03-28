@@ -101,7 +101,6 @@
         } else {
             var loginWindow = window.open(login_url, '_self', 'location=no,clearsessioncache=yes');
         }
-
         // check if redirect url has code, access_token or error 
         $(loginWindow).on('loadstart', function (e) {
             var url = e.originalEvent.url;

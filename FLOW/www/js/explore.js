@@ -409,6 +409,7 @@ function UpdateTop50(data) {
                     Likes: flow.Likes,
                     Comments: flow.Comments,
                     RegisterId: flow.RegisterId,
+                    LastOs: flow.LastOs,
                 };
 
                 var new_block = new block(block_params);

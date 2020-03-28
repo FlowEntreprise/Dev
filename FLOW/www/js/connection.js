@@ -39,8 +39,9 @@ function ConnectUser() {
 
     setTimeout(function () {
         let data = {
-            RegisterId: registrationId
-        }
+            RegisterId: registrationId,
+            LastOs: window.cordova.platformId
+        };
         ServerManager.UpdateRegisterId(data);
     }, 100);
 

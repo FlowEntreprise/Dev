@@ -94,6 +94,7 @@ function PopFlow(data, LinkBuilder) {
     Likes: data.Likes,
     Comments: data.Comments,
     RegisterId: data.RegisterId,
+    LastOs: data.LastOs,
     CommentBy: data.CommentBy,
     LikeBy: data.LikeBy
   };

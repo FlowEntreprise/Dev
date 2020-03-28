@@ -32,7 +32,8 @@ function block_user(follow_list, target, data) //follow_list true correspond au 
       });
       let data_user = {
         private_Id: "@" + data.PrivateId,
-        RegisterId: data.RegisterId
+        RegisterId: data.RegisterId,
+        LastOs: data.LastOs
       };
       all_tagged_users.push(data_user);
       Popup("popup-identification", false, -5);
