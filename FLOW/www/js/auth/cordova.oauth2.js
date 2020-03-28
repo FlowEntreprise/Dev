@@ -96,7 +96,11 @@
         var login_url = options.auth_url + '?' + $.param(paramObj);
 
         // open Cordova inapp-browser with login url
-        var loginWindow = window.open(login_url, '_blank', 'usewkwebview=no');
+        if (window.cordova.platformId == "ios") {
+            var loginWindow = window.open(login_url, '_blank', 'usewkwebview=no,location=no');
+        } else {
+            var loginWindow = window.open(login_url, '_self', 'location=no,clearsessioncache=yes');
+        }
 
         // check if redirect url has code, access_token or error 
         $(loginWindow).on('loadstart', function (e) {

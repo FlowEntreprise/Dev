@@ -7,17 +7,20 @@
     "files": {
       "AndroidManifest.xml": {
         "parents": {
-          "/manifest/application/activity[@android:name='MainActivity']": [{
-            "xml": "<activity android:name=\"MainActivity\" android:windowSoftInputMode=\"adjustResize\" />",
-            "count": 1,
-            "mode": "merge",
-            "id": "config.xml"
-          }]
+          "/manifest/application/activity[@android:name='MainActivity']": [
+            {
+              "xml": "<activity android:name=\"MainActivity\" android:windowSoftInputMode=\"adjustResize\" />",
+              "count": 1,
+              "mode": "merge",
+              "id": "config.xml"
+            }
+          ]
         }
       },
       "config.xml": {
         "parents": {
-          "/*": [{
+          "/*": [
+            {
               "xml": "<feature name=\"CorHttpd\"><param name=\"ios-package\" value=\"CorHttpd\" /></feature>",
               "count": 1
             },
@@ -110,35 +113,50 @@
       },
       "*-Info.plist": {
         "parents": {
-          "Fabric": [{
-            "xml": "<dict><key>APIKey</key><string>1c7233ea28bcc14682e840d324ff7fbb32b9c038</string><key>Kits</key><array /></dict>",
-            "count": 1
-          }],
-          "FacebookAppID": [{
-            "xml": "<string>502054883649562</string>",
-            "count": 1
-          }],
-          "FacebookDisplayName": [{
-            "xml": "<string>FLOW</string>",
-            "count": 1
-          }],
-          "FacebookHybridAppEvents": [{
-            "xml": "<string>false</string>",
-            "count": 1
-          }],
-          "CFBundleURLTypes": [{
-            "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>fb502054883649562</string></array></dict></array>",
-            "count": 1
-          }],
-          "NSAppTransportSecurity": [{
-            "xml": "<dict><key>NSExceptionDomains</key><dict><key>facebook.com</key><dict><key>NSIncludesSubdomains</key><true /><key>NSThirdPartyExceptionRequiresForwardSecrecy</key><false /></dict><key>fbcdn.net</key><dict><key>NSIncludesSubdomains</key><true /><key>NSThirdPartyExceptionRequiresForwardSecrecy</key><false /></dict><key>akamaihd.net</key><dict><key>NSIncludesSubdomains</key><true /><key>NSThirdPartyExceptionRequiresForwardSecrecy</key><false /></dict></dict></dict>",
-            "count": 1
-          }],
-          "LSApplicationQueriesSchemes": [{
-            "xml": "<array><string>fbapi</string><string>fb-messenger-api</string><string>fbauth2</string><string>fbshareextension</string></array>",
-            "count": 1
-          }],
-          "UIBackgroundModes": [{
+          "Fabric": [
+            {
+              "xml": "<dict><key>APIKey</key><string>1c7233ea28bcc14682e840d324ff7fbb32b9c038</string><key>Kits</key><array /></dict>",
+              "count": 1
+            }
+          ],
+          "FacebookAppID": [
+            {
+              "xml": "<string>502054883649562</string>",
+              "count": 1
+            }
+          ],
+          "FacebookDisplayName": [
+            {
+              "xml": "<string>FLOW</string>",
+              "count": 1
+            }
+          ],
+          "FacebookHybridAppEvents": [
+            {
+              "xml": "<string>false</string>",
+              "count": 1
+            }
+          ],
+          "CFBundleURLTypes": [
+            {
+              "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>fb502054883649562</string></array></dict></array>",
+              "count": 1
+            }
+          ],
+          "NSAppTransportSecurity": [
+            {
+              "xml": "<dict><key>NSExceptionDomains</key><dict><key>facebook.com</key><dict><key>NSIncludesSubdomains</key><true /><key>NSThirdPartyExceptionRequiresForwardSecrecy</key><false /></dict><key>fbcdn.net</key><dict><key>NSIncludesSubdomains</key><true /><key>NSThirdPartyExceptionRequiresForwardSecrecy</key><false /></dict><key>akamaihd.net</key><dict><key>NSIncludesSubdomains</key><true /><key>NSThirdPartyExceptionRequiresForwardSecrecy</key><false /></dict></dict></dict>",
+              "count": 1
+            }
+          ],
+          "LSApplicationQueriesSchemes": [
+            {
+              "xml": "<array><string>fbapi</string><string>fb-messenger-api</string><string>fbauth2</string><string>fbshareextension</string></array>",
+              "count": 1
+            }
+          ],
+          "UIBackgroundModes": [
+            {
               "xml": "<array><string>audio</string></array>",
               "count": 1
             },
@@ -147,26 +165,32 @@
               "count": 1
             }
           ],
-          "NSMicrophoneUsageDescription": [{
-            "xml": "<string>This app needs microphone access</string>",
-            "count": 1
-          }]
+          "NSMicrophoneUsageDescription": [
+            {
+              "xml": "<string>This app needs microphone access</string>",
+              "count": 1
+            }
+          ]
         }
       },
       "*-Debug.plist": {
         "parents": {
-          "aps-environment": [{
-            "xml": "<string>development</string>",
-            "count": 1
-          }]
+          "aps-environment": [
+            {
+              "xml": "<string>development</string>",
+              "count": 1
+            }
+          ]
         }
       },
       "*-Release.plist": {
         "parents": {
-          "aps-environment": [{
-            "xml": "<string>production</string>",
-            "count": 1
-          }]
+          "aps-environment": [
+            {
+              "xml": "<string>production</string>",
+              "count": 1
+            }
+          ]
         }
       }
     }
@@ -216,7 +240,8 @@
     }
   },
   "dependent_plugins": {},
-  "modules": [{
+  "modules": [
+    {
       "id": "cordova-plugin-httpd.CorHttpd",
       "file": "plugins/cordova-plugin-httpd/www/CorHttpd.js",
       "pluginId": "cordova-plugin-httpd",
@@ -495,48 +520,35 @@
       ]
     },
     {
-      <<
-      <<
-      <<
-      < HEAD "id": "cordova-plugin-inappbrowser.inappbrowser",
+      "id": "cordova-plugin-inappbrowser.inappbrowser",
       "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
       "pluginId": "cordova-plugin-inappbrowser",
       "clobbers": [
         "cordova.InAppBrowser.open",
-        "window.open" ===
-        ===
-        =
-        "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
-        "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
-        "pluginId": "cordova-plugin-facebook4",
-        "clobbers": [
-          "facebookConnectPlugin" >>>
-          >>>
-          >
-          6 c11ff20e8efda4e4cbda9f225545d33d2b1e997
-        ]
-      }
-    ],
-    "plugin_metadata": {
-      "cordova-plugin-httpd": "0.9.3",
-      "cordova-plugin-file": "6.0.2",
-      "cordova-plugin-media": "5.0.3",
-      "twitter-connect-plugin": "0.6.0",
-      "cordova-plugin-device": "2.0.3",
-      "cordova-plugin-background-mode": "0.7.3",
-      "cordova-plugin-audioinput": "1.0.2",
-      "cordova-plugin-camera": "4.0.3",
-      "cordova-plugin-keyboard": "1.2.0",
-      "phonegap-plugin-push": "2.3.0",
-      <<
-      <<
-      <<
-      < HEAD "cordova-plugin-inappbrowser": "3.2.0" ===
-        ===
-        =
-        "cordova-plugin-facebook4": "6.4.0" >>>
-        >>>
-        >
-        6 c11ff20e8efda4e4cbda9f225545d33d2b1e997
+        "window.open"
+      ]
+    },
+    {
+      "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
+      "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
+      "pluginId": "cordova-plugin-facebook4",
+      "clobbers": [
+        "facebookConnectPlugin"
+      ]
     }
+  ],
+  "plugin_metadata": {
+    "cordova-plugin-httpd": "0.9.3",
+    "cordova-plugin-file": "6.0.2",
+    "cordova-plugin-media": "5.0.3",
+    "twitter-connect-plugin": "0.6.0",
+    "cordova-plugin-device": "2.0.3",
+    "cordova-plugin-background-mode": "0.7.3",
+    "cordova-plugin-audioinput": "1.0.2",
+    "cordova-plugin-camera": "4.0.3",
+    "cordova-plugin-keyboard": "1.2.0",
+    "phonegap-plugin-push": "2.3.0",
+    "cordova-plugin-inappbrowser": "3.2.0",
+    "cordova-plugin-facebook4": "6.4.0"
   }
+}
