@@ -1,9 +1,9 @@
 {
     "CFNetwork.framework": 1,
     "Foundation.framework": 1,
-    "Security.framework": 2,
-    "CoreText.framework": 1,
-    "AddressBook.framework": 1,
+    "Security.framework": 3,
+    "CoreText.framework": 2,
+    "AddressBook.framework": 2,
     "QuartzCore.framework": 1,
     "Accounts.framework": 1,
     "Social.framework": 1,
@@ -14,5 +14,9 @@
     "AVFoundation.framework": 2,
     "ImageIO.framework": 1,
     "CoreLocation.framework": 1,
-    "PushKit.framework": 1
+    "PushKit.framework": 1,
+    "SafariServices.framework": 1,
+    "SystemConfiguration.framework": 1,
+    "libz.tbd": 1,
+    "libz.dylib": 1
 }

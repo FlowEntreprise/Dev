@@ -89,6 +89,12 @@
 		1109FF2E2B0A469D8DCC2E00 /* CDVUIInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77019444F555423389BF283B /* CDVUIInAppBrowser.m */; };
 		30831269C6F54842B2DDC3AF /* CDVWKInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD929F578AE8447B831BA96D /* CDVWKInAppBrowser.m */; };
 		5F9B1310619A46C8994C3DE7 /* CDVWKInAppBrowserUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67FB269FDBB649D7AC3A6EC8 /* CDVWKInAppBrowserUIDelegate.m */; };
+		0E0036C243D8459AB3CE69BD /* GooglePlus.m in Sources */ = {isa = PBXBuildFile; fileRef = C114ED3B61A048759D48A036 /* GooglePlus.m */; };
+		1FAE7B65895145B88D818CF9 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDC6D31061F7468684B7C643 /* SafariServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		623759ACA1F341CEB6F96CD5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A520BE92914642AFA5D33B83 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		0BFEFD513C0543AA88FD3461 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C9415B1B0285484DBDE4BB46 /* libz.tbd */; settings = {ATTRIBUTES = (Weak, ); }; };
+		5DA8B479D1DE4313B3555644 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A9F4E7D7665943898D0826F1 /* libz.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C2A60D0622714611B17A8528 /* FLOW.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = E388E831480F44F299DAA3DA /* FLOW.entitlements */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -264,6 +270,13 @@
 		769C01880CD14036914892B5 /* CDVUIInAppBrowser.h */ = {isa = PBXFileReference; name = "CDVUIInAppBrowser.h"; path = "cordova-plugin-inappbrowser/CDVUIInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		260B6028BCF74F7D923D486D /* CDVWKInAppBrowser.h */ = {isa = PBXFileReference; name = "CDVWKInAppBrowser.h"; path = "cordova-plugin-inappbrowser/CDVWKInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		7D89243E0C37455D8AB53F2D /* CDVWKInAppBrowserUIDelegate.h */ = {isa = PBXFileReference; name = "CDVWKInAppBrowserUIDelegate.h"; path = "cordova-plugin-inappbrowser/CDVWKInAppBrowserUIDelegate.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		C114ED3B61A048759D48A036 /* GooglePlus.m */ = {isa = PBXFileReference; name = "GooglePlus.m"; path = "cordova-plugin-googleplus/GooglePlus.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		7E170896F16F4423B6A3E57F /* GooglePlus.h */ = {isa = PBXFileReference; name = "GooglePlus.h"; path = "cordova-plugin-googleplus/GooglePlus.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		BDC6D31061F7468684B7C643 /* SafariServices.framework */ = {isa = PBXFileReference; name = "SafariServices.framework"; path = "System/Library/Frameworks/SafariServices.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		A520BE92914642AFA5D33B83 /* SystemConfiguration.framework */ = {isa = PBXFileReference; name = "SystemConfiguration.framework"; path = "System/Library/Frameworks/SystemConfiguration.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		C9415B1B0285484DBDE4BB46 /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+		A9F4E7D7665943898D0826F1 /* libz.dylib */ = {isa = PBXFileReference; name = "libz.dylib"; path = "usr/lib/libz.dylib"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = compiled.mach-o.dylib; explicitFileType = undefined; includeInIndex = 0; };
+		E388E831480F44F299DAA3DA /* FLOW.entitlements */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "FLOW.entitlements"; path = "FLOW.entitlements"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +306,10 @@
 				A43CFD94EB3846E98C461DFE /* CoreLocation.framework in Frameworks */,
 				2F95316649544DDE8B752B2C /* PushKit.framework in Frameworks */,
 				6383F0258BF1375A229AD097 /* Pods_FLOW.framework in Frameworks */,
+				1FAE7B65895145B88D818CF9 /* SafariServices.framework in Frameworks */,
+				623759ACA1F341CEB6F96CD5 /* SystemConfiguration.framework in Frameworks */,
+				0BFEFD513C0543AA88FD3461 /* libz.tbd in Frameworks */,
+				5DA8B479D1DE4313B3555644 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +386,7 @@
 				957EC5A59BD94E4081CE883C /* TwitterKitResources.bundle */,
 				95AC959D27A2429F86CDCC59 /* appbeep.wav */,
 				E784201A635F4B08A152731A /* GoogleService-Info.plist */,
+				E388E831480F44F299DAA3DA /* FLOW.entitlements */,
 			);
 			name = Resources;
 			path = FLOW/Resources;
@@ -400,6 +418,10 @@
 				695EA991B4DB49D7823FF3C7 /* CoreLocation.framework */,
 				35C974EAECFB47F6A3922E9A /* PushKit.framework */,
 				C31685FE3FA822B9F9799766 /* Pods_FLOW.framework */,
+				BDC6D31061F7468684B7C643 /* SafariServices.framework */,
+				A520BE92914642AFA5D33B83 /* SystemConfiguration.framework */,
+				C9415B1B0285484DBDE4BB46 /* libz.tbd */,
+				A9F4E7D7665943898D0826F1 /* libz.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -525,6 +547,8 @@
 				7D89243E0C37455D8AB53F2D /* CDVWKInAppBrowserUIDelegate.h */,
 				C3AFC2AB7F134A4FA7D26144 /* FacebookConnectPlugin.m */,
 				D15E0D12C605484E87832B3B /* FacebookConnectPlugin.h */,
+				C114ED3B61A048759D48A036 /* GooglePlus.m */,
+				7E170896F16F4423B6A3E57F /* GooglePlus.h */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -628,6 +652,7 @@
 				EFB411B317E94929B4F1A8A3 /* TwitterKitResources.bundle in Resources */,
 				9EA73893F30A47AF8BF4C58D /* appbeep.wav in Resources */,
 				E61AD13371704219AE9BCFAA /* GoogleService-Info.plist in Resources */,
+				C2A60D0622714611B17A8528 /* FLOW.entitlements in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,6 +785,7 @@
 				30831269C6F54842B2DDC3AF /* CDVWKInAppBrowser.m in Sources */,
 				5F9B1310619A46C8994C3DE7 /* CDVWKInAppBrowserUIDelegate.m in Sources */,
 				22C84A5879A843368460CE43 /* FacebookConnectPlugin.m in Sources */,
+				0E0036C243D8459AB3CE69BD /* GooglePlus.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -783,7 +809,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_ENTITLEMENTS = FLOW/FLOW.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "FLOW/Resources/FLOW.entitlements";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = U6PZK9X33M;
 				ENABLE_BITCODE = NO;
@@ -818,7 +844,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_ENTITLEMENTS = FLOW/FLOW.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "FLOW/Resources/FLOW.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
@@ -887,6 +913,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				WK_WEB_VIEW_ONLY = 0;
+				CODE_SIGN_ENTITLEMENTS = "FLOW/Resources/FLOW.entitlements";
 			};
 			name = Debug;
 		};
@@ -930,6 +957,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				WK_WEB_VIEW_ONLY = 0;
+				CODE_SIGN_ENTITLEMENTS = "FLOW/Resources/FLOW.entitlements";
 			};
 			name = Release;
 		};

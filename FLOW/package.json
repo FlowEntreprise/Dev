@@ -9,7 +9,6 @@
 		"browser-sync": "^2.26.3",
 		"cheerio": "^0.19.0",
 		"cordova-android-support-gradle-release": "^2.1.0",
-		"cordova-browser": "^6.0.0",
 		"cordova-httpd": "git+https://github.com/floatinghotpot/cordova-httpd.git",
 		"cordova-ios": "^5.1.1",
 		"cordova-plugin-android-permissions": "^1.0.0",
@@ -86,7 +85,7 @@
 				"TWITTER_SECRET": "6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT"
 			},
 			"cordova-plugin-googleplus": {
-				"REVERSED_CLIENT_ID": "com.googleusercontent.apps.320132615636-8f4u2k95equ8nd8v6mvhaod4qm73j3fq",
+				"REVERSED_CLIENT_ID": "com.googleusercontent.apps.320132615636-3coutred857laub9esk560tgnk0s15ku",
 				"WEB_APPLICATION_CLIENT_ID": "320132615636-8f4u2k95equ8nd8v6mvhaod4qm73j3fq.apps.googleusercontent.com",
 				"PLAY_SERVICES_VERSION": "15.0.1"
 			},
@@ -101,8 +100,6 @@
 			"phonegap-plugin-push": {},
 			"cordova-plugin-inappbrowser": {}
 		},
-		"platforms": [
-			"browser"
-		]
+		"platforms": []
 	}
 }
