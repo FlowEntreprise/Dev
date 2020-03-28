@@ -254,6 +254,8 @@
 	opacity: 0;
 	pointer-events: none;
 	transition-duration: 0.3s;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
 }
 
 #feditProfilePopupContainer {
@@ -345,6 +347,17 @@
 .disconnect_btn:active {
 	background: #d62222;
 	color: white;
+}
+
+.empty_content {
+	position: absolute;
+	top: 25vh;
+	left: 0;
+	width: 100vw;
+	text-align: center;
+	font-size: 15px;
+	font-family: Roboto-Regular;
+	color: #92abb2;
 }
 
 .shake {

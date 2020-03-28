@@ -1,3 +1,7 @@
+#ptr_arrow_explore {
+	opacity: 0;
+}
+
 .fexplore_navbar {
 	position: absolute;
 	top: 0;
@@ -164,7 +168,7 @@
 	display: none !important;
 }
 
-.explore_tabs > .tab {
+.explore_tabs>.tab {
 	height: 100%;
 	overflow-x: auto;
 	overflow-y: auto;

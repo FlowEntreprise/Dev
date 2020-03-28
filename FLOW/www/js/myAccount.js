@@ -33,10 +33,12 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     indexMyFlow = 0;
     indexMyLike = 0;
     $("#MyActivity")[0].innerHTML = "";
+    $("#MyLikes")[0].innerHTML = "";
     let loading_tl = document.createElement("div");
     loading_tl.className = "loading-spinner loading_myaccount";
     loading_tl.style.marginTop = "50%";
     $("#MyActivity")[0].appendChild(loading_tl);
+    $("#MyLikes")[0].appendChild(loading_tl);
     $("#fnameMonCompte").html(nameMonCompte);
     $("#fbioMonCompte").html(bioMonCompte);
     var getFlow = {
@@ -264,8 +266,14 @@ function UpdateProfile(profileName, profileBio) {
 function ShowMyFlow(flow) {
     //console.log("SHOW MY FLOW");
     //console.log(flow);
-    if (Array.isArray(flow.Data) == false) {
+    if (Array.isArray(flow.Data) == false || flow.Data.length == 0) {
         MyFlowAdd = false;
+        if (indexMyFlow == 0) {
+            let no_flows = document.createElement("label");
+            no_flows.className = "empty_content";
+            no_flows.innerHTML = "Aucun flow publié";
+            $("#MyActivity")[0].appendChild(no_flows);
+        }
         // window.alert("Plus de flow a recupt");
     } else {
         // flow.Data.reverse();
@@ -323,9 +331,9 @@ function ShowMyFlow(flow) {
         if (countFlow < 5) {
             indexMyFlow++;
             MyFlowAdd = false;
-            let tick_tl = document.createElement("div");
-            tick_tl.className = "tick_icon";
-            $("#MyActivity")[0].appendChild(tick_tl);
+            // let tick_tl = document.createElement("div");
+            // tick_tl.className = "tick_icon";
+            // $("#MyActivity")[0].appendChild(tick_tl);
         } else {
             indexMyFlow++;
             MyFlowAdd = true;
@@ -351,10 +359,18 @@ document.getElementById("popup-myaccount").addEventListener("closed", function (
 function ShowMyLikedFlows(flow) {
     console.log("SHOW MY FLOW");
     console.log(flow);
-    if (Array.isArray(flow.Data) == false) {
+    if (Array.isArray(flow.Data) == false || flow.Data.length == 0) {
         MyLikeAdd = false;
+        if (indexMyLike == 0) {
+            let no_flows = document.createElement("label");
+            no_flows.className = "empty_content";
+            no_flows.innerHTML = "Aucun flow aimé";
+            $("#MyLikes")[0].appendChild(no_flows);
+        }
+        if ($(".loading_myaccount")) $(".loading_myaccount").remove();
         // window.alert("Plus de flow a recupt");
     } else {
+        console.log("several liked flows")
         // flow.Data.reverse();
         let countFlow = 0;
         for (let i = 0; i < flow.Data.length; i++) {
@@ -405,9 +421,9 @@ function ShowMyLikedFlows(flow) {
         if (countFlow < 5) {
             indexMyLike++;
             MyLikeAdd = false;
-            let tick_tl = document.createElement("div");
-            tick_tl.className = "tick_icon";
-            $("#MyLikes")[0].appendChild(tick_tl);
+            // let tick_tl = document.createElement("div");
+            // tick_tl.className = "tick_icon";
+            // $("#MyLikes")[0].appendChild(tick_tl);
         } else {
             indexMyLike++;
             MyLikeAdd = true;
@@ -429,5 +445,8 @@ function ShowMyInfosUser(data) {
 }
 
 $(".disconnect_btn")[0].addEventListener("touchstart", function () {
+    $("#feditProfilePopupContainer").css("opacity", "0");
+    $("#editProfilePopup").css("transform", "scale(0)");
+    $("#feditProfilePopupContainer").css("pointer-events", "none");
     DisconnectUser();
 })

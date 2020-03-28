@@ -108,8 +108,10 @@ function PopFlow(data, LinkBuilder) {
 function UpdateTimeline(data) {
   console.log("updating timeline...");
   stopAllBlocksAudio();
+  console.log(data);
   // console.log(data.Data);
   if (Array.isArray(data.Data)) {
+    $(".empty_tl")[0].style.display = "none";
     let unique_data = [];
     for (let index in data.Data) {
       let unique = true;
@@ -150,6 +152,9 @@ function UpdateTimeline(data) {
       }
     }, 500);
   } else {
+    if (TLCurrentIndex == 0) {
+      $(".empty_tl")[0].style.display = "block";
+    }
     StopRefreshTL();
   }
 }

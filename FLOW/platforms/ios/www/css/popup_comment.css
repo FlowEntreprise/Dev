@@ -127,7 +127,7 @@
 	width: 100vw;
 	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
 	background-color: #fff;
-	z-index: 99999999999;
+	z-index: 99999;
 	display: none;
 	bottom: 0vh;
 	padding-left: 2vw;
@@ -146,10 +146,10 @@
 	width: 85vw !important;
 	left: 5vw !important;
 	border: none;
-	height: 7vh !important;
+	height: calc(3.75 * var(--custom-vh));
 	font-size: calc(2 * var(--custom-vh)) !important;
 	color: #4a4a4a;
-	padding-top: 2vh !important;
+	padding-top: calc(1.5 * var(--custom-vh)) !important;
 	resize: none;
 	font-family: Roboto;
 }

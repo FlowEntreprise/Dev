@@ -6,7 +6,7 @@ var user_token;
 function ConnectUser() {
     console.log("user connected");
     connected = true;
-    $(".empty_tl")[0].style.display = "none";
+    // $(".empty_tl")[0].style.display = "none";
     $(".fneed_connect").css({
         "display": "none"
     });

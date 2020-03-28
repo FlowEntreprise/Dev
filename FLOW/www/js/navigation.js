@@ -6,11 +6,16 @@ $("#tab2").load("pages/explore.html");
 $("#tab3").load("pages/messages.html");
 $("#tab4").load("pages/notifications.html");
 
+$(".navbar").css({
+    "display": "block",
+    "height": "calc(19 * var(--custom-vh))"
+});
 // $("#popup-myaccount").find(".popup_content").load("pages/myAccount.html");
 
 $$('#tab1').on('tab:show', function () {
     $(".navbar").css({
-        "display": "block"
+        "display": "block",
+        "height": "calc(19 * var(--custom-vh))"
     });
     app.showNavbar($('.navbar'));
     canShowNavbar = true;
@@ -22,11 +27,15 @@ $$('#tab1').on('tab:show', function () {
     $(".fexplore-bar").css({
         "display": "none"
     });
+    $(".fnotifications-bar").css({
+        "display": "none"
+    });
 });
 
 $$('#tab2').on('tab:show', function () {
     $(".navbar").css({
-        "display": "block"
+        "display": "block",
+        "height": "calc(19 * var(--custom-vh))"
     });
     app.showNavbar($('.navbar'));
     canShowNavbar = true;
@@ -37,6 +46,9 @@ $$('#tab2').on('tab:show', function () {
     });
     $(".fexplore-bar").css({
         "display": "block"
+    });
+    $(".fnotifications-bar").css({
+        "display": "none"
     });
     if (!explore_tabs_initialised) {
 
@@ -67,9 +79,8 @@ $$('#tab3').on('tab:show', function () {
 
     if (!connected) {
         setTimeout(function () {
-            // app.showTab("#tab1");
-            // app.popup('.popup-connect');
-            // Popup("popup-connect", true, 45);
+            app.showTab("#tab1");
+            Popup("popup-connect", true, 45);
         }, 100);
     }
 
@@ -77,16 +88,28 @@ $$('#tab3').on('tab:show', function () {
 
 $$('#tab4').on('tab:show', function () {
     $(".navbar").css({
+        "display": "block",
+        "height": "calc(8 * var(--custom-vh))"
+    });
+    app.showNavbar($('.navbar'));
+    canShowNavbar = true;
+    current_page = "home";
+
+    $(".fhome-bar").css({
         "display": "none"
     });
-    app.hideNavbar($('.navbar'));
-    canShowNavbar = false;
+    $(".fexplore-bar").css({
+        "display": "none"
+    });
+    $(".fnotifications-bar").css({
+        "display": "block"
+    });
+    canShowNavbar = true;
     current_page = "notifications";
 
     if (!connected) {
         setTimeout(function () {
             app.showTab("#tab1");
-            // app.popup('.popup-connect');
             Popup("popup-connect", true, 45);
         }, 100);
     }
