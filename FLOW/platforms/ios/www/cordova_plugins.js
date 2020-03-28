@@ -285,6 +285,15 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "PushNotification"
       ]
+    },
+    {
+      "id": "cordova-plugin-inappbrowser.inappbrowser",
+      "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+      "pluginId": "cordova-plugin-inappbrowser",
+      "clobbers": [
+        "cordova.InAppBrowser.open",
+        "window.open"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -298,6 +307,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-audioinput": "1.0.2",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-keyboard": "1.2.0",
-    "phonegap-plugin-push": "2.3.0"
+    "phonegap-plugin-push": "2.3.0",
+    "cordova-plugin-inappbrowser": "3.2.0"
   };
 });

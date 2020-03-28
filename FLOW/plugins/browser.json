@@ -22,9 +22,6 @@
     "cordova.plugins.diagnostic": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova-plugin-inappbrowser": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
     "cordova-plugin-camera": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
@@ -106,6 +103,9 @@
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "phonegap-plugin-push": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-inappbrowser": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
