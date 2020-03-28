@@ -6,9 +6,6 @@ function login_insta() {
         logout_url: 'https://instagram.com/accounts/logout',
         client_id: 'c45b4c4cbad345f59ffaa62a91fd932d',
         redirect_uri: 'http://alexis-dacosta.fr/',
-        other_params: {
-            scope: 'likes'
-        }
     }, function (token, response) {
         //makeAPICalls(token);
         //alert(token);
