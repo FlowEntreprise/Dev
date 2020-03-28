@@ -2,6 +2,17 @@
 	opacity: 0;
 }
 
+.no_notif {
+	position: absolute;
+	top: 45vh;
+	left: 0;
+	width: 100vw;
+	text-align: center;
+	font-size: 15px;
+	font-family: Roboto-Regular;
+	color: #92abb2;
+}
+
 .fnotifications-bar {
 	display: none;
 }
