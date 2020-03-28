@@ -1,6 +1,5 @@
-cordova.define('cordova/plugin_list', function(require, exports, module) {
-  module.exports = [
-    {
+cordova.define('cordova/plugin_list', function (require, exports, module) {
+  module.exports = [{
       "id": "cordova-plugin-httpd.CorHttpd",
       "file": "plugins/cordova-plugin-httpd/www/CorHttpd.js",
       "pluginId": "cordova-plugin-httpd",
@@ -206,14 +205,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
-      "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
-      "pluginId": "cordova-plugin-facebook4",
-      "clobbers": [
-        "facebookConnectPlugin"
-      ]
-    },
-    {
       "id": "cordova-plugin-device.device",
       "file": "plugins/cordova-plugin-device/www/device.js",
       "pluginId": "cordova-plugin-device",
@@ -287,6 +278,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
+      "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
+      "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
+      "pluginId": "cordova-plugin-facebook4",
+      "clobbers": [
+        "facebookConnectPlugin"
+      ]
+    },
+    {
       "id": "cordova-plugin-inappbrowser.inappbrowser",
       "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
       "pluginId": "cordova-plugin-inappbrowser",
@@ -301,13 +300,13 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-media": "5.0.3",
     "twitter-connect-plugin": "0.6.0",
-    "cordova-plugin-facebook4": "6.3.0",
     "cordova-plugin-device": "2.0.3",
     "cordova-plugin-background-mode": "0.7.3",
     "cordova-plugin-audioinput": "1.0.2",
     "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-keyboard": "1.2.0",
     "phonegap-plugin-push": "2.3.0",
-    "cordova-plugin-inappbrowser": "3.2.0"
+    "cordova-plugin-inappbrowser": "3.2.0",
+    "cordova-plugin-facebook4": "6.4.0"
   };
 });
