@@ -418,14 +418,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-facebook4/www/facebook-browser.js",
-        "id": "cordova-plugin-facebook4.FacebookConnectPluginBrowser",
-        "pluginId": "cordova-plugin-facebook4",
-        "clobbers": [
-            "facebookConnectPlugin"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-device/www/device.js",
         "id": "cordova-plugin-device.device",
         "pluginId": "cordova-plugin-device",
@@ -477,6 +469,14 @@ module.exports = [
         "clobbers": [
             "PushNotification"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-facebook4/www/facebook-browser.js",
+        "id": "cordova-plugin-facebook4.FacebookConnectPluginBrowser",
+        "pluginId": "cordova-plugin-facebook4",
+        "clobbers": [
+            "facebookConnectPlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -509,11 +509,11 @@ module.exports.metadata =
     "cordova-plugin-httpd": "0.9.3",
     "cordova-plugin-media": "5.0.3",
     "twitter-connect-plugin": "0.6.0",
-    "cordova-plugin-facebook4": "6.3.0",
     "cordova-plugin-device": "2.0.3",
     "cordova-plugin-background-mode": "0.7.3",
     "cordova-plugin-keyboard": "1.2.0",
-    "phonegap-plugin-push": "2.3.0"
+    "phonegap-plugin-push": "2.3.0",
+    "cordova-plugin-facebook4": "6.4.0"
 }
 // BOTTOM OF METADATA
 });

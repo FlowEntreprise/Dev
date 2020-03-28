@@ -1,28 +1,28 @@
 {
-  "_from": "cordova-plugin-facebook4@6.3.0",
-  "_id": "cordova-plugin-facebook4@6.3.0",
+  "_from": "cordova-plugin-facebook4@6.4.0",
+  "_id": "cordova-plugin-facebook4@6.4.0",
   "_inBundle": false,
-  "_integrity": "sha512-tEwyttR4ta2KFNjVMYYjUrEbMFltexho0P9k8k1WBBarvzwXXUoFJKPYxLPoS3tYfffF6YSG2o0/N4qEu1E1uA==",
+  "_integrity": "sha512-uonmPVPR5glmJfQcMJeiMtqflJYTChrcSNouZDXWjWZkObq4lCOZzOL2cC6FBeyhj+1zJE+pFh+2WZL9wIlHIg==",
   "_location": "/cordova-plugin-facebook4",
   "_phantomChildren": {},
   "_requested": {
     "type": "version",
     "registry": true,
-    "raw": "cordova-plugin-facebook4@6.3.0",
+    "raw": "cordova-plugin-facebook4@6.4.0",
     "name": "cordova-plugin-facebook4",
     "escapedName": "cordova-plugin-facebook4",
-    "rawSpec": "6.3.0",
+    "rawSpec": "6.4.0",
     "saveSpec": null,
-    "fetchSpec": "6.3.0"
+    "fetchSpec": "6.4.0"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/cordova-plugin-facebook4/-/cordova-plugin-facebook4-6.3.0.tgz",
-  "_shasum": "ab34589b8ab8d0f9e9c6b335a0a128fc38ab78e6",
-  "_spec": "cordova-plugin-facebook4@6.3.0",
-  "_where": "C:\\Users\\thoma\\Documents\\Projets_persos\\FLOW\\Dev\\FLOW",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-facebook4/-/cordova-plugin-facebook4-6.4.0.tgz",
+  "_shasum": "32917a6880b78cb6f8b17431d6ad4ee177bf83d6",
+  "_spec": "cordova-plugin-facebook4@6.4.0",
+  "_where": "/Users/thomasdequeiros/Documents/GitHub/Dev/FLOW",
   "bugs": {
     "url": "https://github.com/jeduan/cordova-plugin-facebook4/issues"
   },
@@ -55,5 +55,5 @@
     "type": "git",
     "url": "git+https://github.com/jeduan/cordova-plugin-facebook4.git"
   },
-  "version": "6.3.0"
+  "version": "6.4.0"
 }

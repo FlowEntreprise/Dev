@@ -232,17 +232,6 @@
       "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038"
     }
   },
-  "cordova-plugin-facebook4": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-facebook4@6.3.0"
-    },
-    "is_top_level": true,
-    "variables": {
-      "APP_ID": "502054883649562",
-      "APP_NAME": "FLOW"
-    }
-  },
   "cordova-plugin-background-mode": {
     "source": {
       "type": "registry",
@@ -274,5 +263,16 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-facebook4": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-facebook4@6.4.0"
+    },
+    "is_top_level": true,
+    "variables": {
+      "APP_ID": "502054883649562",
+      "APP_NAME": "FLOW"
+    }
   }
 }
