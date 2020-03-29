@@ -10,7 +10,7 @@ function signin_with_apple() {
                     console.log(data) // Prints result from `response.json()` in getRequest
                     let pseudo = succ.fullName.givenName + succ.fullName.familyName;
                     let fullname = succ.fullName.givenName + " " + succ.fullName.familyName;
-                    let tokken = succ.identityToken.split(".")[0] + "." + succ.identityToken.split(".")[1];
+                    let tokken = succ.identityToken.split(".")[0];
                     console.log(pseudo);
                     console.log(fullname);
                     let user_data = {
