@@ -15,6 +15,12 @@
 // }
 // socket module node emit -> envoie des données (envoi de tab json)
 
+if (window.cordova.platformId == "android") {
+    $(".fgoogle_btn")[0].src = "../www/src/icons/google@3x.png";
+} else {
+    $(".fgoogle_btn")[0].src = "../www/src/icons/apple@3x.png";
+}
+
 $(".ftwitter_btn").on("click", function () {
     TWLogin();
 });
@@ -23,9 +29,12 @@ $(".ffacebook_btn").on("click", function () {
     ConnectFB();
 });
 $(".fgoogle_btn").on("click", function () {
-    console.log("google clicked");
-    // google_conn();
-    signin_with_apple();
+    console.log("google / apple clicked");
+    if (window.cordova.platformId == "android") {
+        google_conn();
+    } else {
+        signin_with_apple();
+    }
 });
 $(".finsta_btn").on("click", function () {
     login_insta();
