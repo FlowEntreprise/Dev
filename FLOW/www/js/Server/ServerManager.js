@@ -831,21 +831,20 @@ class ServerManagerClass {
 
     Send_notif(data) {
         var data_notif_to_bdd;
-        if (data.data) {
-            data_notif_to_bdd = {
-                TypeNotification: data.data.type,
-                RegisterIdOfUserToNotify: data.to,
-                Content: data.data.sender_info.comment_text,
-                IdFlow: data.data.sender_info.IdFlow
-
-            };
-        } else {
+        if (data.notification) {
             data_notif_to_bdd = {
                 TypeNotification: data.notification.type,
                 RegisterIdOfUserToNotify: data.to,
                 Content: data.notification.sender_info.comment_text,
                 IdFlow: data.notification.sender_info.IdFlow
-
+            };
+        } else {
+            
+            data_notif_to_bdd = {
+                TypeNotification: data.data.type,
+                RegisterIdOfUserToNotify: data.to,
+                Content: data.data.sender_info.comment_text,
+                IdFlow: data.data.sender_info.IdFlow
             };
         }
         $.ajax({
