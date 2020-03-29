@@ -4,7 +4,20 @@ function signin_with_apple() {
         },
         function (succ) {
             console.log(succ)
-            alert(JSON.stringify(succ))
+            fetch('https://some-random-api.ml/img/fox')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data) // Prints result from `response.json()` in getRequest
+                    let user_data = {
+                        username: succ.full_name.givenName + succ.full_name.familyName,
+                        full_name: succ.full_name.givenName + " " + succ.full_name.familyName,
+                        profile_picture: data.link,
+                        bio: "Hey j'utilise FLOW",
+                        id: succ.identityToken
+                    }
+                    ServerManager.Connect(apiTypes.Apple, user_data);
+                })
+                .catch(error => console.error(error))
         },
         function (err) {
             console.error(err)
