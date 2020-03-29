@@ -1,0 +1,50 @@
+{
+  "_from": "cordova-plugin-apple-login",
+  "_id": "cordova-plugin-apple-login@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-j3yhfRVxJ8uiB/C0U+JsGfL6ZbvbUietk36AQgP3YPJVi3hvU5zagelGOOVd7ektnoLHB2KjtvDQdXCG2ycSaQ==",
+  "_location": "/cordova-plugin-apple-login",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-apple-login",
+    "name": "cordova-plugin-apple-login",
+    "escapedName": "cordova-plugin-apple-login",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-apple-login/-/cordova-plugin-apple-login-1.0.0.tgz",
+  "_shasum": "6795990b06e74a89be71c13a880ac8ee4c03a162",
+  "_spec": "cordova-plugin-apple-login",
+  "_where": "C:\\Users\\thoma\\Documents\\Projets_persos\\FLOW\\Dev\\FLOW",
+  "author": {
+    "name": "People Software Corporation"
+  },
+  "bugs": {
+    "url": "https://github.com/pscsrv/cordova-plugin-apple-login/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "## Install",
+  "homepage": "https://github.com/pscsrv/cordova-plugin-apple-login",
+  "keywords": [
+    "sign in with apple"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "cordova-plugin-apple-login",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pscsrv/cordova-plugin-apple-login.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
+}

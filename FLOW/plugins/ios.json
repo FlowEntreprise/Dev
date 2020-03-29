@@ -36,7 +36,7 @@
     "cordova-plugin-inappbrowser": {
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     },
-    "cordova-plugin-sign-in-with-apple": {
+    "cordova-plugin-apple-login": {
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     }
   },

@@ -75,7 +75,6 @@
     </feature>
     <feature name="SignInWithApple">
         <param name="ios-package" value="SignInWithApple" />
-        <param name="onload" value="true" />
     </feature>
     <name>FLOW</name>
     <description>

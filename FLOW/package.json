@@ -12,6 +12,7 @@
 		"cordova-httpd": "git+https://github.com/floatinghotpot/cordova-httpd.git",
 		"cordova-ios": "^5.1.1",
 		"cordova-plugin-android-permissions": "^1.0.0",
+		"cordova-plugin-apple-login": "^1.0.0",
 		"cordova-plugin-audioinput": "^1.0.2",
 		"cordova-plugin-background-mode": "^0.7.3",
 		"cordova-plugin-browsersync": "^1.1.0",
@@ -32,7 +33,6 @@
 		"cordova-plugin-keyboard": "^1.2.0",
 		"cordova-plugin-media": "^5.0.3",
 		"cordova-plugin-network-information": "^2.0.1",
-		"cordova-plugin-sign-in-with-apple": "^0.1.1",
 		"cordova-plugin-splashscreen": "git+https://github.com/goinnn/cordova-plugin-splashscreen.git#4.0.0#colors",
 		"cordova-plugin-statusbar": "^2.4.2",
 		"cordova-plugin-whitelist": "^1.3.3",
@@ -100,7 +100,7 @@
 			"cordova-plugin-keyboard": {},
 			"phonegap-plugin-push": {},
 			"cordova-plugin-inappbrowser": {},
-			"cordova-plugin-sign-in-with-apple": {}
+			"cordova-plugin-apple-login": {}
 		},
 		"platforms": []
 	}

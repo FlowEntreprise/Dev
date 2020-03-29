@@ -296,11 +296,11 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-sign-in-with-apple.SignInWithApple",
-      "file": "plugins/cordova-plugin-sign-in-with-apple/www/sign-in-with-apple.js",
-      "pluginId": "cordova-plugin-sign-in-with-apple",
+      "id": "cordova-plugin-apple-login.SignInWithApple",
+      "file": "plugins/cordova-plugin-apple-login/www/sign-in-with-apple.js",
+      "pluginId": "cordova-plugin-apple-login",
       "clobbers": [
-        "cordova.plugins.SignInWithApple"
+        "SignInWithApple"
       ]
     }
   ];
@@ -317,6 +317,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "phonegap-plugin-push": "2.3.0",
     "cordova-plugin-inappbrowser": "3.2.0",
     "cordova-plugin-facebook4": "6.4.0",
-    "cordova-plugin-sign-in-with-apple": "0.0.1"
+    "cordova-plugin-apple-login": "1.0.0"
   };
 });
