@@ -24,7 +24,8 @@ $(".ffacebook_btn").on("click", function () {
 });
 $(".fgoogle_btn").on("click", function () {
     console.log("google clicked");
-    google_conn();
+    // google_conn();
+    signin_with_apple();
 });
 $(".finsta_btn").on("click", function () {
     login_insta();

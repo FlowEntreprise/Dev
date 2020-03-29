@@ -1,5 +1,6 @@
-cordova.define('cordova/plugin_list', function (require, exports, module) {
-  module.exports = [{
+cordova.define('cordova/plugin_list', function(require, exports, module) {
+  module.exports = [
+    {
       "id": "cordova-plugin-httpd.CorHttpd",
       "file": "plugins/cordova-plugin-httpd/www/CorHttpd.js",
       "pluginId": "cordova-plugin-httpd",
@@ -278,6 +279,15 @@ cordova.define('cordova/plugin_list', function (require, exports, module) {
       ]
     },
     {
+      "id": "cordova-plugin-inappbrowser.inappbrowser",
+      "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+      "pluginId": "cordova-plugin-inappbrowser",
+      "clobbers": [
+        "cordova.InAppBrowser.open",
+        "window.open"
+      ]
+    },
+    {
       "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
       "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
       "pluginId": "cordova-plugin-facebook4",
@@ -286,12 +296,11 @@ cordova.define('cordova/plugin_list', function (require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-inappbrowser.inappbrowser",
-      "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
-      "pluginId": "cordova-plugin-inappbrowser",
+      "id": "cordova-plugin-sign-in-with-apple.SignInWithApple",
+      "file": "plugins/cordova-plugin-sign-in-with-apple/www/sign-in-with-apple.js",
+      "pluginId": "cordova-plugin-sign-in-with-apple",
       "clobbers": [
-        "cordova.InAppBrowser.open",
-        "window.open"
+        "cordova.plugins.SignInWithApple"
       ]
     }
   ];
@@ -307,6 +316,7 @@ cordova.define('cordova/plugin_list', function (require, exports, module) {
     "cordova-plugin-keyboard": "1.2.0",
     "phonegap-plugin-push": "2.3.0",
     "cordova-plugin-inappbrowser": "3.2.0",
-    "cordova-plugin-facebook4": "6.4.0"
+    "cordova-plugin-facebook4": "6.4.0",
+    "cordova-plugin-sign-in-with-apple": "0.0.1"
   };
 });

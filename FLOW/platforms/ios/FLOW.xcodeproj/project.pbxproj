@@ -89,6 +89,9 @@
 		1109FF2E2B0A469D8DCC2E00 /* CDVUIInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77019444F555423389BF283B /* CDVUIInAppBrowser.m */; };
 		30831269C6F54842B2DDC3AF /* CDVWKInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD929F578AE8447B831BA96D /* CDVWKInAppBrowser.m */; };
 		5F9B1310619A46C8994C3DE7 /* CDVWKInAppBrowserUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67FB269FDBB649D7AC3A6EC8 /* CDVWKInAppBrowserUIDelegate.m */; };
+		7B72065CDC3845B98BD5B20B /* SignInWithApple.h in Resources */ = {isa = PBXBuildFile; fileRef = 9A57AC1346274C2387C7BA42 /* SignInWithApple.h */; };
+		AFBD61E2695B4CB7B1C2AD3D /* SignInWithApple.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D5E8D40D434B65BB13EC1C /* SignInWithApple.m */; };
+		52A736CACD3D454CA91AF1B1 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAB71DD53D944F18B2D1E8C9 /* AuthenticationServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -264,6 +267,9 @@
 		769C01880CD14036914892B5 /* CDVUIInAppBrowser.h */ = {isa = PBXFileReference; name = "CDVUIInAppBrowser.h"; path = "cordova-plugin-inappbrowser/CDVUIInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		260B6028BCF74F7D923D486D /* CDVWKInAppBrowser.h */ = {isa = PBXFileReference; name = "CDVWKInAppBrowser.h"; path = "cordova-plugin-inappbrowser/CDVWKInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		7D89243E0C37455D8AB53F2D /* CDVWKInAppBrowserUIDelegate.h */ = {isa = PBXFileReference; name = "CDVWKInAppBrowserUIDelegate.h"; path = "cordova-plugin-inappbrowser/CDVWKInAppBrowserUIDelegate.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		9A57AC1346274C2387C7BA42 /* SignInWithApple.h */ = {isa = PBXFileReference; name = "SignInWithApple.h"; path = "cordova-plugin-sign-in-with-apple/SignInWithApple.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		23D5E8D40D434B65BB13EC1C /* SignInWithApple.m */ = {isa = PBXFileReference; name = "SignInWithApple.m"; path = "cordova-plugin-sign-in-with-apple/SignInWithApple.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		BAB71DD53D944F18B2D1E8C9 /* AuthenticationServices.framework */ = {isa = PBXFileReference; name = "AuthenticationServices.framework"; path = "System/Library/Frameworks/AuthenticationServices.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +299,7 @@
 				A43CFD94EB3846E98C461DFE /* CoreLocation.framework in Frameworks */,
 				2F95316649544DDE8B752B2C /* PushKit.framework in Frameworks */,
 				6383F0258BF1375A229AD097 /* Pods_FLOW.framework in Frameworks */,
+				52A736CACD3D454CA91AF1B1 /* AuthenticationServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +407,7 @@
 				695EA991B4DB49D7823FF3C7 /* CoreLocation.framework */,
 				35C974EAECFB47F6A3922E9A /* PushKit.framework */,
 				C31685FE3FA822B9F9799766 /* Pods_FLOW.framework */,
+				BAB71DD53D944F18B2D1E8C9 /* AuthenticationServices.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -525,6 +533,8 @@
 				7D89243E0C37455D8AB53F2D /* CDVWKInAppBrowserUIDelegate.h */,
 				C3AFC2AB7F134A4FA7D26144 /* FacebookConnectPlugin.m */,
 				D15E0D12C605484E87832B3B /* FacebookConnectPlugin.h */,
+				9A57AC1346274C2387C7BA42 /* SignInWithApple.h */,
+				23D5E8D40D434B65BB13EC1C /* SignInWithApple.m */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -760,6 +770,8 @@
 				30831269C6F54842B2DDC3AF /* CDVWKInAppBrowser.m in Sources */,
 				5F9B1310619A46C8994C3DE7 /* CDVWKInAppBrowserUIDelegate.m in Sources */,
 				22C84A5879A843368460CE43 /* FacebookConnectPlugin.m in Sources */,
+				7B72065CDC3845B98BD5B20B /* SignInWithApple.h in Resources */,
+				AFBD61E2695B4CB7B1C2AD3D /* SignInWithApple.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -73,6 +73,10 @@
         <param name="ios-package" value="CDVWKInAppBrowser" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="SignInWithApple">
+        <param name="ios-package" value="SignInWithApple" />
+        <param name="onload" value="true" />
+    </feature>
     <name>FLOW</name>
     <description>
         The Vocal Social Network.

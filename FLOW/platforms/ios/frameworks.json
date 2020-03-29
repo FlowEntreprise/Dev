@@ -14,5 +14,6 @@
     "AVFoundation.framework": 2,
     "ImageIO.framework": 1,
     "CoreLocation.framework": 1,
-    "PushKit.framework": 1
+    "PushKit.framework": 1,
+    "AuthenticationServices.framework": 1
 }
