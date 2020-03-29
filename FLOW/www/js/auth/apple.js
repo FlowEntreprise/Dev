@@ -9,8 +9,8 @@ function signin_with_apple() {
                 .then(data => {
                     console.log(data) // Prints result from `response.json()` in getRequest
                     let user_data = {
-                        username: succ.full_name.givenName + succ.full_name.familyName,
-                        full_name: succ.full_name.givenName + " " + succ.full_name.familyName,
+                        username: succ.fullName.givenName + succ.fullName.familyName,
+                        full_name: succ.fullName.givenName + " " + succ.fullName.familyName,
                         profile_picture: data.link,
                         bio: "Hey j'utilise FLOW",
                         id: succ.identityToken
