@@ -181,11 +181,11 @@
   "cordova-plugin-googleplus": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-googleplus@8.1.1"
+      "id": "cordova-plugin-googleplus"
     },
     "is_top_level": true,
     "variables": {
-      "REVERSED_CLIENT_ID": "com.googleusercontent.apps.320132615636-3coutred857laub9esk560tgnk0s15ku",
+      "REVERSED_CLIENT_ID": "com.googleusercontent.apps.320132615636-8f4u2k95equ8nd8v6mvhaod4qm73j3fq",
       "WEB_APPLICATION_CLIENT_ID": "320132615636-8f4u2k95equ8nd8v6mvhaod4qm73j3fq.apps.googleusercontent.com",
       "PLAY_SERVICES_VERSION": "15.0.1"
     }

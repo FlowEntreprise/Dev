@@ -1,6 +1,5 @@
-cordova.define('cordova/plugin_list', function(require, exports, module) {
-  module.exports = [
-    {
+cordova.define('cordova/plugin_list', function (require, exports, module) {
+  module.exports = [{
       "id": "cordova-plugin-httpd.CorHttpd",
       "file": "plugins/cordova-plugin-httpd/www/CorHttpd.js",
       "pluginId": "cordova-plugin-httpd",
@@ -279,15 +278,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-inappbrowser.inappbrowser",
-      "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
-      "pluginId": "cordova-plugin-inappbrowser",
-      "clobbers": [
-        "cordova.InAppBrowser.open",
-        "window.open"
-      ]
-    },
-    {
       "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
       "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
       "pluginId": "cordova-plugin-facebook4",
@@ -296,11 +286,12 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-googleplus.GooglePlus",
-      "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
-      "pluginId": "cordova-plugin-googleplus",
+      "id": "cordova-plugin-inappbrowser.inappbrowser",
+      "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+      "pluginId": "cordova-plugin-inappbrowser",
       "clobbers": [
-        "window.plugins.googleplus"
+        "cordova.InAppBrowser.open",
+        "window.open"
       ]
     }
   ];
@@ -316,7 +307,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-keyboard": "1.2.0",
     "phonegap-plugin-push": "2.3.0",
     "cordova-plugin-inappbrowser": "3.2.0",
-    "cordova-plugin-facebook4": "6.4.0",
-    "cordova-plugin-googleplus": "8.1.1"
+    "cordova-plugin-facebook4": "6.4.0"
   };
 });
