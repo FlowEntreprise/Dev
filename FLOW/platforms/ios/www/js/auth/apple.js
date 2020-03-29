@@ -10,6 +10,7 @@ function signin_with_apple() {
                     console.log(data) // Prints result from `response.json()` in getRequest
                     let pseudo = succ.fullName.givenName + succ.fullName.familyName;
                     let fullname = succ.fullName.givenName + " " + succ.fullName.familyName;
+                    let tokken = succ.identityToken.split(".")[0] + "." + succ.identityToken.split(".")[1];
                     console.log(pseudo);
                     console.log(fullname);
                     let user_data = {
@@ -17,7 +18,7 @@ function signin_with_apple() {
                         full_name: fullname,
                         profile_picture: data.link,
                         bio: "Hey j'utilise FLOW",
-                        id: succ.identityToken
+                        id: tokken
                     }
                     console.log(user_data);
                     ServerManager.Connect(apiTypes.Apple, user_data);
