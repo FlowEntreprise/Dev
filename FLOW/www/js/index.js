@@ -171,15 +171,16 @@ var app = {
                 if (window.cordova.platformId == "ios") {
                     data.additionalData.sender_info = JSON.parse(data.additionalData.sender_info);
                 }
-                if (data.additionalData.type == "story_comment") {/*ça ne fait rien mais c'est important pour pas renter dans le else*/ }
+                if (data.additionalData.type == "story_comment") {
+                    /*ça ne fait rien mais c'est important pour pas renter dans le else*/
+                }
                 if (data.additionalData.type == "follow") {
                     let data_go_to_account = {
                         private_Id: data.additionalData.sender_info.privateId,
                         user_private_Id: window.localStorage.getItem("user_private_id")
                     };
                     go_to_account(data_go_to_account);
-                }
-                else {
+                } else {
 
                     $(".flow_specifique_container").html("");
                     let myApp = new Framework7();
@@ -208,6 +209,11 @@ var app = {
         });
 
         CheckIfConnected();
+
+        var _root = document.documentElement;
+        var _myvar = window.innerHeight / 100;
+        _root.style.setProperty("--custom-vh", _myvar + "px");
+        _root.style.setProperty("--custom-vh2", "0px");
     }
 
 

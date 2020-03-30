@@ -235,7 +235,3 @@ function errorFunction(error) {
 function trace(value) {
   console.log(value);
 }
-var _root = document.documentElement;
-var _myvar = window.innerHeight / 100;
-_root.style.setProperty("--custom-vh", _myvar + "px");
-_root.style.setProperty("--custom-vh2", "0px");
