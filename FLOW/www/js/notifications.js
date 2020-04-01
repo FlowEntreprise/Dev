@@ -718,6 +718,15 @@ function send_notif_to_user(block, type) {
             case 'story_comment':
                 if (block.LastOs == "ios") {
                     data = {
+                        "data": {
+                            "title": "@" + sender_info.fullname,
+                            "body": "@" + sender_info.privateId + " a réagi à ta story " + sender_info.post_texte,
+                            "type": "story_comment",
+                            "sender_info": sender_info,
+                            "force-start": 1,
+                            "content_available": true,
+                            "priority": "high"
+                        },
                         "notification": {
                             "title": "@" + sender_info.fullname,
                             "body": "@" + sender_info.privateId + " a réagi à ta story " + sender_info.post_texte,
@@ -727,15 +736,6 @@ function send_notif_to_user(block, type) {
                             "content_available": true,
                             "priority": "high"
                         },
-                    "data": {
-                        "title": "@" + sender_info.fullname,
-                        "body": "@" + sender_info.privateId + " a réagi à ta story " + sender_info.post_texte,
-                        "type": "story_comment",
-                        "sender_info": sender_info,
-                        "force-start": 1,
-                        "content_available": true,
-                        "priority": "high"
-                    },
                         "to": block.RegisterId
                         //registrationId
                     };
@@ -763,6 +763,15 @@ function send_notif_to_user(block, type) {
             case 'follow':
                 if (block.LastOs == "ios") {
                     data = {
+                        "data": {
+                            "title": "@" + sender_info.fullname,
+                            "body": "@" + sender_info.privateId + " s'est abonné à toi " + sender_info.post_texte,
+                            "type": "follow",
+                            "sender_info": sender_info,
+                            "force-start": 1,
+                            "content_available": true,
+                            "priority": "high"
+                        },
                         "notification": {
                             "title": "@" + sender_info.fullname,
                             "body": "@" + sender_info.privateId + " s'est abonné à toi " + sender_info.post_texte,
@@ -772,15 +781,6 @@ function send_notif_to_user(block, type) {
                             "content_available": true,
                             "priority": "high"
                         },
-                    "data": {
-                        "title": "@" + sender_info.fullname,
-                        "body": "@" + sender_info.privateId + " s'est abonné à toi " + sender_info.post_texte,
-                        "type": "follow",
-                        "sender_info": sender_info,
-                        "force-start": 1,
-                        "content_available": true,
-                        "priority": "high"
-                    },
                         "to": block.RegisterId
                         //registrationId
                     };
@@ -807,6 +807,15 @@ function send_notif_to_user(block, type) {
             case 'like_flow':
                 if (block.LastOs == "ios") {
                     data = {
+                        "data": {
+                            "title": "@" + sender_info.fullname,
+                            "body": "@" + sender_info.privateId + " a aimé ton flow : " + sender_info.post_texte,
+                            "type": "like_flow",
+                            "sender_info": sender_info,
+                            "force-start": 1,
+                            "content_available": true,
+                            "priority": "high"
+                        },
                         "notification": {
                             "title": "@" + sender_info.fullname,
                             "body": "@" + sender_info.privateId + " a aimé ton flow : " + sender_info.post_texte,
@@ -816,15 +825,6 @@ function send_notif_to_user(block, type) {
                             "content_available": true,
                             "priority": "high"
                         },
-                    "data": {
-                        "title": "@" + sender_info.fullname,
-                        "body": "@" + sender_info.privateId + " a aimé ton flow : " + sender_info.post_texte,
-                        "type": "like_flow",
-                        "sender_info": sender_info,
-                        "force-start": 1,
-                        "content_available": true,
-                        "priority": "high"
-                    },
                         "to": block.RegisterId
                     };
                 }
@@ -849,6 +849,15 @@ function send_notif_to_user(block, type) {
             case 'send_comment':
                 if (block.LastOs == "ios") {
                     data = {
+                        "data": {
+                            "title": "@" + sender_info.fullname,
+                            "body": "@" + sender_info.privateId + " a commenté : " + block.Comment,
+                            "type": "send_comment",
+                            "sender_info": sender_info,
+                            "force-start": 1,
+                            "content_available": true,
+                            "priority": "high"
+                        },
                         "notification": {
                             "title": "@" + sender_info.fullname,
                             "body": "@" + sender_info.privateId + " a commenté : " + block.Comment,
@@ -858,15 +867,6 @@ function send_notif_to_user(block, type) {
                             "content_available": true,
                             "priority": "high"
                         },
-                    "data": {
-                        "title": "@" + sender_info.fullname,
-                        "body": "@" + sender_info.privateId + " a commenté : " + block.Comment,
-                        "type": "send_comment",
-                        "sender_info": sender_info,
-                        "force-start": 1,
-                        "content_available": true,
-                        "priority": "high"
-                    },
                         "to": block.current_flow_block.RegisterId
                         //registrationId
                     };
@@ -893,6 +893,15 @@ function send_notif_to_user(block, type) {
             case 'tag_in_comment':
                 if (block.LastOs == "ios") {
                     data = {
+                        "data": {
+                            "title": "@" + sender_info.fullname,
+                            "body": block.Comment,
+                            "type": "send_comment",
+                            "sender_info": sender_info,
+                            "force-start": 1,
+                            "content_available": true,
+                            "priority": "high"
+                        },
                         "notification": {
                             "title": "@" + sender_info.fullname,
                             "body": block.Comment,
@@ -902,15 +911,6 @@ function send_notif_to_user(block, type) {
                             "content_available": true,
                             "priority": "high"
                         },
-                    "data": {
-                        "title": "@" + sender_info.fullname,
-                        "body": block.Comment,
-                        "type": "send_comment",
-                        "sender_info": sender_info,
-                        "force-start": 1,
-                        "content_available": true,
-                        "priority": "high"
-                    },
                         "to": block.tag_user_RegisterId
                         //registrationId
                     };
@@ -938,6 +938,15 @@ function send_notif_to_user(block, type) {
             case 'like_comment':
                 if (block.LastOs == "ios") {
                     data = {
+                        "data": {
+                            "title": "@" + sender_info.fullname,
+                            "body": "@" + sender_info.privateId + " a aimé ton commentaire : " + block.Comment_text,
+                            "type": "like_comment",
+                            "sender_info": sender_info,
+                            "force-start": 1,
+                            "content_available": true,
+                            "priority": "high"
+                        },
                         "notification": {
                             "title": "@" + sender_info.fullname,
                             "body": "@" + sender_info.privateId + " a aimé ton commentaire : " + block.Comment_text,
@@ -947,15 +956,6 @@ function send_notif_to_user(block, type) {
                             "content_available": true,
                             "priority": "high"
                         },
-                    "data": {
-                        "title": "@" + sender_info.fullname,
-                        "body": "@" + sender_info.privateId + " a aimé ton commentaire : " + block.Comment_text,
-                        "type": "like_comment",
-                        "sender_info": sender_info,
-                        "force-start": 1,
-                        "content_available": true,
-                        "priority": "high"
-                    },
                         "to": block.RegisterId
                         //registrationId
                     };
