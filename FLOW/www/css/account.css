@@ -35,7 +35,7 @@
 #fFollowYouButtunAccount {
 	position: absolute;
 	top: calc(25.1 * var(--custom-vh));
-	left: 64vw;
+	right: 20vw;
 	width: 25px;
 	height: 25px;
 	background-image: url("../src/icons/follow_you.png");
