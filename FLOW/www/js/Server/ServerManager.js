@@ -48,7 +48,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-    constructor() {}
+    constructor() { }
 
     /* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
      * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions 
@@ -510,7 +510,7 @@ class ServerManagerClass {
                 console.log(response);
                 ShowMyInfosUser(response);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -526,7 +526,7 @@ class ServerManagerClass {
                 console.log("getInfosUserNumber");
                 ShowInfosUserNumber(response);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -545,7 +545,7 @@ class ServerManagerClass {
                 //console.log(response);
                 ShowUserProfile(response);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -569,7 +569,7 @@ class ServerManagerClass {
                 console.log(response);
                 UpdateFollowersList(response, data.follow_list);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -596,7 +596,7 @@ class ServerManagerClass {
                     UpdatefollowingsList(response, data.follow_list);
                 }
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -615,7 +615,7 @@ class ServerManagerClass {
                 FollowResponse(response, data.type, data.block_user);
 
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -837,9 +837,10 @@ class ServerManagerClass {
                 RegisterIdOfUserToNotify: data.to,
                 Content: data.notification.sender_info.comment_text,
                 IdFlow: data.notification.sender_info.IdFlow
+
             };
         } else {
-            
+
             data_notif_to_bdd = {
                 TypeNotification: data.data.type,
                 RegisterIdOfUserToNotify: data.to,

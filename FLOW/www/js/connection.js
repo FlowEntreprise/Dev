@@ -50,6 +50,11 @@ function ConnectUser() {
 
 function DisconnectUser() {
     console.log("user disconnected");
+    let data = {
+        RegisterId: null,
+        LastOs: window.cordova.platformId
+    };
+    ServerManager.UpdateRegisterId(data);
     connected = false;
     $(".fneed_connect").css({
         "display": "block"
