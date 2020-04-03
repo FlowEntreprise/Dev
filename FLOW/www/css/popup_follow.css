@@ -82,7 +82,7 @@
 	top: calc(2.5 * var(--custom-vh));
 	left: 21vw;
 	color: #1a84ef;
-	font-family: Roboto-Regular;
+	font-family: "Roboto-Regular";
 	font-weight: bold;
 	font-size: 15px;
 }
@@ -92,7 +92,7 @@
 	top: calc(3 * var(--custom-vh));
 	left: 21vw;
 	color: #1a84ef;
-	font-family: Roboto-Regular;
+	font-family: "Roboto-Regular";
 	opacity: 0.5;
 }
 
@@ -101,7 +101,7 @@
 	top: calc(5 * var(--custom-vh));
 	left: 21vw;
 	color: #1a84ef;
-	font-family: Roboto-Regular;
+	font-family: "Roboto-Regular";
 	opacity: 0.5;
 }
 

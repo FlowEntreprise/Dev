@@ -9,7 +9,7 @@
 	width: 100vw;
 	text-align: center;
 	font-size: 15px;
-	font-family: Roboto-Regular;
+	font-family: "Roboto-Regular";
 	color: #92abb2;
 }
 
@@ -25,7 +25,7 @@
 	text-align: center;
 	height: calc(8 * var(--custom-vh));
 	line-height: calc(8 * var(--custom-vh));
-	font-family: Roboto-Bold;
+	font-family: "Roboto-Bold";
 	font-size: 20px;
 	color: #1a84ef;
 }
@@ -109,11 +109,11 @@
 	font-size: 3.6vw;
 	color: #92abb2;
 	font-weight: bold;
-	font-family: Roboto;
+	font-family: "Roboto-Light";
 }
 
 .fnotif_text {
-	font-family: Roboto;
+	font-family: "Roboto-Light";
 	position: absolute;
 	top: calc(5 * var(--custom-vh));
 	left: 20vw;
@@ -149,7 +149,7 @@
 	right: 3.5vw;
 	color: #92abb2;
 	font-size: 3vw;
-	font-family: Roboto;
+	font-family: "Roboto-Light";
 }
 
 .list-notif-block {
@@ -159,9 +159,4 @@
 
 .layer_notif {
 	margin-top: calc(2 * var(--custom-vh)) !important;
-}
-
-@font-face {
-	font-family: Roboto;
-	src: url("../src/fonts/Roboto-Light.ttf");
 }

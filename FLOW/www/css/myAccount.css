@@ -40,7 +40,7 @@
 	font-size: 28px;
 	left: 36vw;
 	top: calc(13 * var(--custom-vh));
-	font-family: Roboto-Regular;
+	font-family: "Roboto-Regular";
 }
 
 .finfoBandeau {
@@ -53,7 +53,7 @@
 	right: 46vw;
 	width: 16vw;
 	font-size: 16px;
-	font-family: Roboto-Thin;
+	font-family: "Roboto-Thin";
 	text-align: center;
 }
 
@@ -63,7 +63,7 @@
 	right: 28vw;
 	width: 16vw;
 	font-size: 16px;
-	font-family: Roboto-Thin;
+	font-family: "Roboto-Thin";
 	text-align: center;
 }
 
@@ -73,7 +73,7 @@
 	right: 8vw;
 	width: 16vw;
 	font-size: 16px;
-	font-family: Roboto-Thin;
+	font-family: "Roboto-Thin";
 	text-align: center;
 }
 
@@ -82,7 +82,7 @@
 	position: absolute;
 	right: 46vw;
 	top: calc(1 * var(--custom-vh));
-	font-family: Roboto-Regular;
+	font-family: "Roboto-Regular";
 	color: #4a4a4a;
 	width: 16vw;
 	text-align: center;
@@ -93,7 +93,7 @@
 	position: absolute;
 	right: 28vw;
 	top: calc(1 * var(--custom-vh));
-	font-family: Roboto-Regular;
+	font-family: "Roboto-Regular";
 	color: #4a4a4a;
 	width: 16vw;
 	text-align: center;
@@ -104,7 +104,7 @@
 	position: absolute;
 	right: 4vw;
 	top: calc(1 * var(--custom-vh));
-	font-family: Roboto-Regular;
+	font-family: "Roboto-Regular";
 	width: 20vw;
 	text-align: center;
 }
@@ -177,7 +177,7 @@
 	font-size: 18px;
 	left: 36vw;
 	top: calc(17 * var(--custom-vh));
-	font-family: Roboto-Regular;
+	font-family: "Roboto-Regular";
 	opacity: 0.5;
 }
 
@@ -296,7 +296,7 @@
 	top: calc(20 * var(--custom-vh));
 	font-size: calc(3 * var(--custom-vh));
 	color: #1a84ef;
-	font-family: Roboto-Regular;
+	font-family: "Roboto-Regular";
 	text-align: center;
 }
 
@@ -308,7 +308,7 @@
 	border-radius: 10px;
 	color: #92abb2;
 	font-size: 4vw;
-	font-family: Roboto-Lightitalic;
+	font-family: "Roboto-Lightitalic";
 	width: 59vw;
 	padding-left: 1vw;
 }
@@ -335,7 +335,7 @@
 	left: 22.5vw;
 	width: 30vw;
 	height: 30px;
-	font-family: Roboto-Light;
+	font-family: "Roboto-Light";
 	color: #d62222;
 	text-align: center;
 	line-height: 30px;
@@ -356,7 +356,7 @@
 	width: 100vw;
 	text-align: center;
 	font-size: 15px;
-	font-family: Roboto-Regular;
+	font-family: "Roboto-Regular";
 	color: #92abb2;
 }
 
