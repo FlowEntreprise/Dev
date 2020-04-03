@@ -8,7 +8,7 @@
     background-color: #FFFFFF;
     border-radius: 2vw;
     box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
-    font-family: Roboto;
+    font-family: Roboto-Light;
 }
 
 .fposter_photo {
@@ -250,11 +250,6 @@
     border-radius: 15vw;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
     z-index: 10;
-}
-
-@font-face {
-    font-family: Roboto;
-    src: url('../src/fonts/Roboto-Light.ttf');
 }
 
 /* --------------------------------------TEST HOWLER--------------------------------------- */

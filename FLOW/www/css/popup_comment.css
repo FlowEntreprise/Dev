@@ -3,10 +3,7 @@
 	top: auto !important;
 	bottom: 0 !important;
 	/* height: 70vh !important; */
-	height: calc(
-		(70 * var(--custom-vh)) -
-			calc((100 * var(--custom-vh)) - 100vh - var(--custom-vh2))
-	) !important;
+	height: calc((70 * var(--custom-vh)) - calc((100 * var(--custom-vh)) - 100vh - var(--custom-vh2))) !important;
 	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
 	overflow-y: hidden;
@@ -151,7 +148,7 @@
 	color: #4a4a4a;
 	padding-top: calc(1.5 * var(--custom-vh)) !important;
 	resize: none;
-	font-family: Roboto;
+	font-family: Roboto-Light;
 }
 
 #finput_comment::placeholder {
@@ -220,9 +217,4 @@
 .fpopover_delete_comment,
 .fpopover_delete_flow {
 	top: calc(11 * var(--custom-vh));
-}
-
-@font-face {
-	font-family: Roboto;
-	src: url("../src/fonts/Roboto-Light.ttf");
 }
