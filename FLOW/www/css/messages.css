@@ -4,7 +4,7 @@
     left: 0;
     width: 100vw;
     text-align: center;
-    font-family: Roboto-Bold;
+    font-family: "Roboto-Bold";
     font-size: 20px;
     color: #1a84ef;
     /* #92abb2; */
@@ -16,7 +16,7 @@
     left: 0.5vw;
     width: 100vw;
     text-align: center;
-    font-family: Roboto-Bold;
+    font-family: "Roboto-Bold";
     font-size: 20px;
     color: #92abb2;
     transform: rotate(-5deg);
@@ -48,7 +48,7 @@
     left: 5vw;
     width: 90vw;
     text-align: center;
-    font-family: Roboto-Regular;
+    font-family: "Roboto-Regular";
     font-size: 15px;
     color: #92abb2;
     opacity: 0.75;
