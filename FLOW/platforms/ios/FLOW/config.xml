@@ -117,4 +117,10 @@
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
     <preference name="deployment-target" value="7.0" />
     <preference name="KeyboardShrinksView" value="true" />
+    <preference name="SplashStatusBarBackgroundColor" value="#007EFF" />
+    <preference name="SplashNavigationBarBackgroundColor" value="#FF0054" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="FadeSplashScreenDuration" value="0" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
 </widget>
