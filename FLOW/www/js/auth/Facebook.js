@@ -68,7 +68,7 @@ function ConnectFB() {
         "opacity": "1",
         "pointer-events": "auto"
     });
-    facebookConnectPlugin.login(["public_profile", "user_birthday", "email"], fbLoginSuccess,
+    facebookConnectPlugin.login(["public_profile", "email"], fbLoginSuccess,
         function loginError(error) {
             $(".loading_connect").css({
                 "opacity": "0",
@@ -81,7 +81,7 @@ function ConnectFB() {
 
 function fbLoginSuccess(info) {
     var _userid = info.authResponse.userID;
-    facebookConnectPlugin.api(_userid + "/?fields=id,email,birthday,name,picture.type(large)", null,
+    facebookConnectPlugin.api(_userid + "/?fields=id,email,name,picture.type(large)", null,
         function onSuccess(result) {
             console.log("Result: ", result);
             //alert("success : "+result);
