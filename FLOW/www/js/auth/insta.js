@@ -2,10 +2,15 @@ function login_insta() {
     console.log('enter login');
     $.oauth2({
         auth_url: 'https://api.instagram.com/oauth/authorize',
-        response_type: 'token',
+        token_url: 'https://api.instagram.com/oauth/access_token',
+        response_type: 'code',
         logout_url: 'https://instagram.com/accounts/logout',
-        client_id: 'c45b4c4cbad345f59ffaa62a91fd932d',
-        redirect_uri: 'http://alexis-dacosta.fr/',
+        client_id: '214136126569106',
+        client_secret: '5d3bac15974e3a4f702237844c10a3c1',
+        redirect_uri: 'https://www.flowappweb.com/',
+        other_params: {
+            scope: 'user_profile'
+        }
     }, function (token, response) {
         //makeAPICalls(token);
         //alert(token);
@@ -28,12 +33,13 @@ function login_insta() {
 }
 
 function getData(accessToken) {
-    //alert(accessToken);
+    console.log(accessToken);
     $.ajax({
         type: "GET",
         dataType: "jsonp",
         url: "https://api.instagram.com/v1/users/self/?access_token=" + accessToken,
         success: function (reponse) {
+            console.log(reponse);
             var user_name = reponse.data.username;
             var full_name = reponse.data.full_name;
             var media = reponse.data.counts['media'];

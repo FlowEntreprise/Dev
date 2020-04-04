@@ -121,7 +121,6 @@
     <author email="flowapp.entreprise@gmail.com" href="http://cordova.io">
         FLOW Team
     </author>
-    <icon src="www/src/icons/FLOW@3x.png" />
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
