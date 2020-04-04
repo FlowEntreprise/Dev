@@ -91,6 +91,8 @@
 		5F9B1310619A46C8994C3DE7 /* CDVWKInAppBrowserUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67FB269FDBB649D7AC3A6EC8 /* CDVWKInAppBrowserUIDelegate.m */; };
 		98C901589FC04D8C90C8F67C /* SignInWithApple.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FFD98C3F154BBA9B6EE539 /* SignInWithApple.m */; };
 		1C82FB6C29FA47DE85C5DFB9 /* SIWAConverters.m in Sources */ = {isa = PBXBuildFile; fileRef = 880D9697B54A4C53BC41BA2C /* SIWAConverters.m */; };
+		EA0FE22638704EAB97E38D9A /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 62AA33D7128E4C24AAA5D0F3 /* CDVSplashScreen.m */; };
+		6026DE662F924A13814B8A0C /* CDVViewController+SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 7795DEC3970D4DD0BDAD0F2C /* CDVViewController+SplashScreen.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -270,6 +272,10 @@
 		880D9697B54A4C53BC41BA2C /* SIWAConverters.m */ = {isa = PBXFileReference; name = "SIWAConverters.m"; path = "cordova-plugin-apple-login/SIWAConverters.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		44B926E7AC6E4D21914A53DD /* SignInWithApple.h */ = {isa = PBXFileReference; name = "SignInWithApple.h"; path = "cordova-plugin-apple-login/SignInWithApple.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		200A356D256A4937A19528C4 /* SIWAConverters.h */ = {isa = PBXFileReference; name = "SIWAConverters.h"; path = "cordova-plugin-apple-login/SIWAConverters.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		62AA33D7128E4C24AAA5D0F3 /* CDVSplashScreen.m */ = {isa = PBXFileReference; name = "CDVSplashScreen.m"; path = "cordova-plugin-splashscreen/CDVSplashScreen.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		7795DEC3970D4DD0BDAD0F2C /* CDVViewController+SplashScreen.m */ = {isa = PBXFileReference; name = "CDVViewController+SplashScreen.m"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		74DA97ECFDC04230883B4F22 /* CDVSplashScreen.h */ = {isa = PBXFileReference; name = "CDVSplashScreen.h"; path = "cordova-plugin-splashscreen/CDVSplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		07A43ACC78EE42AE9C6C2ABC /* CDVViewController+SplashScreen.h */ = {isa = PBXFileReference; name = "CDVViewController+SplashScreen.h"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -535,6 +541,10 @@
 				880D9697B54A4C53BC41BA2C /* SIWAConverters.m */,
 				44B926E7AC6E4D21914A53DD /* SignInWithApple.h */,
 				200A356D256A4937A19528C4 /* SIWAConverters.h */,
+				62AA33D7128E4C24AAA5D0F3 /* CDVSplashScreen.m */,
+				7795DEC3970D4DD0BDAD0F2C /* CDVViewController+SplashScreen.m */,
+				74DA97ECFDC04230883B4F22 /* CDVSplashScreen.h */,
+				07A43ACC78EE42AE9C6C2ABC /* CDVViewController+SplashScreen.h */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -772,6 +782,8 @@
 				22C84A5879A843368460CE43 /* FacebookConnectPlugin.m in Sources */,
 				98C901589FC04D8C90C8F67C /* SignInWithApple.m in Sources */,
 				1C82FB6C29FA47DE85C5DFB9 /* SIWAConverters.m in Sources */,
+				EA0FE22638704EAB97E38D9A /* CDVSplashScreen.m in Sources */,
+				6026DE662F924A13814B8A0C /* CDVViewController+SplashScreen.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

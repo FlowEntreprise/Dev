@@ -7,8 +7,8 @@
   "_phantomChildren": {},
   "_requested": {
     "type": "git",
-    "raw": "https://github.com/goinnn/cordova-plugin-splashscreen.git#4.0.0#colors",
-    "rawSpec": "https://github.com/goinnn/cordova-plugin-splashscreen.git#4.0.0#colors",
+    "raw": "git+https://github.com/goinnn/cordova-plugin-splashscreen.git#4.0.0#colors",
+    "rawSpec": "git+https://github.com/goinnn/cordova-plugin-splashscreen.git#4.0.0#colors",
     "saveSpec": "git+https://github.com/goinnn/cordova-plugin-splashscreen.git#4.0.0#colors",
     "fetchSpec": "https://github.com/goinnn/cordova-plugin-splashscreen.git",
     "gitCommittish": "4.0.0#colors"
@@ -18,8 +18,8 @@
     "/"
   ],
   "_resolved": "git+https://github.com/goinnn/cordova-plugin-splashscreen.git#7e5bafd628ebe0478c51800171f72ce4b84d325a",
-  "_spec": "https://github.com/goinnn/cordova-plugin-splashscreen.git#4.0.0#colors",
-  "_where": "C:\\Users\\thoma\\Documents\\PROJETS_persos\\FLOW\\GitHub\\Dev\\Dev\\FLOW",
+  "_spec": "git+https://github.com/goinnn/cordova-plugin-splashscreen.git#4.0.0#colors",
+  "_where": "C:\\Users\\thoma\\Documents\\Projets_persos\\FLOW\\Dev\\FLOW",
   "author": {
     "name": "Apache Software Foundation"
   },

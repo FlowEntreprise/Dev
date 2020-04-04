@@ -302,6 +302,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "SignInWithApple"
       ]
+    },
+    {
+      "id": "cordova-plugin-splashscreen.SplashScreen",
+      "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+      "pluginId": "cordova-plugin-splashscreen",
+      "clobbers": [
+        "navigator.splashscreen"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -317,6 +325,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "phonegap-plugin-push": "2.3.0",
     "cordova-plugin-inappbrowser": "3.2.0",
     "cordova-plugin-facebook4": "6.4.0",
-    "cordova-plugin-apple-login": "1.0.0"
+    "cordova-plugin-apple-login": "1.0.0",
+    "cordova-plugin-splashscreen": "4.0.0"
   };
 });

@@ -76,6 +76,10 @@
     <feature name="SignInWithApple">
         <param name="ios-package" value="SignInWithApple" />
     </feature>
+    <feature name="SplashScreen">
+        <param name="ios-package" value="CDVSplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
     <name>FLOW</name>
     <description>
         The Vocal Social Network.
