@@ -32,12 +32,12 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageDidLoad) name:CDVPageDidLoadNotification object:nil];
 
-    [self setVisible:YES];
+    [self setVisible:NO];
 }
 
 - (void)show:(CDVInvokedUrlCommand*)command
 {
-    [self setVisible:YES];
+    [self setVisible:NO];
 }
 
 - (void)hide:(CDVInvokedUrlCommand*)command
