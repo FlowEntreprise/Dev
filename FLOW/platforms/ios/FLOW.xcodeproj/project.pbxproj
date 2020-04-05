@@ -10,7 +10,6 @@
 		000F8A3937D64E7B9B7915E3 /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 680BFA0E4E334E22B5589B64 /* DDNumber.m */; };
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
 		061223842412560400992199 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061223822412560300992199 /* WebKit.framework */; };
-		06E0EC8B24391AEB0015BB54 /* CDVLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06E0EC8D24391AEB0015BB54 /* CDVLaunchScreen.storyboard */; };
 		0CA799360DE540259EEDFC2E /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 429ABA6F47924AC981DF825F /* CDVFile.m */; };
 		0DE5DA0C1FBD4DE99808EA73 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = A67D0A9A599949FABF9B9EC6 /* DDASLLogger.m */; };
 		1109FF2E2B0A469D8DCC2E00 /* CDVUIInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 77019444F555423389BF283B /* CDVUIInAppBrowser.m */; };
@@ -125,7 +124,6 @@
 		061223822412560300992199 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		068628582429231300C706ED /* libGoogleToolboxForMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGoogleToolboxForMac.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0686285D2429317700C706ED /* FLOW.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FLOW.entitlements; path = FLOW/FLOW.entitlements; sourceTree = "<group>"; };
-		06E0EC8C24391AEB0015BB54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/CDVLaunchScreen.storyboard; sourceTree = "<group>"; };
 		06E0EC8E24391B6C0015BB54 /* FLOW-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FLOW-Bridging-Header.h"; sourceTree = "<group>"; };
 		06E28364242F97A000CF2DFB /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		07866DC278A94750918DD53F /* CDVSplashScreen.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVSplashScreen.m; path = "cordova-plugin-splashscreen/CDVSplashScreen.m"; sourceTree = "<group>"; };
@@ -378,7 +376,6 @@
 				0207DA571B56EA530066E2B4 /* Images.xcassets */,
 				3047A50E1AB8057F00498E2A /* config */,
 				8D1107310486CEB800E47090 /* FLOW-Info.plist */,
-				06E0EC8D24391AEB0015BB54 /* CDVLaunchScreen.storyboard */,
 				957EC5A59BD94E4081CE883C /* TwitterKitResources.bundle */,
 				95AC959D27A2429F86CDCC59 /* appbeep.wav */,
 				E784201A635F4B08A152731A /* GoogleService-Info.plist */,
@@ -647,7 +644,6 @@
 			files = (
 				302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */,
 				0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */,
-				06E0EC8B24391AEB0015BB54 /* CDVLaunchScreen.storyboard in Resources */,
 				EFB411B317E94929B4F1A8A3 /* TwitterKitResources.bundle in Resources */,
 				9EA73893F30A47AF8BF4C58D /* appbeep.wav in Resources */,
 				E61AD13371704219AE9BCFAA /* GoogleService-Info.plist in Resources */,
@@ -799,18 +795,6 @@
 			targetProxy = 301BF550109A68C00062928A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		06E0EC8D24391AEB0015BB54 /* CDVLaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				06E0EC8C24391AEB0015BB54 /* Base */,
-			);
-			name = CDVLaunchScreen.storyboard;
-			path = FLOW;
-			sourceTree = SOURCE_ROOT;
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
