@@ -27,6 +27,7 @@
 <link rel="stylesheet" type="text/css" href="css/popup_follow.css" />
 <!-- <link rel="stylesheet" type="text/css" href="css/popup_follow_list.css" /> -->
 <link rel="stylesheet" type="text/css" href="css/popup_likes.css" />
+<link rel="stylesheet" type="text/css" href="css/popup_option.css" />
 <link rel="stylesheet" type="text/css" href="css/loading.css" />
 <link rel="stylesheet" type="text/css" href="css/jquery.highlight-within-textarea.css" />
 
@@ -559,15 +560,11 @@
 
 	<div class="custom_popup" id="popup-likes">
 		<div class="popup_bg"></div>
-		<div class="popup_content" animation-direction="up">
+		<div class="popup_content" animation-direction="up" id="popup_likes_content">
 			<img src="src/icons/cancel.png" class="fclose_likes" onclick="Popup('popup-likes', false)">
 			<label class="flikes_number"></label>
 			<div class="fblock_likes_content"></div>
 		</div>
-	</div>
-
-	<div class="f_in_app_notif">
-		<label class="flabel_in_app_notif">Chris a aimé votre flow</label>
 	</div>
 
 	<div class="fwrite_comment">
@@ -575,6 +572,26 @@
 			rows="1" class="finput_comment"></textarea>
 		<img src="src/icons/send.png" class="fsend_comment">
 	</div>
+
+	<div class="custom_popup" id="popup-option">
+		<div class="popup_bg"></div>
+		<div class="popup_content" animation-direction="up" id="popup_option_content">
+			<img src="src/icons/cancel.png" class="fclose_option" onclick="Popup('popup-option', false)">
+			<div id="copy_button">
+				<img src="src/icons/copy.png" id="copy_icon">
+				<label id="label_copy_button">copier le titre du flow</label>
+			</div>
+			<div id="delete_button">
+				<img src="src/icons/bin.png" id="delete_icon">
+				<label id="label_delete_button">supprimer le flow</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="f_in_app_notif">
+		<label class="flabel_in_app_notif">Chris a aimé votre flow</label>
+	</div>
+
 
 	<div class="custom_popup" id="popup-connect">
 		<div class="popup_bg"></div>
@@ -646,6 +663,7 @@
 	<script type="text/javascript" src="js/auth/connexion.js"></script>
 	<script type="text/javascript" src="js/popup_comment.js"></script>
 	<script type="text/javascript" src="js/popup_likes.js"></script>
+	<script type="text/javascript" src="js/popup_option.js"></script>
 	<script type="text/javascript" src="js/myAccount.js"></script>
 	<script type="text/javascript" src="js/account.js"></script>
 	<script type="text/javascript" src="js/flow_specifique.js"></script>

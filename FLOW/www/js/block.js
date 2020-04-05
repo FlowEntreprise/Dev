@@ -486,7 +486,8 @@ function block(params) {
     $(this.fdots).on('click', function () {
         var clickedLink = this;
         current_flow_block = block;
-        app.popover('#popover_flow', clickedLink);
+        delete_flow_from_bdd(current_flow_block);
+        Popup("popup-option", true, 70);
     });
 
 }
@@ -495,17 +496,7 @@ $(".fpopover_delete_flow").on("click", function () {
     delete_flow(current_flow_block);
 });
 
-function delete_flow(element) {
 
-    for (var i = 0; i < all_blocks.length; i++) {
-        if (current_flow_block.ObjectId == all_blocks[i].ObjectId) {
-            all_blocks.splice(i, 1);
-
-        }
-    }
-
-    $(element).remove();
-}
 
 function display_all_comments(block) //fonction permettant d'affiher tout les commentaires
 {
@@ -719,6 +710,7 @@ function get_all_comment(response, data_block) {
                             .replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>'));
             });*/
 
+            current_flow_block.all_comment_blocks.push(block_commentaire);
             $(".fblock_comment_content").append(block_commentaire);
 
         }
