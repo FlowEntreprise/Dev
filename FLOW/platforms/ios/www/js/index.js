@@ -211,7 +211,6 @@ var app = {
         var _myvar = window.innerHeight / 100;
         _root.style.setProperty("--custom-vh", _myvar + "px");
         _root.style.setProperty("--custom-vh2", "0px");
-        window.LaunchScreen.hide();
     }
 
 

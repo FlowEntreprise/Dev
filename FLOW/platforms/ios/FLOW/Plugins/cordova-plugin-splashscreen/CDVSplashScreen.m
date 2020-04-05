@@ -112,7 +112,7 @@
     // backwards compatibility - if key is missing, default to true
     if ((showSplashScreenSpinnerValue == nil) || [showSplashScreenSpinnerValue boolValue])
     {
-        [parentView addSubview:_activityView];
+        //[parentView addSubview:_activityView]; // no spinner if commented
     }
 
     // Frame is required when launching in portrait mode.
@@ -366,7 +366,7 @@
     }
 
     UIImage* img = _imageView.image;
-    CGRect imgBounds = (img) ? CGRectMake(0, 0, img.size.width, img.size.height) : CGRectZero;
+    CGRect imgBounds = (img) ? CGRectMake(-91.5, 0, img.size.width, img.size.height) : CGRectZero;
 
     CGSize screenSize = [self.viewController.view convertRect:[UIScreen mainScreen].bounds fromView:nil].size;
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;

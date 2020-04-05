@@ -25,8 +25,13 @@
         <preference name="AllowInlineMediaPlayback" value="true" />
         <preference name="DisallowOverscroll" value="true" />
         <preference name="KeyboardShrinksView" value="true" />
-        <preference name="FadeOut" value="true" />
-        <preference name="FadeOutDuration" value="0.5" />
+        <splash src="res/screen/ios/LaunchImage-320x480.png" width="320" height="480"/>
+        <splash src="res/screen/ios/LaunchImage-640x960.png" width="640" height="960"/>
+        <splash src="res/screen/ios/LaunchImage-768x1024.png" width="768" height="1024"/>
+        <splash src="res/screen/ios/LaunchImage-1536x2048.png" width="1536" height="2048"/>
+        <splash src="res/screen/ios/LaunchImage-640x1136.png" width="640" height="1136"/>
+        <splash src="res/screen/ios/LaunchImage-750x1334.png" width="750" height="1334"/>
+        <splash src="res/screen/ios/LaunchImage-1242x2208.png" width="1242" height="2208"/>
     </platform>
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />

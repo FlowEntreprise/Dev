@@ -76,6 +76,10 @@
     <feature name="SignInWithApple">
         <param name="ios-package" value="SignInWithApple" />
     </feature>
+    <feature name="SplashScreen">
+        <param name="ios-package" value="CDVSplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
     <name>FLOW</name>
     <description>
         The Vocal Social Network.
@@ -93,6 +97,13 @@
     <allow-intent href="geo:*" />
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
+    <splash height="480" src="res/screen/ios/LaunchImage-320x480.png" width="320" />
+    <splash height="960" src="res/screen/ios/LaunchImage-640x960.png" width="640" />
+    <splash height="1024" src="res/screen/ios/LaunchImage-768x1024.png" width="768" />
+    <splash height="2048" src="res/screen/ios/LaunchImage-1536x2048.png" width="1536" />
+    <splash height="1136" src="res/screen/ios/LaunchImage-640x1136.png" width="640" />
+    <splash height="1334" src="res/screen/ios/LaunchImage-750x1334.png" width="750" />
+    <splash height="2208" src="res/screen/ios/LaunchImage-1242x2208.png" width="1242" />
     <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="DisallowOverscroll" value="true" />
@@ -117,14 +128,4 @@
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
     <preference name="deployment-target" value="7.0" />
     <preference name="KeyboardShrinksView" value="true" />
-    <preference name="SplashStatusBarBackgroundColor" value="#007EFF" />
-    <preference name="SplashNavigationBarBackgroundColor" value="#FF0054" />
-    <preference name="SplashScreen" value="screen" />
-    <preference name="AutoHideSplashScreen" value="false" />
-    <preference name="FadeSplashScreenDuration" value="0" />
-    <preference name="ShowSplashScreenSpinner" value="false" />
-    <feature name="SplashScreen">
-        <param name="ios-package" value="CDVSplashScreen" />
-        <param name="onload" value="true" />
-    </feature>
 </widget>
