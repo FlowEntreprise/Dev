@@ -7,7 +7,6 @@
     <author email="flowapp.entreprise@gmail.com" href="http://cordova.io">
         FLOW Team
     </author>
-    <!-- <icon src="www/src/icons/FLOW@3x.png" /> -->
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -26,12 +25,8 @@
         <preference name="AllowInlineMediaPlayback" value="true" />
         <preference name="DisallowOverscroll" value="true" />
         <preference name="KeyboardShrinksView" value="true" />
-        <preference name="SplashStatusBarBackgroundColor" value="#007EFF" />
-        <preference name="SplashNavigationBarBackgroundColor" value="#FF0054" />
-        <preference name="SplashScreen" value="screen" />
-        <preference name="AutoHideSplashScreen" value="false" />
-        <preference name="FadeSplashScreenDuration" value="0" />
-        <preference name="ShowSplashScreenSpinner" value="false" />
+        <preference name="FadeOut" value="true" />
+        <preference name="FadeOutDuration" value="0.5" />
     </platform>
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />

@@ -76,10 +76,6 @@
     <feature name="SignInWithApple">
         <param name="ios-package" value="SignInWithApple" />
     </feature>
-    <feature name="SplashScreen">
-        <param name="ios-package" value="CDVSplashScreen" />
-        <param name="onload" value="true" />
-    </feature>
     <name>FLOW</name>
     <description>
         The Vocal Social Network.
@@ -127,4 +123,8 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="FadeSplashScreenDuration" value="0" />
     <preference name="ShowSplashScreenSpinner" value="false" />
+    <feature name="SplashScreen">
+        <param name="ios-package" value="CDVSplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
 </widget>
