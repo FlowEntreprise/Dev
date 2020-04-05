@@ -123,6 +123,10 @@ $$('.fnav-btn').on('touchstart', function () {
     }
 });
 
+$(".fhome-btn").on('touchstart', function () {
+    app.showTab("#tab1");
+});
+
 function PlayNavRipple(element) {
     // element.removeClass('fripple');
     // setTimeout(function () {
