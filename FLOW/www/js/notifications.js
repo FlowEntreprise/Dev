@@ -714,6 +714,7 @@ function send_notif_to_user(block, type) {
         if (block.tag_user_RegisterId == undefined && type == "tag_in_comment") {
             block.tag_user_RegisterId = block.current_flow_block.RegisterId;
         }
+        noteId++;
         switch (type) {
             case 'story_comment':
                 if (block.LastOs == "ios") {
@@ -724,6 +725,7 @@ function send_notif_to_user(block, type) {
                             "type": "story_comment",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -733,6 +735,7 @@ function send_notif_to_user(block, type) {
                             "type": "story_comment",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -748,6 +751,7 @@ function send_notif_to_user(block, type) {
                             "type": "story_comment",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -769,6 +773,7 @@ function send_notif_to_user(block, type) {
                             "type": "follow",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -778,6 +783,7 @@ function send_notif_to_user(block, type) {
                             "type": "follow",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -793,6 +799,7 @@ function send_notif_to_user(block, type) {
                             "type": "follow",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -813,6 +820,7 @@ function send_notif_to_user(block, type) {
                             "type": "like_flow",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -822,6 +830,7 @@ function send_notif_to_user(block, type) {
                             "type": "like_flow",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -836,6 +845,7 @@ function send_notif_to_user(block, type) {
                             "type": "like_flow",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -855,6 +865,7 @@ function send_notif_to_user(block, type) {
                             "type": "send_comment",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -864,6 +875,7 @@ function send_notif_to_user(block, type) {
                             "type": "send_comment",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -879,6 +891,7 @@ function send_notif_to_user(block, type) {
                             "type": "send_comment",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -899,6 +912,7 @@ function send_notif_to_user(block, type) {
                             "type": "send_comment",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -908,6 +922,7 @@ function send_notif_to_user(block, type) {
                             "type": "send_comment",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -923,6 +938,7 @@ function send_notif_to_user(block, type) {
                             "type": "send_comment",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -944,6 +960,7 @@ function send_notif_to_user(block, type) {
                             "type": "like_comment",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -953,6 +970,7 @@ function send_notif_to_user(block, type) {
                             "type": "like_comment",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },
@@ -968,6 +986,7 @@ function send_notif_to_user(block, type) {
                             "type": "like_comment",
                             "sender_info": sender_info,
                             "force-start": 1,
+                            "notId": noteId,
                             "content_available": true,
                             "priority": "high"
                         },

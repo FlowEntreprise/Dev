@@ -17,6 +17,7 @@ var httpd = null;
 var worker;
 
 var registrationId;
+var noteId = 0;
 var app = {
     // Application Constructor
     initialize: function () {
