@@ -1,8 +1,8 @@
 var element_to_copy;
 function delete_flow_from_bdd(element) {
     element_to_copy = "flow_tittle";
-    $("label_copy_button").text("copier le tire du flow");
-    $("label_delete_button").text("supprimer flow");
+    $("#label_copy_button").text("copier le tire du flow");
+    $("#label_delete_button").text("supprimer flow");
     if (window.localStorage.getItem("user_private_id") == element.privateID) {
         $("#delete_button").css("display", "block");
         $("#delete_button").on("click", function () {
@@ -28,8 +28,8 @@ function delete_flow_from_html(element) {
 
 function delete_comment_from_bdd(element) {
     element_to_copy = "comment";
-    $("label_copy_button").text("copier le commentaire");
-    $("label_delete_button").text("supprimer le commentaire");
+    $("#label_copy_button").text("copier le commentaire");
+    $("#label_delete_button").text("supprimer le commentaire");
     if (window.localStorage.getItem("user_private_id") == element.private_Id) {
         $("#delete_button").css("display", "block");
         $("#delete_button").on("click", function () {
