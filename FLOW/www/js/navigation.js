@@ -87,10 +87,17 @@ $$('#tab3').on('tab:show', function () {
 });
 
 $$('#tab4').on('tab:show', function () {
-    $(".navbar").css({
-        "display": "block",
-        "height": "calc(8 * var(--custom-vh))"
-    });
+    if (window.cordova.platformId == "android") {
+        $(".navbar").css({
+            "display": "block",
+            "height": "calc(8 * var(--custom-vh))"
+        });
+    } else {
+        $(".navbar").css({
+            "display": "block",
+            "height": "calc(8 * var(--custom-vh) + 15px)"
+        });
+    }
     app.showNavbar($('.navbar'));
     canShowNavbar = true;
     current_page = "home";

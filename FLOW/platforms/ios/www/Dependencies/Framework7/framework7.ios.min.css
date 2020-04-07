@@ -7080,8 +7080,8 @@ html.with-statusbar-overlay .framework7-root .panel {
 }
 
 html.with-statusbar-overlay.device-iphone-x .framework7-root {
-    padding-top: constant(safe-area-inset-top);
-    padding-top: env(safe-area-inset-top)
+    padding-top: 0px;
+    padding-top: 0px;
 }
 
 html.with-statusbar-overlay.device-iphone-x .framework7-root .statusbar-overlay {
