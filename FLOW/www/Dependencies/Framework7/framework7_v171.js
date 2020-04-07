@@ -15219,7 +15219,7 @@ window.Template7 = (function () {
                     classNames.push('ios-gt-' + i);
                 }
                 if (device.iphoneX) {
-                    classNames.push('device-iphone-x');
+                    //classNames.push('device-iphone-x');
                 }
             }
 
