@@ -33,6 +33,7 @@ var app = {
                 StatusBar.overlaysWebView(false);
             }
             StatusBar.backgroundColorByHexString("#f7f7f8");
+
         }, 500);
 
         this.receivedEvent('deviceready');

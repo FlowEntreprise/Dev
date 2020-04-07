@@ -141,17 +141,13 @@ function getBase64Image(imgUrl, callback) {
 }
 
 document.getElementById("popup-connect").addEventListener("opened", function () {
-    if (window.cordova.platformId == "android") {
-        StatusBar.backgroundColorByHexString('#949494');
-        StatusBar.styleLightContent();
-    }
+    StatusBar.backgroundColorByHexString('#949494');
+    StatusBar.styleLightContent();
 });
 
 document.getElementById("popup-connect").addEventListener("closed", function () {
-    if (window.cordova.platformId == "android") {
-        StatusBar.backgroundColorByHexString('#f7f7f8');
-        StatusBar.styleDefault();
-    }
+    StatusBar.backgroundColorByHexString('#f7f7f8');
+    StatusBar.styleDefault();
 });
 
 // $$('.popup-connect').on('popup:open', function () {

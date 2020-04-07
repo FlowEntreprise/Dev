@@ -600,6 +600,7 @@ function loadStory(story_index, storyFlow_index) {
     let color_gradient = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].data[storyFlow_index].darkColor + ")";
     StatusBar.backgroundColorByHexString(story_data[story_index].data[storyFlow_index].color);
     StatusBar.styleLightContent();
+
     $(".fstory_window")[0].style.backgroundImage = color_gradient;
     // story_data[storyFlow_index].data =/= story_data.data[storyFlow_index] à check
     for (var i = 0; i < story_data[story_index].data.length; i++) {
