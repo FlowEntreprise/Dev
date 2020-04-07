@@ -40,7 +40,7 @@
 	height: 25px;
 	background-image: url("../src/icons/follow_you.png");
 	background-position: center;
-	background-size: contain;
+	background-size: 75%;
 	background-repeat: no-repeat;
 	border: solid 1.5px #92abb2;
 	border-radius: 25px;

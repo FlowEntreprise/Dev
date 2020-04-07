@@ -43,3 +43,9 @@
 	top: calc(2 * var(--custom-vh));
 	width: 70vw;
 }
+
+#popup_likes_content
+{
+	border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}

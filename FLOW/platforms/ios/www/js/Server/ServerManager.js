@@ -33,7 +33,9 @@ const ServerParams = {
     GetTop50: "GetTop50",
     AddNotificationToUser: "AddNotificationToUser",
     UpdateNotificationToView: "UpdateNotificationToView",
-    GetNotificationOfUser: "GetNotificationOfUser"
+    GetNotificationOfUser: "GetNotificationOfUser",
+    DeleteFlow: "DeleteFlow",
+    DeleteComment: "DeleteComment"
 };
 
 const apiTypes = {
@@ -48,7 +50,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-    constructor() {}
+    constructor() { }
 
     /* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
      * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions 
@@ -510,7 +512,7 @@ class ServerManagerClass {
                 console.log(response);
                 ShowMyInfosUser(response);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -526,7 +528,7 @@ class ServerManagerClass {
                 console.log("getInfosUserNumber");
                 ShowInfosUserNumber(response);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -545,7 +547,7 @@ class ServerManagerClass {
                 //console.log(response);
                 ShowUserProfile(response);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -569,7 +571,7 @@ class ServerManagerClass {
                 console.log(response);
                 UpdateFollowersList(response, data.follow_list);
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -596,7 +598,7 @@ class ServerManagerClass {
                     UpdatefollowingsList(response, data.follow_list);
                 }
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -615,7 +617,7 @@ class ServerManagerClass {
                 FollowResponse(response, data.type, data.block_user);
 
             },
-            error: function (response) {}
+            error: function (response) { }
         });
     }
 
@@ -714,6 +716,58 @@ class ServerManagerClass {
             error: function (response) {
                 console.log(response);
                 console.log("error dans la recuperation de flow unique");
+
+            }
+        });
+    }
+
+    DeleteFlow(data, element) {
+        let final_data = {
+
+            Data: data,
+            TokenId: window.localStorage.getItem("user_token")
+
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.DeleteFlow,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                delete_flow_from_html(element);
+                console.log("Flow supprimé avec succes");
+
+            },
+            error: function (response) {
+                console.log(response);
+                console.log("error dans la supression de flow ");
+
+            }
+        });
+    }
+
+    DeleteComment(data, element) {
+        let final_data = {
+
+            Data: data,
+            TokenId: window.localStorage.getItem("user_token")
+
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.DeleteComment,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log(response);
+                delete_comment_from_html(element);
+                console.log("Commentaire supprimé avec succes");
+
+            },
+            error: function (response) {
+                console.log(response);
+                console.log("error dans la supression de commentaire");
 
             }
         });

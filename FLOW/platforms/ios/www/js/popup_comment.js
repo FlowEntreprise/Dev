@@ -81,7 +81,8 @@ function block_comment(comment_data) {
     $$(this.fblock_comment_comment).on('taphold', function () {
         var clickedLink = this;
         current_comment_block = block_comment;
-        // app.popover('#popover_comment', clickedLink);
+        delete_comment_from_bdd(current_comment_block);
+        Popup("popup-option", true, 70);
 
     });
 
@@ -236,6 +237,11 @@ function get_users_with_follow(data) {
 };
 
 //input des commentaires
+
+$('#finput_comment').on('paste', function () {
+    $(".fsend_comment").css('filter', 'brightness(100%)');
+    $(".fsend_comment").css('pointer-events', 'auto');
+});
 
 $("#finput_comment").keyup(function () {
 
