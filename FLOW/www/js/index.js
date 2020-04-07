@@ -29,9 +29,10 @@ var app = {
     onDeviceReady: function () {
         setTimeout(function () {
             navigator.splashscreen.hide();
-            if (window.cordova.platformId == "android") {
-                StatusBar.backgroundColorByHexString("#f7f7f8");
+            if (!window.cordova.platformId == "android") {
+                StatusBar.overlaysWebView(false);
             }
+            StatusBar.backgroundColorByHexString("#f7f7f8");
 
         }, 500);
 
