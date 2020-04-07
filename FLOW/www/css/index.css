@@ -311,13 +311,13 @@ h1 {
 /* for iOS device */
 @supports (-webkit-touch-callout: none) {
 	.fnav-btn {
-		height: calc(4 * var(--custom-vh) + 15px);
+		height: calc(4 * var(--custom-vh) + 25px);
 	}
 
 	.fhome-btn,
 	.fexplore-btn,
 	.fmessages-btn,
-	.fnav-btn {
+	.fnotif-btn {
 		background-size: 70%;
 		height: calc(4 * var(--custom-vh) + 25px);
 	}
