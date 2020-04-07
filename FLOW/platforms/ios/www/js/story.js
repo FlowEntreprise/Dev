@@ -501,7 +501,9 @@ function CloseStory() {
         StatusBar.backgroundColorByHexString('#f7f7f8');
         StatusBar.styleDefault();
     } else {
-        StatusBar.show();
+        StatusBar.overlaysWebView(false);
+        StatusBar.backgroundColorByHexString('#f7f7f8');
+        StatusBar.styleDefault();
     }
     // window.plugins.insomnia.allowSleepAgain();
 }
@@ -563,7 +565,9 @@ function tryLoadStory(story_index, storyFlow_index) {
             StatusBar.backgroundColorByHexString("#000000");
             StatusBar.styleDefault();
         } else {
-            StatusBar.hide();
+            StatusBar.overlaysWebView(false);
+            StatusBar.backgroundColorByHexString("#000000");
+            StatusBar.styleDefault();
         }
         $(".fstory_window")[0].style.backgroundImage = color_gradient;
 
@@ -610,7 +614,9 @@ function loadStory(story_index, storyFlow_index) {
         StatusBar.backgroundColorByHexString(story_data[story_index].data[storyFlow_index].color);
         StatusBar.styleLightContent();
     } else {
-        StatusBar.hide();
+        StatusBar.overlaysWebView(false);
+        StatusBar.backgroundColorByHexString(story_data[story_index].data[storyFlow_index].color);
+        StatusBar.styleLightContent();
     }
 
     $(".fstory_window")[0].style.backgroundImage = color_gradient;
