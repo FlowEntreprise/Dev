@@ -312,7 +312,14 @@ h1 {
 @supports (-webkit-touch-callout: none) {
 	.fnav-btn {
 		height: calc(4 * var(--custom-vh) + 15px);
+	}
+
+	.fhome-btn,
+	.fexplore-btn,
+	.fmessages-btn,
+	.fnav-btn {
 		background-size: 70%;
+		height: calc(4 * var(--custom-vh) + 25px);
 	}
 
 	.flow-btn-shadow {
