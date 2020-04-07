@@ -159,7 +159,7 @@ svg {
 @supports (-webkit-touch-callout: none) {
     .frecord-btn {
         left: calc(50vw - 4.5vh);
-        bottom: 1.5vh;
+        bottom: 2vh;
         height: 9vh !important;
         width: 9vh !important;
 
@@ -169,6 +169,10 @@ svg {
         height: 9vh !important;
         width: 9vh !important;
         left: calc(50vw - 4.5vh);
-        bottom: 1.5vh;
+        bottom: 2vh;
+    }
+
+    .fclose_record {
+        top: 4vh;
     }
 }
