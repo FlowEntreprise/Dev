@@ -92,6 +92,7 @@
 		FC4E0E324B7144A49E7B95C0 /* APPBackgroundMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FEE53C397B456AA5CEEC66 /* APPBackgroundMode.m */; };
 		FD6C4BA637DC496EBA3BDED1 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2BCC9DF0BBD4D14AF824F91 /* Fabric.framework */; };
 		FD8301E2D0074CAAB9CC26AD /* HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFE94D419F640E0A18E9BD2 /* HTTPConnection.m */; };
+		9D1D9916BD144B82AEE8B42D /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 694132265EF04D3E9AA216C9 /* CDVStatusBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -275,6 +276,8 @@
 		FAA22C5E4D9B404598EDEFA1 /* UIImage+CropScaleOrientation.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "UIImage+CropScaleOrientation.m"; path = "cordova-plugin-camera/UIImage+CropScaleOrientation.m"; sourceTree = "<group>"; };
 		FDA36E2F4C0C4489AD1D1A38 /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVLocalFilesystem.m; path = "cordova-plugin-file/CDVLocalFilesystem.m"; sourceTree = "<group>"; };
 		FE9EFA66F0A744E9858267A5 /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = DispatchQueueLogFormatter.m; path = "cordova-plugin-httpd/DispatchQueueLogFormatter.m"; sourceTree = "<group>"; };
+		694132265EF04D3E9AA216C9 /* CDVStatusBar.m */ = {isa = PBXFileReference; name = "CDVStatusBar.m"; path = "cordova-plugin-statusbar/CDVStatusBar.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		9B2BC947A59D45BFACA6716D /* CDVStatusBar.h */ = {isa = PBXFileReference; name = "CDVStatusBar.h"; path = "cordova-plugin-statusbar/CDVStatusBar.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -544,6 +547,8 @@
 				E50EEC0E55EC49089DD998A8 /* CDVViewController+SplashScreen.m */,
 				F10922D559D44224BE3997E9 /* CDVSplashScreen.h */,
 				66C4862966E4455EA0BD0000 /* CDVViewController+SplashScreen.h */,
+				694132265EF04D3E9AA216C9 /* CDVStatusBar.m */,
+				9B2BC947A59D45BFACA6716D /* CDVStatusBar.h */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -783,6 +788,7 @@
 				1C82FB6C29FA47DE85C5DFB9 /* SIWAConverters.m in Sources */,
 				791EDB8B3B044E0FBE1AF917 /* CDVSplashScreen.m in Sources */,
 				A125EA1844F842298C61EF12 /* CDVViewController+SplashScreen.m in Sources */,
+				9D1D9916BD144B82AEE8B42D /* CDVStatusBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

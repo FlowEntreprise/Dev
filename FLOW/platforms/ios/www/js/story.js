@@ -51,11 +51,11 @@ const pSBC = (p, c0, c1, l) => {
         b: 0,
         a: -1
     } : {
-            r: 255,
-            g: 255,
-            b: 255,
-            a: -1
-        }, p = P ? p * -1 : p, P = 1 - p;
+        r: 255,
+        g: 255,
+        b: 255,
+        a: -1
+    }, p = P ? p * -1 : p, P = 1 - p;
     if (!f || !t) return null;
     if (l) r = m(P * f.r + p * t.r), g = m(P * f.g + p * t.g), b = m(P * f.b + p * t.b);
     else r = m((P * f.r ** 2 + p * t.r ** 2) ** 0.5), g = m((P * f.g ** 2 + p * t.g ** 2) ** 0.5), b = m((P * f.b ** 2 + p * t.b ** 2) ** 0.5);
@@ -383,8 +383,7 @@ function SpawnStoryWindow(story_block) {
 function story_comment_uploaded() {
     // $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
     // $(".fstory_addcomment_btn")[0].style.opacity = 1;
-    let story_comment_data =
-    {
+    let story_comment_data = {
         sender_private_id: window.localStorage.getItem("user_private_id"),
         RegisterId: story_data[story_index].register_id,
         LastOs: story_data[story_index].LastOs
@@ -498,10 +497,10 @@ function CloseStory() {
     }, 400);
 
     RefreshStories();
-    if (window.cordova.platformId == "android") {
-        StatusBar.backgroundColorByHexString('#f7f7f8');
-        StatusBar.styleDefault();
-    }
+    //if (window.cordova.platformId == "android") {
+    StatusBar.backgroundColorByHexString('#f7f7f8');
+    StatusBar.styleDefault();
+    //}
     // window.plugins.insomnia.allowSleepAgain();
 }
 
@@ -558,10 +557,10 @@ function tryLoadStory(story_index, storyFlow_index) {
         $(".fstory_pp")[0].style.backgroundImage = "white";
         // $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].darkColor + ");";
         let color_gradient = "linear-gradient(black, black)";
-        if (window.cordova.platformId == "android") {
-            StatusBar.backgroundColorByHexString("#000000");
-            StatusBar.styleDefault();
-        }
+        //if (window.cordova.platformId == "android") {
+        StatusBar.backgroundColorByHexString("#000000");
+        StatusBar.styleDefault();
+        //}
         $(".fstory_window")[0].style.backgroundImage = color_gradient;
 
         setTimeout(function () {
@@ -603,10 +602,10 @@ function loadStory(story_index, storyFlow_index) {
     $(".fstory_pp")[0].style.backgroundImage = "url(" + story_data[story_index].user_picture + ")";
     // $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].darkColor + ");";
     let color_gradient = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].data[storyFlow_index].darkColor + ")";
-    if (window.cordova.platformId == "android") {
-        StatusBar.backgroundColorByHexString(story_data[story_index].data[storyFlow_index].color);
-        StatusBar.styleLightContent();
-    }
+    //if (window.cordova.platformId == "android") {
+    StatusBar.backgroundColorByHexString(story_data[story_index].data[storyFlow_index].color);
+    StatusBar.styleLightContent();
+    //}
 
     $(".fstory_window")[0].style.backgroundImage = color_gradient;
     // story_data[storyFlow_index].data =/= story_data.data[storyFlow_index] à check
