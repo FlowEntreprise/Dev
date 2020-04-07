@@ -26,11 +26,11 @@
 /* top margins for iOS device */
 @supports (-webkit-touch-callout: none) {
 	.ftitle {
-		top: 20px !important;
+		top: 25px !important;
 	}
 
 	.faccount {
-		top: 27px !important;
+		top: 32px !important;
 	}
 }
 
@@ -194,7 +194,7 @@
 	pointer-events: none;
 }
 
-#menu1>.toolbar {
+#menu1 > .toolbar {
 	bottom: auto !important;
 	top: calc(93 * var(--custom-vh));
 }
@@ -259,7 +259,7 @@
 	user-select: none;
 }
 
-.empty_tl>.title {
+.empty_tl > .title {
 	position: absolute;
 	top: 25vh;
 	left: 0;
@@ -270,17 +270,17 @@
 	color: #1a84ef;
 }
 
-.empty_tl>.txt {
+.empty_tl > .txt {
 	position: absolute;
 	top: 30vh;
 	left: 10vw;
 	width: 80vw;
 	text-align: center;
 	font-family: "Roboto-Regular";
-	color: #92abb2
+	color: #92abb2;
 }
 
-.empty_tl>.btn {
+.empty_tl > .btn {
 	position: absolute;
 	top: 37vh;
 	left: 15vw;
