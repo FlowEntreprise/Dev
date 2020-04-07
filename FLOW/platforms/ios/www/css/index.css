@@ -311,7 +311,7 @@ h1 {
 /* for iOS device */
 @supports (-webkit-touch-callout: none) {
 	.fnav-btn {
-		height: calc(4 * var(--custom-vh) + 25px);
+		/* height: calc(4 * var(--custom-vh) + 25px); */
 	}
 
 	.fhome-btn,
@@ -323,6 +323,6 @@ h1 {
 	}
 
 	.flow-btn-shadow {
-		bottom: calc(1vh - 8px);
+		/* bottom: calc(1vh - 8px); */
 	}
 }
