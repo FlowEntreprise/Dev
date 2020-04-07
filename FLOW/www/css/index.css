@@ -307,3 +307,14 @@ h1 {
 		opacity: 0;
 	}
 }
+
+/* for iOS device */
+@supports (-webkit-touch-callout: none) {
+	.fnav-btn {
+		height: calc(4 * var(--custom-vh) + 15px);
+	}
+
+	.flow-btn-shadow {
+		bottom: calc(1vh - 15px);
+	}
+}

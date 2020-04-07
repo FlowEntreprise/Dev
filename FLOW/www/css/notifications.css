@@ -164,11 +164,11 @@
 /* only for iOS device */
 @supports (-webkit-touch-callout: none) {
 	.fnotifications-bar>label {
-		top: 15px !important;
+		top: 25px !important;
 	}
 
 	.layer_notif {
-		margin-top: calc(2 * var(--custom-vh) + 15px) !important;
+		margin-top: calc(2 * var(--custom-vh) + 25px) !important;
 	}
 
 
