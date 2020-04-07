@@ -323,6 +323,15 @@ h1 {
 	}
 
 	.flow-btn-shadow {
-		/* bottom: calc(1vh - 8px); */
+		height: 9vh !important;
+		width: 9vh !important;
+		left: calc(50vw - 4.5vh);
+		bottom: 1.5vh;
 	}
+
+	.fflow-btn {
+		height: calc(9 * var(--custom-vh)) !important;
+		width: calc(9 * var(--custom-vh)) !important;
+	}
+
 }
