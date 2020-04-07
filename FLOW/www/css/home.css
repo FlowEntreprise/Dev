@@ -26,11 +26,11 @@
 /* top margins for iOS device */
 @supports (-webkit-touch-callout: none) {
 	.ftitle {
-		top: 25px !important;
+		top: 30px !important;
 	}
 
 	.faccount {
-		top: 32px !important;
+		top: 37px !important;
 	}
 }
 
