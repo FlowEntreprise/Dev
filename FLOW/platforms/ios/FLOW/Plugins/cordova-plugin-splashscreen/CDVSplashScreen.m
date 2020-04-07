@@ -32,12 +32,12 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageDidLoad) name:CDVPageDidLoadNotification object:nil];
 
-    [self setVisible:NO];
+    [self setVisible:YES andForce:YES];
 }
 
 - (void)show:(CDVInvokedUrlCommand*)command
 {
-    [self setVisible:NO];
+    [self setVisible:YES andForce:YES];
 }
 
 - (void)hide:(CDVInvokedUrlCommand*)command
@@ -51,7 +51,7 @@
 
     // if value is missing, default to yes
     if ((autoHideSplashScreenValue == nil) || [autoHideSplashScreenValue boolValue]) {
-        [self setVisible:NO];
+        [self setVisible:YES];
     }
 }
 
@@ -366,7 +366,7 @@
     }
 
     UIImage* img = _imageView.image;
-    CGRect imgBounds = (img) ? CGRectMake(-91.5, 0, img.size.width, img.size.height) : CGRectZero;
+    CGRect imgBounds = (img) ? CGRectMake(0, 0, img.size.width, img.size.height) : CGRectZero;
 
     CGSize screenSize = [self.viewController.view convertRect:[UIScreen mainScreen].bounds fromView:nil].size;
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
@@ -410,6 +410,9 @@
         }
         imgBounds.size.height *= ratio;
         imgBounds.size.width *= ratio;
+        if (!device.iPad) {
+            imgBounds.origin.x -= 91.5; // offset for iphones
+        }
     }
 
     _imageView.transform = imgTransform;
