@@ -176,8 +176,8 @@
 		margin-top: calc(2 * var(--custom-vh) + 15px) !important;
 	}
 
-	.fred_dot {
+	/* .fred_dot {
 		top: calc(1vw + 5px);
 		left: calc(1vw - 5px);
-	}
+	} */
 }
