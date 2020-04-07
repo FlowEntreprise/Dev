@@ -312,9 +312,10 @@ h1 {
 @supports (-webkit-touch-callout: none) {
 	.fnav-btn {
 		height: calc(4 * var(--custom-vh) + 15px);
+		background-size: 70%;
 	}
 
 	.flow-btn-shadow {
-		bottom: calc(1vh - 15px);
+		bottom: calc(1vh - 8px);
 	}
 }

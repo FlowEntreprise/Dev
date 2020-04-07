@@ -27,7 +27,7 @@
 @supports (-webkit-touch-callout: none) {
 	.ftitle {
 		top: 30px !important;
-		font-size: 30px;
+		font-size: 25px;
 	}
 
 	.faccount {
