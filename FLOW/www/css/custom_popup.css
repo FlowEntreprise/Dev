@@ -50,9 +50,11 @@
     background-color: red;
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
+    opacity: 0;
 }
 
 .scroll_fix_ios>div {
     height: 101%;
     background-color: blue;
+    opacity: 0;
 }
