@@ -56,6 +56,7 @@ svg {
 }
 
 .frecord_indicator {
+    display: none;
     fill: transparent;
     stroke: black;
     stroke-opacity: 0.2;
