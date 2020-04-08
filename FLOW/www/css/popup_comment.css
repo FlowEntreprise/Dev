@@ -48,6 +48,7 @@
 	height: calc(100% - 10 * var(--custom-vh));
 	top: calc(5.5 * var(--custom-vh));
 	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
 }
 
 .fimg_user {
