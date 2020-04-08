@@ -382,3 +382,18 @@
 		transform: translate3d(2px, 0, 0);
 	}
 }
+
+/* for iOS device */
+@supports (-webkit-touch-callout: none) {
+	#freturnMonCompte {
+		top: calc(6 * var(--custom-vh));
+	}
+
+	#fmyprofilPicture {
+		top: calc(10.5 * var(--custom-vh));
+	}
+
+	#returnmyProfilPicture {
+		top: calc(7 * var(--custom-vh));
+	}
+}

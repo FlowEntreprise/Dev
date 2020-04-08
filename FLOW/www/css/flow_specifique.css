@@ -11,3 +11,10 @@
     position: absolute;
     top: calc(5* var(--custom-vh));
 }
+
+/* for iOS device */
+@supports (-webkit-touch-callout: none) {
+    .fclose_specifique {
+        top: calc(6* var(--custom-vh));
+    }
+}
