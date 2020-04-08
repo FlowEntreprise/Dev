@@ -29,9 +29,10 @@ var app = {
     onDeviceReady: function () {
         setTimeout(function () {
             navigator.splashscreen.hide();
-            if (window.cordova.platformId == "android") {
-                StatusBar.backgroundColorByHexString("#f7f7f8");
+            if (!window.cordova.platformId == "android") {
+                StatusBar.overlaysWebView(false);
             }
+            StatusBar.backgroundColorByHexString("#f7f7f8");
 
         }, 500);
 
@@ -213,8 +214,6 @@ var app = {
         var _root = document.documentElement;
         var _myvar = window.innerHeight / 100;
         _root.style.setProperty("--custom-vh", _myvar + "px");
-        _root.style.setProperty("--custom-vh2", "0px");
-        $(".splashscreen")[0].style.opacity = 0;
     }
 
 

@@ -26,7 +26,7 @@
 	top: calc(4 * var(--custom-vh));
 	left: 20vw;
 	width: 48vw;
-	height: calc(5 * var(--custom-vh));
+	height: 40px;
 	padding-left: 10vw;
 	padding-right: 2vw;
 	border-radius: 50px;
@@ -36,6 +36,7 @@
 	font-size: 21px;
 	font-family: "Roboto-Light";
 	color: #92abb2;
+	-webkit-appearance: none;
 }
 
 .fsearch-bar::placeholder {
@@ -210,6 +211,7 @@
 	width: 100vw;
 	height: calc(37 * var(--custom-vh));
 	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
 	/* background: red; */
 }
 

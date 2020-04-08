@@ -13,8 +13,7 @@
     background: url("../src/icons/Record.png") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054);
 }
 
-.frecord_loading_btn
-{
+.frecord_loading_btn {
     background: url('../src/icons/loading_circle.png') center center / 7vh no-repeat, linear-gradient(rgb(26, 132, 239), rgb(255, 0, 84)) !important;
     pointer-events: none !important;
 }
@@ -132,8 +131,7 @@ svg {
     }
 }
 
-#wave-container
-{
+#wave-container {
     position: absolute;
     top: 30vh;
     left: 0vw;
@@ -142,8 +140,7 @@ svg {
     pointer-events: none;
 }
 
-.record-shadow
-{
+.record-shadow {
     position: absolute;
     display: block;
     height: 10vh !important;
@@ -154,6 +151,28 @@ svg {
     background: linear-gradient(#1A84EF, #FF0054);
     filter: blur(10px);
     opacity: 0.8 !important;
-    z-index: 40000 !important; 
+    z-index: 40000 !important;
     display: none;
+}
+
+/* for iOS device */
+@supports (-webkit-touch-callout: none) {
+    .frecord-btn {
+        left: calc(50vw - 4.5vh);
+        bottom: 2vh;
+        height: 9vh !important;
+        width: 9vh !important;
+
+    }
+
+    .record-shadow {
+        height: 9vh !important;
+        width: 9vh !important;
+        left: calc(50vw - 4.5vh);
+        bottom: 2vh;
+    }
+
+    .fclose_record {
+        top: 7vh;
+    }
 }

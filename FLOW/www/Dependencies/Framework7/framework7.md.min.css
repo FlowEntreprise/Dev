@@ -6320,7 +6320,7 @@ html.with-statusbar-overlay .framework7-root .panel {
 }
 
 html.with-statusbar-overlay.ios .framework7-root {
-    padding-top: 20px
+    /* padding-top: 20px removed by Thomas parce que ça nique la status bar cette merde */
 }
 
 html.with-statusbar-overlay.ios .framework7-root .panel {

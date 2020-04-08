@@ -882,31 +882,23 @@ function affichage_nombre(number, decPlaces) { // cette fonction permet d'affich
 }
 
 document.getElementById("popup-comment").addEventListener("opened", function () {
-    if (window.cordova.platformId == "android") {
-        StatusBar.backgroundColorByHexString('#949494');
-        StatusBar.styleLightContent();
-    }
+    StatusBar.backgroundColorByHexString('#949494');
+    StatusBar.styleLightContent();
 });
 
 document.getElementById("popup-comment").addEventListener("closed", function () {
-    if (window.cordova.platformId == "android") {
-        StatusBar.backgroundColorByHexString('#f7f7f8');
-        StatusBar.styleDefault();
-    }
+    StatusBar.backgroundColorByHexString('#f7f7f8');
+    StatusBar.styleDefault();
 });
 
 document.getElementById("popup-likes").addEventListener("opened", function () {
-    if (window.cordova.platformId == "android") {
-        StatusBar.backgroundColorByHexString('#949494');
-        StatusBar.styleLightContent();
-    }
+    StatusBar.backgroundColorByHexString('#949494');
+    StatusBar.styleLightContent();
 });
 
 document.getElementById("popup-likes").addEventListener("closed", function () {
-    if (window.cordova.platformId == "android") {
-        StatusBar.backgroundColorByHexString('#f7f7f8');
-        StatusBar.styleDefault();
-    }
+    StatusBar.backgroundColorByHexString('#f7f7f8');
+    StatusBar.styleDefault();
 });
 
 function iosPolyfill(e, slider) {
