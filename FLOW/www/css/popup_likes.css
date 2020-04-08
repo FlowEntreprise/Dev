@@ -1,9 +1,9 @@
-.popup_likes
-{
+.popup_likes {
 	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
 
 }
+
 .fclose_likes {
 	width: 4vw;
 	position: absolute;
@@ -17,6 +17,7 @@
 	height: calc(100% - 10 * var(--custom-vh));
 	top: calc(6.5 * var(--custom-vh));
 	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
 }
 
 .flikes_number {
@@ -44,8 +45,7 @@
 	width: 70vw;
 }
 
-#popup_likes_content
-{
+#popup_likes_content {
 	border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+	border-top-right-radius: 15px;
 }

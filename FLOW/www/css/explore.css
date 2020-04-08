@@ -211,6 +211,7 @@
 	width: 100vw;
 	height: calc(37 * var(--custom-vh));
 	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
 	/* background: red; */
 }
 

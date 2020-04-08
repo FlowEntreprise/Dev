@@ -43,6 +43,7 @@
 	width: 100vw;
 	height: calc(100% - 10 * var(--custom-vh));
 	overflow: scroll !important;
+	-webkit-overflow-scrolling: touch;
 }
 
 .f_block_user {
