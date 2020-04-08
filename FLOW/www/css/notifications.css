@@ -17,7 +17,7 @@
 	display: none;
 }
 
-.fnotifications-bar > label {
+.fnotifications-bar>label {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -159,4 +159,25 @@
 
 .layer_notif {
 	margin-top: calc(2 * var(--custom-vh)) !important;
+}
+
+/* only for iOS device */
+@supports (-webkit-touch-callout: none) {
+	.fnotifications-bar>label {
+		top: 25px !important;
+	}
+
+	.layer_notif {
+		margin-top: calc(2 * var(--custom-vh) + 25px) !important;
+	}
+
+
+	.list-notif-block {
+		margin-top: calc(2 * var(--custom-vh) + 15px) !important;
+	}
+
+	/* .fred_dot {
+		top: calc(1vw + 5px);
+		left: calc(1vw - 5px);
+	} */
 }

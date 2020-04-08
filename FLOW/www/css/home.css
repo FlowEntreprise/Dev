@@ -23,17 +23,6 @@
 	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* top margins for iOS device */
-@supports (-webkit-touch-callout: none) {
-	.ftitle {
-		top: 25px !important;
-	}
-
-	.faccount {
-		top: 32px !important;
-	}
-}
-
 .fstories_title {
 	position: absolute;
 	top: calc(5 * var(--custom-vh));
@@ -169,7 +158,7 @@
 
 .fneed_connect {
 	position: absolute;
-	height: calc(7 * var(--custom-vh));
+	height: calc(7 * var(--custom-vh) + 15px);
 	width: 15vw;
 	top: calc(93 * var(--custom-vh));
 	z-index: 5000;
@@ -194,9 +183,9 @@
 	pointer-events: none;
 }
 
-#menu1 > .toolbar {
+#menu1>.toolbar {
 	bottom: auto !important;
-	top: calc(93 * var(--custom-vh));
+	top: calc(93 * var(--custom-vh) - 15px);
 }
 
 .loading_circle {
@@ -259,7 +248,7 @@
 	user-select: none;
 }
 
-.empty_tl > .title {
+.empty_tl>.title {
 	position: absolute;
 	top: 25vh;
 	left: 0;
@@ -270,7 +259,7 @@
 	color: #1a84ef;
 }
 
-.empty_tl > .txt {
+.empty_tl>.txt {
 	position: absolute;
 	top: 30vh;
 	left: 10vw;
@@ -280,7 +269,7 @@
 	color: #92abb2;
 }
 
-.empty_tl > .btn {
+.empty_tl>.btn {
 	position: absolute;
 	top: 37vh;
 	left: 15vw;
@@ -293,4 +282,23 @@
 	color: white;
 	border-radius: 25px;
 	font-size: 15px;
+}
+
+/* top margins for iOS device */
+@supports (-webkit-touch-callout: none) {
+	.ftitle {
+		top: 30px !important;
+		font-size: 25px;
+	}
+
+	.faccount {
+		top: 37px !important;
+	}
+
+	.fred_dot_toolbar_new_notif {
+		top: 5vw;
+		left: 92vw;
+		width: 3vw;
+		height: 3vw;
+	}
 }
