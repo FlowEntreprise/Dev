@@ -33,6 +33,8 @@ var app = {
                 StatusBar.overlaysWebView(false);
             }
             StatusBar.backgroundColorByHexString("#f7f7f8");
+            let custom_vh = window.innerHeight / 100;
+            document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
 
         }, 500);
 
@@ -209,10 +211,9 @@ var app = {
 
         CheckIfConnected();
 
-        var _root = document.documentElement;
-        var _myvar = window.innerHeight / 100;
+        let _root = document.documentElement;
+        let _myvar = window.innerHeight / 100;
         _root.style.setProperty("--custom-vh", _myvar + "px");
-        _root.style.setProperty("--custom-vh2", "0px");
     }
 
 
