@@ -37,8 +37,8 @@ svg {
     position: absolute;
     left: calc(50vw - 6vh);
     bottom: 0vh;
-    height: 12vh !important;
-    width: 12vh !important;
+    height: 11vh !important;
+    width: 11vh !important;
 
     /* object-fit: contain;
     width: 100%;
