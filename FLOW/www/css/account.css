@@ -235,3 +235,18 @@
 	color: none;
 	width: 7vw;
 }
+
+/* for iOS device */
+@supports (-webkit-touch-callout: none) {
+	#freturnCompte {
+		top: calc(6 * var(--custom-vh));
+	}
+
+	#fprofilPicture {
+		top: calc(10.5 * var(--custom-vh));
+	}
+
+	#returnProfilPicture {
+		top: calc(7 * var(--custom-vh));
+	}
+}
