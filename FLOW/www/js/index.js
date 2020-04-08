@@ -172,13 +172,15 @@ var app = {
                 if (window.cordova.platformId == "ios") {
                     data.additionalData.sender_info = JSON.parse(data.additionalData.sender_info);
                 }
+                if (data.additionalData.type == "story_comment") { return; }
                 if (data.additionalData.type == "follow") {
                     let data_go_to_account = {
                         private_Id: data.additionalData.sender_info.privateId,
                         user_private_Id: window.localStorage.getItem("user_private_id")
                     };
                     go_to_account(data_go_to_account);
-                } else if (data.additionalData.type != "story_comment") {
+                }
+                else {
 
                     $(".flow_specifique_container").html("");
                     let myApp = new Framework7();

@@ -487,7 +487,6 @@ function block(params) {
         var clickedLink = this;
         current_flow_block = block;
         delete_flow_from_bdd(current_flow_block);
-        Popup("popup-option", true, 70);
     });
 
 }
