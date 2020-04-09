@@ -101,10 +101,6 @@
 		412E8818256D4886B479CCD9 /* KImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C829DD84EA4203883D3E3A /* KImageCropper.m */; };
 		DC91FA9AD5B44F9B8EE717BE /* PEPhotoCropEditor.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 20B835F9E50B467B88AB8BE8 /* PEPhotoCropEditor.bundle */; };
 		A770BE2ACA6B49C0A7F1CE5B /* CDVWKKeyboardFix.m in Sources */ = {isa = PBXBuildFile; fileRef = 364075D0C2C74B6792F7C6CD /* CDVWKKeyboardFix.m */; };
-		EAFFB084046842F0BC398556 /* CDVWKWebViewEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C18C06E1C746BCBA37FC2A /* CDVWKWebViewEngine.m */; };
-		1FCAC24D96FA4B90AAF30676 /* CDVWKWebViewUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B0CC11849D48ED8D30712E /* CDVWKWebViewUIDelegate.m */; };
-		2A2ED676BB9B46EC829F92F1 /* CDVWKProcessPoolFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = C218A0E98ADB4E3D9E641D24 /* CDVWKProcessPoolFactory.m */; };
-		90A21DED80744332A6DD8E5A /* IONAssetHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = AD310FFDFBE6452F9B90721B /* IONAssetHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -305,14 +301,6 @@
 		20B835F9E50B467B88AB8BE8 /* PEPhotoCropEditor.bundle */ = {isa = PBXFileReference; name = "PEPhotoCropEditor.bundle"; path = "PEPhotoCropEditor.bundle"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.plug-in; explicitFileType = undefined; includeInIndex = 0; };
 		364075D0C2C74B6792F7C6CD /* CDVWKKeyboardFix.m */ = {isa = PBXFileReference; name = "CDVWKKeyboardFix.m"; path = "cordova-plugin-wkkeyboardfix/CDVWKKeyboardFix.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		53A371F0F5CC4ED485CBFE0A /* CDVWKKeyboardFix.h */ = {isa = PBXFileReference; name = "CDVWKKeyboardFix.h"; path = "cordova-plugin-wkkeyboardfix/CDVWKKeyboardFix.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		11C18C06E1C746BCBA37FC2A /* CDVWKWebViewEngine.m */ = {isa = PBXFileReference; name = "CDVWKWebViewEngine.m"; path = "cordova-plugin-ionic-webview/CDVWKWebViewEngine.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		02B0CC11849D48ED8D30712E /* CDVWKWebViewUIDelegate.m */ = {isa = PBXFileReference; name = "CDVWKWebViewUIDelegate.m"; path = "cordova-plugin-ionic-webview/CDVWKWebViewUIDelegate.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		C218A0E98ADB4E3D9E641D24 /* CDVWKProcessPoolFactory.m */ = {isa = PBXFileReference; name = "CDVWKProcessPoolFactory.m"; path = "cordova-plugin-ionic-webview/CDVWKProcessPoolFactory.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		AD310FFDFBE6452F9B90721B /* IONAssetHandler.m */ = {isa = PBXFileReference; name = "IONAssetHandler.m"; path = "cordova-plugin-ionic-webview/IONAssetHandler.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		3096D35125DA44069C601160 /* CDVWKWebViewEngine.h */ = {isa = PBXFileReference; name = "CDVWKWebViewEngine.h"; path = "cordova-plugin-ionic-webview/CDVWKWebViewEngine.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		B37AD1E775D34BDEADC3F7F0 /* CDVWKWebViewUIDelegate.h */ = {isa = PBXFileReference; name = "CDVWKWebViewUIDelegate.h"; path = "cordova-plugin-ionic-webview/CDVWKWebViewUIDelegate.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		ABE9D658AC73458FBB6D36CA /* CDVWKProcessPoolFactory.h */ = {isa = PBXFileReference; name = "CDVWKProcessPoolFactory.h"; path = "cordova-plugin-ionic-webview/CDVWKProcessPoolFactory.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		0C451D6A65604F3CBFBEB9AF /* IONAssetHandler.h */ = {isa = PBXFileReference; name = "IONAssetHandler.h"; path = "cordova-plugin-ionic-webview/IONAssetHandler.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -599,14 +587,6 @@
 				8403F4BF93154E389F469F4D /* KImageCropper.h */,
 				364075D0C2C74B6792F7C6CD /* CDVWKKeyboardFix.m */,
 				53A371F0F5CC4ED485CBFE0A /* CDVWKKeyboardFix.h */,
-				11C18C06E1C746BCBA37FC2A /* CDVWKWebViewEngine.m */,
-				02B0CC11849D48ED8D30712E /* CDVWKWebViewUIDelegate.m */,
-				C218A0E98ADB4E3D9E641D24 /* CDVWKProcessPoolFactory.m */,
-				AD310FFDFBE6452F9B90721B /* IONAssetHandler.m */,
-				3096D35125DA44069C601160 /* CDVWKWebViewEngine.h */,
-				B37AD1E775D34BDEADC3F7F0 /* CDVWKWebViewUIDelegate.h */,
-				ABE9D658AC73458FBB6D36CA /* CDVWKProcessPoolFactory.h */,
-				0C451D6A65604F3CBFBEB9AF /* IONAssetHandler.h */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -855,10 +835,6 @@
 				938377CCD89E4D67AFEAE595 /* UIImage+PECrop.m in Sources */,
 				412E8818256D4886B479CCD9 /* KImageCropper.m in Sources */,
 				A770BE2ACA6B49C0A7F1CE5B /* CDVWKKeyboardFix.m in Sources */,
-				EAFFB084046842F0BC398556 /* CDVWKWebViewEngine.m in Sources */,
-				1FCAC24D96FA4B90AAF30676 /* CDVWKWebViewUIDelegate.m in Sources */,
-				2A2ED676BB9B46EC829F92F1 /* CDVWKProcessPoolFactory.m in Sources */,
-				90A21DED80744332A6DD8E5A /* IONAssetHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
