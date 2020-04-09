@@ -35,9 +35,8 @@ var app = {
             StatusBar.backgroundColorByHexString("#f7f7f8");
             let custom_vh = window.innerHeight / 100;
             document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
-            document.addEventListener('hidekeyboard', onKeyboardHide, false);
-            document.addEventListener('showkeyboard', onKeyboardShow, false);
-
+            document.addEventListener('hidekeyboard', onKeyboardHide);
+            document.addEventListener('showkeyboard', onKeyboardShow);
         }, 500);
 
         this.receivedEvent('deviceready');
