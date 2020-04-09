@@ -46,7 +46,8 @@ var app = {
             window.addEventListener('keyboardWillShow', function () {
                 console.log('onKeyboardShow');
                 if (window.cordova.platformId == "ios") {
-                    document.querySelector('meta[name=viewport]').setAttribute('content', 'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width');
+                    document.querySelector('meta[name=viewport]').setAttribute('content', '');
+                    document.querySelector('meta[name=viewport]').setAttribute('content', 'viewport-fit=cover, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width');
                 }
             });
         }, 500);
