@@ -23,12 +23,12 @@ let options = {
     targetHeight: 600
 };
 
-$(".finput_description")[0].addEventListener("focus", function () {
-    document.querySelector('meta[name=viewport]').setAttribute('content', 'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width');
-});
-$(".finput_description")[0].addEventListener("blur", function () {
-    document.querySelector('meta[name=viewport]').setAttribute('content', 'viewport-fit=cover, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width');
-});
+// $(".finput_description")[0].addEventListener("focus", function () {
+//     document.querySelector('meta[name=viewport]').setAttribute('content', 'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width');
+// });
+// $(".finput_description")[0].addEventListener("blur", function () {
+//     document.querySelector('meta[name=viewport]').setAttribute('content', 'viewport-fit=cover, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width');
+// });
 
 $$('.fflow-btn').on('click', function () {
     if (connected) {
