@@ -293,7 +293,6 @@
 	border-bottom: solid 1px #1a84ef;
 	width: 40vw;
 	left: 17.5vw;
-	height: 40px;
 	top: calc(20 * var(--custom-vh));
 	font-size: calc(3 * var(--custom-vh));
 	color: #1a84ef;
