@@ -36,19 +36,18 @@ var app = {
             let custom_vh = window.innerHeight / 100;
             document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
 
-            window.addEventListener('keyboardDidHide', function () {
-                console.log('onKeyboardHide');
-                if (window.cordova.platformId == "ios") {
-                    document.querySelector('meta[name=viewport]').setAttribute('content', 'viewport-fit=cover, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width');
-                }
-            });
+            // window.addEventListener('keyboardDidHide', function () {
+            //     console.log('onKeyboardHide');
+            //     if (window.cordova.platformId == "ios") {
+            //         document.querySelector('meta[name=viewport]').setAttribute('content', 'viewport-fit=cover, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width');
+            //     }
+            // });
 
-            window.addEventListener('keyboardDidShow', function () {
-                console.log('onKeyboardShow');
-                if (window.cordova.platformId == "ios") {
-                    document.querySelector('meta[name=viewport]').setAttribute('content', 'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width');
-                }
-            });
+            // window.addEventListener('keyboardDidShow', function () {
+            //     console.log('onKeyboardShow');
+            //     if (window.cordova.platformId == "ios") {
+            //     }
+            // });
         }, 500);
 
         this.receivedEvent('deviceready');
