@@ -598,61 +598,69 @@ drawCurveAnim();
 
 function TakePhoto() {
     console.log("take photo");
-    var permissions = cordova.plugins.permissions;
-    var list = [
-        permissions.CAMERA
-        //permissions.WRITE_EXTERNAL_STORAGE
-    ];
+    if (window.cordova.platformId == "android") {
+        var permissions = cordova.plugins.permissions;
+        var list = [
+            permissions.CAMERA
+            //permissions.WRITE_EXTERNAL_STORAGE
+        ];
 
-    function error() {
-        alert('Permission photo non acordée');
-    }
-
-    function success(status) {
-        if (!status.hasPermission) error();
-        else {
-            //alert("success");
-            capturePhoto();
+        function error() {
+            alert('Permission photo non acordée');
         }
-    }
 
-    permissions.hasPermission(permissions.CAMERA, function (status) {
-        if (status.hasPermission) {
-            //alert("success");
-            capturePhoto();
-        } else {
-            permissions.requestPermissions(list, success, error);
+        function success(status) {
+            if (!status.hasPermission) error();
+            else {
+                //alert("success");
+                capturePhoto();
+            }
         }
-    });
+
+        permissions.hasPermission(permissions.CAMERA, function (status) {
+            if (status.hasPermission) {
+                //alert("success");
+                capturePhoto();
+            } else {
+                permissions.requestPermissions(list, success, error);
+            }
+        });
+    } else {
+        capturePhoto();
+    }
 }
 
 function GetPhotoFromGallery() {
     console.log("get photo from gallery");
-    var permissions = cordova.plugins.permissions;
-    var list = [
-        permissions.READ_EXTERNAL_STORAGE
-    ];
+    if (window.cordova.platformId == "android") {
+        var permissions = cordova.plugins.permissions;
+        var list = [
+            permissions.READ_EXTERNAL_STORAGE
+        ];
 
-    function error() {
-        alert('Permission galerie photo non accordée');
-    }
-
-    function success(status) {
-        if (!status.hasPermission) error();
-        else {
-            //alert("success");
-            getPhoto();
+        function error() {
+            alert('Permission galerie photo non accordée');
         }
-    }
 
-    permissions.hasPermission(permissions.READ_EXTERNAL_STORAGE, function (status) {
-        if (status.hasPermission) {
-            //alert("success");
-            getPhoto();
-        } else {
-            permissions.requestPermissions(list, success, error);
+        function success(status) {
+            if (!status.hasPermission) error();
+            else {
+                //alert("success");
+                getPhoto();
+            }
         }
-    });
+
+        permissions.hasPermission(permissions.READ_EXTERNAL_STORAGE, function (status) {
+            if (status.hasPermission) {
+                //alert("success");
+                getPhoto();
+            } else {
+                permissions.requestPermissions(list, success, error);
+            }
+        });
+    } else {
+        getPhoto();
+    }
 }
 
 function onPhotoDataSuccess(imageData) {
