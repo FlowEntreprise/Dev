@@ -9418,7 +9418,7 @@ window.Template7 = (function () {
             } else {
                 updatableScroll = true;
                 if (app.device.ios && app.device.osVersion.split('.')[0] < 8) {
-                    updatableScroll = false;
+                    //updatableScroll = false;
                 }
                 vl.params.updatableScroll = updatableScroll;
             }
