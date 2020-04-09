@@ -35,6 +35,8 @@ var app = {
             StatusBar.backgroundColorByHexString("#f7f7f8");
             let custom_vh = window.innerHeight / 100;
             document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
+            document.addEventListener('hidekeyboard', onKeyboardHide, false);
+            document.addEventListener('showkeyboard', onKeyboardShow, false);
 
         }, 500);
 
@@ -175,15 +177,16 @@ var app = {
                 if (window.cordova.platformId == "ios") {
                     data.additionalData.sender_info = JSON.parse(data.additionalData.sender_info);
                 }
-                if (data.additionalData.type == "story_comment") { return; }
+                if (data.additionalData.type == "story_comment") {
+                    return;
+                }
                 if (data.additionalData.type == "follow") {
                     let data_go_to_account = {
                         private_Id: data.additionalData.sender_info.privateId,
                         user_private_Id: window.localStorage.getItem("user_private_id")
                     };
                     go_to_account(data_go_to_account);
-                }
-                else {
+                } else {
 
                     $(".flow_specifique_container").html("");
                     let myApp = new Framework7();
@@ -286,6 +289,19 @@ function online() {
     ServerManager.GetStory();
 }
 
+function onKeyboardHide() {
+    console.log('onKeyboardHide');
+    if (window.cordova.platformId == "ios") {
+        document.querySelector('meta[name=viewport]').setAttribute('content', 'viewport-fit=cover, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width');
+    }
+}
+
+function onKeyboardShow() {
+    console.log('onKeyboardShow');
+    if (window.cordova.platformId == "ios") {
+        document.querySelector('meta[name=viewport]').setAttribute('content', 'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width');
+    }
+}
 
 /*
 J'ai remove ça du config.xml juste pour save ça qq part :
