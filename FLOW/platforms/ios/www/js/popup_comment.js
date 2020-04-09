@@ -82,8 +82,6 @@ function block_comment(comment_data) {
         var clickedLink = this;
         current_comment_block = block_comment;
         delete_comment_from_bdd(current_comment_block);
-        Popup("popup-option", true, 70);
-
     });
 
 
@@ -313,7 +311,7 @@ function delete_comment(element) {
 
 }
 document.getElementById("popup-comment").addEventListener("opened", function () {
-    $(".fwrite_comment")[0].style.display = "block";
+    $(".fwrite_comment").css("display", "block");
     in_comments = true;
 });
 

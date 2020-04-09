@@ -3,8 +3,7 @@
     position: absolute;
     width: 90vw;
     left: 5vw;
-    top: calc(10 * var(--custom-vh));
-    height: calc(5 * var(--custom-vh));
+    top: calc(2.5 * var(--custom-vh));
     color: #92ABB2;    
     line-height: calc(5 * var(--custom-vh));
     text-align: center;
@@ -22,7 +21,6 @@
 #label_copy_button
 {
     font-size: 2.3vh;
-    font-weight: 500;
 }
 
 #delete_button
@@ -31,7 +29,7 @@
     position: absolute;
     width: 90vw;
     left: 5vw;
-    top: calc(18 * var(--custom-vh));
+    top: calc(8 * var(--custom-vh));
     height: calc(5 * var(--custom-vh));
     color: #FF5D5D;    
     line-height: calc(5 * var(--custom-vh));
@@ -50,7 +48,6 @@
 #label_delete_button
 {
     font-size: 2.3vh;
-    font-weight: 500;
 }
 
 .fclose_option {
