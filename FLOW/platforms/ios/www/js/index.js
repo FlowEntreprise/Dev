@@ -35,7 +35,6 @@ var app = {
             StatusBar.backgroundColorByHexString("#f7f7f8");
             let custom_vh = window.innerHeight / 100;
             document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
-            cordova.plugins.Keyboard.disableScroll(true);
 
             window.addEventListener('keyboardWillHide', function () {
                 console.log('onKeyboardHide');
@@ -46,7 +45,9 @@ var app = {
 
             window.addEventListener('keyboardWillShow', function () {
                 console.log('onKeyboardShow');
-                if (window.cordova.platformId == "ios") {}
+                if (window.cordova.platformId == "ios") {
+                    document.querySelector('meta[name=viewport]').setAttribute('content', 'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width');
+                }
             });
         }, 500);
 
