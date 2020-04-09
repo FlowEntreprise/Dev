@@ -14,6 +14,5 @@
     "AVFoundation.framework": 3,
     "ImageIO.framework": 1,
     "CoreLocation.framework": 1,
-    "PushKit.framework": 1,
-    "WebKit.framework": 1
+    "PushKit.framework": 1
 }
