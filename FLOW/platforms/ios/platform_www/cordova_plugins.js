@@ -344,6 +344,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-apple-login": "1.0.0",
     "cordova-plugin-splashscreen": "5.0.3",
     "cordova-plugin-statusbar": "2.4.2",
-    "cordova-plugin-k-imagecropper": "1.2.0"
+    "cordova-plugin-k-imagecropper": "1.2.0",
+    "cordova-plugin-wkkeyboardfix": "1.1.0"
   };
 });

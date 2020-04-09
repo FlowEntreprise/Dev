@@ -87,6 +87,10 @@
     <feature name="KImageCropper">
         <param name="ios-package" value="KImageCropper" />
     </feature>
+    <feature name="BundleHack">
+        <param name="ios-package" value="CDVWKKeyboardFix" />
+        <param name="onload" value="true" />
+    </feature>
     <name>FLOW</name>
     <description>
         The Vocal Social Network.

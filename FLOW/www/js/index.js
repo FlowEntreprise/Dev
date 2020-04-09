@@ -35,9 +35,8 @@ var app = {
             StatusBar.backgroundColorByHexString("#f7f7f8");
             let custom_vh = window.innerHeight / 100;
             document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
-            Keyboard.hideFormAccessoryBar(true);
-            Keyboard.shrinkView(true);
-            Keyboard.automaticScrollToTopOnHiding = false;
+            cordova.plugins.Keyboard.disableScroll(true);
+
             // window.addEventListener('keyboardDidHide', function () {
             //     console.log('onKeyboardHide');
             //     if (window.cordova.platformId == "ios") {

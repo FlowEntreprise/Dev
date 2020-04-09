@@ -100,6 +100,7 @@
 		938377CCD89E4D67AFEAE595 /* UIImage+PECrop.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DF2887D8E74E5280CBC223 /* UIImage+PECrop.m */; };
 		412E8818256D4886B479CCD9 /* KImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C829DD84EA4203883D3E3A /* KImageCropper.m */; };
 		DC91FA9AD5B44F9B8EE717BE /* PEPhotoCropEditor.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 20B835F9E50B467B88AB8BE8 /* PEPhotoCropEditor.bundle */; };
+		A770BE2ACA6B49C0A7F1CE5B /* CDVWKKeyboardFix.m in Sources */ = {isa = PBXBuildFile; fileRef = 364075D0C2C74B6792F7C6CD /* CDVWKKeyboardFix.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -298,6 +299,8 @@
 		7DEDAE86AA924729AE537526 /* UIImage+PECrop.h */ = {isa = PBXFileReference; name = "UIImage+PECrop.h"; path = "cordova-plugin-k-imagecropper/UIImage+PECrop.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		8403F4BF93154E389F469F4D /* KImageCropper.h */ = {isa = PBXFileReference; name = "KImageCropper.h"; path = "cordova-plugin-k-imagecropper/KImageCropper.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		20B835F9E50B467B88AB8BE8 /* PEPhotoCropEditor.bundle */ = {isa = PBXFileReference; name = "PEPhotoCropEditor.bundle"; path = "PEPhotoCropEditor.bundle"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.plug-in; explicitFileType = undefined; includeInIndex = 0; };
+		364075D0C2C74B6792F7C6CD /* CDVWKKeyboardFix.m */ = {isa = PBXFileReference; name = "CDVWKKeyboardFix.m"; path = "cordova-plugin-wkkeyboardfix/CDVWKKeyboardFix.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		53A371F0F5CC4ED485CBFE0A /* CDVWKKeyboardFix.h */ = {isa = PBXFileReference; name = "CDVWKKeyboardFix.h"; path = "cordova-plugin-wkkeyboardfix/CDVWKKeyboardFix.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -582,6 +585,8 @@
 				80326A890D19490A9D65CDED /* PEResizeControl.h */,
 				7DEDAE86AA924729AE537526 /* UIImage+PECrop.h */,
 				8403F4BF93154E389F469F4D /* KImageCropper.h */,
+				364075D0C2C74B6792F7C6CD /* CDVWKKeyboardFix.m */,
+				53A371F0F5CC4ED485CBFE0A /* CDVWKKeyboardFix.h */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -829,6 +834,7 @@
 				CF56F614A17F49868A649279 /* PEResizeControl.m in Sources */,
 				938377CCD89E4D67AFEAE595 /* UIImage+PECrop.m in Sources */,
 				412E8818256D4886B479CCD9 /* KImageCropper.m in Sources */,
+				A770BE2ACA6B49C0A7F1CE5B /* CDVWKKeyboardFix.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

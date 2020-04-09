@@ -131,6 +131,10 @@
             {
               "xml": "<feature name=\"KImageCropper\"><param name=\"ios-package\" value=\"KImageCropper\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"BundleHack\"><param name=\"ios-package\" value=\"CDVWKKeyboardFix\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -294,6 +298,9 @@
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     },
     "cordova-plugin-k-imagecropper": {
+      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+    },
+    "cordova-plugin-wkkeyboardfix": {
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     }
   },
@@ -643,6 +650,7 @@
     "cordova-plugin-apple-login": "1.0.0",
     "cordova-plugin-splashscreen": "5.0.3",
     "cordova-plugin-statusbar": "2.4.2",
-    "cordova-plugin-k-imagecropper": "1.2.0"
+    "cordova-plugin-k-imagecropper": "1.2.0",
+    "cordova-plugin-wkkeyboardfix": "1.1.0"
   }
 }

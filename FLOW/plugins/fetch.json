@@ -282,5 +282,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-wkkeyboardfix": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-wkkeyboardfix"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }
