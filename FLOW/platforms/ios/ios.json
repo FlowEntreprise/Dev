@@ -127,6 +127,10 @@
             {
               "xml": "<preference name=\"StatusBarStyle\" value=\"lightcontent\" />",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"KImageCropper\"><param name=\"ios-package\" value=\"KImageCropper\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -287,6 +291,9 @@
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     },
     "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+    },
+    "cordova-plugin-k-imagecropper": {
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     }
   },
@@ -610,6 +617,14 @@
       "clobbers": [
         "window.StatusBar"
       ]
+    },
+    {
+      "id": "cordova-plugin-k-imagecropper.imagecropper",
+      "file": "plugins/cordova-plugin-k-imagecropper/www/imagecropper.js",
+      "pluginId": "cordova-plugin-k-imagecropper",
+      "clobbers": [
+        "window.plugins.k.imagecropper"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -627,6 +642,7 @@
     "cordova-plugin-facebook4": "6.4.0",
     "cordova-plugin-apple-login": "1.0.0",
     "cordova-plugin-splashscreen": "5.0.3",
-    "cordova-plugin-statusbar": "2.4.2"
+    "cordova-plugin-statusbar": "2.4.2",
+    "cordova-plugin-k-imagecropper": "1.2.0"
   }
 }

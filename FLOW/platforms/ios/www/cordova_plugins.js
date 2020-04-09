@@ -318,6 +318,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "window.StatusBar"
       ]
+    },
+    {
+      "id": "cordova-plugin-k-imagecropper.imagecropper",
+      "file": "plugins/cordova-plugin-k-imagecropper/www/imagecropper.js",
+      "pluginId": "cordova-plugin-k-imagecropper",
+      "clobbers": [
+        "window.plugins.k.imagecropper"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -335,6 +343,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-facebook4": "6.4.0",
     "cordova-plugin-apple-login": "1.0.0",
     "cordova-plugin-splashscreen": "5.0.3",
-    "cordova-plugin-statusbar": "2.4.2"
+    "cordova-plugin-statusbar": "2.4.2",
+    "cordova-plugin-k-imagecropper": "1.2.0"
   };
 });

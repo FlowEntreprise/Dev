@@ -42,7 +42,7 @@
   "cordova-plugin-k-imagecropper": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-k-imagecropper"
+      "id": "cordova-plugin-k-imagecropper@^1.2.0"
     },
     "is_top_level": true,
     "variables": {}

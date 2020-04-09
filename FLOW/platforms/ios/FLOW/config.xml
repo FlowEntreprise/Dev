@@ -84,6 +84,9 @@
         <param name="ios-package" value="CDVStatusBar" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="KImageCropper">
+        <param name="ios-package" value="KImageCropper" />
+    </feature>
     <name>FLOW</name>
     <description>
         The Vocal Social Network.
