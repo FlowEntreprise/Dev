@@ -3,7 +3,7 @@
 	top: auto !important;
 	bottom: 0 !important;
 	/* height: 70vh !important; */
-	height: calc((70 * var(--custom-vh)) - calc((100 * var(--custom-vh)) - 100vh - var(--custom-vh2))) !important;
+	height: calc((70 * var(--custom-vh)) - calc((100 * var(--custom-vh)) - 100vh)) !important;
 	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
 	overflow-y: hidden;
@@ -200,7 +200,7 @@
 .popover-angle:after {
 	background-color: #fff !important;
 	left: 7.5vw !important;
-	width: 85vw !important;	
+	width: 85vw !important;
 	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1) !important;
 }
 
