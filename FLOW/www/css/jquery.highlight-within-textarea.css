@@ -14,7 +14,7 @@
     overflow-x: hidden !important;
     overflow-y: auto !important;
 	font-size: calc(2* var(--custom-vh));
-	padding-top: 2vh !important;
+	padding-top: calc(1.2 * var(--custom-vh)) !important;
 }
 
 .hwt-highlights {

@@ -241,6 +241,10 @@ $('#finput_comment').on('paste', function () {
     $(".fsend_comment").css('pointer-events', 'auto');
 });
 
+$("input").focus(function () {
+    $(".hwt-backdrop").css("top", "0vh !important");
+});
+
 $("#finput_comment").keyup(function () {
 
     if (($("#finput_comment").val()).trim() != "") {

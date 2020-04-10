@@ -893,7 +893,7 @@ function send_notif_to_user(block, type) {
                 break;
 
             case 'tag_in_comment':
-                if (block.current_flow_block.LastOs == "ios") {
+                if (block.LastOs == "ios") {
                     data = {
                         "data": {
                             "title": "@" + sender_info.fullname,
