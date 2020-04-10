@@ -669,6 +669,9 @@ function GetPhotoFromGallery() {
         });
     } else {
         getPhoto();
+        if (window.localStorage.getItem("ios_photos_init") != "true") {
+            $(".ios_camera_auth")[0].style.display = "block";
+        }
     }
 }
 
