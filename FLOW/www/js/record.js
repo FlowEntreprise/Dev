@@ -724,6 +724,7 @@ function getPhoto() {
 
 function onFail(message) {
     appState.takingPicture = false;
+    $(".ios_camera_auth")[0].style.display = "none";
     // alert('Failed because: ' + message);
 }
 
