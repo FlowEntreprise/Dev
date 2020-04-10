@@ -33,7 +33,8 @@ var app = {
                 StatusBar.overlaysWebView(false);
             }
             StatusBar.backgroundColorByHexString("#f7f7f8");
-
+            let custom_vh = window.innerHeight / 100;
+            document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
         }, 500);
 
         this.receivedEvent('deviceready');
@@ -173,15 +174,16 @@ var app = {
                 if (window.cordova.platformId == "ios") {
                     data.additionalData.sender_info = JSON.parse(data.additionalData.sender_info);
                 }
-                if (data.additionalData.type == "story_comment") { return; }
+                if (data.additionalData.type == "story_comment") {
+                    return;
+                }
                 if (data.additionalData.type == "follow") {
                     let data_go_to_account = {
                         private_Id: data.additionalData.sender_info.privateId,
                         user_private_Id: window.localStorage.getItem("user_private_id")
                     };
                     go_to_account(data_go_to_account);
-                }
-                else {
+                } else {
 
                     $(".flow_specifique_container").html("");
                     let myApp = new Framework7();
@@ -211,8 +213,8 @@ var app = {
 
         CheckIfConnected();
 
-        var _root = document.documentElement;
-        var _myvar = window.innerHeight / 100;
+        let _root = document.documentElement;
+        let _myvar = window.innerHeight / 100;
         _root.style.setProperty("--custom-vh", _myvar + "px");
     }
 
@@ -283,6 +285,7 @@ function online() {
     console.log("you are online");
     ServerManager.GetStory();
 }
+
 
 
 /*

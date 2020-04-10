@@ -248,7 +248,7 @@ h1 {
 	height: 10vh !important;
 	width: 10vh !important;
 	left: calc(50vw - 5vh);
-	bottom: 1vh;
+	bottom: 2vh;
 	border-radius: 100%;
 	background: linear-gradient(#1a84ef, #ff0054);
 	filter: blur(10px);
@@ -266,7 +266,7 @@ h1 {
 
 #tab1,
 #tab2 {
-	padding-top: calc(19 * var(--custom-vh) - var(--custom-vh2));
+	padding-top: calc(19 * var(--custom-vh));
 	padding-bottom: calc(7 * var(--custom-vh)) !important;
 }
 
@@ -326,7 +326,7 @@ h1 {
 		height: 9vh !important;
 		width: 9vh !important;
 		left: calc(50vw - 4.5vh);
-		bottom: 1.5vh;
+		bottom: 2vh;
 	}
 
 	.fflow-btn {
@@ -334,4 +334,9 @@ h1 {
 		width: calc(9 * var(--custom-vh)) !important;
 	}
 
+	.framework7-root,
+	body,
+	html {
+		height: calc(100 * var(--custom-vh)) !important;
+	}
 }
