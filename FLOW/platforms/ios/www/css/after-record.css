@@ -202,6 +202,34 @@ textarea:focus::-webkit-input-placeholder {
 	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.2);
 }
 
+.ios_camera_auth {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+
+}
+
+.ios_camera_auth>label {
+	position: absolute;
+	left: 10vw;
+	width: 80vw;
+	top: 45vh;
+	color: white;
+	font-family: "Roboto-Regular";
+	font-size: 25px;
+	line-height: 100vh;
+	text-align: center;
+}
+
+.ios_camera_auth>.floading-spinner {
+	position: absolute;
+	top: 50vh;
+}
+
 @supports (-webkit-touch-callout: none) {
 	.fvalidate-after_btn {
 		left: 40vw;
