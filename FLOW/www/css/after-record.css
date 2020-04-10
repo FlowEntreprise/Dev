@@ -221,7 +221,6 @@ textarea:focus::-webkit-input-placeholder {
 	color: white;
 	font-family: "Roboto-Regular";
 	font-size: 22px;
-	line-height: 100vh;
 	text-align: center;
 }
 
