@@ -43,11 +43,13 @@ body {
 	background-image: linear-gradient(top, #a7a7a7 0%, #e4e4e4 51%);
 	background-image: -webkit-linear-gradient(top, #a7a7a7 0%, #e4e4e4 51%);
 	background-image: -ms-linear-gradient(top, #a7a7a7 0%, #e4e4e4 51%);
-	background-image: -webkit-gradient(linear,
-			left top,
-			left bottom,
-			color-stop(0, #a7a7a7),
-			color-stop(0.51, #e4e4e4));
+	background-image: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		color-stop(0, #a7a7a7),
+		color-stop(0.51, #e4e4e4)
+	);
 	background-attachment: fixed;
 	font-family: "HelveticaNeue-Light", "HelveticaNeue", Helvetica, Arial,
 		sans-serif;
@@ -160,7 +162,7 @@ h1 {
 
 .ftop_bar {
 	position: absolute !important;
-	top: 0px !important;
+	top: calc(0px - var(--custom-vh2)) !important;
 	/* height: calc(19 * var(--custom-vh)) !important; */
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
@@ -333,5 +335,4 @@ h1 {
 		height: calc(9 * var(--custom-vh)) !important;
 		width: calc(9 * var(--custom-vh)) !important;
 	}
-
 }
