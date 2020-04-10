@@ -209,18 +209,18 @@ textarea:focus::-webkit-input-placeholder {
 	left: 0;
 	width: 100vw;
 	height: 100vh;
-	background-color: rgba(0, 0, 0, 0.5);
-
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 10;
 }
 
 .ios_camera_auth>label {
 	position: absolute;
 	left: 10vw;
 	width: 80vw;
-	top: 45vh;
+	top: 37vh;
 	color: white;
 	font-family: "Roboto-Regular";
-	font-size: 25px;
+	font-size: 22px;
 	line-height: 100vh;
 	text-align: center;
 }
@@ -228,6 +228,7 @@ textarea:focus::-webkit-input-placeholder {
 .ios_camera_auth>.floading-spinner {
 	position: absolute;
 	top: 50vh;
+	display: block;
 }
 
 @supports (-webkit-touch-callout: none) {

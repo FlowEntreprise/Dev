@@ -633,6 +633,9 @@ function TakePhoto() {
         });
     } else {
         capturePhoto();
+        if (window.localStorage.getItem("ios_photos_init") != "true") {
+            $(".ios_camera_auth")[0].style.display = "block";
+        }
     }
 }
 
@@ -670,6 +673,7 @@ function GetPhotoFromGallery() {
 }
 
 function onPhotoDataSuccess(imageData) {
+    $(".ios_camera_auth")[0].style.display = "none";
     var options = {
         url: imageData, // required.
         ratio: "6/4", // required. (here you can define your custom ration) "1/1" for square images
