@@ -399,13 +399,13 @@ function block_notification_story_comment(data) {
     $(".list-notif-block").append(this.block_notification_story_comment);
 
     this.fphoto_block_notif = document.createElement('div');
-    this.fphoto_block_notif.className = 'fphoto_block_notif_follow';
+    this.fphoto_block_notif.className = 'fphoto_block_notif_story_comment';
     this.fphoto_block_notif.style.backgroundImage = "url('" + this.photo_link + "')";
     this.block_notification_story_comment.appendChild(this.fphoto_block_notif);
 
     this.ftype_notif = document.createElement('img');
     this.ftype_notif.className = 'ftype_notif';
-    this.ftype_notif.src = 'src/icons/follow_you.png';
+    this.ftype_notif.src = 'src/icons/microphone_2.png';
     this.fphoto_block_notif.appendChild(this.ftype_notif);
 
     // this.fnotif_label = document.createElement('label');
@@ -703,8 +703,8 @@ function send_notif_to_user(block, type) {
     }
 
     if ((block.tag_user_RegisterId != undefined &&
-            block.tag_user_RegisterId != prepare_id_registerId &&
-            block.tag_user_RegisterId != registrationId) ||
+        block.tag_user_RegisterId != prepare_id_registerId &&
+        block.tag_user_RegisterId != registrationId) ||
         (block.tag_user_RegisterId == undefined &&
             registrationId != prepare_id_registerId)) {
         if (block.tag_user_RegisterId == undefined && type == "tag_in_comment") {
@@ -986,80 +986,109 @@ function send_notif_to_user(block, type) {
 }
 
 
-function pop_notif_block(data) {
+function pop_notif_block(data) { //bloc de notif de l'onglet notifications
 
-    var notif_type;
-    if (data.additionalData != undefined) {
-        notif_type = data.additionalData.type;
-    } else {
-        notif_type = data.TypeOfNotification;
-    }
-
-
-    switch (notif_type) {
+    switch (data.TypeOfNotification) {
         case 'like_flow':
 
-            if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " a aimé ton flow");
-                $(".f_in_app_notif").css("margin-top", "-40vw");
-                setTimeout(function () {
-                    $(".f_in_app_notif").css("margin-top", "5vw");
-                }, 2000);
-            }
             push_notif_block('like', data);
-
             break;
 
         case 'send_comment':
 
-            if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " a commenté ton flow");
-                $(".f_in_app_notif").css("margin-top", "-40vw");
-                setTimeout(function () {
-                    $(".f_in_app_notif").css("margin-top", "5vw");
-                }, 2000);
-            }
             push_notif_block('comment', data);
-
             break;
 
         case 'like_comment':
 
-            if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " a aimé ton commentaire");
-                $(".f_in_app_notif").css("margin-top", "-40vw");
-                setTimeout(function () {
-                    $(".f_in_app_notif").css("margin-top", "5vw");
-                }, 2000);
-            }
             push_notif_block('like', data);
-
             break;
 
         case 'follow':
 
-            if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " s'est abonné à toi");
-                $(".f_in_app_notif").css("margin-top", "-40vw");
-                setTimeout(function () {
-                    $(".f_in_app_notif").css("margin-top", "5vw");
-                }, 2000);
-            }
             push_notif_block('follow', data);
-
             break;
+
         case 'story_comment':
 
-            if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " a réagi à ta s...");
-                $(".f_in_app_notif").css("margin-top", "-40vw");
-                setTimeout(function () {
-                    $(".f_in_app_notif").css("margin-top", "5vw");
-                }, 2000);
-            }
             push_notif_block('story_comment', data);
             break;
     }
 }
+
+function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois une notif et qu'on est dans l'app
+
+    switch (data.additionalData.type) {
+        case 'like_flow':
+
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a aimé ton flow");
+            $(".f_in_app_notif").css("background-color", "rgb(255, 0, 84)");
+
+            $(".f_in_app_notif").on("click", function () {
+                $(".flow_specifique_container").html("");
+                let data_flow = {
+                    IdFlow: data.additionalData.sender_info.IdFlow
+                };
+                ServerManager.GetSingle(data_flow);
+                Popup("popup-specifique", true);
+            });
+            break;
+
+        case 'send_comment':
+
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a commenté ton flow");
+            $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
+
+            $(".f_in_app_notif").on("click", function () {
+                $(".flow_specifique_container").html("");
+                let data_flow = {
+                    IdFlow: data.additionalData.sender_info.IdFlow
+                };
+                ServerManager.GetSingle(data_flow);
+                Popup("popup-specifique", true);
+                display_all_comments(data);
+            });
+            break;
+
+        case 'like_comment':
+
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a aimé ton commentaire");
+            $(".f_in_app_notif").css("background-color", "rgb(255, 0, 84)");
+            $(".f_in_app_notif").on("click", function () {
+                $(".flow_specifique_container").html("");
+                let data_flow = {
+                    IdFlow: data.additionalData.sender_info.IdFlow
+                };
+                ServerManager.GetSingle(data_flow);
+                Popup("popup-specifique", true);
+                display_all_comments(data);
+            });
+            break;
+
+        case 'follow':
+
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " s'est abonné à toi");
+            $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
+
+            $(".f_in_app_notif").on("click", function () {
+                let data_go_to_account = {
+                    private_Id: data.additionalData.sender_info.privateId,
+                    user_private_Id: window.localStorage.getItem("user_private_id")
+                };
+                go_to_account(data_go_to_account);
+            });
+            break;
+
+        case 'story_comment':
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a réagi à ta s...");
+            $(".f_in_app_notif").css("background-color", "rgb(152, 57, 198)");
+            break;
+    }
+    $(".f_in_app_notif").css("margin-top", "-40vw");
+    setTimeout(function () {
+        $(".f_in_app_notif").css("margin-top", "5vw");
+    }, 2000);
+}
+
 
 var all_notifications_block = [];

@@ -197,6 +197,8 @@ var app = {
                     }
                 }
             }
+
+            in_app_notif(data);
             let data_notification = {
                 PrivateId: window.localStorage.getItem("user_private_id"),
                 Index: 0

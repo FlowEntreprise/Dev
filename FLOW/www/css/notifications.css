@@ -67,7 +67,7 @@
 	background-position: center;
 }
 
-.fphoto_block_notif_echo {
+.fphoto_block_notif_story_comment {
 	position: absolute;
 	width: calc(7 * var(--custom-vh));
 	height: calc(7 * var(--custom-vh));
