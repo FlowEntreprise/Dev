@@ -51,7 +51,7 @@ function Popup(identifier, show, height = 0) {
 }
 
 $(".popup_bg").each(function () {
-    this.addEventListener("click", function () {
+    this.addEventListener("touchend", function () {
         Popup(this.parentElement.id, false);
     });
 });

@@ -20,7 +20,7 @@ ptrContent.on('ptr:pullend', function (e) {
   console.log("pull end");
   $("#ptr_arrow").css("opacity", "0");
 });
-$(".fhome-btn").on("click", function () {
+$(".fhome-btn").on("touchend", function () {
   // var home_scrolling = false;
   if (current_page == "home") {
     let element = document.getElementById("tab1");

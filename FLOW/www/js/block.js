@@ -491,7 +491,7 @@ function block(params) {
 
 }
 
-$(".fpopover_delete_flow").on("click", function () {
+$(".fpopover_delete_flow").on("touchend", function () {
     delete_flow(current_flow_block);
 });
 

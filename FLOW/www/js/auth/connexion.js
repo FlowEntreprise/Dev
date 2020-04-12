@@ -21,14 +21,14 @@ if (window.cordova.platformId == "android") {
     $(".fgoogle_btn")[0].src = "../www/src/icons/apple@3x.png";
 }
 
-$(".ftwitter_btn").on("click", function () {
+$(".ftwitter_btn").on("touchend", function () {
     TWLogin();
 });
 
-$(".ffacebook_btn").on("click", function () {
+$(".ffacebook_btn").on("touchend", function () {
     ConnectFB();
 });
-$(".fgoogle_btn").on("click", function () {
+$(".fgoogle_btn").on("touchend", function () {
     console.log("google / apple clicked");
     if (window.cordova.platformId == "android") {
         google_conn();
@@ -36,9 +36,9 @@ $(".fgoogle_btn").on("click", function () {
         signin_with_apple();
     }
 });
-// $(".finsta_btn").on("click", function () {
+// $(".finsta_btn").on("touchend", function () {
 //     login_insta();
 // });
-$("#fbuton_inscription").on("click", function () {
+$("#fbuton_inscription").on("touchend", function () {
     alert("L'inscripton avec mail ou numero de téléphone n'est pas encore disponible dans cette version\nElle le sera très prochainement !");
 });
