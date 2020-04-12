@@ -491,7 +491,7 @@ function block(params) {
 
 }
 
-$(".fpopover_delete_flow").on("touchend", function () {
+$(".fpopover_delete_flow").on("click", function () {
     delete_flow(current_flow_block);
 });
 
@@ -500,11 +500,15 @@ $(".fpopover_delete_flow").on("touchend", function () {
 function display_all_comments(block) //fonction permettant d'affiher tout les commentaires
 {
     $(".fblock_comment_content").html("");
+
     var loading_comment = document.createElement("div");
     loading_comment.className = "loading-spinner loading_tl loading_comment";
     $(".fblock_comment_content").append(loading_comment);
     $(".fcomment_number").text("");
-    let ObjectId = block.ObjectId ? block.ObjectId : block.additionalData.sender_info.IdFlow;
+    let ObjectId;
+    if (block.ObjectId == undefined && block.IdFlow == undefined) ObjectId = block.additionalData.sender_info.IdFlow;
+    if (block.ObjectId == undefined && block.additionalData == undefined) ObjectId = block.IdFlow;
+    if (block.IdFlow == undefined && block.additionalData == undefined) ObjectId = block.ObjectId;
     let data = {
         ObjectId: ObjectId,
         IsComment: block.IsComment
@@ -882,23 +886,31 @@ function affichage_nombre(number, decPlaces) { // cette fonction permet d'affich
 }
 
 document.getElementById("popup-comment").addEventListener("opened", function () {
-    StatusBar.backgroundColorByHexString('#949494');
-    StatusBar.styleLightContent();
+    if (window.cordova.platformId == "android") {
+        StatusBar.backgroundColorByHexString('#949494');
+        StatusBar.styleLightContent();
+    }
 });
 
 document.getElementById("popup-comment").addEventListener("closed", function () {
-    StatusBar.backgroundColorByHexString('#f7f7f8');
-    StatusBar.styleDefault();
+    if (window.cordova.platformId == "android") {
+        StatusBar.backgroundColorByHexString('#f7f7f8');
+        StatusBar.styleDefault();
+    }
 });
 
 document.getElementById("popup-likes").addEventListener("opened", function () {
-    StatusBar.backgroundColorByHexString('#949494');
-    StatusBar.styleLightContent();
+    if (window.cordova.platformId == "android") {
+        StatusBar.backgroundColorByHexString('#949494');
+        StatusBar.styleLightContent();
+    }
 });
 
 document.getElementById("popup-likes").addEventListener("closed", function () {
-    StatusBar.backgroundColorByHexString('#f7f7f8');
-    StatusBar.styleDefault();
+    if (window.cordova.platformId == "android") {
+        StatusBar.backgroundColorByHexString('#f7f7f8');
+        StatusBar.styleDefault();
+    }
 });
 
 function iosPolyfill(e, slider) {
