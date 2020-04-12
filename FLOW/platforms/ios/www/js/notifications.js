@@ -108,7 +108,7 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
     this.block_notification_like.appendChild(this.ftime);
 
 
-    $(this.block_notification_like).on("click", function () {
+    $(this.block_notification_like).on("touchend", function () {
         $(block_notification_like.fred_dot_border).css('display', 'none');
         console.log("le point rouge shoud disparaitre pour de la notif de like");
         set_seen(block_notification_like);
@@ -177,7 +177,7 @@ function block_notification_echo(data) {
     this.ftime.innerText = set_timestamp(this.time);
     this.block_notification_echo.appendChild(this.ftime);
 
-    $(this.block_notification_echo).on("click", function () {
+    $(this.block_notification_echo).on("touchend", function () {
         $(block_notification_echo.fred_dot_border).css('display', 'none');
         set_seen(block_notification_echo);
         check_seen();
@@ -248,7 +248,7 @@ function block_notification_comment(data) {
     this.ftime.innerText = set_timestamp(this.time);
     this.block_notification_comment.appendChild(this.ftime);
 
-    $(this.block_notification_comment).on("click", function () {
+    $(this.block_notification_comment).on("touchend", function () {
         $(block_notification_comment.fred_dot_border).css('display', 'none');
         set_seen(block_notification_comment);
         check_seen();
@@ -336,7 +336,7 @@ function block_notification_follow(data) {
     this.ftime.innerText = set_timestamp(this.time);
     this.block_notification_follow.appendChild(this.ftime);
 
-    $(this.block_notification_follow).on("click", function () {
+    $(this.block_notification_follow).on("touchend", function () {
         $(block_notification_follow.fred_dot_border).css('display', 'none');
         set_seen(block_notification_follow);
         check_seen();
@@ -436,7 +436,7 @@ function block_notification_story_comment(data) {
     this.ftime.innerText = set_timestamp(this.time);
     this.block_notification_story_comment.appendChild(this.ftime);
 
-    $(this.block_notification_story_comment).on("click", function () {
+    $(this.block_notification_story_comment).on("touchend", function () {
         $(block_notification_story_comment.fred_dot_border).css('display', 'none');
         set_seen(block_notification_story_comment);
         check_seen();
@@ -465,7 +465,7 @@ function block_notification_story_comment(data) {
 }
 
 /*
-$(".fnotif-btn").on("click",function(){
+$(".fnotif-btn").on("touchend",function(){
     if(notification_list_empty == true)
     {
         $(".list-notif-block").html("");
@@ -481,7 +481,7 @@ $(".fnotif-btn").on("click",function(){
 // cette fonction de fdp est copié collé 4 fois dans le code putin de merde
 
 
-$(".fnotif-btn").on("click", function () {
+$(".fnotif-btn").on("touchend", function () {
     // var home_scrolling = false;
     if (current_page == "notifications") {
         let element = document.getElementById("tab4");
@@ -703,8 +703,8 @@ function send_notif_to_user(block, type) {
     }
 
     if ((block.tag_user_RegisterId != undefined &&
-        block.tag_user_RegisterId != prepare_id_registerId &&
-        block.tag_user_RegisterId != registrationId) ||
+            block.tag_user_RegisterId != prepare_id_registerId &&
+            block.tag_user_RegisterId != registrationId) ||
         (block.tag_user_RegisterId == undefined &&
             registrationId != prepare_id_registerId)) {
         if (block.tag_user_RegisterId == undefined && type == "tag_in_comment") {
@@ -736,8 +736,7 @@ function send_notif_to_user(block, type) {
                         "to": block.RegisterId
                         //registrationId
                     };
-                }
-                else {
+                } else {
                     data = {
                         "data": {
                             "title": "@" + sender_info.fullname,
@@ -783,8 +782,7 @@ function send_notif_to_user(block, type) {
                         "to": block.RegisterId
                         //registrationId
                     };
-                }
-                else {
+                } else {
                     data = {
                         "notification": {
                             "title": "@" + sender_info.fullname,
@@ -827,8 +825,7 @@ function send_notif_to_user(block, type) {
                         },
                         "to": block.RegisterId
                     };
-                }
-                else {
+                } else {
                     data = {
                         "data": {
                             "title": "@" + sender_info.fullname,
@@ -871,8 +868,7 @@ function send_notif_to_user(block, type) {
                         "to": block.current_flow_block.RegisterId
                         //registrationId
                     };
-                }
-                else {
+                } else {
                     data = {
                         "data": {
                             "title": "@" + sender_info.fullname,
@@ -893,7 +889,7 @@ function send_notif_to_user(block, type) {
                 break;
 
             case 'tag_in_comment':
-                if (block.current_flow_block.LastOs == "ios") {
+                if (block.LastOs == "ios") {
                     data = {
                         "data": {
                             "title": "@" + sender_info.fullname,
@@ -916,8 +912,7 @@ function send_notif_to_user(block, type) {
                         "to": block.tag_user_RegisterId
                         //registrationId
                     };
-                }
-                else {
+                } else {
                     data = {
                         "data": {
                             "title": "@" + sender_info.fullname,
@@ -962,8 +957,7 @@ function send_notif_to_user(block, type) {
                         "to": block.RegisterId
                         //registrationId
                     };
-                }
-                else {
+                } else {
                     data = {
                         "data": {
                             "title": "@" + sender_info.fullname,

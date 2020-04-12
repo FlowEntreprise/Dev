@@ -107,19 +107,19 @@ function block_comment(comment_data) {
 
 }
 
-$(".fpopover_button").on("click", function () {
+$(".fpopover_button").on("touchend", function () {
     app.closeModal('.popover');
 });
 
-$(".fpopover_copy_comment").on("click", function () {
+$(".fpopover_copy_comment").on("touchend", function () {
     copyToClipboard(current_comment_block.fcomment_text);
 });
 
-$(".fpopover_report_comment").on("click", function () {
+$(".fpopover_report_comment").on("touchend", function () {
     alert("Ce commentaire a été signalé");
 });
 
-$(".fpopover_delete_comment").on("click", function () {
+$(".fpopover_delete_comment").on("touchend", function () {
     console.log("delete");
     //var test = $(this.fimg_user).closest("div");
     delete_comment(current_comment_block.fblock_comment);
@@ -239,6 +239,10 @@ function get_users_with_follow(data) {
 $('#finput_comment').on('paste', function () {
     $(".fsend_comment").css('filter', 'brightness(100%)');
     $(".fsend_comment").css('pointer-events', 'auto');
+});
+
+$("input").focus(function () {
+    $(".hwt-backdrop").css("top", "0vh !important");
 });
 
 $("#finput_comment").keyup(function () {

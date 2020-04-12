@@ -1,8 +1,8 @@
-#popup-followers,
+/*#popup-followers,
 #popup-followings,
 #popup-identification {
 	z-index: 9999999 !important;
-}
+}*/
 
 #span_identification {
 	color: purple;
@@ -90,13 +90,13 @@
 
 .f_user_private_id {
 	position: absolute;
-	top: calc(3 * var(--custom-vh));
+	top: calc(5 * var(--custom-vh));
 	left: 21vw;
 	color: #1a84ef;
 	font-family: "Roboto-Regular";
 	opacity: 0.5;
 }
-
+/*
 .f_user_private_id_identification {
 	position: absolute;
 	top: calc(5 * var(--custom-vh));
@@ -104,7 +104,7 @@
 	color: #1a84ef;
 	font-family: "Roboto-Regular";
 	opacity: 0.5;
-}
+}*/
 
 .following_button {
 	position: absolute;

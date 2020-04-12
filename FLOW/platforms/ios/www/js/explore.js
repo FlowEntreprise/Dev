@@ -35,7 +35,7 @@ $(".fsearch-bar")[0].addEventListener("blur", function () {
         $(".explore-swiper")[0].style.display = "block";
     }
 });
-$(".search_back")[0].addEventListener("click", function () {
+$(".search_back")[0].addEventListener("touchend", function () {
     app.initPullToRefresh(ptrContent_explore);
     $(".search_results")[0].style.opacity = 0;
     $(".search_results")[0].style.pointerEvents = "none";
@@ -78,10 +78,10 @@ ptrContent_explore.on('ptr:pullend', function (e) {
 });
 
 document.addEventListener('deviceready', function () {
-    $(".show_more_users")[0].addEventListener("click", function () {
+    $(".show_more_users")[0].addEventListener("touchend", function () {
         ShowMoreUsers();
     });
-    $(".show_more_flows")[0].addEventListener("click", function () {
+    $(".show_more_flows")[0].addEventListener("touchend", function () {
         ShowMoreFlows();
     });
     // $(".top_users").scroll(function () {

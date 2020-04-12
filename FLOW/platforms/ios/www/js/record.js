@@ -23,12 +23,6 @@ let options = {
     targetHeight: 600
 };
 
-// $(".finput_description")[0].addEventListener("focus", function () {
-//     document.querySelector('meta[name=viewport]').setAttribute('content', 'user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width');
-// });
-// $(".finput_description")[0].addEventListener("blur", function () {
-//     document.querySelector('meta[name=viewport]').setAttribute('content', 'viewport-fit=cover, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width');
-// });
 
 $$('.fflow-btn').on('click', function () {
     if (connected) {
@@ -143,7 +137,7 @@ document.getElementById("popup-story-record").addEventListener("opened", functio
     }
 });
 
-$(".fclose_record")[0].addEventListener("click", function () {
+$(".fclose_record")[0].addEventListener("touchend", function () {
     if (recording) {
         console.log("stop recording");
         stopCapture(false);
@@ -152,7 +146,7 @@ $(".fclose_record")[0].addEventListener("click", function () {
     $(".frecord-btn")[0].classList.remove("frecord_loading_btn");
 });
 
-$(".fclose_story_record")[0].addEventListener("click", function () {
+$(".fclose_story_record")[0].addEventListener("touchend", function () {
     if (recording) {
         console.log("stop recording");
         stopCapture(false);
@@ -408,7 +402,7 @@ function Save(blob) {
         };
         new_block = new block(block_params);
         all_blocks.push(new_block);
-        // $(".frandom-color-btn").on("click", function() {new_block.randomColorGradient()});
+        // $(".frandom-color-btn").on("touchend", function() {new_block.randomColorGradient()});
         patternKey = new_block.patternKey;
         appState.patternKey = patternKey;
         appState.recordTime = record_time;
@@ -604,80 +598,64 @@ drawCurveAnim();
 
 function TakePhoto() {
     console.log("take photo");
-    if (window.cordova.platformId == "android") {
-        var permissions = cordova.plugins.permissions;
-        var list = [
-            permissions.CAMERA
-            //permissions.WRITE_EXTERNAL_STORAGE
-        ];
+    var permissions = cordova.plugins.permissions;
+    var list = [
+        permissions.CAMERA
+        //permissions.WRITE_EXTERNAL_STORAGE
+    ];
 
-        function error() {
-            alert('Permission photo non acordée');
-        }
+    function error() {
+        alert('Permission photo non acordée');
+    }
 
-        function success(status) {
-            if (!status.hasPermission) error();
-            else {
-                //alert("success");
-                capturePhoto();
-            }
-        }
-
-        permissions.hasPermission(permissions.CAMERA, function (status) {
-            if (status.hasPermission) {
-                //alert("success");
-                capturePhoto();
-            } else {
-                permissions.requestPermissions(list, success, error);
-            }
-        });
-    } else {
-        capturePhoto();
-        if (window.localStorage.getItem("ios_photos_init") != "true") {
-            $(".ios_camera_auth")[0].style.display = "block";
+    function success(status) {
+        if (!status.hasPermission) error();
+        else {
+            //alert("success");
+            capturePhoto();
         }
     }
+
+    permissions.hasPermission(permissions.CAMERA, function (status) {
+        if (status.hasPermission) {
+            //alert("success");
+            capturePhoto();
+        } else {
+            permissions.requestPermissions(list, success, error);
+        }
+    });
 }
 
 function GetPhotoFromGallery() {
     console.log("get photo from gallery");
-    if (window.cordova.platformId == "android") {
-        var permissions = cordova.plugins.permissions;
-        var list = [
-            permissions.READ_EXTERNAL_STORAGE
-        ];
+    var permissions = cordova.plugins.permissions;
+    var list = [
+        permissions.READ_EXTERNAL_STORAGE
+    ];
 
-        function error() {
-            alert('Permission galerie photo non accordée');
-        }
+    function error() {
+        alert('Permission galerie photo non accordée');
+    }
 
-        function success(status) {
-            if (!status.hasPermission) error();
-            else {
-                //alert("success");
-                getPhoto();
-            }
-        }
-
-        permissions.hasPermission(permissions.READ_EXTERNAL_STORAGE, function (status) {
-            if (status.hasPermission) {
-                //alert("success");
-                getPhoto();
-            } else {
-                permissions.requestPermissions(list, success, error);
-            }
-        });
-    } else {
-        getPhoto();
-        if (window.localStorage.getItem("ios_photos_init") != "true") {
-            $(".ios_camera_auth")[0].style.display = "block";
+    function success(status) {
+        if (!status.hasPermission) error();
+        else {
+            //alert("success");
+            getPhoto();
         }
     }
+
+    permissions.hasPermission(permissions.READ_EXTERNAL_STORAGE, function (status) {
+        if (status.hasPermission) {
+            //alert("success");
+            getPhoto();
+        } else {
+            permissions.requestPermissions(list, success, error);
+        }
+    });
 }
 
 function onPhotoDataSuccess(imageData) {
-    $(".ios_camera_auth")[0].style.display = "none";
-    window.localStorage.setItem("ios_photos_init", "true");
     var options = {
         url: imageData, // required.
         ratio: "6/4", // required. (here you can define your custom ration) "1/1" for square images
@@ -727,8 +705,6 @@ function getPhoto() {
 
 function onFail(message) {
     appState.takingPicture = false;
-    $(".ios_camera_auth")[0].style.display = "none";
-    window.localStorage.setItem("ios_photos_init", "true");
     // alert('Failed because: ' + message);
 }
 

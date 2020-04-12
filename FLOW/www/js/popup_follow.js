@@ -22,24 +22,7 @@ function block_user(follow_list, target, data) //follow_list true correspond au 
     $(".popup_identification_container").append(this.block_user);
   }
 
-  if (follow_list == true) {
-    $(this.block_user).on('click', function () {
-      $('#finput_comment').focus();
-      string_input_comment = string_input_comment.slice(0, string_input_comment.lastIndexOf("@") + 1);
-      $("#finput_comment").val(string_input_comment + data.PrivateId + " ");
-      $('.regex-example').highlightWithinTextarea({
-        highlight: /@[^ ]+/gi
-      });
-      let data_user = {
-        private_Id: "@" + data.PrivateId,
-        RegisterId: data.RegisterId,
-        LastOs: data.LastOs
-      };
-      all_tagged_users.push(data_user);
-      Popup("popup-identification", false, -5);
 
-    });
-  }
 
   this.fphoto_block_user = document.createElement('div');
   this.fphoto_block_user.className = 'f_user_photo';
@@ -64,9 +47,30 @@ function block_user(follow_list, target, data) //follow_list true correspond au 
   this.f_user_private_id.className = 'f_user_private_id';
   this.f_user_private_id.innerText = "@" + data.PrivateId;
   this.block_user.appendChild(this.f_user_private_id);
+
+  if (follow_list == true) {
+    //$(this.f_user_private_id).removeClass("f_user_private_id").addClass("f_user_private_id_identification");
+    $(this.block_user).on('click', function () {
+      $('#finput_comment').focus();
+      string_input_comment = string_input_comment.slice(0, string_input_comment.lastIndexOf("@") + 1);
+      $("#finput_comment").val(string_input_comment + data.PrivateId + " ");
+      $('.regex-example').highlightWithinTextarea({
+        highlight: /@[^ ]+/gi
+      });
+      let data_user = {
+        private_Id: "@" + data.PrivateId,
+        RegisterId: data.RegisterId,
+        LastOs: data.LastOs
+      };
+      all_tagged_users.push(data_user);
+      Popup("popup-identification", false, -5);
+
+    });
+  }
+
   if (follow_list == false) {
 
-    $(this.f_user_private_id).removeClass("f_user_private_id").addClass("f_user_private_id_identification");
+
     // this.f_user_bio = document.createElement('label'); //bio
     // this.f_user_bio.className = 'f_user_bio';
     // this.f_user_bio.innerText = data.Bio;
