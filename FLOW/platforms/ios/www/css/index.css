@@ -43,13 +43,11 @@ body {
 	background-image: linear-gradient(top, #a7a7a7 0%, #e4e4e4 51%);
 	background-image: -webkit-linear-gradient(top, #a7a7a7 0%, #e4e4e4 51%);
 	background-image: -ms-linear-gradient(top, #a7a7a7 0%, #e4e4e4 51%);
-	background-image: -webkit-gradient(
-		linear,
-		left top,
-		left bottom,
-		color-stop(0, #a7a7a7),
-		color-stop(0.51, #e4e4e4)
-	);
+	background-image: -webkit-gradient(linear,
+			left top,
+			left bottom,
+			color-stop(0, #a7a7a7),
+			color-stop(0.51, #e4e4e4));
 	background-attachment: fixed;
 	font-family: "HelveticaNeue-Light", "HelveticaNeue", Helvetica, Arial,
 		sans-serif;
@@ -250,7 +248,7 @@ h1 {
 	height: 10vh !important;
 	width: 10vh !important;
 	left: calc(50vw - 5vh);
-	bottom: 1vh;
+	bottom: 2vh;
 	border-radius: 100%;
 	background: linear-gradient(#1a84ef, #ff0054);
 	filter: blur(10px);
@@ -328,11 +326,17 @@ h1 {
 		height: 9vh !important;
 		width: 9vh !important;
 		left: calc(50vw - 4.5vh);
-		bottom: 1.5vh;
+		bottom: 2vh;
 	}
 
 	.fflow-btn {
 		height: calc(9 * var(--custom-vh)) !important;
 		width: calc(9 * var(--custom-vh)) !important;
+	}
+
+	.framework7-root,
+	body,
+	html {
+		height: calc(100 * var(--custom-vh)) !important;
 	}
 }
