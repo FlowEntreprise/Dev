@@ -108,7 +108,7 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
     this.block_notification_like.appendChild(this.ftime);
 
 
-    $(this.block_notification_like).on("touchend", function () {
+    $(this.block_notification_like).on("click", function () {
         $(block_notification_like.fred_dot_border).css('display', 'none');
         console.log("le point rouge shoud disparaitre pour de la notif de like");
         set_seen(block_notification_like);
@@ -119,10 +119,10 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
             IdFlow: block_notification_like.IdFlow
         };
         ServerManager.GetSingle(data_flow);
-        Popup("popup-specifique", true);
+
         if (block_notification_like.like_comment == "like_comment") {
 
-            display_all_comments(data);
+            display_all_comments(ServerManager.GetSingle(data_flow));
         }
     });
 
@@ -177,7 +177,7 @@ function block_notification_echo(data) {
     this.ftime.innerText = set_timestamp(this.time);
     this.block_notification_echo.appendChild(this.ftime);
 
-    $(this.block_notification_echo).on("touchend", function () {
+    $(this.block_notification_echo).on("click", function () {
         $(block_notification_echo.fred_dot_border).css('display', 'none');
         set_seen(block_notification_echo);
         check_seen();
@@ -248,7 +248,7 @@ function block_notification_comment(data) {
     this.ftime.innerText = set_timestamp(this.time);
     this.block_notification_comment.appendChild(this.ftime);
 
-    $(this.block_notification_comment).on("touchend", function () {
+    $(this.block_notification_comment).on("click", function () {
         $(block_notification_comment.fred_dot_border).css('display', 'none');
         set_seen(block_notification_comment);
         check_seen();
@@ -257,9 +257,8 @@ function block_notification_comment(data) {
         let data_flow = {
             IdFlow: block_notification_comment.IdFlow
         };
-        ServerManager.GetSingle(data_flow);
-        Popup("popup-specifique", true);
-        display_all_comments(data);
+        ServerManager.GetSingle(data_flow, true);
+
     });
 
     $(this.fphoto_block_notif).on('click', function (event) {
@@ -336,7 +335,7 @@ function block_notification_follow(data) {
     this.ftime.innerText = set_timestamp(this.time);
     this.block_notification_follow.appendChild(this.ftime);
 
-    $(this.block_notification_follow).on("touchend", function () {
+    $(this.block_notification_follow).on("click", function () {
         $(block_notification_follow.fred_dot_border).css('display', 'none');
         set_seen(block_notification_follow);
         check_seen();
@@ -346,7 +345,7 @@ function block_notification_follow(data) {
              IdFlow: block_notification_follow.IdFlow
          };
          ServerManager.GetSingle(data_flow);
-         Popup("popup-specifique", true);
+         
          display_all_follows(data);*/
         let data = {
             private_Id: block_notification_follow.private_Id,
@@ -436,7 +435,7 @@ function block_notification_story_comment(data) {
     this.ftime.innerText = set_timestamp(this.time);
     this.block_notification_story_comment.appendChild(this.ftime);
 
-    $(this.block_notification_story_comment).on("touchend", function () {
+    $(this.block_notification_story_comment).on("click", function () {
         $(block_notification_story_comment.fred_dot_border).css('display', 'none');
         set_seen(block_notification_story_comment);
         check_seen();
@@ -446,7 +445,7 @@ function block_notification_story_comment(data) {
              IdFlow: block_notification_story_comment.IdFlow
          };
          ServerManager.GetSingle(data_flow);
-         Popup("popup-specifique", true);
+         
          display_all_follows(data);*/
         app.showTab("#tab1");
     });
@@ -465,7 +464,7 @@ function block_notification_story_comment(data) {
 }
 
 /*
-$(".fnotif-btn").on("touchend",function(){
+$(".fnotif-btn").on("click",function(){
     if(notification_list_empty == true)
     {
         $(".list-notif-block").html("");
@@ -481,7 +480,7 @@ $(".fnotif-btn").on("touchend",function(){
 // cette fonction de fdp est copié collé 4 fois dans le code putin de merde
 
 
-$(".fnotif-btn").on("touchend", function () {
+$(".fnotif-btn").on("click", function () {
     // var home_scrolling = false;
     if (current_page == "notifications") {
         let element = document.getElementById("tab4");
@@ -1030,7 +1029,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
                     IdFlow: data.additionalData.sender_info.IdFlow
                 };
                 ServerManager.GetSingle(data_flow);
-                Popup("popup-specifique", true);
+
             });
             break;
 
@@ -1044,9 +1043,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
                 let data_flow = {
                     IdFlow: data.additionalData.sender_info.IdFlow
                 };
-                ServerManager.GetSingle(data_flow);
-                Popup("popup-specifique", true);
-                display_all_comments(data);
+                ServerManager.GetSingle(data_flow, true);
             });
             break;
 
@@ -1059,9 +1056,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
                 let data_flow = {
                     IdFlow: data.additionalData.sender_info.IdFlow
                 };
-                ServerManager.GetSingle(data_flow);
-                Popup("popup-specifique", true);
-                display_all_comments(data);
+                ServerManager.GetSingle(data_flow, true);
             });
             break;
 
