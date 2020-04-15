@@ -573,7 +573,11 @@ function drawCurveAnim() {
         if (current_page == "record") {
             if (recording) {
                 siriWave.amplitude = (Math.round(smoothVolume) * 0.02) + 0.1;
-                siriWave.speed = 0.2;
+                if (window.cordova.platformId == "android") {
+                    siriWave.speed = 0.2;
+                } else {
+                    siriWave.speed = 0.1;
+                }
             } else {
                 siriWave.amplitude = 0;
                 siriWave.speed = 0;
@@ -581,7 +585,11 @@ function drawCurveAnim() {
         } else {
             if (recording) {
                 siriWaveStory.amplitude = (Math.round(smoothVolume) * 0.02) + 0.1;
-                siriWaveStory.speed = 0.2;
+                if (window.cordova.platformId == "android") {
+                    siriWaveStory.speed = 0.2;
+                } else {
+                    siriWaveStory.speed = 0.1;
+                }
             } else {
                 siriWaveStory.amplitude = 0;
                 siriWaveStory.speed = 0;
