@@ -572,11 +572,12 @@ function drawCurveAnim() {
         // $$('#flow_number_of_sec').text(Math.round(smoothVolume));
         if (current_page == "record") {
             if (recording) {
-                siriWave.amplitude = (Math.round(smoothVolume) * 0.02) + 0.1;
                 if (window.cordova.platformId == "android") {
+                    siriWave.amplitude = (Math.round(smoothVolume) * 0.02) + 0.1;
                     siriWave.speed = 0.2;
                 } else {
-                    siriWave.speed = 0.1;
+                    siriWave.amplitude = (Math.round(smoothVolume) * 0.015) + 0.1;
+                    siriWave.speed = 0.16;
                 }
             } else {
                 siriWave.amplitude = 0;
@@ -584,11 +585,12 @@ function drawCurveAnim() {
             }
         } else {
             if (recording) {
-                siriWaveStory.amplitude = (Math.round(smoothVolume) * 0.02) + 0.1;
                 if (window.cordova.platformId == "android") {
+                    siriWaveStory.amplitude = (Math.round(smoothVolume) * 0.02) + 0.1;
                     siriWaveStory.speed = 0.2;
                 } else {
-                    siriWaveStory.speed = 0.1;
+                    siriWaveStory.amplitude = (Math.round(smoothVolume) * 0.015) + 0.1;
+                    siriWaveStory.speed = 0.16;
                 }
             } else {
                 siriWaveStory.amplitude = 0;
