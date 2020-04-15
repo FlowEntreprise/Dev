@@ -10,7 +10,6 @@
         "cheerio": "^0.19.0",
         "cordova-android": "^8.1.0",
         "cordova-android-support-gradle-release": "^2.1.0",
-        "cordova-browser": "^6.0.0",
         "cordova-httpd": "git+https://github.com/floatinghotpot/cordova-httpd.git",
         "cordova-plugin-android-permissions": "^1.0.0",
         "cordova-plugin-audioinput": "^1.0.2",
@@ -97,8 +96,6 @@
             },
             "com.rjfun.cordova.httpd": {}
         },
-        "platforms": [
-            "browser"
-        ]
+        "platforms": []
     }
 }

@@ -109,19 +109,19 @@
               "count": 1
             },
             {
-              "xml": "<feature name=\"GooglePlus\"><param name=\"android-package\" value=\"nl.xservices.plugins.GooglePlus\" /><param name=\"onload\" value=\"true\" /></feature>",
-              "count": 1
-            },
-            {
-              "xml": "<access origin=\"https://accounts.google.com/*\" />",
-              "count": 1
-            },
-            {
               "xml": "<feature name=\"CorHttpd\"><param name=\"android-package\" value=\"com.rjfun.cordova.httpd.CorHttpd\" /></feature>",
               "count": 1
             },
             {
               "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"GooglePlus\"><param name=\"android-package\" value=\"nl.xservices.plugins.GooglePlus\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<access origin=\"https://accounts.google.com/*\" />",
               "count": 1
             }
           ],
@@ -434,14 +434,14 @@
       "TWITTER_SECRET": "6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT",
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova-plugin-googleplus": {
-      "PLAY_SERVICES_VERSION": "15.0.1",
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
     "com.rjfun.cordova.httpd": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-googleplus": {
+      "PLAY_SERVICES_VERSION": "15.0.1",
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -887,14 +887,6 @@
       ]
     },
     {
-      "id": "cordova-plugin-googleplus.GooglePlus",
-      "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
-      "pluginId": "cordova-plugin-googleplus",
-      "clobbers": [
-        "window.plugins.googleplus"
-      ]
-    },
-    {
       "id": "com.rjfun.cordova.httpd.CorHttpd",
       "file": "plugins/com.rjfun.cordova.httpd/www/CorHttpd.js",
       "pluginId": "com.rjfun.cordova.httpd",
@@ -908,6 +900,14 @@
       "pluginId": "cordova-plugin-device",
       "clobbers": [
         "device"
+      ]
+    },
+    {
+      "id": "cordova-plugin-googleplus.GooglePlus",
+      "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
+      "pluginId": "cordova-plugin-googleplus",
+      "clobbers": [
+        "window.plugins.googleplus"
       ]
     }
   ],
@@ -937,8 +937,8 @@
     "cordova-support-android-plugin": "1.0.1",
     "cordova-plugin-firebase-analytics": "2.0.4",
     "cordova-twitter3-connect-plugin": "1.0.5",
-    "cordova-plugin-googleplus": "8.1.1",
     "com.rjfun.cordova.httpd": "0.9.2",
-    "cordova-plugin-device": "2.0.3"
+    "cordova-plugin-device": "2.0.3",
+    "cordova-plugin-googleplus": "8.1.1"
   }
 }

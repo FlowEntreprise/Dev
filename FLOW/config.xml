@@ -7,7 +7,6 @@
     <author email="flowapp.entreprise@gmail.com" href="http://cordova.io">
         FLOW Team
     </author>
-    <!-- <icon src="www/src/icons/FLOW@3x.png" /> -->
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -16,7 +15,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-=    <platform name="android">
+    <platform name="android">
         <allow-intent href="market:*" />
     </platform>
     <platform name="ios">
@@ -32,17 +31,14 @@
         <preference name="SplashScreen" value="screen" />
         <preference name="AutoHideSplashScreen" value="false" />
         <preference name="FadeSplashScreenDuration" value="0" />
-
-        <!-- icone notif oneplus -->
         <resource-file src="res/icon/android/drawable/flow_icone.png" target="app/src/main/res/drawable/flow_icone.png" />
         <resource-file src="res/icon/android/drawable/flow_icone_one_plus.png" target="app/src/main/res/drawable/flow_icone_one_plus.png" />
-        <!-- <splash src="res/screen/android/splash.png" /> -->
-        <splash src="res/screen/android/drawable-hdpi/splash.png" density="port-hdpi"/>
-        <splash src="res/screen/android/drawable-ldpi/splash.png" density="port-ldpi"/>
-        <splash src="res/screen/android/drawable-mdpi/splash.png" density="port-mdpi"/>
-        <splash src="res/screen/android/drawable-xhdpi/splash.png" density="port-xhdpi"/>
-        <splash src="res/screen/android/drawable-xxhdpi/splash.png" density="port-xxhdpi"/>
-        <splash src="res/screen/android/drawable-xxxhdpi/splash.png" density="port-xxxhdpi"/>
+        <splash density="port-hdpi" src="res/screen/android/drawable-hdpi/splash.png" />
+        <splash density="port-ldpi" src="res/screen/android/drawable-ldpi/splash.png" />
+        <splash density="port-mdpi" src="res/screen/android/drawable-mdpi/splash.png" />
+        <splash density="port-xhdpi" src="res/screen/android/drawable-xhdpi/splash.png" />
+        <splash density="port-xxhdpi" src="res/screen/android/drawable-xxhdpi/splash.png" />
+        <splash density="port-xxxhdpi" src="res/screen/android/drawable-xxxhdpi/splash.png" />
         <preference name="ShowSplashScreenSpinner" value="true" />
         <preference name="SplashMaintainAspectRatio" value="true" />
     </platform>
@@ -86,5 +82,4 @@
     <plugin name="cordova-plugin-media" spec="^5.0.3" />
     <plugin name="cordova-plugin-audioinput" spec="^1.0.2" />
     <plugin name="cordova-plugin-compat" spec="^1.2.0" />
-    <engine name="browser" spec="^6.0.0" />
 </widget>

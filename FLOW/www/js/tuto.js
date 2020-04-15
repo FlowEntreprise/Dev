@@ -67,7 +67,6 @@ function nextTutoFrame() {
         $(".tuto_txt._4")[0].style.opacity = txt_4_opacity[tuto_1_index];
         $(".tuto_txt._5")[0].style.opacity = txt_5_opacity[tuto_1_index];
     } else {
-        console.log(tuto_2_index);
         if (tuto_2_index == 1) {
             delay = 500;
         }

@@ -440,14 +440,6 @@ module.exports = [
     ]
   },
   {
-    "id": "cordova-plugin-googleplus.GooglePlus",
-    "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
-    "pluginId": "cordova-plugin-googleplus",
-    "clobbers": [
-      "window.plugins.googleplus"
-    ]
-  },
-  {
     "id": "com.rjfun.cordova.httpd.CorHttpd",
     "file": "plugins/com.rjfun.cordova.httpd/www/CorHttpd.js",
     "pluginId": "com.rjfun.cordova.httpd",
@@ -461,6 +453,14 @@ module.exports = [
     "pluginId": "cordova-plugin-device",
     "clobbers": [
       "device"
+    ]
+  },
+  {
+    "id": "cordova-plugin-googleplus.GooglePlus",
+    "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
+    "pluginId": "cordova-plugin-googleplus",
+    "clobbers": [
+      "window.plugins.googleplus"
     ]
   }
 ];
@@ -492,9 +492,9 @@ module.exports.metadata =
   "cordova-support-android-plugin": "1.0.1",
   "cordova-plugin-firebase-analytics": "2.0.4",
   "cordova-twitter3-connect-plugin": "1.0.5",
-  "cordova-plugin-googleplus": "8.1.1",
   "com.rjfun.cordova.httpd": "0.9.2",
-  "cordova-plugin-device": "2.0.3"
+  "cordova-plugin-device": "2.0.3",
+  "cordova-plugin-googleplus": "8.1.1"
 };
 // BOTTOM OF METADATA
 });
