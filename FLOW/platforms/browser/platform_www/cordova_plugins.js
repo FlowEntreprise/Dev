@@ -424,6 +424,20 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.CorHttpd"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device/www/device.js",
+        "id": "cordova-plugin-device.device",
+        "pluginId": "cordova-plugin-device",
+        "clobbers": [
+            "device"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device/src/browser/DeviceProxy.js",
+        "id": "cordova-plugin-device.DeviceProxy",
+        "pluginId": "cordova-plugin-device",
+        "runs": true
     }
 ];
 module.exports.metadata = 
@@ -455,7 +469,8 @@ module.exports.metadata =
     "cordova-plugin-firebase-analytics": "2.0.4",
     "cordova-twitter3-connect-plugin": "1.0.5",
     "cordova-plugin-googleplus": "8.1.1",
-    "com.rjfun.cordova.httpd": "0.9.2"
+    "com.rjfun.cordova.httpd": "0.9.2",
+    "cordova-plugin-device": "2.0.3"
 }
 // BOTTOM OF METADATA
 });

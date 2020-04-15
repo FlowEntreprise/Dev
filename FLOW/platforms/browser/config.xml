@@ -26,4 +26,7 @@
     <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
     <preference name="deployment-target" value="7.0" />
+    <feature name="Device">
+        <param name="browser-package" value="Device" />
+    </feature>
 </widget>

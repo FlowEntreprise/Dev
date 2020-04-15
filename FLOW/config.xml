@@ -35,6 +35,7 @@
 
         <!-- icone notif oneplus -->
         <resource-file src="res/icon/android/drawable/flow_icone.png" target="app/src/main/res/drawable/flow_icone.png" />
+        <resource-file src="res/icon/android/drawable/flow_icone_one_plus.png" target="app/src/main/res/drawable/flow_icone_one_plus.png" />
         <!-- <splash src="res/screen/android/splash.png" /> -->
         <splash src="res/screen/android/drawable-hdpi/splash.png" density="port-hdpi"/>
         <splash src="res/screen/android/drawable-ldpi/splash.png" density="port-ldpi"/>
