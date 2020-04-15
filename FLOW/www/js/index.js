@@ -150,7 +150,7 @@ var app = {
 
         var push = PushNotification.init({
             android: {
-                //icon: 'www/src/icons/FLOW@3x.png'
+                icon: 'flow_icone'
             },
             ios: {
                 alert: 'true',
