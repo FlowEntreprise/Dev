@@ -49,5 +49,7 @@ function flow_specifique(data, LinkBuilder, show_comment) {//show comment permet
 
 }
 
-
+document.getElementById("popup-specifique").addEventListener("closed", function () {
+    stopAllBlocksAudio();
+});
 

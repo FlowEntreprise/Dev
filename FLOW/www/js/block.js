@@ -459,14 +459,14 @@ function block(params) {
         impression_coloring(this, 'echo', block.fimg_impression_echo);
     });
 
-    /*----------------------TEST_LAURE------------*/
+    /*----------------------TEST_LAURE------------
 
     $(this.fdots).on('click', function () {
 
         $("#registration_test").val(registrationId);
     });
 
-    /*----------------------FIN_TEST_LAURE------------*/
+    ----------------------FIN_TEST_LAURE------------*/
 
     $(this.fimg_impression_comment).on('click', function () {
 
@@ -485,6 +485,7 @@ function block(params) {
 
     $(this.fdots).on('click', function () {
         var clickedLink = this;
+        stopAllBlocksAudio();
         current_flow_block = block;
         delete_flow_from_bdd(current_flow_block);
     });
