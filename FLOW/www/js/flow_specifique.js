@@ -1,6 +1,6 @@
 
-function flow_specifique(data, LinkBuilder) {
-
+function flow_specifique(data, LinkBuilder, show_comment) {//show comment permet de savoir si les commentaires doivent etre affichées
+    Popup("popup-specifique", true);
     var image_link = undefined;
     var pattern_key = undefined;
     if (data.Background.PatternKey == undefined) {
@@ -42,12 +42,12 @@ function flow_specifique(data, LinkBuilder) {
 
     var new_block = new block(block_params);
     all_blocks.push(new_block);
-
+    if (show_comment == true) $(new_block.fimg_impression_comment).click();
     console.log("Pop Flow");
     console.log(new_block);
 
 
 }
 
-   
+
 
