@@ -39,6 +39,7 @@ var app = {
         }, 500);
 
         this.receivedEvent('deviceready');
+
     },
     onPause: function () {
 
@@ -151,7 +152,7 @@ var app = {
 
         var push = PushNotification.init({
             android: {
-                icon: 'flow_icone'
+                icon: device.manufacturer == "OnePlus" ? 'flow_icone_one_plus' : 'flow_icone'
             },
             ios: {
                 alert: 'true',

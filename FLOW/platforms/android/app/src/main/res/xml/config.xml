@@ -75,6 +75,9 @@
     <feature name="CorHttpd">
         <param name="android-package" value="com.rjfun.cordova.httpd.CorHttpd" />
     </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
     <widget>
         <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
         <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
@@ -136,6 +139,7 @@
     <resource-file src="google-services.json" target="app/google-services.json" />
     <resource-file src="google-services.json" target="google-services.json" />
     <resource-file src="res/icon/android/drawable/flow_icone.png" target="app/src/main/res/drawable/flow_icone.png" />
+    <resource-file src="res/icon/android/drawable/flow_icone_one_plus.png" target="app/src/main/res/drawable/flow_icone_one_plus.png" />
     <splash density="port-hdpi" src="res/screen/android/drawable-hdpi/splash.png" />
     <splash density="port-ldpi" src="res/screen/android/drawable-ldpi/splash.png" />
     <splash density="port-mdpi" src="res/screen/android/drawable-mdpi/splash.png" />
