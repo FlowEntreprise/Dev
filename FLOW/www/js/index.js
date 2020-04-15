@@ -35,6 +35,7 @@ var app = {
             StatusBar.backgroundColorByHexString("#f7f7f8");
             let custom_vh = window.innerHeight / 100;
             document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
+            startTuto();
         }, 500);
 
         this.receivedEvent('deviceready');

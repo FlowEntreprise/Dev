@@ -7,7 +7,6 @@
     <author email="flowapp.entreprise@gmail.com" href="http://cordova.io">
         FLOW Team
     </author>
-    <icon src="www/src/icons/FLOW@3x.png" />
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -26,4 +25,5 @@
     <preference name="Hostname" value="app" />
     <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
+    <preference name="deployment-target" value="7.0" />
 </widget>
