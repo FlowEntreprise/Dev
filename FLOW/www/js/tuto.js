@@ -171,9 +171,12 @@ function nextTutoFrame() {
             }
 
             if (tuto_2_index == 19) {
-                $(".tuto_app")[0].style.transform = "translate3d(0, 100vh, 0)";
+                $(".tuto_app")[0].style.transform = "translate3d(0, calc(100 * var(--custom-vh)), 0)";
                 $(".tuto_app")[0].style.pointerEvents = "none";
                 window.localStorage.setItem("first_open", "false");
+                setTimeout(function () {
+                    $(".tuto_app")[0].style.display = "none";
+                }, 1000);
             }
         }
     }
