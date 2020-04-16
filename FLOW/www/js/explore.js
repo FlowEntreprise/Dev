@@ -36,6 +36,10 @@ $(".fsearch-bar")[0].addEventListener("blur", function () {
     }
 });
 $(".search_back")[0].addEventListener("touchend", function () {
+    back_search();
+});
+
+function back_search() {
     app.initPullToRefresh(ptrContent_explore);
     $(".search_results")[0].style.opacity = 0;
     $(".search_results")[0].style.pointerEvents = "none";
@@ -50,7 +54,7 @@ $(".search_back")[0].addEventListener("touchend", function () {
     RefreshSearch();
     searching_users = false;
     searching_flows = false;
-});
+}
 
 var ptrContent_explore = $$('#tab2');
 // Add 'refresh' listener on it

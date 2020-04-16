@@ -3,6 +3,7 @@ var explore_tabs_initialised = false;
 var in_comments = false;
 var in_likes = false;
 var in_specifique = false;
+var in_options = false;
 $("#tab1").load("pages/home.html");
 $("#tab2").load("pages/explore.html");
 $("#tab3").load("pages/messages.html");
@@ -149,7 +150,10 @@ var current_page = "home";
 function onBackKeyDown() {
     //alert(current_page);
     // Handle the back button
-    if (in_comments) {
+    if (in_options) {
+        Popup("popup-option", false);
+        in_options = false;
+    } else if (in_comments) {
         Popup("popup-comment", false);
         in_comments = false;
     } else if (in_likes) {
@@ -158,6 +162,8 @@ function onBackKeyDown() {
     } else if (in_specifique) {
         Popup("popup-specifique", false);
         in_specifique = false;
+    } else if (searching) {
+        back_search();
     } else if (current_page == "record") {
         // app.closeModal('.popup-record');
         Popup("popup-record", false);
