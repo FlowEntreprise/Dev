@@ -19,6 +19,7 @@ var LastOs;
 $(".fnavAccount").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 
 document.getElementById("popup-account").addEventListener("opened", function () {
+    $("#tabCompte2").css("display", "block");
     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
     $("scrollEventAccount").remove(".swiper-wrapper");
     $("#accountBannerScrollAccount").css("transition-duration", "0.2s");
@@ -132,25 +133,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
     }
 
     $("#fgobackCompte").click(function () {
-        //$(".flow-btn-shadow").css("display", "block");
-        privateIDAccount = "";
-        profilePicLink = "";
-        bioCompte = "";
-        nameCompte = "";
-        // follow = "";
-        // followYou = "";
-        $(".fflow-btn").css("display", "block");
-        $(".flow-btn-shadow").css("display", "block");
-        $(".fflow-btn").css("z-index", "1");
-        $(".flow-btn-shadow").css("z-index", "0");
-
-        current_page = "home";
-        if (window.cordova.platformId == "android") {
-            analytics.setCurrentScreen(current_page);
-        }
         Popup("popup-account", false);
-        stopAllBlocksAudio();
-        // mainView.back();
     });
 
     $("#tabCompte1").scroll(function () {
@@ -180,6 +163,28 @@ document.getElementById("popup-account").addEventListener("opened", function () 
             }
         }
     });
+});
+
+document.getElementById("popup-account").addEventListener("closed", function () {
+    //$(".flow-btn-shadow").css("display", "block");
+    privateIDAccount = "";
+    profilePicLink = "";
+    bioCompte = "";
+    nameCompte = "";
+    // follow = "";
+    // followYou = "";
+    $(".fflow-btn").css("display", "block");
+    $(".flow-btn-shadow").css("display", "block");
+    $(".fflow-btn").css("z-index", "1");
+    $(".flow-btn-shadow").css("z-index", "0");
+    $("#tabCompte2").css("display", "none");
+    current_page = "home";
+    if (window.cordova.platformId == "android") {
+        analytics.setCurrentScreen(current_page);
+    }
+    stopAllBlocksAudio();
+    // mainView.back();
+    // tabCompte2
 });
 
 $("#fFollowButtunAccount").click(function () {
