@@ -1,5 +1,6 @@
 function flow_specifique(data, LinkBuilder, show_comment) { //show comment permet de savoir si les commentaires doivent etre affichées
     Popup("popup-specifique", true);
+    $(".flow_specifique_container")[0].innerHTML = "";
     var image_link = undefined;
     var pattern_key = undefined;
     if (data.Background.PatternKey == undefined) {
