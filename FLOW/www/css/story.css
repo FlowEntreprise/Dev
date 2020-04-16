@@ -664,3 +664,10 @@
 .fstory_addcomment_confirmation {
     opacity: 0;
 }
+
+
+@supports (-webkit-touch-callout: none) {
+    .fclose_story_record {
+        top: 7vh;
+    }
+}
