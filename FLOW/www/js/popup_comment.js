@@ -324,6 +324,7 @@ document.getElementById("popup-comment").addEventListener("opened", function () 
 document.getElementById("popup-comment").addEventListener("closed", function () {
     $(".fwrite_comment")[0].style.display = "none";
     in_comments = false;
+    current_flow_block.all_comment_blocks.length = 0;
     // app.closeModal('#popover_comment');
 
 });

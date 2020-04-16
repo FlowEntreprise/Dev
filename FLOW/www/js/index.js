@@ -194,8 +194,7 @@ var app = {
                     };
                     if (data.additionalData.type == "send_comment" || data.additionalData.type == "like_comment") {
                         ServerManager.GetSingle(data_flow, true);
-                    }
-                    else {
+                    } else {
 
                         ServerManager.GetSingle(data_flow);
                     }
