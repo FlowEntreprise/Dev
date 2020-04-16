@@ -73,6 +73,7 @@ function DisconnectUser() {
         });
     }
     window.localStorage.clear();
+    window.localStorage.setItem("first_open", "false");
     //$( "#fswipe_area" ).css({"pointer-events": "none"});
 }
 

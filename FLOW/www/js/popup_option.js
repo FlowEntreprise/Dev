@@ -1,4 +1,5 @@
 var element_to_copy;
+var element_to_delete = {};
 
 function delete_flow_from_bdd(element) {
     element_to_copy = "flow_tittle";
@@ -8,14 +9,9 @@ function delete_flow_from_bdd(element) {
 
     if (window.localStorage.getItem("user_private_id") == element.privateID) {
         Popup("popup-option", true, 85);
+        element_to_delete.type = "flow";
+        element_to_delete.element = element;
         $("#delete_button").css("display", "block");
-        $("#delete_button").on("touchend", function () {
-            let data_delete_flow = {
-                //element: element,
-                ObjectId: element.ObjectId
-            };
-            ServerManager.DeleteFlow(data_delete_flow, element);
-        });
     }
 }
 
@@ -37,14 +33,9 @@ function delete_comment_from_bdd(element) {
 
     if (window.localStorage.getItem("user_private_id") == element.private_Id) {
         Popup("popup-option", true, 85);
+        element_to_delete.type = "comment";
+        element_to_delete.element = element;
         $("#delete_button").css("display", "block");
-        $("#delete_button").on("touchend", function () {
-            let data_delete_comment = {
-                //element: element,
-                ObjectId: element.Id
-            };
-            ServerManager.DeleteComment(data_delete_comment, element);
-        });
     }
 }
 
@@ -82,6 +73,28 @@ $("#copy_button").on("touchend", function () {
         Popup("popup-option", false);
     }
 });
+
+$("#delete_button").on("touchend", function () {
+    if (element_to_delete) {
+        if (element_to_delete.type == "flow") {
+            let data_delete_flow = {
+                //element: element,
+                ObjectId: element_to_delete.element.ObjectId
+            };
+            ServerManager.DeleteFlow(data_delete_flow, element_to_delete.element);
+        } else {
+            let data_delete_comment = {
+                //element: element,
+                ObjectId: element_to_delete.element.Id
+            };
+            ServerManager.DeleteComment(data_delete_comment, element_to_delete.element);
+        }
+    } else {
+        alert("Une erreur est survenue lors de la suppression de cet élément");
+    }
+});
+
+
 
 document.getElementById("popup-option").addEventListener("opened", function () {
     in_options = true;

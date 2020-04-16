@@ -207,7 +207,7 @@ h1 {
 	position: absolute;
 	width: 85vw;
 	margin-left: 7.5vw;
-	height: calc(7 * var(--custom-vh));
+	height: auto;
 	line-height: calc(7 * var(--custom-vh));
 	margin-top: 5vw;
 	background-color: #fff;
@@ -220,7 +220,7 @@ h1 {
 
 .flabel_in_app_notif {
 	font-size: 4.2vw;
-	color: #FFF;	
+	color: #FFF;
 	font-family: Roboto;
 }
 
