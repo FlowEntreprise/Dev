@@ -703,8 +703,8 @@ function send_notif_to_user(block, type) {
     }
 
     if ((block.tag_user_RegisterId != undefined &&
-        block.tag_user_RegisterId != prepare_id_registerId &&
-        block.tag_user_RegisterId != registrationId) ||
+            block.tag_user_RegisterId != prepare_id_registerId &&
+            block.tag_user_RegisterId != registrationId) ||
         (block.tag_user_RegisterId == undefined &&
             registrationId != prepare_id_registerId)) {
         if (block.tag_user_RegisterId == undefined && type == "tag_in_comment") {
@@ -1086,7 +1086,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
     $(".f_in_app_notif").css("margin-top", "-40vw");
     setTimeout(function () {
         $(".f_in_app_notif").css("margin-top", "5vw");
-    }, 4500);
+    }, 6000);
 }
 
 

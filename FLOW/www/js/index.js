@@ -235,6 +235,7 @@ var app = new Framework7({
     showBarsOnPageScrollEnd: false,
     material: false,
     tapHold: true,
+    tapHoldDelay: 300,
     input: {
         scrollIntoViewOnFocus: true,
         scrollIntoViewCentered: true,
