@@ -1,6 +1,7 @@
 "use_strict";
 
 var block_id = 0;
+var audio_playing = false;
 
 /*********** BLOCK PARAMS *************
  * var block_params = {
@@ -51,6 +52,7 @@ function block(params) {
             wave.start();
             waveform.style.display = "block";
             block.myaudio.play();
+            audio_playing = true;
             block.progress_div.style.transitionDuration = block.myaudio.duration - block.myaudio.currentTime + "s";
             block.progress_div.style.display = 'block';
             // block.progress_div.style.borderTopRightRadius = '0vw';
@@ -75,6 +77,7 @@ function block(params) {
             wave.stop();
             block.isPlaying = false;
             block.myaudio.pause();
+            audio_playing = false;
             block.myRange.style.pointerEvents = "none";
             block.progress_div.style.transitionDuration = "0s";
             block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
@@ -358,6 +361,7 @@ function block(params) {
     };
 
     this.myaudio.onended = function () {
+        audio_playing = false;
         waveform.style.display = "none";
         block.progress_div.style.transitionDuration = '0s';
         // block.progress_div.style.borderTopRightRadius = '2vw';
@@ -783,7 +787,10 @@ var all_blocks = [];
 var last_story_color;
 
 function stopAllBlocksAudio() {
-    all_blocks.map(a => a.flowpause(a));
+    if (audio_playing) {
+        all_blocks.map(a => a.flowpause(a));
+        audio_playing = false;
+    }
 }
 
 function set_timestamp(timestamp) { // fonction qui permet d'afficher le temp ecoulé depuis un post (posté il y a 2h par exemple)
