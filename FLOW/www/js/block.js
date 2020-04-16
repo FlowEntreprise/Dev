@@ -50,11 +50,11 @@ function block(params) {
             block.fpause_button.style.display = "block";
             wave.start();
             waveform.style.display = "block";
-            console.log("duration : " + block.myaudio.duration);
-            console.log("currentTime : " + block.currentTime);
             block.myaudio.play();
+            block.progress_div.style.transitionDuration = block.myaudio.duration - block.myaudio.currentTime + "s";
             block.progress_div.style.display = 'block';
-            block.progress_div.style.borderTopRightRadius = '0vw';
+            // block.progress_div.style.borderTopRightRadius = '0vw';
+            block.progress_div.style.width = "100%";
             block.isPlaying = true;
             block.myRange.style.pointerEvents = "all";
         } else {
@@ -76,6 +76,8 @@ function block(params) {
             block.isPlaying = false;
             block.myaudio.pause();
             block.myRange.style.pointerEvents = "none";
+            block.progress_div.style.transitionDuration = "0s";
+            block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
         }
     };
 
@@ -344,30 +346,28 @@ function block(params) {
     this.isPlaying = false;
     this.myaudio.ontimeupdate = function () {
 
-        if (block.isPlaying && !block.seeking) {
-            this.progress = Math.round(block.myaudio.currentTime * 100 / params.duration);
-            block.myRange.value = this.progress;
-            block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
-            if (block.progress_div.style.width > '99.8%' && block.progress_div.style.width < '101%') {
-                block.progress_div.style.borderTopRightRadius = '2vw';
+        // if (block.isPlaying && !block.seeking) {
+        //     this.progress = Math.round(block.myaudio.currentTime * 100 / params.duration);
+        //     block.myRange.value = this.progress;
+        //     block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
+        //     if (block.progress_div.style.width > '99.8%' && block.progress_div.style.width < '101%') {
+        //         block.progress_div.style.borderTopRightRadius = '2vw';
 
-            }
-        }
+        //     }
+        // }
     };
 
     this.myaudio.onended = function () {
         waveform.style.display = "none";
-        block.progress_div.style.borderTopRightRadius = '2vw';
-        block.progress_div.style.width = '100%';
+        block.progress_div.style.transitionDuration = '0s';
+        // block.progress_div.style.borderTopRightRadius = '2vw';
+        block.progress_div.style.opacity = '0';
         block.flowpause();
-        block.currentTime = 0;
         setTimeout(function () {
-            if (!block.isPlaying) {
-                block.progress_div.style.display = 'none';
-                block.progress_div.style.width = '0%';
-            }
-        }, 600);
-
+            block.progress_div.style.opacity = '1';
+            block.progress_div.style.width = '0%';
+        }, 100);
+        block.currentTime = 0;
     };
 
     this.seek = function () {
@@ -400,6 +400,7 @@ function block(params) {
         // console.log("change");
         // block.seek();
         block.progress = block.myRange.value;
+        block.progress_div.style.transitionDuration = "0s";
         if (block.progress > 99) block.progress = 99;
         block.currentTime = block.progress * params.duration / 100;
         block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
@@ -432,6 +433,7 @@ function block(params) {
         this.focus();
         block.flowpause();
         block.progress = block.myRange.value;
+        block.progress_div.style.transitionDuration = block.myaudio.duration / 100 + "s";
         if (block.progress > 99) block.progress = 99;
         block.currentTime = block.progress * params.duration / 100;
         block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';

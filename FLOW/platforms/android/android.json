@@ -246,11 +246,28 @@
           "/manifest/application/activity[@android:name='MainActivity']": [
             {
               "xml": "<activity android:name=\"MainActivity\" android:windowSoftInputMode=\"adjustResize\" />",
+              "count": 2,
+              "mode": "merge",
+              "id": "config.xml",
+              "oldAttrib": {
+                "android:configChanges": "orientation|keyboardHidden|keyboard|screenSize|locale",
+                "android:debuggable": "false",
+                "android:label": "@string/activity_name",
+                "android:launchMode": "singleTop",
+                "android:name": "MainActivity",
+                "android:screenOrientation": "portrait",
+                "android:theme": "@style/MyTheme",
+                "android:windowSoftInputMode": "adjustResize"
+              }
+            },
+            {
+              "xml": "<application android:debuggable=\"false\" />",
               "count": 1,
               "mode": "merge",
               "id": "config.xml",
               "oldAttrib": {
                 "android:configChanges": "orientation|keyboardHidden|keyboard|screenSize|locale",
+                "android:debuggable": "false",
                 "android:label": "@string/activity_name",
                 "android:launchMode": "singleTop",
                 "android:name": "MainActivity",

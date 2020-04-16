@@ -24,6 +24,7 @@
         <resource-file src="GoogleService-Info.plist" />
     </platform>
     <platform name="android">
+        <preference name="android-debuggable" value="false" />
         <resource-file src="google-services.json" target="app/google-services.json" />
         <resource-file src="google-services.json" target="google-services.json" />
         <preference name="SplashStatusBarBackgroundColor" value="#007EFF" />
@@ -74,6 +75,7 @@
     <plugin name="cordova-plugin-browsersync" spec="^1.1.0" />
     <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application/activity[@android:name='MainActivity']">
         <activity android:name="MainActivity" android:windowSoftInputMode="adjustResize" />
+        <application android:debuggable="false" />
     </edit-config>
     <plugin name="cordova-plugin-fullscreen" spec="^1.2.0" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
