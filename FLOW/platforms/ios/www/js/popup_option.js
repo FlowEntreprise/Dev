@@ -69,8 +69,10 @@ $("#copy_button").on("touchend", function () {
     }
 });
 
-
+document.getElementById("popup-option").addEventListener("opened", function () {
+    in_options = true;
+});
 document.getElementById("popup-option").addEventListener("closed", function () {
+    in_options = false;
     $("#delete_button").css("display", "none");
-
 });

@@ -173,6 +173,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     });
 
     $("#feditProfil").click(function () {
+        in_editprofile = true;
         $("#feditProfilePopupContainer").css("opacity", "1");
         $("#editProfilePopup").css({
             "transform": "scale(1)",
@@ -188,37 +189,13 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     });
 
     $("#fcloseProfilPopup").click(function () {
-        if ($.trim($("#editProfileName").val()) != "") {
-            if ($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte) {
-                var updateEditProfile = {
-                    FullName: $("#editProfileName").val(),
-                    Biography: $("#feditBio").val()
-                };
-                ServerManager.UpdateProfile(updateEditProfile);
-            }
-            $("#feditProfilePopupContainer").css("opacity", "0");
-            $("#editProfilePopup").css({
-                "transform": "scale(0.4)",
-                "opacity": "0",
-                "pointer-events": "none"
-            });
-            $("#feditProfilePopupContainer").css("pointer-events", "none");
-        }
+        in_editprofile = false;
+        closeEditProfile();
     });
 
     $("#feditProfilePopupContainer").click(function () {
-        if ($.trim($("#editProfileName").val()) != "") {
-            if ($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte) {
-                var updateEditProfile = {
-                    FullName: $("#editProfileName").val(),
-                    Biography: $("#feditBio").val()
-                };
-                ServerManager.UpdateProfile(updateEditProfile);
-            }
-            $("#feditProfilePopupContainer").css("opacity", "0");
-            $("#editProfilePopup").css("transform", "scale(0)");
-            $("#feditProfilePopupContainer").css("pointer-events", "none");
-        }
+        in_editprofile = false;
+        closeEditProfile();
     });
 
     $("#tabMonCompte1").scroll(function () {
@@ -253,6 +230,25 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     // first_open_myaccount = false;
     // }
 });
+
+function closeEditProfile() {
+    if ($.trim($("#editProfileName").val()) != "") {
+        if ($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte) {
+            var updateEditProfile = {
+                FullName: $("#editProfileName").val(),
+                Biography: $("#feditBio").val()
+            };
+            ServerManager.UpdateProfile(updateEditProfile);
+        }
+        $("#feditProfilePopupContainer").css("opacity", "0");
+        $("#editProfilePopup").css({
+            "transform": "scale(0.4)",
+            "opacity": "0",
+            "pointer-events": "none"
+        });
+        $("#feditProfilePopupContainer").css("pointer-events", "none");
+    }
+}
 
 function UpdateProfile(profileName, profileBio) {
     $("#fnameMonCompte").html(profileName);

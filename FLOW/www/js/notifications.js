@@ -784,7 +784,7 @@ function send_notif_to_user(block, type) {
                     };
                 } else {
                     data = {
-                        "notification": {
+                        "data": {
                             "title": "@" + sender_info.fullname,
                             "body": "@" + sender_info.privateId + " s'est abonné à toi " + sender_info.post_texte,
                             "type": "follow",
@@ -1083,7 +1083,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
     $(".f_in_app_notif").css("margin-top", "-40vw");
     setTimeout(function () {
         $(".f_in_app_notif").css("margin-top", "5vw");
-    }, 2000);
+    }, 4500);
 }
 
 
