@@ -56,7 +56,7 @@
 	width: 8vw;
 	background-image: url("../src/icons/Search\ Icon@3x.png");
 	background-position: center;
-	background-size: 40%;
+	background-size: 60%;
 	background-repeat: no-repeat;
 	z-index: 10;
 	opacity: 1;
@@ -172,7 +172,7 @@
 	display: none !important;
 }
 
-.explore_tabs>.tab {
+.explore_tabs > .tab {
 	height: 100%;
 	overflow-x: auto;
 	overflow-y: auto;
