@@ -156,7 +156,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
     $("#tabCompte1").scroll(function () {
         var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
         if (UserFlowAdd == true) {
-            if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+            if (Math.round($(this).scrollTop()) >= limit * 0.75 && indexAccount > 0) {
                 UserFlowAdd = false;
                 var addUserFlow = {
                     Index: indexAccount,
@@ -170,7 +170,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
     $("#tabCompte2").scroll(function () {
         var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
         if (UserLikeAdd == true) {
-            if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+            if (Math.round($(this).scrollTop()) >= limit * 0.75 && indexAccountLike > 0) {
                 UserLikeAdd = false;
                 var data = {
                     Index: indexAccountLike,
@@ -316,6 +316,7 @@ function ShowInfosUserNumber(data) {
 }
 
 function ShowUserFlow(flow) {
+    if ($(".loading_account")) $(".loading_account").remove();
     if (Array.isArray(flow.Data) == false || flow.Data.length == 0) {
         UserFlowAdd = false;
         if (indexAccount == 0) {
@@ -369,7 +370,6 @@ function ShowUserFlow(flow) {
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
-            if ($(".loading_account")) $(".loading_account").remove();
         }
         if (countFlow < 5) {
             indexAccount++;
@@ -472,7 +472,7 @@ function FollowResponse(response, type, element) {
         follow = false;
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    } else { }
+    } else {}
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }

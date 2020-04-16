@@ -205,8 +205,8 @@ h1 {
 } */
 .f_in_app_notif {
 	position: absolute;
-	width: 90vw;
-	margin-left: 5vw;
+	width: 85vw;
+	margin-left: 7.5vw;
 	height: calc(7 * var(--custom-vh));
 	line-height: calc(7 * var(--custom-vh));
 	margin-top: 5vw;
@@ -215,12 +215,12 @@ h1 {
 	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
 	text-align: center;
 	transition-duration: 0.4s;
+	z-index: 9999;
 }
 
 .flabel_in_app_notif {
 	font-size: 4.2vw;
-	color: #92abb2;
-	font-weight: bold;
+	color: #FFF;	
 	font-family: Roboto;
 }
 

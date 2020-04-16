@@ -315,8 +315,9 @@
 	background-color: rgba(0, 0, 0, 0.4);
 	z-index: 0;
 	border-top-left-radius: 2vw;
-	border-top-right-radius: 0vw;
+	border-top-right-radius: 2vw;
 	pointer-events: none;
+	transition-timing-function: linear;
 	/* transition-duration: 0.6s; */
 }
 

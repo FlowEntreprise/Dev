@@ -224,7 +224,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     $("#tabMonCompte1").scroll(function () {
         var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
         if (MyFlowAdd == true) {
-            if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+            if (Math.round($(this).scrollTop()) >= limit * 0.75 && indexMyFlow > 0) {
                 MyFlowAdd = false;
                 var addMyFlow = {
                     Index: indexMyFlow,
@@ -239,7 +239,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     $("#tabMonCompte2").scroll(function () {
         var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
         if (MyLikeAdd == true) {
-            if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+            if (Math.round($(this).scrollTop()) >= limit * 0.75 && indexMyLike > 0) {
                 MyLikeAdd = false;
                 var data = {
                     Index: indexMyLike,
@@ -266,6 +266,8 @@ function UpdateProfile(profileName, profileBio) {
 function ShowMyFlow(flow) {
     //console.log("SHOW MY FLOW");
     //console.log(flow);
+    if ($(".loading_myaccount")) $(".loading_myaccount").remove();
+
     if (Array.isArray(flow.Data) == false || flow.Data.length == 0) {
         MyFlowAdd = false;
         if (indexMyFlow == 0) {
@@ -324,8 +326,6 @@ function ShowMyFlow(flow) {
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
-            if ($(".loading_myaccount")) $(".loading_myaccount").remove();
-
             //console.log("Pop Flow");
             //console.log(new_block);
         }

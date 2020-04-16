@@ -9,6 +9,7 @@
 <meta name="viewport"
 	content="viewport-fit=cover, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
 <link rel="stylesheet" type="text/css" href="css/splashscreen.css" />
+<link rel="stylesheet" type="text/css" href="css/tuto.css" />
 <link rel="stylesheet" type="text/css" href="css/index.css" />
 <link rel="stylesheet" type="text/css" href="css/home.css" />
 <link rel="stylesheet" type="text/css" href="css/explore.css" />
@@ -202,35 +203,35 @@
 							<div class="swiper-slide ffx_text" target=""><span></span></div>
 							<div class="swiper-slide ffx_text" target="top50">
 								<div class="ffx_icon"></div>
-								<span>Effet 1</span>
+								<span>Bientôt disponible</span>
 							</div>
 							<div class="swiper-slide ffx_text" target="music">
 								<div class="ffx_icon"></div>
-								<span>Effet 2</span>
+								<span>Bientôt disponible</span>
 							</div>
 							<div class="swiper-slide ffx_text" target="sport">
 								<div class="ffx_icon"></div>
-								<span>Effet 3</span>
+								<span>Bientôt disponible</span>
 							</div>
 							<div class="swiper-slide ffx_text" target="top50">
 								<div class="ffx_icon"></div>
-								<span>Effet 4</span>
+								<span>Bientôt disponible</span>
 							</div>
 							<div class="swiper-slide ffx_text" target="music">
 								<div class="ffx_icon"></div>
-								<span>Effet 5</span>
+								<span>Bientôt disponible</span>
 							</div>
 							<div class="swiper-slide ffx_text" target="sport">
 								<div class="ffx_icon"></div>
-								<span>Effet 6</span>
+								<span>Bientôt disponible</span>
 							</div>
 							<div class="swiper-slide ffx_text" target="top50">
 								<div class="ffx_icon"></div>
-								<span>Effet 7</span>
+								<span>Bientôt disponible</span>
 							</div>
 							<div class="swiper-slide ffx_text" target="music">
 								<div class="ffx_icon"></div>
-								<span>Effet 8</span>
+								<span>Bientôt disponible</span>
 							</div>
 							<div class="swiper-slide ffx_text" target=""><span></span></div>
 						</div>
@@ -240,7 +241,8 @@
 					<div class="fcancel-after_btn"></div>
 					<div class="floading-spinner loading-record-flow"></div>
 					<div class="ios_camera_auth">
-						<label>Autorisation des médias en cours...<br><br>la première fois cette étape peut prendre jusqu'à 10 secondes</label>
+						<label>Autorisation des médias en cours...<br><br>la première fois cette étape peut prendre
+							jusqu'à 10 secondes</label>
 						<div class="floading-spinner"></div>
 					</div>
 				</div>
@@ -448,7 +450,7 @@
 			<div class="scroll_fix_ios"></div>
 		</div>
 		<div class="popup_content" animation-direction="up">
-			<img src="src/icons/cancel.png" class="fclose_specifique" onclick="console.log('close');Popup('popup-specifique', false)">
+			<img src="src/icons/cancel.png" class="fclose_specifique" onclick="Popup('popup-specifique', false)">
 			<div class="flow_specifique_container">
 
 			</div>
@@ -537,17 +539,17 @@
 		<div class="popup_content" animation-direction="up" id="popup_option_content">
 			<div id="copy_button">
 				<img src="src/icons/copy.png" id="copy_icon">
-				<label id="label_copy_button">copier le titre du flow</label>
+				<label id="label_copy_button"></label>
 			</div>
 			<div id="delete_button">
 				<img src="src/icons/bin.png" id="delete_icon">
-				<label id="label_delete_button">supprimer le flow</label>
+				<label id="label_delete_button"></label>
 			</div>
 		</div>
 	</div>
 
 	<div class="f_in_app_notif">
-		<label class="flabel_in_app_notif">Chris a aimé votre flow</label>
+		<label class="flabel_in_app_notif"></label>
 	</div>
 
 
@@ -582,9 +584,13 @@
 			<div id="fpolitique">
 				<p>
 					En continuant vous acceptez les
-					<a class="funderline" onclick="window.open('http:\/\/www.flowappweb.com/terms_and_conditions.html', '_self', 'location=no')">conditions d'utilisations</a> et affirmez
+					<a class="funderline"
+						onclick="window.open('http:\/\/www.flowappweb.com/terms_and_conditions.html', '_self', 'location=no')">conditions
+						d'utilisations</a> et affirmez
 					avoir lu et compris la
-					<a class="funderline" onclick="window.open('http:\/\/www.flowappweb.com/privacy_policy.html', '_self', 'location=no')">politique de confidentialité</a> de FLOW
+					<a class="funderline"
+						onclick="window.open('http:\/\/www.flowappweb.com/privacy_policy.html', '_self', 'location=no')">politique
+						de confidentialité</a> de FLOW
 				</p>
 			</div>
 			<div id="fcompte_conn">
@@ -593,6 +599,27 @@
 		</div>
 	</div>
 
+
+	<div class="tuto_app" ontouchend="skip()">
+		<label class="tuto_txt _1">Bienvenue sur FLOW</label>
+		<label class="tuto_txt _2">Le premier réseau social basé sur la <span>voix</span></label>
+		<label class="tuto_txt _3">Cette application est en version <span>BETA</span></label>
+		<label class="tuto_txt _4">Nous faisons la chasse aux <span>bugs</span> tous les jours</label>
+		<label class="tuto_txt _5">De <span>nouvelles fonctionnalités</span> arrivent très bientôt</label>
+		<div class="tuto_next_btn_shadow"></div>
+		<div class="tuto_next_btn" ontouchend="nextTutoFrame()">SUIVANT</div>
+		<label class="tuto_txt _6">Tu peux <span>écouter</span> et <span>publier</span> des <span>vocaux</span></label>
+		<label class="tuto_txt _7">Ces vocaux sont appelés des <span>flows</span></label>
+		<label class="tuto_txt _8">Ils durent moins de <span>15 secondes</span></label>
+		<label class="tuto_txt _9">Pour <span>enregistrer</span> ton premier flow</label>
+		<label class="tuto_txt _10">Utilise le <span>bouton d'enregistrement</span></label>
+		<label class="tuto_txt _11">Tu peux également ajouter un flow temporaire<br>en faisant une <span>story</span> pour tes <span>abonnés</span></label>
+		<label class="tuto_txt _12"><span>Abonne toi</span> aux comptes qui te plaisent pour<br>toujours plus de contenu</label>
+		<label class="tuto_txt _13">Amuse-toi bien sur <span>FLOW</span></label>
+		<div class="screen_tuto"></div>
+		<div class="tuto_record_btn"></div>
+		<div class="tuto_story_btn"></div>
+	</div>
 
 	<div class="loading_connect">
 		<label class="loading_connect_txt">Connexion</label>
@@ -604,6 +631,7 @@
 	<script src="js/Server/ServerManager.js"></script>
 
 	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/tuto.js"></script>
 	<script type="text/javascript" src="js/flow_loader.js"></script>
 	<script type="text/javascript" src="js/custom_popup.js"></script>
 	<script type="text/javascript" src="js/block.js"></script>

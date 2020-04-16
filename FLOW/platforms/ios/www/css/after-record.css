@@ -143,13 +143,14 @@ textarea:focus::-webkit-input-placeholder {
 .swiper-slide.ffx_text span {
 	text-align: center;
 	display: block;
-	font-size: 21px;
+	font-size: 13px;
 	margin-top: 5px;
+	width: calc(35vw - 3px);
 }
 
 .ffx_icon {
 	height: calc(4 * var(--custom-vh));
-	width: 35vw;
+	width: calc(35vw - 3px);
 	height: 60px;
 	background-image: url("../src/icons/gallery.png");
 	background-size: calc(7 * var(--custom-vh)) auto;
@@ -213,7 +214,7 @@ textarea:focus::-webkit-input-placeholder {
 	z-index: 10;
 }
 
-.ios_camera_auth>label {
+.ios_camera_auth > label {
 	position: absolute;
 	left: 10vw;
 	width: 80vw;
@@ -224,7 +225,7 @@ textarea:focus::-webkit-input-placeholder {
 	text-align: center;
 }
 
-.ios_camera_auth>.floading-spinner {
+.ios_camera_auth > .floading-spinner {
 	position: absolute;
 	top: 50vh;
 	display: block;

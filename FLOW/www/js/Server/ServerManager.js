@@ -695,7 +695,7 @@ class ServerManagerClass {
         });
     }
 
-    GetSingle(data) {
+    GetSingle(data, show_comment) {
         let final_data = {
 
             Data: data,
@@ -710,7 +710,8 @@ class ServerManagerClass {
             success: function (response) {
                 console.log(response);
                 console.log("success dans la recuperation de flow unique");
-                flow_specifique(response.Data, response.LinkBuilder);
+                if (response == "ERROR GET FLOW") { alert("Ce flow n'est plus disponible"); return; }
+                flow_specifique(response.Data, response.LinkBuilder, show_comment);
 
             },
             error: function (response) {

@@ -50,11 +50,11 @@ function block(params) {
             block.fpause_button.style.display = "block";
             wave.start();
             waveform.style.display = "block";
-            console.log("duration : " + block.myaudio.duration);
-            console.log("currentTime : " + block.currentTime);
             block.myaudio.play();
+            block.progress_div.style.transitionDuration = block.myaudio.duration - block.myaudio.currentTime + "s";
             block.progress_div.style.display = 'block';
-            block.progress_div.style.borderTopRightRadius = '0vw';
+            // block.progress_div.style.borderTopRightRadius = '0vw';
+            block.progress_div.style.width = "100%";
             block.isPlaying = true;
             block.myRange.style.pointerEvents = "all";
         } else {
@@ -76,6 +76,8 @@ function block(params) {
             block.isPlaying = false;
             block.myaudio.pause();
             block.myRange.style.pointerEvents = "none";
+            block.progress_div.style.transitionDuration = "0s";
+            block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
         }
     };
 
@@ -344,30 +346,28 @@ function block(params) {
     this.isPlaying = false;
     this.myaudio.ontimeupdate = function () {
 
-        if (block.isPlaying && !block.seeking) {
-            this.progress = Math.round(block.myaudio.currentTime * 100 / params.duration);
-            block.myRange.value = this.progress;
-            block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
-            if (block.progress_div.style.width > '99.8%' && block.progress_div.style.width < '101%') {
-                block.progress_div.style.borderTopRightRadius = '2vw';
+        // if (block.isPlaying && !block.seeking) {
+        //     this.progress = Math.round(block.myaudio.currentTime * 100 / params.duration);
+        //     block.myRange.value = this.progress;
+        //     block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
+        //     if (block.progress_div.style.width > '99.8%' && block.progress_div.style.width < '101%') {
+        //         block.progress_div.style.borderTopRightRadius = '2vw';
 
-            }
-        }
+        //     }
+        // }
     };
 
     this.myaudio.onended = function () {
         waveform.style.display = "none";
-        block.progress_div.style.borderTopRightRadius = '2vw';
-        block.progress_div.style.width = '100%';
+        block.progress_div.style.transitionDuration = '0s';
+        // block.progress_div.style.borderTopRightRadius = '2vw';
+        block.progress_div.style.opacity = '0';
         block.flowpause();
-        block.currentTime = 0;
         setTimeout(function () {
-            if (!block.isPlaying) {
-                block.progress_div.style.display = 'none';
-                block.progress_div.style.width = '0%';
-            }
-        }, 600);
-
+            block.progress_div.style.opacity = '1';
+            block.progress_div.style.width = '0%';
+        }, 100);
+        block.currentTime = 0;
     };
 
     this.seek = function () {
@@ -400,6 +400,7 @@ function block(params) {
         // console.log("change");
         // block.seek();
         block.progress = block.myRange.value;
+        block.progress_div.style.transitionDuration = "0s";
         if (block.progress > 99) block.progress = 99;
         block.currentTime = block.progress * params.duration / 100;
         block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
@@ -432,6 +433,7 @@ function block(params) {
         this.focus();
         block.flowpause();
         block.progress = block.myRange.value;
+        block.progress_div.style.transitionDuration = block.myaudio.duration / 100 + "s";
         if (block.progress > 99) block.progress = 99;
         block.currentTime = block.progress * params.duration / 100;
         block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
@@ -459,14 +461,14 @@ function block(params) {
         impression_coloring(this, 'echo', block.fimg_impression_echo);
     });
 
-    /*----------------------TEST_LAURE------------*/
+    /*----------------------TEST_LAURE------------
 
     $(this.fdots).on('click', function () {
 
         $("#registration_test").val(registrationId);
     });
 
-    /*----------------------FIN_TEST_LAURE------------*/
+    ----------------------FIN_TEST_LAURE------------*/
 
     $(this.fimg_impression_comment).on('click', function () {
 
@@ -485,13 +487,14 @@ function block(params) {
 
     $(this.fdots).on('click', function () {
         var clickedLink = this;
+        stopAllBlocksAudio();
         current_flow_block = block;
         delete_flow_from_bdd(current_flow_block);
     });
 
 }
 
-$(".fpopover_delete_flow").on("touchend", function () {
+$(".fpopover_delete_flow").on("click", function () {
     delete_flow(current_flow_block);
 });
 
@@ -500,11 +503,15 @@ $(".fpopover_delete_flow").on("touchend", function () {
 function display_all_comments(block) //fonction permettant d'affiher tout les commentaires
 {
     $(".fblock_comment_content").html("");
+
     var loading_comment = document.createElement("div");
     loading_comment.className = "loading-spinner loading_tl loading_comment";
     $(".fblock_comment_content").append(loading_comment);
     $(".fcomment_number").text("");
-    let ObjectId = block.ObjectId ? block.ObjectId : block.additionalData.sender_info.IdFlow;
+    let ObjectId;
+    if (block.ObjectId == undefined && block.IdFlow == undefined) ObjectId = block.additionalData.sender_info.IdFlow;
+    if (block.ObjectId == undefined && block.additionalData == undefined) ObjectId = block.IdFlow;
+    if (block.IdFlow == undefined && block.additionalData == undefined) ObjectId = block.ObjectId;
     let data = {
         ObjectId: ObjectId,
         IsComment: block.IsComment
@@ -882,23 +889,33 @@ function affichage_nombre(number, decPlaces) { // cette fonction permet d'affich
 }
 
 document.getElementById("popup-comment").addEventListener("opened", function () {
-    StatusBar.backgroundColorByHexString('#949494');
-    StatusBar.styleLightContent();
+    if (window.cordova.platformId == "android") {
+        StatusBar.backgroundColorByHexString('#949494');
+        StatusBar.styleLightContent();
+    }
 });
 
 document.getElementById("popup-comment").addEventListener("closed", function () {
-    StatusBar.backgroundColorByHexString('#f7f7f8');
-    StatusBar.styleDefault();
+    if (window.cordova.platformId == "android") {
+        StatusBar.backgroundColorByHexString('#f7f7f8');
+        StatusBar.styleDefault();
+    }
 });
 
 document.getElementById("popup-likes").addEventListener("opened", function () {
-    StatusBar.backgroundColorByHexString('#949494');
-    StatusBar.styleLightContent();
+    in_likes = true;
+    if (window.cordova.platformId == "android") {
+        StatusBar.backgroundColorByHexString('#949494');
+        StatusBar.styleLightContent();
+    }
 });
 
 document.getElementById("popup-likes").addEventListener("closed", function () {
-    StatusBar.backgroundColorByHexString('#f7f7f8');
-    StatusBar.styleDefault();
+    in_likes = false;
+    if (window.cordova.platformId == "android") {
+        StatusBar.backgroundColorByHexString('#f7f7f8');
+        StatusBar.styleDefault();
+    }
 });
 
 function iosPolyfill(e, slider) {

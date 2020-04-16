@@ -1,6 +1,8 @@
 var canShowNavbar = true;
 var explore_tabs_initialised = false;
 var in_comments = false;
+var in_likes = false;
+var in_specifique = false;
 $("#tab1").load("pages/home.html");
 $("#tab2").load("pages/explore.html");
 $("#tab3").load("pages/messages.html");
@@ -30,6 +32,7 @@ $$('#tab1').on('tab:show', function () {
     $(".fnotifications-bar").css({
         "display": "none"
     });
+    stopAllBlocksAudio();
 });
 
 $$('#tab2').on('tab:show', function () {
@@ -66,7 +69,7 @@ $$('#tab2').on('tab:show', function () {
         explore_tabs_initialised = true;
     }
 
-
+    stopAllBlocksAudio();
 });
 
 $$('#tab3').on('tab:show', function () {
@@ -84,6 +87,7 @@ $$('#tab3').on('tab:show', function () {
         }, 100);
     }
 
+    stopAllBlocksAudio();
 });
 
 $$('#tab4').on('tab:show', function () {
@@ -121,6 +125,8 @@ $$('#tab4').on('tab:show', function () {
         }, 100);
     }
 
+    stopAllBlocksAudio();
+
 });
 
 
@@ -146,6 +152,12 @@ function onBackKeyDown() {
     if (in_comments) {
         Popup("popup-comment", false);
         in_comments = false;
+    } else if (in_likes) {
+        Popup("popup-likes", false);
+        in_likes = false;
+    } else if (in_specifique) {
+        Popup("popup-specifique", false);
+        in_specifique = false;
     } else if (current_page == "record") {
         // app.closeModal('.popup-record');
         Popup("popup-record", false);

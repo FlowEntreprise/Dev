@@ -108,7 +108,7 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
     this.block_notification_like.appendChild(this.ftime);
 
 
-    $(this.block_notification_like).on("touchend", function () {
+    $(this.block_notification_like).on("click", function () {
         $(block_notification_like.fred_dot_border).css('display', 'none');
         console.log("le point rouge shoud disparaitre pour de la notif de like");
         set_seen(block_notification_like);
@@ -118,11 +118,12 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
         let data_flow = {
             IdFlow: block_notification_like.IdFlow
         };
-        ServerManager.GetSingle(data_flow);
-        Popup("popup-specifique", true);
         if (block_notification_like.like_comment == "like_comment") {
 
-            display_all_comments(data);
+            ServerManager.GetSingle(data_flow, true);
+        } else {
+            ServerManager.GetSingle(data_flow);
+
         }
     });
 
@@ -177,7 +178,7 @@ function block_notification_echo(data) {
     this.ftime.innerText = set_timestamp(this.time);
     this.block_notification_echo.appendChild(this.ftime);
 
-    $(this.block_notification_echo).on("touchend", function () {
+    $(this.block_notification_echo).on("click", function () {
         $(block_notification_echo.fred_dot_border).css('display', 'none');
         set_seen(block_notification_echo);
         check_seen();
@@ -248,7 +249,7 @@ function block_notification_comment(data) {
     this.ftime.innerText = set_timestamp(this.time);
     this.block_notification_comment.appendChild(this.ftime);
 
-    $(this.block_notification_comment).on("touchend", function () {
+    $(this.block_notification_comment).on("click", function () {
         $(block_notification_comment.fred_dot_border).css('display', 'none');
         set_seen(block_notification_comment);
         check_seen();
@@ -257,9 +258,8 @@ function block_notification_comment(data) {
         let data_flow = {
             IdFlow: block_notification_comment.IdFlow
         };
-        ServerManager.GetSingle(data_flow);
-        Popup("popup-specifique", true);
-        display_all_comments(data);
+        ServerManager.GetSingle(data_flow, true);
+
     });
 
     $(this.fphoto_block_notif).on('click', function (event) {
@@ -336,7 +336,7 @@ function block_notification_follow(data) {
     this.ftime.innerText = set_timestamp(this.time);
     this.block_notification_follow.appendChild(this.ftime);
 
-    $(this.block_notification_follow).on("touchend", function () {
+    $(this.block_notification_follow).on("click", function () {
         $(block_notification_follow.fred_dot_border).css('display', 'none');
         set_seen(block_notification_follow);
         check_seen();
@@ -346,7 +346,7 @@ function block_notification_follow(data) {
              IdFlow: block_notification_follow.IdFlow
          };
          ServerManager.GetSingle(data_flow);
-         Popup("popup-specifique", true);
+         
          display_all_follows(data);*/
         let data = {
             private_Id: block_notification_follow.private_Id,
@@ -399,13 +399,13 @@ function block_notification_story_comment(data) {
     $(".list-notif-block").append(this.block_notification_story_comment);
 
     this.fphoto_block_notif = document.createElement('div');
-    this.fphoto_block_notif.className = 'fphoto_block_notif_follow';
+    this.fphoto_block_notif.className = 'fphoto_block_notif_story_comment';
     this.fphoto_block_notif.style.backgroundImage = "url('" + this.photo_link + "')";
     this.block_notification_story_comment.appendChild(this.fphoto_block_notif);
 
     this.ftype_notif = document.createElement('img');
     this.ftype_notif.className = 'ftype_notif';
-    this.ftype_notif.src = 'src/icons/follow_you.png';
+    this.ftype_notif.src = 'src/icons/microphone_2.png';
     this.fphoto_block_notif.appendChild(this.ftype_notif);
 
     // this.fnotif_label = document.createElement('label');
@@ -436,7 +436,7 @@ function block_notification_story_comment(data) {
     this.ftime.innerText = set_timestamp(this.time);
     this.block_notification_story_comment.appendChild(this.ftime);
 
-    $(this.block_notification_story_comment).on("touchend", function () {
+    $(this.block_notification_story_comment).on("click", function () {
         $(block_notification_story_comment.fred_dot_border).css('display', 'none');
         set_seen(block_notification_story_comment);
         check_seen();
@@ -446,7 +446,7 @@ function block_notification_story_comment(data) {
              IdFlow: block_notification_story_comment.IdFlow
          };
          ServerManager.GetSingle(data_flow);
-         Popup("popup-specifique", true);
+         
          display_all_follows(data);*/
         app.showTab("#tab1");
     });
@@ -465,7 +465,7 @@ function block_notification_story_comment(data) {
 }
 
 /*
-$(".fnotif-btn").on("touchend",function(){
+$(".fnotif-btn").on("click",function(){
     if(notification_list_empty == true)
     {
         $(".list-notif-block").html("");
@@ -481,7 +481,7 @@ $(".fnotif-btn").on("touchend",function(){
 // cette fonction de fdp est copié collé 4 fois dans le code putin de merde
 
 
-$(".fnotif-btn").on("touchend", function () {
+$(".fnotif-btn").on("click", function () {
     // var home_scrolling = false;
     if (current_page == "notifications") {
         let element = document.getElementById("tab4");
@@ -986,80 +986,105 @@ function send_notif_to_user(block, type) {
 }
 
 
-function pop_notif_block(data) {
+function pop_notif_block(data) { //bloc de notif de l'onglet notifications
 
-    var notif_type;
-    if (data.additionalData != undefined) {
-        notif_type = data.additionalData.type;
-    } else {
-        notif_type = data.TypeOfNotification;
-    }
-
-
-    switch (notif_type) {
+    switch (data.TypeOfNotification) {
         case 'like_flow':
 
-            if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " a aimé ton flow");
-                $(".f_in_app_notif").css("margin-top", "-40vw");
-                setTimeout(function () {
-                    $(".f_in_app_notif").css("margin-top", "5vw");
-                }, 2000);
-            }
             push_notif_block('like', data);
-
             break;
 
         case 'send_comment':
 
-            if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " a commenté ton flow");
-                $(".f_in_app_notif").css("margin-top", "-40vw");
-                setTimeout(function () {
-                    $(".f_in_app_notif").css("margin-top", "5vw");
-                }, 2000);
-            }
             push_notif_block('comment', data);
-
             break;
 
         case 'like_comment':
 
-            if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " a aimé ton commentaire");
-                $(".f_in_app_notif").css("margin-top", "-40vw");
-                setTimeout(function () {
-                    $(".f_in_app_notif").css("margin-top", "5vw");
-                }, 2000);
-            }
             push_notif_block('like', data);
-
             break;
 
         case 'follow':
 
-            if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " s'est abonné à toi");
-                $(".f_in_app_notif").css("margin-top", "-40vw");
-                setTimeout(function () {
-                    $(".f_in_app_notif").css("margin-top", "5vw");
-                }, 2000);
-            }
             push_notif_block('follow', data);
-
             break;
+
         case 'story_comment':
 
-            if (data.additionalData != undefined && data.additionalData.foreground == true) {
-                $(".flabel_in_app_notif").text(data.title + " a réagi à ta s...");
-                $(".f_in_app_notif").css("margin-top", "-40vw");
-                setTimeout(function () {
-                    $(".f_in_app_notif").css("margin-top", "5vw");
-                }, 2000);
-            }
             push_notif_block('story_comment', data);
             break;
     }
 }
+
+function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois une notif et qu'on est dans l'app
+
+    switch (data.additionalData.type) {
+        case 'like_flow':
+
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a aimé ton flow");
+            $(".f_in_app_notif").css("background-color", "rgb(255, 0, 84)");
+
+            $(".f_in_app_notif").on("click", function () {
+                $(".flow_specifique_container").html("");
+                let data_flow = {
+                    IdFlow: data.additionalData.sender_info.IdFlow
+                };
+                ServerManager.GetSingle(data_flow);
+
+            });
+            break;
+
+        case 'send_comment':
+
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a commenté ton flow");
+            $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
+
+            $(".f_in_app_notif").on("click", function () {
+                $(".flow_specifique_container").html("");
+                let data_flow = {
+                    IdFlow: data.additionalData.sender_info.IdFlow
+                };
+                ServerManager.GetSingle(data_flow, true);
+            });
+            break;
+
+        case 'like_comment':
+
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a aimé ton commentaire");
+            $(".f_in_app_notif").css("background-color", "rgb(255, 0, 84)");
+            $(".f_in_app_notif").on("click", function () {
+                $(".flow_specifique_container").html("");
+                let data_flow = {
+                    IdFlow: data.additionalData.sender_info.IdFlow
+                };
+                ServerManager.GetSingle(data_flow, true);
+            });
+            break;
+
+        case 'follow':
+
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " s'est abonné à toi");
+            $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
+
+            $(".f_in_app_notif").on("click", function () {
+                let data_go_to_account = {
+                    private_Id: data.additionalData.sender_info.privateId,
+                    user_private_Id: window.localStorage.getItem("user_private_id")
+                };
+                go_to_account(data_go_to_account);
+            });
+            break;
+
+        case 'story_comment':
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a réagi à ta s...");
+            $(".f_in_app_notif").css("background-color", "rgb(152, 57, 198)");
+            break;
+    }
+    $(".f_in_app_notif").css("margin-top", "-40vw");
+    setTimeout(function () {
+        $(".f_in_app_notif").css("margin-top", "5vw");
+    }, 2000);
+}
+
 
 var all_notifications_block = [];

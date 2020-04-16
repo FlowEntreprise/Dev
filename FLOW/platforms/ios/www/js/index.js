@@ -35,9 +35,11 @@ var app = {
             StatusBar.backgroundColorByHexString("#f7f7f8");
             let custom_vh = window.innerHeight / 100;
             document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
+            startTuto();
         }, 500);
 
         this.receivedEvent('deviceready');
+
     },
     onPause: function () {
 
@@ -150,7 +152,7 @@ var app = {
 
         var push = PushNotification.init({
             android: {
-                //icon: 'www/src/icons/FLOW@3x.png'
+                icon: device.manufacturer == "OnePlus" ? 'flow_icone_one_plus' : 'flow_icone'
             },
             ios: {
                 alert: 'true',
@@ -190,12 +192,17 @@ var app = {
                     let data_flow = {
                         IdFlow: data.additionalData.sender_info.IdFlow
                     };
-                    ServerManager.GetSingle(data_flow);
-                    Popup("popup-specifique", true);
                     if (data.additionalData.type == "send_comment" || data.additionalData.type == "like_comment") {
-                        display_all_comments(data);
+                        ServerManager.GetSingle(data_flow, true);
+                    }
+                    else {
+
+                        ServerManager.GetSingle(data_flow);
                     }
                 }
+            }
+            if (data.additionalData.foreground == true) {
+                in_app_notif(data);
             }
             let data_notification = {
                 PrivateId: window.localStorage.getItem("user_private_id"),
