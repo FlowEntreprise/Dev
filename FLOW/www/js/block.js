@@ -903,6 +903,7 @@ document.getElementById("popup-comment").addEventListener("closed", function () 
 });
 
 document.getElementById("popup-likes").addEventListener("opened", function () {
+    in_likes = true;
     if (window.cordova.platformId == "android") {
         StatusBar.backgroundColorByHexString('#949494');
         StatusBar.styleLightContent();
@@ -910,6 +911,7 @@ document.getElementById("popup-likes").addEventListener("opened", function () {
 });
 
 document.getElementById("popup-likes").addEventListener("closed", function () {
+    in_likes = false;
     if (window.cordova.platformId == "android") {
         StatusBar.backgroundColorByHexString('#f7f7f8');
         StatusBar.styleDefault();

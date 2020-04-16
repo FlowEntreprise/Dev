@@ -1,5 +1,4 @@
-
-function flow_specifique(data, LinkBuilder, show_comment) {//show comment permet de savoir si les commentaires doivent etre affichées
+function flow_specifique(data, LinkBuilder, show_comment) { //show comment permet de savoir si les commentaires doivent etre affichées
     Popup("popup-specifique", true);
     var image_link = undefined;
     var pattern_key = undefined;
@@ -49,7 +48,10 @@ function flow_specifique(data, LinkBuilder, show_comment) {//show comment permet
 
 }
 
+document.getElementById("popup-specifique").addEventListener("opened", function () {
+    in_specifique = true;
+});
 document.getElementById("popup-specifique").addEventListener("closed", function () {
+    in_specifique = false;
     stopAllBlocksAudio();
 });
-

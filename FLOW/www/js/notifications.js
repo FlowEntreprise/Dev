@@ -118,11 +118,12 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
         let data_flow = {
             IdFlow: block_notification_like.IdFlow
         };
-        ServerManager.GetSingle(data_flow);
-
         if (block_notification_like.like_comment == "like_comment") {
 
-            display_all_comments(ServerManager.GetSingle(data_flow));
+            ServerManager.GetSingle(data_flow, true);
+        } else {
+            ServerManager.GetSingle(data_flow);
+
         }
     });
 
@@ -702,8 +703,8 @@ function send_notif_to_user(block, type) {
     }
 
     if ((block.tag_user_RegisterId != undefined &&
-        block.tag_user_RegisterId != prepare_id_registerId &&
-        block.tag_user_RegisterId != registrationId) ||
+            block.tag_user_RegisterId != prepare_id_registerId &&
+            block.tag_user_RegisterId != registrationId) ||
         (block.tag_user_RegisterId == undefined &&
             registrationId != prepare_id_registerId)) {
         if (block.tag_user_RegisterId == undefined && type == "tag_in_comment") {
