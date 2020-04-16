@@ -460,6 +460,7 @@ function handleTouchEnd(evt) {
         if (direction == "up") {
             if (current_story_audio) {
                 current_story_audio.pause();
+                audio_playing = false;
             }
             showStoryComments();
         } else if (direction == "down") {
@@ -506,6 +507,7 @@ function CloseStory() {
 function showStoryComments() {
     clearTimeout(tryLoadTimeout);
     story_data[story_index].data[storyFlow_index].audio.pause();
+    audio_playing = false;
     currentSection = "comments";
     story_view.style.transform = "translateY(-100vh)";
     comment_view.style.transform = "translateY(-100vh)";
@@ -541,6 +543,7 @@ function showStoryMain(play_story) {
     if (play_story) {
         tryLoadStory(story_index, storyFlow_index);
         current_story_audio.audio.play();
+        audio_playing = true;
     }
 }
 
@@ -620,6 +623,7 @@ function loadStory(story_index, storyFlow_index) {
     }
     if (current_story_audio) {
         current_story_audio.pause();
+        audio_playing = false;
     }
     // current_story_audio = new Audio(story_data[story_index].data[storyFlow_index].audio.src);
     $(".loading_story")[0].style.opacity = "1";
@@ -633,6 +637,7 @@ function loadStory(story_index, storyFlow_index) {
         $(".loading_story")[0].style.opacity = "0";
         document.getElementById("fstory_wave").style.opacity = "1";
         current_story_audio.play();
+        audio_playing = true;
         StorySiriWave.speed = 0.2;
         StorySiriWave.amplitude = 1;
         if (story_data[story_index].private_id != window.localStorage.getItem("user_private_id")) {
@@ -678,6 +683,7 @@ function loadStory(story_index, storyFlow_index) {
     current_story_audio.onended = function () {
         story_completion.style.width = "100%";
         story_data[story_index].data[storyFlow_index].audio.pause();
+        audio_playing = false;
         // setTimeout(function () {
         nextStory();
         // }, 500);
@@ -736,6 +742,7 @@ function loadStory(story_index, storyFlow_index) {
 function previousStory() {
     if (can_next_prev) {
         current_story_audio.pause();
+        audio_playing = false;
         if (current_story_audio.currentTime < 1) {
             stopAllStoriesAudio();
             if (storyFlow_index > 0) {
@@ -795,6 +802,7 @@ function stopAllStoriesAudio() {
     }
     if (current_story_audio) {
         current_story_audio.pause();
+        audio_playing = false;
         current_story_audio.currentTime = 0.0;
         current_story_audio = null;
     }
@@ -809,6 +817,7 @@ function stopAllStoriesAudio() {
         for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
             let com = story_data[story_index].data[storyFlow_index].comments[i];
             com.audio.pause();
+            audio_playing = false;
             com.audio.currentTime = 0;
             com.isPlaying = false;
         }
@@ -816,6 +825,7 @@ function stopAllStoriesAudio() {
 
     if (recorded_com) {
         recorded_com.pause();
+        audio_playing = false;
     }
 }
 
@@ -828,6 +838,7 @@ function stop_comments() {
                 div_comment.style.backgroundImage = "url('src/icons/play.png')";
             }
             com.audio.pause();
+            audio_playing = false;
             com.audio.currentTime = 0;
             com.isPlaying = false;
         }
@@ -925,6 +936,7 @@ function playStoryComment(comment, htmlelement) {
         if (com != comment) {
             $("div[comment_id='" + i + "']")[0].style.backgroundImage = "url('src/icons/play.png')";
             com.audio.pause();
+            audio_playing = false;
             com.audio.currentTime = 0;
             com.isPlaying = false;
         }
@@ -935,9 +947,11 @@ function playStoryComment(comment, htmlelement) {
         // var current_value = 0;
         htmlelement.style.backgroundImage = "url('src/icons/pause.png')";
         comment.audio.play();
+        audio_playing = true;
         comment.audio.onended = function () {
             htmlelement.style.backgroundImage = "url('src/icons/play.png')";
             comment.isPlaying = false;
+            audio_playing = false;
             comment.audio.currentTime = 0;
             current_value = 0;
         };
@@ -954,6 +968,7 @@ function playStoryComment(comment, htmlelement) {
     } else {
         htmlelement.style.backgroundImage = "url('src/icons/play.png')";
         comment.audio.pause();
+        audio_playing = false;
         comment.isPlaying = false;
     }
 }
@@ -1061,15 +1076,18 @@ function closeRecordComment() {
     $(".validate_record_comment")[0].style.display = "none";
     $(".listen_record_comment")[0].style.display = "none";
     recorded_com.pause();
+    audio_playing = false;
 }
 
 function ListenRecordedComment() {
     if (playing_recorded_com) {
         recorded_com.pause();
+        audio_playing = false;
         $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/play.png')";
         playing_recorded_com = false;
     } else {
         recorded_com.play();
+        audio_playing = true;
         $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/pause.png')";
         playing_recorded_com = true;
     }
