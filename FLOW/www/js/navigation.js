@@ -34,7 +34,7 @@ $$('#tab1').on('tab:show', function () {
     $(".fnotifications-bar").css({
         "display": "none"
     });
-    // stopAllBlocksAudio();
+    stopAllBlocksAudio();
 });
 
 $$('#tab2').on('tab:show', function () {
@@ -71,7 +71,7 @@ $$('#tab2').on('tab:show', function () {
         explore_tabs_initialised = true;
     }
 
-    // stopAllBlocksAudio();
+    stopAllBlocksAudio();
 });
 
 $$('#tab3').on('tab:show', function () {
@@ -89,7 +89,7 @@ $$('#tab3').on('tab:show', function () {
         }, 100);
     }
 
-    // stopAllBlocksAudio();
+    stopAllBlocksAudio();
 });
 
 $$('#tab4').on('tab:show', function () {
@@ -127,7 +127,7 @@ $$('#tab4').on('tab:show', function () {
         }, 100);
     }
 
-    // stopAllBlocksAudio();
+    stopAllBlocksAudio();
 
 });
 
