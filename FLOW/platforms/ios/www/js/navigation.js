@@ -17,115 +17,115 @@ $(".navbar").css({
 // $("#popup-myaccount").find(".popup_content").load("pages/myAccount.html");
 
 $$('#tab1').on('tab:show', function () {
-    // $(".navbar").css({
-    //     "display": "block",
-    //     "height": "calc(19 * var(--custom-vh))"
-    // });
-    // app.showNavbar($('.navbar'));
-    // canShowNavbar = true;
-    // current_page = "home";
+    $(".navbar").css({
+        "display": "block",
+        "height": "calc(19 * var(--custom-vh))"
+    });
+    app.showNavbar($('.navbar'));
+    canShowNavbar = true;
+    current_page = "home";
 
-    // $(".fhome-bar").css({
-    //     "display": "block"
-    // });
-    // $(".fexplore-bar").css({
-    //     "display": "none"
-    // });
-    // $(".fnotifications-bar").css({
-    //     "display": "none"
-    // });
+    $(".fhome-bar").css({
+        "display": "block"
+    });
+    $(".fexplore-bar").css({
+        "display": "none"
+    });
+    $(".fnotifications-bar").css({
+        "display": "none"
+    });
     // stopAllBlocksAudio();
 });
 
 $$('#tab2').on('tab:show', function () {
-    // $(".navbar").css({
-    //     "display": "block",
-    //     "height": "calc(19 * var(--custom-vh))"
-    // });
-    // app.showNavbar($('.navbar'));
-    // canShowNavbar = true;
-    // current_page = "explore";
+    $(".navbar").css({
+        "display": "block",
+        "height": "calc(19 * var(--custom-vh))"
+    });
+    app.showNavbar($('.navbar'));
+    canShowNavbar = true;
+    current_page = "explore";
 
-    // $(".fhome-bar").css({
-    //     "display": "none"
-    // });
-    // $(".fexplore-bar").css({
-    //     "display": "block"
-    // });
-    // $(".fnotifications-bar").css({
-    //     "display": "none"
-    // });
-    // if (!explore_tabs_initialised) {
+    $(".fhome-bar").css({
+        "display": "none"
+    });
+    $(".fexplore-bar").css({
+        "display": "block"
+    });
+    $(".fnotifications-bar").css({
+        "display": "none"
+    });
+    if (!explore_tabs_initialised) {
 
-    //     var mySwiper3 = app.swiper('.swiper-3', {
-    //         pagination: '.swiper-3 .swiper-pagination',
-    //         spaceBetween: 0,
-    //         slidesPerView: 3
-    //     });
+        var mySwiper3 = app.swiper('.swiper-3', {
+            pagination: '.swiper-3 .swiper-pagination',
+            spaceBetween: 0,
+            slidesPerView: 3
+        });
 
-    //     mySwiper3.on('slideChangeStart', function () {
-    //         var target = "#" + $(".swiper-slide-next").attr("target");
-    //         app.showTab(target);
-    //     });
+        mySwiper3.on('slideChangeStart', function () {
+            var target = "#" + $(".swiper-slide-next").attr("target");
+            app.showTab(target);
+        });
 
-    //     explore_tabs_initialised = true;
-    // }
+        explore_tabs_initialised = true;
+    }
 
     // stopAllBlocksAudio();
 });
 
 $$('#tab3').on('tab:show', function () {
-    // $(".navbar").css({
-    //     "display": "none"
-    // });
-    // app.hideNavbar($('.navbar'));
-    // canShowNavbar = false;
-    // current_page = "messages";
+    $(".navbar").css({
+        "display": "none"
+    });
+    app.hideNavbar($('.navbar'));
+    canShowNavbar = false;
+    current_page = "messages";
 
-    // if (!connected) {
-    //     setTimeout(function () {
-    //         app.showTab("#tab1");
-    //         Popup("popup-connect", true, 45);
-    //     }, 100);
-    // }
+    if (!connected) {
+        setTimeout(function () {
+            app.showTab("#tab1");
+            Popup("popup-connect", true, 45);
+        }, 100);
+    }
 
     // stopAllBlocksAudio();
 });
 
 $$('#tab4').on('tab:show', function () {
-    // if (window.cordova.platformId == "android") {
-    //     $(".navbar").css({
-    //         "display": "block",
-    //         "height": "calc(8 * var(--custom-vh))"
-    //     });
-    // } else {
-    //     $(".navbar").css({
-    //         "display": "block",
-    //         "height": "calc(8 * var(--custom-vh) + 15px)"
-    //     });
-    // }
-    // app.showNavbar($('.navbar'));
-    // canShowNavbar = true;
-    // current_page = "home";
+    if (window.cordova.platformId == "android") {
+        $(".navbar").css({
+            "display": "block",
+            "height": "calc(8 * var(--custom-vh))"
+        });
+    } else {
+        $(".navbar").css({
+            "display": "block",
+            "height": "calc(8 * var(--custom-vh) + 15px)"
+        });
+    }
+    app.showNavbar($('.navbar'));
+    canShowNavbar = true;
+    current_page = "home";
 
-    // $(".fhome-bar").css({
-    //     "display": "none"
-    // });
-    // $(".fexplore-bar").css({
-    //     "display": "none"
-    // });
-    // $(".fnotifications-bar").css({
-    //     "display": "block"
-    // });
-    // canShowNavbar = true;
-    // current_page = "notifications";
+    $(".fhome-bar").css({
+        "display": "none"
+    });
+    $(".fexplore-bar").css({
+        "display": "none"
+    });
+    $(".fnotifications-bar").css({
+        "display": "block"
+    });
+    canShowNavbar = true;
+    current_page = "notifications";
 
-    // if (!connected) {
-    //     setTimeout(function () {
-    //         app.showTab("#tab1");
-    //         Popup("popup-connect", true, 45);
-    //     }, 100);
-    // }
+    if (!connected) {
+        setTimeout(function () {
+            app.showTab("#tab1");
+            Popup("popup-connect", true, 45);
+        }, 100);
+    }
 
     // stopAllBlocksAudio();
 
