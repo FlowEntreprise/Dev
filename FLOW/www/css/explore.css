@@ -26,7 +26,10 @@
 	top: calc(4 * var(--custom-vh));
 	left: 20vw;
 	width: 48vw;
-	height: 40px;
+	height: auto;
+	line-height: 40px;
+	padding-top: 0;
+	padding-bottom: 0;
 	padding-left: 10vw;
 	padding-right: 2vw;
 	border-radius: 50px;
@@ -47,13 +50,13 @@
 
 .search_icon {
 	position: absolute;
-	top: calc(5.5 * var(--custom-vh));
+	top: calc(4 * var(--custom-vh) + 2px);
 	left: 21.5vw;
-	height: calc(2.5 * var(--custom-vh));
+	height: 41px;
 	width: 8vw;
 	background-image: url("../src/icons/Search\ Icon@3x.png");
 	background-position: center;
-	background-size: contain;
+	background-size: 60%;
 	background-repeat: no-repeat;
 	z-index: 10;
 	opacity: 1;
@@ -169,7 +172,7 @@
 	display: none !important;
 }
 
-.explore_tabs>.tab {
+.explore_tabs > .tab {
 	height: 100%;
 	overflow-x: auto;
 	overflow-y: auto;
