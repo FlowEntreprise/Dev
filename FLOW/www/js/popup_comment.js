@@ -292,6 +292,7 @@ $("#finput_comment").keyup(function () {
                 IdentificationListCurrentIndex++;
                 console.log("current index :" + IdentificationListCurrentIndex);
                 console.log("let mot recherché est  :" + current_search);
+                identification_request_inprogess = true;
             }
         }
         Popup("popup-identification", true, -6);

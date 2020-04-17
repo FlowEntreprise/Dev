@@ -405,5 +405,6 @@ function UpdateIdentificationList(data, follow_list, search) {
     IdentificationListCurrentIndex++;
     console.log("current index :" + IdentificationListCurrentIndex);
     console.log("let mot recherché est  :" + current_search);
+    identification_request_inprogess = true;
   }
 }
