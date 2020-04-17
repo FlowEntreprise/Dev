@@ -229,7 +229,7 @@ $(document).on('click', '.tagged_users', function () {
 var string_input_comment;
 var all_search_users_with_follow = [];
 var all_search_users_without_follow = [];
-
+var current_search;
 function get_users_with_follow(data) {
     UpdateIdentificationList(data, true, "yes_search");
 };
@@ -265,7 +265,7 @@ $("#finput_comment").keyup(function () {
     if (string_input_comment_split[split_lenght - 1].slice(0, 1) == "@") {
         IdentificationListCurrentIndex = 0;
         if (string_input_comment_split[split_lenght - 1] == "@") {
-
+            // quand le input est juste un @ on affiche la ligne des followings
             let data_following = {
                 PrivateId: window.localStorage.getItem("user_private_id"),
                 Index: 0,
@@ -276,17 +276,18 @@ $("#finput_comment").keyup(function () {
 
         }
         if (string_input_comment_split[split_lenght - 1].length > 1 && string_input_comment_split[split_lenght - 1] != "@") {
+            // quand le input debute par un @ et est suivi d'un character
+            current_search = string_input_comment_split[split_lenght - 1].slice(1, string_input_comment_split[split_lenght - 1].length);
+            let data_user_search = {
+                Index: IdentificationListCurrentIndex,
+                Search: current_search,
+                Nb: 10
+            };
+            ServerManager.SearchUserForTabExplore(data_user_search);
+            IdentificationListCurrentIndex++;
+            console.log("current index :" + IdentificationListCurrentIndex);
+            console.log("let mot recherché est  :" + current_search);
 
-            for (let i = 0; i < 2; i++) {
-                let data_user_search = {
-                    Index: IdentificationListCurrentIndex,
-                    Search: string_input_comment_split[split_lenght - 1].slice(1, string_input_comment_split[split_lenght - 1].length)
-                };
-                ServerManager.SearchUserForTabExplore(data_user_search);
-                IdentificationListCurrentIndex++;
-                console.log("boucle :" + i);
-                console.log("current index :" + IdentificationListCurrentIndex);
-            }
             $(".popup_identification_container")[0].innerHTML = "";
         }
         Popup("popup-identification", true, -6);

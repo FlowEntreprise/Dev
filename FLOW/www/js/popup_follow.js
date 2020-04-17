@@ -354,6 +354,7 @@ $(".popup_identification_container").scroll(function () {
 function UpdateIdentificationList(data, follow_list, search) {
   console.log("updating Identification list...");
   // console.log(data.Data);
+  // concat tab1 et tab2 sans doublons = tab1.concat(tab2.filter((item) => tab1.indexOf(item) < 0))
   if (Array.isArray(data)) {
     //$(".popup_Identification_container").html("");
     setTimeout(function () {
@@ -368,17 +369,12 @@ function UpdateIdentificationList(data, follow_list, search) {
         let user = new block_user(follow_list, "identification", data[i]);
         all_users_block.push(user);
       }
+      console.log("------les blocks ont été crés-----");
       if ($(".loading_tl")) $(".loading_tl").remove();
       console.log("user updated !");
       pullToRefreshEnd();
-      let search_lenght;
-      if (search == "yes_search") {
-        search_lenght = 5;
-      } else {
-        search_lenght = 10;
-        IdentificationListCurrentIndex++;
-      }
-      if (data.length < search_lenght) {
+      IdentificationListCurrentIndex++;
+      if (data.length < 10) {
         CanRefreshIdentificationList = false;
         let tick_tl = document.createElement("div");
         tick_tl.className = "tick_icon";
