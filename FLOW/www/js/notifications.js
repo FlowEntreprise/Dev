@@ -703,8 +703,8 @@ function send_notif_to_user(block, type) {
     }
 
     if ((block.tag_user_RegisterId != undefined &&
-            block.tag_user_RegisterId != prepare_id_registerId &&
-            block.tag_user_RegisterId != registrationId) ||
+        block.tag_user_RegisterId != prepare_id_registerId &&
+        block.tag_user_RegisterId != registrationId) ||
         (block.tag_user_RegisterId == undefined &&
             registrationId != prepare_id_registerId)) {
         if (block.tag_user_RegisterId == undefined && type == "tag_in_comment") {
@@ -889,11 +889,11 @@ function send_notif_to_user(block, type) {
                 break;
 
             case 'tag_in_comment':
-                if (block.LastOs == "ios") {
+                if (block.tag_user_LastOs == "ios") {
                     data = {
                         "data": {
                             "title": "@" + sender_info.fullname,
-                            "body": block.Comment,
+                            "body": block.Comment_text,
                             "type": "send_comment",
                             "sender_info": sender_info,
                             "force-start": 1,
@@ -902,7 +902,7 @@ function send_notif_to_user(block, type) {
                         },
                         "notification": {
                             "title": "@" + sender_info.fullname,
-                            "body": block.Comment,
+                            "body": block.Comment_text,
                             "type": "send_comment",
                             "sender_info": sender_info,
                             "force-start": 1,

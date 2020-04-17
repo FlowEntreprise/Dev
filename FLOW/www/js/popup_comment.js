@@ -157,7 +157,8 @@ function send_comment_to_server(data) {
         IdComment: data.IdComment,
         //RegisterId: registrationId,
         current_flow_block: current_flow_block,
-        tag_user_RegisterId: undefined
+        tag_user_RegisterId: undefined,
+        tag_user_LastOs: undefined
     };
 
     let comment_number = parseInt($(".fcomment_number").text());
@@ -173,6 +174,7 @@ function send_comment_to_server(data) {
                 for (let i_all_tag = 0; i_all_tag < all_tagged_users.length; i_all_tag++) {
                     if (tableau_comment_to_tag_users[i] == all_tagged_users[i_all_tag].private_Id) {
                         comment_data.tag_user_RegisterId = all_tagged_users[i_all_tag].RegisterId;
+                        comment_data.tag_user_LastOs = all_tagged_users[i_all_tag].LastOs;
                         send_notif_to_user(comment_data, "tag_in_comment");
                     }
                 }
