@@ -352,41 +352,58 @@ $(".popup_identification_container").scroll(function () {
 
 
 function UpdateIdentificationList(data, follow_list, search) {
+  identification_request_inprogess = false;
   console.log("updating Identification list...");
+  let string_input_comment = $("#finput_comment").val();
+  let string_input_comment_split = string_input_comment.split(" ");
+  let split_lenght = string_input_comment_split.length;
+  let current_search = string_input_comment_split[split_lenght - 1].slice(1, string_input_comment_split[split_lenght - 1].length);
+
   // console.log(data.Data);
   // concat tab1 et tab2 sans doublons = tab1.concat(tab2.filter((item) => tab1.indexOf(item) < 0))
   if (Array.isArray(data)) {
     //$(".popup_Identification_container").html("");
-    setTimeout(function () {
-      if ($(".loading_tl")) $(".loading_tl").remove();
-      if (IdentificationListCurrentIndex == 0) {
-        $(".popup_identification_container")[0].innerHTML = "";
-        let loading_tl = document.createElement("div");
-        loading_tl.className = "loading_circle loading_tl";
-        $(".popup_identification_container")[0].appendChild(loading_tl);
-      }
-      for (let i = 0; i < data.length; i++) {
-        let user = new block_user(follow_list, "identification", data[i]);
-        all_users_block.push(user);
-      }
-      console.log("------les blocks ont été crés-----");
-      if ($(".loading_tl")) $(".loading_tl").remove();
-      console.log("user updated !");
-      pullToRefreshEnd();
-      IdentificationListCurrentIndex++;
-      if (data.length < 10) {
-        CanRefreshIdentificationList = false;
-        let tick_tl = document.createElement("div");
-        tick_tl.className = "tick_icon";
-        $(".popup_identification_container")[0].appendChild(tick_tl);
-      } else {
-        CanRefreshIdentificationList = true;
-        let loading_tl = document.createElement("div");
-        loading_tl.className = "loading_circle loading_tl";
-        $(".popup_identification_container")[0].appendChild(loading_tl);
-      }
-    }, 500);
+    if ($(".loading_tl")) $(".loading_tl").remove();
+    $(".popup_identification_container")[0].innerHTML = "";
+    if (IdentificationListCurrentIndex == 0) {
+      let loading_tl = document.createElement("div");
+      loading_tl.className = "loading_circle loading_tl";
+      $(".popup_identification_container")[0].appendChild(loading_tl);
+    }
+    for (let i = 0; i < data.length; i++) {
+      let user = new block_user(follow_list, "identification", data[i]);
+      all_users_block.push(user);
+    }
+    if ($(".loading_tl")) $(".loading_tl").remove();
+    console.log("user updated !");
+    pullToRefreshEnd();
+    IdentificationListCurrentIndex++;
+    if (data.length < 10) {
+      CanRefreshIdentificationList = false;
+      let tick_tl = document.createElement("div");
+      tick_tl.className = "tick_icon";
+      $(".popup_identification_container")[0].appendChild(tick_tl);
+    } else {
+      CanRefreshIdentificationList = true;
+      let loading_tl = document.createElement("div");
+      loading_tl.className = "loading_circle loading_tl";
+      $(".popup_identification_container")[0].appendChild(loading_tl);
+    }
   } else {
     StopRefreshTL();
+  }
+  console.log(current_search);
+  console.log(last_identifcation_txt);
+  if (current_search != last_identifcation_txt) {
+    last_identifcation_txt = current_search;
+    let data_user_search = {
+      Index: IdentificationListCurrentIndex,
+      Search: current_search,
+      Nb: 10
+    };
+    ServerManager.SearchUserForTabExplore(data_user_search);
+    IdentificationListCurrentIndex++;
+    console.log("current index :" + IdentificationListCurrentIndex);
+    console.log("let mot recherché est  :" + current_search);
   }
 }
