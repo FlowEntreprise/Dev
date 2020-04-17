@@ -284,7 +284,7 @@ $("#finput_comment").keyup(function () {
             if (!identification_request_inprogess) {
                 last_identifcation_txt = current_search;
                 let data_user_search = {
-                    Index: IdentificationListCurrentIndex,
+                    Index: 0,
                     Search: current_search,
                     Nb: 10
                 };
@@ -292,6 +292,7 @@ $("#finput_comment").keyup(function () {
                 IdentificationListCurrentIndex++;
                 console.log("current index :" + IdentificationListCurrentIndex);
                 console.log("let mot recherché est  :" + current_search);
+                console.log("search from keyup");
                 identification_request_inprogess = true;
             }
         }

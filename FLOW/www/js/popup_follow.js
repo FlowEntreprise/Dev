@@ -331,10 +331,6 @@ function UpdateIdentificationList(data, follow_list, search) {
   $(".popup_identification_container")[0].innerHTML = "";
   identification_request_inprogess = false;
   console.log("updating Identification list...");
-  let string_input_comment = $("#finput_comment").val();
-  let string_input_comment_split = string_input_comment.split(" ");
-  let split_lenght = string_input_comment_split.length;
-  let current_search = string_input_comment_split[split_lenght - 1].slice(1, string_input_comment_split[split_lenght - 1].length);
 
   // console.log(data.Data);
   // concat tab1 et tab2 sans doublons = tab1.concat(tab2.filter((item) => tab1.indexOf(item) < 0))
@@ -373,7 +369,7 @@ function UpdateIdentificationList(data, follow_list, search) {
   if (current_search != last_identifcation_txt) {
     last_identifcation_txt = current_search;
     let data_user_search = {
-      Index: IdentificationListCurrentIndex,
+      Index: 0,
       Search: current_search,
       Nb: 10
     };
@@ -381,6 +377,7 @@ function UpdateIdentificationList(data, follow_list, search) {
     IdentificationListCurrentIndex++;
     console.log("current index :" + IdentificationListCurrentIndex);
     console.log("let mot recherché est  :" + current_search);
+    console.log("search from diff");
     identification_request_inprogess = true;
   }
 }
