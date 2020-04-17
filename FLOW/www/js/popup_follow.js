@@ -342,9 +342,9 @@ function UpdateIdentificationList(data, follow_list, search) {
     //$(".popup_Identification_container").html("");
     if ($(".loading_tl")) $(".loading_tl").remove();
     if (IdentificationListCurrentIndex == 0) {
-      let loading_tl = document.createElement("div");
-      loading_tl.className = "loading_circle loading_tl";
-      $(".popup_identification_container")[0].appendChild(loading_tl);
+      // let loading_tl = document.createElement("div");
+      // loading_tl.className = "loading_circle loading_tl";
+      // $(".popup_identification_container")[0].appendChild(loading_tl);
     }
     for (let i = 0; i < data.length; i++) {
       let user = new block_user(follow_list, "identification", data[i]);
@@ -356,14 +356,14 @@ function UpdateIdentificationList(data, follow_list, search) {
     IdentificationListCurrentIndex++;
     if (data.length < 10) {
       CanRefreshIdentificationList = false;
-      let tick_tl = document.createElement("div");
-      tick_tl.className = "tick_icon";
-      $(".popup_identification_container")[0].appendChild(tick_tl);
+      // let tick_tl = document.createElement("div");
+      // tick_tl.className = "tick_icon";
+      // $(".popup_identification_container")[0].appendChild(tick_tl);
     } else {
       CanRefreshIdentificationList = true;
-      let loading_tl = document.createElement("div");
-      loading_tl.className = "loading_circle loading_tl";
-      $(".popup_identification_container")[0].appendChild(loading_tl);
+      // let loading_tl = document.createElement("div");
+      // loading_tl.className = "loading_circle loading_tl";
+      // $(".popup_identification_container")[0].appendChild(loading_tl);
     }
   } else {
     StopRefreshTL();
