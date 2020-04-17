@@ -156,6 +156,28 @@ document.getElementById("popup-followers").addEventListener("closed", function (
 
 var CanRefreshFollowersList = true;
 var FollowersListCurrentIndex = 0;
+$(".popup_followers_container").scroll(function () {
+  var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+  if (CanRefreshFollowersList == true) {
+    if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+      CanRefreshFollowersList = false;
+      console.log("Get followers on Server");
+      console.log("FollowersListCurrentIndex : " + FollowersListCurrentIndex);
+      let data_followers_scroll = {
+        PrivateId: privateIDAccount,
+        Index: FollowersListCurrentIndex,
+        follow_list: false
+      };
+      if (current_page == "my-account" || current_page == "home") {
+        data_followers_scroll.PrivateId = window.localStorage.getItem("user_private_id");
+      } else {
+        data_followers_scroll.PrivateId = privateIDAccount;
+      }
+      ServerManager.GetFollowerOfUser(data_followers_scroll);
+    }
+  }
+});
+
 
 function UpdateFollowersList(data, follow_list) {
   console.log("updating Followers list...");
@@ -304,30 +326,6 @@ document.getElementById("popup-identification").addEventListener("closed", funct
 });
 var CanRefreshIdentificationList = true;
 var IdentificationListCurrentIndex = 0;
-$(".popup_identification_container").scroll(function () {
-  var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-  //IdentificationListCurrentIndex = 0;
-  if (CanRefreshIdentificationList == true) {
-    if (Math.round($(this).scrollTop()) >= limit * 0.75) {
-      CanRefreshIdentificationList = false;
-      console.log("Get Identification on Server");
-      console.log("IdentificationListCurrentIndex : " + IdentificationListCurrentIndex);
-      let data_Identification_scroll = {
-        PrivateId: privateIDAccount,
-        Index: IdentificationListCurrentIndex,
-        follow_list: true
-      };
-      if (current_page == "my-account" || current_page == "home") {
-        data_Identification_scroll.PrivateId = window.localStorage.getItem("user_private_id");
-      } else {
-        data_Identification_scroll.PrivateId = privateIDAccount;
-      }
-      console.log("t'es dans le scroll des identification");
-      ServerManager.GetFollowingOfUser(data_Identification_scroll);
-    }
-  }
-});
-
 
 function UpdateIdentificationList(data, follow_list, search) {
   $(".popup_identification_container")[0].innerHTML = "";
