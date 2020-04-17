@@ -352,6 +352,7 @@ $(".popup_identification_container").scroll(function () {
 
 
 function UpdateIdentificationList(data, follow_list, search) {
+  $(".popup_identification_container")[0].innerHTML = "";
   identification_request_inprogess = false;
   console.log("updating Identification list...");
   let string_input_comment = $("#finput_comment").val();
@@ -364,7 +365,6 @@ function UpdateIdentificationList(data, follow_list, search) {
   if (Array.isArray(data)) {
     //$(".popup_Identification_container").html("");
     if ($(".loading_tl")) $(".loading_tl").remove();
-    $(".popup_identification_container")[0].innerHTML = "";
     if (IdentificationListCurrentIndex == 0) {
       let loading_tl = document.createElement("div");
       loading_tl.className = "loading_circle loading_tl";
