@@ -916,7 +916,7 @@ function send_notif_to_user(block, type) {
                     data = {
                         "data": {
                             "title": "@" + sender_info.fullname,
-                            "body": block.Comment,
+                            "body": block.Comment_text,
                             "type": "send_comment",
                             "sender_info": sender_info,
                             "force-start": 1,
