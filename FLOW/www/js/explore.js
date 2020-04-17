@@ -81,6 +81,29 @@ ptrContent_explore.on('ptr:pullend', function (e) {
     $("#ptr_arrow_explore").css("opacity", "0");
 });
 
+
+$(".fexplore-btn").on("click", function () {
+    // var home_scrolling = false;
+    if (current_page == "explore") {
+        let element = document.getElementById("tab2");
+        // element.onscroll = function() {
+        //     home_scrolling = true;
+        // };
+        let last_scrollTop = element.scrollTop;
+        const scrollToTop = () => {
+            const c = element.scrollTop;
+            if (c > 0 && c <= last_scrollTop) {
+                window.requestAnimationFrame(scrollToTop);
+                element.scrollTo(0, c - c / 8);
+                last_scrollTop = c;
+            }
+        };
+        scrollToTop();
+    }
+});
+
+
+
 document.addEventListener('deviceready', function () {
     $(".show_more_users")[0].addEventListener("touchend", function () {
         ShowMoreUsers();
