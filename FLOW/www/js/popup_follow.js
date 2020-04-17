@@ -156,28 +156,6 @@ document.getElementById("popup-followers").addEventListener("closed", function (
 
 var CanRefreshFollowersList = true;
 var FollowersListCurrentIndex = 0;
-$(".popup_followers_container").scroll(function () {
-  var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-  if (CanRefreshFollowersList == true) {
-    if (Math.round($(this).scrollTop()) >= limit * 0.75) {
-      CanRefreshFollowersList = false;
-      console.log("Get followers on Server");
-      console.log("FollowersListCurrentIndex : " + FollowersListCurrentIndex);
-      let data_followers_scroll = {
-        PrivateId: privateIDAccount,
-        Index: FollowersListCurrentIndex,
-        follow_list: false
-      };
-      if (current_page == "my-account" || current_page == "home") {
-        data_followers_scroll.PrivateId = window.localStorage.getItem("user_private_id");
-      } else {
-        data_followers_scroll.PrivateId = privateIDAccount;
-      }
-      ServerManager.GetFollowerOfUser(data_followers_scroll);
-    }
-  }
-});
-
 
 function UpdateFollowersList(data, follow_list) {
   console.log("updating Followers list...");
