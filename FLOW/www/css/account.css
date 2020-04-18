@@ -278,7 +278,7 @@
 	}
 
 	.fnavAccount {
-		font-size: 15px;
+		font-size: 15px !important;
 	}
 
 	#fFollowButtunAccount {
@@ -296,10 +296,10 @@
 	#fflowBandeauChiffre,
 	#ffollowersBandeauChiffre,
 	#ffollowingBandeauChiffre {
-		font-size: 18px;
+		font-size: 16px;
 	}
 
-	.fbandeauCompte {
+	#fbandeauCompte {
 		font-size: 13px !important;
 	}
 
@@ -318,15 +318,16 @@
 	}
 
 	.fnavAccount {
-		font-size: 12px;
+		font-size: 12px !important;
 	}
 
 	#fFollowButtunAccount {
-		font-size: 12px;
+		font-size: 9px;
 	}
 
+
 	#fFollowYouButtunAccount {
-		width: 20px;
-		height: 20px;
+		width: 16px;
+		height: 16px;
 	}
 }

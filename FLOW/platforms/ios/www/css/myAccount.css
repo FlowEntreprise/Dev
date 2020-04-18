@@ -427,11 +427,11 @@
 
 	#feditProfil {
 		font-size: 12px;
-		top: calc(27 * var(--custom-vh));
+		top: calc(26 * var(--custom-vh));
 	}
 
 	.MonCompte {
-		margin-top: -10px;
+		margin-left: -10px;
 	}
 
 	.fnavMonCompte {
@@ -478,7 +478,7 @@
 	}
 
 	.MonCompte {
-		margin-top: 0px;
+		margin-left: 0px;
 	}
 
 	.fnavMonCompte {
