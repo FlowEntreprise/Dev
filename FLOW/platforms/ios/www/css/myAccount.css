@@ -427,11 +427,15 @@
 
 	#feditProfil {
 		font-size: 12px;
-		top: calc(26 * var(--custom-vh));
+		top: calc(27 * var(--custom-vh));
+	}
+
+	.MonCompte {
+		margin-top: -10px;
 	}
 
 	.fnavMonCompte {
-		font-size: 15px;
+		font-size: 15px !important;
 	}
 
 	#fprofilPicturePopup {
@@ -470,11 +474,15 @@
 
 	#feditProfil {
 		font-size: 10px;
-		top: calc(27 * var(--custom-vh));
+		top: calc(26 * var(--custom-vh));
+	}
+
+	.MonCompte {
+		margin-top: 0px;
 	}
 
 	.fnavMonCompte {
-		font-size: 12px;
+		font-size: 12px !important;
 	}
 
 	.disconnect_btn {
