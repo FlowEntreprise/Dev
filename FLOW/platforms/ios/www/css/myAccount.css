@@ -399,7 +399,7 @@
 	}
 }
 
-@media (max-width: 600px) {
+@media (max-height: 700px) {
 
 	#fflowmyBandeauChiffre,
 	#ffollowersmyBandeauChiffre,

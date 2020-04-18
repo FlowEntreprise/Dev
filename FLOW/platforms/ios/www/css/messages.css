@@ -67,7 +67,7 @@
     }
 }
 
-@media (max-width: 600px) {
+@media (max-height: 700px) {
     .messages_title {
         top: 23vh;
         font-size: 18px;

@@ -185,7 +185,7 @@ svg {
     } */
 }
 
-@media (max-width: 600px) {
+@media (max-height: 700px) {
     .frecord-btn {
         left: calc(50vw - 6vh);
         bottom: 2vh;

@@ -303,7 +303,7 @@
 	}
 }
 
-@media (max-width: 600px) {
+@media (max-height: 700px) {
 	.ftitle {
 		top: 17px !important;
 		font-size: 23px;
