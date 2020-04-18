@@ -441,3 +441,46 @@
 		height: 25vw;
 	}
 }
+
+@media (max-height: 600px) {
+
+	#fflowmyBandeauChiffre,
+	#ffollowersmyBandeauChiffre,
+	#ffollowingmyBandeauChiffre {
+		font-size: 18px;
+	}
+
+	.finfoBandeau {
+		font-size: 13px !important;
+	}
+
+	#fnameMonCompte {
+		top: calc(14 * var(--custom-vh));
+		font-size: 20px;
+	}
+
+	#myprivateID {
+		top: calc(18 * var(--custom-vh));
+		font-size: 11px;
+	}
+
+	#fbioMonCompte {
+		font-size: 10px;
+	}
+
+	#feditProfil {
+		font-size: 10px;
+		top: calc(27 * var(--custom-vh));
+	}
+
+	.fnavMonCompte {
+		font-size: 12px;
+	}
+
+	.disconnect_btn {
+		top: calc(39.5 * var(--custom-vh));
+		height: auto;
+		line-height: 20px;
+		font-size: 11px;
+	}
+}

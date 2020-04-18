@@ -363,6 +363,10 @@
 		font-size: 15px;
 	}
 
+	.search_icon {
+		height: 31px;
+	}
+
 	.swiper-3 {
 		top: calc(calc(20 * var(--custom-vh)) - 60px) !important;
 	}
