@@ -473,8 +473,9 @@
 	}
 
 	#feditProfil {
-		font-size: 10px;
+		font-size: 9px;
 		top: calc(26 * var(--custom-vh));
+		width: 125px;
 	}
 
 	.MonCompte {
