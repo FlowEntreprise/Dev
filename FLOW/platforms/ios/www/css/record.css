@@ -185,7 +185,7 @@ svg {
     } */
 }
 
-@media screen and (max-aspect-ratio: 19/10) {
+@media (max-width: 600px) {
     .frecord-btn {
         left: calc(50vw - 6vh);
         bottom: 2vh;

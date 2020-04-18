@@ -240,7 +240,7 @@ textarea:focus::-webkit-input-placeholder {
 	}
 }
 
-@media screen and (max-aspect-ratio: 19/10) {
+@media (max-width: 600px) {
 	.fbackground-after-txt {
 		font-size: 20px;
 	}

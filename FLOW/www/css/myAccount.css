@@ -399,7 +399,7 @@
 	}
 }
 
-@media screen and (max-aspect-ratio: 19/10) {
+@media (max-width: 600px) {
 
 	#fflowmyBandeauChiffre,
 	#ffollowersmyBandeauChiffre,

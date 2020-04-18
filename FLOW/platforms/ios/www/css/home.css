@@ -303,18 +303,7 @@
 	}
 }
 
-@media screen and (max-aspect-ratio: 19/10) {
-	.ftitle {
-		top: 0px !important;
-		font-size: 25px;
-	}
-
-	.faccount {
-		top: 7px !important;
-	}
-}
-
-@media screen and (max-aspect-ratio: 19/10) {
+@media (max-width: 600px) {
 	.ftitle {
 		top: 17px !important;
 		font-size: 23px;

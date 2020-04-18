@@ -67,7 +67,7 @@
     }
 }
 
-@media screen and (max-aspect-ratio: 19/10) {
+@media (max-width: 600px) {
     .messages_title {
         top: 23vh;
         font-size: 18px;
