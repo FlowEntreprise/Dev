@@ -259,6 +259,6 @@ textarea:focus::-webkit-input-placeholder {
 	}
 
 	.swiper-4 {
-		top: calc(67 * var(--custom-vh));
+		top: calc(67 * var(--custom-vh)) !important;
 	}
 }
