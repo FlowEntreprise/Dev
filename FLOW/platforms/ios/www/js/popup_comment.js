@@ -97,10 +97,10 @@ function block_comment(comment_data) {
 
     /* $(block_comment).find("span").on('click',function()
     {
-        let data = 
+        let data =
         {
             private_Id : $(this).text().slice(1),
-            user_private_Id : window.localStorage.getItem("user_private_id") 
+            user_private_Id : window.localStorage.getItem("user_private_id")
         };
         go_to_account(data);
     });*/
@@ -245,6 +245,25 @@ $("input").focus(function () {
     $(".hwt-backdrop").css("top", "0vh !important");
 });
 
+if(window.cordova.platformId == "ios")
+{
+$("#finput_comment").focus(function () {
+   setTimeout(
+              function(){
+              Popup("popup-comment", true, 55);
+              },200)
+                           
+});
+
+$("#finput_comment").focusout(function () {
+                              setTimeout(
+                              function(){
+                              Popup("popup-comment", true, 40);
+                              },200)
+    
+});
+}
+
 $("#finput_comment").keyup(function () {
 
     if (($("#finput_comment").val()).trim() != "") {
@@ -289,7 +308,13 @@ $("#finput_comment").keyup(function () {
             }
             $(".popup_identification_container")[0].innerHTML = "";
         }
-        Popup("popup-identification", true, -6);
+                           if(window.cordova.platformId == "ios")
+                           {
+        Popup("popup-identification", true, 55);
+                           }
+                           else{
+                           Popup("popup-identification", true, 5);
+                           }
     } else {
         Popup("popup-identification", false, -5);
         IdentificationListCurrentIndex = 0;
