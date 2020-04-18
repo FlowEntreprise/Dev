@@ -85,38 +85,6 @@ document.addEventListener('deviceready', function () {
     $(".show_more_users")[0].addEventListener("touchend", function () {
         ShowMoreUsers();
     });
-    $(".show_more_flows")[0].addEventListener("touchend", function () {
-        ShowMoreFlows();
-    });
-    // $(".top_users").scroll(function () {
-    //     if (canRefreshUsers) {
-    //         var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-    //         if (Math.round($(this).scrollTop()) >= limit * 0.75) {
-    //             search_index += 1;
-    //             console.log("search_index : " + search_index);
-    //             let data = {
-    //                 Index: search_index,
-    //                 Search: $(".fsearch-bar")[0].value
-    //             }
-    //             ServerManager.SearchUser(data);
-    //         }
-    //     }
-    // });
-
-    // $(".top_flows").scroll(function () {
-    //     if (canRefreshFlows) {
-    //         var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-    //         if (Math.round($(this).scrollTop()) >= limit * 0.75) {
-    //             search_index += 1;
-    //             console.log("search_index : " + search_index);
-    //             let data = {
-    //                 Index: search_index,
-    //                 Search: $(".fsearch-bar")[0].value
-    //             }
-    //             ServerManager.SearchFlow(data);
-    //         }
-    //     }
-    // });
 
     $("#tab2").scroll(function () {
         if (!searching) {
@@ -201,7 +169,8 @@ function RefreshSearch() {
     $(".top_flows_txt")[0].style.display = "block";
     $(".top_flows")[0].style.display = "block";
     $(".show_more_users")[0].style.display = "none";
-    $(".show_more_flows")[0].style.display = "none";
+    // $(".show_more_flows")[0].style.display = "none";
+    $(".show_more_flows").remove();
     search_index = 0;
     let no_users = document.createElement("div");
     no_users.className = "no_results";
@@ -224,7 +193,7 @@ function SpawnUserSearch(data) {
         $(".top_users")[0].style.height = " calc(" + ((users.length * 7) + 2) + " * var(--custom-vh))";
         $(".top_flows_txt")[0].style.top = " calc(" + ((users.length * 7) + 32) + " * var(--custom-vh))";
         $(".top_flows")[0].style.top = " calc(" + ((users.length * 7) + 37) + " * var(--custom-vh))";
-        $(".show_more_flows")[0].style.top = "calc(" + ((users.length * 7) + 237) + " * var(--custom-vh))";
+        // $(".show_more_flows")[0].style.top = "calc(" + ((users.length * 7) + 237) + " * var(--custom-vh))";
     }
     for (let index in users) {
         let user = users[index];
@@ -320,9 +289,16 @@ function SpawnFlowSearch(data) {
     }
 
     if (flows.length >= 5 && search_index == 0) {
-        $(".show_more_flows")[0].style.display = "block";
+        // $(".show_more_flows")[0].style.display = "block";
+        let show_more_flows = document.createElement("div");
+        show_more_flows.className = "show_more_flows";
+        show_more_flows.innerHTML = "Afficher plus";
+        show_more_flows.addEventListener("touchend", function () {
+            ShowMoreFlows();
+        });
+        top_flows[0].appendChild(show_more_flows);
     } else {
-        $(".show_more_flows")[0].style.display = "none";
+        $(".show_more_flows").remove();
         if (search_index == 0 && flows.length == 0) {
             let no_flows = document.createElement("div");
             no_flows.className = "no_results";
@@ -330,6 +306,7 @@ function SpawnFlowSearch(data) {
             top_flows[0].appendChild(no_flows);
         }
     }
+
 
     if (flows.length >= 5) {
         canRefreshFlows = true;
@@ -349,7 +326,8 @@ function ShowMoreUsers() {
     $(".show_more_users")[0].style.display = "none";
     $(".top_flows_txt")[0].style.display = "none";
     $(".top_flows")[0].style.display = "none";
-    $(".show_more_flows")[0].style.display = "none";
+    // $(".show_more_flows")[0].style.display = "none";
+    $(".show_more_flows").remove();
     $(".top_users")[0].style.height = " calc(66 * var(--custom-vh))";
     search_index += 1;
     let data = {
@@ -365,7 +343,8 @@ function ShowMoreFlows() {
     $(".show_more_users")[0].style.display = "none";
     $(".top_users_txt")[0].style.display = "none";
     $(".top_users")[0].style.display = "none";
-    $(".show_more_flows")[0].style.display = "none";
+    // $(".show_more_flows")[0].style.display = "none";
+    $(".show_more_flows").remove();
     $(".top_flows_txt")[0].style.top = " calc(20 * var(--custom-vh))";
     $(".top_flows")[0].style.height = " calc(66 * var(--custom-vh))";
     $(".top_flows")[0].style.top = " calc(27 * var(--custom-vh))";

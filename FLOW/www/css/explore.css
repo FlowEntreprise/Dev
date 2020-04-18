@@ -172,7 +172,7 @@
 	display: none !important;
 }
 
-.explore_tabs > .tab {
+.explore_tabs>.tab {
 	height: 100%;
 	overflow-x: auto;
 	overflow-y: auto;
@@ -329,11 +329,12 @@
 }
 
 .show_more_flows {
-	position: absolute;
-	top: calc(245 * var(--custom-vh));
+	margin-top: 2vh;
+	/* position: absolute; */
+	/* top: calc(245 * var(--custom-vh)); */
 	width: 26vw;
-	left: 37vw;
-	height: calc(4 * var(--custom-vh));
+	margin-left: 37vw;
+	height: auto;
 	text-align: center;
 	line-height: calc(4 * var(--custom-vh));
 	vertical-align: middle;
@@ -342,7 +343,7 @@
 	color: #92abb2;
 	font-family: "Roboto-Light";
 	opacity: 1;
-	display: none;
+	display: block;
 }
 
 .no_results {
