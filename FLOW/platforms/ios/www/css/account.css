@@ -299,10 +299,6 @@
 		font-size: 17px;
 	}
 
-	#fbandeauCompte {
-		font-size: 13px !important;
-	}
-
 	#fnameCompte {
 		top: calc(14 * var(--custom-vh));
 		font-size: 20px;
