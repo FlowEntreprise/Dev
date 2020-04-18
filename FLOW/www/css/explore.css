@@ -337,7 +337,6 @@
 	height: auto;
 	text-align: center;
 	line-height: calc(4 * var(--custom-vh));
-	vertical-align: middle;
 	border: 1px solid #92abb2;
 	border-radius: 50px;
 	color: #92abb2;
@@ -352,4 +351,27 @@
 	font-family: "Roboto-Regular";
 	color: #92abb2;
 	opacity: 0.5;
+}
+
+@media (max-height: 600px) {
+	.fsearch-bar {
+		line-height: 30px;
+		font-size: 15px;
+	}
+
+	.fsearch-bar::placeholder {
+		font-size: 15px;
+	}
+
+	.swiper-3 {
+		top: calc(calc(20 * var(--custom-vh)) - 60px) !important;
+	}
+
+	.fexplore_bg_div {
+		height: 30px;
+	}
+
+	.swiper-slide span {
+		font-size: 15px;
+	}
 }

@@ -96,6 +96,7 @@
 	font-family: "Roboto-Regular";
 	opacity: 0.5;
 }
+
 /*
 .f_user_private_id_identification {
 	position: absolute;
@@ -145,4 +146,23 @@
 	top: calc(3.4 * var(--custom-vh));
 	left: 80vw;
 	color: white;
+}
+
+@media (max-height: 600px) {
+	.following_button {
+		font-size: 11px;
+	}
+
+	.follow_you_button {
+		width: 20px;
+		height: 20px;
+	}
+
+	.f_user_fullname {
+		font-size: 13px;
+	}
+
+	.f_user_private_id {
+		font-size: 13px;
+	}
 }

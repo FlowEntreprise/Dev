@@ -250,3 +250,43 @@
 		top: calc(7 * var(--custom-vh));
 	}
 }
+
+@media (max-height: 700px) {
+
+	#fflowBandeauChiffre,
+	#ffollowersBandeauChiffre,
+	#ffollowingBandeauChiffre {
+		font-size: 19px;
+	}
+
+	.fbandeauCompte {
+		font-size: 14px !important;
+	}
+
+	#fnameCompte {
+		top: calc(14 * var(--custom-vh));
+		font-size: 22px;
+	}
+
+	#privateID {
+		top: calc(18 * var(--custom-vh));
+		font-size: 13px;
+	}
+
+	#fbioCompte {
+		font-size: 12px;
+	}
+
+	.fnavAccount {
+		font-size: 15px;
+	}
+
+	#fFollowButtunAccount {
+		font-size: 12px;
+	}
+
+	#fFollowYouButtunAccount {
+		width: 20px;
+		height: 20px;
+	}
+}
