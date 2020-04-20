@@ -245,23 +245,22 @@ $("input").focus(function () {
     $(".hwt-backdrop").css("top", "0vh !important");
 });
 
-if(window.cordova.platformId == "ios")
-{
-$("#finput_comment").focus(function () {
-   setTimeout(
-              function(){
-              Popup("popup-comment", true, 55);
-              },200)
-                           
-});
+if (window.cordova.platformId == "ios") {
+    $("#finput_comment").focus(function () {
+        setTimeout(
+            function () {
+                Popup("popup-comment", true, 55);
+            }, 200)
 
-$("#finput_comment").focusout(function () {
-                              setTimeout(
-                              function(){
-                              Popup("popup-comment", true, 40);
-                              },200)
-    
-});
+    });
+
+    $("#finput_comment").focusout(function () {
+        setTimeout(
+            function () {
+                Popup("popup-comment", true, 40);
+            }, 200)
+
+    });
 }
 
 $("#finput_comment").keyup(function () {
@@ -308,15 +307,14 @@ $("#finput_comment").keyup(function () {
             }
             $(".popup_identification_container")[0].innerHTML = "";
         }
-                           if(window.cordova.platformId == "ios")
-                           {
-        Popup("popup-identification", true, 55);
-                           }
-                           else{
-                           Popup("popup-identification", true, 5);
-                           }
+        if (window.cordova.platformId == "ios") {
+            Popup("popup-identification", true, 55);
+        }
+        else {
+            Popup("popup-identification", true, 5);
+        }
     } else {
-        Popup("popup-identification", false, -5);
+        Popup("popup-identification", false);
         IdentificationListCurrentIndex = 0;
 
     }
@@ -349,7 +347,9 @@ document.getElementById("popup-comment").addEventListener("opened", function () 
 document.getElementById("popup-comment").addEventListener("closed", function () {
     $(".fwrite_comment")[0].style.display = "none";
     in_comments = false;
-    current_flow_block.all_comment_blocks.length = 0;
+    /*rent_flow_block !== undefined) {
+        current_flow_block.all_comment_blocks.length = 0;
+    }*/
     // app.closeModal('#popover_comment');
 
 });
