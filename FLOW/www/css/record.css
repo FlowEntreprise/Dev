@@ -177,10 +177,34 @@ svg {
         top: 7vh;
     }
 
-    .svg {
+    /* .svg {
         left: calc(50vw - 5.5vh);
         bottom: 1vh;
         height: 11vh !important;
         width: 11vh !important;
+    } */
+}
+
+@media (max-height: 700px) {
+    .frecord-btn {
+        left: calc(50vw - 6vh);
+        bottom: 2vh;
+        height: 12vh !important;
+        width: 12vh !important;
+
+    }
+
+    .record-shadow {
+        height: 12vh !important;
+        width: 12vh !important;
+        left: calc(50vw - 6vh);
+        bottom: 2vh;
+    }
+
+    svg {
+        left: calc(50vw - 7vh);
+        bottom: 1vh;
+        height: 14vh !important;
+        width: 14vh !important;
     }
 }

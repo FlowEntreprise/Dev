@@ -41,7 +41,8 @@
 	left: 20.5vw;
 	color: #4a4a4a;
 	font-size: calc(2.2 * var(--custom-vh));
-	top: calc(2 * var(--custom-vh));
+	height: auto;
+	line-height: calc(9 * var(--custom-vh));
 	width: 70vw;
 }
 

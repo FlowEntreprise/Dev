@@ -291,6 +291,7 @@
 	position: absolute;
 	border: none;
 	border-bottom: solid 1px #1a84ef;
+	border-radius: 0px;
 	width: 40vw;
 	left: 17.5vw;
 	top: calc(20 * var(--custom-vh));
@@ -395,5 +396,100 @@
 
 	#returnmyProfilPicture {
 		top: calc(7 * var(--custom-vh));
+	}
+}
+
+@media (max-height: 700px) {
+
+	#fflowmyBandeauChiffre,
+	#ffollowersmyBandeauChiffre,
+	#ffollowingmyBandeauChiffre {
+		font-size: 19px;
+	}
+
+	.finfoBandeau {
+		font-size: 14px !important;
+	}
+
+	#fnameMonCompte {
+		top: calc(14 * var(--custom-vh));
+		font-size: 22px;
+	}
+
+	#myprivateID {
+		top: calc(18 * var(--custom-vh));
+		font-size: 13px;
+	}
+
+	#fbioMonCompte {
+		font-size: 12px;
+	}
+
+	#feditProfil {
+		font-size: 12px;
+		top: calc(26 * var(--custom-vh));
+	}
+
+	.MonCompte {
+		margin-left: -10px;
+	}
+
+	.fnavMonCompte {
+		font-size: 15px !important;
+	}
+
+	#fprofilPicturePopup {
+		top: calc(4 * var(--custom-vh));
+		left: 27.5vw;
+		width: 25vw;
+		height: 25vw;
+	}
+}
+
+@media (max-height: 600px) {
+
+	#fflowmyBandeauChiffre,
+	#ffollowersmyBandeauChiffre,
+	#ffollowingmyBandeauChiffre {
+		font-size: 18px;
+	}
+
+	.finfoBandeau {
+		font-size: 13px !important;
+	}
+
+	#fnameMonCompte {
+		top: calc(14 * var(--custom-vh));
+		font-size: 20px;
+	}
+
+	#myprivateID {
+		top: calc(18 * var(--custom-vh));
+		font-size: 11px;
+	}
+
+	#fbioMonCompte {
+		font-size: 10px;
+	}
+
+	#feditProfil {
+		font-size: 9px;
+		top: calc(26 * var(--custom-vh));
+		width: 125px;
+	}
+
+	.MonCompte {
+		margin-left: 0px;
+	}
+
+	.fnavMonCompte {
+		font-size: 12px !important;
+	}
+
+	.disconnect_btn {
+		top: calc(39.5 * var(--custom-vh));
+		height: auto;
+		line-height: 20px;
+		font-size: 11px;
 	}
 }

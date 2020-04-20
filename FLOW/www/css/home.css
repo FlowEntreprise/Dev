@@ -302,3 +302,20 @@
 		height: 3vw;
 	}
 }
+
+@media (max-height: 700px) {
+	.ftitle {
+		top: 17px !important;
+		font-size: 23px;
+	}
+
+	.faccount {
+		top: 20px !important;
+		width: 30px;
+		height: 30px
+	}
+
+	.fstory_user {
+		font-size: 11px;
+	}
+}

@@ -824,8 +824,7 @@ class ServerManagerClass {
         let final_data = {
             Data: {
                 Index: data.Index,
-                Search: data.Search,
-                Nb: data.Nb
+                Search: data.Search
             },
             TokenId: window.localStorage.getItem("user_token")
         };

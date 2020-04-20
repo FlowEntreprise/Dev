@@ -671,3 +671,17 @@
         top: 7vh;
     }
 }
+
+@media (max-width: 600px) {
+    .fstory_pp {
+        top: 19vh;
+    }
+
+    .fstory_pseudo {
+        font-size: 20px;
+    }
+
+    .fstory_time {
+        font-size: 11px;
+    }
+}
