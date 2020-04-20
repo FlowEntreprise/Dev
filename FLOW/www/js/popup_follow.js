@@ -326,58 +326,71 @@ document.getElementById("popup-identification").addEventListener("closed", funct
 });
 var CanRefreshIdentificationList = true;
 var IdentificationListCurrentIndex = 0;
+$(".popup_identification_container").scroll(function () {
+  var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+  //IdentificationListCurrentIndex = 0;
+  if (CanRefreshIdentificationList == true) {
+    if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+      CanRefreshIdentificationList = false;
+      console.log("Get Identification on Server");
+      console.log("IdentificationListCurrentIndex : " + IdentificationListCurrentIndex);
+      let data_Identification_scroll = {
+        PrivateId: privateIDAccount,
+        Index: IdentificationListCurrentIndex,
+        follow_list: true
+      };
+      if (current_page == "my-account" || current_page == "home") {
+        data_Identification_scroll.PrivateId = window.localStorage.getItem("user_private_id");
+      } else {
+        data_Identification_scroll.PrivateId = privateIDAccount;
+      }
+      console.log("t'es dans le scroll des identification");
+      ServerManager.GetFollowingOfUser(data_Identification_scroll);
+    }
+  }
+});
+
 
 function UpdateIdentificationList(data, follow_list, search) {
-  $(".popup_identification_container")[0].innerHTML = "";
-  identification_request_inprogess = false;
   console.log("updating Identification list...");
-
   // console.log(data.Data);
-  // concat tab1 et tab2 sans doublons = tab1.concat(tab2.filter((item) => tab1.indexOf(item) < 0))
   if (Array.isArray(data)) {
     //$(".popup_Identification_container").html("");
-    if ($(".loading_tl")) $(".loading_tl").remove();
-    if (IdentificationListCurrentIndex == 0) {
-      // let loading_tl = document.createElement("div");
-      // loading_tl.className = "loading_circle loading_tl";
-      // $(".popup_identification_container")[0].appendChild(loading_tl);
-    }
-    for (let i = 0; i < data.length; i++) {
-      let user = new block_user(follow_list, "identification", data[i]);
-      all_users_block.push(user);
-    }
-    if ($(".loading_tl")) $(".loading_tl").remove();
-    console.log("user updated !");
-    pullToRefreshEnd();
-    IdentificationListCurrentIndex++;
-    if (data.length < 10) {
-      CanRefreshIdentificationList = false;
-      // let tick_tl = document.createElement("div");
-      // tick_tl.className = "tick_icon";
-      // $(".popup_identification_container")[0].appendChild(tick_tl);
-    } else {
-      CanRefreshIdentificationList = true;
-      // let loading_tl = document.createElement("div");
-      // loading_tl.className = "loading_circle loading_tl";
-      // $(".popup_identification_container")[0].appendChild(loading_tl);
-    }
+    setTimeout(function () {
+      if ($(".loading_tl")) $(".loading_tl").remove();
+      if (IdentificationListCurrentIndex == 0) {
+        $(".popup_identification_container")[0].innerHTML = "";
+        let loading_tl = document.createElement("div");
+        loading_tl.className = "loading_circle loading_tl";
+        $(".popup_identification_container")[0].appendChild(loading_tl);
+      }
+      for (let i = 0; i < data.length; i++) {
+        let user = new block_user(follow_list, "identification", data[i]);
+        all_users_block.push(user);
+      }
+      if ($(".loading_tl")) $(".loading_tl").remove();
+      console.log("user updated !");
+      pullToRefreshEnd();
+      let search_lenght;
+      if (search == "yes_search") {
+        search_lenght = 5;
+      } else {
+        search_lenght = 10;
+        IdentificationListCurrentIndex++;
+      }
+      if (data.length < search_lenght) {
+        CanRefreshIdentificationList = false;
+        let tick_tl = document.createElement("div");
+        tick_tl.className = "tick_icon";
+        $(".popup_identification_container")[0].appendChild(tick_tl);
+      } else {
+        CanRefreshIdentificationList = true;
+        let loading_tl = document.createElement("div");
+        loading_tl.className = "loading_circle loading_tl";
+        $(".popup_identification_container")[0].appendChild(loading_tl);
+      }
+    }, 500);
   } else {
     StopRefreshTL();
-  }
-  console.log(current_search);
-  console.log(last_identifcation_txt);
-  if (current_search != last_identifcation_txt) {
-    last_identifcation_txt = current_search;
-    let data_user_search = {
-      Index: 0,
-      Search: current_search,
-      Nb: 10
-    };
-    ServerManager.SearchUserForTabExplore(data_user_search);
-    IdentificationListCurrentIndex++;
-    console.log("current index :" + IdentificationListCurrentIndex);
-    console.log("let mot recherché est  :" + current_search);
-    console.log("search from diff");
-    identification_request_inprogess = true;
   }
 }

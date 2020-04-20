@@ -1,7 +1,5 @@
 var parent = $(".fblock_comment_content");
 var current_comment_block;
-var identification_request_inprogess = false;
-var last_identifcation_txt = "";
 // $(document).ready(function() {
 //     $('.regex-example').highlightWithinTextarea({
 //             highlight: /@[^ ]+/gi
@@ -99,10 +97,10 @@ function block_comment(comment_data) {
 
     /* $(block_comment).find("span").on('click',function()
     {
-        let data = 
+        let data =
         {
             private_Id : $(this).text().slice(1),
-            user_private_Id : window.localStorage.getItem("user_private_id") 
+            user_private_Id : window.localStorage.getItem("user_private_id")
         };
         go_to_account(data);
     });*/
@@ -157,8 +155,7 @@ function send_comment_to_server(data) {
         IdComment: data.IdComment,
         //RegisterId: registrationId,
         current_flow_block: current_flow_block,
-        tag_user_RegisterId: undefined,
-        tag_user_LastOs: undefined
+        tag_user_RegisterId: undefined
     };
 
     let comment_number = parseInt($(".fcomment_number").text());
@@ -174,7 +171,6 @@ function send_comment_to_server(data) {
                 for (let i_all_tag = 0; i_all_tag < all_tagged_users.length; i_all_tag++) {
                     if (tableau_comment_to_tag_users[i] == all_tagged_users[i_all_tag].private_Id) {
                         comment_data.tag_user_RegisterId = all_tagged_users[i_all_tag].RegisterId;
-                        comment_data.tag_user_LastOs = all_tagged_users[i_all_tag].LastOs;
                         send_notif_to_user(comment_data, "tag_in_comment");
                     }
                 }
@@ -233,7 +229,6 @@ $(document).on('click', '.tagged_users', function () {
 var string_input_comment;
 var all_search_users_with_follow = [];
 var all_search_users_without_follow = [];
-var current_search;
 
 function get_users_with_follow(data) {
     UpdateIdentificationList(data, true, "yes_search");
@@ -249,6 +244,24 @@ $('#finput_comment').on('paste', function () {
 $("input").focus(function () {
     $(".hwt-backdrop").css("top", "0vh !important");
 });
+
+if (window.cordova.platformId == "ios") {
+    $("#finput_comment").focus(function () {
+        setTimeout(
+            function () {
+                Popup("popup-comment", true, 55);
+            }, 200)
+
+    });
+
+    $("#finput_comment").focusout(function () {
+        setTimeout(
+            function () {
+                Popup("popup-comment", true, 40);
+            }, 200)
+
+    });
+}
 
 $("#finput_comment").keyup(function () {
 
@@ -270,7 +283,7 @@ $("#finput_comment").keyup(function () {
     if (string_input_comment_split[split_lenght - 1].slice(0, 1) == "@") {
         IdentificationListCurrentIndex = 0;
         if (string_input_comment_split[split_lenght - 1] == "@") {
-            // quand le input est juste un @ on affiche la ligne des followings
+
             let data_following = {
                 PrivateId: window.localStorage.getItem("user_private_id"),
                 Index: 0,
@@ -281,24 +294,25 @@ $("#finput_comment").keyup(function () {
 
         }
         if (string_input_comment_split[split_lenght - 1].length > 1 && string_input_comment_split[split_lenght - 1] != "@") {
-            // quand le input debute par un @ et est suivi d'un character
-            current_search = string_input_comment_split[split_lenght - 1].slice(1, string_input_comment_split[split_lenght - 1].length);
-            if (!identification_request_inprogess) {
-                last_identifcation_txt = current_search;
+
+            for (let i = 0; i < 2; i++) {
                 let data_user_search = {
-                    Index: 0,
-                    Search: current_search,
-                    Nb: 10
+                    Index: IdentificationListCurrentIndex,
+                    Search: string_input_comment_split[split_lenght - 1].slice(1, string_input_comment_split[split_lenght - 1].length)
                 };
                 ServerManager.SearchUserForTabExplore(data_user_search);
                 IdentificationListCurrentIndex++;
+                console.log("boucle :" + i);
                 console.log("current index :" + IdentificationListCurrentIndex);
-                console.log("let mot recherché est  :" + current_search);
-                console.log("search from keyup");
-                identification_request_inprogess = true;
             }
+            $(".popup_identification_container")[0].innerHTML = "";
         }
-        Popup("popup-identification", true, 5);
+        if (window.cordova.platformId == "ios") {
+            Popup("popup-identification", true, 55);
+        }
+        else {
+            Popup("popup-identification", true, 5);
+        }
     } else {
         Popup("popup-identification", false);
         IdentificationListCurrentIndex = 0;
