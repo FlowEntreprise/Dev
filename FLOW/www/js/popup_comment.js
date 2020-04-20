@@ -298,9 +298,9 @@ $("#finput_comment").keyup(function () {
                 identification_request_inprogess = true;
             }
         }
-        Popup("popup-identification", true, -6);
+        Popup("popup-identification", true, 5);
     } else {
-        Popup("popup-identification", false, -5);
+        Popup("popup-identification", false);
         IdentificationListCurrentIndex = 0;
 
     }
@@ -333,7 +333,9 @@ document.getElementById("popup-comment").addEventListener("opened", function () 
 document.getElementById("popup-comment").addEventListener("closed", function () {
     $(".fwrite_comment")[0].style.display = "none";
     in_comments = false;
-    current_flow_block.all_comment_blocks.length = 0;
+    /*rent_flow_block !== undefined) {
+        current_flow_block.all_comment_blocks.length = 0;
+    }*/
     // app.closeModal('#popover_comment');
 
 });
