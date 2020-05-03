@@ -525,7 +525,7 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.GetMyUserInfosURL,
             data: JSON.stringify(final_data),
             success: function (response) {
-                console.log("getInfosUserNumber");
+                console.log("on recup le getInfosUserNumber");
                 ShowInfosUserNumber(response);
             },
             error: function (response) { }
@@ -544,8 +544,14 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.GetUserProfil,
             data: JSON.stringify(final_data),
             success: function (response) {
-                //console.log(response);
-                ShowUserProfile(response);
+                console.log("on recup le profil");
+                if (response == "ERROR GET PROFIL") {
+                    alert("Utilisateur introuvable");
+                }
+                else {
+
+                    ShowUserProfile(response);
+                }
             },
             error: function (response) { }
         });

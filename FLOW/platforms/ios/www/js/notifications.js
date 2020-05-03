@@ -209,7 +209,7 @@ function block_notification_comment(data) {
         this.seen = !!+data.IsView;
         this.IdNotif = data.IdNotif;
     }
-
+    if (this.message.length > 28) this.message = this.message.substring(0, 28) + "...";
     this.block_notification_comment = document.createElement('div');
     this.block_notification_comment.className = 'fblock_notification';
     $(".list-notif-block").append(this.block_notification_comment);
@@ -296,7 +296,7 @@ function block_notification_follow(data) {
         this.seen = !!+data.IsView;
         this.IdNotif = data.IdNotif;
     }
-
+    if (this.message.length > 28) this.message = this.message.substring(0, 28) + "...";
     this.block_notification_follow = document.createElement('div');
     this.block_notification_follow.className = 'fblock_notification';
     $(".list-notif-block").append(this.block_notification_follow);
@@ -393,7 +393,7 @@ function block_notification_story_comment(data) {
         this.seen = !!+data.IsView;
         this.IdNotif = data.IdNotif;
     }
-
+    if (this.message.length > 28) this.message = this.message.substring(0, 28) + "...";
     this.block_notification_story_comment = document.createElement('div');
     this.block_notification_story_comment.className = 'fblock_notification';
     $(".list-notif-block").append(this.block_notification_story_comment);
@@ -703,8 +703,8 @@ function send_notif_to_user(block, type) {
     }
 
     if ((block.tag_user_RegisterId != undefined &&
-            block.tag_user_RegisterId != prepare_id_registerId &&
-            block.tag_user_RegisterId != registrationId) ||
+        block.tag_user_RegisterId != prepare_id_registerId &&
+        block.tag_user_RegisterId != registrationId) ||
         (block.tag_user_RegisterId == undefined &&
             registrationId != prepare_id_registerId)) {
         if (block.tag_user_RegisterId == undefined && type == "tag_in_comment") {

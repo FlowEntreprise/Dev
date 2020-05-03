@@ -1,6 +1,6 @@
 .messages_title {
     position: absolute;
-    top: 25vh;
+    top: 15vh;
     left: 0;
     width: 100vw;
     text-align: center;
@@ -12,12 +12,12 @@
 
 .messages_coming {
     position: absolute;
-    top: 40.7vh;
+    top: 35.7vh;
     left: 0.5vw;
     width: 100vw;
     text-align: center;
     font-family: "Roboto-Bold";
-    font-size: 20px;
+    font-size: 18px;
     color: #92abb2;
     transform: rotate(-5deg);
     opacity: 0.5;
@@ -28,7 +28,7 @@
 
 .messages_icon {
     position: absolute;
-    top: 33vh;
+    top: 28vh;
     left: 20vw;
     width: 60vw;
     height: 15vh;
@@ -44,7 +44,7 @@
 
 .messages_txt {
     position: absolute;
-    top: 53vh;
+    top: 50vh;
     left: 5vw;
     width: 90vw;
     text-align: center;
@@ -53,6 +53,13 @@
     color: #92abb2;
     opacity: 0.75;
     /* #92abb2; */
+}
+
+.messages_txt>span {
+    font-size: 15px;
+    color: #1a84ef;
+    display: inline;
+    text-decoration: underline;
 }
 
 @keyframes balance {
@@ -67,13 +74,14 @@
     }
 }
 
-@media (max-height: 700px) {
-    .messages_title {
-        top: 23vh;
-        font-size: 18px;
-    }
-
-    .messages_coming {
-        font-size: 16px;
-    }
+/* @media (max-height: 700px) { */
+.mobile700 .messages_title {
+    top: 23vh;
+    font-size: 18px;
 }
+
+.mobile700 .messages_coming {
+    font-size: 16px;
+}
+
+/* } */

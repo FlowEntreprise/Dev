@@ -34,6 +34,11 @@ var app = {
             }
             StatusBar.backgroundColorByHexString("#f7f7f8");
             let custom_vh = window.innerHeight / 100;
+            if (window.innerHeight <= 600) {
+                document.body.classList.add("mobile600");
+            } else if (window.innerHeight <= 700) {
+                document.body.classList.add("mobile700");
+            }
             document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
             startTuto();
         }, 500);
@@ -114,13 +119,13 @@ var app = {
 
 
 
-        //if (window.cordova.platformId == "android") {
-            crashlytics = FirebaseCrashlytics.initialise();
-            crashlytics.logException("my caught exception");
 
-            analytics = cordova.plugins.firebase.analytics;
-            analytics.setCurrentScreen(current_page);
-        //}
+        crashlytics = FirebaseCrashlytics.initialise();
+        crashlytics.logException("my caught exception");
+
+        analytics = cordova.plugins.firebase.analytics;
+        analytics.setCurrentScreen(current_page);
+
 
         httpd = (cordova && cordova.plugins && cordova.plugins.CorHttpd) ? cordova.plugins.CorHttpd : null;
 

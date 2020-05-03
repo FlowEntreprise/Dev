@@ -341,17 +341,18 @@ h1 {
 	}
 }
 
-@media (max-height: 700px) {
-	.fflow-btn {
-		margin-top: calc(-6* var(--custom-vh)) !important;
-		height: calc(12*var(--custom-vh)) !important;
-		width: calc(12* var(--custom-vh)) !important;
-	}
-
-	.flow-btn-shadow {
-		height: 12vh !important;
-		width: 12vh !important;
-		left: calc(50vw - 6vh);
-		bottom: 1.5vh;
-	}
+/* @media (max-height: 700px) { */
+.mobile700 .fflow-btn {
+	margin-top: calc(-6* var(--custom-vh)) !important;
+	height: calc(12*var(--custom-vh)) !important;
+	width: calc(12* var(--custom-vh)) !important;
 }
+
+.mobile700 .flow-btn-shadow {
+	height: 12vh !important;
+	width: 12vh !important;
+	left: calc(50vw - 6vh);
+	bottom: 1.5vh;
+}
+
+/* } */

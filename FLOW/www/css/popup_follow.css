@@ -10,15 +10,14 @@
 
 #popup_followers_content,
 #popup_followings_content,
-#popup_follow_identification
-{
+#popup_follow_identification {
     border-top-left-radius: 15px !important;
     border-top-right-radius: 15px !important;
 }
 
 .popup_followers_title,
 .popup_followings_title,
-.popup_identification_title{
+.popup_identification_title {
     width: 90vw;
     text-align: center;
     position: absolute;
@@ -151,21 +150,22 @@
     color: white;
 }
 
-@media (max-height: 600px) {
-    .following_button {
-        font-size: 11px;
-    }
-
-    .follow_you_button {
-        width: 20px;
-        height: 20px;
-    }
-
-    .f_user_fullname {
-        font-size: 13px;
-    }
-
-    .f_user_private_id {
-        font-size: 13px;
-    }
+/* @media (max-height: 600px) { */
+.mobile600 .following_button {
+    font-size: 11px;
 }
+
+.mobile600 .follow_you_button {
+    width: 20px;
+    height: 20px;
+}
+
+.mobile600 .f_user_fullname {
+    font-size: 13px;
+}
+
+.mobile600 .f_user_private_id {
+    font-size: 13px;
+}
+
+/* } */

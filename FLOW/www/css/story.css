@@ -673,16 +673,17 @@
     }
 }
 
-@media (max-width: 600px) {
-    .fstory_pp {
-        top: 19vh;
-    }
-
-    .fstory_pseudo {
-        font-size: 20px;
-    }
-
-    .fstory_time {
-        font-size: 11px;
-    }
+/* @media (max-width: 600px) { */
+.mobile600 .fstory_pp {
+    top: 19vh;
 }
+
+.mobile600 .fstory_pseudo {
+    font-size: 20px;
+}
+
+.mobile600 .fstory_time {
+    font-size: 11px;
+}
+
+/* } */

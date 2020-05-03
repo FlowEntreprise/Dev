@@ -303,19 +303,20 @@
 	}
 }
 
-@media (max-height: 700px) {
-	.ftitle {
-		top: 17px !important;
-		font-size: 23px;
-	}
-
-	.faccount {
-		top: 20px !important;
-		width: 30px;
-		height: 30px
-	}
-
-	.fstory_user {
-		font-size: 11px;
-	}
+/* @media (max-height: 700px) { */
+.mobile700 .ftitle {
+	top: 17px !important;
+	font-size: 23px;
 }
+
+.mobile700 .faccount {
+	top: 20px !important;
+	width: 30px;
+	height: 30px
+}
+
+.mobile700 .fstory_user {
+	font-size: 11px;
+}
+
+/* } */
