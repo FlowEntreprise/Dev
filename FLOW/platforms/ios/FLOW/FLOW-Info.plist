@@ -80,16 +80,11 @@
 		<true/>
 	</dict>
 	<key>NSMainNibFile</key>
-	<string/>
+	<string></string>
 	<key>NSMainNibFile~ipad</key>
-	<string/>
+	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>This app needs microphone access</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>audio</string>
-		<string>remote-notification</string>
-	</array>
+	<string>Requiert l&apos;accès au microphone pour enregistrer des flows</string>
 	<key>UIInterfaceOrientation</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -102,11 +97,11 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>Requiert l'accès à la camera pour prendre des photos</string>
+	<string>Requiert l&apos;accès à la camera pour prendre des photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Requiert l'accès à la gallerie photo pour ajouter des photos aux flows</string>
+	<string>Requiert l&apos;accès à la gallerie photo pour ajouter des photos aux flows</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Requiert l'accès à la gallerie photo pour sauvegarder des photos</string>
+	<string>Requiert l&apos;accès à la gallerie photo pour sauvegarder des photos</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
