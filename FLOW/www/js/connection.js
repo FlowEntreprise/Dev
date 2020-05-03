@@ -67,11 +67,11 @@ function DisconnectUser() {
     $(".faccount").css({
         "background-image": "url('src/icons/Account@3x.png')"
     });
-    if (window.cordova.platformId == "android") {
+    //if (window.cordova.platformId == "android") {
         analytics.logEvent("user_disconnection", {
             private_id: window.localStorage.getItem("user_private_id")
         });
-    }
+    //}
     window.localStorage.clear();
     window.localStorage.setItem("first_open", "false");
     //$( "#fswipe_area" ).css({"pointer-events": "none"});

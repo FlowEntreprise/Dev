@@ -35,9 +35,9 @@ document.getElementById("popup-account").addEventListener("opened", function () 
 
     stopAllBlocksAudio();
     current_page = "account";
-    if (window.cordova.platformId == "android") {
+    //if (window.cordova.platformId == "android") {
         analytics.setCurrentScreen(current_page);
-    }
+    //}
     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
     $(".fflow-btn").css("display", "none");
     $(".flow-btn-shadow").css("display", "none");
@@ -179,9 +179,9 @@ document.getElementById("popup-account").addEventListener("closed", function () 
     $(".flow-btn-shadow").css("z-index", "0");
     $("#tabCompte2").css("display", "none");
     current_page = "home";
-    if (window.cordova.platformId == "android") {
+    //if (window.cordova.platformId == "android") {
         analytics.setCurrentScreen(current_page);
-    }
+    //}
     stopAllBlocksAudio();
     // mainView.back();
     // tabCompte2
