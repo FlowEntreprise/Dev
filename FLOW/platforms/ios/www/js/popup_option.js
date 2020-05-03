@@ -21,6 +21,7 @@ function delete_flow_from_html(element) {
             all_blocks.splice(i, 1);
             element.block_flow.remove();
             Popup("popup-option", false);
+            Popup("popup-specifique", false);
         }
     }
 }

@@ -16,7 +16,44 @@ var profilePicLink;
 var register_id;
 var LastOs;
 
+
+function fInitialisationAccount(privateId) {
+    $("#UserActivity")[0].innerHTML = "";
+    $("#UserLikes")[0].innerHTML = "";
+    let loading_tl = document.createElement("div");
+    loading_tl.className = "loading-spinner loading_account";
+    loading_tl.style.marginTop = "50%";
+    $("#UserActivity")[0].appendChild(loading_tl);
+    $("#UserLikes")[0].appendChild(loading_tl);
+
+    privateIDAccount = privateId;
+    indexAccount = 0;
+    indexAccountLike = 0;
+
+    var getFlow = {
+        Index: indexAccount,
+        PrivateId: privateIDAccount
+    };
+    ServerManager.GetUserFlow(getFlow);
+    let data = {
+        Index: indexAccountLike,
+        PrivateId: privateIDAccount
+    }
+    ServerManager.GetLikedFlows(data, false);
+
+    var getInfosUserNumber = {
+        PrivateId: privateIDAccount
+    };
+    ServerManager.getInfosUserNumber(getInfosUserNumber);
+    var getUserInfoAccount = {
+        PrivateId: privateIDAccount
+    };
+    ServerManager.GetUserInfo(getUserInfoAccount);
+}
+
+
 $(".fnavAccount").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
+
 
 document.getElementById("popup-account").addEventListener("opened", function () {
     $("#tabCompte2").css("display", "block");
@@ -35,22 +72,25 @@ document.getElementById("popup-account").addEventListener("opened", function () 
 
     stopAllBlocksAudio();
     current_page = "account";
-    //if (window.cordova.platformId == "android") {
+    if (window.cordova.platformId == "android") {
         analytics.setCurrentScreen(current_page);
-    //}
+    }
     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
     $(".fflow-btn").css("display", "none");
     $(".flow-btn-shadow").css("display", "none");
 
+    /* 
+     c'est le pire code au monde putin 
+     
     $("#fflowBandeauChiffre").html("");
-    $("#ffollowersBandeauChiffre").html("");
-    $("#ffollowingBandeauChiffre").html("");
-    $("#fbioCompte").html("loading");
-    $("#fnameCompte").html("loading");
-    $("#privateID").html("loading");
-    $("#fprofilPicture").css({
-        "background-image": "none"
-    });
+     $("#ffollowersBandeauChiffre").html("");
+     $("#ffollowingBandeauChiffre").html("");
+     $("#fbioCompte").html("loading");
+     $("#fnameCompte").html("loading");
+     $("#privateID").html("loading");
+     $("#fprofilPicture").css({
+         "background-image": "none"
+     });*/
 
     var scroll_element = $("#tabCompte1");
     checkScrollAccount();
@@ -179,9 +219,9 @@ document.getElementById("popup-account").addEventListener("closed", function () 
     $(".flow-btn-shadow").css("z-index", "0");
     $("#tabCompte2").css("display", "none");
     current_page = "home";
-    //if (window.cordova.platformId == "android") {
+    if (window.cordova.platformId == "android") {
         analytics.setCurrentScreen(current_page);
-    //}
+    }
     stopAllBlocksAudio();
     // mainView.back();
     // tabCompte2
@@ -200,39 +240,7 @@ $("#fFollowButtunAccount").click(function () {
     }
 });
 
-function fInitialisationAccount(privateId) {
-    $("#UserActivity")[0].innerHTML = "";
-    $("#UserLikes")[0].innerHTML = "";
-    let loading_tl = document.createElement("div");
-    loading_tl.className = "loading-spinner loading_account";
-    loading_tl.style.marginTop = "50%";
-    $("#UserActivity")[0].appendChild(loading_tl);
-    $("#UserLikes")[0].appendChild(loading_tl);
 
-    privateIDAccount = privateId;
-    indexAccount = 0;
-    indexAccountLike = 0;
-
-    var getFlow = {
-        Index: indexAccount,
-        PrivateId: privateIDAccount
-    };
-    ServerManager.GetUserFlow(getFlow);
-    let data = {
-        Index: indexAccountLike,
-        PrivateId: privateIDAccount
-    }
-    ServerManager.GetLikedFlows(data, false);
-
-    var getInfosUserNumber = {
-        PrivateId: privateIDAccount
-    };
-    ServerManager.getInfosUserNumber(getInfosUserNumber);
-    var getUserInfoAccount = {
-        PrivateId: privateIDAccount
-    };
-    ServerManager.GetUserInfo(getUserInfoAccount);
-}
 
 function manageFollow(type, element) { // html_element est element html qui doit etre affecté
     if (type == "profile_follow") {
@@ -308,6 +316,9 @@ function ShowUserProfile(response) {
             var swatches = vibrant.swatches();
             $("#fbigProfilPictureContainer").css("background-color", swatches.Muted.getHex());
         });
+
+        Popup("popup-account", true);
+
     }
 }
 
@@ -477,7 +488,7 @@ function FollowResponse(response, type, element) {
         follow = false;
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    } else {}
+    } else { }
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }
