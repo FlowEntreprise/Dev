@@ -192,7 +192,7 @@ function send_comment_to_server(data) {
 $('.fsend_comment').on('click', function () {
 
     var comment = ($("#finput_comment").val()).trim();
-
+    Popup("popup-identification", false, -5);
     let data = {
 
         ObjectId: current_flow_block.ObjectId,
