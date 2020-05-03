@@ -227,5 +227,4 @@ function onBackKeyDown() {
     }
 
     analytics.setCurrentScreen(current_page);
-
 }

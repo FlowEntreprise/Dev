@@ -218,10 +218,17 @@ document.getElementById("popup-account").addEventListener("closed", function () 
     $(".fflow-btn").css("z-index", "1");
     $(".flow-btn-shadow").css("z-index", "0");
     $("#tabCompte2").css("display", "none");
-    current_page = "home";
+    current_page = "home"; <<
+    << << < HEAD
 
     analytics.setCurrentScreen(current_page);
 
+    ===
+    === =
+    if (window.cordova.platformId == "android") {
+        analytics.setCurrentScreen(current_page);
+    } >>>
+    >>> > 4 dcaa522909950bd0bf344da7139055c868752ce
     stopAllBlocksAudio();
     // mainView.back();
     // tabCompte2
@@ -488,7 +495,7 @@ function FollowResponse(response, type, element) {
         follow = false;
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    } else { }
+    } else {}
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }

@@ -346,10 +346,23 @@ document.getElementById("popup-myaccount").addEventListener("closed", function (
     $(".flow-btn-shadow").css("display", "block");
     $(".fflow-btn").css("z-index", "1");
     $(".flow-btn-shadow").css("z-index", "0");
-    current_page = "home";
+    current_page = "home"; <<
+    <<
+    <<
+    <
+    HEAD
 
     analytics.setCurrentScreen(current_page);
 
+    ===
+    ===
+    =
+    if (window.cordova.platformId == "android") {
+        analytics.setCurrentScreen(current_page);
+    } >>>
+    >>>
+    >
+    4 dcaa522909950bd0bf344da7139055c868752ce
     stopAllBlocksAudio();
 });
 
