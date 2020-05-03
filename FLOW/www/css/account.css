@@ -251,79 +251,81 @@
 	}
 }
 
-@media (max-height: 700px) {
+/* @media (max-height: 700px) { */
 
-	#fflowBandeauChiffre,
-	#ffollowersBandeauChiffre,
-	#ffollowingBandeauChiffre {
-		font-size: 19px;
-	}
-
-	.fbandeauCompte {
-		font-size: 14px !important;
-	}
-
-	#fnameCompte {
-		top: calc(14 * var(--custom-vh));
-		font-size: 22px;
-	}
-
-	#privateID {
-		top: calc(18 * var(--custom-vh));
-		font-size: 13px;
-	}
-
-	#fbioCompte {
-		font-size: 12px;
-	}
-
-	.fnavAccount {
-		font-size: 15px !important;
-	}
-
-	#fFollowButtunAccount {
-		font-size: 12px;
-	}
-
-	#fFollowYouButtunAccount {
-		width: 20px;
-		height: 20px;
-	}
+.mobile700 #fflowBandeauChiffre,
+.mobile700 #ffollowersBandeauChiffre,
+.mobile700 #ffollowingBandeauChiffre {
+	font-size: 19px;
 }
 
-@media (max-height: 600px) {
-
-	#fflowBandeauChiffre,
-	#ffollowersBandeauChiffre,
-	#ffollowingBandeauChiffre {
-		font-size: 17px;
-	}
-
-	#fnameCompte {
-		top: calc(14 * var(--custom-vh));
-		font-size: 20px;
-	}
-
-	#privateID {
-		top: calc(18 * var(--custom-vh));
-		font-size: 11px;
-	}
-
-	#fbioCompte {
-		font-size: 10px;
-	}
-
-	.fnavAccount {
-		font-size: 12px !important;
-	}
-
-	#fFollowButtunAccount {
-		font-size: 9px;
-	}
-
-
-	#fFollowYouButtunAccount {
-		width: 16px;
-		height: 16px;
-	}
+.mobile700 .fbandeauCompte {
+	font-size: 14px !important;
 }
+
+.mobile700 #fnameCompte {
+	top: calc(14 * var(--custom-vh));
+	font-size: 22px;
+}
+
+.mobile700 #privateID {
+	top: calc(18 * var(--custom-vh));
+	font-size: 13px;
+}
+
+.mobile700 #fbioCompte {
+	font-size: 12px;
+}
+
+.mobile700 .fnavAccount {
+	font-size: 15px !important;
+}
+
+.mobile700 #fFollowButtunAccount {
+	font-size: 12px;
+}
+
+.mobile700 #fFollowYouButtunAccount {
+	width: 20px;
+	height: 20px;
+}
+
+/* } */
+
+/* @media (max-height: 600px) { */
+
+.mobile600 #fflowBandeauChiffre,
+.mobile600 #ffollowersBandeauChiffre,
+.mobile600 #ffollowingBandeauChiffre {
+	font-size: 17px;
+}
+
+.mobile600 #fnameCompte {
+	top: calc(14 * var(--custom-vh));
+	font-size: 20px;
+}
+
+.mobile600 #privateID {
+	top: calc(18 * var(--custom-vh));
+	font-size: 11px;
+}
+
+.mobile600 #fbioCompte {
+	font-size: 10px;
+}
+
+.mobile600 .fnavAccount {
+	font-size: 12px !important;
+}
+
+.mobile600 #fFollowButtunAccount {
+	font-size: 9px;
+}
+
+
+.mobile600 #fFollowYouButtunAccount {
+	width: 16px;
+	height: 16px;
+}
+
+/* } */

@@ -74,13 +74,14 @@
     }
 }
 
-@media (max-height: 700px) {
-    .messages_title {
-        top: 23vh;
-        font-size: 18px;
-    }
-
-    .messages_coming {
-        font-size: 16px;
-    }
+/* @media (max-height: 700px) { */
+.mobile700 .messages_title {
+    top: 23vh;
+    font-size: 18px;
 }
+
+.mobile700 .messages_coming {
+    font-size: 16px;
+}
+
+/* } */

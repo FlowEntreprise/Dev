@@ -244,25 +244,26 @@ textarea:focus::-webkit-input-placeholder {
 	}
 }
 
-@media (max-height: 700px) {
-	.fbackground-after-txt {
-		font-size: 20px;
-	}
-
-	.ffx-after-txt {
-		top: calc(63 * var(--custom-vh));
-		font-size: 20px;
-	}
-
-	.fcamera-after {
-		top: calc(54 * var(--custom-vh));
-	}
-
-	.fgallery-after {
-		top: calc(54 * var(--custom-vh));
-	}
-
-	.swiper-4 {
-		top: calc(67 * var(--custom-vh)) !important;
-	}
+/* @media (max-height: 700px) { */
+.mobile700 .fbackground-after-txt {
+	font-size: 20px;
 }
+
+.mobile700 .ffx-after-txt {
+	top: calc(63 * var(--custom-vh));
+	font-size: 20px;
+}
+
+.mobile700 .fcamera-after {
+	top: calc(64 * var(--custom-vh));
+}
+
+.mobile700 .fgallery-after {
+	top: calc(64 * var(--custom-vh));
+}
+
+.mobile700 .swiper-4 {
+	top: calc(77 * var(--custom-vh)) !important;
+}
+
+/* } */
