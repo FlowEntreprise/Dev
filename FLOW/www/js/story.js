@@ -345,12 +345,12 @@ function SpawnStoryWindow(story_block) {
 
                 setTimeout(function () {
                     ServerManager.AddStoryComment(story_comment);
-                    if (window.cordova.platformId == "android") {
-                        analytics.logEvent("upload_story_comment", {
-                            private_id: story_comment.PrivatedId,
-                            duration: story_comment.Duration
-                        });
-                    }
+
+                    analytics.logEvent("upload_story_comment", {
+                        private_id: story_comment.PrivatedId,
+                        duration: story_comment.Duration
+                    });
+
                 }, 100);
             });
             $$('.fstory_addcomment_cancel').on('touchend', function () {
@@ -496,9 +496,9 @@ function CloseStory() {
         story_window = null;
         InStory = false;
         current_page = "home";
-        if (window.cordova.platformId == "android") {
-            analytics.setCurrentScreen(current_page);
-        }
+
+        analytics.setCurrentScreen(current_page);
+
         StorySiriWave.stop();
     }, 400);
 
@@ -1139,9 +1139,9 @@ document.getElementById("popup-story-record").addEventListener("opened", functio
     });
     $(".record-shadow")[0].style.display = "block";
     current_page = "record-story";
-    if (window.cordova.platformId == "android") {
-        analytics.setCurrentScreen(current_page);
-    }
+
+    analytics.setCurrentScreen(current_page);
+
 });
 
 document.getElementById("popup-story-record").addEventListener("closed", function () {
@@ -1151,7 +1151,7 @@ document.getElementById("popup-story-record").addEventListener("closed", functio
     $(".record-shadow")[0].style.display = "none";
     // StopRecording();
     current_page = "home";
-    if (window.cordova.platformId == "android") {
-        analytics.setCurrentScreen(current_page);
-    }
+
+    analytics.setCurrentScreen(current_page);
+
 });

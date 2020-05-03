@@ -67,11 +67,11 @@ function DisconnectUser() {
     $(".faccount").css({
         "background-image": "url('src/icons/Account@3x.png')"
     });
-    if (window.cordova.platformId == "android") {
-        analytics.logEvent("user_disconnection", {
-            private_id: window.localStorage.getItem("user_private_id")
-        });
-    }
+
+    analytics.logEvent("user_disconnection", {
+        private_id: window.localStorage.getItem("user_private_id")
+    });
+
     window.localStorage.clear();
     window.localStorage.setItem("first_open", "false");
     //$( "#fswipe_area" ).css({"pointer-events": "none"});
@@ -82,9 +82,9 @@ $$('.fneed_connect').on('click', function () {
         // app.popup('.popup-connect');
         Popup("popup-connect", true, 45);
         current_page = "connect-popup";
-        if (window.cordova.platformId == "android") {
-            analytics.setCurrentScreen(current_page);
-        }
+
+        analytics.setCurrentScreen(current_page);
+
     }
 });
 

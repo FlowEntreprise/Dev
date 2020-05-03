@@ -225,7 +225,7 @@ function onBackKeyDown() {
         navigator.app.exitApp();
         stopAllBlocksAudio();
     }
-    if (window.cordova.platformId == "android") {
-        analytics.setCurrentScreen(current_page);
-    }
+
+    analytics.setCurrentScreen(current_page);
+
 }

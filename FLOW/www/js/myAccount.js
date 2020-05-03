@@ -27,9 +27,9 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 
     stopAllBlocksAudio();
     current_page = "my-account";
-    if (window.cordova.platformId == "android") {
-        analytics.setCurrentScreen(current_page);
-    }
+
+    analytics.setCurrentScreen(current_page);
+
     indexMyFlow = 0;
     indexMyLike = 0;
     $("#MyActivity")[0].innerHTML = "";
@@ -347,9 +347,9 @@ document.getElementById("popup-myaccount").addEventListener("closed", function (
     $(".fflow-btn").css("z-index", "1");
     $(".flow-btn-shadow").css("z-index", "0");
     current_page = "home";
-    if (window.cordova.platformId == "android") {
-        analytics.setCurrentScreen(current_page);
-    }
+
+    analytics.setCurrentScreen(current_page);
+
     stopAllBlocksAudio();
 });
 
