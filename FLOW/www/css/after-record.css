@@ -1,7 +1,7 @@
 .after-record-block-container {
 	position: absolute;
 	left: 0;
-	top: calc(3 * var(--custom-vh));
+	top: calc(8 * var(--custom-vh));
 }
 
 .finput_title {
@@ -54,7 +54,7 @@ textarea:focus::-webkit-input-placeholder {
 
 .fbackground-after-txt {
 	position: absolute;
-	top: calc(48 * var(--custom-vh));
+	top: calc(55 * var(--custom-vh));
 	left: 0;
 	width: 100vw;
 	font-family: "Roboto-Regular";
@@ -65,7 +65,7 @@ textarea:focus::-webkit-input-placeholder {
 
 .fcamera-after {
 	position: absolute;
-	top: calc(53 * var(--custom-vh));
+	top: calc(62 * var(--custom-vh));
 	left: 10vw;
 	width: 35vw;
 	height: calc(7 * var(--custom-vh));
@@ -80,7 +80,7 @@ textarea:focus::-webkit-input-placeholder {
 
 .fgallery-after {
 	position: absolute;
-	top: calc(53 * var(--custom-vh));
+	top: calc(62 * var(--custom-vh));
 	left: 55vw;
 	width: 35vw;
 	height: calc(7 * var(--custom-vh));
@@ -102,6 +102,8 @@ textarea:focus::-webkit-input-placeholder {
 	color: #92abb2;
 	font-size: 25px;
 	text-align: center;
+	display: none !important;
+	/* BECAUSE IOS c'est en BETA donc on cache */
 }
 
 .ffxbg_div {
@@ -125,6 +127,8 @@ textarea:focus::-webkit-input-placeholder {
 	height: 100px !important;
 	width: 100vw !important;
 	/* background-color: rgba(255, 0, 0, 0.2); */
+	display: none !important;
+	/* BECAUSE IOS c'est en BETA donc on cache */
 }
 
 .ffx_text {
