@@ -26,9 +26,19 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     $("#MyActivity").addClass("fblockMonComptePadding");
 
     stopAllBlocksAudio();
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
     current_page = "my-account";
 
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page);
 
     indexMyFlow = 0;
     indexMyLike = 0;
@@ -346,9 +356,19 @@ document.getElementById("popup-myaccount").addEventListener("closed", function (
     $(".flow-btn-shadow").css("display", "block");
     $(".fflow-btn").css("z-index", "1");
     $(".flow-btn-shadow").css("z-index", "0");
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
     current_page = "home";
 
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page);
 
     stopAllBlocksAudio();
 });

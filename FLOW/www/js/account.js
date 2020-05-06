@@ -71,9 +71,19 @@ document.getElementById("popup-account").addEventListener("opened", function () 
     $("#UserActivity").addClass("fblockAccountPadding");
 
     stopAllBlocksAudio();
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
     current_page = "account";
 
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page);
 
     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
     $(".fflow-btn").css("display", "none");
@@ -218,9 +228,19 @@ document.getElementById("popup-account").addEventListener("closed", function () 
     $(".fflow-btn").css("z-index", "1");
     $(".flow-btn-shadow").css("z-index", "0");
     $("#tabCompte2").css("display", "none");
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
     current_page = "home";
 
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page);
 
     stopAllBlocksAudio();
     // mainView.back();
@@ -488,7 +508,7 @@ function FollowResponse(response, type, element) {
         follow = false;
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    } else { }
+    } else {}
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }
