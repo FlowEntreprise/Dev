@@ -22,6 +22,33 @@
 {
     font-size: 2.3vh;
 }
+ 
+
+#report_button
+{
+    position: absolute;
+    width: 90vw;
+    left: 5vw;
+    top: calc(7.75 * var(--custom-vh));
+    height: calc(5 * var(--custom-vh));
+    color: #92ABB2;    
+    line-height: calc(5 * var(--custom-vh));
+    text-align: center;
+}
+
+#report_icon
+{ 
+    position: absolute;
+    width: calc(3.5 * var(--custom-vh));
+    height: calc(3.5px * var(--custom-vh));
+    left: 2vw;
+    top: 0.75vh;
+}
+
+#label_report_button
+{
+    font-size: 2.3vh;
+}
 
 #delete_button
 {
@@ -29,7 +56,7 @@
     position: absolute;
     width: 90vw;
     left: 5vw;
-    top: calc(8 * var(--custom-vh));
+    top: calc(13 * var(--custom-vh));
     height: calc(5 * var(--custom-vh));
     color: #FF5D5D;    
     line-height: calc(5 * var(--custom-vh));
@@ -49,6 +76,7 @@
 {
     font-size: 2.3vh;
 }
+
 
 .fclose_option {
 	width: 4vw;

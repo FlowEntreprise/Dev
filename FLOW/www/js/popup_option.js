@@ -4,11 +4,12 @@ var element_to_delete = {};
 function delete_flow_from_bdd(element) {
     element_to_copy = "flow_tittle";
     $("#label_copy_button").text("copier le titre du flow");
+    $("#label_report_button").text("signaler le flow");
     $("#label_delete_button").text("supprimer le flow");
-    Popup("popup-option", true, 90);
+    Popup("popup-option", true, 85);
 
     if (window.localStorage.getItem("user_private_id") == element.privateID) {
-        Popup("popup-option", true, 85);
+        Popup("popup-option", true, 80);
         element_to_delete.type = "flow";
         element_to_delete.element = element;
         $("#delete_button").css("display", "block");
@@ -29,11 +30,12 @@ function delete_flow_from_html(element) {
 function delete_comment_from_bdd(element) {
     element_to_copy = "comment";
     $("#label_copy_button").text("copier le commentaire");
+    $("#label_report_button").text("signaler le commentaire");
     $("#label_delete_button").text("supprimer le commentaire");
-    Popup("popup-option", true, 90);
+    Popup("popup-option", true, 85);
 
     if (window.localStorage.getItem("user_private_id") == element.private_Id) {
-        Popup("popup-option", true, 85);
+        Popup("popup-option", true, 80);
         element_to_delete.type = "comment";
         element_to_delete.element = element;
         $("#delete_button").css("display", "block");
@@ -64,6 +66,33 @@ function delete_comment_from_html(element) {
     }
 }
 
+$("#report_button").on("touchend", function () {
+    if (element_to_copy == "flow_tittle") { // element_to_copy c'est juste l'elem selectionné
+        if (confirm("voullez-vous vraiment signaler ce flow ?")) {
+            Popup("popup-option", false);
+            let data = {
+                additionalData:
+                {
+                    type: "report_flow"
+                }
+            };
+            in_app_notif(data);
+        }
+    }
+    if (element_to_copy == "comment") { // element_to_copy c'est juste l'elem selectionné
+        if (confirm("voullez-vous vraiment signaler ce commentaire ?")) {
+            Popup("popup-option", false);
+            let data = {
+                additionalData:
+                {
+                    type: "report_comment"
+                }
+            };
+            in_app_notif(data);
+        }
+    }
+});
+
 $("#copy_button").on("touchend", function () {
     if (element_to_copy == "flow_tittle") {
         copyToClipboard($(current_flow_block.fpost_description).text());
@@ -78,17 +107,37 @@ $("#copy_button").on("touchend", function () {
 $("#delete_button").on("touchend", function () {
     if (element_to_delete) {
         if (element_to_delete.type == "flow") {
-            let data_delete_flow = {
-                //element: element,
-                ObjectId: element_to_delete.element.ObjectId
-            };
-            ServerManager.DeleteFlow(data_delete_flow, element_to_delete.element);
+            if (confirm("voullez-vous vraiment supprimer ce flow ?")) {
+                Popup("popup-option", false);
+                let data = {
+                    additionalData:
+                    {
+                        type: "delete_flow"
+                    }
+                };
+                let data_delete_flow = {
+                    //element: element,
+                    ObjectId: element_to_delete.element.ObjectId
+                };
+                ServerManager.DeleteFlow(data_delete_flow, element_to_delete.element);
+                in_app_notif(data);
+            }
         } else {
-            let data_delete_comment = {
-                //element: element,
-                ObjectId: element_to_delete.element.Id
-            };
-            ServerManager.DeleteComment(data_delete_comment, element_to_delete.element);
+            if (confirm("voullez-vous vraiment supprimer ce commentaire ?")) {
+                Popup("popup-option", false);
+                let data = {
+                    additionalData:
+                    {
+                        type: "delete_comment"
+                    }
+                };
+                let data_delete_comment = {
+                    //element: element,
+                    ObjectId: element_to_delete.element.Id
+                };
+                ServerManager.DeleteComment(data_delete_comment, element_to_delete.element);
+                in_app_notif(data);
+            }
         }
     } else {
         alert("Une erreur est survenue lors de la suppression de cet élément");

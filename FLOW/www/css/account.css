@@ -46,6 +46,21 @@
 	border-radius: 25px;
 }
 
+#block_button {
+	position: absolute;
+	top: calc(24.6 * var(--custom-vh));
+	right: 7vw;
+	width: 35px;
+	height: 35px;
+	background-image: url("../src/icons/block.png");
+	background-position: center;
+	background-size: 75%;
+	background-repeat: no-repeat;
+	/*border: solid 1.5px #92abb2;*/
+	/*rgb(255, 0, 84)*/
+	border-radius: 25px;
+}
+
 #freturnCompte {
 	position: absolute;
 	top: calc(4 * var(--custom-vh));

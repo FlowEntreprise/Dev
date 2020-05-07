@@ -508,7 +508,38 @@ function FollowResponse(response, type, element) {
         follow = false;
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    } else {}
+    } else { }
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }
+
+// block user
+
+$("#block_button").on('click', function () {
+    console.log("click sur boutton de block");
+
+    if ($("#block_button").css('background-image') === 'url("file:///android_asset/www/src/icons/block.png")') {
+        $("#block_button").css('background-image', 'url("src/icons/block_filled.png")');
+        if (confirm("voulez vous vraiment bloquer cet utilisateur ?")) {
+            let data = {
+
+
+                additionalData:
+                {
+                    type: "block_user",
+                    privateId: privateIDAccount
+                }
+            };
+            in_app_notif(data);
+
+        }
+        return;
+    }
+    if ($("#block_button").css('background-image') === 'url("file:///android_asset/www/src/icons/block_filled.png")') {
+        $("#block_button").css('background-image', 'url("src/icons/block.png")');
+        confirm("voulez vous vraiment débloquer cet utilisateur ?");
+        return;
+    }
+
+
+});
