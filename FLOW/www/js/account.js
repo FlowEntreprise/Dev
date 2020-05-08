@@ -15,7 +15,8 @@ var UserLikeAdd = true;
 var profilePicLink;
 var register_id;
 var LastOs;
-
+var user_is_blocked;
+var blocked_by_user;
 
 function fInitialisationAccount(privateId) {
     $("#UserActivity")[0].innerHTML = "";
@@ -25,21 +26,25 @@ function fInitialisationAccount(privateId) {
     loading_tl.style.marginTop = "50%";
     $("#UserActivity")[0].appendChild(loading_tl);
     $("#UserLikes")[0].appendChild(loading_tl);
-
+    console.log("on est dans fInitialisationAccount");
     privateIDAccount = privateId;
     indexAccount = 0;
     indexAccountLike = 0;
-
-    var getFlow = {
-        Index: indexAccount,
-        PrivateId: privateIDAccount
-    };
-    ServerManager.GetUserFlow(getFlow);
-    let data = {
-        Index: indexAccountLike,
-        PrivateId: privateIDAccount
+    if (blocked_by_user == false) {
+        var getFlow = {
+            Index: indexAccount,
+            PrivateId: privateIDAccount
+        };
+        ServerManager.GetUserFlow(getFlow);
+        let data = {
+            Index: indexAccountLike,
+            PrivateId: privateIDAccount
+        };
+        ServerManager.GetLikedFlows(data, false);
     }
-    ServerManager.GetLikedFlows(data, false);
+    if (blocked_by_user == true) {
+        i_am_blocked();
+    }
 
     var getInfosUserNumber = {
         PrivateId: privateIDAccount
@@ -51,6 +56,68 @@ function fInitialisationAccount(privateId) {
     ServerManager.GetUserInfo(getUserInfoAccount);
 }
 
+function user_block_management(data, privateId) { // gere les users que l'on a block et qui nous ont block
+    console.log("on est dans user_block_management");
+
+    if (data.UserBlocked.length == 0) {
+        user_is_blocked = false;
+    }
+    else {
+        for (let i in data.UserBlocked) { // users que l'on a block
+            if (data.UserBlocked[i] == privateId) {
+                user_is_blocked = true;
+                $("#block_button").css('background-image', 'url("src/icons/block_filled.png")');
+                break;
+            }
+            else {
+                user_is_blocked = false;
+                $("#block_button").css('background-image', 'url("src/icons/block.png")');
+            }
+
+        }
+    }
+
+
+    if (data.BlockedByUser.length == 0) { // users qui nous on block
+        blocked_by_user = false;
+    }
+    else {
+        for (let i in data.BlockedByUser) {
+            if (data.BlockedByUser[i] == privateId) {
+                blocked_by_user = true;
+                break;
+            }
+            else {
+                blocked_by_user = false;
+            }
+
+        }
+    }
+    fInitialisationAccount(privateId);
+}
+
+function i_am_blocked() {
+    $("#UserActivity").html("");
+    $("#UserLikes").html("");
+    let label_i_am_blocked = document.createElement('label');
+    label_i_am_blocked.id = 'label_i_am_blocked';
+    label_i_am_blocked.innerHTML = "Vous êtes bloqué par cet utilisateur";
+    $("#UserActivity").append(label_i_am_blocked);
+    //$("#UserLikes").append(label_i_am_blocked);
+    /*$("#fFollowButtunAccount").css("background-color", "#ff0054");
+    $("#fFollowButtunAccount").css("border", "solid 1.5px #ff0054");
+    $("#fFollowButtunAccount").innerHTML = "BLOQUÉ";
+    $("#fFollowButtunAccount").css("pointer-events", "none");*/
+    $("#fFollowYouButtunAccount").css("display", "none");
+    $("#block_button").css("display", "none");
+}
+
+$("#freturnCompte").on("click", function () {
+    $("#fFollowButtunAccount").css("border", "solid 1.5px #1a84ef");
+    $("#fFollowButtunAccount").innerHTML = "ABONNÉ";
+    $("#fFollowButtunAccount").css("pointer-events", "auto");
+    $("#block_button").css("display", "block");
+});
 
 $(".fnavAccount").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 
@@ -148,8 +215,6 @@ document.getElementById("popup-account").addEventListener("opened", function () 
             $("#accountBannerScrollAccount").css("transform", "translate3d(0vw, -30vh, 0vh)");
             if (boolScrollTop) {
                 $(".ftabsAccount")[0].setAttribute("style", "height:94vh !important");
-
-
                 $(".fnavAccount").removeClass("fnavAccountTransitionDown");
                 $(".fnavAccount").addClass("fnavAccountTransitionTop");
                 $(".ftabsAccount").css("transition-duration", "0.4s");
@@ -249,12 +314,21 @@ document.getElementById("popup-account").addEventListener("closed", function () 
 
 $("#fFollowButtunAccount").click(function () {
     if (connected) {
-        $(this)[0].style.pointerEvents = "none";
-        let data = {
-            PrivateId: privateIDAccount,
-            type: "profile_follow"
-        };
-        ServerManager.ActionFollow(data);
+        if (user_is_blocked == false && blocked_by_user == false) {
+            $(this)[0].style.pointerEvents = "none";
+            let data = {
+                PrivateId: privateIDAccount,
+                type: "profile_follow"
+            };
+            ServerManager.ActionFollow(data);
+        }
+        if (user_is_blocked == true) {
+            alert("Débloquez d'abord cet utilisateur");
+        }
+        if (blocked_by_user == true) {
+            alert("Cet utilisateur vous a bloqué");
+        }
+
     } else {
         Popup("popup-connect", true, 45);
     }
@@ -517,29 +591,44 @@ function FollowResponse(response, type, element) {
 
 $("#block_button").on('click', function () {
     console.log("click sur boutton de block");
+    if (user_is_blocked == false) { // block.png icone grise donc user debloqué
 
-    if ($("#block_button").css('background-image') === 'url("file:///android_asset/www/src/icons/block.png")') {
-        $("#block_button").css('background-image', 'url("src/icons/block_filled.png")');
         if (confirm("voulez vous vraiment bloquer cet utilisateur ?")) {
+
             let data = {
-
-
                 additionalData:
                 {
                     type: "block_user",
                     privateId: privateIDAccount
                 }
             };
-            in_app_notif(data);
-
+            ServerManager.BlockUser(data);
+            $("#block_button").css('background-image', 'url("src/icons/block_filled.png")');
+            $("#fFollowYouButtunAccount").css("display", "none");
+            $("#fFollowButtunAccount").removeClass("activeButtunFollow");
+            $("#fFollowButtunAccount").text("S'ABONNER");
+            Follower = +Follower - 1;
+            $("#ffollowersBandeauChiffre").html(Follower);
+            user_is_blocked = true;
         }
         return;
     }
-    if ($("#block_button").css('background-image') === 'url("file:///android_asset/www/src/icons/block_filled.png")') {
-        $("#block_button").css('background-image', 'url("src/icons/block.png")');
-        confirm("voulez vous vraiment débloquer cet utilisateur ?");
+    if (user_is_blocked == true) { // block_filled.png icone rouge donc user bloqué
+        if (confirm("voulez vous vraiment débloquer cet utilisateur ?")) {
+
+            let data = {
+                additionalData:
+                {
+                    type: "unblock_user",
+                    privateId: privateIDAccount
+                }
+            };
+            ServerManager.UnBlockUser(data);
+            $("#block_button").css('background-image', 'url("src/icons/block.png")');
+            user_is_blocked = false;
+        }
         return;
     }
 
-
 });
+

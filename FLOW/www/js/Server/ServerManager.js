@@ -35,7 +35,10 @@ const ServerParams = {
     UpdateNotificationToView: "UpdateNotificationToView",
     GetNotificationOfUser: "GetNotificationOfUser",
     DeleteFlow: "DeleteFlow",
-    DeleteComment: "DeleteComment"
+    DeleteComment: "DeleteComment",
+    BlockUser: "BlockUser",
+    UnBlockUser: "UnBlockUser",
+    GetBlockedUsers: "GetBlockedUsers"
 };
 
 const apiTypes = {
@@ -1030,6 +1033,72 @@ class ServerManagerClass {
         });
     }
 
+    BlockUser(data) {
+        let final_data = {
+            Data: {
+                PrivateId: data.additionalData.privateId
+            },
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.BlockUser,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                in_app_notif(data);
+            },
+            error: function (response) {
+
+                console.log(response);
+            }
+        });
+    }
+
+    UnBlockUser(data) {
+        let final_data = {
+            Data: {
+                PrivateId: data.additionalData.privateId
+            },
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.UnBlockUser,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                in_app_notif(data);
+            },
+            error: function (response) {
+
+                console.log(response);
+            }
+        });
+    }
+
+    GetBlockedUsers(data) {
+        let final_data = {
+            Data: {
+            },
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetBlockedUsers,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log("liste des utilisateurs bloqués");
+                console.log(response);
+                user_block_management(response.Data, data);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
     SearchUser(data) {
         let final_data = {
             // TokenId: window.localStorage.getItem("user_token"),
@@ -1052,7 +1121,7 @@ class ServerManagerClass {
                 SpawnUserSearch(response);
             },
             error: function (response) {
-                a
+
                 console.log(response);
             }
         });

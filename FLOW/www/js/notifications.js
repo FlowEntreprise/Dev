@@ -1090,6 +1090,13 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
                 $(".f_in_app_notif").css("margin-top", "5vw");
             });
             break;
+        case 'unblock_user':
+            $(".flabel_in_app_notif").text("@" + data.additionalData.privateId + " a été débloqué");
+            $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
+            $(".f_in_app_notif").on("click", function () {
+                $(".f_in_app_notif").css("margin-top", "5vw");
+            });
+            break;
         case 'report_flow':
             $(".flabel_in_app_notif").text("ce flow a bien été signalé");
             $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
