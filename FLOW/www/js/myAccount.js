@@ -26,9 +26,19 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     $("#MyActivity").addClass("fblockMonComptePadding");
 
     stopAllBlocksAudio();
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
     current_page = "my-account";
 
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page);
 
     indexMyFlow = 0;
     indexMyLike = 0;
@@ -49,7 +59,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     let data = {
         Index: indexMyLike,
         PrivateId: window.localStorage.getItem("user_private_id")
-    }
+    };
     ServerManager.GetLikedFlows(data, true);
 
     var GetMyUserInfoNumber = {
@@ -231,6 +241,11 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     // }
 });
 
+function liked_flow_get_block_and_blocked_users(data_liked_flow, mine) {
+    ServerManager.GetBlockedUsers(data_liked_flow, "liked_flow", mine);
+}
+
+
 function closeEditProfile() {
     if ($.trim($("#editProfileName").val()) != "") {
         if ($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte) {
@@ -282,18 +297,18 @@ function ShowMyFlow(flow) {
             var image_link = undefined;
             var pattern_key = undefined;
             if (data.Background.PatternKey == undefined) {
-                const src_img = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.Background.name + '?';
+                const src_img = 'https://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.Background.name + '?';
                 const param_img = `${flow.LinkBuilder.Params.hash}=${data.Background.hash}&${flow.LinkBuilder.Params.time}=${data.Background.timestamp}`;
                 image_link = src_img + param_img;
             } else {
                 pattern_key = data.Background.PatternKey;
             }
 
-            const src_flow = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
+            const src_flow = 'https://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
             const param_flow = `${flow.LinkBuilder.Params.hash}=${data.Audio.hash}&${flow.LinkBuilder.Params.time}=${data.Audio.timestamp}`;
             const flow_link = src_flow + param_flow;
 
-            const src_profile_img = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
+            const src_profile_img = 'https://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
             const param_profile_img = `${flow.LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${flow.LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
             var profilePicLink = src_profile_img + param_profile_img;
             //console.log(profilePicLink);
@@ -346,14 +361,24 @@ document.getElementById("popup-myaccount").addEventListener("closed", function (
     $(".flow-btn-shadow").css("display", "block");
     $(".fflow-btn").css("z-index", "1");
     $(".flow-btn-shadow").css("z-index", "0");
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
     current_page = "home";
 
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page);
 
     stopAllBlocksAudio();
 });
 
-function ShowMyLikedFlows(flow) {
+function ShowMyLikedFlows(flow, data_block_uer) {
     console.log("SHOW MY FLOW");
     console.log(flow);
     if (Array.isArray(flow.Data) == false || flow.Data.length == 0) {
@@ -367,10 +392,14 @@ function ShowMyLikedFlows(flow) {
         if ($(".loading_myaccount")) $(".loading_myaccount").remove();
         // window.alert("Plus de flow a recupt");
     } else {
-        console.log("several liked flows")
+        console.log("several liked flows");
         // flow.Data.reverse();
         let countFlow = 0;
+        let unique_block_user = data_block_uer.Data.UserBlocked.concat(data_block_uer.Data.BlockedByUser);
+        unique_block_user = unique_block_user.filter((item, pos) => unique_block_user.indexOf(item) === pos);
+
         for (let i = 0; i < flow.Data.length; i++) {
+
             countFlow++;
             let data = flow.Data[i];
             var image_link = undefined;
@@ -380,39 +409,74 @@ function ShowMyLikedFlows(flow) {
             } else {
                 pattern_key = data.Background.PatternKey;
             }
-
             const flow_link = data.Audio;
             console.log(flow_link);
             var profilePicLink = data.ProfilePicture;
             //console.log(profilePicLink);
             //console.log(image_link);
-            let block_params = {
-                parent_element: $("#MyLikes"),
-                afterblock: false,
-                ObjectId: data.ObjectId,
-                audioURL: flow_link,
-                duration: data.Duration,
-                patternKey: pattern_key,
-                imageURL: image_link,
-                title: data.Title,
-                description: data.Description,
-                pseudo: data.PrivateId,
-                account_imageURL: profilePicLink,
-                IsLike: data.IsLike,
-                IsComment: data.IsComment,
-                Likes: data.Likes,
-                ObjectId: data.ObjectId,
-                PrivateId: data.PrivateId,
-                Times: data.Time,
-                Comments: data.Comments,
-                RegisterId: data.RegisterId,
-            };
-            var new_block = new block(block_params);
-            all_blocks.push(new_block);
-            if ($(".loading_myaccount")) $(".loading_myaccount").remove();
+            if (unique_block_user.length != 0) {
+                for (let i_unique_block_user in unique_block_user) {
+                    if (unique_block_user[i_unique_block_user] != data.PrivateId) {
 
-            //console.log("Pop Flow");
-            //console.log(new_block);
+                        let block_params = {
+                            parent_element: $("#MyLikes"),
+                            afterblock: false,
+                            ObjectId: data.ObjectId,
+                            audioURL: flow_link,
+                            duration: data.Duration,
+                            patternKey: pattern_key,
+                            imageURL: image_link,
+                            title: data.Title,
+                            description: data.Description,
+                            pseudo: data.PrivateId,
+                            account_imageURL: profilePicLink,
+                            IsLike: data.IsLike,
+                            IsComment: data.IsComment,
+                            Likes: data.Likes,
+                            ObjectId: data.ObjectId,
+                            PrivateId: data.PrivateId,
+                            Times: data.Time,
+                            Comments: data.Comments,
+                            RegisterId: data.RegisterId,
+                        };
+                        let new_block = new block(block_params);
+                        all_blocks.push(new_block);
+                        if ($(".loading_myaccount")) $(".loading_myaccount").remove();
+
+                        //console.log("Pop Flow");
+                        //console.log(new_block);
+                    }
+                }
+            } else {
+
+                let block_params = {
+                    parent_element: $("#MyLikes"),
+                    afterblock: false,
+                    ObjectId: data.ObjectId,
+                    audioURL: flow_link,
+                    duration: data.Duration,
+                    patternKey: pattern_key,
+                    imageURL: image_link,
+                    title: data.Title,
+                    description: data.Description,
+                    pseudo: data.PrivateId,
+                    account_imageURL: profilePicLink,
+                    IsLike: data.IsLike,
+                    IsComment: data.IsComment,
+                    Likes: data.Likes,
+                    ObjectId: data.ObjectId,
+                    PrivateId: data.PrivateId,
+                    Times: data.Time,
+                    Comments: data.Comments,
+                    RegisterId: data.RegisterId,
+                };
+                let new_block = new block(block_params);
+                all_blocks.push(new_block);
+                if ($(".loading_myaccount")) $(".loading_myaccount").remove();
+
+                //console.log("Pop Flow");
+                //console.log(new_block);
+            }
         }
         console.log(countFlow);
         if (countFlow < 5) {
@@ -446,4 +510,4 @@ $(".disconnect_btn")[0].addEventListener("touchstart", function () {
     $("#editProfilePopup").css("transform", "scale(0)");
     $("#feditProfilePopupContainer").css("pointer-events", "none");
     DisconnectUser();
-})
+});

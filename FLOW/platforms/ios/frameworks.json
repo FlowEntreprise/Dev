@@ -10,9 +10,9 @@
     "CoreData.framework": 1,
     "Accelerate.framework": 1,
     "CoreAudio.framework": 1,
-    "AudioToolbox.framework": 1,
     "AVFoundation.framework": 3,
     "ImageIO.framework": 1,
     "CoreLocation.framework": 1,
-    "PushKit.framework": 1
+    "PushKit.framework": 1,
+    "AudioToolbox.framework": 1
 }

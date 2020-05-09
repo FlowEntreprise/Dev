@@ -51,7 +51,16 @@ var app = {
         console.log("pause");
         stopAllStoriesAudio();
         stopAllBlocksAudio();
-
+        let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+        facebookConnectPlugin.logEvent("current_page", {
+            page: current_page,
+            duration: time_in_last_screen
+        }, null, function () {
+            console.log("fb current_page event success")
+        }, function () {
+            console.log("fb current_page error")
+        });
+        last_currentpage_timestamp = Math.floor(Date.now() / 1000);
         // if (appState.takingPicture || appState.imageUri) {
         //     window.localStorage.setItem("app_state", JSON.stringify(appState));
         //     console.log("app state saved");
@@ -59,51 +68,7 @@ var app = {
 
     },
     onResume: function (event) {
-        // console.log("resume");
-
-        // var storedState = window.localStorage.getItem("app_state");
-
-        // if (storedState) {
-        //     appState = JSON.parse(storedState);
-        // }
-
-        // console.log(appState);
-        // console.log(event);
-        // console.log(event.pendingResult);
-
-        // // Check to see if we need to restore an image we took
-        // if (!appState.takingPicture && appState.imageUri) {
-        //     console.log("restore picture...");
-        //     console.log(appState.imageUri);
-
-        //     //appState.imageUri = event.pendingResult.result;
-        //     appState.needRestore = false;
-        // }
-        // // Now we can check if there is a plugin result in the event object.
-        // // This requires cordova-android 5.1.0+
-        // else if (appState.takingPicture && event.pendingResult) {
-        //     console.log("status : " + event.pendingResult.pluginStatus);
-        //     // Figure out whether or not the plugin call was successful and call
-        //     // the relevant callback. For the camera plugin, "OK" means a
-        //     // successful result and all other statuses mean error
-        //     if (event.pendingResult.pluginStatus === "OK") {
-        //         // The camera plugin places the same result in the resume object
-        //         // as it passes to the success callback passed to getPicture(),
-        //         // thus we can pass it to the same callback. Other plugins may
-        //         // return something else. Consult the documentation for
-        //         // whatever plugin you are using to learn how to interpret the
-        //         // result field
-        //         console.log("restoring picture");
-        //         console.log(event.pendingResult.result);
-
-        //         appState.imageUri = event.pendingResult.result;
-        //         appState.needRestore = true;
-        //     } else {
-        //         console.log("restore picture fail");
-        //         console.log(event.pendingResult.result);
-        //         onFail(event.pendingResult.result);
-        //     }
-        // }
+        last_currentpage_timestamp = Math.floor(Date.now() / 1000);
     },
 
     // Update DOM on a Received Event
@@ -119,12 +84,25 @@ var app = {
 
 
 
+        if (window.cordova.platformId == "android") {
+            crashlytics = FirebaseCrashlytics.initialise();
+            crashlytics.logException("my caught exception");
 
-        crashlytics = FirebaseCrashlytics.initialise();
-        crashlytics.logException("my caught exception");
+            // analytics = cordova.plugins.firebase.analytics;
+            // analytics.setCurrentScreen(current_page);
+        }
 
-        analytics = cordova.plugins.firebase.analytics;
-        analytics.setCurrentScreen(current_page);
+        let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+        facebookConnectPlugin.logEvent("current_page", {
+            page: current_page,
+            duration: time_in_last_screen
+        }, null, function () {
+            console.log("fb current_page event success")
+        }, function () {
+            console.log("fb current_page error")
+        });
+        last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+
 
 
         httpd = (cordova && cordova.plugins && cordova.plugins.CorHttpd) ? cordova.plugins.CorHttpd : null;

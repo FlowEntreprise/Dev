@@ -630,6 +630,16 @@ $(document).on('click', 'a.fposter_photo, .fimg_user, .fphoto_block_notif_like',
 
 function go_to_account(data) //fonction permettant apres click sur sa photo d'aller sur le compte de l'utilisateur
 {
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
     if (data.private_Id == data.user_private_Id) {
         if (current_page != "my-account") {
@@ -660,7 +670,9 @@ function go_to_account(data) //fonction permettant apres click sur sa photo d'al
             Popup("popup-identification", false);
             Popup("popup-specifique", false);
             Popup("popup-myaccount", false);
-            fInitialisationAccount(data.private_Id);
+            ServerManager.GetBlockedUsers(data.private_Id, "go_to_acount"); // true si c'est une redirection vers un compte
+            //fInitialisationAccount(data.private_Id);
+            Popup("popup-account", true);
             current_page = "account";
             //Popup("popup-account", true);
         }

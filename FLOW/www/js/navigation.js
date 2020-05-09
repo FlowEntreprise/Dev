@@ -17,6 +17,17 @@ $(".navbar").css({
 // $("#popup-myaccount").find(".popup_content").load("pages/myAccount.html");
 
 $$('#tab1').on('tab:show', function () {
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+
     $(".navbar").css({
         "display": "block",
         "height": "calc(19 * var(--custom-vh))"
@@ -38,6 +49,17 @@ $$('#tab1').on('tab:show', function () {
 });
 
 $$('#tab2').on('tab:show', function () {
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+
     $(".navbar").css({
         "display": "block",
         "height": "calc(19 * var(--custom-vh))"
@@ -75,6 +97,17 @@ $$('#tab2').on('tab:show', function () {
 });
 
 $$('#tab3').on('tab:show', function () {
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+
     $(".navbar").css({
         "display": "none"
     });
@@ -93,6 +126,17 @@ $$('#tab3').on('tab:show', function () {
 });
 
 $$('#tab4').on('tab:show', function () {
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+
     if (window.cordova.platformId == "android") {
         $(".navbar").css({
             "display": "block",
@@ -147,10 +191,23 @@ function PlayNavRipple(element) {
 
 document.addEventListener("backbutton", onBackKeyDown, false);
 var current_page = "home";
+var last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
 function onBackKeyDown() {
     //alert(current_page);
     // Handle the back button
+
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+
     if (in_options) {
         Popup("popup-option", false);
         in_options = false;
@@ -226,5 +283,6 @@ function onBackKeyDown() {
         stopAllBlocksAudio();
     }
 
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page);
+
 }

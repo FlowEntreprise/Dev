@@ -91,6 +91,9 @@
         <param name="ios-package" value="CDVWKKeyboardFix" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="Notification">
+        <param name="ios-package" value="CDVNotification" />
+    </feature>
     <name>FLOW</name>
     <description>
         The Vocal Social Network.

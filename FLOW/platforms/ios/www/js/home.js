@@ -106,7 +106,11 @@ function PopFlow(data, LinkBuilder) {
   console.log(new_block);
 }
 
-function UpdateTimeline(data) {
+function timeline_get_block_and_blocked_users(data_timeline) {
+  ServerManager.GetBlockedUsers(data_timeline, "timeline");
+}
+
+function UpdateTimeline(data, data_block_uer) {
   console.log("updating timeline...");
   stopAllBlocksAudio();
   console.log(data);
@@ -125,6 +129,8 @@ function UpdateTimeline(data) {
         unique_data.push(data.Data[index]);
       }
     }
+    let unique_block_user = data_block_uer.Data.UserBlocked.concat(data_block_uer.Data.BlockedByUser);
+    unique_block_user = unique_block_user.filter((item, pos) => unique_block_user.indexOf(item) === pos);
     setTimeout(function () {
       if ($(".loading_tl")) $(".loading_tl").remove();
       if (TLCurrentIndex == 0) {
@@ -134,7 +140,16 @@ function UpdateTimeline(data) {
         $(".list-block")[0].appendChild(loading_tl);
       }
       for (let i = 0; i < unique_data.length; i++) {
-        PopFlow(unique_data[i], data.LinkBuilder);
+        if (unique_block_user.length != 0) {
+          for (let i_unique_block_user in unique_block_user) {
+            if (unique_block_user[i_unique_block_user] != unique_data[i].PrivateId) {
+              PopFlow(unique_data[i], data.LinkBuilder);
+            }
+          }
+        }
+        else {
+          PopFlow(unique_data[i], data.LinkBuilder);
+        }
       }
       if ($(".loading_tl")) $(".loading_tl").remove();
       console.log("timeline updated !");

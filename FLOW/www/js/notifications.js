@@ -1082,6 +1082,49 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
             $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a réagi à ta s...");
             $(".f_in_app_notif").css("background-color", "rgb(152, 57, 198)");
             break;
+
+        case 'block_user':
+            $(".flabel_in_app_notif").text("@" + data.additionalData.privateId + " a été bloqué");
+            $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
+            $(".f_in_app_notif").on("click", function () {
+                $(".f_in_app_notif").css("margin-top", "5vw");
+            });
+            break;
+        case 'unblock_user':
+            $(".flabel_in_app_notif").text("@" + data.additionalData.privateId + " a été débloqué");
+            $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
+            $(".f_in_app_notif").on("click", function () {
+                $(".f_in_app_notif").css("margin-top", "5vw");
+            });
+            break;
+        case 'report_flow':
+            $(".flabel_in_app_notif").text("ce flow a bien été signalé");
+            $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
+            $(".f_in_app_notif").on("click", function () {
+                $(".f_in_app_notif").css("margin-top", "5vw");
+            });
+            break;
+        case 'report_comment':
+            $(".flabel_in_app_notif").text("ce commentaire a bien été signalé");
+            $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
+            $(".f_in_app_notif").on("click", function () {
+                $(".f_in_app_notif").css("margin-top", "5vw");
+            });
+            break;
+        case 'delete_flow':
+            $(".flabel_in_app_notif").text("ce flow a bien été supprimé");
+            $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
+            $(".f_in_app_notif").on("click", function () {
+                $(".f_in_app_notif").css("margin-top", "5vw");
+            });
+            break;
+        case 'delete_comment':
+            $(".flabel_in_app_notif").text("ce commentaire a bien été supprimé");
+            $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
+            $(".f_in_app_notif").on("click", function () {
+                $(".f_in_app_notif").css("margin-top", "5vw");
+            });
+            break;
     }
     $(".f_in_app_notif").css("margin-top", "-40vw");
     setTimeout(function () {

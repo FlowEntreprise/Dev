@@ -81,6 +81,26 @@ ptrContent_explore.on('ptr:pullend', function (e) {
     $("#ptr_arrow_explore").css("opacity", "0");
 });
 
+$(".fexplore-btn").on("touchend", function () {
+    // var home_scrolling = false;
+    if (current_page == "explore") {
+        let element = document.getElementById("tab2");
+        // element.onscroll = function() {
+        //     home_scrolling = true;
+        // };
+        let last_scrollTop = element.scrollTop;
+        const scrollToTop = () => {
+            const c = element.scrollTop;
+            if (c > 0 && c <= last_scrollTop) {
+                window.requestAnimationFrame(scrollToTop);
+                element.scrollTo(0, c - c / 8);
+                last_scrollTop = c;
+            }
+        };
+        scrollToTop();
+    }
+});
+
 document.addEventListener('deviceready', function () {
     $(".show_more_users")[0].addEventListener("touchend", function () {
         ShowMoreUsers();
@@ -356,11 +376,21 @@ function ShowMoreFlows() {
     ServerManager.SearchFlow(data);
 }
 
-function UpdateTop50(data) {
+function explore_get_block_and_blocked_users(data_explore) {
+    ServerManager.GetBlockedUsers(data_explore, "explore");
+}
+
+function UpdateTop50(data, data_block_uer) {
     console.log("updating top50...");
     stopAllBlocksAudio();
     console.log(data);
     if (Array.isArray(data) && data.length > 0) {
+        let unique_block_user;
+        if (connected) {
+            unique_block_user = data_block_uer.Data.UserBlocked.concat(data_block_uer.Data.BlockedByUser);
+            unique_block_user = unique_block_user.filter((item, pos) => unique_block_user.indexOf(item) === pos);
+        }
+
         setTimeout(function () {
             // if ($(".loading_tl")) $(".loading_tl").remove();
             if (exploreCurrentIndex == 0) {
@@ -370,33 +400,67 @@ function UpdateTop50(data) {
                 $(".list-block-top50")[0].appendChild(loading_tl);
             }
             for (let i = 0; i < data.length; i++) {
-                let flow = data[i];
-                let pattern_key = "";
-                if (flow.Background.PatternKey) pattern_key = flow.Background.PatternKey;
-                let block_params = {
-                    parent_element: $(".list-block-top50")[0],
-                    afterblock: false,
-                    audioURL: flow.Audio,
-                    duration: flow.Duration,
-                    patternKey: pattern_key,
-                    imageURL: flow.Background,
-                    title: flow.Title,
-                    description: flow.Description,
-                    pseudo: flow.PrivateId,
-                    account_imageURL: flow.ProfilePicture,
-                    ObjectId: flow.ObjectId,
-                    PrivateId: flow.PrivateId,
-                    Times: flow.CREATION,
-                    IsLike: flow.IsLike,
-                    IsComment: flow.IsComment,
-                    Likes: flow.Likes,
-                    Comments: flow.Comments,
-                    RegisterId: flow.RegisterId,
-                    LastOs: flow.LastOs,
-                };
+                if (unique_block_user && unique_block_user.length != 0) {
+                    for (let i_unique_block_user in unique_block_user) { // flow avec filtre utilisateurs bloqués
+                        if (unique_block_user[i_unique_block_user] != data[i].PrivateId) {
 
-                var new_block = new block(block_params);
-                all_blocks.push(new_block);
+                            let flow = data[i];
+                            let pattern_key = "";
+                            if (flow.Background.PatternKey) pattern_key = flow.Background.PatternKey;
+                            let block_params = {
+                                parent_element: $(".list-block-top50")[0],
+                                afterblock: false,
+                                audioURL: flow.Audio,
+                                duration: flow.Duration,
+                                patternKey: pattern_key,
+                                imageURL: flow.Background,
+                                title: flow.Title,
+                                description: flow.Description,
+                                pseudo: flow.PrivateId,
+                                account_imageURL: flow.ProfilePicture,
+                                ObjectId: flow.ObjectId,
+                                PrivateId: flow.PrivateId,
+                                Times: flow.CREATION,
+                                IsLike: flow.IsLike,
+                                IsComment: flow.IsComment,
+                                Likes: flow.Likes,
+                                Comments: flow.Comments,
+                                RegisterId: flow.RegisterId,
+                                LastOs: flow.LastOs,
+                            };
+                            let new_block = new block(block_params);
+                            all_blocks.push(new_block);
+                        }
+                    }
+                }
+                else {
+                    let flow = data[i];
+                    let pattern_key = "";
+                    if (flow.Background.PatternKey) pattern_key = flow.Background.PatternKey;
+                    let block_params = {
+                        parent_element: $(".list-block-top50")[0],
+                        afterblock: false,
+                        audioURL: flow.Audio,
+                        duration: flow.Duration,
+                        patternKey: pattern_key,
+                        imageURL: flow.Background,
+                        title: flow.Title,
+                        description: flow.Description,
+                        pseudo: flow.PrivateId,
+                        account_imageURL: flow.ProfilePicture,
+                        ObjectId: flow.ObjectId,
+                        PrivateId: flow.PrivateId,
+                        Times: flow.CREATION,
+                        IsLike: flow.IsLike,
+                        IsComment: flow.IsComment,
+                        Likes: flow.Likes,
+                        Comments: flow.Comments,
+                        RegisterId: flow.RegisterId,
+                        LastOs: flow.LastOs,
+                    };
+                    let new_block = new block(block_params);
+                    all_blocks.push(new_block);
+                }
             }
             if ($(".loading_tl")) $(".loading_tl").remove();
             console.log("top50 updated !");

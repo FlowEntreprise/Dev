@@ -63,9 +63,19 @@ document.getElementById("popup-record").addEventListener("opened", function () {
         pictureSource = navigator.camera.PictureSourceType;
         destinationType = navigator.camera.DestinationType;
     }
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
     current_page = "record";
 
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page);
 
     $$('.frecord-btn').css({
         "display": "flex"
@@ -75,8 +85,11 @@ document.getElementById("popup-record").addEventListener("opened", function () {
         // $$('.frecord-btn').addClass('frecord-btn-active');
     }
 
-    analytics.logEvent("open_record", {
-        private_id: window.localStorage.getItem("user_private_id")
+
+    facebookConnectPlugin.logEvent("open_record", {}, null, function () {
+        console.log("fb event success")
+    }, function () {
+        console.log("fb event error")
     });
 
 });
@@ -86,9 +99,19 @@ document.getElementById("popup-record").addEventListener("closed", function () {
     });
     $(".record-shadow")[0].style.display = "none";
     // stopCapture();
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
     current_page = "home";
 
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page);
 
     record_was_hold = false;
     $(".frecord-btn")[0].classList.remove("frecord_loading_btn");
@@ -98,9 +121,19 @@ document.getElementById("popup-after-record").addEventListener("opened", functio
     $(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
     current_page = "after-record";
 
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page);
 
 });
 
@@ -131,9 +164,19 @@ document.getElementById("popup-after-story-record").addEventListener("closed", f
 document.getElementById("popup-story-record").addEventListener("opened", function () {
     stopAllBlocksAudio();
     $$('.story_flow_duration').text("00");
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
     current_page = "record-story";
 
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page);
 
 });
 
@@ -190,8 +233,11 @@ $$('.frestart-after_btn').on('touchend', function () {
         // app.popup('.popup-record');
         Popup("popup-record", true);
 
-        analytics.logEvent("restart_record_flow", {
-            private_id: window.localStorage.getItem("user_private_id")
+
+        facebookConnectPlugin.logEvent("restart_record_flow", {}, null, function () {
+            console.log("fb event success")
+        }, function () {
+            console.log("fb event error")
         });
 
     } else {
@@ -199,25 +245,46 @@ $$('.frestart-after_btn').on('touchend', function () {
         // app.popup('.popup-story-record');
         Popup("popup-story-record", true);
 
-        analytics.logEvent("restart_record_story", {
-            private_id: window.localStorage.getItem("user_private_id")
+        facebookConnectPlugin.logEvent("restart_record_story", {}, null, function () {
+            console.log("fb event success")
+        }, function () {
+            console.log("fb event error")
         });
-
     }
 });
 
 $$('.fcancel-after_btn').on('touchend', function () {
     if (current_page == "after-record") {
         Popup("popup-after-record", false);
+        let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+        facebookConnectPlugin.logEvent("current_page", {
+            page: current_page,
+            duration: time_in_last_screen
+        }, null, function () {
+            console.log("fb current_page event success")
+        }, function () {
+            console.log("fb current_page error")
+        });
+        last_currentpage_timestamp = Math.floor(Date.now() / 1000);
         current_page = "home";
 
-        analytics.setCurrentScreen(current_page);
+        // analytics.setCurrentScreen(current_page);
 
     } else {
         Popup("popup-after-story-record", false);
+        let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+        facebookConnectPlugin.logEvent("current_page", {
+            page: current_page,
+            duration: time_in_last_screen
+        }, null, function () {
+            console.log("fb current_page event success")
+        }, function () {
+            console.log("fb current_page error")
+        });
+        last_currentpage_timestamp = Math.floor(Date.now() / 1000);
         current_page = "home";
 
-        analytics.setCurrentScreen(current_page);
+        // analytics.setCurrentScreen(current_page);
 
     }
 });
@@ -245,11 +312,14 @@ $$('.fvalidate-after_btn').on('touchend', function () {
             setTimeout(function () {
                 ServerManager.AddFlow(data);
 
-                analytics.logEvent("upload_flow", {
-                    private_id: data.PrivatedId,
-                    title: data.Title,
-                    description: data.Description,
+                facebookConnectPlugin.logEvent("record_flow", {
+                    // private_id: data.PrivatedId,
+                    // description: data.Description,
                     duration: data.Duration
+                }, null, function () {
+                    console.log("fb record flow event success")
+                }, function () {
+                    console.log("fb record flow event error")
                 });
 
             }, 100);
@@ -275,9 +345,12 @@ $$('.fvalidate-after_btn').on('touchend', function () {
         setTimeout(function () {
             ServerManager.AddStory(storydata);
 
-            analytics.logEvent("upload_story", {
-                private_id: storydata.PrivatedId,
+            facebookConnectPlugin.logEvent("upload_story", {
                 duration: storydata.Duration
+            }, null, function () {
+                console.log("fb event success")
+            }, function () {
+                console.log("fb event error")
             });
 
         }, 100);
@@ -327,9 +400,19 @@ function UpdateRecordIndicator() {
 function CloseAfterRecord() {
     // app.closeModal('.popup-after-record');
     Popup("popup-after-record", false);
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
     current_page = "home";
 
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page);
 
     TLCurrentIndex = 0;
     ServerManager.GetTimeline(0);
@@ -381,10 +464,20 @@ function Save(blob) {
                 app.showTab(target);
             });
             after_record_initialised = true;
+            let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+            facebookConnectPlugin.logEvent("current_page", {
+                page: current_page,
+                duration: time_in_last_screen
+            }, null, function () {
+                console.log("fb current_page event success")
+            }, function () {
+                console.log("fb current_page error")
+            });
+            last_currentpage_timestamp = Math.floor(Date.now() / 1000);
             current_page = "after-record";
             console.log("after record");
 
-            analytics.setCurrentScreen(current_page);
+            // analytics.setCurrentScreen(current_page);
 
         }
         $(".after-record-block-container").html("");
@@ -446,9 +539,19 @@ function Save(blob) {
         appState.blob = blob;
         // appState.flow_title = $(".finput_title").val();
         appState.flow_description = $(".finput_description").val();
+        let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+        facebookConnectPlugin.logEvent("current_page", {
+            page: current_page,
+            duration: time_in_last_screen
+        }, null, function () {
+            console.log("fb current_page event success")
+        }, function () {
+            console.log("fb current_page error")
+        });
+        last_currentpage_timestamp = Math.floor(Date.now() / 1000);
         current_page = "after-story-record";
 
-        analytics.setCurrentScreen(current_page);
+        // analytics.setCurrentScreen(current_page);
 
         var reader = new FileReader();
         reader.readAsDataURL(blob);
@@ -486,11 +589,18 @@ function Save(blob) {
 
             ServerManager.AddStoryComment(story_comment);
 
-            analytics.logEvent("upload_story_comment", {
-                private_id: story_comment.PrivatedId,
-                duration: story_comment.Duration
-            });
+            // analytics.logEvent("upload_story_comment", {
+            //     private_id: story_comment.PrivatedId,
+            //     duration: story_comment.Duration
+            // });
 
+            facebookConnectPlugin.logEvent("upload_story_comment", {
+                duration: story_comment.Duration
+            }, null, function () {
+                console.log("fb record sotry comment event success")
+            }, function () {
+                console.log("fb record sotry comment error")
+            });
         }
 
         // $(".fstory_addcomment_cancel")[0].style.opacity = 0.5;
@@ -753,9 +863,19 @@ function toDataUrl(url, callback) {
 
 function closeStoryRecord() {
     Popup("popup-after-story-record", false);
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
     current_page = "home";
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
-    analytics.setCurrentScreen(current_page);
+    // analytics.setCurrentScreen(current_page);
 
     console.log("close story record");
     $(".frecord-btn")[0].classList.remove("frecord_loading_btn");

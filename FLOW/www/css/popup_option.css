@@ -1,53 +1,52 @@
-#copy_button
-{
-    position: absolute;
-    width: 90vw;
-    left: 5vw;
-    top: calc(2.5 * var(--custom-vh));
-    color: #92ABB2;    
-    line-height: calc(5 * var(--custom-vh));
-    text-align: center;
+#copy_button:active,
+#report_button:active,
+#delete_button:active {
+	background-color: rgb(200, 200, 200);
 }
 
-#copy_icon
-{
-    position: absolute;
-    width: calc(3.5 * var(--custom-vh));
-    height: calc(3.5px * var(--custom-vh));
-    left: 2vw;
-    top: 0.75vh;
+#copy_button,
+#report_button,
+#delete_button {
+	position: absolute;
+	width: 90vw;
+	left: 5vw;
+	color: #92abb2;
+	height: calc(5 * var(--custom-vh));
+	text-align: center;
+	display: table;
 }
 
-#label_copy_button
-{
-    font-size: 2.3vh;
+#copy_button {
+	top: calc(2 * var(--custom-vh));
 }
 
-#delete_button
-{
-    display: none;
-    position: absolute;
-    width: 90vw;
-    left: 5vw;
-    top: calc(8 * var(--custom-vh));
-    height: calc(5 * var(--custom-vh));
-    color: #FF5D5D;    
-    line-height: calc(5 * var(--custom-vh));
-    text-align: center;
+#report_button {
+	top: calc(7.5 * var(--custom-vh));
 }
 
-#delete_icon
-{ 
-    position: absolute;
-    width: calc(3.5 * var(--custom-vh));
-    height: calc(3.5px * var(--custom-vh));
-    left: 2vw;
-    top: 0.75vh;
+#delete_button {
+	display: none;
+	bottom: calc(2 * var(--custom-vh));
+	color: #ff5d5d;
 }
 
-#label_delete_button
-{
-    font-size: 2.3vh;
+#copy_icon,
+#report_icon,
+#delete_icon {
+	position: absolute;
+	height: 60%;
+	width: 30px;
+	left: 2vw;
+	top: 20%;
+	object-fit: contain;
+}
+
+#label_copy_button,
+#label_report_button,
+#label_delete_button {
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 18px;
 }
 
 .fclose_option {
@@ -57,8 +56,7 @@
 	top: calc(2 * var(--custom-vh));
 }
 
-#popup_option_content
-{
+#popup_option_content {
 	border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+	border-top-right-radius: 15px;
 }

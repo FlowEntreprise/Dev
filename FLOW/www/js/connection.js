@@ -68,8 +68,10 @@ function DisconnectUser() {
         "background-image": "url('src/icons/Account@3x.png')"
     });
 
-    analytics.logEvent("user_disconnection", {
-        private_id: window.localStorage.getItem("user_private_id")
+    facebookConnectPlugin.logEvent("user_disconnect", {}, null, function () {
+        console.log("fb event success")
+    }, function () {
+        console.log("fb event error")
     });
 
     window.localStorage.clear();
@@ -81,9 +83,19 @@ $$('.fneed_connect').on('click', function () {
     if (!connected) {
         // app.popup('.popup-connect');
         Popup("popup-connect", true, 45);
+        let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+        facebookConnectPlugin.logEvent("current_page", {
+            page: current_page,
+            duration: time_in_last_screen
+        }, null, function () {
+            console.log("fb current_page event success")
+        }, function () {
+            console.log("fb current_page error")
+        });
+        last_currentpage_timestamp = Math.floor(Date.now() / 1000);
         current_page = "connect-popup";
 
-        analytics.setCurrentScreen(current_page);
+        // analytics.setCurrentScreen(current_page);
 
     }
 });

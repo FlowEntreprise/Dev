@@ -35,7 +35,11 @@ const ServerParams = {
     UpdateNotificationToView: "UpdateNotificationToView",
     GetNotificationOfUser: "GetNotificationOfUser",
     DeleteFlow: "DeleteFlow",
-    DeleteComment: "DeleteComment"
+    DeleteComment: "DeleteComment",
+    BlockUser: "BlockUser",
+    UnBlockUser: "UnBlockUser",
+    GetBlockedUsers: "GetBlockedUsers",
+    AddReportFlow: "AddReportFlow"
 };
 
 const apiTypes = {
@@ -469,11 +473,7 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.GetLikedFlows,
             data: JSON.stringify(final_data),
             success: function (response) {
-                if (mine) {
-                    ShowMyLikedFlows(response);
-                } else {
-                    ShowLikedFlows(response);
-                }
+                liked_flow_get_block_and_blocked_users(response, mine);
             },
             error: function (response) {
 
@@ -620,6 +620,8 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
+                let myApp = new Framework7();
+                myApp.pullToRefreshTrigger(ptrContent);
                 FollowResponse(response, data.type, data.block_user);
 
             },
@@ -691,7 +693,7 @@ class ServerManagerClass {
             success: function (response) {
                 console.log("success");
                 console.log(response);
-                UpdateTimeline(response);
+                timeline_get_block_and_blocked_users(response);
             },
             error: function (response) {
                 console.log("error");
@@ -977,7 +979,6 @@ class ServerManagerClass {
                 if (response.Data) {
                     loadStoryComments(response);
                 }
-                // UpdateTimeline(response);
             },
             error: function (response) {
                 console.log(response);
@@ -1030,6 +1031,115 @@ class ServerManagerClass {
         });
     }
 
+    BlockUser(data) {
+        let final_data = {
+            Data: {
+                PrivateId: data.additionalData.privateId
+            },
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.BlockUser,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                let myApp = new Framework7();
+                myApp.pullToRefreshTrigger(ptrContent);
+                myApp.pullToRefreshTrigger(ptrContent_explore);
+                in_app_notif(data);
+            },
+            error: function (response) {
+
+                console.log(response);
+            }
+        });
+    }
+
+    UnBlockUser(data) {
+        let final_data = {
+            Data: {
+                PrivateId: data.additionalData.privateId
+            },
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.UnBlockUser,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                let myApp = new Framework7();
+                myApp.pullToRefreshTrigger(ptrContent);
+                myApp.pullToRefreshTrigger(ptrContent_explore);
+                in_app_notif(data);
+            },
+            error: function (response) {
+
+                console.log(response);
+            }
+        });
+    }
+
+    GetBlockedUsers(data, action, mine) {
+        let final_data = {
+            Data: {
+            },
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.GetBlockedUsers,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log("liste des utilisateurs bloqués");
+                console.log(response);
+                if (action == "go_to_acount") {
+                    user_block_management(response.Data, data);
+                }
+                if (action == "timeline") {
+                    UpdateTimeline(data, response);
+                }
+                if (action == "explore") {
+                    UpdateTop50(data, response);
+                }
+                if (action == "liked_flow") {
+                    if (mine) {
+                        ShowMyLikedFlows(data, response);
+                    } else {
+                        ShowLikedFlows(data, response);
+                    }
+                }
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+    AddReportFlow(data) {
+        let final_data = {
+            Data: {
+                ObjectId: data.additionalData.ObjectId
+            },
+            TokenId: window.localStorage.getItem("user_token")
+        };
+        console.log(final_data);
+        $.ajax({
+            type: "POST",
+            url: ServerParams.ServerURL + ServerParams.AddReportFlow,
+            data: JSON.stringify(final_data),
+            success: function (response) {
+                console.log("le flow a bien été report");
+                in_app_notif(data);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
     SearchUser(data) {
         let final_data = {
             // TokenId: window.localStorage.getItem("user_token"),
@@ -1052,7 +1162,7 @@ class ServerManagerClass {
                 SpawnUserSearch(response);
             },
             error: function (response) {
-                a
+
                 console.log(response);
             }
         });
@@ -1098,7 +1208,11 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
-                UpdateTop50(response);
+                if (connected) { explore_get_block_and_blocked_users(response); }
+                else {
+                    console.log("faut afficher le top50 maintenant");
+                    UpdateTop50(response);
+                }
             },
             error: function (response) {
                 console.log(response);

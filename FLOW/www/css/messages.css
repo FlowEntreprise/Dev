@@ -84,4 +84,27 @@
     font-size: 16px;
 }
 
+.mobile700 .messages_txt>span {
+    font-size: 13px;
+    color: #1a84ef;
+    display: inline;
+    text-decoration: underline;
+}
+
 /* } */
+
+.mobile600 .messages_title {
+    top: 23vh;
+    font-size: 18px;
+}
+
+.mobile600 .messages_coming {
+    font-size: 16px;
+}
+
+.mobile600 .messages_txt>span {
+    font-size: 13px;
+    color: #1a84ef;
+    display: inline;
+    text-decoration: underline;
+}
