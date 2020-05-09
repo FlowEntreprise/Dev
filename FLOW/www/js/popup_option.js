@@ -6,13 +6,15 @@ function delete_flow_from_bdd(element) {
     $("#label_copy_button").text("Copier le titre du flow");
     $("#label_report_button").text("Signaler le flow");
     $("#label_delete_button").text("Supprimer le flow");
-    Popup("popup-option", true, 85);
+    $("#delete_button").css("display", "none");
+    $("#report_button").css("display", "table");
+    Popup("popup-option", true, 85.5);
 
     if (window.localStorage.getItem("user_private_id") == element.privateID) {
-        Popup("popup-option", true, 80);
         element_to_delete.type = "flow";
         element_to_delete.element = element;
         $("#delete_button").css("display", "table");
+        $("#report_button").css("display", "none");
     }
 }
 
@@ -32,13 +34,15 @@ function delete_comment_from_bdd(element) {
     $("#label_copy_button").text("Copier le commentaire");
     $("#label_report_button").text("Signaler le commentaire");
     $("#label_delete_button").text("Supprimer le commentaire");
-    Popup("popup-option", true, 85);
+    $("#delete_button").css("display", "none");
+    $("#report_button").css("display", "table");
+    Popup("popup-option", true, 85.5);
 
     if (window.localStorage.getItem("user_private_id") == element.private_Id) {
-        Popup("popup-option", true, 80);
         element_to_delete.type = "comment";
         element_to_delete.element = element;
         $("#delete_button").css("display", "table");
+        $("#report_button").css("display", "none");
     }
 }
 

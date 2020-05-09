@@ -1019,7 +1019,9 @@ function pop_notif_block(data) { //bloc de notif de l'onglet notifications
 function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois une notif et qu'on est dans l'app
 
     if (window.cordova.platformId == "ios") {
-        data.additionalData.sender_info = JSON.parse(data.additionalData.sender_info);
+        if (data.additionalData.sender_info) {
+            data.additionalData.sender_info = JSON.parse(data.additionalData.sender_info);
+        }
     }
     switch (data.additionalData.type) {
         case 'like_flow':
