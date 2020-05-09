@@ -297,18 +297,18 @@ function ShowMyFlow(flow) {
             var image_link = undefined;
             var pattern_key = undefined;
             if (data.Background.PatternKey == undefined) {
-                const src_img = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.Background.name + '?';
+                const src_img = 'https://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.Background.name + '?';
                 const param_img = `${flow.LinkBuilder.Params.hash}=${data.Background.hash}&${flow.LinkBuilder.Params.time}=${data.Background.timestamp}`;
                 image_link = src_img + param_img;
             } else {
                 pattern_key = data.Background.PatternKey;
             }
 
-            const src_flow = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
+            const src_flow = 'https://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
             const param_flow = `${flow.LinkBuilder.Params.hash}=${data.Audio.hash}&${flow.LinkBuilder.Params.time}=${data.Audio.timestamp}`;
             const flow_link = src_flow + param_flow;
 
-            const src_profile_img = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
+            const src_profile_img = 'https://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
             const param_profile_img = `${flow.LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${flow.LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
             var profilePicLink = src_profile_img + param_profile_img;
             //console.log(profilePicLink);
@@ -447,8 +447,7 @@ function ShowMyLikedFlows(flow, data_block_uer) {
                         //console.log(new_block);
                     }
                 }
-            }
-            else {
+            } else {
 
                 let block_params = {
                     parent_element: $("#MyLikes"),

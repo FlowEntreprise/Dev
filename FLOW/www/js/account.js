@@ -61,15 +61,13 @@ function user_block_management(data, privateId) { // gere les users que l'on a b
 
     if (data.UserBlocked.length == 0) {
         user_is_blocked = false;
-    }
-    else {
+    } else {
         for (let i in data.UserBlocked) { // users que l'on a block
             if (data.UserBlocked[i] == privateId) {
                 user_is_blocked = true;
                 $("#block_button").css('background-image', 'url("src/icons/block_filled.png")');
                 break;
-            }
-            else {
+            } else {
                 user_is_blocked = false;
                 $("#block_button").css('background-image', 'url("src/icons/block.png")');
             }
@@ -80,14 +78,12 @@ function user_block_management(data, privateId) { // gere les users que l'on a b
 
     if (data.BlockedByUser.length == 0) { // users qui nous on block
         blocked_by_user = false;
-    }
-    else {
+    } else {
         for (let i in data.BlockedByUser) {
             if (data.BlockedByUser[i] == privateId) {
                 blocked_by_user = true;
                 break;
-            }
-            else {
+            } else {
                 blocked_by_user = false;
             }
 
@@ -319,8 +315,7 @@ $("#fFollowButtunAccount").click(function () {
             if ($("#fFollowButtunAccount").attr('class') != "activeButtunFollow") {
                 $("#fFollowButtunAccount").addClass("activeButtunFollow");
                 $("#fFollowButtunAccount").text("ABONNÉ");
-            }
-            else {
+            } else {
                 $("#fFollowButtunAccount").removeClass("activeButtunFollow");
                 $("#fFollowButtunAccount").text("S'ABONNER");
             }
@@ -450,18 +445,18 @@ function ShowUserFlow(flow) {
             var image_link = undefined;
             var pattern_key = undefined;
             if (data.Background.PatternKey == undefined) {
-                const src_img = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.Background.name + '?';
+                const src_img = 'https://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.Background.name + '?';
                 const param_img = `${flow.LinkBuilder.Params.hash}=${data.Background.hash}&${flow.LinkBuilder.Params.time}=${data.Background.timestamp}`;
                 image_link = src_img + param_img;
             } else {
                 pattern_key = data.Background.PatternKey;
             }
 
-            const src_flow = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
+            const src_flow = 'https://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
             const param_flow = `${flow.LinkBuilder.Params.hash}=${data.Audio.hash}&${flow.LinkBuilder.Params.time}=${data.Audio.timestamp}`;
             const flow_link = src_flow + param_flow;
 
-            const src_profile_img = 'http://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
+            const src_profile_img = 'https://' + flow.LinkBuilder.Hostname + ':' + flow.LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
             const param_profile_img = `${flow.LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${flow.LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
             var profilePicLink = src_profile_img + param_profile_img;
             let block_params = {
@@ -563,8 +558,7 @@ function ShowLikedFlows(flow, data_block_uer) {
                         if ($(".loading_account")) $(".loading_account").remove();
                     }
                 }
-            }
-            else {
+            } else {
                 let block_params = {
                     parent_element: $("#UserLikes"),
                     afterblock: false,
@@ -623,7 +617,7 @@ function FollowResponse(response, type, element) {
         follow = false;
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    } else { }
+    } else {}
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }
@@ -637,8 +631,7 @@ $("#block_button").on('click', function () {
         if (confirm("voulez vous vraiment bloquer cet utilisateur ?")) {
 
             let data = {
-                additionalData:
-                {
+                additionalData: {
                     type: "block_user",
                     privateId: privateIDAccount
                 }
@@ -658,8 +651,7 @@ $("#block_button").on('click', function () {
         if (confirm("voulez vous vraiment débloquer cet utilisateur ?")) {
 
             let data = {
-                additionalData:
-                {
+                additionalData: {
                     type: "unblock_user",
                     privateId: privateIDAccount
                 }
@@ -672,4 +664,3 @@ $("#block_button").on('click', function () {
     }
 
 });
-
