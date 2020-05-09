@@ -462,6 +462,22 @@ module.exports = [
     "clobbers": [
       "window.plugins.googleplus"
     ]
+  },
+  {
+    "id": "cordova-plugin-dialogs.notification",
+    "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+    "pluginId": "cordova-plugin-dialogs",
+    "merges": [
+      "navigator.notification"
+    ]
+  },
+  {
+    "id": "cordova-plugin-dialogs.notification_android",
+    "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
+    "pluginId": "cordova-plugin-dialogs",
+    "merges": [
+      "navigator.notification"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -494,7 +510,8 @@ module.exports.metadata =
   "cordova-twitter3-connect-plugin": "1.0.5",
   "com.rjfun.cordova.httpd": "0.9.2",
   "cordova-plugin-device": "2.0.3",
-  "cordova-plugin-googleplus": "8.1.1"
+  "cordova-plugin-googleplus": "8.1.1",
+  "cordova-plugin-dialogs": "2.0.2"
 };
 // BOTTOM OF METADATA
 });

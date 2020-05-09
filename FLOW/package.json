@@ -17,6 +17,7 @@
         "cordova-plugin-camera": "~4.0.3",
         "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-device": "^2.0.3",
+        "cordova-plugin-dialogs": "^2.0.2",
         "cordova-plugin-facebook4": "4.2.1",
         "cordova-plugin-file": "^6.0.2",
         "cordova-plugin-firebase-analytics": "^2.0.4",
@@ -94,7 +95,8 @@
                 "WEB_APPLICATION_CLIENT_ID": "320132615636-8f4u2k95equ8nd8v6mvhaod4qm73j3fq.apps.googleusercontent.com",
                 "PLAY_SERVICES_VERSION": "15.0.1"
             },
-            "com.rjfun.cordova.httpd": {}
+            "com.rjfun.cordova.httpd": {},
+            "cordova-plugin-dialogs": {}
         },
         "platforms": []
     }

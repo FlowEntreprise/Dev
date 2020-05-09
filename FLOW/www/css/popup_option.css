@@ -1,58 +1,62 @@
 #copy_button:active,
 #report_button:active,
 #delete_button:active {
-    background-color: rgb(200, 200, 200);
+	background-color: rgb(200, 200, 200);
 }
 
 #copy_button,
 #report_button,
 #delete_button {
-    position: absolute;
-    width: 90vw;
-    left: 5vw;
-    color: #92ABB2;
-    line-height: calc(5 * var(--custom-vh));
-    text-align: center;
+	position: absolute;
+	width: 90vw;
+	left: 5vw;
+	color: #92abb2;
+	height: calc(5 * var(--custom-vh));
+	text-align: center;
+	display: table;
 }
 
 #copy_button {
-    top: calc(1.25 * var(--custom-vh));
+	top: calc(2 * var(--custom-vh));
 }
 
 #report_button {
-    top: calc(7.1 * var(--custom-vh));
+	top: calc(7.5 * var(--custom-vh));
 }
 
 #delete_button {
-    bottom: calc(1.25* var(--custom-vh));
-    color: #FF5D5D;
+	display: none;
+	bottom: calc(2 * var(--custom-vh));
+	color: #ff5d5d;
 }
 
 #copy_icon,
 #report_icon,
 #delete_icon {
-    position: absolute;
-    height: 60%;
-    width: 30px;
-    left: 2vw;
-    top: 20%;
-    object-fit: contain;
+	position: absolute;
+	height: 60%;
+	width: 30px;
+	left: 2vw;
+	top: 20%;
+	object-fit: contain;
 }
 
 #label_copy_button,
 #label_report_button,
 #label_delete_button {
-    font-size: 20px;
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 18px;
 }
 
 .fclose_option {
-    width: 4vw;
-    position: absolute;
-    right: 4.5vw;
-    top: calc(2 * var(--custom-vh));
+	width: 4vw;
+	position: absolute;
+	right: 4.5vw;
+	top: calc(2 * var(--custom-vh));
 }
 
 #popup_option_content {
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
 }

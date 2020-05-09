@@ -627,39 +627,43 @@ function FollowResponse(response, type, element) {
 $("#block_button").on('click', function () {
     console.log("click sur boutton de block");
     if (user_is_blocked == false) { // block.png icone grise donc user debloqué
+        navigator.notification.confirm("Veux-tu vraiment bloquer cet utilisateur ?", function (id) {
+            if (id == 1) {
 
-        if (confirm("voulez vous vraiment bloquer cet utilisateur ?")) {
+                let data = {
+                    additionalData: {
+                        type: "block_user",
+                        privateId: privateIDAccount
+                    }
+                };
+                ServerManager.BlockUser(data);
+                $("#block_button").css('background-image', 'url("src/icons/block_filled.png")');
+                $("#fFollowYouButtunAccount").css("display", "none");
+                $("#fFollowButtunAccount").removeClass("activeButtunFollow");
+                $("#fFollowButtunAccount").text("S'ABONNER");
+                Follower = +Follower - 1;
+                $("#ffollowersBandeauChiffre").html(Follower);
+                user_is_blocked = true;
+            }
+        }, "Confirmation", ["Oui", "Annuler"])
 
-            let data = {
-                additionalData: {
-                    type: "block_user",
-                    privateId: privateIDAccount
-                }
-            };
-            ServerManager.BlockUser(data);
-            $("#block_button").css('background-image', 'url("src/icons/block_filled.png")');
-            $("#fFollowYouButtunAccount").css("display", "none");
-            $("#fFollowButtunAccount").removeClass("activeButtunFollow");
-            $("#fFollowButtunAccount").text("S'ABONNER");
-            Follower = +Follower - 1;
-            $("#ffollowersBandeauChiffre").html(Follower);
-            user_is_blocked = true;
-        }
         return;
     }
     if (user_is_blocked == true) { // block_filled.png icone rouge donc user bloqué
-        if (confirm("voulez vous vraiment débloquer cet utilisateur ?")) {
+        navigator.notification.confirm("Veux-tu vraiment débloquer cet utilisateur ?", function (id) {
+            if (id == 1) {
 
-            let data = {
-                additionalData: {
-                    type: "unblock_user",
-                    privateId: privateIDAccount
-                }
-            };
-            ServerManager.UnBlockUser(data);
-            $("#block_button").css('background-image', 'url("src/icons/block.png")');
-            user_is_blocked = false;
-        }
+                let data = {
+                    additionalData: {
+                        type: "unblock_user",
+                        privateId: privateIDAccount
+                    }
+                };
+                ServerManager.UnBlockUser(data);
+                $("#block_button").css('background-image', 'url("src/icons/block.png")');
+                user_is_blocked = false;
+            }
+        }, "Confirmation", ["Oui", "Annuler"])
         return;
     }
 

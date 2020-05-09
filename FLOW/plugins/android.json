@@ -1,35 +1,38 @@
 {
-	"prepare_queue": {
-		"installed": [],
-		"uninstalled": []
-	},
-	"config_munge": {
-		"files": {}
-	},
-	"installed_plugins": {
-		"cordova-android-support-gradle-release": {
-			"ANDROID_SUPPORT_VERSION": "27.+",
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"cordova-plugin-android-permissions": {
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"cordova-plugin-audioinput": {
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"cordova-plugin-browsersync": {
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"com.rjfun.cordova.httpd": {
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"cordova-plugin-device": {
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"cordova-plugin-googleplus": {
-			"PLAY_SERVICES_VERSION": "15.0.1",
-			"PACKAGE_NAME": "com.flowapp.flow"
-		}
-	},
-	"dependent_plugins": {}
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-android-support-gradle-release": {
+      "ANDROID_SUPPORT_VERSION": "27.+",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-audioinput": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-browsersync": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "com.rjfun.cordova.httpd": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-googleplus": {
+      "PLAY_SERVICES_VERSION": "15.0.1",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    }
+  },
+  "dependent_plugins": {}
 }
