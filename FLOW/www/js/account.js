@@ -315,7 +315,15 @@ document.getElementById("popup-account").addEventListener("closed", function () 
 $("#fFollowButtunAccount").click(function () {
     if (connected) {
         if (user_is_blocked == false && blocked_by_user == false) {
-            $(this)[0].style.pointerEvents = "none";
+            //$(this)[0].style.pointerEvents = "none";
+            if ($("#fFollowButtunAccount").attr('class') != "activeButtunFollow") {
+                $("#fFollowButtunAccount").addClass("activeButtunFollow");
+                $("#fFollowButtunAccount").text("ABONNÉ");
+            }
+            else {
+                $("#fFollowButtunAccount").removeClass("activeButtunFollow");
+                $("#fFollowButtunAccount").text("S'ABONNER");
+            }
             let data = {
                 PrivateId: privateIDAccount,
                 type: "profile_follow"
@@ -333,7 +341,6 @@ $("#fFollowButtunAccount").click(function () {
         Popup("popup-connect", true, 45);
     }
 });
-
 
 
 function manageFollow(type, element) { // html_element est element html qui doit etre affecté
@@ -497,7 +504,7 @@ function ShowUserFlow(flow) {
     }
 }
 
-function ShowLikedFlows(flow) {
+function ShowLikedFlows(flow, data_block_uer) {
     console.log(flow);
     if (Array.isArray(flow.Data) == false || flow.Data.length == 0) {
         UserLikeAdd = false;
@@ -510,6 +517,9 @@ function ShowLikedFlows(flow) {
         if ($(".loading_account")) $(".loading_account").remove();
     } else {
         var countFlow = 0;
+        let unique_block_user = data_block_uer.Data.UserBlocked.concat(data_block_uer.Data.BlockedByUser);
+        unique_block_user = unique_block_user.filter((item, pos) => unique_block_user.indexOf(item) === pos);
+
         for (let i = 0; i < flow.Data.length; i++) {
             countFlow++;
             let data = flow.Data[i];
@@ -520,36 +530,67 @@ function ShowLikedFlows(flow) {
             } else {
                 pattern_key = data.Background.PatternKey;
             }
-
             const flow_link = data.Audio;
             console.log(flow_link);
             var profilePicLink = data.ProfilePicture;
-
-            let block_params = {
-                parent_element: $("#UserLikes"),
-                afterblock: false,
-                ObjectId: data.ObjectId,
-                audioURL: flow_link,
-                duration: data.Duration,
-                patternKey: pattern_key,
-                imageURL: image_link,
-                title: data.Title,
-                description: data.Description,
-                pseudo: data.PrivateId,
-                account_imageURL: profilePicLink,
-                IsLike: data.IsLike,
-                IsComment: data.IsComment,
-                Likes: data.Likes,
-                ObjectId: data.ObjectId,
-                PrivateId: data.PrivateId,
-                Times: data.Time,
-                RegisterId: data.RegisterId,
-                LastOs: data.LastOs,
-                Comments: data.Comments
-            };
-            var new_block = new block(block_params);
-            all_blocks.push(new_block);
-            if ($(".loading_account")) $(".loading_account").remove();
+            if (unique_block_user.length != 0) {
+                for (let i_unique_block_user in unique_block_user) {
+                    if (unique_block_user[i_unique_block_user] != data.PrivateId) {
+                        let block_params = {
+                            parent_element: $("#UserLikes"),
+                            afterblock: false,
+                            ObjectId: data.ObjectId,
+                            audioURL: flow_link,
+                            duration: data.Duration,
+                            patternKey: pattern_key,
+                            imageURL: image_link,
+                            title: data.Title,
+                            description: data.Description,
+                            pseudo: data.PrivateId,
+                            account_imageURL: profilePicLink,
+                            IsLike: data.IsLike,
+                            IsComment: data.IsComment,
+                            Likes: data.Likes,
+                            ObjectId: data.ObjectId,
+                            PrivateId: data.PrivateId,
+                            Times: data.Time,
+                            RegisterId: data.RegisterId,
+                            LastOs: data.LastOs,
+                            Comments: data.Comments
+                        };
+                        let new_block = new block(block_params);
+                        all_blocks.push(new_block);
+                        if ($(".loading_account")) $(".loading_account").remove();
+                    }
+                }
+            }
+            else {
+                let block_params = {
+                    parent_element: $("#UserLikes"),
+                    afterblock: false,
+                    ObjectId: data.ObjectId,
+                    audioURL: flow_link,
+                    duration: data.Duration,
+                    patternKey: pattern_key,
+                    imageURL: image_link,
+                    title: data.Title,
+                    description: data.Description,
+                    pseudo: data.PrivateId,
+                    account_imageURL: profilePicLink,
+                    IsLike: data.IsLike,
+                    IsComment: data.IsComment,
+                    Likes: data.Likes,
+                    ObjectId: data.ObjectId,
+                    PrivateId: data.PrivateId,
+                    Times: data.Time,
+                    RegisterId: data.RegisterId,
+                    LastOs: data.LastOs,
+                    Comments: data.Comments
+                };
+                let new_block = new block(block_params);
+                all_blocks.push(new_block);
+                if ($(".loading_account")) $(".loading_account").remove();
+            }
         }
         if (countFlow < 5) {
             indexAccountLike++;

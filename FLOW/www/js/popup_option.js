@@ -68,19 +68,20 @@ function delete_comment_from_html(element) {
 
 $("#report_button").on("touchend", function () {
     if (element_to_copy == "flow_tittle") { // element_to_copy c'est juste l'elem selectionné
-        if (confirm("voullez-vous vraiment signaler ce flow ?")) {
+        if (confirm("voulez-vous vraiment signaler ce flow ?")) {
             Popup("popup-option", false);
             let data = {
                 additionalData:
                 {
-                    type: "report_flow"
+                    type: "report_flow",
+                    ObjectId: current_flow_block.ObjectId
                 }
             };
-            in_app_notif(data);
+            ServerManager.AddReportFlow(data);
         }
     }
     if (element_to_copy == "comment") { // element_to_copy c'est juste l'elem selectionné
-        if (confirm("voullez-vous vraiment signaler ce commentaire ?")) {
+        if (confirm("voulez-vous vraiment signaler ce commentaire ?")) {
             Popup("popup-option", false);
             let data = {
                 additionalData:

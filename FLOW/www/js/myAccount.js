@@ -59,7 +59,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     let data = {
         Index: indexMyLike,
         PrivateId: window.localStorage.getItem("user_private_id")
-    }
+    };
     ServerManager.GetLikedFlows(data, true);
 
     var GetMyUserInfoNumber = {
@@ -241,6 +241,11 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     // }
 });
 
+function liked_flow_get_block_and_blocked_users(data_liked_flow, mine) {
+    ServerManager.GetBlockedUsers(data_liked_flow, "liked_flow", mine);
+}
+
+
 function closeEditProfile() {
     if ($.trim($("#editProfileName").val()) != "") {
         if ($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte) {
@@ -373,7 +378,7 @@ document.getElementById("popup-myaccount").addEventListener("closed", function (
     stopAllBlocksAudio();
 });
 
-function ShowMyLikedFlows(flow) {
+function ShowMyLikedFlows(flow, data_block_uer) {
     console.log("SHOW MY FLOW");
     console.log(flow);
     if (Array.isArray(flow.Data) == false || flow.Data.length == 0) {
@@ -387,10 +392,14 @@ function ShowMyLikedFlows(flow) {
         if ($(".loading_myaccount")) $(".loading_myaccount").remove();
         // window.alert("Plus de flow a recupt");
     } else {
-        console.log("several liked flows")
+        console.log("several liked flows");
         // flow.Data.reverse();
         let countFlow = 0;
+        let unique_block_user = data_block_uer.Data.UserBlocked.concat(data_block_uer.Data.BlockedByUser);
+        unique_block_user = unique_block_user.filter((item, pos) => unique_block_user.indexOf(item) === pos);
+
         for (let i = 0; i < flow.Data.length; i++) {
+
             countFlow++;
             let data = flow.Data[i];
             var image_link = undefined;
@@ -400,39 +409,75 @@ function ShowMyLikedFlows(flow) {
             } else {
                 pattern_key = data.Background.PatternKey;
             }
-
             const flow_link = data.Audio;
             console.log(flow_link);
             var profilePicLink = data.ProfilePicture;
             //console.log(profilePicLink);
             //console.log(image_link);
-            let block_params = {
-                parent_element: $("#MyLikes"),
-                afterblock: false,
-                ObjectId: data.ObjectId,
-                audioURL: flow_link,
-                duration: data.Duration,
-                patternKey: pattern_key,
-                imageURL: image_link,
-                title: data.Title,
-                description: data.Description,
-                pseudo: data.PrivateId,
-                account_imageURL: profilePicLink,
-                IsLike: data.IsLike,
-                IsComment: data.IsComment,
-                Likes: data.Likes,
-                ObjectId: data.ObjectId,
-                PrivateId: data.PrivateId,
-                Times: data.Time,
-                Comments: data.Comments,
-                RegisterId: data.RegisterId,
-            };
-            var new_block = new block(block_params);
-            all_blocks.push(new_block);
-            if ($(".loading_myaccount")) $(".loading_myaccount").remove();
+            if (unique_block_user.length != 0) {
+                for (let i_unique_block_user in unique_block_user) {
+                    if (unique_block_user[i_unique_block_user] != data.PrivateId) {
 
-            //console.log("Pop Flow");
-            //console.log(new_block);
+                        let block_params = {
+                            parent_element: $("#MyLikes"),
+                            afterblock: false,
+                            ObjectId: data.ObjectId,
+                            audioURL: flow_link,
+                            duration: data.Duration,
+                            patternKey: pattern_key,
+                            imageURL: image_link,
+                            title: data.Title,
+                            description: data.Description,
+                            pseudo: data.PrivateId,
+                            account_imageURL: profilePicLink,
+                            IsLike: data.IsLike,
+                            IsComment: data.IsComment,
+                            Likes: data.Likes,
+                            ObjectId: data.ObjectId,
+                            PrivateId: data.PrivateId,
+                            Times: data.Time,
+                            Comments: data.Comments,
+                            RegisterId: data.RegisterId,
+                        };
+                        let new_block = new block(block_params);
+                        all_blocks.push(new_block);
+                        if ($(".loading_myaccount")) $(".loading_myaccount").remove();
+
+                        //console.log("Pop Flow");
+                        //console.log(new_block);
+                    }
+                }
+            }
+            else {
+
+                let block_params = {
+                    parent_element: $("#MyLikes"),
+                    afterblock: false,
+                    ObjectId: data.ObjectId,
+                    audioURL: flow_link,
+                    duration: data.Duration,
+                    patternKey: pattern_key,
+                    imageURL: image_link,
+                    title: data.Title,
+                    description: data.Description,
+                    pseudo: data.PrivateId,
+                    account_imageURL: profilePicLink,
+                    IsLike: data.IsLike,
+                    IsComment: data.IsComment,
+                    Likes: data.Likes,
+                    ObjectId: data.ObjectId,
+                    PrivateId: data.PrivateId,
+                    Times: data.Time,
+                    Comments: data.Comments,
+                    RegisterId: data.RegisterId,
+                };
+                let new_block = new block(block_params);
+                all_blocks.push(new_block);
+                if ($(".loading_myaccount")) $(".loading_myaccount").remove();
+
+                //console.log("Pop Flow");
+                //console.log(new_block);
+            }
         }
         console.log(countFlow);
         if (countFlow < 5) {
@@ -466,4 +511,4 @@ $(".disconnect_btn")[0].addEventListener("touchstart", function () {
     $("#editProfilePopup").css("transform", "scale(0)");
     $("#feditProfilePopupContainer").css("pointer-events", "none");
     DisconnectUser();
-})
+});
