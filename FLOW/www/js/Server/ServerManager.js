@@ -620,6 +620,8 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
+                let myApp = new Framework7();
+                myApp.pullToRefreshTrigger(ptrContent);
                 FollowResponse(response, data.type, data.block_user);
 
             },
@@ -1042,12 +1044,9 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.BlockUser,
             data: JSON.stringify(final_data),
             success: function (response) {
-                ServerManager.GetTimeline(0);
-                let data =
-                {
-                    Index: 0
-                };
-                ServerManager.GetTop50(data);
+                let myApp = new Framework7();
+                myApp.pullToRefreshTrigger(ptrContent);
+                myApp.pullToRefreshTrigger(ptrContent_explore);
                 in_app_notif(data);
             },
             error: function (response) {
@@ -1070,6 +1069,9 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.UnBlockUser,
             data: JSON.stringify(final_data),
             success: function (response) {
+                let myApp = new Framework7();
+                myApp.pullToRefreshTrigger(ptrContent);
+                myApp.pullToRefreshTrigger(ptrContent_explore);
                 in_app_notif(data);
             },
             error: function (response) {

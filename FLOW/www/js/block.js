@@ -672,6 +672,7 @@ function go_to_account(data) //fonction permettant apres click sur sa photo d'al
             Popup("popup-myaccount", false);
             ServerManager.GetBlockedUsers(data.private_Id, "go_to_acount"); // true si c'est une redirection vers un compte
             //fInitialisationAccount(data.private_Id);
+            Popup("popup-account", true);
             current_page = "account";
             //Popup("popup-account", true);
         }

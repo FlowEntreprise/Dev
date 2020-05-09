@@ -418,7 +418,7 @@ function ShowUserProfile(response) {
             $("#fbigProfilPictureContainer").css("background-color", swatches.Muted.getHex());
         });
 
-        Popup("popup-account", true);
+        //Popup("popup-account", true);
 
     }
 }
