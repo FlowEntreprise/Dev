@@ -1,110 +1,107 @@
 .messages_title {
-    position: absolute;
-    top: 15vh;
-    left: 0;
-    width: 100vw;
-    text-align: center;
-    font-family: "Roboto-Bold";
-    font-size: 20px;
-    color: #1a84ef;
-    /* #92abb2; */
+	position: absolute;
+	top: 15vh;
+	left: 0;
+	width: 100vw;
+	text-align: center;
+	font-family: "Roboto-Bold";
+	font-size: 20px;
+	color: #1a84ef;
+	/* #92abb2; */
 }
 
 .messages_coming {
-    position: absolute;
-    top: 35.7vh;
-    left: 0.5vw;
-    width: 100vw;
-    text-align: center;
-    font-family: "Roboto-Bold";
-    font-size: 18px;
-    color: #92abb2;
-    transform: rotate(-5deg);
-    opacity: 0.5;
-    transform-origin: 50% -100%;
-    animation: balance 2s ease-in-out infinite;
-    /* #92abb2; */
+	position: absolute;
+	top: 35.7vh;
+	left: 0.5vw;
+	width: 100vw;
+	text-align: center;
+	font-family: "Roboto-Bold";
+	font-size: 18px;
+	color: #92abb2;
+	transform: rotate(-5deg);
+	opacity: 0.5;
+	transform-origin: 50% -100%;
+	animation: balance 2s ease-in-out infinite;
+	/* #92abb2; */
 }
 
 .messages_icon {
-    position: absolute;
-    top: 28vh;
-    left: 20vw;
-    width: 60vw;
-    height: 15vh;
-    background: url("../src/icons/sign.png");
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    opacity: 0.5;
-    /* transform: rotate(-5deg); */
-    transform-origin: 50% 5%;
-    animation: balance 2s ease-in-out infinite;
+	position: absolute;
+	top: 28vh;
+	left: 20vw;
+	width: 60vw;
+	height: 15vh;
+	background: url("../src/icons/sign.png");
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	opacity: 0.5;
+	/* transform: rotate(-5deg); */
+	transform-origin: 50% 5%;
+	animation: balance 2s ease-in-out infinite;
 }
 
 .messages_txt {
-    position: absolute;
-    top: 50vh;
-    left: 5vw;
-    width: 90vw;
-    text-align: center;
-    font-family: "Roboto-Regular";
-    font-size: 15px;
-    color: #92abb2;
-    opacity: 0.75;
-    /* #92abb2; */
+	position: absolute;
+	top: 50vh;
+	left: 5vw;
+	width: 90vw;
+	text-align: center;
+	font-family: "Roboto-Regular";
+	font-size: 15px;
+	color: #92abb2;
+	opacity: 0.75;
+	/* #92abb2; */
 }
 
-.messages_txt>span {
-    font-size: 15px;
-    color: #1a84ef;
-    display: inline;
-    text-decoration: underline;
+.messages_txt > span {
+	font-size: 15px;
+	color: #1a84ef;
+	display: inline;
+	text-decoration: underline;
 }
 
 @keyframes balance {
+	0%,
+	100% {
+		transform: rotate(-5deg);
+	}
 
-    0%,
-    100% {
-        transform: rotate(-5deg);
-    }
-
-    50% {
-        transform: rotate(5deg);
-    }
+	50% {
+		transform: rotate(5deg);
+	}
 }
 
 /* @media (max-height: 700px) { */
 .mobile700 .messages_title {
-    top: 23vh;
-    font-size: 18px;
+	font-size: 18px;
 }
 
 .mobile700 .messages_coming {
-    font-size: 16px;
+	font-size: 16px;
 }
 
-.mobile700 .messages_txt>span {
-    font-size: 13px;
-    color: #1a84ef;
-    display: inline;
-    text-decoration: underline;
+.mobile700 .messages_txt > span {
+	font-size: 13px;
+	color: #1a84ef;
+	display: inline;
+	text-decoration: underline;
 }
 
 /* } */
 
 .mobile600 .messages_title {
-    top: 23vh;
-    font-size: 18px;
+	font-size: 18px;
 }
 
 .mobile600 .messages_coming {
-    font-size: 16px;
+	font-size: 16px;
 }
 
-.mobile600 .messages_txt>span {
-    font-size: 13px;
-    color: #1a84ef;
-    display: inline;
-    text-decoration: underline;
+.mobile600 .messages_txt > span {
+	font-size: 13px;
+	color: #1a84ef;
+	display: inline;
+	text-decoration: underline;
 }
