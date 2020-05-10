@@ -473,7 +473,16 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.GetLikedFlows,
             data: JSON.stringify(final_data),
             success: function (response) {
-                liked_flow_get_block_and_blocked_users(response, mine);
+                if (connected == true) {
+                    liked_flow_get_block_and_blocked_users(response, mine);
+                }
+                else {
+                    if (mine) {
+                        ShowMyLikedFlows(response);
+                    } else {
+                        ShowLikedFlows(response);
+                    }
+                }
             },
             error: function (response) {
 

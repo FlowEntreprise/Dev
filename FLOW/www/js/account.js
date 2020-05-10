@@ -32,7 +32,7 @@ function fInitialisationAccount(privateId) {
     privateIDAccount = privateId;
     indexAccount = 0;
     indexAccountLike = 0;
-    if (blocked_by_user == false) {
+    if (blocked_by_user == false || connected == false) {
         var getFlow = {
             Index: indexAccount,
             PrivateId: privateIDAccount
@@ -60,6 +60,7 @@ function fInitialisationAccount(privateId) {
 
 function user_block_management(data, privateId) { // gere les users que l'on a block et qui nous ont block
     console.log("on est dans user_block_management");
+
 
     if (data.UserBlocked.length == 0) {
         user_is_blocked = false;
@@ -91,6 +92,7 @@ function user_block_management(data, privateId) { // gere les users que l'on a b
 
         }
     }
+
     fInitialisationAccount(privateId);
 }
 
@@ -154,6 +156,14 @@ document.getElementById("popup-account").addEventListener("opened", function () 
     $(".fflow-btn").css("display", "none");
     $(".flow-btn-shadow").css("display", "none");
 
+    if (connected == false) {
+        $("#block_button").css("display", "none");
+        $("#fFollowButtunAccount").removeClass("activeButtunFollow");
+        $("#fFollowButtunAccount").text("S'ABONNER");
+    }
+    else {
+        $("#block_button").css("display", "block");
+    }
     /* 
      c'est le pire code au monde putin 
      
@@ -517,8 +527,12 @@ function ShowLikedFlows(flow, data_block_uer) {
         if ($(".loading_account")) $(".loading_account").remove();
     } else {
         var countFlow = 0;
-        let unique_block_user = data_block_uer.Data.UserBlocked.concat(data_block_uer.Data.BlockedByUser);
-        unique_block_user = unique_block_user.filter((item, pos) => unique_block_user.indexOf(item) === pos);
+        let unique_block_user;
+
+        if (data_block_uer) {
+            unique_block_user = data_block_uer.Data.UserBlocked.concat(data_block_uer.Data.BlockedByUser);
+            unique_block_user = unique_block_user.filter((item, pos) => unique_block_user.indexOf(item) === pos);
+        }
 
         for (let i = 0; i < flow.Data.length; i++) {
             countFlow++;
@@ -533,7 +547,7 @@ function ShowLikedFlows(flow, data_block_uer) {
             const flow_link = data.Audio;
             console.log(flow_link);
             var profilePicLink = data.ProfilePicture;
-            if (unique_block_user.length != 0) {
+            if (unique_block_user != undefined) {
                 for (let i_unique_block_user in unique_block_user) {
                     if (unique_block_user[i_unique_block_user] != data.PrivateId) {
                         let block_params = {
