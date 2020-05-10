@@ -33,7 +33,7 @@
         <preference name="SplashNavigationBarBackgroundColor" value="#FF0054" />
         <preference name="SplashScreen" value="screen" />
         <preference name="AutoHideSplashScreen" value="false" />
-        <preference name="FadeSplashScreenDuration" value="0" />
+        <!-- <preference name="FadeSplashScreenDuration" value="0" /> -->
         <resource-file src="res/icon/android/drawable/flow_icone.png" target="app/src/main/res/drawable/flow_icone.png" />
         <resource-file src="res/icon/android/drawable/flow_icone_one_plus.png" target="app/src/main/res/drawable/flow_icone_one_plus.png" />
         <splash density="port-hdpi" src="res/screen/android/drawable-hdpi/splash.png" />

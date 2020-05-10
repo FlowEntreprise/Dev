@@ -12,6 +12,7 @@ var MyLikeAdd = true;
 $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 
 document.getElementById("popup-myaccount").addEventListener("opened", function () {
+    $(".ftabsMonCompte")[0].style.display = "block";
     $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
     $("scrollEvent").remove(".swiper-wrapper");
     $("#accountBannerScroll").css("transition-duration", "0.2s");
@@ -357,6 +358,7 @@ function ShowMyFlow(flow) {
 }
 
 document.getElementById("popup-myaccount").addEventListener("closed", function () {
+    $(".ftabsMonCompte")[0].style.display = "none";
     $(".fflow-btn").css("display", "block");
     $(".flow-btn-shadow").css("display", "block");
     $(".fflow-btn").css("z-index", "1");

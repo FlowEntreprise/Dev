@@ -18,8 +18,8 @@ var LastOs;
 var user_is_blocked;
 var blocked_by_user;
 
-function alertDismissed() {
-};
+function alertDismissed() {};
+
 function fInitialisationAccount(privateId) {
     $("#UserActivity")[0].innerHTML = "";
     $("#UserLikes")[0].innerHTML = "";
@@ -123,6 +123,7 @@ $(".fnavAccount").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)),
 
 
 document.getElementById("popup-account").addEventListener("opened", function () {
+    $(".ftabsAccount")[0].style.display = "block";
     $("#tabCompte2").css("display", "block");
     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
     $("scrollEventAccount").remove(".swiper-wrapper");
@@ -301,6 +302,7 @@ document.getElementById("popup-account").addEventListener("closed", function () 
     $(".fflow-btn").css("z-index", "1");
     $(".flow-btn-shadow").css("z-index", "0");
     $("#tabCompte2").css("display", "none");
+    $(".ftabsAccount")[0].style.display = "none";
     let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
     facebookConnectPlugin.logEvent("current_page", {
         page: current_page,
@@ -636,7 +638,7 @@ function FollowResponse(response, type, element) {
         follow = false;
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    } else { }
+    } else {}
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }
