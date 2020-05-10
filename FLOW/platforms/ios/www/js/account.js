@@ -18,6 +18,8 @@ var LastOs;
 var user_is_blocked;
 var blocked_by_user;
 
+function alertDismissed() {
+};
 function fInitialisationAccount(privateId) {
     $("#UserActivity")[0].innerHTML = "";
     $("#UserLikes")[0].innerHTML = "";
@@ -326,10 +328,13 @@ $("#fFollowButtunAccount").click(function () {
             ServerManager.ActionFollow(data);
         }
         if (user_is_blocked == true) {
-            alert("Débloquez d'abord cet utilisateur");
+            //alert("Débloquez d'abord cet utilisateur");
+            navigator.notification.alert("Débloquez d'abord cet utilisateur", alertDismissed, "Information");
+
         }
         if (blocked_by_user == true) {
-            alert("Cet utilisateur vous a bloqué");
+            //alert("Cet utilisateur vous a bloqué");
+            navigator.notification.alert("Cet utilisateur vous a bloqué", alertDismissed, "Information");
         }
 
     } else {
@@ -617,7 +622,7 @@ function FollowResponse(response, type, element) {
         follow = false;
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    } else {}
+    } else { }
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }
@@ -645,7 +650,7 @@ $("#block_button").on('click', function () {
                 $("#ffollowersBandeauChiffre").html(Follower);
                 user_is_blocked = true;
             }
-        }, "Confirmation", ["Oui", "Annuler"])
+        }, "Confirmation", ["Oui", "Annuler"]);
 
         return;
     }

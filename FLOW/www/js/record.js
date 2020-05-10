@@ -326,7 +326,8 @@ $$('.fvalidate-after_btn').on('touchend', function () {
             image64 = null;
             patternKey = null;
         } else {
-            alert("La description d'un Flow ne peut pas être vide");
+            //alert("La description d'un Flow ne peut pas être vide");
+            navigator.notification.alert("La description d'un Flow ne peut pas être vide", alertDismissed, "Information");
             $(".finput_description").focus();
         }
     } else {
@@ -726,7 +727,8 @@ function TakePhoto() {
         ];
 
         function error() {
-            alert('Permission photo non acordée');
+            //alert('Permission photo non acordée');
+            navigator.notification.alert('Permission photo non acordée', alertDismissed, "Information");
         }
 
         function success(status) {
@@ -762,7 +764,8 @@ function GetPhotoFromGallery() {
         ];
 
         function error() {
-            alert('Permission galerie photo non accordée');
+            //alert('Permission galerie photo non accordée');
+            navigator.notification.alert('Permission galerie photo non accordée', alertDismissed, "Information");
         }
 
         function success(status) {

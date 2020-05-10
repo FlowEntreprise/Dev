@@ -148,10 +148,12 @@ $("#delete_button").on("touchend", function () {
                     ServerManager.DeleteComment(data_delete_comment, element_to_delete.element);
                     in_app_notif(data);
                 }
-            }, "Confirmation", ["Oui", "Annuler"])
+            }, "Confirmation", ["Oui", "Annuler"]);
         }
     } else {
-        alert("Une erreur est survenue lors de la suppression de cet élément");
+        //alert("Une erreur est survenue lors de la suppression de cet élément");
+        navigator.notification.alert("Une erreur est survenue lors de la suppression de cet élément", alertDismissed, "Information");
+
     }
 });
 
