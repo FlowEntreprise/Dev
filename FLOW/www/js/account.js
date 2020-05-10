@@ -329,12 +329,12 @@ $("#fFollowButtunAccount").click(function () {
         }
         if (user_is_blocked == true) {
             //alert("Débloquez d'abord cet utilisateur");
-            navigator.notification.alert("Débloquez d'abord cet utilisateur", alertDismissed, "Information");
+            navigator.notification.alert("Débloque d'abord cet utilisateur", alertDismissed, "Information");
 
         }
         if (blocked_by_user == true) {
             //alert("Cet utilisateur vous a bloqué");
-            navigator.notification.alert("Cet utilisateur vous a bloqué", alertDismissed, "Information");
+            navigator.notification.alert("Cet utilisateur t'a bloqué", alertDismissed, "Information");
         }
 
     } else {
