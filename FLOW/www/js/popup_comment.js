@@ -116,7 +116,8 @@ $(".fpopover_copy_comment").on("touchend", function () {
 });
 
 $(".fpopover_report_comment").on("touchend", function () {
-    alert("Ce commentaire a été signalé");
+    //alert("Ce commentaire a été signalé");
+    navigator.notification.alert("Ce commentaire a été signalé", alertDismissed, "Information");
 });
 
 $(".fpopover_delete_comment").on("touchend", function () {
@@ -201,7 +202,8 @@ $('.fsend_comment').on('click', function () {
 
 
     if (comment == "") {
-        alert("Le commentaire est vide");
+        //alert("Le commentaire est vide");
+        navigator.notification.alert("Le commentaire est vide", alertDismissed, "Information");
     } else {
 
         $("#finput_comment").val("");

@@ -262,8 +262,8 @@ Storage.prototype.getObj = function (key) {
 };
 
 // Replace default alert by Sweet Alert
-/*
-window.alert = function (txt) {
+
+/*window.alert = function (txt) {
     swal(txt);
 };
 */
