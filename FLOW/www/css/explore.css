@@ -353,6 +353,14 @@
 	opacity: 0.5;
 }
 
+#comingsoon {
+	line-height: 65vh;
+	text-align: center;
+	font-family: "Roboto-Regular";
+	font-size: 16px;
+	color: #92abb2;
+}
+
 /* @media (max-height: 600px) { */
 .mobile600 .fsearch-bar {
 	line-height: 30px;

@@ -397,8 +397,12 @@ function ShowMyLikedFlows(flow, data_block_uer) {
         console.log("several liked flows");
         // flow.Data.reverse();
         let countFlow = 0;
-        let unique_block_user = data_block_uer.Data.UserBlocked.concat(data_block_uer.Data.BlockedByUser);
-        unique_block_user = unique_block_user.filter((item, pos) => unique_block_user.indexOf(item) === pos);
+        let unique_block_user;
+
+        if (data_block_uer) {
+            unique_block_user = data_block_uer.Data.UserBlocked.concat(data_block_uer.Data.BlockedByUser);
+            unique_block_user = unique_block_user.filter((item, pos) => unique_block_user.indexOf(item) === pos);
+        }
 
         for (let i = 0; i < flow.Data.length; i++) {
 
@@ -416,7 +420,7 @@ function ShowMyLikedFlows(flow, data_block_uer) {
             var profilePicLink = data.ProfilePicture;
             //console.log(profilePicLink);
             //console.log(image_link);
-            if (unique_block_user.length != 0) {
+            if (unique_block_user != undefined) {
                 for (let i_unique_block_user in unique_block_user) {
                     if (unique_block_user[i_unique_block_user] != data.PrivateId) {
 
