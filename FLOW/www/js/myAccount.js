@@ -380,7 +380,7 @@ document.getElementById("popup-myaccount").addEventListener("closed", function (
     stopAllBlocksAudio();
 });
 
-function ShowMyLikedFlows(flow, data_block_uer) {
+function ShowMyLikedFlows(flow, data_block_user) {
     console.log("SHOW MY FLOW");
     console.log(flow);
     if (Array.isArray(flow.Data) == false || flow.Data.length == 0) {
@@ -399,8 +399,8 @@ function ShowMyLikedFlows(flow, data_block_uer) {
         let countFlow = 0;
         let unique_block_user;
 
-        if (data_block_uer) {
-            unique_block_user = data_block_uer.Data.UserBlocked.concat(data_block_uer.Data.BlockedByUser);
+        if (data_block_user) {
+            unique_block_user = data_block_user.Data.UserBlocked.concat(data_block_user.Data.BlockedByUser);
             unique_block_user = unique_block_user.filter((item, pos) => unique_block_user.indexOf(item) === pos);
         }
 
@@ -420,7 +420,7 @@ function ShowMyLikedFlows(flow, data_block_uer) {
             var profilePicLink = data.ProfilePicture;
             //console.log(profilePicLink);
             //console.log(image_link);
-            if (unique_block_user != undefined) {
+            if (unique_block_user && unique_block_user.length > 0) {
                 for (let i_unique_block_user in unique_block_user) {
                     if (unique_block_user[i_unique_block_user] != data.PrivateId) {
 

@@ -118,7 +118,7 @@ $$('#tab3').on('tab:show', function () {
     if (!connected) {
         setTimeout(function () {
             app.showTab("#tab1");
-            Popup("popup-connect", true, 45);
+            Popup("popup-connect", true, 60);
         }, 100);
     }
 
@@ -167,7 +167,7 @@ $$('#tab4').on('tab:show', function () {
     if (!connected) {
         setTimeout(function () {
             app.showTab("#tab1");
-            Popup("popup-connect", true, 45);
+            Popup("popup-connect", true, 60);
         }, 100);
     }
 

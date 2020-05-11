@@ -161,8 +161,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
         $("#block_button").css("display", "none");
         $("#fFollowButtunAccount").removeClass("activeButtunFollow");
         $("#fFollowButtunAccount").text("S'ABONNER");
-    }
-    else {
+    } else {
         $("#block_button").css("display", "block");
     }
     /* 
@@ -516,7 +515,7 @@ function ShowUserFlow(flow) {
     }
 }
 
-function ShowLikedFlows(flow, data_block_uer) {
+function ShowLikedFlows(flow, data_block_user) {
     console.log(flow);
     if (Array.isArray(flow.Data) == false || flow.Data.length == 0) {
         UserLikeAdd = false;
@@ -531,8 +530,8 @@ function ShowLikedFlows(flow, data_block_uer) {
         var countFlow = 0;
         let unique_block_user;
 
-        if (data_block_uer) {
-            unique_block_user = data_block_uer.Data.UserBlocked.concat(data_block_uer.Data.BlockedByUser);
+        if (data_block_user) {
+            unique_block_user = data_block_user.Data.UserBlocked.concat(data_block_user.Data.BlockedByUser);
             unique_block_user = unique_block_user.filter((item, pos) => unique_block_user.indexOf(item) === pos);
         }
 
@@ -549,7 +548,7 @@ function ShowLikedFlows(flow, data_block_uer) {
             const flow_link = data.Audio;
             console.log(flow_link);
             var profilePicLink = data.ProfilePicture;
-            if (unique_block_user != undefined) {
+            if (unique_block_user && unique_block_user.length > 0) {
                 for (let i_unique_block_user in unique_block_user) {
                     if (unique_block_user[i_unique_block_user] != data.PrivateId) {
                         let block_params = {

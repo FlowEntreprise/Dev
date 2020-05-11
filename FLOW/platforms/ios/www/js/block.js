@@ -456,7 +456,7 @@ function block(params) {
             };
             ServerManager.LikeFlow(data, current_flow_block);
         } else {
-            Popup("popup-connect", true, 40);
+            Popup("popup-connect", true, 60);
         }
     });
 
@@ -672,8 +672,7 @@ function go_to_account(data) //fonction permettant apres click sur sa photo d'al
             Popup("popup-myaccount", false);
             if (connected == true) {
                 ServerManager.GetBlockedUsers(data.private_Id, "go_to_acount"); // true si c'est une redirection vers un compte
-            }
-            else {
+            } else {
                 fInitialisationAccount(data.private_Id);
             }
             //fInitialisationAccount(data.private_Id);

@@ -54,7 +54,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-    constructor() { }
+    constructor() {}
 
     /* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
      * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions 
@@ -475,8 +475,7 @@ class ServerManagerClass {
             success: function (response) {
                 if (connected == true) {
                     liked_flow_get_block_and_blocked_users(response, mine);
-                }
-                else {
+                } else {
                     if (mine) {
                         ShowMyLikedFlows(response);
                     } else {
@@ -521,7 +520,7 @@ class ServerManagerClass {
                 console.log(response);
                 ShowMyInfosUser(response);
             },
-            error: function (response) { }
+            error: function (response) {}
         });
     }
 
@@ -537,7 +536,7 @@ class ServerManagerClass {
                 console.log("on recup le getInfosUserNumber");
                 ShowInfosUserNumber(response);
             },
-            error: function (response) { }
+            error: function (response) {}
         });
     }
 
@@ -555,14 +554,14 @@ class ServerManagerClass {
             success: function (response) {
                 console.log("on recup le profil");
                 if (response == "ERROR GET PROFIL") {
-                    alert("Utilisateur introuvable");
-                }
-                else {
+                    // alert("Utilisateur introuvable");
+                    navigator.notification.alert("Utilisateur introuvable", alertDismissed, "Information");
+                } else {
 
                     ShowUserProfile(response);
                 }
             },
-            error: function (response) { }
+            error: function (response) {}
         });
     }
 
@@ -586,7 +585,7 @@ class ServerManagerClass {
                 console.log(response);
                 UpdateFollowersList(response, data.follow_list);
             },
-            error: function (response) { }
+            error: function (response) {}
         });
     }
 
@@ -613,7 +612,7 @@ class ServerManagerClass {
                     UpdatefollowingsList(response, data.follow_list);
                 }
             },
-            error: function (response) { }
+            error: function (response) {}
         });
     }
 
@@ -629,12 +628,13 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
-                let myApp = new Framework7();
-                myApp.pullToRefreshTrigger(ptrContent);
+                // let myApp = new Framework7();
+                // myApp.pullToRefreshTrigger(ptrContent);
+                RefreshTL();
                 FollowResponse(response, data.type, data.block_user);
 
             },
-            error: function (response) { }
+            error: function (response) {}
         });
     }
 
@@ -727,7 +727,11 @@ class ServerManagerClass {
             success: function (response) {
                 console.log(response);
                 console.log("success dans la recuperation de flow unique");
-                if (response == "ERROR GET FLOW") { alert("Ce flow n'est plus disponible"); return; }
+                if (response == "ERROR GET FLOW") {
+                    // alert("Ce flow n'est plus disponible");
+                    navigator.notification.alert("Ce flow n'est plus disponible", alertDismissed, "Information");
+                    return;
+                }
                 flow_specifique(response.Data, response.LinkBuilder, show_comment);
 
             },
@@ -1053,9 +1057,8 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.BlockUser,
             data: JSON.stringify(final_data),
             success: function (response) {
-                let myApp = new Framework7();
-                myApp.pullToRefreshTrigger(ptrContent);
-                myApp.pullToRefreshTrigger(ptrContent_explore);
+                RefreshTL();
+                RefreshExplore();
                 in_app_notif(data);
             },
             error: function (response) {
@@ -1078,9 +1081,8 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.UnBlockUser,
             data: JSON.stringify(final_data),
             success: function (response) {
-                let myApp = new Framework7();
-                myApp.pullToRefreshTrigger(ptrContent);
-                myApp.pullToRefreshTrigger(ptrContent_explore);
+                RefreshTL();
+                RefreshExplore();
                 in_app_notif(data);
             },
             error: function (response) {
@@ -1092,8 +1094,7 @@ class ServerManagerClass {
 
     GetBlockedUsers(data, action, mine) {
         let final_data = {
-            Data: {
-            },
+            Data: {},
             TokenId: window.localStorage.getItem("user_token")
         };
         console.log(final_data);
@@ -1217,8 +1218,9 @@ class ServerManagerClass {
             data: JSON.stringify(final_data),
             success: function (response) {
                 console.log(response);
-                if (connected) { explore_get_block_and_blocked_users(response); }
-                else {
+                if (connected) {
+                    explore_get_block_and_blocked_users(response);
+                } else {
                     console.log("faut afficher le top50 maintenant");
                     UpdateTop50(response);
                 }

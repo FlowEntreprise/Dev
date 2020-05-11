@@ -31,7 +31,7 @@ $$('.fflow-btn').on('click', function () {
             "display": "flex"
         });
     } else {
-        Popup("popup-connect", true, 45);
+        Popup("popup-connect", true, 60);
     }
 });
 $$('.fflow-btn').on('taphold', function () {
@@ -46,7 +46,7 @@ $$('.fflow-btn').on('taphold', function () {
         record_was_hold = true;
         startCapture();
     } else {
-        Popup("popup-connect", true, 45);
+        Popup("popup-connect", true, 60);
     }
 });
 $$('.frecord-btn').on('taphold', function () {

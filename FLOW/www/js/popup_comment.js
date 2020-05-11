@@ -67,7 +67,7 @@ function block_comment(comment_data) {
             };
             ServerManager.LikeFlowComment(data, current_comment_block);
         } else {
-            Popup("popup-connect", true, 40);
+            Popup("popup-connect", true, 60);
         }
     });
 
@@ -311,8 +311,7 @@ $("#finput_comment").keyup(function () {
         }
         if (window.cordova.platformId == "ios") {
             Popup("popup-identification", true, 55);
-        }
-        else {
+        } else {
             Popup("popup-identification", true, 5);
         }
     } else {
