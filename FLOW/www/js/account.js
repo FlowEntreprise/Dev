@@ -548,7 +548,7 @@ function ShowLikedFlows(flow, data_block_user) {
             const flow_link = data.Audio;
             console.log(flow_link);
             var profilePicLink = data.ProfilePicture;
-            if (unique_block_user != undefined && unique_block_user.length > 0) {
+            if (unique_block_user && unique_block_user.length > 0) {
                 for (let i_unique_block_user in unique_block_user) {
                     if (unique_block_user[i_unique_block_user] != data.PrivateId) {
                         let block_params = {

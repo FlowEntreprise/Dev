@@ -1,13 +1,16 @@
 var ptrContent = $$('.pull-to-refresh-content');
 // Add 'refresh' listener on it
 ptrContent.on('ptr:refresh', function (e) {
-  // Emulate 2s loading
+  RefreshTL();
+});
+
+function RefreshTL() {
   console.log("refreshing...");
   stopAllBlocksAudio();
   TLCurrentIndex = 0;
   ServerManager.GetTimeline(0);
   ServerManager.GetStory();
-});
+}
 
 
 ptrContent.on('ptr:pullstart', function (e) {

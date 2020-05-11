@@ -59,7 +59,10 @@ function back_search() {
 var ptrContent_explore = $$('#tab2');
 // Add 'refresh' listener on it
 ptrContent_explore.on('ptr:refresh', function (e) {
-    // Emulate 2s loading
+    RefreshExplore();
+});
+
+function RefreshExplore() {
     console.log("refreshing...");
     stopAllBlocksAudio();
     exploreCurrentIndex = 0;
@@ -67,8 +70,7 @@ ptrContent_explore.on('ptr:refresh', function (e) {
         Index: exploreCurrentIndex,
     }
     ServerManager.GetTop50(data);
-});
-
+}
 
 ptrContent_explore.on('ptr:pullstart', function (e) {
     console.log("pull start");

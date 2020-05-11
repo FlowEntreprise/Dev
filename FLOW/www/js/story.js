@@ -318,7 +318,7 @@ function SpawnStoryWindow(story_block) {
                     startCapture();
                     $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")"
                 } else {
-                    Popup("popup-connect", true, 45);
+                    Popup("popup-connect", true, 60);
                 }
             });
             $$('.fstory_addcomment_btn').on('click', function () {

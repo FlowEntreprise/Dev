@@ -40,5 +40,6 @@ $(".fgoogle_btn").on("touchend", function () {
 //     login_insta();
 // });
 $("#fbuton_inscription").on("touchend", function () {
-    alert("L'inscripton avec mail ou numero de téléphone n'est pas encore disponible dans cette version\nElle le sera très prochainement !");
+    // alert("L'inscripton avec mail ou numero de téléphone n'est pas encore disponible dans cette version\nElle le sera très prochainement !");
+    navigator.notification.alert("L'inscripton avec mail ou numero de téléphone n'est pas encore disponible dans cette version\nElle le sera très prochainement", alertDismissed, "Information");
 });
