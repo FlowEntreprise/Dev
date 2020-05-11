@@ -110,7 +110,7 @@ function timeline_get_block_and_blocked_users(data_timeline) {
   ServerManager.GetBlockedUsers(data_timeline, "timeline");
 }
 
-function UpdateTimeline(data, data_block_uer) {
+function UpdateTimeline(data, data_block_user) {
   console.log("updating timeline...");
   stopAllBlocksAudio();
   console.log(data);
@@ -129,7 +129,7 @@ function UpdateTimeline(data, data_block_uer) {
         unique_data.push(data.Data[index]);
       }
     }
-    let unique_block_user = data_block_uer.Data.UserBlocked.concat(data_block_uer.Data.BlockedByUser);
+    let unique_block_user = data_block_user.Data.UserBlocked.concat(data_block_user.Data.BlockedByUser);
     unique_block_user = unique_block_user.filter((item, pos) => unique_block_user.indexOf(item) === pos);
     setTimeout(function () {
       if ($(".loading_tl")) $(".loading_tl").remove();
@@ -146,8 +146,7 @@ function UpdateTimeline(data, data_block_uer) {
               PopFlow(unique_data[i], data.LinkBuilder);
             }
           }
-        }
-        else {
+        } else {
           PopFlow(unique_data[i], data.LinkBuilder);
         }
       }

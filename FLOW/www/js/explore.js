@@ -380,14 +380,14 @@ function explore_get_block_and_blocked_users(data_explore) {
     ServerManager.GetBlockedUsers(data_explore, "explore");
 }
 
-function UpdateTop50(data, data_block_uer) {
+function UpdateTop50(data, data_block_user) {
     console.log("updating top50...");
     stopAllBlocksAudio();
     console.log(data);
     if (Array.isArray(data) && data.length > 0) {
         let unique_block_user;
         if (connected) {
-            unique_block_user = data_block_uer.Data.UserBlocked.concat(data_block_uer.Data.BlockedByUser);
+            unique_block_user = data_block_user.Data.UserBlocked.concat(data_block_user.Data.BlockedByUser);
             unique_block_user = unique_block_user.filter((item, pos) => unique_block_user.indexOf(item) === pos);
         }
 
@@ -432,8 +432,7 @@ function UpdateTop50(data, data_block_uer) {
                             all_blocks.push(new_block);
                         }
                     }
-                }
-                else {
+                } else {
                     let flow = data[i];
                     let pattern_key = "";
                     if (flow.Background.PatternKey) pattern_key = flow.Background.PatternKey;
