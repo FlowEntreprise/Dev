@@ -43,6 +43,12 @@ var app = {
             startTuto();
         }, 500);
 
+        // Reste calme Thomas... respire...
+        $(".faccount")[0].style.backgroundImage = "url('')";
+        setTimeout(function () {
+            $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
+        }, 100);
+
         this.receivedEvent('deviceready');
 
     },
