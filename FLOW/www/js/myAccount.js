@@ -12,6 +12,9 @@ var MyLikeAdd = true;
 $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 
 document.getElementById("popup-myaccount").addEventListener("opened", function () {
+    setTimeout(function () {
+        current_page = "my-account";
+    }, 450);
     $(".ftabsMonCompte")[0].style.display = "block";
     $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
     $("scrollEvent").remove(".swiper-wrapper");
@@ -37,7 +40,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
         console.log("fb current_page error")
     });
     last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-    current_page = "my-account";
+
 
     // analytics.setCurrentScreen(current_page);
 
