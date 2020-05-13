@@ -898,7 +898,8 @@ function send_notif_to_user(block, type) {
                             "sender_info": sender_info,
                             "force-start": 1,
                             "content_available": true,
-                            "priority": "high"
+                            "priority": "high",
+                            "tag_in_comment": true
                         },
                         "notification": {
                             "title": "@" + sender_info.fullname,
@@ -907,7 +908,8 @@ function send_notif_to_user(block, type) {
                             "sender_info": sender_info,
                             "force-start": 1,
                             "content_available": true,
-                            "priority": "high"
+                            "priority": "high",
+                            "tag_in_comment": true
                         },
                         "to": block.tag_user_RegisterId
                         //registrationId
@@ -922,7 +924,8 @@ function send_notif_to_user(block, type) {
                             "force-start": 1,
                             "notId": noteId,
                             "content_available": true,
-                            "priority": "high"
+                            "priority": "high",
+                            "tag_in_comment": true
                         },
                         "to": block.tag_user_RegisterId
                         //registrationId
@@ -1041,7 +1044,13 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
 
         case 'send_comment':
 
-            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a commenté ton flow");
+            if (data.additionalData.tag_in_comment) {
+                $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " t'a identifié");
+            }
+            else {
+
+                $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a commenté ton flow");
+            }
             $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
 
             $(".f_in_app_notif").on("click", function () {
