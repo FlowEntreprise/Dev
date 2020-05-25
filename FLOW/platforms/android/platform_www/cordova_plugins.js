@@ -478,6 +478,14 @@ module.exports = [
     "merges": [
       "navigator.notification"
     ]
+  },
+  {
+    "id": "cordova-clipboard.Clipboard",
+    "file": "plugins/cordova-clipboard/www/clipboard.js",
+    "pluginId": "cordova-clipboard",
+    "clobbers": [
+      "cordova.plugins.clipboard"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -511,7 +519,8 @@ module.exports.metadata =
   "com.rjfun.cordova.httpd": "0.9.2",
   "cordova-plugin-device": "2.0.3",
   "cordova-plugin-googleplus": "8.1.1",
-  "cordova-plugin-dialogs": "2.0.2"
+  "cordova-plugin-dialogs": "2.0.2",
+  "cordova-clipboard": "1.3.0"
 };
 // BOTTOM OF METADATA
 });
