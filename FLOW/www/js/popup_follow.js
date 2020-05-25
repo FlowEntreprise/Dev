@@ -364,7 +364,9 @@ function UpdateIdentificationList(data, follow_list, search) {
         loading_tl.className = "loading_circle loading_tl";
         $(".popup_identification_container")[0].appendChild(loading_tl);
       }
-      for (let i = 0; i < data.length; i++) {
+      let unique_block_user;
+      unique_block_user = data.filter((v, i, a) => a.indexOf(v) === i);
+      for (let i = 0; i < unique_block_user.length; i++) {
         let user = new block_user(follow_list, "identification", data[i]);
         all_users_block.push(user);
       }

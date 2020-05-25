@@ -91,6 +91,9 @@
     <feature name="Notification">
         <param name="ios-package" value="CDVNotification" />
     </feature>
+    <feature name="Clipboard">
+        <param name="ios-package" value="CDVClipboard" />
+    </feature>
     <name>FLOW</name>
     <description>
         The Vocal Social Network.
@@ -140,7 +143,4 @@
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
     <preference name="deployment-target" value="7.0" />
     <preference name="KeyboardShrinksView" value="true" />
-    <feature name="Clipboard">
-        <param name="ios-package" value="CDVClipboard" />
-    </feature>
 </widget>

@@ -60,6 +60,7 @@ function DisconnectUser() {
         "display": "block"
     });
     Popup("popup-myaccount", false);
+    $(".fred_dot_toolbar_new_notif").css('display', 'none');
     app.showTab("#tab2");
     $(".empty_tl")[0].style.display = "block";
     $(".list-block")[0].innerHTML = "";

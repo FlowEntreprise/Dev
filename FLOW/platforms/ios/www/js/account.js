@@ -18,7 +18,7 @@ var LastOs;
 var user_is_blocked;
 var blocked_by_user;
 
-function alertDismissed() {};
+function alertDismissed() { };
 
 function fInitialisationAccount(privateId) {
     $("#UserActivity")[0].innerHTML = "";
@@ -123,6 +123,9 @@ $(".fnavAccount").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)),
 
 
 document.getElementById("popup-account").addEventListener("opened", function () {
+    setTimeout(function () {
+        current_page = "account";
+    }, 450);
     $(".ftabsAccount")[0].style.display = "block";
     $("#tabCompte2").css("display", "block");
     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
@@ -149,7 +152,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
         console.log("fb current_page error")
     });
     last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-    current_page = "account";
+
 
     // analytics.setCurrentScreen(current_page);
 
@@ -637,7 +640,7 @@ function FollowResponse(response, type, element) {
         follow = false;
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    } else {}
+    } else { }
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }

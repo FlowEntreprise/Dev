@@ -48,8 +48,8 @@ function delete_comment_from_bdd(element) {
 
 function delete_comment_from_html(element) {
     let nb_comment_in_current_flow_block = 0;
-    let nb_comment;
-    let nb_flow_comment;
+    let nb_comment = parseInt($(".fcomment_number").text());
+
     for (var i = 0; i < current_flow_block.all_comment_blocks.length; i++) {
         if (current_flow_block.all_comment_blocks[i].private_Id == window.localStorage.getItem("user_private_id")) {
             nb_comment_in_current_flow_block++;
@@ -57,11 +57,10 @@ function delete_comment_from_html(element) {
         if (element.Id == current_flow_block.all_comment_blocks[i].Id) {
             current_flow_block.all_comment_blocks.splice(i, 1);
             element.fblock_comment.remove();
-            nb_comment = parseInt($(".fcomment_number").text()) - 1;
-            nb_flow_comment = parseInt($(current_flow_block.ftxt_impression_comment).text() - 1);
+            nb_comment = nb_comment - 1;
             nb_comment == 0 ? $(".fcomment_number").text(nb_comment + " commentaire") : $(".fcomment_number").text(nb_comment + " commentaires");
-            $(current_flow_block.ftxt_impression_comment).text(nb_flow_comment);
-            if (nb_comment_in_current_flow_block == 1) {
+            $(current_flow_block.ftxt_impression_comment).text(nb_comment);
+            if (nb_comment == 0) {
                 $(current_flow_block.fimg_impression_comment).attr('src', 'src/icons/Comment.png');
             }
             Popup("popup-option", false);
@@ -104,13 +103,11 @@ $("#report_button").on("touchend", function () {
 
 $("#copy_button").on("touchend", function () {
     if (element_to_copy == "flow_tittle") {
-        //copyToClipboard($(current_flow_block.fpost_description).text());
-                     cordova.plugins.clipboard.copy($(current_flow_block.fpost_description).text());
+        cordova.plugins.clipboard.copy($(current_flow_block.fpost_description).text());
         Popup("popup-option", false);
     }
     if (element_to_copy == "comment") {
-        //copyToClipboard(current_comment_block.fcomment_text);
-                     cordova.plugins.clipboard.copy(current_comment_block.fcomment_text);
+        cordova.plugins.clipboard.copy(current_comment_block.fcomment_text);
         Popup("popup-option", false);
     }
 });

@@ -608,28 +608,20 @@ function UpdateNotificationList(data) {
 //fonction qui permet de faire disparaitre le point rouge de l'iconne de notifications
 //quand toute les notifications on été consulté
 function check_seen() {
-    let nombre_de_notif_unseen = 0;
-    let all_notifications_block_without_doublon;
 
+    let all_notifications_block_without_doublon;
     var cache = {};
     all_notifications_block_without_doublon = all_notifications_block.filter(function (elem, index, array) {
         return cache[elem.IdNotif] ? 0 : cache[elem.IdNotif] = 1;
     });
 
+    $(".fred_dot_toolbar_new_notif").css('display', 'none');
+
     for (var i = 0; i < all_notifications_block_without_doublon.length; i++) {
         if (all_notifications_block_without_doublon[i].seen == false) {
-            //
-            nombre_de_notif_unseen++;
+            $(".fred_dot_toolbar_new_notif").css('display', 'block');
         }
     }
-    if (nombre_de_notif_unseen == 0) {
-        $(".fred_dot_toolbar_new_notif").css('display', 'none');
-    }
-    if (nombre_de_notif_unseen != 0) {
-
-        $(".fred_dot_toolbar_new_notif").css('display', 'block');
-    }
-    nombre_de_notif_unseen = 0;
 
 }
 
@@ -898,7 +890,8 @@ function send_notif_to_user(block, type) {
                             "sender_info": sender_info,
                             "force-start": 1,
                             "content_available": true,
-                            "priority": "high"
+                            "priority": "high",
+                            "tag_in_comment": true
                         },
                         "notification": {
                             "title": "@" + sender_info.fullname,
@@ -907,7 +900,8 @@ function send_notif_to_user(block, type) {
                             "sender_info": sender_info,
                             "force-start": 1,
                             "content_available": true,
-                            "priority": "high"
+                            "priority": "high",
+                            "tag_in_comment": true
                         },
                         "to": block.tag_user_RegisterId
                         //registrationId
@@ -922,7 +916,8 @@ function send_notif_to_user(block, type) {
                             "force-start": 1,
                             "notId": noteId,
                             "content_available": true,
-                            "priority": "high"
+                            "priority": "high",
+                            "tag_in_comment": true
                         },
                         "to": block.tag_user_RegisterId
                         //registrationId
@@ -1041,7 +1036,13 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
 
         case 'send_comment':
 
-            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a commenté ton flow");
+            if (data.additionalData.tag_in_comment) {
+                $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " t'a identifié");
+            }
+            else {
+
+                $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a commenté ton flow");
+            }
             $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
 
             $(".f_in_app_notif").on("click", function () {
