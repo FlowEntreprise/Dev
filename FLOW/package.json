@@ -41,7 +41,7 @@
         "elementtree": "^0.1.7",
         "glob": "^5.0.15",
         "jquery.scrollto": "^2.1.2",
-        "npm": "^2.15.12",
+        "npm": "^6.13.4",
         "phonegap-plugin-multidex": "^1.0.0",
         "phonegap-plugin-push": "git+https://github.com/phonegap/phonegap-plugin-push.git",
         "plist": "^1.2.0",
