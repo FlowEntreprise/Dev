@@ -9,6 +9,7 @@
 		"browser-sync": "^2.26.3",
 		"cheerio": "^0.19.0",
 		"cordova-android-support-gradle-release": "^2.1.0",
+		"cordova-clipboard": "^1.3.0",
 		"cordova-httpd": "git+https://github.com/floatinghotpot/cordova-httpd.git",
 		"cordova-ios": "^5.1.1",
 		"cordova-plugin-android-permissions": "^1.0.0",
@@ -31,7 +32,6 @@
 		"cordova-plugin-insomnia": "git+https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git",
 		"cordova-plugin-ionic-keyboard": "2.1.3",
 		"cordova-plugin-k-imagecropper": "^1.2.0",
-		"cordova-plugin-keyboard": "^1.2.0",
 		"cordova-plugin-media": "^5.0.3",
 		"cordova-plugin-network-information": "^2.0.1",
 		"cordova-plugin-splashscreen": "^5.0.3",
@@ -98,13 +98,13 @@
 				"FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038"
 			},
 			"cordova-plugin-background-mode": {},
-			"cordova-plugin-keyboard": {},
 			"phonegap-plugin-push": {},
 			"cordova-plugin-inappbrowser": {},
 			"cordova-plugin-apple-login": {},
 			"cordova-plugin-splashscreen": {},
 			"cordova-plugin-wkkeyboardfix": {},
-			"cordova-plugin-dialogs": {}
+			"cordova-plugin-dialogs": {},
+			"cordova-clipboard": {}
 		},
 		"platforms": []
 	}

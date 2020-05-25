@@ -232,14 +232,6 @@
     "is_top_level": false,
     "variables": {}
   },
-  "cordova-plugin-keyboard": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-keyboard@^1.2.0"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "phonegap-plugin-push": {
     "source": {
       "type": "registry",
@@ -295,6 +287,14 @@
     "source": {
       "type": "registry",
       "id": "cordova-plugin-dialogs"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-clipboard": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-clipboard"
     },
     "is_top_level": true,
     "variables": {}

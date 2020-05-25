@@ -263,14 +263,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-keyboard.keyboard",
-      "file": "plugins/cordova-plugin-keyboard/www/keyboard.js",
-      "pluginId": "cordova-plugin-keyboard",
-      "clobbers": [
-        "window.Keyboard"
-      ]
-    },
-    {
       "id": "phonegap-plugin-push.PushNotification",
       "file": "plugins/phonegap-plugin-push/www/push.js",
       "pluginId": "phonegap-plugin-push",
@@ -334,6 +326,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "merges": [
         "navigator.notification"
       ]
+    },
+    {
+      "id": "cordova-clipboard.Clipboard",
+      "file": "plugins/cordova-clipboard/www/clipboard.js",
+      "pluginId": "cordova-clipboard",
+      "clobbers": [
+        "cordova.plugins.clipboard"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -345,7 +345,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-background-mode": "0.7.3",
     "cordova-plugin-audioinput": "1.0.2",
     "cordova-plugin-camera": "4.0.3",
-    "cordova-plugin-keyboard": "1.2.0",
     "phonegap-plugin-push": "2.3.0",
     "cordova-plugin-inappbrowser": "3.2.0",
     "cordova-plugin-facebook4": "6.4.0",
@@ -354,6 +353,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-k-imagecropper": "1.2.0",
     "cordova-plugin-wkkeyboardfix": "1.1.0",
-    "cordova-plugin-dialogs": "2.0.2"
+    "cordova-plugin-dialogs": "2.0.2",
+    "cordova-clipboard": "1.3.0"
   };
 });
