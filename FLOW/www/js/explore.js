@@ -223,8 +223,9 @@ function SpawnUserSearch(data) {
         user_block.className = "user_block";
         user_block.onclick = function () {
             let data = {
-                private_Id: user.PrivateId
-            }
+                private_Id: user.PrivateId,
+                user_private_Id: window.localStorage.getItem("user_private_id")
+            };
             go_to_account(data);
         };
         let pp = document.createElement("div");
