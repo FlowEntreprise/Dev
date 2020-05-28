@@ -118,6 +118,7 @@ document.getElementById("popup-record").addEventListener("closed", function () {
 });
 
 document.getElementById("popup-after-record").addEventListener("opened", function () {
+    image64 = null;
     $(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
@@ -143,6 +144,7 @@ document.getElementById("popup-after-record").addEventListener("closed", functio
     $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
     record_was_hold = false;
+    image64 = null;
 });
 
 document.getElementById("popup-after-story-record").addEventListener("opened", function () {
