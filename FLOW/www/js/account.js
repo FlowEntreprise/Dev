@@ -128,7 +128,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
     current_page = "account";
     app.showTab("#tabCompte1");
     $(".ftabsAccount")[0].style.display = "block";
-    $("#tabCompte2").css("display", "block");
+    // $("#tabCompte2").css("display", "block");
     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
     // $("scrollEventAccount").remove(".swiper-wrapper");
     $("#accountBannerScrollAccount").css("transition-duration", "0.2s");
@@ -219,7 +219,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
     });
 
     function checkScrollAccount() {
-        var current_scroll = scroll_element.scrollTop();
+        let current_scroll = scroll_element.scrollTop();
         if (current_scroll > last_scroll + 10) {
             if (scroll_element[0].scrollHeight > document.body.clientHeight) {
                 // event.preventDefault();
@@ -308,7 +308,7 @@ document.getElementById("popup-account").addEventListener("closed", function () 
     $(".flow-btn-shadow").css("display", "block");
     $(".fflow-btn").css("z-index", "1");
     $(".flow-btn-shadow").css("z-index", "0");
-    $("#tabCompte2").css("display", "none");
+    // $("#tabCompte2").css("display", "none");
     $(".ftabsAccount")[0].style.display = "none";
     let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
     facebookConnectPlugin.logEvent("current_page", {
@@ -460,14 +460,6 @@ function ShowUserFlow(flow) {
             no_flows.className = "empty_content";
             no_flows.innerHTML = "Aucun flow publié";
             $("#UserActivity")[0].appendChild(no_flows);
-            for (let i = 0; i < 3; i++) {
-                let block_params = {
-                    parent_element: $("#UserActivity")[0]
-                };
-                let fake_block = new block(block_params);
-                //$(fake_block.block_flow).css("display", "none");
-            }
-
         }
     } else if (flow.Data[0].PrivateId == privateIDAccount) {
         var countFlow = 0;
@@ -540,13 +532,6 @@ function ShowLikedFlows(flow, data_block_user) {
             no_flows.className = "empty_content";
             no_flows.innerHTML = "Aucun flow aimé";
             $("#UserLikes")[0].appendChild(no_flows);
-            for (let i = 0; i < 3; i++) {
-                let block_params = {
-                    parent_element: $("#UserLikes")[0]
-                };
-                let fake_block = new block(block_params);
-                //$(fake_block.block_flow).css("display", "none");
-            }
         }
         if ($(".loading_account")) $(".loading_account").remove();
     } else {
