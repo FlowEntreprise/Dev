@@ -36,13 +36,14 @@ function ConnectUser() {
     // analytics.logEvent("user_connection", {
     //     private_id: window.localStorage.getItem("user_private_id")
     // });
-
+    $(".faccount")[0].style.backgroundImage = "url('')";
     setTimeout(function () {
         let data = {
             RegisterId: registrationId,
             LastOs: window.cordova.platformId
         };
         ServerManager.UpdateRegisterId(data);
+        $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
     }, 100);
 
     //$( "#fswipe_area" ).css({"pointer-events": "all"});

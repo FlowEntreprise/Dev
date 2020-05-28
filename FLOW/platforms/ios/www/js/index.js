@@ -40,10 +40,12 @@ var app = {
                 document.body.classList.add("mobile700");
             }
             document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
-            $(".faccount")[0].style.backgroundImage = "url('')";
-            setTimeout(function () {
-                $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
-            }, 100);
+            if (connected) {
+                $(".faccount")[0].style.backgroundImage = "url('')";
+                setTimeout(function () {
+                    $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
+                }, 100);
+            }
             startTuto();
         }, 500);
 

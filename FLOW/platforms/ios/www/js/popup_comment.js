@@ -294,13 +294,13 @@ $("#finput_comment").keyup(function () {
             ServerManager.GetFollowingOfUser(data_following);
             IdentificationListCurrentIndex = 0;
 
-        }
-        if (string_input_comment_split[split_lenght - 1].length > 1 && string_input_comment_split[split_lenght - 1] != "@") {
+        } else if (string_input_comment_split[split_lenght - 1].length > 1 && string_input_comment_split[split_lenght - 1] != "@") {
 
-            for (let i = 0; i < 2; i++) {
+            for (let i = 0; i < 1; i++) {
                 let data_user_search = {
                     Index: IdentificationListCurrentIndex,
-                    Search: string_input_comment_split[split_lenght - 1].slice(1, string_input_comment_split[split_lenght - 1].length)
+                    Search: string_input_comment_split[split_lenght - 1].slice(1, string_input_comment_split[split_lenght - 1].length),
+                    Nb: 10
                 };
                 ServerManager.SearchUserForTabExplore(data_user_search);
                 IdentificationListCurrentIndex++;
