@@ -31,7 +31,7 @@ $$('.fflow-btn').on('click', function () {
             "display": "flex"
         });
     } else {
-        Popup("popup-connect", true, 45);
+        Popup("popup-connect", true, 60);
     }
 });
 $$('.fflow-btn').on('taphold', function () {
@@ -46,7 +46,7 @@ $$('.fflow-btn').on('taphold', function () {
         record_was_hold = true;
         startCapture();
     } else {
-        Popup("popup-connect", true, 45);
+        Popup("popup-connect", true, 60);
     }
 });
 $$('.frecord-btn').on('taphold', function () {
@@ -118,6 +118,7 @@ document.getElementById("popup-record").addEventListener("closed", function () {
 });
 
 document.getElementById("popup-after-record").addEventListener("opened", function () {
+    image64 = null;
     $(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
@@ -143,6 +144,7 @@ document.getElementById("popup-after-record").addEventListener("closed", functio
     $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
     record_was_hold = false;
+    image64 = null;
 });
 
 document.getElementById("popup-after-story-record").addEventListener("opened", function () {

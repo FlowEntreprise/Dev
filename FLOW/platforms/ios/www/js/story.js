@@ -508,23 +508,22 @@ function CloseStory() {
         document.body.removeChild(story_window);
         story_window = null;
         InStory = false;
-
-        let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-        facebookConnectPlugin.logEvent("current_page", {
-            page: current_page,
-            duration: time_in_last_screen
-        }, null, function () {
-            console.log("fb current_page event success")
-        }, function () {
-            console.log("fb current_page error")
-        });
-        current_page = "home";
-        last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-
         // analytics.setCurrentScreen(current_page);
 
         StorySiriWave.stop();
     }, 400);
+
+    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+    facebookConnectPlugin.logEvent("current_page", {
+        page: current_page,
+        duration: time_in_last_screen
+    }, null, function () {
+        console.log("fb current_page event success")
+    }, function () {
+        console.log("fb current_page error")
+    });
+    current_page = "home";
+    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
     RefreshStories();
     StatusBar.backgroundColorByHexString('#f7f7f8');
@@ -535,6 +534,7 @@ function CloseStory() {
 
 function showStoryComments() {
     clearTimeout(tryLoadTimeout);
+    current_story_audio.pause();
     story_data[story_index].data[storyFlow_index].audio.pause();
     audio_playing = false;
     currentSection = "comments";

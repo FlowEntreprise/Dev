@@ -12,9 +12,9 @@ var MyLikeAdd = true;
 $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 
 document.getElementById("popup-myaccount").addEventListener("opened", function () {
-    setTimeout(function () {
-        current_page = "my-account";
-    }, 450);
+    last_scroll = 0;
+    current_page = "my-account";
+    $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
     $(".ftabsMonCompte")[0].style.display = "block";
     $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
     $("scrollEvent").remove(".swiper-wrapper");
@@ -113,30 +113,32 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     });
 
     function checkScroll() {
-        var scroll = scroll_element.scrollTop();
-        if (scroll >= 143 && $(".ftabsMonCompte")[0].style.height == "68%") {
-            //console.log("94vh");
-            event.preventDefault();
-            event.stopPropagation();
-            $("scrollEvent").remove(".swiper-wrapper");
-            $("#accountBannerScroll").css("transform", "translate3d(0vw, -30vh, 0vh)");
-            if (boolScrollTop) {
-                $(".ftabsMonCompte")[0].setAttribute("style", "height:94vh !important");
+        let current_scroll = scroll_element.scrollTop();
+        if (current_scroll > last_scroll + 10) {
+            if (scroll_element[0].scrollHeight > document.body.clientHeight) {
+                //console.log("94vh");
+                // event.preventDefault();
+                // event.stopPropagation();
+                $("scrollEvent").remove(".swiper-wrapper");
+                $("#accountBannerScroll").css("transform", "translate3d(0vw, -30vh, 0vh)");
+                if (boolScrollTop) {
+                    $(".ftabsMonCompte")[0].setAttribute("style", "height:94vh !important");
 
 
-                $(".fnavMonCompte").removeClass("fnavMonCompteTransitionDown");
-                $(".fnavMonCompte").addClass("fnavMonCompteTransitionTop");
-                $(".ftabsMonCompte").css("transition-duration", "0.4s");
-                $(".fnavMonCompte").css("transform", "translate3d(0vw, -20vh, 0vh)");
-                $(".ftabsMonCompte").css("transform", "translate3d(0vw, -23vh, 0vh)");
-                boolScrollTop = false;
+                    $(".fnavMonCompte").removeClass("fnavMonCompteTransitionDown");
+                    $(".fnavMonCompte").addClass("fnavMonCompteTransitionTop");
+                    $(".ftabsMonCompte").css("transition-duration", "0.4s");
+                    $(".fnavMonCompte").css("transform", "translate3d(0vw, -20vh, 0vh)");
+                    $(".ftabsMonCompte").css("transform", "translate3d(0vw, -23vh, 0vh)");
+                    boolScrollTop = false;
+                }
+                $("#MyActivity").removeClass("fblockMonComptePadding");
+                $("scrollEvent").addClass(".swiper-wrapper");
             }
-            $("#MyActivity").removeClass("fblockMonComptePadding");
-            $("scrollEvent").addClass(".swiper-wrapper");
         } else {
-            if (scroll < 100 && $(".ftabsMonCompte")[0].style.height == "94vh") {
-                event.preventDefault();
-                event.stopPropagation();
+            if (current_scroll < last_scroll - 10) {
+                // event.preventDefault();
+                // event.stopPropagation();
                 if (boolScrollTop == false) {
                     $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
                     $("scrollEvent").remove(".swiper-wrapper");
@@ -147,13 +149,14 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
                     $(".ftabsMonCompte").css("transition-duration", "0.2s");
                     var scrollTest = $(".scrollMyAccunt").scrollTop();
                     $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
-                    $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(4 * var(--custom-vh)), 0vh)");
+                    $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(2 * var(--custom-vh)), 0vh)");
                     boolScrollTop = true;
                     $("#MyActivity").addClass("fblockMonComptePadding");
                 }
             }
         }
-        position = scroll;
+        // position = scroll;
+        last_scroll = current_scroll;
     }
 
     $('#fmyprofilPicture').click(function () {

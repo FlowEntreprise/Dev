@@ -9991,7 +9991,7 @@ window.Template7 = (function () {
                     // iOS 8 fix
                     if (app.device.os === 'ios' && parseInt(app.device.osVersion.split('.')[0], 10) > 7 && scrollTop === 0 && !wasScrolled) useTranslate = true;
 
-                    if (useTranslate) {
+                    if (useTranslate && e.cancelable) {
                         e.preventDefault();
                         translate = (Math.pow(touchesDiff, 0.85) + startTranslate);
                         container.transform('translate3d(0,' + translate + 'px,0)');

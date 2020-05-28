@@ -279,8 +279,9 @@ function onBackKeyDown() {
         $(".fflow-btn").css("z-index", "1");
         $(".flow-btn-shadow").css("z-index", "0");
     } else if (current_page == "home") {
-        navigator.app.exitApp();
+        //navigator.app.exitApp();
         stopAllBlocksAudio();
+        console.log("prevent exit");
     }
 
     // analytics.setCurrentScreen(current_page);

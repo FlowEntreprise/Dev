@@ -17,6 +17,7 @@ var register_id;
 var LastOs;
 var user_is_blocked;
 var blocked_by_user;
+var last_scroll = 0;
 
 function alertDismissed() { };
 
@@ -123,13 +124,13 @@ $(".fnavAccount").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)),
 
 
 document.getElementById("popup-account").addEventListener("opened", function () {
-    setTimeout(function () {
-        current_page = "account";
-    }, 450);
+    last_scroll = 0;
+    current_page = "account";
+    app.showTab("#tabCompte1");
     $(".ftabsAccount")[0].style.display = "block";
     $("#tabCompte2").css("display", "block");
     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
-    $("scrollEventAccount").remove(".swiper-wrapper");
+    // $("scrollEventAccount").remove(".swiper-wrapper");
     $("#accountBannerScrollAccount").css("transition-duration", "0.2s");
     $("#accountBannerScrollAccount").css("transform", "translate3d(0vw, 0vh, 0vh)");
     $(".fnavAccount").removeClass("fnavAccountTransitionTop");
@@ -147,9 +148,9 @@ document.getElementById("popup-account").addEventListener("opened", function () 
         page: current_page,
         duration: time_in_last_screen
     }, null, function () {
-        console.log("fb current_page event success")
+        console.log("fb current_page event success");
     }, function () {
-        console.log("fb current_page error")
+        console.log("fb current_page error");
     });
     last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
@@ -168,17 +169,17 @@ document.getElementById("popup-account").addEventListener("opened", function () 
         $("#block_button").css("display", "block");
     }
     /* 
-     c'est le pire code au monde putin 
-     
+    c'est le pire code au monde putin 
+    
     $("#fflowBandeauChiffre").html("");
-     $("#ffollowersBandeauChiffre").html("");
-     $("#ffollowingBandeauChiffre").html("");
-     $("#fbioCompte").html("loading");
-     $("#fnameCompte").html("loading");
-     $("#privateID").html("loading");
-     $("#fprofilPicture").css({
-         "background-image": "none"
-     });*/
+    $("#ffollowersBandeauChiffre").html("");
+    $("#ffollowingBandeauChiffre").html("");
+    $("#fbioCompte").html("loading");
+    $("#fnameCompte").html("loading");
+    $("#privateID").html("loading");
+    $("#fprofilPicture").css({
+        "background-image": "none"
+    });*/
 
     var scroll_element = $("#tabCompte1");
     checkScrollAccount();
@@ -218,30 +219,33 @@ document.getElementById("popup-account").addEventListener("opened", function () 
     });
 
     function checkScrollAccount() {
-        var scroll = scroll_element.scrollTop();
-        if (scroll >= 143 && $(".ftabsAccount")[0].style.height == "68%") {
-            event.preventDefault();
-            event.stopPropagation();
-            $("scrollEventAccount").remove(".swiper-wrapper");
-            $("#accountBannerScrollAccount").css("transform", "translate3d(0vw, -30vh, 0vh)");
-            if (boolScrollTop) {
-                $(".ftabsAccount")[0].setAttribute("style", "height:94vh !important");
-                $(".fnavAccount").removeClass("fnavAccountTransitionDown");
-                $(".fnavAccount").addClass("fnavAccountTransitionTop");
-                $(".ftabsAccount").css("transition-duration", "0.4s");
-                $(".fnavAccount").css("transform", "translate3d(0vw, -20vh, 0vh)");
-                $(".ftabsAccount").css("transform", "translate3d(0vw, -23vh, 0vh)");
-                boolScrollTop = false;
+        var current_scroll = scroll_element.scrollTop();
+        if (current_scroll > last_scroll + 10) {
+            if (scroll_element[0].scrollHeight > document.body.clientHeight) {
+                // event.preventDefault();
+                // event.stopPropagation();
+                // $("scrollEventAccount").remove(".swiper-wrapper");
+                $("#accountBannerScrollAccount").css("transform", "translate3d(0vw, -30vh, 0vh)");
+                if (boolScrollTop) {
+                    $(".ftabsAccount")[0].setAttribute("style", "height:94vh !important");
+                    $(".fnavAccount").removeClass("fnavAccountTransitionDown");
+                    $(".fnavAccount").addClass("fnavAccountTransitionTop");
+                    $(".ftabsAccount").css("transition-duration", "0.4s");
+                    $(".fnavAccount").css("transform", "translate3d(0vw, -20vh, 0vh)");
+                    $(".ftabsAccount").css("transform", "translate3d(0vw, -23vh, 0vh)");
+                    boolScrollTop = false;
+                }
+                $("#UserActivity").removeClass("fblockAccountPadding");
             }
-            $("#UserActivity").removeClass("fblockAccountPadding");
-            $("scrollEventAccount").addClass(".swiper-wrapper");
+            // $("scrollEventAccount").addClass(".swiper-wrapper");
         } else {
-            if (scroll < 100 && $(".ftabsAccount")[0].style.height == "94vh") {
-                event.preventDefault();
-                event.stopPropagation();
+            // if (scroll < 100 /*&& $(".ftabsAccount")[0].style.height == "94vh"*/ ) {
+            if (current_scroll < last_scroll - 10) {
+                // event.preventDefault();
+                // event.stopPropagation();
                 if (boolScrollTop == false) {
                     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
-                    $("scrollEventAccount").remove(".swiper-wrapper");
+                    // $("scrollEventAccount").remove(".swiper-wrapper");
                     $("#accountBannerScrollAccount").css("transition-duration", "0.2s");
                     $("#accountBannerScrollAccount").css("transform", "translate3d(0vw, 0vh, 0vh)");
                     $(".fnavAccount").removeClass("fnavAccountTransitionTop");
@@ -255,7 +259,8 @@ document.getElementById("popup-account").addEventListener("opened", function () 
                 }
             }
         }
-        position = scroll;
+        // position = scroll;
+        last_scroll = current_scroll;
     }
 
     $("#fgobackCompte").click(function () {
@@ -303,7 +308,7 @@ document.getElementById("popup-account").addEventListener("closed", function () 
     $(".flow-btn-shadow").css("display", "block");
     $(".fflow-btn").css("z-index", "1");
     $(".flow-btn-shadow").css("z-index", "0");
-    $("#tabCompte2").css("display", "none");
+    //$("#tabCompte2").css("display", "none");
     $(".ftabsAccount")[0].style.display = "none";
     let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
     facebookConnectPlugin.logEvent("current_page", {
@@ -527,6 +532,13 @@ function ShowLikedFlows(flow, data_block_user) {
             no_flows.className = "empty_content";
             no_flows.innerHTML = "Aucun flow aimé";
             $("#UserLikes")[0].appendChild(no_flows);
+            for (let i = 0; i < 3; i++) {
+                let block_params = {
+                    parent_element: $("#UserLikes")[0]
+                };
+                let fake_block = new block(block_params);
+                //$(fake_block.block_flow).css("display", "none");
+            }
         }
         if ($(".loading_account")) $(".loading_account").remove();
     } else {
