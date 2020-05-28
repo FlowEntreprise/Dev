@@ -460,6 +460,14 @@ function ShowUserFlow(flow) {
             no_flows.className = "empty_content";
             no_flows.innerHTML = "Aucun flow publié";
             $("#UserActivity")[0].appendChild(no_flows);
+            for (let i = 0; i < 3; i++) {
+                let block_params = {
+                    parent_element: $("#UserActivity")[0]
+                };
+                let fake_block = new block(block_params);
+                //$(fake_block.block_flow).css("display", "none");
+            }
+
         }
     } else if (flow.Data[0].PrivateId == privateIDAccount) {
         var countFlow = 0;
@@ -532,6 +540,13 @@ function ShowLikedFlows(flow, data_block_user) {
             no_flows.className = "empty_content";
             no_flows.innerHTML = "Aucun flow aimé";
             $("#UserLikes")[0].appendChild(no_flows);
+            for (let i = 0; i < 3; i++) {
+                let block_params = {
+                    parent_element: $("#UserLikes")[0]
+                };
+                let fake_block = new block(block_params);
+                //$(fake_block.block_flow).css("display", "none");
+            }
         }
         if ($(".loading_account")) $(".loading_account").remove();
     } else {

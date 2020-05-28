@@ -475,9 +475,12 @@ function block(params) {
     ----------------------FIN_TEST_LAURE------------*/
 
     $(this.fimg_impression_comment).on('click', function () {
-
-        current_flow_block = block;
-        display_all_comments(current_flow_block);
+        if (connected) {
+            current_flow_block = block;
+            display_all_comments(current_flow_block);
+        } else {
+            Popup("popup-connect", true, 60);
+        }
     });
 
     $(this.fposter_photo).on('click', function () {
@@ -491,9 +494,13 @@ function block(params) {
 
     $(this.fdots).on('click', function () {
         var clickedLink = this;
-        stopAllBlocksAudio();
-        current_flow_block = block;
-        delete_flow_from_bdd(current_flow_block);
+        if (connected) {
+            stopAllBlocksAudio();
+            current_flow_block = block;
+            delete_flow_from_bdd(current_flow_block);
+        } else {
+            Popup("popup-connect", true, 60);
+        }
     });
 
 }

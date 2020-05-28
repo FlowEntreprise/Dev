@@ -103,11 +103,11 @@ $("#report_button").on("touchend", function () {
 
 $("#copy_button").on("touchend", function () {
     if (element_to_copy == "flow_tittle") {
-        copyToClipboard($(current_flow_block.fpost_description).text());
+        cordova.plugins.clipboard.copy($(current_flow_block.fpost_description).text());
         Popup("popup-option", false);
     }
     if (element_to_copy == "comment") {
-        copyToClipboard(current_comment_block.fcomment_text);
+        cordova.plugins.clipboard.copy(current_comment_block.fcomment_text);
         Popup("popup-option", false);
     }
 });
