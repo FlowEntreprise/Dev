@@ -845,7 +845,8 @@ class ServerManagerClass {
         let final_data = {
             Data: {
                 Index: data.Index,
-                Search: data.Search
+                Search: data.Search,
+                Nb: data.Nb
             },
             TokenId: window.localStorage.getItem("user_token")
         };
@@ -855,7 +856,7 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.SearchUserForTabExplore,
             data: JSON.stringify(final_data),
             success: function (response) {
-                //console.log(response);
+                console.log(response);
                 //console.log("recherche de users");
                 get_users_with_follow(response.Data);
             },
