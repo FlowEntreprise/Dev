@@ -189,12 +189,14 @@
           ],
           "UIBackgroundModes": [
             {
-              "xml": "<array><string>audio</string></array>",
+              "xml": "<array><string>remote-notification</string></array>",
               "count": 1
             },
             {
-              "xml": "<array><string>remote-notification</string></array>",
-              "count": 1
+              "xml": "<array />",
+              "count": 1,
+              "mode": "overwrite",
+              "id": "config.xml"
             }
           ],
           "NSMicrophoneUsageDescription": [

@@ -118,6 +118,11 @@
     <splash height="1136" src="res/screen/ios/LaunchImage-640x1136.png" width="640" />
     <splash height="1334" src="res/screen/ios/LaunchImage-750x1334.png" width="750" />
     <splash height="2208" src="res/screen/ios/LaunchImage-1242x2208.png" width="1242" />
+    <gap:config-file overwrite="true" parent="UIBackgroundModes" platform="ios">
+        <array>
+            <string>location</string>
+        </array>
+    </gap:config-file>
     <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="DisallowOverscroll" value="true" />

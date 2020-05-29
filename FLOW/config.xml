@@ -25,14 +25,15 @@
         <preference name="AllowInlineMediaPlayback" value="true" />
         <preference name="DisallowOverscroll" value="true" />
         <preference name="KeyboardShrinksView" value="true" />
-        <splash src="res/screen/ios/LaunchImage-320x480.png" width="320" height="480"/>
-        <splash src="res/screen/ios/LaunchImage-640x960.png" width="640" height="960"/>
-        <splash src="res/screen/ios/LaunchImage-768x1024.png" width="768" height="1024"/>
-        <splash src="res/screen/ios/LaunchImage-1536x2048.png" width="1536" height="2048"/>
-        <splash src="res/screen/ios/LaunchImage-640x1136.png" width="640" height="1136"/>
-        <splash src="res/screen/ios/LaunchImage-750x1334.png" width="750" height="1334"/>
-        <splash src="res/screen/ios/LaunchImage-1242x2208.png" width="1242" height="2208"/>
+        <splash height="480" src="res/screen/ios/LaunchImage-320x480.png" width="320" />
+        <splash height="960" src="res/screen/ios/LaunchImage-640x960.png" width="640" />
+        <splash height="1024" src="res/screen/ios/LaunchImage-768x1024.png" width="768" />
+        <splash height="2048" src="res/screen/ios/LaunchImage-1536x2048.png" width="1536" />
+        <splash height="1136" src="res/screen/ios/LaunchImage-640x1136.png" width="640" />
+        <splash height="1334" src="res/screen/ios/LaunchImage-750x1334.png" width="750" />
+        <splash height="2208" src="res/screen/ios/LaunchImage-1242x2208.png" width="1242" />
         <preference name="StatusBarBackgroundColor" value="#f7f7f8" />
+        <gap:config-file platform="ios" parent="UIBackgroundModes" overwrite="true"> <array> <string>location</string> </array> </gap:config-file>
     </platform>
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />
@@ -57,7 +58,6 @@
     <plugin name="cordova-plugin-browsersync" spec="^1.1.0" />
     <plugin name="cordova-plugin-fullscreen" spec="^1.2.0" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
-    <plugin name="cordova-plugin-insomnia" spec="https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git" />
     <plugin name="cordova-plugin-file" spec="^6.0.2" />
     <plugin name="cordova-plugin-audioinput" spec="^1.0.2" />
     <plugin name="cordova-plugin-compat" spec="^1.2.0" />
