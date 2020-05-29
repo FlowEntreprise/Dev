@@ -107,7 +107,7 @@ $("#copy_button").on("touchend", function () {
         Popup("popup-option", false);
     }
     if (element_to_copy == "comment") {
-        cordova.plugins.clipboard.copy(current_comment_block.fcomment_text);
+        cordova.plugins.clipboard.copy(current_comment_block.Comment_text);
         Popup("popup-option", false);
     }
 });
