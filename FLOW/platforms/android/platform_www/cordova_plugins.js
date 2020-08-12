@@ -499,7 +499,6 @@ module.exports.metadata =
   "cordova-plugin-statusbar": "2.4.2",
   "cordova-plugin-whitelist": "1.3.3",
   "cordova.plugins.diagnostic": "4.0.11",
-  "cordova-android-support-gradle-release": "2.1.0",
   "cordova-support-google-services": "1.3.1",
   "phonegap-plugin-multidex": "1.0.0",
   "phonegap-plugin-push": "2.2.3",
@@ -520,7 +519,8 @@ module.exports.metadata =
   "cordova-plugin-device": "2.0.3",
   "cordova-plugin-googleplus": "8.1.1",
   "cordova-plugin-dialogs": "2.0.2",
-  "cordova-clipboard": "1.3.0"
+  "cordova-clipboard": "1.3.0",
+  "cordova-android-support-gradle-release": "3.0.1"
 };
 // BOTTOM OF METADATA
 });

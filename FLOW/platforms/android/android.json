@@ -402,10 +402,6 @@
     "cordova.plugins.diagnostic": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova-android-support-gradle-release": {
-      "ANDROID_SUPPORT_VERSION": "27.+",
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
     "cordova-support-google-services": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
@@ -975,7 +971,6 @@
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-whitelist": "1.3.3",
     "cordova.plugins.diagnostic": "4.0.11",
-    "cordova-android-support-gradle-release": "2.1.0",
     "cordova-support-google-services": "1.3.1",
     "phonegap-plugin-multidex": "1.0.0",
     "phonegap-plugin-push": "2.2.3",

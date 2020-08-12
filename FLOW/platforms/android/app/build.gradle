@@ -30,7 +30,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:4.0.1'
         
     }
 }
@@ -93,7 +93,6 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
-apply from: "../cordova-android-support-gradle-release/flow-cordova-android-support-gradle-release.gradle"
 apply from: "../cordova-support-google-services/flow-build.gradle"
 apply from: "../phonegap-plugin-multidex/flow-multidex.gradle"
 apply from: "../cordova-plugin-firebase-crashlytics/flow-firebase-crashlytics.gradle"
@@ -152,7 +151,7 @@ cdvBuildRelease.dependsOn {
     return computeBuildTargetName(false)
 }
 
-task cdvPrintProps << {
+task cdvPrintProps doLast {
     println('cdvCompileSdkVersion=' + cdvCompileSdkVersion)
     println('cdvBuildToolsVersion=' + cdvBuildToolsVersion)
     println('cdvVersionCode=' + cdvVersionCode)
@@ -174,8 +173,8 @@ android {
         if (cdvMinSdkVersion != null) {
             minSdkVersion cdvMinSdkVersion
         }
-        minSdkVersion 28
-        targetSdkVersion 28
+        minSdkVersion 29
+        targetSdkVersion 29
     }
     lintOptions {
         abortOnError false;

@@ -7,10 +7,6 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-android-support-gradle-release": {
-      "ANDROID_SUPPORT_VERSION": "27.+",
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
     "cordova-plugin-android-permissions": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },

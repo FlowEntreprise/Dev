@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.crashlytics.sdk.android:crashlytics:2.9.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/crashlytics-2.9.1.aar/85e1b688dca624353798de76aaa819ca/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/crashlytics-2.9.1.aar/85e1b688dca624353798de76aaa819ca/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e05bd323c59be9a66a71a79c230b492a/crashlytics-2.9.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e05bd323c59be9a66a71a79c230b492a/crashlytics-2.9.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e05bd323c59be9a66a71a79c230b492a/crashlytics-2.9.1/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
