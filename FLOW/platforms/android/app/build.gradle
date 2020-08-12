@@ -173,14 +173,16 @@ android {
         if (cdvMinSdkVersion != null) {
             minSdkVersion cdvMinSdkVersion
         }
-        minSdkVersion 29
+        minSdkVersion 28
         targetSdkVersion 29
+        versionCode 10005
+        versionName "1.0.5"
     }
     lintOptions {
         abortOnError false;
     }
-    compileSdkVersion cdvCompileSdkVersion
-    buildToolsVersion cdvBuildToolsVersion
+    compileSdkVersion 29
+    buildToolsVersion '30.0.1'
     // This code exists for Crosswalk and other Native APIs.
     // By default, we multiply the existing version code in the
     // Android Manifest by 10 and add a number for each architecture.
