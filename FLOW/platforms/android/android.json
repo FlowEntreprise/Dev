@@ -253,7 +253,7 @@
           ],
           "/manifest/application/activity[@android:name='MainActivity']": [
             {
-              "xml": "<application android:debuggable=\"false\" />",
+              "xml": "<activity android:name=\"MainActivity\" android:windowSoftInputMode=\"adjustResize\" />",
               "count": 2,
               "mode": "merge",
               "id": "config.xml",
@@ -270,7 +270,7 @@
               }
             },
             {
-              "xml": "<activity android:name=\"MainActivity\" android:windowSoftInputMode=\"adjustResize\" />",
+              "xml": "<application android:debuggable=\"false\" />",
               "count": 1,
               "mode": "merge",
               "id": "config.xml",
