@@ -173,7 +173,7 @@ android {
         if (cdvMinSdkVersion != null) {
             minSdkVersion cdvMinSdkVersion
         }
-        minSdkVersion 28
+        minSdkVersion 27
         targetSdkVersion 29
         versionCode 10005
         versionName "1.0.5"

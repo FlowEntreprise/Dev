@@ -24,7 +24,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="R58M91EG1PE" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="L2N0219906002899" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -58,7 +58,7 @@
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recommended.upgrade.last.time.stamp" value="1596992284734" />
-    <property name="settings.editor.selected.configurable" value="project.propDebugger" />
+    <property name="settings.editor.selected.configurable" value="preferences.updates" />
     <property name="show.do.not.ask.upgrade.gradle.plugin" value="3.1.3" />
   </component>
   <component name="PsdUISettings">
@@ -216,10 +216,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1854" height="277" key="GridCell.Tab.0.right/-4176.-140.1504.976/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597266138800" />
-    <state x="461" y="162" key="SettingsEditor" timestamp="1597265952880">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="284" y="0" key="SettingsEditor" timestamp="1597335901344">
+      <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="461" y="162" key="SettingsEditor/-4176.-140.1504.976/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597265952880" />
+    <state x="284" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1597335901344" />
     <state x="100" y="100" width="1720" height="840" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1597262677854">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
