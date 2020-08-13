@@ -175,8 +175,8 @@ android {
         }
         minSdkVersion 28
         targetSdkVersion 29
-        versionCode 10005
-        versionName "1.0.5"
+        versionCode 10006
+        versionName "1.0.6"
     }
     lintOptions {
         abortOnError false;

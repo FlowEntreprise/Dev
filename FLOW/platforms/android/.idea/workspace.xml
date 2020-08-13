@@ -12,12 +12,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a9461e7-0426-4906-b22f-110847a0099d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../../config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +33,12 @@
       </state>
     </system>
   </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="C:\Users\thoma\Documents\Projets_persos\FLOW\Dev\FLOW\platforms\android\debug2.keystore" />
+    <option name="KEY_ALIAS" value="flow" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
+    <option name="BUILD_TARGET_KEY" value="apk" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
@@ -47,18 +49,23 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ApkExportedModule" value="app" />
+    <property name="BundleExportedModule" value="app" />
+    <property name="ExportApk.ApkPath" value="C:\Users\thoma\Documents\Projets_persos\FLOW\Dev\FLOW\platforms\android\app\build\outputs\apk\signed" />
+    <property name="ExportApk.BuildVariants" value="debug&#10;release" />
+    <property name="ExportApk.SignV2" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/build/outputs/apk/signed" />
     <property name="not.eligible.for.single.variant.sync" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recommended.upgrade.last.time.stamp" value="1596992284734" />
-    <property name="settings.editor.selected.configurable" value="project.propDebugger" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
     <property name="show.do.not.ask.upgrade.gradle.plugin" value="3.1.3" />
   </component>
   <component name="PsdUISettings">
@@ -196,30 +203,30 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/-4176.-140.1504.976/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597266132721" />
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1596995395535">
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1597271641406">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="274" key="FileChooserDialogImpl/-4176.-140.1504.976/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1596995395535" />
-    <state width="1854" height="277" key="GridCell.Tab.0.bottom" timestamp="1597266138800">
+    <state x="740" y="274" key="FileChooserDialogImpl/-4176.-140.1504.976/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597271641406" />
+    <state width="1854" height="277" key="GridCell.Tab.0.bottom" timestamp="1597271543457">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1854" height="277" key="GridCell.Tab.0.bottom/-4176.-140.1504.976/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597266138800" />
-    <state width="1854" height="277" key="GridCell.Tab.0.center" timestamp="1597266138800">
+    <state width="1854" height="277" key="GridCell.Tab.0.bottom/-4176.-140.1504.976/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597271543457" />
+    <state width="1854" height="277" key="GridCell.Tab.0.center" timestamp="1597271543456">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1854" height="277" key="GridCell.Tab.0.center/-4176.-140.1504.976/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597266138800" />
-    <state width="1854" height="277" key="GridCell.Tab.0.left" timestamp="1597266138800">
+    <state width="1854" height="277" key="GridCell.Tab.0.center/-4176.-140.1504.976/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597271543456" />
+    <state width="1854" height="277" key="GridCell.Tab.0.left" timestamp="1597271543456">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1854" height="277" key="GridCell.Tab.0.left/-4176.-140.1504.976/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597266138800" />
-    <state width="1854" height="277" key="GridCell.Tab.0.right" timestamp="1597266138800">
+    <state width="1854" height="277" key="GridCell.Tab.0.left/-4176.-140.1504.976/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597271543456" />
+    <state width="1854" height="277" key="GridCell.Tab.0.right" timestamp="1597271543456">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1854" height="277" key="GridCell.Tab.0.right/-4176.-140.1504.976/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597266138800" />
-    <state x="461" y="162" key="SettingsEditor" timestamp="1597265952880">
+    <state width="1854" height="277" key="GridCell.Tab.0.right/-4176.-140.1504.976/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597271543456" />
+    <state x="461" y="162" key="SettingsEditor" timestamp="1597270416906">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="162" key="SettingsEditor/-4176.-140.1504.976/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597265952880" />
+    <state x="461" y="162" key="SettingsEditor/-4176.-140.1504.976/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1597270416906" />
     <state x="100" y="100" width="1720" height="840" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1597262677854">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
