@@ -41,10 +41,6 @@
               "count": 1
             },
             {
-              "xml": "<preference name=\"android-minSdkVersion\" value=\"15\" />",
-              "count": 1
-            },
-            {
               "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
               "count": 1
             },
@@ -253,7 +249,7 @@
           ],
           "/manifest/application/activity[@android:name='MainActivity']": [
             {
-              "xml": "<activity android:name=\"MainActivity\" android:windowSoftInputMode=\"adjustResize\" />",
+              "xml": "<application android:debuggable=\"false\" />",
               "count": 2,
               "mode": "merge",
               "id": "config.xml",
@@ -265,12 +261,11 @@
                 "android:name": "MainActivity",
                 "android:screenOrientation": "portrait",
                 "android:theme": "@style/MyTheme",
-                "android:windowSoftInputMode": "adjustResize",
-                "tools:ignore": "HardcodedDebugMode"
+                "android:windowSoftInputMode": "adjustResize"
               }
             },
             {
-              "xml": "<application android:debuggable=\"false\" />",
+              "xml": "<activity android:name=\"MainActivity\" android:windowSoftInputMode=\"adjustResize\" />",
               "count": 1,
               "mode": "merge",
               "id": "config.xml",
@@ -282,8 +277,7 @@
                 "android:name": "MainActivity",
                 "android:screenOrientation": "portrait",
                 "android:theme": "@style/MyTheme",
-                "android:windowSoftInputMode": "adjustResize",
-                "tools:ignore": "HardcodedDebugMode"
+                "android:windowSoftInputMode": "adjustResize"
               }
             }
           ]
