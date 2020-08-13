@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.facebook.android:facebook-share:4.40.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/da58f99cad23b926c86c08b50c5a32eb/facebook-share-4.40.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/da58f99cad23b926c86c08b50c5a32eb/facebook-share-4.40.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/da58f99cad23b926c86c08b50c5a32eb/facebook-share-4.40.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/63dd5fc400e44d1a5596d7dcb39f5ca2/facebook-share-4.40.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/63dd5fc400e44d1a5596d7dcb39f5ca2/facebook-share-4.40.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/63dd5fc400e44d1a5596d7dcb39f5ca2/facebook-share-4.40.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.android/facebook-share/4.40.0/c64e72d79d19d6f9ae00544c94102c680b3812f2/facebook-share-4.40.0-javadoc.jar!/" />

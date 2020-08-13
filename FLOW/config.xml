@@ -17,8 +17,6 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
-        <preference name="android-minSdkVersion" value="28" />
-        <preference name="android-targetSdkVersion" value="29" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -59,7 +57,7 @@
         <variable name="APP_ID" value="com.flowapp.flow" />
         <variable name="APP_NAME" value="FLOW" />
         <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false" />
-        <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" />
+        <!-- <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" /> -->
     </plugin>
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
     <plugin name="cordova-plugin-k-imagecropper" spec="^1.2.0">

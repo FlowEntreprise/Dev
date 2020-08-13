@@ -265,7 +265,8 @@
                 "android:name": "MainActivity",
                 "android:screenOrientation": "portrait",
                 "android:theme": "@style/MyTheme",
-                "android:windowSoftInputMode": "adjustResize"
+                "android:windowSoftInputMode": "adjustResize",
+                "tools:ignore": "HardcodedDebugMode"
               }
             },
             {
@@ -281,7 +282,8 @@
                 "android:name": "MainActivity",
                 "android:screenOrientation": "portrait",
                 "android:theme": "@style/MyTheme",
-                "android:windowSoftInputMode": "adjustResize"
+                "android:windowSoftInputMode": "adjustResize",
+                "tools:ignore": "HardcodedDebugMode"
               }
             }
           ]

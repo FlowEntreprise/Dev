@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.twitter.sdk.android:tweet-ui:3.3.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d1664f1024231387cecb72dd1367b472/tweet-ui-3.3.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d1664f1024231387cecb72dd1367b472/tweet-ui-3.3.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d1664f1024231387cecb72dd1367b472/tweet-ui-3.3.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4c53c46817c5295e5be092173bdbea38/tweet-ui-3.3.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4c53c46817c5295e5be092173bdbea38/tweet-ui-3.3.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4c53c46817c5295e5be092173bdbea38/tweet-ui-3.3.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.twitter.sdk.android/tweet-ui/3.3.0/205fc487a7a2354a3336561df8085118d2a7d426/tweet-ui-3.3.0-javadoc.jar!/" />
