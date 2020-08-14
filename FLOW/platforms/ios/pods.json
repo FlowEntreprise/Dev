@@ -1,36 +1,17 @@
 {
-    "declarations": {
-        "use_frameworks!": {
-            "declaration": "use_frameworks!",
-            "count": 1
-        }
-    },
-    "sources": {
-        "https://cdn.cocoapods.org/": {
-            "source": "https://cdn.cocoapods.org/",
-            "count": 1
-        }
-    },
+    "declarations": {},
+    "sources": {},
     "libraries": {
-        "FirebaseMessaging": {
-            "name": "FirebaseMessaging",
+        "Fabric": {
+            "name": "Fabric",
             "type": "podspec",
-            "spec": "~> 2.0.0",
+            "spec": "~> 1.7.5",
             "count": 1
         },
-        "FBSDKCoreKit": {
-            "name": "FBSDKCoreKit",
-            "spec": "5.15.0",
-            "count": 1
-        },
-        "FBSDKLoginKit": {
-            "name": "FBSDKLoginKit",
-            "spec": "5.15.0",
-            "count": 1
-        },
-        "FBSDKShareKit": {
-            "name": "FBSDKShareKit",
-            "spec": "5.15.0",
+        "Crashlytics": {
+            "name": "Crashlytics",
+            "type": "podspec",
+            "spec": "~> 3.10.1",
             "count": 1
         }
     }

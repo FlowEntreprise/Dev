@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1100"
+   LastUpgradeVersion = "1130"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "52166F30D536EDED94453289410C3E1B"
-               BuildableName = "Pods_FLOW.framework"
+               BuildableName = "libPods-FLOW.a"
                BlueprintName = "Pods-FLOW"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

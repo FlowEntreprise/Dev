@@ -32,12 +32,12 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageDidLoad) name:CDVPageDidLoadNotification object:nil];
 
-    [self setVisible:YES andForce:YES];
+    [self setVisible:YES];
 }
 
 - (void)show:(CDVInvokedUrlCommand*)command
 {
-    [self setVisible:YES andForce:YES];
+    [self setVisible:YES];
 }
 
 - (void)hide:(CDVInvokedUrlCommand*)command
@@ -51,7 +51,7 @@
 
     // if value is missing, default to yes
     if ((autoHideSplashScreenValue == nil) || [autoHideSplashScreenValue boolValue]) {
-        [self setVisible:YES];
+        [self setVisible:NO];
     }
 }
 
@@ -112,7 +112,7 @@
     // backwards compatibility - if key is missing, default to true
     if ((showSplashScreenSpinnerValue == nil) || [showSplashScreenSpinnerValue boolValue])
     {
-        //[parentView addSubview:_activityView]; // no spinner if commented
+        [parentView addSubview:_activityView];
     }
 
     // Frame is required when launching in portrait mode.
@@ -410,9 +410,6 @@
         }
         imgBounds.size.height *= ratio;
         imgBounds.size.width *= ratio;
-        if (!device.iPad) {
-            imgBounds.origin.x -= 91.5; // offset for iphones
-        }
     }
 
     _imageView.transform = imgTransform;

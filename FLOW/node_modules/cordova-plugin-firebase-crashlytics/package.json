@@ -1,4 +1,10 @@
 {
+  "_args": [
+    [
+      "cordova-plugin-firebase-crashlytics@0.0.6",
+      "/Users/thomasdequeiros/Documents/GitHub/Dev/FLOW"
+    ]
+  ],
   "_from": "cordova-plugin-firebase-crashlytics@0.0.6",
   "_id": "cordova-plugin-firebase-crashlytics@0.0.6",
   "_inBundle": false,
@@ -16,13 +22,11 @@
     "fetchSpec": "0.0.6"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-firebase-crashlytics/-/cordova-plugin-firebase-crashlytics-0.0.6.tgz",
-  "_shasum": "03db4a353a21d28a8d13eb6e7e0f0415fc26d1d9",
-  "_spec": "cordova-plugin-firebase-crashlytics@0.0.6",
-  "_where": "C:\\Users\\thoma\\Documents\\PROJETS_persos\\FLOW\\GitHub\\Dev\\Dev\\FLOW",
+  "_spec": "0.0.6",
+  "_where": "/Users/thomasdequeiros/Documents/GitHub/Dev/FLOW",
   "author": {
     "name": "Richard Windley",
     "email": "richard.windley@gmail.com",
@@ -31,7 +35,6 @@
   "bugs": {
     "url": "https://github.com/ReallySmallSoftware/cordova-plugin-firebase-crashlytics/issues"
   },
-  "bundleDependencies": false,
   "cordova": {
     "id": "cordova-plugin-firebase-crashlytics",
     "platforms": [
@@ -43,7 +46,6 @@
   "dependencies": {
     "xcode": "^1.0.0"
   },
-  "deprecated": false,
   "description": "A Google Firebase Crashlytics plugin",
   "devDependencies": {
     "grunt": "^1.0.2",

@@ -1,76 +1,21 @@
 PODS:
-  - FBSDKCoreKit (5.15.0):
-    - FBSDKCoreKit/Basics (= 5.15.0)
-    - FBSDKCoreKit/Core (= 5.15.0)
-  - FBSDKCoreKit/Basics (5.15.0)
-  - FBSDKCoreKit/Core (5.15.0):
-    - FBSDKCoreKit/Basics
-  - FBSDKLoginKit (5.15.0):
-    - FBSDKLoginKit/Login (= 5.15.0)
-  - FBSDKLoginKit/Login (5.15.0):
-    - FBSDKCoreKit (~> 5.0)
-  - FBSDKShareKit (5.15.0):
-    - FBSDKShareKit/Share (= 5.15.0)
-  - FBSDKShareKit/Share (5.15.0):
-    - FBSDKCoreKit (~> 5.0)
-  - FirebaseAnalytics (4.2.0):
-    - FirebaseCore (~> 4.0)
-    - FirebaseInstanceID (~> 2.0)
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-    - nanopb (~> 0.3)
-  - FirebaseCore (4.0.20):
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-  - FirebaseInstanceID (2.0.10):
-    - FirebaseCore (~> 4.0)
-  - FirebaseMessaging (2.0.8):
-    - FirebaseAnalytics (~> 4.0)
-    - FirebaseCore (~> 4.0)
-    - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/Logger (~> 2.1)
-    - Protobuf (~> 3.1)
-  - GoogleToolboxForMac/Defines (2.2.2)
-  - GoogleToolboxForMac/Logger (2.2.2):
-    - GoogleToolboxForMac/Defines (= 2.2.2)
-  - "GoogleToolboxForMac/NSData+zlib (2.2.2)":
-    - GoogleToolboxForMac/Defines (= 2.2.2)
-  - nanopb (0.3.9011):
-    - nanopb/decode (= 0.3.9011)
-    - nanopb/encode (= 0.3.9011)
-  - nanopb/decode (0.3.9011)
-  - nanopb/encode (0.3.9011)
-  - Protobuf (3.11.4)
+  - Crashlytics (3.10.9):
+    - Fabric (~> 1.7.13)
+  - Fabric (1.7.13)
 
 DEPENDENCIES:
-  - FBSDKCoreKit (= 5.15.0)
-  - FBSDKLoginKit (= 5.15.0)
-  - FBSDKShareKit (= 5.15.0)
-  - FirebaseMessaging (~> 2.0.0)
+  - Crashlytics (~> 3.10.1)
+  - Fabric (~> 1.7.5)
 
 SPEC REPOS:
   trunk:
-    - FBSDKCoreKit
-    - FBSDKLoginKit
-    - FBSDKShareKit
-    - FirebaseAnalytics
-    - FirebaseCore
-    - FirebaseInstanceID
-    - FirebaseMessaging
-    - GoogleToolboxForMac
-    - nanopb
-    - Protobuf
+    - Crashlytics
+    - Fabric
 
 SPEC CHECKSUMS:
-  FBSDKCoreKit: 083ba8c8e37939c0b4c84250654c9be0aef0c2f8
-  FBSDKLoginKit: bd40354a96e4718765713ef225bc368f10dc395d
-  FBSDKShareKit: 23bad745329f966836f9a2493f86fc7c092b02e6
-  FirebaseAnalytics: 7ef69e76a5142f643aeb47c780e1cdce4e23632e
-  FirebaseCore: 90cb1c53d69b556f112a1bf72b5fcfaad7650790
-  FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
-  FirebaseMessaging: dfdcd307c2382290a1e297a81d0f18370f5b1bcd
-  GoogleToolboxForMac: 800648f8b3127618c1b59c7f97684427630c5ea3
-  nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
+  Crashlytics: 55e24fc23989680285a21cb1146578d9d18e432c
+  Fabric: 25d0963b691fc97be566392243ff0ecef5a68338
 
-PODFILE CHECKSUM: 4ebd11b3868e5af2083c1dcc521847f4ea162d92
+PODFILE CHECKSUM: db6fe71f5a89dee3a81fd7bf901e11877914a320
 
 COCOAPODS: 1.9.1
