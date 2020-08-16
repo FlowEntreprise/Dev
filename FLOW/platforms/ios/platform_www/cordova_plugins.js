@@ -382,6 +382,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "facebookConnectPlugin"
       ]
+    },
+    {
+      "id": "cordova-plugin-twitter-connect-wkwebview.TwitterConnect",
+      "file": "plugins/cordova-plugin-twitter-connect-wkwebview/www/TwitterConnect.js",
+      "pluginId": "cordova-plugin-twitter-connect-wkwebview",
+      "clobbers": [
+        "TwitterConnect"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -412,6 +420,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-firebase-crashlytics": "0.0.6",
     "cordova-labs-local-webserver": "2.4.0",
     "phonegap-plugin-push": "2.3.0",
-    "cordova-plugin-facebook4": "6.4.0"
+    "cordova-plugin-facebook4": "6.4.0",
+    "cordova-plugin-twitter-connect-wkwebview": "1.0.1"
   };
 });

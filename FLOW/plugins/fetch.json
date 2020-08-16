@@ -253,5 +253,17 @@
       "APP_ID": "502054883649562",
       "APP_NAME": "FLOW"
     }
+  },
+  "cordova-plugin-twitter-connect-wkwebview": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-twitter-connect-wkwebview"
+    },
+    "is_top_level": true,
+    "variables": {
+      "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038",
+      "TWITTER_KEY": "JwyvPlw7GcOvE8pXmRvqTyZL3",
+      "TWITTER_SECRET": "6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT"
+    }
   }
 }

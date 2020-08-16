@@ -159,4 +159,13 @@
     <access origin="https://api.facebook.com" />
     <access origin="https://*.fbcdn.net" />
     <access origin="https://*.akamaihd.net" />
+    <allow-navigation href="about:*" />
+    <feature name="TwitterConnect">
+        <param name="ios-package" value="TwitterConnect" />
+    </feature>
+    <widget>
+        <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
+        <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
+        <preference name="deployment-target" value="9.0" />
+    </widget>
 </widget>

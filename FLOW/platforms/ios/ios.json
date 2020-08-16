@@ -143,9 +143,30 @@
             {
               "xml": "<access origin=\"https://*.akamaihd.net\" />",
               "count": 1
+            },
+            {
+              "xml": "<allow-navigation href=\"about:*\" />",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"TwitterConnect\"><param name=\"ios-package\" value=\"TwitterConnect\" /></feature>",
+              "count": 1
             }
           ],
-          "widget": []
+          "widget": [
+            {
+              "xml": "<preference name=\"TwitterConsumerKey\" value=\"JwyvPlw7GcOvE8pXmRvqTyZL3\" />",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"TwitterConsumerSecret\" value=\"6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT\" />",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"deployment-target\" value=\"9.0\" />",
+              "count": 1
+            }
+          ]
         }
       },
       "*-Debug.plist": {
@@ -202,11 +223,19 @@
             {
               "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>fb502054883649562</string></array></dict></array>",
               "count": 1
+            },
+            {
+              "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>twitterkit-JwyvPlw7GcOvE8pXmRvqTyZL3</string></array></dict></array>",
+              "count": 1
             }
           ],
           "LSApplicationQueriesSchemes": [
             {
               "xml": "<array><string>fbapi</string><string>fb-messenger-api</string><string>fbauth2</string><string>fbshareextension</string></array>",
+              "count": 1
+            },
+            {
+              "xml": "<array><string>twitter</string><string>twitterauth</string></array>",
               "count": 1
             }
           ],
@@ -326,6 +355,12 @@
       "APP_NAME": "FLOW",
       "FACEBOOK_HYBRID_APP_EVENTS": "false",
       "FACEBOOK_ANDROID_SDK_VERSION": "5.13.0",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-twitter-connect-wkwebview": {
+      "FABRIC_KEY": "1c7233ea28bcc14682e840d324ff7fbb32b9c038",
+      "TWITTER_KEY": "JwyvPlw7GcOvE8pXmRvqTyZL3",
+      "TWITTER_SECRET": "6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT",
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -713,6 +748,14 @@
       "clobbers": [
         "facebookConnectPlugin"
       ]
+    },
+    {
+      "id": "cordova-plugin-twitter-connect-wkwebview.TwitterConnect",
+      "file": "plugins/cordova-plugin-twitter-connect-wkwebview/www/TwitterConnect.js",
+      "pluginId": "cordova-plugin-twitter-connect-wkwebview",
+      "clobbers": [
+        "TwitterConnect"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -743,6 +786,7 @@
     "cordova-plugin-firebase-crashlytics": "0.0.6",
     "cordova-labs-local-webserver": "2.4.0",
     "phonegap-plugin-push": "2.3.0",
-    "cordova-plugin-facebook4": "6.4.0"
+    "cordova-plugin-facebook4": "6.4.0",
+    "cordova-plugin-twitter-connect-wkwebview": "1.0.1"
   }
 }
