@@ -13,8 +13,6 @@ const ServerParams = {
     LikeFlowComment: "Like/comment",
     LikeFlow: "Like/Flow",
     UpdateProfileURL: "UpdateProfile",
-    
-    
     GetMultipleFlowURL: "GetMultipleFlow",
     GetMyUserInfosURL: "GetInfoUser",
     GetTimeline: "GetTimeline",
@@ -833,8 +831,9 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.AddNotificationToUser,
             data: JSON.stringify(final_data),
             success: function (response) {
-                //console.log(response);
-                //console.log("notif added to bdd");
+                console.log(final_data);
+                console.log("notif added to bdd");
+                console.log(response);
             },
             error: function (response) {
                 //console.log(response);
@@ -908,8 +907,7 @@ class ServerManagerClass {
         });
     }
 
-    
-    
+        
     APNS_token_to_FCM_token(data) {
         
         $.ajax({
@@ -924,13 +922,16 @@ class ServerManagerClass {
             data: JSON.stringify(data),
 
             success: function (response) {
-                registrationId = response.registration_token;
+                console.info("reponse du apns to fcm");
+                console.info(response);
+                registrationId = response.results[0].registration_token;
                 /*let data = {
                     RegisterId: registrationId,
                     LastOs: window.cordova.platformId
                 };
                 ServerManager.UpdateRegisterId(data);*/
-                console.log(response);
+                console.log(registrationId);
+                
             },
             error: function (response) {
                 
@@ -940,7 +941,6 @@ class ServerManagerClass {
 
 
     }
-    
     
     Send_notif(data) {
         var data_notif_to_bdd;
@@ -979,7 +979,9 @@ class ServerManagerClass {
                                 Content : data.data.message
                 */
                 ServerManager.AddNotificationToUser(data_notif_to_bdd);
-                //console.log("Notif envoyé avec succes");
+                console.log("les datas d'envoi de notifs en bdd sont :" )
+                console.log(data_notif_to_bdd);
+                console.log("Notif envoyé avec succes");
             },
             error: function (response) {
                 //console.log("La notif n'a pas été envoyé");

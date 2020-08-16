@@ -159,7 +159,7 @@ var app = {
             if (window.cordova.platformId == "ios")
             {
                 let data_apns_to_fcm =
-                {
+                
                     {
                      "application": "com.flowapp.flow",
                      "sandbox":true,
@@ -167,8 +167,7 @@ var app = {
                          registrationId
                       ]
                     }
-                    
-                }
+                console.info(" le registrationid avant la transformation est : "+registrationId);
                 ServerManager.APNS_token_to_FCM_token(data_apns_to_fcm);
             }
         });
