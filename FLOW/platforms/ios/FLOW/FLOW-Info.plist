@@ -45,16 +45,11 @@
 		<true/>
 	</dict>
 	<key>NSMainNibFile</key>
-	<string/>
+	<string></string>
 	<key>NSMainNibFile~ipad</key>
-	<string/>
+	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>This app needs microphone access</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>audio</string>
-		<string>remote-notification</string>
-	</array>
+	<string>Cet applicatation a besoin du microphone pour enregistrer des flows.</string>
 	<key>UIInterfaceOrientation</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -78,7 +73,7 @@
 	<key>FacebookDisplayName</key>
 	<string>FLOW</string>
 	<key>FacebookHybridAppEvents</key>
-	<string>false</string>
+	<string>true</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
