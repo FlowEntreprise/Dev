@@ -85,8 +85,12 @@
     <feature name="FirebaseCrashlytics">
         <param name="ios-package" onload="true" value="FirebaseCrashlyticsPlugin" />
     </feature>
-    <widget>
-    </widget>
+    <feature name="CordovaLocalWebServer">
+        <param name="ios-package" value="CDVLocalWebServer" />
+        <param name="onload" value="true" />
+    </feature>
+    <access origin="http://localhost" />
+    <allow-navigation href="http://localhost:*/*" />
     <name>FLOW</name>
     <description>
         The Vocal Social Network.
@@ -133,6 +137,7 @@
     <preference name="KeepAVAudioSessionAlwaysActive" value="NO" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="default" />
+    <preference name="CordovaLocalWebServerStartOnSimulator" value="true" />
     <preference name="Orientation" value="portrait" />
     <preference name="fullscreen" value="false" />
     <preference name="StatusBarBackgroundColor" value="#f7f7f8" />
@@ -141,4 +146,7 @@
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
     <preference name="deployment-target" value="7.0" />
     <preference name="KeyboardShrinksView" value="true" />
+    <feature name="PushNotification">
+        <param name="ios-package" value="PushPlugin" />
+    </feature>
 </widget>

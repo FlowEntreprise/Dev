@@ -6,4 +6,5 @@ target 'FLOW' do
 	project 'FLOW.xcodeproj'
 	pod 'Fabric', '~> 1.7.5'
 	pod 'Crashlytics', '~> 3.10.1'
+	pod 'FirebaseMessaging', '~> 2.0.0'
 end

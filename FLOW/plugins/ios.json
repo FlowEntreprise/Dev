@@ -79,6 +79,12 @@
     },
     "cordova-plugin-firebase-crashlytics": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-labs-local-webserver": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "phonegap-plugin-push": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {

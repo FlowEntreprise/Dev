@@ -366,6 +366,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "FirebaseCrashlytics"
       ]
+    },
+    {
+      "id": "phonegap-plugin-push.PushNotification",
+      "file": "plugins/phonegap-plugin-push/www/push.js",
+      "pluginId": "phonegap-plugin-push",
+      "clobbers": [
+        "PushNotification"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -393,6 +401,8 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-device": "2.0.3",
     "cordova-android-support-gradle-release": "2.1.0",
     "cordova-support-google-services": "1.3.1",
-    "cordova-plugin-firebase-crashlytics": "0.0.6"
+    "cordova-plugin-firebase-crashlytics": "0.0.6",
+    "cordova-labs-local-webserver": "2.4.0",
+    "phonegap-plugin-push": "2.3.0"
   };
 });

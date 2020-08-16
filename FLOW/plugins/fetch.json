@@ -179,14 +179,6 @@
     "is_top_level": false,
     "variables": {}
   },
-  "phonegap-plugin-push": {
-    "source": {
-      "type": "registry",
-      "id": "phonegap-plugin-push@2.3.0"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-apple-login": {
     "source": {
       "type": "registry",
@@ -231,6 +223,22 @@
     "source": {
       "type": "registry",
       "id": "cordova-plugin-inappbrowser@4.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-labs-local-webserver": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/apache/cordova-plugins#local-webserver"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "phonegap-plugin-push": {
+    "source": {
+      "type": "registry",
+      "id": "phonegap-plugin-push@2.3.0"
     },
     "is_top_level": true,
     "variables": {}

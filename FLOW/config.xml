@@ -19,6 +19,7 @@
         <allow-intent href="market:*" />
     </platform>
     <platform name="ios">
+        <resource-file src="GoogleService-Info.plist" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <preference name="deployment-target" value="7.0" />
@@ -67,7 +68,6 @@
     <plugin name="cordova-plugin-httpd" spec="~0.9.3" />
     <plugin name="cordova-plugin-media" spec="^5.0.3" />
     <plugin name="cordova-plugin-background-mode" spec="~0.7.3" />
-    <plugin name="phonegap-plugin-push" spec="~2.3.0" />
     <plugin name="cordova-plugin-apple-login" spec="~1.0.0" />
     <plugin name="cordova-plugin-splashscreen" spec="~5.0.3" />
     <plugin name="cordova-plugin-wkkeyboardfix" spec="~1.1.0" />
