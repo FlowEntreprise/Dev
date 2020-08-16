@@ -10,4 +10,5 @@ target 'FLOW' do
 	pod 'FBSDKCoreKit', '5.15.0'
 	pod 'FBSDKLoginKit', '5.15.0'
 	pod 'FBSDKShareKit', '5.15.0'
+	pod 'TwitterKit5', '5.2.0'
 end

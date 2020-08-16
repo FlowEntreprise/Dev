@@ -1,0 +1,63 @@
+{
+  "_from": "cordova-plugin-twitter-connect-wkwebview",
+  "_id": "cordova-plugin-twitter-connect-wkwebview@1.0.1",
+  "_inBundle": false,
+  "_integrity": "sha512-+q382UEph/2zRo41Fjl1ZgBOUueb6Smu6IU1elWlfWPMF/9aqYmQPEuSNWHRb+sdGULxFH/3055uwVM+/hXxVg==",
+  "_location": "/cordova-plugin-twitter-connect-wkwebview",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-twitter-connect-wkwebview",
+    "name": "cordova-plugin-twitter-connect-wkwebview",
+    "escapedName": "cordova-plugin-twitter-connect-wkwebview",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-twitter-connect-wkwebview/-/cordova-plugin-twitter-connect-wkwebview-1.0.1.tgz",
+  "_shasum": "191012d8ba2aa8018365faa9f2a55a996d35bce9",
+  "_spec": "cordova-plugin-twitter-connect-wkwebview",
+  "_where": "/Users/thomasdequeiros/Documents/GitHub/Dev/FLOW",
+  "author": {
+    "name": "Tien Nguyen"
+  },
+  "bugs": {
+    "url": "https://github.com/tien271/cordova-plugin-twitter-connect-wkwebview/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-twitter-connect-wkwebview",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "deprecated": false,
+  "description": "Twitter Connect Plugin - Allows single-sign on logins using Twitter",
+  "homepage": "https://github.com/tien271/cordova-plugin-twitter-connect-wkwebview#readme",
+  "keywords": [
+    "cordova",
+    "twitter",
+    "login",
+    "connect",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "cordova-plugin-twitter-connect-wkwebview",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tien271/cordova-plugin-twitter-connect-wkwebview.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.1"
+}

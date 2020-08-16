@@ -44,6 +44,12 @@
             "name": "FBSDKShareKit",
             "spec": "5.15.0",
             "count": 1
+        },
+        "TwitterKit5": {
+            "name": "TwitterKit5",
+            "type": "podspec",
+            "spec": "5.2.0",
+            "count": 1
         }
     }
 }

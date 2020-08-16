@@ -10,6 +10,7 @@
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
 		0B8DF5BA7A144C68BD15FB93 /* CDVClipboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E8D59286794F5AB72EAC38 /* CDVClipboard.m */; };
 		0F817814EA2041D6828BBBD4 /* GCDWebServerFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FE98E6E129A44CCC889F1AF5 /* GCDWebServerFunctions.m */; };
+		16BF4E1C268E42C3930C0E95 /* TwitterConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A296CA1944580807FAC4A /* TwitterConnect.m */; };
 		1A4CF9A6D9C14A9DA58F0E36 /* HTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B79FEB10914E4384792EE8 /* HTTPServer.m */; };
 		1C327010726A458D875557CF /* CDVCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = F81031EB677C423594BA1955 /* CDVCamera.m */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
@@ -49,6 +50,7 @@
 		6B722FA72D40491F8DC7AF39 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A5A59DA67D6471E9247099D /* Accelerate.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		6BEA1C87AFB54416BEDC1B54 /* APPBackgroundMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C457A2CD2A042E5BBE58C35 /* APPBackgroundMode.m */; };
 		7015883AF99E4E92B90E3C08 /* MultipartMessageHeaderField.m in Sources */ = {isa = PBXBuildFile; fileRef = 70A2C827213541D9A2DE5E29 /* MultipartMessageHeaderField.m */; };
+		726A5D1FEF2A4D44B99D6545 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2086572FCCB4E34A994A17F /* TwitterKit.framework */; };
 		75614066EA90498AAF817301 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 0509BC1C34BE4AB3BCF8088D /* CDVSplashScreen.m */; };
 		75A5A20E1B6A459D855187EA /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C68B299479446ACB0A7C84A /* DispatchQueueLogFormatter.m */; };
 		76270ACF65A4424DA9ABA024 /* PushPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = D1C024F33069458799B61A2E /* PushPlugin.m */; };
@@ -105,6 +107,7 @@
 		F48A6D4C5CC54DEF8151185A /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB37FA7BB9743638BEFCCC0 /* CoreTelephony.framework */; };
 		F68D97DA7CC547E38348261E /* CDVViewController+SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = A10387454E9F46D88B53D64E /* CDVViewController+SplashScreen.m */; };
 		F76DBAFDCDB242BDA9604271 /* MultipartFormDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DCED007A83174B549E973E7F /* MultipartFormDataParser.m */; };
+		F97029AE02694321BD2994CE /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 947206FCE2134BF4AD0BB858 /* TwitterCore.framework */; };
 		FBF78D0235614482AE7E36FE /* DDRange.m in Sources */ = {isa = PBXBuildFile; fileRef = CBF62001EBEA4AC6AF96E475 /* DDRange.m */; };
 		FC12BEDCC177416888A3F2CD /* GCDWebServerStreamedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = CD15B4F29FE549DB92CA4CE1 /* GCDWebServerStreamedResponse.m */; };
 		FCCEB6F54D024A4B996B2466 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D4EE529C3604492987366423 /* DDAbstractDatabaseLogger.m */; };
@@ -206,6 +209,7 @@
 		349AF9EDE64446559EE1A39D /* HTTPDataResponse.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = HTTPDataResponse.m; path = "cordova-plugin-httpd/HTTPDataResponse.m"; sourceTree = "<group>"; };
 		3637C291EDD04F8A8D62C9E5 /* CDVExif.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVExif.h; path = "cordova-plugin-camera/CDVExif.h"; sourceTree = "<group>"; };
 		36BA2933A2134C8981FB2DAE /* GCDWebServerFileRequest.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = GCDWebServerFileRequest.m; path = "cordova-labs-local-webserver/GCDWebServerFileRequest.m"; sourceTree = "<group>"; };
+		375F350953D64A7A8FFE2E59 /* TwitterConnect.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = TwitterConnect.h; path = "cordova-plugin-twitter-connect-wkwebview/TwitterConnect.h"; sourceTree = "<group>"; };
 		37E8D59286794F5AB72EAC38 /* CDVClipboard.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVClipboard.m; path = "cordova-clipboard/CDVClipboard.m"; sourceTree = "<group>"; };
 		38FF79903EBC42A29EDBE418 /* HTTPConnection.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = HTTPConnection.m; path = "cordova-plugin-httpd/HTTPConnection.m"; sourceTree = "<group>"; };
 		3B2C9E0B1F8C427A920ED109 /* CDVWKKeyboardFix.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVWKKeyboardFix.m; path = "cordova-plugin-wkkeyboardfix/CDVWKKeyboardFix.m"; sourceTree = "<group>"; };
@@ -264,6 +268,7 @@
 		8F685CE439D74874975C7A38 /* CDVStatusBar.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVStatusBar.m; path = "cordova-plugin-statusbar/CDVStatusBar.m"; sourceTree = "<group>"; };
 		92440E8E67ED4330BD1BF67D /* Foundation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9410CA69E181425DB628B583 /* DDLog.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = "cordova-plugin-httpd/DDLog.h"; sourceTree = "<group>"; };
+		947206FCE2134BF4AD0BB858 /* TwitterCore.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = TwitterCore.framework; path = "FLOW/Plugins/cordova-plugin-twitter-connect-wkwebview/TwitterCore.framework"; sourceTree = "<group>"; };
 		95F02DDC3FAA45B5845437AF /* CDVWKInAppBrowserUIDelegate.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVWKInAppBrowserUIDelegate.m; path = "cordova-plugin-inappbrowser/CDVWKInAppBrowserUIDelegate.m"; sourceTree = "<group>"; };
 		97501B94A6CE4D11B433759B /* GCDWebServerFileResponse.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = GCDWebServerFileResponse.h; path = "cordova-labs-local-webserver/GCDWebServerFileResponse.h"; sourceTree = "<group>"; };
 		99EF7C25C9C9414F8AB821AC /* AppDelegate+notification.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "AppDelegate+notification.m"; path = "phonegap-plugin-push/AppDelegate+notification.m"; sourceTree = "<group>"; };
@@ -297,6 +302,7 @@
 		B932D3768CF541BE8D0DD120 /* GCDWebServerMultiPartFormRequest.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = GCDWebServerMultiPartFormRequest.h; path = "cordova-labs-local-webserver/GCDWebServerMultiPartFormRequest.h"; sourceTree = "<group>"; };
 		BA143DFDBE0C46D8A0C8B835 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = DDAbstractDatabaseLogger.h; path = "cordova-plugin-httpd/DDAbstractDatabaseLogger.h"; sourceTree = "<group>"; };
 		BA1980D969994656917DE21E /* UIImage+CropScaleOrientation.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "UIImage+CropScaleOrientation.m"; path = "cordova-plugin-camera/UIImage+CropScaleOrientation.m"; sourceTree = "<group>"; };
+		BC0A296CA1944580807FAC4A /* TwitterConnect.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = TwitterConnect.m; path = "cordova-plugin-twitter-connect-wkwebview/TwitterConnect.m"; sourceTree = "<group>"; };
 		BC7335F046DD4EC7B641AA1A /* AppDelegate+FirebaseCrashlyticsPlugin.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "AppDelegate+FirebaseCrashlyticsPlugin.h"; path = "cordova-plugin-firebase-crashlytics/AppDelegate+FirebaseCrashlyticsPlugin.h"; sourceTree = "<group>"; };
 		BE6995C380454EBD89580A77 /* CFNetwork.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BEB37FA7BB9743638BEFCCC0 /* CoreTelephony.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -336,6 +342,7 @@
 		EE3ED5B31D774D25BDF6F5DD /* CDVSound.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVSound.h; path = "cordova-plugin-media/CDVSound.h"; sourceTree = "<group>"; };
 		EF77672B5515429882CC34CB /* CDVNotification.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVNotification.h; path = "cordova-plugin-dialogs/CDVNotification.h"; sourceTree = "<group>"; };
 		F0AE37DCB4524851847C4557 /* HTTPErrorResponse.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = HTTPErrorResponse.m; path = "cordova-plugin-httpd/HTTPErrorResponse.m"; sourceTree = "<group>"; };
+		F2086572FCCB4E34A994A17F /* TwitterKit.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = TwitterKit.framework; path = "FLOW/Plugins/cordova-plugin-twitter-connect-wkwebview/TwitterKit.framework"; sourceTree = "<group>"; };
 		F371D3289CB14C0EB2DE4EBE /* APPMethodMagic.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = APPMethodMagic.m; path = "cordova-plugin-background-mode/APPMethodMagic.m"; sourceTree = "<group>"; };
 		F6162AE9AED542DE98A627DB /* CDVConnection.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVConnection.h; path = "cordova-plugin-network-information/CDVConnection.h"; sourceTree = "<group>"; };
 		F81031EB677C423594BA1955 /* CDVCamera.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVCamera.m; path = "cordova-plugin-camera/CDVCamera.m"; sourceTree = "<group>"; };
@@ -371,6 +378,8 @@
 				83BA5A48E6164BA387EFF5DD /* libz.dylib in Frameworks */,
 				BFC5DB35C9294230AB69FF53 /* PushKit.framework in Frameworks */,
 				7B609D3C8D5C8513D838275A /* Pods_FLOW.framework in Frameworks */,
+				726A5D1FEF2A4D44B99D6545 /* TwitterKit.framework in Frameworks */,
+				F97029AE02694321BD2994CE /* TwitterCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +468,8 @@
 				FC75E289381B41B68DAE02BB /* libz.dylib */,
 				ADC0B8FFEFDD4A7798437FEF /* PushKit.framework */,
 				28F20671F21026387727A36A /* Pods_FLOW.framework */,
+				F2086572FCCB4E34A994A17F /* TwitterKit.framework */,
+				947206FCE2134BF4AD0BB858 /* TwitterCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -644,6 +655,8 @@
 				6F15B9011A5D49828F3C034F /* PushPlugin.h */,
 				63376C543FA04965A4ED07EE /* FacebookConnectPlugin.m */,
 				3FC201A6B5814140B35B40AC /* FacebookConnectPlugin.h */,
+				BC0A296CA1944580807FAC4A /* TwitterConnect.m */,
+				375F350953D64A7A8FFE2E59 /* TwitterConnect.h */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -681,6 +694,7 @@
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				235863D6543D4653A3F01BBB /* Embed Frameworks */,
 				1ABCEC26E3CA905C95DDB02F /* [CP] Embed Pods Frameworks */,
+				B12428056CC665652AAEE284 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -812,6 +826,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B12428056CC665652AAEE284 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FLOW/Pods-FLOW-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FLOW/Pods-FLOW-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FLOW/Pods-FLOW-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -902,6 +933,7 @@
 				A1F55997912A4FF496C24707 /* AppDelegate+notification.m in Sources */,
 				76270ACF65A4424DA9ABA024 /* PushPlugin.m in Sources */,
 				6674896763984AC5B3307EEC /* FacebookConnectPlugin.m in Sources */,
+				16BF4E1C268E42C3930C0E95 /* TwitterConnect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -925,9 +957,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 0.2.22;
+				CURRENT_PROJECT_VERSION = 0.2.24;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = U6PZK9X33M;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"FLOW/Plugins/cordova-plugin-twitter-connect-wkwebview\"",
+					"\"FLOW/Plugins/cordova-plugin-twitter-connect-wkwebview\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -938,7 +975,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 0.2.22;
+				MARKETING_VERSION = 0.2.24;
 				PRODUCT_BUNDLE_IDENTIFIER = com.flowapp.flow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -956,9 +993,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 0.2.22;
+				CURRENT_PROJECT_VERSION = 0.2.24;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = U6PZK9X33M;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"FLOW/Plugins/cordova-plugin-twitter-connect-wkwebview\"",
+					"\"FLOW/Plugins/cordova-plugin-twitter-connect-wkwebview\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FLOW/FLOW-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
@@ -967,7 +1009,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 0.2.22;
+				MARKETING_VERSION = 0.2.24;
 				PRODUCT_BUNDLE_IDENTIFIER = com.flowapp.flow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
