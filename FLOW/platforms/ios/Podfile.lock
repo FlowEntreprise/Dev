@@ -2,6 +2,20 @@ PODS:
   - Crashlytics (3.10.9):
     - Fabric (~> 1.7.13)
   - Fabric (1.7.13)
+  - FBSDKCoreKit (5.15.0):
+    - FBSDKCoreKit/Basics (= 5.15.0)
+    - FBSDKCoreKit/Core (= 5.15.0)
+  - FBSDKCoreKit/Basics (5.15.0)
+  - FBSDKCoreKit/Core (5.15.0):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (5.15.0):
+    - FBSDKLoginKit/Login (= 5.15.0)
+  - FBSDKLoginKit/Login (5.15.0):
+    - FBSDKCoreKit (~> 5.0)
+  - FBSDKShareKit (5.15.0):
+    - FBSDKShareKit/Share (= 5.15.0)
+  - FBSDKShareKit/Share (5.15.0):
+    - FBSDKCoreKit (~> 5.0)
   - FirebaseAnalytics (4.2.0):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
@@ -32,12 +46,18 @@ PODS:
 DEPENDENCIES:
   - Crashlytics (~> 3.10.1)
   - Fabric (~> 1.7.5)
+  - FBSDKCoreKit (= 5.15.0)
+  - FBSDKLoginKit (= 5.15.0)
+  - FBSDKShareKit (= 5.15.0)
   - FirebaseMessaging (~> 2.0.0)
 
 SPEC REPOS:
   trunk:
     - Crashlytics
     - Fabric
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - FBSDKShareKit
     - FirebaseAnalytics
     - FirebaseCore
     - FirebaseInstanceID
@@ -49,6 +69,9 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Crashlytics: 55e24fc23989680285a21cb1146578d9d18e432c
   Fabric: 25d0963b691fc97be566392243ff0ecef5a68338
+  FBSDKCoreKit: 083ba8c8e37939c0b4c84250654c9be0aef0c2f8
+  FBSDKLoginKit: bd40354a96e4718765713ef225bc368f10dc395d
+  FBSDKShareKit: 23bad745329f966836f9a2493f86fc7c092b02e6
   FirebaseAnalytics: 7ef69e76a5142f643aeb47c780e1cdce4e23632e
   FirebaseCore: 90cb1c53d69b556f112a1bf72b5fcfaad7650790
   FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
@@ -57,6 +80,6 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
 
-PODFILE CHECKSUM: e5ac9b3b8b62177109f722c30800aba4989f1813
+PODFILE CHECKSUM: e8dc42744029f8ca850b24a585b57901b40ba19d
 
 COCOAPODS: 1.9.1

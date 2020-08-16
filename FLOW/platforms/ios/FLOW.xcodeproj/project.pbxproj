@@ -41,6 +41,7 @@
 		606310ECE0794083BAB64BBF /* HTTPRedirectResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C740DF71FC14FFDA53ABCF2 /* HTTPRedirectResponse.m */; };
 		61C4F0F0DE6B4DA99D96AEBC /* CDVWKInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E650256BED4040845ADA74 /* CDVWKInAppBrowser.m */; };
 		629C351F0A8A4855876B8DE8 /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6830A7C9A121426EA48FE45D /* WebSocket.m */; };
+		6674896763984AC5B3307EEC /* FacebookConnectPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 63376C543FA04965A4ED07EE /* FacebookConnectPlugin.m */; };
 		6694004A879845BEAF59B331 /* FirebaseCrashlyticsPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A5CC929BE2418ABC7E4DBA /* FirebaseCrashlyticsPlugin.m */; };
 		692DCFB956724CCC95C87ACC /* CDVJpegHeaderWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F8BE9DC9BFE044DBB747E0AC /* CDVJpegHeaderWriter.m */; };
 		699627D554604B82930864D0 /* HTTPAuthenticationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A399346B4FB4B449148CCAC /* HTTPAuthenticationRequest.m */; };
@@ -54,6 +55,7 @@
 		76952012C4A847C2B5582AD6 /* KImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4268BF960D5E4AB692C57F61 /* KImageCropper.m */; };
 		7787F4889D884B9AA8CF7CFA /* GCDWebServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BE6A9E824D240BCBDC3AAA3 /* GCDWebServerRequest.m */; };
 		7A5EF6481C2444C5BED3AEFE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE6995C380454EBD89580A77 /* CFNetwork.framework */; };
+		7B609D3C8D5C8513D838275A /* Pods_FLOW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F20671F21026387727A36A /* Pods_FLOW.framework */; };
 		7B9B21BA1800409E9E541D75 /* PECropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CC7AC8C8E9499684D713C6 /* PECropView.m */; };
 		7BB247C981AF4681B4E2700A /* CDVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6246AE6AEB4D1C85FB7A30 /* CDVConnection.m */; };
 		809FF66F007749829232C695 /* APPMethodMagic.m in Sources */ = {isa = PBXBuildFile; fileRef = F371D3289CB14C0EB2DE4EBE /* APPMethodMagic.m */; };
@@ -73,7 +75,6 @@
 		A52BB071B71B452A998DE414 /* CorHttpd.m in Sources */ = {isa = PBXBuildFile; fileRef = 13265D4E72C542898559AD60 /* CorHttpd.m */; };
 		A65C98E07C85432F8DB39714 /* MultipartMessageHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D38AE07A9794D60BE98D771 /* MultipartMessageHeader.m */; };
 		A949423338BA4136A9D1FC4A /* GCDWebServerDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F1EC204864F318AD3D706 /* GCDWebServerDataResponse.m */; };
-		A98C1E2B6BB9F5F056561264 /* libPods-FLOW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6901592D796A43068C747FE8 /* libPods-FLOW.a */; };
 		AFC9EB8FC8BD46F88E261D20 /* HTTPDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 349AF9EDE64446559EE1A39D /* HTTPDataResponse.m */; };
 		B219A15F1EAB44A7A10D3D47 /* CDVInAppBrowserNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E3392DA844484BABA2A78B6F /* CDVInAppBrowserNavigationController.m */; };
 		B3E1C89875444B3FA1990301 /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C095FB1954E44CB95F39D97 /* DDData.m */; };
@@ -187,6 +188,7 @@
 		2504F265A98C49D8A2AADC69 /* GCDWebServerURLEncodedFormRequest.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = GCDWebServerURLEncodedFormRequest.m; path = "cordova-labs-local-webserver/GCDWebServerURLEncodedFormRequest.m"; sourceTree = "<group>"; };
 		266DF83AAC29468C95E540B5 /* GCDWebServer.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = GCDWebServer.m; path = "cordova-labs-local-webserver/GCDWebServer.m"; sourceTree = "<group>"; };
 		28314B11BB8D469B94B5AFDF /* HTTPMessage.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = HTTPMessage.m; path = "cordova-plugin-httpd/HTTPMessage.m"; sourceTree = "<group>"; };
+		28F20671F21026387727A36A /* Pods_FLOW.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FLOW.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29664DF98DAD4BCDAD2D3895 /* PEResizeControl.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = PEResizeControl.h; path = "cordova-plugin-k-imagecropper/PEResizeControl.h"; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A50080E52954E2092BF73F5 /* MultipartMessageHeader.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = MultipartMessageHeader.h; path = "cordova-plugin-httpd/MultipartMessageHeader.h"; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 		38FF79903EBC42A29EDBE418 /* HTTPConnection.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = HTTPConnection.m; path = "cordova-plugin-httpd/HTTPConnection.m"; sourceTree = "<group>"; };
 		3B2C9E0B1F8C427A920ED109 /* CDVWKKeyboardFix.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVWKKeyboardFix.m; path = "cordova-plugin-wkkeyboardfix/CDVWKKeyboardFix.m"; sourceTree = "<group>"; };
 		3E7D09A60EC5406E942C1B3C /* GCDWebServerResponse.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = GCDWebServerResponse.h; path = "cordova-labs-local-webserver/GCDWebServerResponse.h"; sourceTree = "<group>"; };
+		3FC201A6B5814140B35B40AC /* FacebookConnectPlugin.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = FacebookConnectPlugin.h; path = "cordova-plugin-facebook4/FacebookConnectPlugin.h"; sourceTree = "<group>"; };
 		406503428B99D842BB4ADAEF /* Pods-FLOW.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FLOW.debug.xcconfig"; path = "Target Support Files/Pods-FLOW/Pods-FLOW.debug.xcconfig"; sourceTree = "<group>"; };
 		4268BF960D5E4AB692C57F61 /* KImageCropper.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = KImageCropper.m; path = "cordova-plugin-k-imagecropper/KImageCropper.m"; sourceTree = "<group>"; };
 		4407CEB05064481A8ECEDF54 /* AudioToolbox.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -229,9 +232,9 @@
 		5F4E6A9A61294E5FB07B2740 /* FirebaseCrashlyticsPlugin.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = FirebaseCrashlyticsPlugin.h; path = "cordova-plugin-firebase-crashlytics/FirebaseCrashlyticsPlugin.h"; sourceTree = "<group>"; };
 		6007654605EE4178A3602A58 /* CDVCamera.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVCamera.h; path = "cordova-plugin-camera/CDVCamera.h"; sourceTree = "<group>"; };
 		61BC3F92345E464C9286DB1D /* HTTPFileResponse.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = HTTPFileResponse.m; path = "cordova-plugin-httpd/HTTPFileResponse.m"; sourceTree = "<group>"; };
+		63376C543FA04965A4ED07EE /* FacebookConnectPlugin.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = FacebookConnectPlugin.m; path = "cordova-plugin-facebook4/FacebookConnectPlugin.m"; sourceTree = "<group>"; };
 		6830A7C9A121426EA48FE45D /* WebSocket.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = WebSocket.m; path = "cordova-plugin-httpd/WebSocket.m"; sourceTree = "<group>"; };
 		68922AA0F65E46B789A56FD7 /* GCDWebServerHTTPStatusCodes.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = GCDWebServerHTTPStatusCodes.h; path = "cordova-labs-local-webserver/GCDWebServerHTTPStatusCodes.h"; sourceTree = "<group>"; };
-		6901592D796A43068C747FE8 /* libPods-FLOW.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FLOW.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = CDVLaunchScreen.storyboard; path = FLOW/CDVLaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		6C095FB1954E44CB95F39D97 /* DDData.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = DDData.m; path = "cordova-plugin-httpd/DDData.m"; sourceTree = "<group>"; };
 		6C457A2CD2A042E5BBE58C35 /* APPBackgroundMode.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = APPBackgroundMode.m; path = "cordova-plugin-background-mode/APPBackgroundMode.m"; sourceTree = "<group>"; };
@@ -365,9 +368,9 @@
 				E1B61DD81B024D60981B38F9 /* AVFoundation.framework in Frameworks */,
 				A51A6ACD74A64B6480BAF8B9 /* SystemConfiguration.framework in Frameworks */,
 				F48A6D4C5CC54DEF8151185A /* CoreTelephony.framework in Frameworks */,
-				A98C1E2B6BB9F5F056561264 /* libPods-FLOW.a in Frameworks */,
 				83BA5A48E6164BA387EFF5DD /* libz.dylib in Frameworks */,
 				BFC5DB35C9294230AB69FF53 /* PushKit.framework in Frameworks */,
+				7B609D3C8D5C8513D838275A /* Pods_FLOW.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,7 +398,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+		29B97314FDCFA39411CA2CEA = {
 			isa = PBXGroup;
 			children = (
 				EB87FDF41871DAF40020F90C /* config.xml */,
@@ -453,9 +456,9 @@
 				4A4A8A89F7004BF58D8F048F /* AVFoundation.framework */,
 				A735A2DC7F054E9DA7611B6F /* SystemConfiguration.framework */,
 				BEB37FA7BB9743638BEFCCC0 /* CoreTelephony.framework */,
-				6901592D796A43068C747FE8 /* libPods-FLOW.a */,
 				FC75E289381B41B68DAE02BB /* libz.dylib */,
 				ADC0B8FFEFDD4A7798437FEF /* PushKit.framework */,
+				28F20671F21026387727A36A /* Pods_FLOW.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -639,6 +642,8 @@
 				D1C024F33069458799B61A2E /* PushPlugin.m */,
 				CCEB8BEC72874A4FA654F09A /* AppDelegate+notification.h */,
 				6F15B9011A5D49828F3C034F /* PushPlugin.h */,
+				63376C543FA04965A4ED07EE /* FacebookConnectPlugin.m */,
+				3FC201A6B5814140B35B40AC /* FacebookConnectPlugin.h */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -675,6 +680,7 @@
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				235863D6543D4653A3F01BBB /* Embed Frameworks */,
+				1ABCEC26E3CA905C95DDB02F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -702,7 +708,7 @@
 				en,
 				Base,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			mainGroup = 29B97314FDCFA39411CA2CEA;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -752,6 +758,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1ABCEC26E3CA905C95DDB02F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FLOW/Pods-FLOW-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FLOW/Pods-FLOW-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FLOW/Pods-FLOW-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		304B58A110DAC018002A0835 /* Copy www directory */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -878,6 +901,7 @@
 				FC12BEDCC177416888A3F2CD /* GCDWebServerStreamedResponse.m in Sources */,
 				A1F55997912A4FF496C24707 /* AppDelegate+notification.m in Sources */,
 				76270ACF65A4424DA9ABA024 /* PushPlugin.m in Sources */,
+				6674896763984AC5B3307EEC /* FacebookConnectPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

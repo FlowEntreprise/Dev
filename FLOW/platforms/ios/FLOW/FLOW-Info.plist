@@ -23,7 +23,12 @@
 	<key>CFBundleVersion</key>
 	<string>1.0.0</string>
 	<key>LSApplicationQueriesSchemes</key>
-	<array/>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -67,6 +72,21 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>FacebookAppID</key>
+	<string>502054883649562</string>
+	<key>FacebookDisplayName</key>
+	<string>FLOW</string>
+	<key>FacebookHybridAppEvents</key>
+	<string>false</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb502054883649562</string>
+			</array>
+		</dict>
 	</array>
 </dict>
 </plist>

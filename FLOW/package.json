@@ -21,6 +21,7 @@
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-dialogs": "^2.0.2",
+    "cordova-plugin-facebook4": "6.4.0",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-firebase-crashlytics": "0.0.6",
     "cordova-plugin-fullscreen": "^1.2.0",

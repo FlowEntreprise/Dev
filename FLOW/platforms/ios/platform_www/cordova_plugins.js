@@ -374,6 +374,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "PushNotification"
       ]
+    },
+    {
+      "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
+      "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
+      "pluginId": "cordova-plugin-facebook4",
+      "clobbers": [
+        "facebookConnectPlugin"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -403,6 +411,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-support-google-services": "1.3.1",
     "cordova-plugin-firebase-crashlytics": "0.0.6",
     "cordova-labs-local-webserver": "2.4.0",
-    "phonegap-plugin-push": "2.3.0"
+    "phonegap-plugin-push": "2.3.0",
+    "cordova-plugin-facebook4": "6.4.0"
   };
 });

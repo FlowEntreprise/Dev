@@ -1,0 +1,7 @@
+${PODS_ROOT}/Target Support Files/Pods-FLOW/Pods-FLOW-frameworks.sh
+${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework
+${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework
+${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework
+${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework
+${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework
+${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework
