@@ -155,8 +155,25 @@ var app = {
             // data.registrationId
             console.log(data.registrationId);
             registrationId = data.registrationId;
-
+                    
+            if (window.cordova.platformId == "ios")
+            {
+                let data_apns_to_fcm =
+                {
+                    {
+                     "application": "com.flowapp.flow",
+                     "sandbox":true,
+                     "apns_tokens":[
+                         registrationId
+                      ]
+                    }
+                    
+                }
+                ServerManager.APNS_token_to_FCM_token(data_apns_to_fcm);
+            }
         });
+                        
+            
 
         push.on('notification', function (data) {
             /*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es

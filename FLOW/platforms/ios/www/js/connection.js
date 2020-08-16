@@ -4,6 +4,7 @@ var user_token;
 // CheckIfConnected();
 
 function ConnectUser() {
+    
     console.log("user connected");
     connected = true;
     // $(".empty_tl")[0].style.display = "none";
@@ -38,11 +39,17 @@ function ConnectUser() {
     // });
     $(".faccount")[0].style.backgroundImage = "url('')";
     setTimeout(function () {
-        let data = {
-            RegisterId: registrationId,
-            LastOs: window.cordova.platformId
-        };
-        ServerManager.UpdateRegisterId(data);
+        
+        
+        
+            let data = {
+                RegisterId: registrationId,
+                LastOs: window.cordova.platformId
+            };
+            ServerManager.UpdateRegisterId(data);
+        
+        
+        
         $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
     }, 100);
 
