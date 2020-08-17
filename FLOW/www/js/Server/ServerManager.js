@@ -185,12 +185,17 @@ class ServerManagerClass {
             "method": "GET",
             "timeout": 0,
             "headers": {
-                "Authorization": "OAuth oauth_consumer_key=\"JwyvPlw7GcOvE8pXmRvqTyZL3\",oauth_token=\"" + data.token + "\",oauth_signature_method=\"HMAC-SHA1\",oauth_timestamp=\"1597624281\",oauth_nonce=\"hthRuas3p4v\",oauth_version=\"1.0\",oauth_signature=\"vFWMkS76xG0DMs%2BVm6Du8NFvBvU%3D\""
+                "Authorization": "OAuth oauth_consumer_key=\"JwyvPlw7GcOvE8pXmRvqTyZL3\",oauth_token=\"960333428-EF9gwRa1usCDYQ6GBPVGgVduAFLdRyZHLZCixF7S\",oauth_signature_method=\"HMAC-SHA1\",oauth_timestamp=\"1597674666\",oauth_nonce=\"u9E3GrSKwMK\",oauth_version=\"1.0\",oauth_signature=\"Z%2FBPk5ZNAp%2BSIvChiDfc%2Bgh6Wh0%3D\"",
+                "Cookie": "personalization_id=\"v1_A+UCZ1kvLIM8Y8NnXlCvAQ==\"; guest_id=v1%3A159762354176648958; lang=en"
             },
         };
 
         $.ajax(settings).done(function (response) {
             console.log(response);
+            let txt = response.name + " --- " + response.screen_name + " --- " + response.profile_image_url + " --- " + response.description + "---" + response.id;
+            console.log(txt);
+            response.profile_image_url = response.profile_image_url.replace("_normal", "");
+            ServerManager.Connect(apiTypes.Twitter, response);
         });
     }
 
@@ -919,6 +924,40 @@ class ServerManagerClass {
                 //console.log(response);
             }
         });
+    }
+
+    APNS_token_to_FCM_token(data) {
+
+        $.ajax({
+
+            type: "POST",
+            url: " https://iid.googleapis.com/iid/v1:batchImport",
+            headers: {
+                Authorization: 'key=' + 'AAAASolkDdQ:APA91bGQTqtjxefUeH3JhJQXP30B6d6TgHYN239VGsaX3-0qpBEH7_Wy_9MLiVOlniHQ9gqZcHt3q76d5QGb3It-qUIJfo954NZBmz9INY765rMn8S40Cz-fw5zTeBfoQVnZSE3oW4oL'
+            },
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(data),
+
+            success: function (response) {
+                console.info("reponse du apns to fcm");
+                console.info(response);
+                registrationId = response.results[0].registration_token;
+                /*let data = {
+                    RegisterId: registrationId,
+                    LastOs: window.cordova.platformId
+                };
+                ServerManager.UpdateRegisterId(data);*/
+                console.log(registrationId);
+
+            },
+            error: function (response) {
+
+            }
+
+        });
+
+
     }
 
     Send_notif(data) {

@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-    ServerURL: "https://api-test.flowappweb.com/",
+    ServerURL: "https://api.flowappweb.com/",
     ConnexionURL: "ConnexionFromApi",
     AddFlowURL: "AddFlow",
     GetSingleFlowURL: "GetSingle",
@@ -924,6 +924,40 @@ class ServerManagerClass {
                 //console.log(response);
             }
         });
+    }
+
+    APNS_token_to_FCM_token(data) {
+
+        $.ajax({
+
+            type: "POST",
+            url: " https://iid.googleapis.com/iid/v1:batchImport",
+            headers: {
+                Authorization: 'key=' + 'AAAASolkDdQ:APA91bGQTqtjxefUeH3JhJQXP30B6d6TgHYN239VGsaX3-0qpBEH7_Wy_9MLiVOlniHQ9gqZcHt3q76d5QGb3It-qUIJfo954NZBmz9INY765rMn8S40Cz-fw5zTeBfoQVnZSE3oW4oL'
+            },
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(data),
+
+            success: function (response) {
+                console.info("reponse du apns to fcm");
+                console.info(response);
+                registrationId = response.results[0].registration_token;
+                /*let data = {
+                    RegisterId: registrationId,
+                    LastOs: window.cordova.platformId
+                };
+                ServerManager.UpdateRegisterId(data);*/
+                console.log(registrationId);
+
+            },
+            error: function (response) {
+
+            }
+
+        });
+
+
     }
 
     Send_notif(data) {
