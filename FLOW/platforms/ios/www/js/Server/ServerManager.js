@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-    ServerURL: "https://api-test.flowappweb.com/",
+    ServerURL: "https://api.flowappweb.com/",
     ConnexionURL: "ConnexionFromApi",
     AddFlowURL: "AddFlow",
     GetSingleFlowURL: "GetSingle",
@@ -176,6 +176,21 @@ class ServerManagerClass {
                 //// console.log("Connection error : ");
                 //// console.log(response);
             }
+        });
+    }
+
+    TwitterShowUser(data) {
+        var settings = {
+            "url": "https://api.twitter.com/1.1/users/show.json?user_id=" + data.user_id,
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Authorization": "OAuth oauth_consumer_key=\"JwyvPlw7GcOvE8pXmRvqTyZL3\",oauth_token=\"" + data.token + "\",oauth_signature_method=\"HMAC-SHA1\",oauth_timestamp=\"1597624281\",oauth_nonce=\"hthRuas3p4v\",oauth_version=\"1.0\",oauth_signature=\"vFWMkS76xG0DMs%2BVm6Du8NFvBvU%3D\""
+            },
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
         });
     }
 
@@ -831,9 +846,8 @@ class ServerManagerClass {
             url: ServerParams.ServerURL + ServerParams.AddNotificationToUser,
             data: JSON.stringify(final_data),
             success: function (response) {
-                console.log(final_data);
-                console.log("notif added to bdd");
-                console.log(response);
+                //console.log(response);
+                //console.log("notif added to bdd");
             },
             error: function (response) {
                 //console.log(response);
@@ -907,41 +921,6 @@ class ServerManagerClass {
         });
     }
 
-        
-    APNS_token_to_FCM_token(data) {
-        
-        $.ajax({
-
-            type: "POST",
-            url: " https://iid.googleapis.com/iid/v1:batchImport",
-            headers: {
-                Authorization: 'key=' + 'AAAASolkDdQ:APA91bGQTqtjxefUeH3JhJQXP30B6d6TgHYN239VGsaX3-0qpBEH7_Wy_9MLiVOlniHQ9gqZcHt3q76d5QGb3It-qUIJfo954NZBmz9INY765rMn8S40Cz-fw5zTeBfoQVnZSE3oW4oL'
-            },
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify(data),
-
-            success: function (response) {
-                console.info("reponse du apns to fcm");
-                console.info(response);
-                registrationId = response.results[0].registration_token;
-                /*let data = {
-                    RegisterId: registrationId,
-                    LastOs: window.cordova.platformId
-                };
-                ServerManager.UpdateRegisterId(data);*/
-                console.log(registrationId);
-                
-            },
-            error: function (response) {
-                
-            }
-
-        });
-
-
-    }
-    
     Send_notif(data) {
         var data_notif_to_bdd;
         if (data.notification) {
@@ -979,9 +958,7 @@ class ServerManagerClass {
                                 Content : data.data.message
                 */
                 ServerManager.AddNotificationToUser(data_notif_to_bdd);
-                console.log("les datas d'envoi de notifs en bdd sont :" )
-                console.log(data_notif_to_bdd);
-                console.log("Notif envoyé avec succes");
+                //console.log("Notif envoyé avec succes");
             },
             error: function (response) {
                 //console.log("La notif n'a pas été envoyé");

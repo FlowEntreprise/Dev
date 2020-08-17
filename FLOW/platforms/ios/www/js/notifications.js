@@ -672,9 +672,7 @@ function push_notif_block(notification_type, like_type) {
 }
 
 //https://github.com/phonegap/phonegap-plugin-push/blob/master/docs/PAYLOAD.md
-//-----RegistrationId for ios------
-//https://github.com/zo0r/react-native-push-notification/issues/1251
-                
+
 function send_notif_to_user(block, type) {
 
 

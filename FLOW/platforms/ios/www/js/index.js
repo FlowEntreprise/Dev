@@ -99,7 +99,7 @@ var app = {
             // analytics.setCurrentScreen(current_page);
         }
 
-        /*let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+        let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
         facebookConnectPlugin.logEvent("current_page", {
             page: current_page,
             duration: time_in_last_screen
@@ -108,11 +108,11 @@ var app = {
         }, function () {
             console.log("fb current_page error")
         });
-        last_currentpage_timestamp = Math.floor(Date.now() / 1000);*/
+        last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
 
 
-        //httpd = (cordova && cordova.plugins && cordova.plugins.CorHttpd) ? cordova.plugins.CorHttpd : null;
+        httpd = (cordova && cordova.plugins && cordova.plugins.CorHttpd) ? cordova.plugins.CorHttpd : null;
 
         // No need since no using workers anymore
         // httpd.startServer({
@@ -140,7 +140,7 @@ var app = {
             console.log("cordova-plugin-audioinput not found!");
         }
 
-        push = PushNotification.init({
+        var push = PushNotification.init({
             android: {
                 icon: device.manufacturer == "OnePlus" ? 'flow_icone_one_plus' : 'flow_icone'
             },
@@ -155,24 +155,8 @@ var app = {
             // data.registrationId
             console.log(data.registrationId);
             registrationId = data.registrationId;
-                    
-            if (window.cordova.platformId == "ios")
-            {
-                let data_apns_to_fcm =
-                
-                    {
-                     "application": "com.flowapp.flow",
-                     "sandbox":true,
-                     "apns_tokens":[
-                         registrationId
-                      ]
-                    }
-                console.info(" le registrationid avant la transformation est : "+registrationId);
-                ServerManager.APNS_token_to_FCM_token(data_apns_to_fcm);
-            }
+
         });
-                        
-            
 
         push.on('notification', function (data) {
             /*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es

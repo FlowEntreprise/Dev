@@ -91,6 +91,28 @@
     </feature>
     <access origin="http://localhost" />
     <allow-navigation href="http://localhost:*/*" />
+    <feature name="PushNotification">
+        <param name="ios-package" value="PushPlugin" />
+    </feature>
+    <feature name="FacebookConnectPlugin">
+        <param name="ios-package" value="FacebookConnectPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <plugin name="FacebookConnectPlugin" value="FacebookConnectPlugin" />
+    <access origin="https://m.facebook.com" />
+    <access origin="https://graph.facebook.com" />
+    <access origin="https://api.facebook.com" />
+    <access origin="https://*.fbcdn.net" />
+    <access origin="https://*.akamaihd.net" />
+    <allow-navigation href="about:*" />
+    <feature name="TwitterConnect">
+        <param name="ios-package" value="TwitterConnect" />
+    </feature>
+    <widget>
+        <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
+        <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
+        <preference name="deployment-target" value="9.0" />
+    </widget>
     <name>FLOW</name>
     <description>
         The Vocal Social Network.
@@ -106,6 +128,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <resource-file src="GoogleService-Info.plist" />
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
     <splash height="480" src="res/screen/ios/LaunchImage-320x480.png" width="320" />
@@ -146,26 +169,4 @@
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
     <preference name="deployment-target" value="7.0" />
     <preference name="KeyboardShrinksView" value="true" />
-    <feature name="PushNotification">
-        <param name="ios-package" value="PushPlugin" />
-    </feature>
-    <feature name="FacebookConnectPlugin">
-        <param name="ios-package" value="FacebookConnectPlugin" />
-        <param name="onload" value="true" />
-    </feature>
-    <plugin name="FacebookConnectPlugin" value="FacebookConnectPlugin" />
-    <access origin="https://m.facebook.com" />
-    <access origin="https://graph.facebook.com" />
-    <access origin="https://api.facebook.com" />
-    <access origin="https://*.fbcdn.net" />
-    <access origin="https://*.akamaihd.net" />
-    <allow-navigation href="about:*" />
-    <feature name="TwitterConnect">
-        <param name="ios-package" value="TwitterConnect" />
-    </feature>
-    <widget>
-        <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
-        <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
-        <preference name="deployment-target" value="9.0" />
-    </widget>
 </widget>
