@@ -5,7 +5,8 @@ function TWLogin() {
     });
     TwitterConnect.login(
         function (result) {
-            GetInfos();
+            console.log(result);
+            GetInfos(result);
         },
         function (error) {
             $(".loading_connect").css({
@@ -18,29 +19,35 @@ function TWLogin() {
     );
 }
 
-function GetInfos() {
+function GetInfos(data) {
     if (window.cordova.platformId == "ios") {
-        TwitterConnect.showUser(
-            function (result) {
-                var txt = result.name + " --- " + result.screen_name + " --- " + result.profile_image_url + " --- " + result.description + "---" + result.id;
-                //document.getElementById('infos').innerHTML = txt;
-                //Transport(socket, result, "twitter");
-                result.profile_image_url = result.profile_image_url.replace("_normal", "");
-                // Socket.client.send('Inscription','Twitter',result); -- OLD
-                ServerManager.Connect(apiTypes.Twitter, result);
-                //alert(txt);
-            },
-            function (error) {
-                $(".loading_connect").css({
-                    "opacity": "0",
-                    "pointer-events": "none"
-                });
-                console.log(error);
-                // alert(error);
-            }, {
-                "include_entities": false
-            },
-        );
+        let data_to_send = {
+            user_id: data.id,
+            token: data.authToken
+        }
+        console.log(data_to_send);
+        ServerManager.TwitterShowUser(data_to_send);
+        // TwitterConnect.showUser(
+        //     function (result) {
+        //         var txt = result.name + " --- " + result.screen_name + " --- " + result.profile_image_url + " --- " + result.description + "---" + result.id;
+        //         //document.getElementById('infos').innerHTML = txt;
+        //         //Transport(socket, result, "twitter");
+        //         result.profile_image_url = result.profile_image_url.replace("_normal", "");
+        //         // Socket.client.send('Inscription','Twitter',result); -- OLD
+        //         ServerManager.Connect(apiTypes.Twitter, result);
+        //         //alert(txt);
+        //     },
+        //     function (error) {
+        //         $(".loading_connect").css({
+        //             "opacity": "0",
+        //             "pointer-events": "none"
+        //         });
+        //         console.log(error);
+        //         // alert(error);
+        //     }, {
+        //         "include_entities": false
+        //     },
+        // );
     } else {
         TwitterConnect.showUser({
                 "include_entities": false

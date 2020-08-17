@@ -106,7 +106,7 @@ function CheckIfConnected() {
     console.log("checking if connected");
     user_token = window.localStorage.getItem("user_token") || null;
     console.log(window.localStorage.getItem("user_token"));
-    if (user_token.length > 0) {
+    if (user_token != null) {
         ConnectUser();
     } else {
         DisconnectUser();

@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-    ServerURL: "https://api-test.flowappweb.com/",
+    ServerURL: "https://api.flowappweb.com/",
     ConnexionURL: "ConnexionFromApi",
     AddFlowURL: "AddFlow",
     GetSingleFlowURL: "GetSingle",
@@ -177,6 +177,62 @@ class ServerManagerClass {
                 //// console.log(response);
             }
         });
+    }
+
+    TwitterShowUser(data) {
+
+        let oauth = OAuth({
+            consumer: {
+                key: 'JwyvPlw7GcOvE8pXmRvqTyZL3',
+                secret: '6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT',
+            },
+            signature_method: 'HMAC-SHA1',
+            hash_function(base_string, key) {
+                return CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64)
+            },
+        })
+
+        let request_data = {
+            url: 'https://api.twitter.com/1.1/users/show.json?user_id=' + data.user_id,
+            method: 'GET',
+            // data: { status: 'Hello Ladies + Gentlemen, a signed OAuth request!' },
+        }
+
+        let token = {
+            key: '960333428-EF9gwRa1usCDYQ6GBPVGgVduAFLdRyZHLZCixF7S',
+            secret: '1hjDDMhkNV58mcoSrKD8p4pE1UJtySyG4aZ5Snh8THCch',
+        }
+
+        $.ajax({
+            url: request_data.url,
+            type: request_data.method,
+            // data: request_data.data,
+            headers: oauth.toHeader(oauth.authorize(request_data, token)),
+        }).done(function (response) {
+            console.log(response);
+            let txt = response.name + " --- " + response.screen_name + " --- " + response.profile_image_url + " --- " + response.description + "---" + response.id;
+            console.log(txt);
+            response.profile_image_url = response.profile_image_url.replace("_normal", "");
+            ServerManager.Connect(apiTypes.Twitter, response);
+        })
+        ////////////////////////////////////
+        // var settings = {
+        //     "url": "https://api.twitter.com/1.1/users/show.json?user_id=960333428",
+        //     "method": "GET",
+        //     "timeout": 0,
+        //     "headers": {
+        //         "Authorization": "OAuth oauth_consumer_key=\"JwyvPlw7GcOvE8pXmRvqTyZL3\",oauth_token=\"960333428-EF9gwRa1usCDYQ6GBPVGgVduAFLdRyZHLZCixF7S\",oauth_signature_method=\"HMAC-SHA1\",oauth_timestamp=\"1597676530\",oauth_nonce=\"XhVLLyWWcsA\",oauth_version=\"1.0\",oauth_signature=\"JJLiWdDkjC%2BhnjPegsSk9UkxU%2BU%3D\"",
+        //         "Cookie": "personalization_id=\"v1_A+UCZ1kvLIM8Y8NnXlCvAQ==\"; guest_id=v1%3A159762354176648958; lang=en"
+        //     },
+        // };
+
+        // $.ajax(settings).done(function (response) {
+        //     console.log(response);
+        //     let txt = response.name + " --- " + response.screen_name + " --- " + response.profile_image_url + " --- " + response.description + "---" + response.id;
+        //     console.log(txt);
+        //     response.profile_image_url = response.profile_image_url.replace("_normal", "");
+        //     ServerManager.Connect(apiTypes.Twitter, response);
+        // });
     }
 
     AddFlow(data) {
@@ -904,6 +960,40 @@ class ServerManagerClass {
                 //console.log(response);
             }
         });
+    }
+
+    APNS_token_to_FCM_token(data) {
+
+        $.ajax({
+
+            type: "POST",
+            url: " https://iid.googleapis.com/iid/v1:batchImport",
+            headers: {
+                Authorization: 'key=' + 'AAAASolkDdQ:APA91bGQTqtjxefUeH3JhJQXP30B6d6TgHYN239VGsaX3-0qpBEH7_Wy_9MLiVOlniHQ9gqZcHt3q76d5QGb3It-qUIJfo954NZBmz9INY765rMn8S40Cz-fw5zTeBfoQVnZSE3oW4oL'
+            },
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(data),
+
+            success: function (response) {
+                console.info("reponse du apns to fcm");
+                console.info(response);
+                registrationId = response.results[0].registration_token;
+                /*let data = {
+                    RegisterId: registrationId,
+                    LastOs: window.cordova.platformId
+                };
+                ServerManager.UpdateRegisterId(data);*/
+                console.log(registrationId);
+
+            },
+            error: function (response) {
+
+            }
+
+        });
+
+
     }
 
     Send_notif(data) {
