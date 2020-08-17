@@ -304,3 +304,34 @@ J'ai remove ça du config.xml juste pour save ça qq part :
 <preference name="AndroidLaunchMode" value="singleInstance" />
 <preference name="KeepRunning" value="true" />
 */
+
+// const oauth = OAuth({
+//     consumer: {
+//         key: 'JwyvPlw7GcOvE8pXmRvqTyZL3',
+//         secret: '6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT',
+//     },
+//     signature_method: 'HMAC-SHA1',
+//     hash_function(base_string, key) {
+//         return CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64)
+//     },
+// })
+
+// const request_data = {
+//     url: 'https://api.twitter.com/1.1/users/show.json?screen_name=CRY0SS',
+//     method: 'GET',
+//     // data: { status: 'Hello Ladies + Gentlemen, a signed OAuth request!' },
+// }
+
+// // Note: The token is optional for some requests
+// const token = {
+//     key: '960333428-EF9gwRa1usCDYQ6GBPVGgVduAFLdRyZHLZCixF7S',
+//     secret: '1hjDDMhkNV58mcoSrKD8p4pE1UJtySyG4aZ5Snh8THCch',
+// }
+
+// $.ajax({
+//     url: request_data.url,
+//     type: request_data.method,
+//     data: oauth.authorize(request_data, token),
+// }).done(function (data) {
+//     // Process your data here
+// })

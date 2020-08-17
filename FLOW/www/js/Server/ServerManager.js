@@ -180,12 +180,72 @@ class ServerManagerClass {
     }
 
     TwitterShowUser(data) {
+
+        // var auth = {
+        //     //
+        //     // Update with your auth tokens.
+        //     //
+        //     consumerKey: "YOUR_CONSUMER_KEY",
+        //     consumerSecret: "YOUR_CONSUMER_SECRET",
+        //     accessToken: "YOUR_TOKEN",
+        //     // This example is a proof of concept, for how to use the Yelp v2 API with javascript.
+        //     // You wouldn't actually want to expose your access token secret like this in a real application.
+        //     accessTokenSecret: "YOUR_TOKEN_SECRET",
+        //     serviceProvider: {
+        //         signatureMethod: "HMAC-SHA1"
+        //     }
+        // };
+
+        // var terms = 'food';
+        // var near = 'San+Francisco';
+
+        // var accessor = {
+        //     consumerSecret: auth.consumerSecret,
+        //     tokenSecret: auth.accessTokenSecret
+        // };
+
+        // parameters = [];
+        // parameters.push(['term', terms]);
+        // parameters.push(['location', near]);
+        // parameters.push(['callback', 'cb']);
+        // parameters.push(['oauth_consumer_key', auth.consumerKey]);
+        // parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
+        // parameters.push(['oauth_token', auth.accessToken]);
+        // parameters.push(['oauth_signature_method', 'HMAC-SHA1']);
+
+        // var message = {
+        //     'action': 'http://api.yelp.com/v2/search',
+        //     'method': 'GET',
+        //     'parameters': parameters
+        // };
+
+        // OAuth.setTimestampAndNonce(message);
+        // OAuth.SignatureMethod.sign(message, accessor);
+
+        // var parameterMap = OAuth.getParameterMap(message.parameters);
+        // parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature)
+        // console.log(parameterMap);
+
+        // $.ajax({
+        //     'url': message.action,
+        //     'data': parameterMap,
+        //     'cache': true,
+        //     'dataType': 'jsonp',
+        //     'jsonpCallback': 'cb',
+        //     'success': function (data, textStats, XMLHttpRequest) {
+        //         console.log(data);
+        //         var output = prettyPrint(data);
+        //         $("body").append(output);
+        //     }
+        // });
+
+        ////////////////////////////////////
         var settings = {
-            "url": "https://api.twitter.com/1.1/users/show.json?user_id=" + data.user_id,
+            "url": "https://api.twitter.com/1.1/users/show.json?user_id=960333428",
             "method": "GET",
             "timeout": 0,
             "headers": {
-                "Authorization": "OAuth oauth_consumer_key=\"JwyvPlw7GcOvE8pXmRvqTyZL3\",oauth_token=\"960333428-EF9gwRa1usCDYQ6GBPVGgVduAFLdRyZHLZCixF7S\",oauth_signature_method=\"HMAC-SHA1\",oauth_timestamp=\"1597674666\",oauth_nonce=\"u9E3GrSKwMK\",oauth_version=\"1.0\",oauth_signature=\"Z%2FBPk5ZNAp%2BSIvChiDfc%2Bgh6Wh0%3D\"",
+                "Authorization": "OAuth oauth_consumer_key=\"JwyvPlw7GcOvE8pXmRvqTyZL3\",oauth_token=\"960333428-EF9gwRa1usCDYQ6GBPVGgVduAFLdRyZHLZCixF7S\",oauth_signature_method=\"HMAC-SHA1\",oauth_timestamp=\"1597676530\",oauth_nonce=\"XhVLLyWWcsA\",oauth_version=\"1.0\",oauth_signature=\"JJLiWdDkjC%2BhnjPegsSk9UkxU%2BU%3D\"",
                 "Cookie": "personalization_id=\"v1_A+UCZ1kvLIM8Y8NnXlCvAQ==\"; guest_id=v1%3A159762354176648958; lang=en"
             },
         };

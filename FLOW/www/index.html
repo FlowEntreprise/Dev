@@ -46,6 +46,10 @@
 <script type="text/javascript" src="Dependencies/Vibrant/Vibrant.min.js"></script>
 <!--<script type="text/javascript" src="Dependencies/SweetAlert/sweetalert.min.js"></script>-->
 <script type="text/javascript" src="Dependencies/LameJS/Lamejs.all.js"></script>
+<script src="Dependencies/OAuth/hmac-sha1.js"></script>
+<script src="Dependencies/OAuth/hmac-sha256.js"></script>
+<script src="Dependencies/OAuth/enc-base64-min.js"></script>
+<script type="text/javascript" src="Dependencies/OAuth/oauth-1.0a.js"></script>
 <!-- <script type="text/javascript" src="Dependencies/PullToRefreshJS/pulltorefresh.js"></script> -->
 <script type="text/javascript" src="js/auth/cordova.oauth2.js"></script>
 <script type="text/javascript" src="js/auth/phonegap.facebook.inappbrowser.js"></script>
@@ -404,7 +408,7 @@
                         <div class="tabs">
                             <div id="tab1" class="page-content pull-to-refresh-content tab active hide-navbar-on-scroll"
                                 data-ptr-distance="55">
-                               <!--  <div class="pull-to-refresh-layer">
+                                <!--  <div class="pull-to-refresh-layer">
                                     <div class="preloader"></div>
                                     <div class="pull-to-refresh-arrow" id="ptr_arrow"></div>
                                 </div>
@@ -422,7 +426,7 @@
                             <div id="tab2" class="page-content pull-to-refresh-content tab hide-navbar-on-scroll"
                                 data-ptr-distance="55">
                                 <!-- Tabs wrapper, shoud have "tabs" class. Required element -->
-                               <!--  <div class="pull-to-refresh-layer">
+                                <!--  <div class="pull-to-refresh-layer">
                                     <div class="preloader"></div>
                                     <div class="pull-to-refresh-arrow" id="ptr_arrow_explore"></div>
                                 </div>
@@ -489,7 +493,7 @@
 
                             </div>
                             <div id="tab4" class="page-content pull-to-refresh-content tab" data-ptr-distance="55">
-                               <!--  <div class="pull-to-refresh-layer layer_notif">
+                                <!--  <div class="pull-to-refresh-layer layer_notif">
                                     <div class="preloader"></div>
                                     <div class="pull-to-refresh-arrow" id="ptr_arrow_notif"></div>
                                 </div>
