@@ -102,7 +102,7 @@
 	color: #92abb2;
 	font-size: 15px;
 	position: absolute;
-	top: calc(21 * var(--custom-vh));
+	top: calc(19.5 * var(--custom-vh));
 	left: 36vw;
 }
 

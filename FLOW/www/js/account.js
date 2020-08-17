@@ -407,6 +407,7 @@ function ShowUserProfile(response) {
     console.log(response);
     if (response.Data.PrivateId == privateIDAccount) {
         bioCompte = response.Data.Bio;
+        if (bioCompte.length > 57) bioCompte = bioCompte.substring(0, 57) + "...";
         nameCompte = response.Data.FullName;
         register_id = response.Data.RegisterId;
         LastOs = response.Data.LastOs;

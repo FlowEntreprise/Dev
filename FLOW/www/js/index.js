@@ -34,12 +34,13 @@ var app = {
             }
             StatusBar.backgroundColorByHexString("#f7f7f8");
             let custom_vh = window.innerHeight / 100;
+            document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
+
             if (window.innerHeight <= 600) {
                 document.body.classList.add("mobile600");
             } else if (window.innerHeight <= 700) {
                 document.body.classList.add("mobile700");
             }
-            document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
             if (connected) {
                 $(".faccount")[0].style.backgroundImage = "url('')";
                 setTimeout(function () {
@@ -221,10 +222,11 @@ var app = {
         });
 
         CheckIfConnected();
-
-        let _root = document.documentElement;
-        let _myvar = window.innerHeight / 100;
-        _root.style.setProperty("--custom-vh", _myvar + "px");
+        setTimeout(function () {
+            let _root = document.documentElement;
+            let _myvar = window.innerHeight / 100;
+            _root.style.setProperty("--custom-vh", _myvar + "px");
+        }, 500);
     }
 
 

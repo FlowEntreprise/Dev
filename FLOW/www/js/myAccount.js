@@ -76,6 +76,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     nameMonCompte = window.localStorage.getItem("user_name");
     privateID = window.localStorage.getItem("user_private_id");
     bioMonCompte = window.localStorage.getItem("user_bio") || "";
+    if (bioMonCompte.length > 57) bioMonCompte = bioMonCompte.substring(0, 57) + "...";
     $(".fflow-btn").css("display", "none");
     $(".flow-btn-shadow").css("display", "none");
     $("#fmyprofilPicture").css({
