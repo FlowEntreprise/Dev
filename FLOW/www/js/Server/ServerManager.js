@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-    ServerURL: "https://api.flowappweb.com/",
+    ServerURL: "https://api-test.flowappweb.com/",
     ConnexionURL: "ConnexionFromApi",
     AddFlowURL: "AddFlow",
     GetSingleFlowURL: "GetSingle",
