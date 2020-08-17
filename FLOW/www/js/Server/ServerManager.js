@@ -179,6 +179,21 @@ class ServerManagerClass {
         });
     }
 
+    TwitterShowUser(data) {
+        var settings = {
+            "url": "https://api.twitter.com/1.1/users/show.json?user_id=" + data.user_id,
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+                "Authorization": "OAuth oauth_consumer_key=\"JwyvPlw7GcOvE8pXmRvqTyZL3\",oauth_token=\"" + data.token + "\",oauth_signature_method=\"HMAC-SHA1\",oauth_timestamp=\"1597624281\",oauth_nonce=\"hthRuas3p4v\",oauth_version=\"1.0\",oauth_signature=\"vFWMkS76xG0DMs%2BVm6Du8NFvBvU%3D\""
+            },
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
+    }
+
     AddFlow(data) {
         let final_data = {
             Data: data,
