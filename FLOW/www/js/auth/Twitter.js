@@ -20,12 +20,12 @@ function TWLogin() {
 
 function GetInfos(data) {
     if (window.cordova.platformId == "ios") {
-        let data = {
+        let data_to_send = {
             user_id: data.id,
             token: data.authToken
         }
-        console.log(data);
-        ServerManager.TwitterShowUser(data);
+        console.log(data_to_send);
+        ServerManager.TwitterShowUser(data_to_send);
         // TwitterConnect.showUser(
         //     function (result) {
         //         var txt = result.name + " --- " + result.screen_name + " --- " + result.profile_image_url + " --- " + result.description + "---" + result.id;
