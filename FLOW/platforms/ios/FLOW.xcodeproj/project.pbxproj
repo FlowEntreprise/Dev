@@ -102,6 +102,7 @@
 		E6106F65D6934C70AE774BBE /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F685CE439D74874975C7A38 /* CDVStatusBar.m */; };
 		E73C1B1B8B564DE592DDC394 /* PEPhotoCropEditor.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DFBCCA466B114782ADFC775E /* PEPhotoCropEditor.bundle */; };
 		EB02323E670948B8B2250342 /* HTTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 28314B11BB8D469B94B5AFDF /* HTTPMessage.m */; };
+		ED5762D322984B35B3495009 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D2DF7E188884C2F9095B557 /* GoogleService-Info.plist */; };
 		EF73AA7F887D45C89D2B0402 /* HTTPDynamicFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEBA9DEE29044FC957D6756 /* HTTPDynamicFileResponse.m */; };
 		F1E793C2BF77445D8EEDDC5A /* UIImage+PECrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 20661973240B4729955F7A69 /* UIImage+PECrop.m */; };
 		F48A6D4C5CC54DEF8151185A /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEB37FA7BB9743638BEFCCC0 /* CoreTelephony.framework */; };
@@ -114,7 +115,6 @@
 		FE3DFFB50F1D449E9F6D489E /* appbeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0357AE65CEA540969E917511 /* appbeep.wav */; };
 		FECB2EA6FA8145B086DF6D7A /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AE458B365144443191EF4C17 /* CDVNotification.bundle */; };
 		FF2B1BF7C0F3416DA34C57BA /* AppDelegate+FirebaseCrashlyticsPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB76E1C65A94B3EAD0EEC9D /* AppDelegate+FirebaseCrashlyticsPlugin.m */; };
-		ED5762D322984B35B3495009 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D2DF7E188884C2F9095B557 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -254,6 +254,7 @@
 		78ED99A803774F72BAEE3930 /* PECropView.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = PECropView.h; path = "cordova-plugin-k-imagecropper/PECropView.h"; sourceTree = "<group>"; };
 		7A5A59DA67D6471E9247099D /* Accelerate.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		7A8F2C719A624CB490477E29 /* CDVNotification.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVNotification.m; path = "cordova-plugin-dialogs/CDVNotification.m"; sourceTree = "<group>"; };
+		7D2DF7E188884C2F9095B557 /* GoogleService-Info.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7EFF159F50C047559A5DBA54 /* GCDWebServerDataRequest.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = GCDWebServerDataRequest.h; path = "cordova-labs-local-webserver/GCDWebServerDataRequest.h"; sourceTree = "<group>"; };
 		815DE154B7814DD0A2AAF4AA /* HTTPMessage.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = HTTPMessage.h; path = "cordova-plugin-httpd/HTTPMessage.h"; sourceTree = "<group>"; };
 		82372218F3BD4BF5B2181A32 /* GCDWebServer.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = GCDWebServer.h; path = "cordova-labs-local-webserver/GCDWebServer.h"; sourceTree = "<group>"; };
@@ -357,7 +358,6 @@
 		FDBD9C54DF5F43169D3EC44B /* GCDAsyncSocket.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = "cordova-plugin-httpd/GCDAsyncSocket.m"; sourceTree = "<group>"; };
 		FE98E6E129A44CCC889F1AF5 /* GCDWebServerFunctions.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = GCDWebServerFunctions.m; path = "cordova-labs-local-webserver/GCDWebServerFunctions.m"; sourceTree = "<group>"; };
 		FF9A90DFF3914374974B2D0C /* CDVStatusBar.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVStatusBar.h; path = "cordova-plugin-statusbar/CDVStatusBar.h"; sourceTree = "<group>"; };
-		7D2DF7E188884C2F9095B557 /* GoogleService-Info.plist */ = {isa = PBXFileReference; name = "GoogleService-Info.plist"; path = "GoogleService-Info.plist"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = text.plist.xml; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -976,7 +976,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "FLOW/FLOW-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 0.2.24;
@@ -1010,7 +1010,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "FLOW/FLOW-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 0.2.24;
