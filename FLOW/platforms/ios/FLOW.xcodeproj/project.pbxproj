@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
+		0699340624EACE7600AB353F /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 0699340524EACE7600AB353F /* splash.png */; };
 		0B8DF5BA7A144C68BD15FB93 /* CDVClipboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E8D59286794F5AB72EAC38 /* CDVClipboard.m */; };
 		0F817814EA2041D6828BBBD4 /* GCDWebServerFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FE98E6E129A44CCC889F1AF5 /* GCDWebServerFunctions.m */; };
 		16BF4E1C268E42C3930C0E95 /* TwitterConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0A296CA1944580807FAC4A /* TwitterConnect.m */; };
@@ -162,6 +163,7 @@
 		0509BC1C34BE4AB3BCF8088D /* CDVSplashScreen.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVSplashScreen.m; path = "cordova-plugin-splashscreen/CDVSplashScreen.m"; sourceTree = "<group>"; };
 		05D61819798B4790ACF5C2D2 /* AudioReceiver.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = AudioReceiver.m; path = "cordova-plugin-audioinput/AudioReceiver.m"; sourceTree = "<group>"; };
 		060E532CF57040DA87F424BD /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = DispatchQueueLogFormatter.h; path = "cordova-plugin-httpd/DispatchQueueLogFormatter.h"; sourceTree = "<group>"; };
+		0699340524EACE7600AB353F /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
 		07A7E23500614B408B8FA009 /* CDVWKInAppBrowserUIDelegate.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVWKInAppBrowserUIDelegate.h; path = "cordova-plugin-inappbrowser/CDVWKInAppBrowserUIDelegate.h"; sourceTree = "<group>"; };
 		0825E71776904B2783FF9DB6 /* CDVReachability.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVReachability.h; path = "cordova-plugin-network-information/CDVReachability.h"; sourceTree = "<group>"; };
 		09CC7AC8C8E9499684D713C6 /* PECropView.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = PECropView.m; path = "cordova-plugin-k-imagecropper/PECropView.m"; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0699340524EACE7600AB353F /* splash.png */,
 				0207DA571B56EA530066E2B4 /* Images.xcassets */,
 				3047A50E1AB8057F00498E2A /* config */,
 				8D1107310486CEB800E47090 /* FLOW-Info.plist */,
@@ -763,6 +766,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0699340624EACE7600AB353F /* splash.png in Resources */,
 				302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */,
 				0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */,
 				6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */,
@@ -1057,7 +1061,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
@@ -1100,7 +1104,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				WK_WEB_VIEW_ONLY = 1;
