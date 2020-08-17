@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-    ServerURL: "https://api.flowappweb.com/",
+    ServerURL: "https://api-test.flowappweb.com/",
     ConnexionURL: "ConnexionFromApi",
     AddFlowURL: "AddFlow",
     GetSingleFlowURL: "GetSingle",
@@ -185,12 +185,17 @@ class ServerManagerClass {
             "method": "GET",
             "timeout": 0,
             "headers": {
-                "Authorization": "OAuth oauth_consumer_key=\"JwyvPlw7GcOvE8pXmRvqTyZL3\",oauth_token=\"" + data.token + "\",oauth_signature_method=\"HMAC-SHA1\",oauth_timestamp=\"1597624281\",oauth_nonce=\"hthRuas3p4v\",oauth_version=\"1.0\",oauth_signature=\"vFWMkS76xG0DMs%2BVm6Du8NFvBvU%3D\""
+                "Authorization": "OAuth oauth_consumer_key=\"JwyvPlw7GcOvE8pXmRvqTyZL3\",oauth_token=\"960333428-EF9gwRa1usCDYQ6GBPVGgVduAFLdRyZHLZCixF7S\",oauth_signature_method=\"HMAC-SHA1\",oauth_timestamp=\"1597674666\",oauth_nonce=\"u9E3GrSKwMK\",oauth_version=\"1.0\",oauth_signature=\"Z%2FBPk5ZNAp%2BSIvChiDfc%2Bgh6Wh0%3D\"",
+                "Cookie": "personalization_id=\"v1_A+UCZ1kvLIM8Y8NnXlCvAQ==\"; guest_id=v1%3A159762354176648958; lang=en"
             },
         };
 
         $.ajax(settings).done(function (response) {
             console.log(response);
+            let txt = response.name + " --- " + response.screen_name + " --- " + response.profile_image_url + " --- " + response.description + "---" + response.id;
+            console.log(txt);
+            response.profile_image_url = response.profile_image_url.replace("_normal", "");
+            ServerManager.Connect(apiTypes.Twitter, response);
         });
     }
 
