@@ -8,7 +8,7 @@ var indexMyFlow;
 var indexMyLike;
 var MyFlowAdd = true;
 var MyLikeAdd = true;
-
+var PPHasChanged = false;
 $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 
 document.getElementById("popup-myaccount").addEventListener("opened", function () {
@@ -199,6 +199,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 
     $("#feditProfil").click(function () {
         in_editprofile = true;
+        PPHasChanged = false;
         $("#feditProfilePopupContainer").css("opacity", "1");
         $("#editProfilePopup").css({
             "transform": "scale(1)",
@@ -209,6 +210,9 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
         $("#fprofilPicturePopup").css({
             "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
         });
+        $("#fprofilPicturePopup")[0].onclick = function () {
+            GetPhotoFromGallery(true);
+        }
         $("#editProfileName").val(nameMonCompte);
         $("#feditBio").val(bioMonCompte);
     });
@@ -263,10 +267,11 @@ function liked_flow_get_block_and_blocked_users(data_liked_flow, mine) {
 
 function closeEditProfile() {
     if ($.trim($("#editProfileName").val()) != "") {
-        if ($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte) {
+        if ($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte || PPHasChanged) {
             var updateEditProfile = {
                 FullName: $("#editProfileName").val(),
-                Biography: $("#feditBio").val()
+                Biography: $("#feditBio").val(),
+                Image: window.localStorage.getItem("user_profile_pic")
             };
             ServerManager.UpdateProfile(updateEditProfile);
         }
@@ -280,13 +285,20 @@ function closeEditProfile() {
     }
 }
 
-function UpdateProfile(profileName, profileBio) {
+function UpdateProfile(profileName, profileBio, profilePicture) {
     $("#fnameMonCompte").html(profileName);
     window.localStorage.setItem("user_name", profileName);
     $("#fbioMonCompte").html(profileBio);
     window.localStorage.setItem("user_bio", profileBio);
     nameMonCompte = profileName;
     bioMonCompte = profileBio;
+    window.localStorage.setItem("user_profile_pic", profilePicture)
+    $("#fmyprofilPicture").css({
+        "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+    });
+    $(".faccount").css({
+        "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+    });
 }
 
 function ShowMyFlow(flow) {
@@ -531,3 +543,39 @@ $(".disconnect_btn")[0].addEventListener("touchstart", function () {
     $("#feditProfilePopupContainer").css("pointer-events", "none");
     DisconnectUser();
 });
+
+function onProfilePhotoDataSuccess(imageData) {
+    // console.log("PP picture success");
+    // console.log(imageData);
+    // $(".ios_camera_auth")[0].style.display = "none";
+    // window.localStorage.setItem("ios_photos_init", "true");
+
+    var options = {
+        url: imageData, // required.
+        ratio: "1/1", // required. (here you can define your custom ration) "1/1" for square images
+        title: "Crop image", // optional. android only. (here you can put title of image cropper activity) default: Image Cropper
+        autoZoomEnabled: true // optional. android only. for iOS its always true (if it is true then cropper will automatically adjust the view) default: true
+    };
+
+    appState.takingPicture = false;
+    appState.imageUri = imageData;
+
+    window.plugins.k.imagecropper.open(options, function (data) {
+        // its return an object with the cropped image cached url, cropped width & height, you need to manually delete the image from the application cache.
+        console.log(data);
+        //$scope.croppedImage = data;
+        // new_block.ftop_part.style.backgroundImage = "url('" + data.imgPath + "')";
+        toDataUrl(data.imgPath, function (b64) {
+            // image64 = b64;
+            // console.log(b64)
+            PPHasChanged = true;
+            window.localStorage.setItem("user_profile_pic", b64);
+            $("#fprofilPicturePopup").css({
+                "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+            });
+
+        });
+    }, function (error) {
+        console.log(error);
+    });
+}

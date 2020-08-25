@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-  ServerURL: "https://api.flowappweb.com/",
+  ServerURL: "https://api-test.flowappweb.com/",
   ConnexionURL: "ConnexionFromApi",
   AddFlowURL: "AddFlow",
   GetSingleFlowURL: "GetSingle",
@@ -159,7 +159,7 @@ class ServerManagerClass {
         };
         break;
       default:
-      //console.log("Error in parameters sent to Connect() in ServerManager.");
+        //console.log("Error in parameters sent to Connect() in ServerManager.");
     }
     $.ajax({
       type: "POST",
@@ -193,8 +193,7 @@ class ServerManagerClass {
     });
 
     let request_data = {
-      url:
-        "https://api.twitter.com/1.1/users/show.json?user_id=" + data.user_id,
+      url: "https://api.twitter.com/1.1/users/show.json?user_id=" + data.user_id,
       method: "GET",
       // data: { status: 'Hello Ladies + Gentlemen, a signed OAuth request!' },
     };
@@ -698,6 +697,7 @@ class ServerManagerClass {
       Action: "UpdateProfile",
       TokenId: window.localStorage.getItem("user_token"),
     };
+    console.log(final_data);
     //// console.log(final_data.Data);
 
     $.ajax({
@@ -706,12 +706,12 @@ class ServerManagerClass {
       data: JSON.stringify(final_data),
       success: function (response) {
         //// console.log('Flow update sucessfully: ');
-        //// console.log(response);
-        UpdateProfile(final_data.Data.FullName, final_data.Data.Biography);
+        // console.log(response);
+        UpdateProfile(final_data.Data.FullName, final_data.Data.Biography, final_data.Data.Image);
       },
       error: function (response) {
         //// console.log("Flow update error : ");
-        //// console.log(response);
+        console.log(response);
         //// console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
       },
     });
@@ -954,8 +954,7 @@ class ServerManagerClass {
       type: "POST",
       url: " https://iid.googleapis.com/iid/v1:batchImport",
       headers: {
-        Authorization:
-          "key=" +
+        Authorization: "key=" +
           "AAAASolkDdQ:APA91bGQTqtjxefUeH3JhJQXP30B6d6TgHYN239VGsaX3-0qpBEH7_Wy_9MLiVOlniHQ9gqZcHt3q76d5QGb3It-qUIJfo954NZBmz9INY765rMn8S40Cz-fw5zTeBfoQVnZSE3oW4oL",
       },
       contentType: "application/json",
@@ -998,8 +997,7 @@ class ServerManagerClass {
       type: "POST",
       url: "https://fcm.googleapis.com/fcm/send",
       headers: {
-        Authorization:
-          "key=" +
+        Authorization: "key=" +
           "AAAASolkDdQ:APA91bGQTqtjxefUeH3JhJQXP30B6d6TgHYN239VGsaX3-0qpBEH7_Wy_9MLiVOlniHQ9gqZcHt3q76d5QGb3It-qUIJfo954NZBmz9INY765rMn8S40Cz-fw5zTeBfoQVnZSE3oW4oL",
       },
       contentType: "application/json",
