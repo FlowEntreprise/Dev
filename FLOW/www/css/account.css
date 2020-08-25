@@ -46,14 +46,13 @@
 	border-radius: 25px;
 }
 
-#label_i_am_blocked
-{
+#label_i_am_blocked {
 	position: absolute;
-    top: 25vh;
-    /* left: 20vw; */
-    width: 100%;
-    font-size: 15px;
-    text-align: center;
+	top: 25vh;
+	/* left: 20vw; */
+	width: 100%;
+	font-size: 15px;
+	text-align: center;
 }
 
 #block_button {
@@ -145,6 +144,7 @@
 	top: calc(32 * var(--custom-vh));
 	left: 0vw;
 	transition-duration: 0.4s;
+	height: calc(94 * var(--custom-vh));
 }
 
 .fblockCompte {

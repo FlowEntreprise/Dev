@@ -91,6 +91,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     });
 
     var scroll_element = $("#tabMonCompte1");
+    scroll_element[0].scrollTop = 0;
     checkScroll();
     $$('#tabMonCompte1').on('tab:show', function () {
         scroll_element = $("#tabMonCompte1");
@@ -114,7 +115,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     });
 
     function checkScroll() {
-        let current_scroll = scroll_element.scrollTop();
+        let current_scroll = scroll_element.scrollTop() + scroll_element.innerHeight();
         if (current_scroll > last_scroll + 10) {
             if (scroll_element[0].scrollHeight > document.body.clientHeight) {
                 //console.log("94vh");
@@ -123,21 +124,23 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
                 $("scrollEvent").remove(".swiper-wrapper");
                 $("#accountBannerScroll").css("transform", "translate3d(0vw, -30vh, 0vh)");
                 if (boolScrollTop) {
-                    $(".ftabsMonCompte")[0].setAttribute("style", "height:94vh !important");
+                    // $(".ftabsMonCompte")[0].setAttribute("style", "height:94vh !important");
 
 
                     $(".fnavMonCompte").removeClass("fnavMonCompteTransitionDown");
                     $(".fnavMonCompte").addClass("fnavMonCompteTransitionTop");
-                    $(".ftabsMonCompte").css("transition-duration", "0.4s");
                     $(".fnavMonCompte").css("transform", "translate3d(0vw, -20vh, 0vh)");
-                    $(".ftabsMonCompte").css("transform", "translate3d(0vw, -23vh, 0vh)");
+                    $(".ftabsMonCompte").css({
+                        "transition-duration": "0.4s",
+                        "transform": "translate3d(0vw, -23vh, 0vh)"
+                    });
                     boolScrollTop = false;
                 }
                 $("#MyActivity").removeClass("fblockMonComptePadding");
                 $("scrollEvent").addClass(".swiper-wrapper");
             }
         } else {
-            if (current_scroll < last_scroll - 10) {
+            if ((current_scroll < last_scroll - 10 && current_scroll < scroll_element[0].scrollHeight - 30) || current_scroll <= scroll_element.innerHeight()) {
                 // event.preventDefault();
                 // event.stopPropagation();
                 if (boolScrollTop == false) {
@@ -147,10 +150,14 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
                     $("#accountBannerScroll").css("transform", "translate3d(0vw, 0vh, 0vh)");
                     $(".fnavMonCompte").removeClass("fnavMonCompteTransitionTop");
                     $(".fnavMonCompte").addClass("fnavMonCompteTransitionDown");
-                    $(".ftabsMonCompte").css("transition-duration", "0.2s");
+                    // $(".ftabsMonCompte").css("transition-duration", "0.2s");
                     var scrollTest = $(".scrollMyAccunt").scrollTop();
                     $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
-                    $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(2 * var(--custom-vh)), 0vh)");
+                    // $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(2 * var(--custom-vh)), 0vh)");
+                    $(".ftabsMonCompte").css({
+                        "transition-duration": "0.2s",
+                        "transform": "translate3d(0vw, 2vh, 0vh)"
+                    });
                     boolScrollTop = true;
                     $("#MyActivity").addClass("fblockMonComptePadding");
                 }

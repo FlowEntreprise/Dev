@@ -19,7 +19,7 @@ var user_is_blocked;
 var blocked_by_user;
 var last_scroll = 0;
 
-function alertDismissed() { };
+function alertDismissed() {};
 
 function fInitialisationAccount(privateId) {
     $("#UserActivity")[0].innerHTML = "";
@@ -182,6 +182,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
     });*/
 
     var scroll_element = $("#tabCompte1");
+    scroll_element[0].scrollTop = 0;
     checkScrollAccount();
     $$('#tabCompte1').on('tab:show', function () {
         scroll_element = $("#tabCompte1");
@@ -219,7 +220,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
     });
 
     function checkScrollAccount() {
-        var current_scroll = scroll_element.scrollTop();
+        var current_scroll = scroll_element.scrollTop() + scroll_element.innerHeight();
         if (current_scroll > last_scroll + 10) {
             if (scroll_element[0].scrollHeight > document.body.clientHeight) {
                 // event.preventDefault();
@@ -227,12 +228,14 @@ document.getElementById("popup-account").addEventListener("opened", function () 
                 // $("scrollEventAccount").remove(".swiper-wrapper");
                 $("#accountBannerScrollAccount").css("transform", "translate3d(0vw, -30vh, 0vh)");
                 if (boolScrollTop) {
-                    $(".ftabsAccount")[0].setAttribute("style", "height:94vh !important");
+                    // $(".ftabsAccount")[0].setAttribute("style", "height:94vh !important");
                     $(".fnavAccount").removeClass("fnavAccountTransitionDown");
                     $(".fnavAccount").addClass("fnavAccountTransitionTop");
-                    $(".ftabsAccount").css("transition-duration", "0.4s");
                     $(".fnavAccount").css("transform", "translate3d(0vw, -20vh, 0vh)");
-                    $(".ftabsAccount").css("transform", "translate3d(0vw, -23vh, 0vh)");
+                    $(".ftabsAccount").css({
+                        "transition-duration": "0.4s",
+                        "transform": "translate3d(0vw, -23vh, 0vh)"
+                    });
                     boolScrollTop = false;
                 }
                 $("#UserActivity").removeClass("fblockAccountPadding");
@@ -240,20 +243,24 @@ document.getElementById("popup-account").addEventListener("opened", function () 
             // $("scrollEventAccount").addClass(".swiper-wrapper");
         } else {
             // if (scroll < 100 /*&& $(".ftabsAccount")[0].style.height == "94vh"*/ ) {
-            if (current_scroll < last_scroll - 10) {
+            if ((current_scroll < last_scroll - 10 && current_scroll < scroll_element[0].scrollHeight - 30) || current_scroll <= scroll_element.innerHeight()) {
                 // event.preventDefault();
                 // event.stopPropagation();
                 if (boolScrollTop == false) {
-                    $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
+                    //                     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
                     // $("scrollEventAccount").remove(".swiper-wrapper");
                     $("#accountBannerScrollAccount").css("transition-duration", "0.2s");
                     $("#accountBannerScrollAccount").css("transform", "translate3d(0vw, 0vh, 0vh)");
                     $(".fnavAccount").removeClass("fnavAccountTransitionTop");
                     $(".fnavAccount").addClass("fnavAccountTransitionDown");
-                    $(".ftabsAccount").css("transition-duration", "0.2s");
+                    //                     $(".ftabsAccount").css("transition-duration", "0.2s");
                     var scrollTest = $(".scrollAccunt").scrollTop();
                     $(".fnavAccount").css("transform", "translate3d(0vw, 7vh, 0vh)");
-                    $(".ftabsAccount").css("transform", "translate3d(0vw, 2vh, 0vh)");
+                    //                     $(".ftabsAccount").css("transform", "translate3d(0vw, 2vh, 0vh)");
+                    $(".ftabsAccount").css({
+                        "transition-duration": "0.2s",
+                        "transform": "translate3d(0vw, 2vh, 0vh)"
+                    });
                     boolScrollTop = true;
                     $("#UserActivity").addClass("fblockAccountPadding");
                 }
@@ -533,13 +540,14 @@ function ShowLikedFlows(flow, data_block_user) {
             no_flows.className = "empty_content";
             no_flows.innerHTML = "Aucun flow aimé";
             $("#UserLikes")[0].appendChild(no_flows);
-            for (let i = 0; i < 3; i++) {
-                let block_params = {
-                    parent_element: $("#UserLikes")[0]
-                };
-                let fake_block = new block(block_params);
-                //$(fake_block.block_flow).css("display", "none");
-            }
+            // Testing purposes only !!
+            // for (let i = 0; i < 3; i++) {
+            //     let block_params = {
+            //         parent_element: $("#UserLikes")[0]
+            //     };
+            //     let fake_block = new block(block_params);
+            //     //$(fake_block.block_flow).css("display", "none");
+            // }
         }
         if ($(".loading_account")) $(".loading_account").remove();
     } else {
@@ -653,7 +661,7 @@ function FollowResponse(response, type, element) {
         follow = false;
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    } else { }
+    } else {}
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }
