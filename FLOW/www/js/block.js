@@ -97,12 +97,44 @@ function block(params) {
         let indicator_txt = "";
         let indicator_icon = "";
         if (params.LikeBy != null) {
-            indicator_txt = params.LikeBy + " a aimé ceci";
-            indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Like.png' width='15vw' height='30vw' align='middle'>";
+            if (params.LikeBy.match(/,/g)) {
+                params.LikeBy = params.LikeBy.split(",");
+                params.LikeBy = params.LikeBy.map(x => x.replace(/\[/g, ""));
+                params.LikeBy = params.LikeBy.map(x => x.replace(/\]/g, ""));
+                let index_of_name = params.LikeBy.indexOf(window.localStorage.getItem("user_private_id"));
+                params.LikeBy.splice(index_of_name, 1);
+                params.LikeBy = params.LikeBy[0];
+                indicator_txt = params.LikeBy + " a aimé ceci";
+                indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Like.png' width='15vw' height='30vw' align='middle'>";
+
+            }
+            else {
+                params.LikeBy = params.LikeBy.slice(1, -1);
+                if (params.LikeBy != window.localStorage.getItem("user_private_id")) {
+                    indicator_txt = params.LikeBy + " a aimé ceci";
+                    indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Like.png' width='15vw' height='30vw' align='middle'>";
+                }
+            }
         }
         if (params.CommentBy != null) {
-            indicator_txt = params.CommentBy + " a commenté ceci";
-            indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Comment.png' width='15vw' height='30vw' align='middle'>";
+            if (params.CommentBy.match(/,/g)) {
+                params.CommentBy = params.CommentBy.split(",");
+                params.CommentBy = params.CommentBy.map(x => x.replace(/\[/g, ""));
+                params.CommentBy = params.CommentBy.map(x => x.replace(/\]/g, ""));
+                let index_of_name = params.CommentBy.indexOf(window.localStorage.getItem("user_private_id"));
+                params.CommentBy.splice(index_of_name, 1);
+                params.CommentBy = params.CommentBy[0];
+                indicator_txt = params.CommentBy + " a commenté ceci";
+                indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Comment.png' width='15vw' height='30vw' align='middle'>";
+
+            }
+            else {
+                params.CommentBy = params.CommentBy.slice(1, -1);
+                if (params.CommentBy != window.localStorage.getItem("user_private_id")) {
+                    indicator_txt = params.CommentBy + " a commenté ceci";
+                    indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Comment.png' width='15vw' height='30vw' align='middle'>";
+                }
+            }
         }
         let tl_indicator = document.createElement("p");
         tl_indicator.className = "tl_indicator";

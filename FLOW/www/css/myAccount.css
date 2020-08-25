@@ -113,7 +113,7 @@
 	color: #92abb2;
 	font-size: 15px;
 	position: absolute;
-	top: calc(19.5 * var(--custom-vh));
+	top: calc(18.5 * var(--custom-vh));
 	left: 36vw;
 }
 
@@ -176,7 +176,7 @@
 	position: absolute;
 	font-size: 18px;
 	left: 36vw;
-	top: calc(17 * var(--custom-vh));
+	top: calc(16 * var(--custom-vh));
 	font-family: "Roboto-Regular";
 	opacity: 0.5;
 }
