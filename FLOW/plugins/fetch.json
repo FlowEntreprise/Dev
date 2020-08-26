@@ -31,14 +31,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-camera": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-camera@~4.0.3"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-k-imagecropper": {
     "source": {
       "type": "registry",
@@ -265,5 +257,13 @@
       "TWITTER_KEY": "JwyvPlw7GcOvE8pXmRvqTyZL3",
       "TWITTER_SECRET": "6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT"
     }
+  },
+  "cordova-plugin-camera": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-camera@4.1.0"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

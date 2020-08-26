@@ -50,38 +50,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-camera.Camera",
-      "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
-      "pluginId": "cordova-plugin-camera",
-      "clobbers": [
-        "Camera"
-      ]
-    },
-    {
-      "id": "cordova-plugin-camera.CameraPopoverOptions",
-      "file": "plugins/cordova-plugin-camera/www/CameraPopoverOptions.js",
-      "pluginId": "cordova-plugin-camera",
-      "clobbers": [
-        "CameraPopoverOptions"
-      ]
-    },
-    {
-      "id": "cordova-plugin-camera.camera",
-      "file": "plugins/cordova-plugin-camera/www/Camera.js",
-      "pluginId": "cordova-plugin-camera",
-      "clobbers": [
-        "navigator.camera"
-      ]
-    },
-    {
-      "id": "cordova-plugin-camera.CameraPopoverHandle",
-      "file": "plugins/cordova-plugin-camera/www/ios/CameraPopoverHandle.js",
-      "pluginId": "cordova-plugin-camera",
-      "clobbers": [
-        "CameraPopoverHandle"
-      ]
-    },
-    {
       "id": "cordova-plugin-dialogs.notification",
       "file": "plugins/cordova-plugin-dialogs/www/notification.js",
       "pluginId": "cordova-plugin-dialogs",
@@ -390,6 +358,38 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "TwitterConnect"
       ]
+    },
+    {
+      "id": "cordova-plugin-camera.Camera",
+      "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
+      "pluginId": "cordova-plugin-camera",
+      "clobbers": [
+        "Camera"
+      ]
+    },
+    {
+      "id": "cordova-plugin-camera.CameraPopoverOptions",
+      "file": "plugins/cordova-plugin-camera/www/CameraPopoverOptions.js",
+      "pluginId": "cordova-plugin-camera",
+      "clobbers": [
+        "CameraPopoverOptions"
+      ]
+    },
+    {
+      "id": "cordova-plugin-camera.camera",
+      "file": "plugins/cordova-plugin-camera/www/Camera.js",
+      "pluginId": "cordova-plugin-camera",
+      "clobbers": [
+        "navigator.camera"
+      ]
+    },
+    {
+      "id": "cordova-plugin-camera.CameraPopoverHandle",
+      "file": "plugins/cordova-plugin-camera/www/ios/CameraPopoverHandle.js",
+      "pluginId": "cordova-plugin-camera",
+      "clobbers": [
+        "CameraPopoverHandle"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -399,7 +399,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-apple-login": "1.0.0",
     "cordova-plugin-audioinput": "1.0.2",
     "cordova-plugin-background-mode": "0.7.3",
-    "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-compat": "1.2.0",
     "cordova-plugin-dialogs": "2.0.2",
     "cordova-plugin-file": "6.0.2",
@@ -421,6 +420,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-labs-local-webserver": "2.4.0",
     "phonegap-plugin-push": "2.3.0",
     "cordova-plugin-facebook4": "6.4.0",
-    "cordova-plugin-twitter-connect-wkwebview": "1.0.1"
+    "cordova-plugin-twitter-connect-wkwebview": "1.0.1",
+    "cordova-plugin-camera": "4.1.0"
   };
 });

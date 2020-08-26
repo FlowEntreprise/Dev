@@ -25,14 +25,6 @@
               "count": 1
             },
             {
-              "xml": "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>",
-              "count": 1
-            },
-            {
-              "xml": "<preference name=\"CameraUsesGeolocation\" value=\"false\" />",
-              "count": 1
-            },
-            {
               "xml": "<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>",
               "count": 1
             },
@@ -150,6 +142,14 @@
             },
             {
               "xml": "<feature name=\"TwitterConnect\"><param name=\"ios-package\" value=\"TwitterConnect\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"CameraUsesGeolocation\" value=\"false\" />",
               "count": 1
             }
           ],
@@ -286,9 +286,6 @@
     "cordova-plugin-background-mode": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova-plugin-camera": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
     "cordova-plugin-compat": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
@@ -362,6 +359,9 @@
       "TWITTER_KEY": "JwyvPlw7GcOvE8pXmRvqTyZL3",
       "TWITTER_SECRET": "6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT",
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {},
@@ -413,38 +413,6 @@
       "clobbers": [
         "cordova.plugins.backgroundMode",
         "plugin.backgroundMode"
-      ]
-    },
-    {
-      "id": "cordova-plugin-camera.Camera",
-      "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
-      "pluginId": "cordova-plugin-camera",
-      "clobbers": [
-        "Camera"
-      ]
-    },
-    {
-      "id": "cordova-plugin-camera.CameraPopoverOptions",
-      "file": "plugins/cordova-plugin-camera/www/CameraPopoverOptions.js",
-      "pluginId": "cordova-plugin-camera",
-      "clobbers": [
-        "CameraPopoverOptions"
-      ]
-    },
-    {
-      "id": "cordova-plugin-camera.camera",
-      "file": "plugins/cordova-plugin-camera/www/Camera.js",
-      "pluginId": "cordova-plugin-camera",
-      "clobbers": [
-        "navigator.camera"
-      ]
-    },
-    {
-      "id": "cordova-plugin-camera.CameraPopoverHandle",
-      "file": "plugins/cordova-plugin-camera/www/ios/CameraPopoverHandle.js",
-      "pluginId": "cordova-plugin-camera",
-      "clobbers": [
-        "CameraPopoverHandle"
       ]
     },
     {
@@ -756,6 +724,38 @@
       "clobbers": [
         "TwitterConnect"
       ]
+    },
+    {
+      "id": "cordova-plugin-camera.Camera",
+      "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
+      "pluginId": "cordova-plugin-camera",
+      "clobbers": [
+        "Camera"
+      ]
+    },
+    {
+      "id": "cordova-plugin-camera.CameraPopoverOptions",
+      "file": "plugins/cordova-plugin-camera/www/CameraPopoverOptions.js",
+      "pluginId": "cordova-plugin-camera",
+      "clobbers": [
+        "CameraPopoverOptions"
+      ]
+    },
+    {
+      "id": "cordova-plugin-camera.camera",
+      "file": "plugins/cordova-plugin-camera/www/Camera.js",
+      "pluginId": "cordova-plugin-camera",
+      "clobbers": [
+        "navigator.camera"
+      ]
+    },
+    {
+      "id": "cordova-plugin-camera.CameraPopoverHandle",
+      "file": "plugins/cordova-plugin-camera/www/ios/CameraPopoverHandle.js",
+      "pluginId": "cordova-plugin-camera",
+      "clobbers": [
+        "CameraPopoverHandle"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -765,7 +765,6 @@
     "cordova-plugin-apple-login": "1.0.0",
     "cordova-plugin-audioinput": "1.0.2",
     "cordova-plugin-background-mode": "0.7.3",
-    "cordova-plugin-camera": "4.0.3",
     "cordova-plugin-compat": "1.2.0",
     "cordova-plugin-dialogs": "2.0.2",
     "cordova-plugin-file": "6.0.2",
@@ -787,6 +786,7 @@
     "cordova-labs-local-webserver": "2.4.0",
     "phonegap-plugin-push": "2.3.0",
     "cordova-plugin-facebook4": "6.4.0",
-    "cordova-plugin-twitter-connect-wkwebview": "1.0.1"
+    "cordova-plugin-twitter-connect-wkwebview": "1.0.1",
+    "cordova-plugin-camera": "4.1.0"
   }
 }

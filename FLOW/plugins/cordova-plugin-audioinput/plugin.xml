@@ -41,7 +41,7 @@
     <platform name="ios">
 
         <config-file target="*-Info.plist" parent="NSMicrophoneUsageDescription">
-            <string>This app needs microphone access</string>
+            <string>cette application requiert l'utilisation du microphone pour enregistrer des flows</string>
         </config-file>
 
         <config-file parent="/*" target="config.xml">
