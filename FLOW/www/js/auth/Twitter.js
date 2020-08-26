@@ -5,6 +5,7 @@ function TWLogin() {
     });
     TwitterConnect.login(
         function (result) {
+            console.log(result);
             GetInfos(result);
         },
         function (error) {

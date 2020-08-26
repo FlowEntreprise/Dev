@@ -1,3 +1,5 @@
+var all_notifications_block = [];
+
 function block_notification_like(data) { //type permet de defini si c'est le like d'un flow ou le like d'un commentaire
     this.seen = !!+data.IsView;
     var block_notification_like = this;
@@ -484,6 +486,20 @@ $(".fnotif-btn").on("click",function(){
 $(".fnotif-btn").on("click", function () {
     // var home_scrolling = false;
     if (current_page == "notifications") {
+
+        for (let i = 0; i < all_notifications_block.length; i++) {
+
+            let data_notif_seen = {
+                IdNotif: all_notifications_block[i].IdNotif
+            };
+            ServerManager.UpdateNotificationToView(data_notif_seen);
+            all_notifications_block[i].seen = true;
+            if (all_notifications_block[i].fred_dot_border) {
+                all_notifications_block[i].fred_dot_border.remove();
+            }
+
+        }
+        $(".fred_dot_toolbar_new_notif").css("display", "none");
         let element = document.getElementById("tab4");
         // element.onscroll = function() {
         //     home_scrolling = true;
@@ -499,7 +515,7 @@ $(".fnotif-btn").on("click", function () {
         };
         scrollToTop();
     } else {
-        all_notifications_block.length = [];
+        //all_notifications_block.length = [];
     }
 });
 
@@ -1136,4 +1152,3 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
 }
 
 
-var all_notifications_block = [];
