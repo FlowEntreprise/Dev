@@ -41,6 +41,7 @@ function block(params) {
     this.Comments = params.Comments;
     this.ready = false;
     this.last_like_time;
+    this.offset_indicator = 0;
 
     this.flowplay = function () {
         if (this.ready) {
@@ -53,17 +54,14 @@ function block(params) {
             waveform.style.display = "block";
             block.myaudio.play();
             audio_playing = true;
-            setTimeout(function () {
-                params.duration = block.myaudio.getDuration();
-                console.log(params.duration);
-                block.progress_div.style.transitionDuration = params.duration - block.currentTime + "s";
-                block.progress_div.style.display = 'block';
-                // block.progress_div.style.borderTopRightRadius = '0vw';
-                block.progress_div.style.width = "100%";
-                block.isPlaying = true;
-                block.myRange.style.pointerEvents = "all";
-            }, 10);
-
+            console.log(params.duration);
+            console.log(block.currentTime);
+            block.progress_div.style.transitionDuration = params.duration - block.currentTime + "s";
+            block.progress_div.style.display = 'block';
+            // block.progress_div.style.borderTopRightRadius = '0vw';
+            block.progress_div.style.width = "100%";
+            block.isPlaying = true;
+            block.myRange.style.pointerEvents = "all";
         } else {
             console.log("audio not ready");
         }
@@ -73,20 +71,27 @@ function block(params) {
 
     this.flowpause = function () {
         if (this.ready) {
-            if (window.cordova.platformId == "ios") {
-                cordova.plugins.backgroundMode.disable();
-            }
+            // if (window.cordova.platformId == "ios") {
+            //     cordova.plugins.backgroundMode.disable();
+            // }
+            console.log("pause (" + block.offset_indicator + ")");
             block.fplay_button.style.display = "block";
             block.fpause_button.style.display = "none";
             waveform.style.display = "none";
             wave.stop();
             block.isPlaying = false;
-            block.myaudio.pause();
             audio_playing = false;
             block.myRange.style.pointerEvents = "none";
             block.progress_div.style.transitionDuration = "0s";
+            block.myaudio.pause();
             block.myaudio.getCurrentPosition(function (position) {
-                block.progress_div.style.width = position * 100 / params.duration + '%';
+                console.log("pause : " + position);
+                console.log("-->" + position - block.currentTime);
+                let width = (position + block.offset_indicator) * 100 / params.duration;
+                block.progress_div.style.width = width + '%';
+                block.currentTime = position;
+                block.offset_indicator = 0;
+                // block.myaudio.seekTo(block.currentTime * 1000);
             }, function (err) {
                 console.log(err)
             });
@@ -364,12 +369,24 @@ function block(params) {
                     block.flowend();
                 }
             }
-
-            block.myaudio.setVolume('1.0');
-            block.ready = true;
-            block.floading_flow.style.display = "none";
-            block.fplay_button.style.display = "block";
-            block.fpause_button.style.display = "none";
+            block.myaudio.play();
+            block.myaudio.setVolume('0.0');
+            setTimeout(function () {
+                console.log("duration : " + block.myaudio.getDuration());
+                params.duration = block.myaudio.getDuration();
+                block.ready = true;
+                block.floading_flow.style.display = "none";
+                block.fplay_button.style.display = "block";
+                block.fpause_button.style.display = "none";
+                block.myaudio.stop();
+                block.myaudio.seekTo(0);
+                block.myaudio.setVolume('1.0');
+                block.currentTime = 0;
+                block.offset_indicator = 0.25;
+            }, 500);
+            // setTimeout(function () {
+            //     
+            // }, 500)
         });
     }
 
@@ -389,6 +406,7 @@ function block(params) {
         setTimeout(function () {
             block.progress_div.style.opacity = '1';
             block.progress_div.style.width = '0%';
+            block.offset_indicator = 0.25;
         }, 100);
         block.currentTime = 0;
     }
@@ -440,6 +458,7 @@ function block(params) {
         // block.myaudio.currentTime = block.currentTime;
         console.log("seek to : " + block.currentTime);
         block.myaudio.seekTo(block.currentTime * 1000);
+        block.offset_indicator = 0.25;
         // setTimeout(function () {
         block.flowplay();
         // }, 100)
