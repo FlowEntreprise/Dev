@@ -44,21 +44,26 @@ function block(params) {
 
     this.flowplay = function () {
         if (this.ready) {
-            if (window.cordova.platformId == "ios") {
-                cordova.plugins.backgroundMode.enable();
-            }
+            // if (window.cordova.platformId == "ios") {
+            //     cordova.plugins.backgroundMode.enable();
+            // }
             block.fplay_button.style.display = "none";
             block.fpause_button.style.display = "block";
             wave.start();
             waveform.style.display = "block";
             block.myaudio.play();
             audio_playing = true;
-            block.progress_div.style.transitionDuration = block.myaudio.duration - block.myaudio.currentTime + "s";
-            block.progress_div.style.display = 'block';
-            // block.progress_div.style.borderTopRightRadius = '0vw';
-            block.progress_div.style.width = "100%";
-            block.isPlaying = true;
-            block.myRange.style.pointerEvents = "all";
+            setTimeout(function () {
+                params.duration = block.myaudio.getDuration();
+                console.log(params.duration);
+                block.progress_div.style.transitionDuration = params.duration - block.currentTime + "s";
+                block.progress_div.style.display = 'block';
+                // block.progress_div.style.borderTopRightRadius = '0vw';
+                block.progress_div.style.width = "100%";
+                block.isPlaying = true;
+                block.myRange.style.pointerEvents = "all";
+            }, 10);
+
         } else {
             console.log("audio not ready");
         }
@@ -80,7 +85,11 @@ function block(params) {
             audio_playing = false;
             block.myRange.style.pointerEvents = "none";
             block.progress_div.style.transitionDuration = "0s";
-            block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
+            block.myaudio.getCurrentPosition(function (position) {
+                block.progress_div.style.width = position * 100 / params.duration + '%';
+            }, function (err) {
+                console.log(err)
+            });
         }
     };
 
@@ -337,8 +346,26 @@ function block(params) {
         let local_flow = FlowLoader.DownloadFlow(params.audioURL);
         local_flow.OnReady(function (url) {
             console.log("local url : " + url);
-            block.myaudio.src = url;
-            block.myaudio.volume = 1.0;
+            // block.myaudio.src = url;
+            // block.myaudio.volume = 1.0;
+            block.myaudio = new Media(url, mediaSuccess, mediaFailure, mediaStatus);
+
+            function mediaSuccess() {
+                console.log("Successfully finished task.");
+            }
+
+            function mediaFailure(err) {
+                console.log("An error occurred: " + err.code);
+            }
+
+            function mediaStatus(status) {
+                console.log("A status change occurred: " + status);
+                if (status == 4) {
+                    block.flowend();
+                }
+            }
+
+            block.myaudio.setVolume('1.0');
             block.ready = true;
             block.floading_flow.style.display = "none";
             block.fplay_button.style.display = "block";
@@ -347,20 +374,12 @@ function block(params) {
     }
 
     this.isPlaying = false;
-    this.myaudio.ontimeupdate = function () {
-
-        // if (block.isPlaying && !block.seeking) {
-        //     this.progress = Math.round(block.myaudio.currentTime * 100 / params.duration);
-        //     block.myRange.value = this.progress;
-        //     block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
-        //     if (block.progress_div.style.width > '99.8%' && block.progress_div.style.width < '101%') {
-        //         block.progress_div.style.borderTopRightRadius = '2vw';
-
-        //     }
-        // }
-    };
 
     this.myaudio.onended = function () {
+        block.flowend();
+    };
+
+    this.flowend = function () {
         audio_playing = false;
         waveform.style.display = "none";
         block.progress_div.style.transitionDuration = '0s';
@@ -372,25 +391,32 @@ function block(params) {
             block.progress_div.style.width = '0%';
         }, 100);
         block.currentTime = 0;
-    };
+    }
 
-    this.seek = function () {
-        console.log("seek");
-        console.log(block.myRange.value);
-        this.progress = block.myRange.value;
-        this.time = this.progress * params.duration / 100;
-        block.myaudio.currentTime = Math.round(this.time);
-        block.myaudio.currentTime = block.currentTime;
-        block.seeking = true;
-        block.progress_div.style.display = "block";
-        block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
-        setTimeout(function () {
-            block.seeking = false;
-            console.log("seeking = false");
-        }, 600);
-        // block.flowplay();
-        // console.log("flow play");
-    };
+    // this.seek = function () {
+    //     console.log("seek");
+    //     console.log(block.myRange.value);
+    //     this.progress = block.myRange.value;
+    //     this.time = this.progress * params.duration / 100;
+    //     // block.myaudio.currentTime = Math.round(this.time);
+    //     console.log("seek to : " + block.curentTime);
+    //     block.myaudio.seekTo(block.currentTime);
+    //     // block.myaudio.currentTime = block.currentTime;
+    //     block.seeking = true;
+    //     block.progress_div.style.display = "block";
+    //     block.myaudio.getCurrentPosition(function (position) {
+    //         block.currentTime = position;
+    //         block.progress_div.style.width = position * 100 / params.duration + '%';
+    //     }, function (err) {
+    //         console.log(err)
+    //     });
+    //     setTimeout(function () {
+    //         block.seeking = false;
+    //         console.log("seeking = false");
+    //     }, 600);
+    //     // block.flowplay();
+    //     // console.log("flow play");
+    // };
 
     this.fplay_button.addEventListener('click', function () {
         stopAllBlocksAudio();
@@ -411,10 +437,12 @@ function block(params) {
     });
 
     this.myRange.addEventListener('touchend', function () {
-        block.myaudio.currentTime = block.currentTime;
-        setTimeout(function () {
-            block.flowplay();
-        }, 100)
+        // block.myaudio.currentTime = block.currentTime;
+        console.log("seek to : " + block.currentTime);
+        block.myaudio.seekTo(block.currentTime * 1000);
+        // setTimeout(function () {
+        block.flowplay();
+        // }, 100)
         console.log("flow play");
         //current_flow_block
     });
@@ -437,7 +465,7 @@ function block(params) {
         this.focus();
         block.flowpause();
         block.progress = block.myRange.value;
-        block.progress_div.style.transitionDuration = block.myaudio.duration / 100 + "s";
+        block.progress_div.style.transitionDuration = params.duration / 100 + "s";
         if (block.progress > 99) block.progress = 99;
         block.currentTime = block.progress * params.duration / 100;
         block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
