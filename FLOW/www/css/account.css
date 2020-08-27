@@ -90,11 +90,14 @@
 #fnameCompte {
 	position: absolute;
 	color: #1a84ef;
-	font-size: 6vw;
+	font-size: 25px;
 	left: 36vw;
 	top: calc(13 * var(--custom-vh));
 	font-family: "Roboto-Regular";
-	font-weight: 500;
+	white-space: nowrap;
+	width: 64vw;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 #fbioCompte {

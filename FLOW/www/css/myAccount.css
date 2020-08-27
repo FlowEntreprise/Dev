@@ -37,10 +37,14 @@
 #fnameMonCompte {
 	position: absolute;
 	color: #1a84ef;
-	font-size: 28px;
+	font-size: 25px;
 	left: 36vw;
 	top: calc(13 * var(--custom-vh));
 	font-family: "Roboto-Regular";
+	white-space: nowrap;
+	width: 64vw;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .finfoBandeau {
