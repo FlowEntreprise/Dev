@@ -111,10 +111,12 @@ function block(params) {
         let indicator_txt = "";
         let indicator_icon = "";
         if (params.LikeBy != null) {
+            params.LikeBy = params.LikeBy.replace(/[\[\]']+/g, '');
             indicator_txt = params.LikeBy + " a aimé ceci";
             indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Like.png' width='15vw' height='30vw' align='middle'>";
         }
         if (params.CommentBy != null) {
+            params.CommentBy = params.CommentBy.replace(/[\[\]']+/g, '');
             indicator_txt = params.CommentBy + " a commenté ceci";
             indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Comment.png' width='15vw' height='30vw' align='middle'>";
         }
