@@ -90,7 +90,7 @@ function block(params) {
                 let width = (position + block.offset_indicator) * 100 / params.duration;
                 block.progress_div.style.width = width + '%';
                 block.currentTime = position;
-                block.offset_indicator = 0;
+                // block.offset_indicator = 0;
                 // block.myaudio.seekTo(block.currentTime * 1000);
             }, function (err) {
                 console.log(err)
@@ -458,7 +458,7 @@ function block(params) {
         // block.myaudio.currentTime = block.currentTime;
         console.log("seek to : " + block.currentTime);
         block.myaudio.seekTo(block.currentTime * 1000);
-        block.offset_indicator = 0.25;
+        block.offset_indicator = 0;
         // setTimeout(function () {
         block.flowplay();
         // }, 100)
