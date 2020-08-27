@@ -99,10 +99,18 @@
 
 #fbioCompte {
 	color: #92abb2;
-	font-size: 15px;
+	font-size: 13px;
 	position: absolute;
-	top: calc(19.5 * var(--custom-vh));
+	top: calc(20.5 * var(--custom-vh));
 	left: 36vw;
+	width: 64vw;
+	height: calc(4 * var(--custom-vh));
+	line-height: calc(2 * var(--custom-vh));
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .finfoBandeau {
