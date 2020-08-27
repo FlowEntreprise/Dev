@@ -54,8 +54,8 @@ function block(params) {
             waveform.style.display = "block";
             block.myaudio.play();
             audio_playing = true;
-            console.log(params.duration);
-            console.log(block.currentTime);
+            // console.log(params.duration);
+            // console.log(block.currentTime);
             block.progress_div.style.transitionDuration = params.duration - block.currentTime + "s";
             block.progress_div.style.display = 'block';
             // block.progress_div.style.borderTopRightRadius = '0vw';
@@ -74,7 +74,7 @@ function block(params) {
             // if (window.cordova.platformId == "ios") {
             //     cordova.plugins.backgroundMode.disable();
             // }
-            console.log("pause (" + block.offset_indicator + ")");
+            // console.log("pause (" + block.offset_indicator + ")");
             block.fplay_button.style.display = "block";
             block.fpause_button.style.display = "none";
             waveform.style.display = "none";
@@ -85,8 +85,8 @@ function block(params) {
             block.progress_div.style.transitionDuration = "0s";
             block.myaudio.pause();
             block.myaudio.getCurrentPosition(function (position) {
-                console.log("pause : " + position);
-                console.log("-->" + position - block.currentTime);
+                // console.log("pause : " + position);
+                // console.log("-->" + position - block.currentTime);
                 let width = (position + block.offset_indicator) * 100 / params.duration;
                 block.progress_div.style.width = width + '%';
                 block.currentTime = position;
@@ -358,15 +358,15 @@ function block(params) {
             block.myaudio = new Media(url, mediaSuccess, mediaFailure, mediaStatus);
 
             function mediaSuccess() {
-                console.log("Successfully finished task.");
+                // console.log("Successfully finished task.");
             }
 
             function mediaFailure(err) {
-                console.log("An error occurred: " + err.code);
+                // console.log("An error occurred: " + err.code);
             }
 
             function mediaStatus(status) {
-                console.log("A status change occurred: " + status);
+                // console.log("A status change occurred: " + status);
                 if (status == 4) {
                     block.flowend();
                 }
@@ -374,7 +374,7 @@ function block(params) {
             block.myaudio.play();
             block.myaudio.setVolume('0.0');
             setTimeout(function () {
-                console.log("duration : " + block.myaudio.getDuration());
+                // console.log("duration : " + block.myaudio.getDuration());
                 params.duration = block.myaudio.getDuration();
                 block.ready = true;
                 block.floading_flow.style.display = "none";
@@ -458,13 +458,13 @@ function block(params) {
 
     this.myRange.addEventListener('touchend', function () {
         // block.myaudio.currentTime = block.currentTime;
-        console.log("seek to : " + block.currentTime);
+        // console.log("seek to : " + block.currentTime);
         block.myaudio.seekTo(block.currentTime * 1000);
         block.offset_indicator = 0;
         // setTimeout(function () {
         block.flowplay();
         // }, 100)
-        console.log("flow play");
+        // console.log("flow play");
         //current_flow_block
     });
 

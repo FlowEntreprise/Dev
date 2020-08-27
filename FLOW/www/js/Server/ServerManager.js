@@ -706,7 +706,7 @@ class ServerManagerClass {
       data: JSON.stringify(final_data),
       success: function (response) {
         //// console.log('Flow update sucessfully: ');
-        // console.log(response);
+        console.log(response);
         UpdateProfile(final_data.Data.FullName, final_data.Data.Biography, final_data.Data.Image);
       },
       error: function (response) {

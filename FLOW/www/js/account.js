@@ -364,7 +364,7 @@ $("#fFollowButtunAccount").click(function () {
         }
 
     } else {
-        Popup("popup-connect", true, 45);
+        Popup("popup-connect", true, 60);
     }
 });
 

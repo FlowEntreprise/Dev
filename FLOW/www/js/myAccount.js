@@ -10,7 +10,13 @@ var MyFlowAdd = true;
 var MyLikeAdd = true;
 var PPHasChanged = false;
 $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
-
+$(".faccount")[0].addEventListener("touchstart", function () {
+    if (connected) {
+        Popup("popup-myaccount", true);
+    } else {
+        Popup("popup-connect", true, 60);
+    }
+});
 document.getElementById("popup-myaccount").addEventListener("opened", function () {
     last_scroll = 0;
     current_page = "my-account";
@@ -217,16 +223,6 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
         $("#feditBio").val(bioMonCompte);
     });
 
-    $("#fcloseProfilPopup").click(function () {
-        in_editprofile = false;
-        closeEditProfile();
-    });
-
-    $("#feditProfilePopupContainer").click(function () {
-        in_editprofile = false;
-        closeEditProfile();
-    });
-
     $("#tabMonCompte1").scroll(function () {
         var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
         if (MyFlowAdd == true) {
@@ -264,15 +260,26 @@ function liked_flow_get_block_and_blocked_users(data_liked_flow, mine) {
     ServerManager.GetBlockedUsers(data_liked_flow, "liked_flow", mine);
 }
 
+$("#fcloseProfilPopup").click(function () {
+    in_editprofile = false;
+    closeEditProfile();
+});
+
+$("#feditProfilePopupContainer").click(function () {
+    in_editprofile = false;
+    closeEditProfile();
+});
 
 function closeEditProfile() {
     if ($.trim($("#editProfileName").val()) != "") {
         if ($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte || PPHasChanged) {
-            var updateEditProfile = {
+            let updateEditProfile = {
                 FullName: $("#editProfileName").val(),
                 Biography: $("#feditBio").val(),
-                Image: window.localStorage.getItem("user_profile_pic")
             };
+            if (!window.localStorage.getItem("user_profile_pic").includes("https")) {
+                updateEditProfile.Image = window.localStorage.getItem("user_profile_pic");
+            }
             ServerManager.UpdateProfile(updateEditProfile);
         }
         $("#feditProfilePopupContainer").css("opacity", "0");
