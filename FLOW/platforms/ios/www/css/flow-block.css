@@ -1,8 +1,7 @@
 .fflow {
 	position: relative;
 	width: 90vw;
-	margin-left: 5vw;
-	margin-right: 5vw;
+	margin-left: 4vw;
 	margin-top: 5vw;
 	height: calc(35 * var(--custom-vh));
 	background-color: #ffffff;
