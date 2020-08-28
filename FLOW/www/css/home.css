@@ -25,6 +25,10 @@
 	transition-duration: 0.4s;
 }
 
+#tab1 {
+	overflow-x: hidden;
+}
+
 .fstories_title {
 	position: absolute;
 	top: calc(5 * var(--custom-vh));
