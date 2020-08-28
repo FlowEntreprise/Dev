@@ -13,6 +13,14 @@
 	left: 0 !important;
 }
 
+#accountBannerScrollAccount {
+	position: absolute;
+	width: 100vw;
+	height: calc(30 * var(--custom-vh));
+	background: white;
+	z-index: 5;
+}
+
 #fFollowButtunAccount {
 	border: solid 1.5px #1a84ef;
 	color: #1a84ef;

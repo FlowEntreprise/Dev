@@ -2,6 +2,14 @@
 	background-color: white !important;
 }
 
+#accountBannerScroll {
+	position: absolute;
+	width: 100vw;
+	height: calc(30 * var(--custom-vh));
+	background: white;
+	z-index: 5;
+}
+
 #freturnMonCompte {
 	position: absolute;
 	top: calc(4 * var(--custom-vh));
@@ -202,10 +210,6 @@
 
 .fblockMonComptePadding {
 	padding-top: calc(1.5 * var(--custom-vh)) !important;
-}
-
-#accountBannerScroll {
-	transition-duration: 0.4s;
 }
 
 #fmybigProfilPictureContainer {

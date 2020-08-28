@@ -22,7 +22,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     current_page = "my-account";
     $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
     $(".ftabsMonCompte")[0].style.display = "block";
-    $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
+    // $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
     $("scrollEvent").remove(".swiper-wrapper");
     $("#accountBannerScroll").css("transition-duration", "0.2s");
     $("#accountBannerScroll").css("transform", "translate3d(0vw, 0vh, 0vh)");
@@ -31,7 +31,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     $(".ftabsMonCompte").css("transition-duration", "0.2s");
     var scrollTest = $(".scrollMyAccunt").scrollTop();
     $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
-    $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(4 * var(--custom-vh)), 0vh)");
+    $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(-20 * var(--custom-vh)), 0vh)");
     boolScrollTop = true;
     $("#MyActivity").addClass("fblockMonComptePadding");
 
@@ -122,35 +122,35 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 
     function checkScroll() {
         let current_scroll = scroll_element.scrollTop() + scroll_element.innerHeight();
-        if (current_scroll > last_scroll + 10) {
-            if (scroll_element[0].scrollHeight > document.body.clientHeight) {
-                //console.log("94vh");
-                // event.preventDefault();
-                // event.stopPropagation();
-                $("scrollEvent").remove(".swiper-wrapper");
-                $("#accountBannerScroll").css("transform", "translate3d(0vw, -30vh, 0vh)");
-                if (boolScrollTop) {
-                    // $(".ftabsMonCompte")[0].setAttribute("style", "height:94vh !important");
+        if (current_scroll > last_scroll + 10 && last_scroll != 0) {
+            // if (scroll_element[0].scrollHeight > document.body.clientHeight) {
+            //console.log("94vh");
+            // event.preventDefault();
+            // event.stopPropagation();
+            $("scrollEvent").remove(".swiper-wrapper");
+            $("#accountBannerScroll").css("transform", "translate3d(0vw, -30vh, 0vh)");
+            if (boolScrollTop) {
+                // $(".ftabsMonCompte")[0].setAttribute("style", "height:94vh !important");
 
 
-                    $(".fnavMonCompte").removeClass("fnavMonCompteTransitionDown");
-                    $(".fnavMonCompte").addClass("fnavMonCompteTransitionTop");
-                    $(".fnavMonCompte").css("transform", "translate3d(0vw, -20vh, 0vh)");
-                    $(".ftabsMonCompte").css({
-                        "transition-duration": "0.4s",
-                        "transform": "translate3d(0vw, -23vh, 0vh)"
-                    });
-                    boolScrollTop = false;
-                }
-                $("#MyActivity").removeClass("fblockMonComptePadding");
-                $("scrollEvent").addClass(".swiper-wrapper");
+                $(".fnavMonCompte").removeClass("fnavMonCompteTransitionDown");
+                $(".fnavMonCompte").addClass("fnavMonCompteTransitionTop");
+                $(".fnavMonCompte").css("transform", "translate3d(0vw, -20vh, 0vh)");
+                $(".ftabsMonCompte").css({
+                    "transition-duration": "0.4s",
+                    // "transform": "translate3d(0vw, -23vh, 0vh)"
+                });
+                boolScrollTop = false;
             }
+            $("#MyActivity").removeClass("fblockMonComptePadding");
+            $("scrollEvent").addClass(".swiper-wrapper");
+            // }
         } else {
             if ((current_scroll < last_scroll - 10 && current_scroll < scroll_element[0].scrollHeight - 30) || current_scroll <= scroll_element.innerHeight()) {
                 // event.preventDefault();
                 // event.stopPropagation();
                 if (boolScrollTop == false) {
-                    $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
+                    // $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
                     $("scrollEvent").remove(".swiper-wrapper");
                     $("#accountBannerScroll").css("transition-duration", "0.2s");
                     $("#accountBannerScroll").css("transform", "translate3d(0vw, 0vh, 0vh)");
@@ -162,7 +162,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
                     // $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(2 * var(--custom-vh)), 0vh)");
                     $(".ftabsMonCompte").css({
                         "transition-duration": "0.2s",
-                        "transform": "translate3d(0vw, 2vh, 0vh)"
+                        // "transform": "translate3d(0vw, 2vh, 0vh)"
                     });
                     boolScrollTop = true;
                     $("#MyActivity").addClass("fblockMonComptePadding");
@@ -371,6 +371,7 @@ function ShowMyFlow(flow) {
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
+            if (i == 0) new_block.block_flow.style.marginTop = "calc(27 * var(--custom-vh))";
             //console.log("Pop Flow");
             //console.log(new_block);
         }
@@ -480,6 +481,7 @@ function ShowMyLikedFlows(flow, data_block_user) {
                         };
                         let new_block = new block(block_params);
                         all_blocks.push(new_block);
+                        if (i == 0) new_block.block_flow.style.marginTop = "calc(27 * var(--custom-vh))";
                         if ($(".loading_myaccount")) $(".loading_myaccount").remove();
 
                         //console.log("Pop Flow");
@@ -511,6 +513,7 @@ function ShowMyLikedFlows(flow, data_block_user) {
                 };
                 let new_block = new block(block_params);
                 all_blocks.push(new_block);
+                if (i == 0) new_block.block_flow.style.marginTop = "calc(27 * var(--custom-vh))";
                 if ($(".loading_myaccount")) $(".loading_myaccount").remove();
 
                 //console.log("Pop Flow");
