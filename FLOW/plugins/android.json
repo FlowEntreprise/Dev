@@ -31,6 +31,10 @@
     },
     "cordova-clipboard": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-camera": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {}

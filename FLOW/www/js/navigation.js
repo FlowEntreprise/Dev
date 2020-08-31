@@ -45,6 +45,9 @@ $$('#tab1').on('tab:show', function () {
     $(".fnotifications-bar").css({
         "display": "none"
     });
+    $(".faccount").css({
+        "top": "calc(0 * var(--custom-vh) + 7px)"
+    });
     stopAllBlocksAudio();
 });
 
@@ -76,6 +79,9 @@ $$('#tab2').on('tab:show', function () {
     });
     $(".fnotifications-bar").css({
         "display": "none"
+    });
+    $(".faccount").css({
+        "top": "calc(0 * var(--custom-vh) + 7px)"
     });
     if (!explore_tabs_initialised) {
 
@@ -110,6 +116,9 @@ $$('#tab3').on('tab:show', function () {
 
     $(".navbar").css({
         "display": "none"
+    });
+    $(".faccount").css({
+        "top": "calc(0 * var(--custom-vh) + 7px)"
     });
     app.hideNavbar($('.navbar'));
     canShowNavbar = false;
@@ -163,7 +172,9 @@ $$('#tab4').on('tab:show', function () {
     });
     canShowNavbar = true;
     current_page = "notifications";
-
+    $(".faccount").css({
+        "top": "calc(1 * var(--custom-vh) + 7px)"
+    });
     if (!connected) {
         setTimeout(function () {
             app.showTab("#tab1");

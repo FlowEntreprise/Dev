@@ -129,16 +129,16 @@ document.getElementById("popup-account").addEventListener("opened", function () 
     app.showTab("#tabCompte1");
     $(".ftabsAccount")[0].style.display = "block";
     $("#tabCompte2").css("display", "block");
-    $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
+    // $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
     // $("scrollEventAccount").remove(".swiper-wrapper");
-    $("#accountBannerScrollAccount").css("transition-duration", "0.2s");
     $("#accountBannerScrollAccount").css("transform", "translate3d(0vw, 0vh, 0vh)");
     $(".fnavAccount").removeClass("fnavAccountTransitionTop");
     $(".fnavAccount").addClass("fnavAccountTransitionDown");
     $(".ftabsAccount").css("transition-duration", "0.2s");
     var scrollTest = $(".scrollAccunt").scrollTop();
     $(".fnavAccount").css("transform", "translate3d(0vw, 7vh, 0vh)");
-    $(".ftabsAccount").css("transform", "translate3d(0vw, 2vh, 0vh)");
+    // $(".ftabsAccount").css("transform", "translate3d(0vw, 2vh, 0vh)");
+    $(".ftabsAccount").css("transform", "translate3d(0vw, -30vh, 0vh)");
     boolScrollTop = true;
     $("#UserActivity").addClass("fblockAccountPadding");
 
@@ -157,7 +157,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
 
     // analytics.setCurrentScreen(current_page);
 
-    $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
+    // $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
     $(".fflow-btn").css("display", "none");
     $(".flow-btn-shadow").css("display", "none");
 
@@ -220,26 +220,26 @@ document.getElementById("popup-account").addEventListener("opened", function () 
     });
 
     function checkScrollAccount() {
-        var current_scroll = scroll_element.scrollTop() + scroll_element.innerHeight();
-        if (current_scroll > last_scroll + 10) {
-            if (scroll_element[0].scrollHeight > document.body.clientHeight) {
-                // event.preventDefault();
-                // event.stopPropagation();
-                // $("scrollEventAccount").remove(".swiper-wrapper");
-                $("#accountBannerScrollAccount").css("transform", "translate3d(0vw, -30vh, 0vh)");
-                if (boolScrollTop) {
-                    // $(".ftabsAccount")[0].setAttribute("style", "height:94vh !important");
-                    $(".fnavAccount").removeClass("fnavAccountTransitionDown");
-                    $(".fnavAccount").addClass("fnavAccountTransitionTop");
-                    $(".fnavAccount").css("transform", "translate3d(0vw, -20vh, 0vh)");
-                    $(".ftabsAccount").css({
-                        "transition-duration": "0.4s",
-                        "transform": "translate3d(0vw, -23vh, 0vh)"
-                    });
-                    boolScrollTop = false;
-                }
-                $("#UserActivity").removeClass("fblockAccountPadding");
+        let current_scroll = scroll_element.scrollTop() + scroll_element.innerHeight();
+        if (current_scroll > last_scroll + 10 && last_scroll != 0) {
+            // if (scroll_element[0].scrollHeight > document.body.clientHeight) {
+            // event.preventDefault();
+            // event.stopPropagation();
+            // $("scrollEventAccount").remove(".swiper-wrapper");
+            $("#accountBannerScrollAccount").css("transform", "translate3d(0vw, -30vh, 0vh)");
+            if (boolScrollTop) {
+                // $(".ftabsAccount")[0].setAttribute("style", "height:94vh !important");
+                $(".fnavAccount").removeClass("fnavAccountTransitionDown");
+                $(".fnavAccount").addClass("fnavAccountTransitionTop");
+                $(".fnavAccount").css("transform", "translate3d(0vw, -20vh, 0vh)");
+                $(".ftabsAccount").css({
+                    "transition-duration": "0.4s",
+                    // "transform": "translate3d(0vw, -23vh, 0vh)"
+                });
+                boolScrollTop = false;
             }
+            $("#UserActivity").removeClass("fblockAccountPadding");
+            // }
             // $("scrollEventAccount").addClass(".swiper-wrapper");
         } else {
             // if (scroll < 100 /*&& $(".ftabsAccount")[0].style.height == "94vh"*/ ) {
@@ -247,7 +247,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
                 // event.preventDefault();
                 // event.stopPropagation();
                 if (boolScrollTop == false) {
-                    //                     $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
+                    // $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
                     // $("scrollEventAccount").remove(".swiper-wrapper");
                     $("#accountBannerScrollAccount").css("transition-duration", "0.2s");
                     $("#accountBannerScrollAccount").css("transform", "translate3d(0vw, 0vh, 0vh)");
@@ -259,7 +259,7 @@ document.getElementById("popup-account").addEventListener("opened", function () 
                     //                     $(".ftabsAccount").css("transform", "translate3d(0vw, 2vh, 0vh)");
                     $(".ftabsAccount").css({
                         "transition-duration": "0.2s",
-                        "transform": "translate3d(0vw, 2vh, 0vh)"
+                        // "transform": "translate3d(0vw, 2vh, 0vh)"
                     });
                     boolScrollTop = true;
                     $("#UserActivity").addClass("fblockAccountPadding");
@@ -364,7 +364,7 @@ $("#fFollowButtunAccount").click(function () {
         }
 
     } else {
-        Popup("popup-connect", true, 45);
+        Popup("popup-connect", true, 60);
     }
 });
 
@@ -414,7 +414,7 @@ function ShowUserProfile(response) {
     console.log(response);
     if (response.Data.PrivateId == privateIDAccount) {
         bioCompte = response.Data.Bio;
-        if (bioCompte.length > 57) bioCompte = bioCompte.substring(0, 57) + "...";
+        // if (Compte.length > 57) bioCompte = bioCompte.substring(0, 57) + "..."; limit bio length by hand (done in css now)
         nameCompte = response.Data.FullName;
         account_registrationId = response.Data.RegisterId;
         LastOs = response.Data.LastOs;
@@ -514,6 +514,7 @@ function ShowUserFlow(flow) {
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
+            if (i == 0) new_block.block_flow.style.marginTop = "calc(37 * var(--custom-vh))";
         }
         if (countFlow < 5) {
             indexAccount++;
@@ -599,6 +600,7 @@ function ShowLikedFlows(flow, data_block_user) {
                         };
                         let new_block = new block(block_params);
                         all_blocks.push(new_block);
+                        if (i == 0) new_block.block_flow.style.marginTop = "calc(37 * var(--custom-vh))";
                         if ($(".loading_account")) $(".loading_account").remove();
                     }
                 }
@@ -627,6 +629,7 @@ function ShowLikedFlows(flow, data_block_user) {
                 };
                 let new_block = new block(block_params);
                 all_blocks.push(new_block);
+                if (i == 0) new_block.block_flow.style.marginTop = "calc(37 * var(--custom-vh))";
                 if ($(".loading_account")) $(".loading_account").remove();
             }
         }

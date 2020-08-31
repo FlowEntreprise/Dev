@@ -42,19 +42,22 @@ function block(params) {
     this.Comments = params.Comments;
     this.ready = false;
     this.last_like_time;
+    this.offset_indicator = 0;
 
     this.flowplay = function () {
         if (this.ready) {
-            if (window.cordova.platformId == "ios") {
-                cordova.plugins.backgroundMode.enable();
-            }
+            // if (window.cordova.platformId == "ios") {
+            //     cordova.plugins.backgroundMode.enable();
+            // }
             block.fplay_button.style.display = "none";
             block.fpause_button.style.display = "block";
             wave.start();
             waveform.style.display = "block";
             block.myaudio.play();
             audio_playing = true;
-            block.progress_div.style.transitionDuration = block.myaudio.duration - block.myaudio.currentTime + "s";
+            // console.log(params.duration);
+            // console.log(block.currentTime);
+            block.progress_div.style.transitionDuration = params.duration - block.currentTime + "s";
             block.progress_div.style.display = 'block';
             // block.progress_div.style.borderTopRightRadius = '0vw';
             block.progress_div.style.width = "100%";
@@ -69,19 +72,30 @@ function block(params) {
 
     this.flowpause = function () {
         if (this.ready) {
-            if (window.cordova.platformId == "ios") {
-                cordova.plugins.backgroundMode.disable();
-            }
+            // if (window.cordova.platformId == "ios") {
+            //     cordova.plugins.backgroundMode.disable();
+            // }
+            // console.log("pause (" + block.offset_indicator + ")");
             block.fplay_button.style.display = "block";
             block.fpause_button.style.display = "none";
             waveform.style.display = "none";
             wave.stop();
             block.isPlaying = false;
-            block.myaudio.pause();
             audio_playing = false;
             block.myRange.style.pointerEvents = "none";
             block.progress_div.style.transitionDuration = "0s";
-            block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
+            block.myaudio.pause();
+            block.myaudio.getCurrentPosition(function (position) {
+                // console.log("pause : " + position);
+                // console.log("-->" + position - block.currentTime);
+                let width = (position + block.offset_indicator) * 100 / params.duration;
+                block.progress_div.style.width = width + '%';
+                block.currentTime = position;
+                // block.offset_indicator = 0;
+                // block.myaudio.seekTo(block.currentTime * 1000);
+            }, function (err) {
+                console.log(err)
+            });
         }
     };
 
@@ -98,10 +112,12 @@ function block(params) {
         let indicator_txt = "";
         let indicator_icon = "";
         if (params.LikeBy != null) {
+            params.LikeBy = params.LikeBy.replace(/[\[\]']+/g, '');
             indicator_txt = params.LikeBy + " a aimé ceci";
             indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Like.png' width='15vw' height='30vw' align='middle'>";
         }
         if (params.CommentBy != null) {
+            params.CommentBy = params.CommentBy.replace(/[\[\]']+/g, '');
             indicator_txt = params.CommentBy + " a commenté ceci";
             indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Comment.png' width='15vw' height='30vw' align='middle'>";
         }
@@ -253,7 +269,7 @@ function block(params) {
         this.ftxt_impression_comment.innerText = affichage_nombre(this.Comments, 1);
         this.fcomment.appendChild(this.ftxt_impression_comment);
 
-        this.ftxt_impression_like.addEventListener('touchstart', function () {
+        this.ftxt_impression_like.addEventListener('touchend', function () {
             Popup('popup-likes', true, 40);
             current_flow_block = block;
             display_all_likes(current_flow_block);
@@ -338,30 +354,52 @@ function block(params) {
         let local_flow = FlowLoader.DownloadFlow(params.audioURL);
         local_flow.OnReady(function (url) {
             console.log("local url : " + url);
-            block.myaudio.src = url;
-            block.myaudio.volume = 1.0;
-            block.ready = true;
-            block.floading_flow.style.display = "none";
-            block.fplay_button.style.display = "block";
-            block.fpause_button.style.display = "none";
+            // block.myaudio.src = url;
+            // block.myaudio.volume = 1.0;
+            block.myaudio = new Media(url, mediaSuccess, mediaFailure, mediaStatus);
+
+            function mediaSuccess() {
+                // console.log("Successfully finished task.");
+            }
+
+            function mediaFailure(err) {
+                // console.log("An error occurred: " + err.code);
+            }
+
+            function mediaStatus(status) {
+                // console.log("A status change occurred: " + status);
+                if (status == 4) {
+                    block.flowend();
+                }
+            }
+            block.myaudio.play();
+            block.myaudio.setVolume('0.0');
+            setTimeout(function () {
+                // console.log("duration : " + block.myaudio.getDuration());
+                params.duration = block.myaudio.getDuration();
+                block.ready = true;
+                block.floading_flow.style.display = "none";
+                block.fplay_button.style.display = "block";
+                block.fpause_button.style.display = "none";
+                block.myaudio.stop();
+                block.myaudio.seekTo(0);
+                block.myaudio.setVolume('1.0');
+                block.currentTime = 0;
+                block.offset_indicator = 0.25;
+            }, 500);
+            // setTimeout(function () {
+            //     
+            // }, 500)
         });
     }
 
     this.isPlaying = false;
-    this.myaudio.ontimeupdate = function () {
-
-        // if (block.isPlaying && !block.seeking) {
-        //     this.progress = Math.round(block.myaudio.currentTime * 100 / params.duration);
-        //     block.myRange.value = this.progress;
-        //     block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
-        //     if (block.progress_div.style.width > '99.8%' && block.progress_div.style.width < '101%') {
-        //         block.progress_div.style.borderTopRightRadius = '2vw';
-
-        //     }
-        // }
-    };
 
     this.myaudio.onended = function () {
+        block.flowend();
+    };
+
+    this.flowend = function () {
         audio_playing = false;
         waveform.style.display = "none";
         block.progress_div.style.transitionDuration = '0s';
@@ -371,27 +409,35 @@ function block(params) {
         setTimeout(function () {
             block.progress_div.style.opacity = '1';
             block.progress_div.style.width = '0%';
+            block.offset_indicator = 0.25;
         }, 100);
         block.currentTime = 0;
-    };
+    }
 
-    this.seek = function () {
-        console.log("seek");
-        console.log(block.myRange.value);
-        this.progress = block.myRange.value;
-        this.time = this.progress * params.duration / 100;
-        block.myaudio.currentTime = Math.round(this.time);
-        block.myaudio.currentTime = block.currentTime;
-        block.seeking = true;
-        block.progress_div.style.display = "block";
-        block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
-        setTimeout(function () {
-            block.seeking = false;
-            console.log("seeking = false");
-        }, 600);
-        // block.flowplay();
-        // console.log("flow play");
-    };
+    // this.seek = function () {
+    //     console.log("seek");
+    //     console.log(block.myRange.value);
+    //     this.progress = block.myRange.value;
+    //     this.time = this.progress * params.duration / 100;
+    //     // block.myaudio.currentTime = Math.round(this.time);
+    //     console.log("seek to : " + block.curentTime);
+    //     block.myaudio.seekTo(block.currentTime);
+    //     // block.myaudio.currentTime = block.currentTime;
+    //     block.seeking = true;
+    //     block.progress_div.style.display = "block";
+    //     block.myaudio.getCurrentPosition(function (position) {
+    //         block.currentTime = position;
+    //         block.progress_div.style.width = position * 100 / params.duration + '%';
+    //     }, function (err) {
+    //         console.log(err)
+    //     });
+    //     setTimeout(function () {
+    //         block.seeking = false;
+    //         console.log("seeking = false");
+    //     }, 600);
+    //     // block.flowplay();
+    //     // console.log("flow play");
+    // };
 
     this.fplay_button.addEventListener('click', function () {
         stopAllBlocksAudio();
@@ -412,11 +458,14 @@ function block(params) {
     });
 
     this.myRange.addEventListener('touchend', function () {
-        block.myaudio.currentTime = block.currentTime;
-        setTimeout(function () {
-            block.flowplay();
-        }, 100)
-        console.log("flow play");
+        // block.myaudio.currentTime = block.currentTime;
+        // console.log("seek to : " + block.currentTime);
+        block.myaudio.seekTo(block.currentTime * 1000);
+        block.offset_indicator = 0;
+        // setTimeout(function () {
+        block.flowplay();
+        // }, 100)
+        // console.log("flow play");
         //current_flow_block
     });
 
@@ -438,7 +487,7 @@ function block(params) {
         this.focus();
         block.flowpause();
         block.progress = block.myRange.value;
-        block.progress_div.style.transitionDuration = block.myaudio.duration / 100 + "s";
+        block.progress_div.style.transitionDuration = params.duration / 100 + "s";
         if (block.progress > 99) block.progress = 99;
         block.currentTime = block.progress * params.duration / 100;
         block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';

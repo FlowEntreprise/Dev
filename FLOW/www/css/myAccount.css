@@ -2,6 +2,14 @@
 	background-color: white !important;
 }
 
+#accountBannerScroll {
+	position: absolute;
+	width: 100vw;
+	height: calc(30 * var(--custom-vh));
+	background: white;
+	z-index: 5;
+}
+
 #freturnMonCompte {
 	position: absolute;
 	top: calc(4 * var(--custom-vh));
@@ -37,10 +45,14 @@
 #fnameMonCompte {
 	position: absolute;
 	color: #1a84ef;
-	font-size: 28px;
+	font-size: 25px;
 	left: 36vw;
 	top: calc(13 * var(--custom-vh));
 	font-family: "Roboto-Regular";
+	white-space: nowrap;
+	width: 64vw;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .finfoBandeau {
@@ -111,10 +123,18 @@
 
 #fbioMonCompte {
 	color: #92abb2;
-	font-size: 15px;
+	font-size: 13px;
 	position: absolute;
-	top: calc(19.5 * var(--custom-vh));
+	top: calc(20.5 * var(--custom-vh));
 	left: 36vw;
+	width: 64vw;
+	height: calc(4 * var(--custom-vh));
+	line-height: calc(2 * var(--custom-vh));
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 #feditProfil {
@@ -190,10 +210,6 @@
 
 .fblockMonComptePadding {
 	padding-top: calc(1.5 * var(--custom-vh)) !important;
-}
-
-#accountBannerScroll {
-	transition-duration: 0.4s;
 }
 
 #fmybigProfilPictureContainer {
