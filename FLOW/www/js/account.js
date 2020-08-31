@@ -13,13 +13,13 @@ var accountFlowAdd = true;
 var UserFlowAdd = true;
 var UserLikeAdd = true;
 var profilePicLink;
-var register_id;
+var account_registrationId;
 var LastOs;
 var user_is_blocked;
 var blocked_by_user;
 var last_scroll = 0;
 
-function alertDismissed() {};
+function alertDismissed() { };
 
 function fInitialisationAccount(privateId) {
     $("#UserActivity")[0].innerHTML = "";
@@ -416,7 +416,7 @@ function ShowUserProfile(response) {
         bioCompte = response.Data.Bio;
         if (bioCompte.length > 57) bioCompte = bioCompte.substring(0, 57) + "...";
         nameCompte = response.Data.FullName;
-        register_id = response.Data.RegisterId;
+        account_registrationId = response.Data.RegisterId;
         LastOs = response.Data.LastOs;
         if (response.Data.HeFollowYou) {
             followYou = JSON.parse(response.Data.HeFollowYou);
@@ -653,7 +653,7 @@ function FollowResponse(response, type, element) {
         $("#ffollowersBandeauChiffre").html(Follower);
         let data_notif_follow = {
             sender_private_id: window.localStorage.getItem("user_private_id"),
-            RegisterId: register_id,
+            RegisterId: account_registrationId,
             LastOs: LastOs
         };
         send_notif_to_user(data_notif_follow, "follow");
@@ -661,7 +661,7 @@ function FollowResponse(response, type, element) {
         follow = false;
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    } else {}
+    } else { }
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }

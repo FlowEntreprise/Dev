@@ -687,17 +687,22 @@ function push_notif_block(notification_type, like_type) {
     }
 }
 
+/*function prepare_notif(block, type)
+{
+    let clean_block_for_notif = block;
+    if(block.ObjectId) // flow block
+    {
+
+    }
+
+}
+*/
 //https://github.com/phonegap/phonegap-plugin-push/blob/master/docs/PAYLOAD.md
 
 function send_notif_to_user(block, type) {
 
-
-    let prepare_id_flow = block.ObjectId ? block.ObjectId : block.Flow_block_id;
-    let prepare_id_registerId = block.RegisterId ? block.RegisterId : block.current_flow_block.RegisterId;
-    if (prepare_id_flow == undefined && type != "follow" && type != "story_comment") {
-        prepare_id_flow = block.current_flow_block.ObjectId;
-    }
-    var sender_info = {
+    let prepare_id_flow = block.Flow_block_id ? block.Flow_block_id : block.ObjectId;
+    let sender_info = {
         fullname: window.localStorage.getItem("user_name"),
         privateId: window.localStorage.getItem("user_private_id"),
         profil_pic: window.localStorage.getItem("user_profile_pic"),
@@ -710,292 +715,280 @@ function send_notif_to_user(block, type) {
         sender_info.comment_text = sender_info.post_texte;
     }
 
-    if ((block.tag_user_RegisterId != undefined &&
-        block.tag_user_RegisterId != prepare_id_registerId &&
-        block.tag_user_RegisterId != registrationId) ||
-        (block.tag_user_RegisterId == undefined &&
-            registrationId != prepare_id_registerId)) {
-        if (block.tag_user_RegisterId == undefined && type == "tag_in_comment") {
-            block.tag_user_RegisterId = block.current_flow_block.RegisterId;
-        }
-        noteId++;
-        switch (type) {
-            case 'story_comment':
-                if (block.LastOs == "ios") {
-                    data = {
-                        "data": {
-                            "title": "@" + sender_info.fullname,
-                            "body": "@" + sender_info.privateId + " a réagi à ta story " + sender_info.post_texte,
-                            "type": "story_comment",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "content_available": true,
-                            "priority": "high"
-                        },
-                        "notification": {
-                            "title": "@" + sender_info.fullname,
-                            "body": "@" + sender_info.privateId + " a réagi à ta story " + sender_info.post_texte,
-                            "type": "story_comment",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "content_available": true,
-                            "priority": "high"
-                        },
-                        "to": block.RegisterId
-                        //registrationId
-                    };
-                } else {
-                    data = {
-                        "data": {
-                            "title": "@" + sender_info.fullname,
-                            "body": "@" + sender_info.privateId + " a réagi à ta story " + sender_info.post_texte,
-                            "type": "story_comment",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "notId": noteId,
-                            "content_available": true,
-                            "priority": "high"
-                        },
-                        "to": block.RegisterId
-                        //registrationId
-                    };
-                }
+    noteId++;
+    switch (type) {
+        case 'story_comment':
+            if (block.LastOs == "ios") {
+                data = {
+                    "data": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " a réagi à ta story " + sender_info.post_texte,
+                        "type": "story_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "notification": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " a réagi à ta story " + sender_info.post_texte,
+                        "type": "story_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "to": block.RegisterId
+                    //registrationId
+                };
+            } else {
+                data = {
+                    "data": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " a réagi à ta story " + sender_info.post_texte,
+                        "type": "story_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "notId": noteId,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "to": block.RegisterId
+                    //registrationId
+                };
+            }
 
-                ServerManager.Send_notif(data);
+            ServerManager.Send_notif(data);
 
-                break;
+            break;
 
-            case 'follow':
-                if (block.LastOs == "ios") {
-                    data = {
-                        "data": {
-                            "title": "@" + sender_info.fullname,
-                            "body": "@" + sender_info.privateId + " s'est abonné à toi " + sender_info.post_texte,
-                            "type": "follow",
-                            "sender_info": sender_info,
+        case 'follow':
+            if (block.LastOs == "ios") {
+                data = {
+                    "data": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " s'est abonné à toi " + sender_info.post_texte,
+                        "type": "follow",
+                        "sender_info": sender_info,
 
-                            "force-start": 1,
-                            "content_available": true,
-                            "priority": "high"
-                        },
-                        "notification": {
-                            "title": "@" + sender_info.fullname,
-                            "body": "@" + sender_info.privateId + " s'est abonné à toi " + sender_info.post_texte,
-                            "type": "follow",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "content_available": true,
-                            "priority": "high"
-                        },
-                        "to": block.RegisterId
-                        //registrationId
-                    };
-                } else {
-                    data = {
-                        "data": {
-                            "title": "@" + sender_info.fullname,
-                            "body": "@" + sender_info.privateId + " s'est abonné à toi " + sender_info.post_texte,
-                            "type": "follow",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "notId": noteId,
-                            "content_available": true,
-                            "priority": "high"
-                        },
-                        "to": block.RegisterId
-                        //registrationId
-                    };
-                }
-                ServerManager.Send_notif(data);
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "notification": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " s'est abonné à toi " + sender_info.post_texte,
+                        "type": "follow",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "to": block.RegisterId
+                    //registrationId
+                };
+            } else {
+                data = {
+                    "data": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " s'est abonné à toi " + sender_info.post_texte,
+                        "type": "follow",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "notId": noteId,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "to": block.RegisterId
+                    //registrationId
+                };
+            }
+            ServerManager.Send_notif(data);
 
-                break;
+            break;
 
-            case 'like_flow':
-                if (block.LastOs == "ios") {
-                    data = {
-                        "data": {
-                            "title": "@" + sender_info.fullname,
-                            "body": "@" + sender_info.privateId + " a aimé ton flow : " + sender_info.post_texte,
-                            "type": "like_flow",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "content_available": true,
-                            "priority": "high"
-                        },
-                        "notification": {
-                            "title": "@" + sender_info.fullname,
-                            "body": "@" + sender_info.privateId + " a aimé ton flow : " + sender_info.post_texte,
-                            "type": "like_flow",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "content_available": true,
-                            "priority": "high"
-                        },
-                        "to": block.RegisterId
-                    };
-                } else {
-                    data = {
-                        "data": {
-                            "title": "@" + sender_info.fullname,
-                            "body": "@" + sender_info.privateId + " a aimé ton flow : " + sender_info.post_texte,
-                            "type": "like_flow",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "notId": noteId,
-                            "content_available": true,
-                            "priority": "high"
-                        },
-                        "to": block.RegisterId
-                    };
-                }
-                ServerManager.Send_notif(data);
+        case 'like_flow':
+            if (block.LastOs == "ios") {
+                data = {
+                    "data": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " a aimé ton flow : " + sender_info.post_texte,
+                        "type": "like_flow",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "notification": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " a aimé ton flow : " + sender_info.post_texte,
+                        "type": "like_flow",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "to": block.RegisterId
+                };
+            } else {
+                data = {
+                    "data": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " a aimé ton flow : " + sender_info.post_texte,
+                        "type": "like_flow",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "notId": noteId,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "to": block.RegisterId
+                };
+            }
+            ServerManager.Send_notif(data);
 
-                break;
+            break;
 
-            case 'send_comment':
-                if (block.current_flow_block.LastOs == "ios") {
-                    data = {
-                        "data": {
-                            "title": "@" + sender_info.fullname,
-                            "body": "@" + sender_info.privateId + " a commenté : " + block.Comment,
-                            "type": "send_comment",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "content_available": true,
-                            "priority": "high"
-                        },
-                        "notification": {
-                            "title": "@" + sender_info.fullname,
-                            "body": "@" + sender_info.privateId + " a commenté : " + block.Comment,
-                            "type": "send_comment",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "content_available": true,
-                            "priority": "high"
-                        },
-                        "to": block.current_flow_block.RegisterId
-                        //registrationId
-                    };
-                } else {
-                    data = {
-                        "data": {
-                            "title": "@" + sender_info.fullname,
-                            "body": "@" + sender_info.privateId + " a commenté : " + block.Comment,
-                            "type": "send_comment",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "notId": noteId,
-                            "content_available": true,
-                            "priority": "high"
-                        },
-                        "to": block.current_flow_block.RegisterId
-                        //registrationId
-                    };
-                }
-                ServerManager.Send_notif(data);
+        case 'send_comment':
+            if (block.current_flow_block.LastOs == "ios") {
+                data = {
+                    "data": {
+                        "title": "@" + sender_info.fullname,
+                        "body": /*"@" + sender_info.privateId + " a commenté : " + */block.Comment,
+                        "type": "send_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "notification": {
+                        "title": "@" + sender_info.fullname,
+                        "body": /*"@" + sender_info.privateId + " a commenté : " + */block.Comment,
+                        "type": "send_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "to": block.current_flow_block.RegisterId
+                    //registrationId
+                };
+            } else {
+                data = {
+                    "data": {
+                        "title": "@" + sender_info.fullname,
+                        "body": /*"@" + sender_info.privateId + " a commenté : " + */block.Comment,
+                        "type": "send_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "notId": noteId,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "to": block.current_flow_block.RegisterId
+                    //registrationId
+                };
+            }
+            ServerManager.Send_notif(data);
 
-                break;
+            break;
 
-            case 'tag_in_comment':
-                if (block.LastOs == "ios") {
-                    data = {
-                        "data": {
-                            "title": "@" + sender_info.fullname,
-                            "body": block.Comment,
-                            "type": "send_comment",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "content_available": true,
-                            "priority": "high",
-                            "tag_in_comment": true
-                        },
-                        "notification": {
-                            "title": "@" + sender_info.fullname,
-                            "body": block.Comment,
-                            "type": "send_comment",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "content_available": true,
-                            "priority": "high",
-                            "tag_in_comment": true
-                        },
-                        "to": block.tag_user_RegisterId
-                        //registrationId
-                    };
-                } else {
-                    data = {
-                        "data": {
-                            "title": "@" + sender_info.fullname,
-                            "body": block.Comment,
-                            "type": "send_comment",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "notId": noteId,
-                            "content_available": true,
-                            "priority": "high",
-                            "tag_in_comment": true
-                        },
-                        "to": block.tag_user_RegisterId
-                        //registrationId
-                    };
+        case 'tag_in_comment':
+            if (block.LastOs == "ios") {
+                data = {
+                    "data": {
+                        "title": "@" + sender_info.fullname,
+                        "body": block.Comment,
+                        "type": "send_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high",
+                        "tag_in_comment": true
+                    },
+                    "notification": {
+                        "title": "@" + sender_info.fullname,
+                        "body": block.Comment,
+                        "type": "send_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high",
+                        "tag_in_comment": true
+                    },
+                    "to": block.tag_user_RegisterId
+                    //registrationId
+                };
+            } else {
+                data = {
+                    "data": {
+                        "title": "@" + sender_info.fullname,
+                        "body": block.Comment,
+                        "type": "send_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "notId": noteId,
+                        "content_available": true,
+                        "priority": "high",
+                        "tag_in_comment": true
+                    },
+                    "to": block.tag_user_RegisterId
+                    //registrationId
+                };
 
-                }
-                ServerManager.Send_notif(data);
+            }
+            ServerManager.Send_notif(data);
 
-                break;
+            break;
 
-            case 'like_comment':
-                if (block.LastOs == "ios") {
-                    data = {
-                        "data": {
-                            "title": "@" + sender_info.fullname,
-                            "body": "@" + sender_info.privateId + " a aimé ton commentaire : " + block.Comment_text,
-                            "type": "like_comment",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "content_available": true,
-                            "priority": "high"
-                        },
-                        "notification": {
-                            "title": "@" + sender_info.fullname,
-                            "body": "@" + sender_info.privateId + " a aimé ton commentaire : " + block.Comment_text,
-                            "type": "like_comment",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "content_available": true,
-                            "priority": "high"
-                        },
-                        "to": block.RegisterId
-                        //registrationId
-                    };
-                } else {
-                    data = {
-                        "data": {
-                            "title": "@" + sender_info.fullname,
-                            "body": "@" + sender_info.privateId + " a aimé ton commentaire : " + block.Comment_text,
-                            "type": "like_comment",
-                            "sender_info": sender_info,
-                            "force-start": 1,
-                            "notId": noteId,
-                            "content_available": true,
-                            "priority": "high"
-                        },
-                        "to": block.RegisterId
-                        //registrationId
-                    };
-                }
+        case 'like_comment':
+            if (block.LastOs == "ios") {
+                data = {
+                    "data": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " a aimé ton commentaire : " + block.Comment_text,
+                        "type": "like_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "notification": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " a aimé ton commentaire : " + block.Comment_text,
+                        "type": "like_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "to": block.RegisterId
+                    //registrationId
+                };
+            } else {
+                data = {
+                    "data": {
+                        "title": "@" + sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " a aimé ton commentaire : " + block.Comment_text,
+                        "type": "like_comment",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "notId": noteId,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "to": block.RegisterId
+                    //registrationId
+                };
+            }
 
-                ServerManager.Send_notif(data);
+            ServerManager.Send_notif(data);
 
-                break;
+            break;
 
-        }
-    } else {
-        console.log("on peut pas s'envoyer des notifs à soit même voyons");
     }
 
 }
-
 
 function pop_notif_block(data) { //bloc de notif de l'onglet notifications
 
@@ -1148,7 +1141,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
     $(".f_in_app_notif").css("margin-top", "-40vw");
     setTimeout(function () {
         $(".f_in_app_notif").css("margin-top", "5vw");
-    }, 6000);
+    }, 3000);
 }
 
 

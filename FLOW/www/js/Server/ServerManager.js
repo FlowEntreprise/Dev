@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-  ServerURL: "https://api.flowappweb.com/",
+  ServerURL: "https://api-test.flowappweb.com/",
   ConnexionURL: "ConnexionFromApi",
   AddFlowURL: "AddFlow",
   GetSingleFlowURL: "GetSingle",
@@ -12,6 +12,7 @@ const ServerParams = {
   GetFlowLikes: "GetFlowLikes",
   LikeFlowComment: "Like/comment",
   LikeFlow: "Like/Flow",
+  LikeResponse: "Like/response",
   UpdateProfileURL: "UpdateProfile",
   GetMultipleFlowURL: "GetMultipleFlow",
   GetMyUserInfosURL: "GetInfoUser",
@@ -36,10 +37,13 @@ const ServerParams = {
   GetNotificationOfUser: "GetNotificationOfUser",
   DeleteFlow: "DeleteFlow",
   DeleteComment: "DeleteComment",
+  DeleteResponse: "DeleteResponse",
   BlockUser: "BlockUser",
   UnBlockUser: "UnBlockUser",
   GetBlockedUsers: "GetBlockedUsers",
   AddReportFlow: "AddReportFlow",
+  AddCommentResponse: "AddCommentResponse",
+  GetCommentResponse: "GetCommentResponse"
 };
 
 const apiTypes = {
@@ -53,7 +57,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-  constructor() {}
+  constructor() { }
 
   /* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
    * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -406,6 +410,35 @@ class ServerManagerClass {
     });
   }
 
+
+  AddCommentResponse(data) {
+    let final_data = {
+      Data: data,
+      Action: "AddCommentResponse",
+      TokenId: window.localStorage.getItem("user_token"),
+    };
+
+    //// console.log(final_data);
+    $.ajax({
+      type: "POST",
+      url: ServerParams.ServerURL + ServerParams.AddCommentResponse,
+      data: JSON.stringify(final_data),
+      success: function (response) {
+        //console.log("response tu connais : " + response + "");
+        var obj = final_data.Data;
+        obj.IdResponse = response.IdResponse;
+        send_response_to_server(obj);
+        it_is_a_response = false;
+      },
+      error: function (response) {
+        //// console.log("comment adding from database error : ");
+        //// console.log(response);
+      },
+    });
+  }
+
+
+
   GetFlowComment(data) {
     let final_data = {
       Data: data,
@@ -419,7 +452,8 @@ class ServerManagerClass {
       url: ServerParams.ServerURL + ServerParams.GetFlowComment,
       data: JSON.stringify(final_data),
       success: function (response) {
-        get_all_comment(response, final_data.Data);
+        //get_all_comment(response, final_data.Data);
+        UpdateCommentList(response, final_data.Data);
         //// console.log("Comment sucessfully added to database :");
         //// console.log(response);
       },
@@ -429,6 +463,32 @@ class ServerManagerClass {
       },
     });
   }
+
+  GetCommentResponse(data) {
+    let final_data = {
+      Data: data,
+      Action: "GetCommentResponse",
+      TokenId: window.localStorage.getItem("user_token"),
+    };
+
+    //console.log(final_data);
+    $.ajax({
+      type: "POST",
+      url: ServerParams.ServerURL + ServerParams.GetCommentResponse,
+      data: JSON.stringify(final_data),
+      success: function (response) {
+        //get_all_comment(response, final_data.Data);
+        display_response(response);
+        console.log("Les reponses de commentaires sont :");
+      },
+      error: function (response) {
+        console.log("Impossible de recuperer les reponses de commentaires");
+        //// console.log(response);
+      },
+    });
+  }
+
+
 
   GetFlowLikes(data) {
     let final_data = {
@@ -460,7 +520,10 @@ class ServerManagerClass {
       Action: "LikeFlowComment",
       TokenId: window.localStorage.getItem("user_token"),
     };
-    var current_bock = block;
+    let current_block = block;
+    current_block.current_flow_block = current_comment_block;
+    /*la ligne du dessus pour simplifier l'envoi des notifs sans trop redev
+    meme si ça parrait pas super coherant*/
     //console.log(final_data);
     $.ajax({
       type: "POST",
@@ -468,7 +531,35 @@ class ServerManagerClass {
       data: JSON.stringify(final_data),
       success: function (response) {
         //impression_coloring(this, 'like', block.fcomment_like, "comment");
-        color_like(current_bock, response.like === undefined ? false : true);
+        color_like(current_block, response.like === undefined ? false : true);
+        //console.log("Comment sucessfully liked to database :");
+        //console.log(response);
+      },
+      error: function (response) {
+        //console.log("comment liked database error : ");
+        //console.log(response);
+      },
+    });
+  }
+
+  LikeResponse(data, block) {
+    let final_data = {
+      Data: data,
+      Action: "LikeResponse",
+      TokenId: window.localStorage.getItem("user_token"),
+    };
+    let current_block = block;
+    current_block.current_flow_block = current_response_block;
+    /*la ligne du dessus pour simplifier l'envoi des notifs sans trop redev
+    meme si ça parrait pas super coherant*/
+    //console.log(final_data);
+    $.ajax({
+      type: "POST",
+      url: ServerParams.ServerURL + ServerParams.LikeResponse,
+      data: JSON.stringify(final_data),
+      success: function (response) {
+        //impression_coloring(this, 'like', block.fcomment_like, "comment");
+        color_like(current_response_block, response.like === undefined ? false : true);
         //console.log("Comment sucessfully liked to database :");
         //console.log(response);
       },
@@ -485,7 +576,7 @@ class ServerManagerClass {
       Action: "LikeFlow",
       TokenId: window.localStorage.getItem("user_token"),
     };
-    var current_bock = block;
+    var current_block = block;
     //console.log(final_data);
     $.ajax({
       type: "POST",
@@ -493,8 +584,8 @@ class ServerManagerClass {
       data: JSON.stringify(final_data),
       success: function (response) {
         //impression_coloring(this, 'like', block.fcomment_like, "comment");
-        //color_like(current_bock, response.like === undefined ? false : true);
-        //console.log("Flow sucessfully liked");
+        //color_like(current_block, response.like === undefined ? false : true);
+        console.log("Flow sucessfully liked");
         //console.log(response);
       },
       error: function (response) {
@@ -517,7 +608,7 @@ class ServerManagerClass {
       success: function (response) {
         ShowMyFlow(response);
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -541,7 +632,7 @@ class ServerManagerClass {
           }
         }
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -558,7 +649,7 @@ class ServerManagerClass {
       success: function (response) {
         ShowUserFlow(response);
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -574,7 +665,7 @@ class ServerManagerClass {
         //console.log(response);
         ShowMyInfosUser(response);
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -590,7 +681,7 @@ class ServerManagerClass {
         //console.log("on recup le getInfosUserNumber");
         ShowInfosUserNumber(response);
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -618,7 +709,7 @@ class ServerManagerClass {
           ShowUserProfile(response);
         }
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -641,7 +732,7 @@ class ServerManagerClass {
         //console.log(response);
         UpdateFollowersList(response, data.follow_list);
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -667,7 +758,7 @@ class ServerManagerClass {
           UpdatefollowingsList(response, data.follow_list);
         }
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -688,7 +779,7 @@ class ServerManagerClass {
         RefreshTL();
         FollowResponse(response, data.type, data.block_user);
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -841,6 +932,27 @@ class ServerManagerClass {
     });
   }
 
+  DeleteResponse(data, element) {
+    let final_data = {
+      Data: data,
+      TokenId: window.localStorage.getItem("user_token"),
+    };
+    //console.log(final_data);
+    $.ajax({
+      type: "POST",
+      url: ServerParams.ServerURL + ServerParams.DeleteResponse,
+      data: JSON.stringify(final_data),
+      success: function (response) {
+        delete_response_from_html(element);
+        console.log("reponse supprimé avec succes");
+      },
+      error: function (response) {
+        //console.log(response);
+        console.log("error dans la supression de la reponse");
+      },
+    });
+  }
+
   UpdateRegisterId(data) {
     let final_data = {
       Data: data,
@@ -973,7 +1085,7 @@ class ServerManagerClass {
                 ServerManager.UpdateRegisterId(data);*/
         console.log(registrationId);
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -1013,7 +1125,7 @@ class ServerManagerClass {
                                 Content : data.data.message
                 */
         ServerManager.AddNotificationToUser(data_notif_to_bdd);
-        //console.log("Notif envoyé avec succes");
+        console.log("Notif envoyé avec succes");
       },
       error: function (response) {
         //console.log("La notif n'a pas été envoyé");
