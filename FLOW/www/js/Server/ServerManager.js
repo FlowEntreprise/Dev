@@ -20,6 +20,8 @@ const ServerParams = {
   GetUserProfil: "GetProfil",
   GetLikedFlows: "GetLikedFlows",
   GetSingle: "GetSingle",
+  GetSingleComment: "GetSingleComment",
+  GetSingleResponse: "GetSingleResponse",
   ActionFollowProfil: "Follow",
   UpdateRegisterId: "UpdateRegisterId",
   GetFollowerOfUser: "GetFollowerOfUser",
@@ -163,7 +165,7 @@ class ServerManagerClass {
         };
         break;
       default:
-        //console.log("Error in parameters sent to Connect() in ServerManager.");
+      //console.log("Error in parameters sent to Connect() in ServerManager.");
     }
     $.ajax({
       type: "POST",
@@ -521,6 +523,7 @@ class ServerManagerClass {
     };
     let current_block = block;
     current_block.current_flow_block = current_comment_block;
+    current_block.IdComment = block.ObjectId;
     /*la ligne du dessus pour simplifier l'envoi des notifs sans trop redev
     meme si ça parrait pas super coherant*/
     //console.log(final_data);
@@ -549,6 +552,7 @@ class ServerManagerClass {
     };
     let current_block = block;
     current_block.current_flow_block = current_response_block;
+    current_block.Idresponse = block.ObjectId;
     /*la ligne du dessus pour simplifier l'envoi des notifs sans trop redev
     meme si ça parrait pas super coherant*/
     //console.log(final_data);
@@ -857,7 +861,7 @@ class ServerManagerClass {
     });
   }
 
-  GetSingle(data, show_comment) {
+  GetSingle(data, show_comment, type, data_specifique) { // data d'un commentaire ou d'une reponse
     let final_data = {
       Data: data,
       TokenId: window.localStorage.getItem("user_token"),
@@ -870,7 +874,7 @@ class ServerManagerClass {
       success: function (response) {
         //console.log(response);
         //console.log("success dans la recuperation de flow unique");
-        if (response == "ERROR GET FLOW") {
+        if (typeof (response) == "string") {
           // alert("Ce flow n'est plus disponible");
           navigator.notification.alert(
             "Ce flow n'est plus disponible",
@@ -879,7 +883,75 @@ class ServerManagerClass {
           );
           return;
         }
-        flow_specifique(response.Data, response.LinkBuilder, show_comment);
+        flow_specifique(response.Data, response.LinkBuilder, show_comment, type, data_specifique);
+      },
+      error: function (response) {
+        //console.log(response);
+        //console.log("error dans la recuperation de flow unique");
+      },
+    });
+  }
+
+  GetSingleComment(data, type, data_response) {
+    let final_data = {
+      Data: data,
+      TokenId: window.localStorage.getItem("user_token"),
+    };
+    //console.log(final_data);
+    $.ajax({
+      type: "POST",
+      url: ServerParams.ServerURL + ServerParams.GetSingleComment,
+      data: JSON.stringify(final_data),
+      success: function (response) {
+        //console.log(response);
+        //console.log("success dans la recuperation de flow unique");
+        if (typeof (response) == "string") {
+          // alert("Ce flow n'est plus disponible");
+          navigator.notification.alert(
+            "Ce commentaire n'est plus disponible",
+            alertDismissed,
+            "Information"
+          );
+          return;
+        }
+        if (type == "response") {
+          comment_specifique(response, type, data_response);
+        }
+        else {
+
+          flow_for_comment_specifique("comment", response);
+        }
+      },
+      error: function (response) {
+        //console.log(response);
+        //console.log("error dans la recuperation de flow unique");
+      },
+    });
+  }
+
+  GetSingleResponse(data) {
+    let final_data = {
+      Data: data,
+      TokenId: window.localStorage.getItem("user_token"),
+    };
+    //console.log(final_data);
+    $.ajax({
+      type: "POST",
+      url: ServerParams.ServerURL + ServerParams.GetSingleResponse,
+      data: JSON.stringify(final_data),
+      success: function (response) {
+        //console.log(response);
+        //console.log("success dans la recuperation de flow unique");
+        if (typeof (response) == "string") {
+          // alert("Ce flow n'est plus disponible");
+          navigator.notification.alert(
+            "Cette réponse n'est plus disponible",
+            alertDismissed,
+            "Information"
+          );
+          return;
+        }
+        flow_and_comment_for_response_specifique(response);
       },
       error: function (response) {
         //console.log(response);
@@ -1090,20 +1162,32 @@ class ServerManagerClass {
 
   Send_notif(data) {
     var data_notif_to_bdd;
-    if (data.notification) {
+    if (data.notification) { //ios
       data_notif_to_bdd = {
         TypeNotification: data.notification.type,
         RegisterIdOfUserToNotify: data.to,
         Content: data.notification.sender_info.comment_text,
         IdFlow: data.notification.sender_info.IdFlow,
       };
+      if (data.notification.type == "send_comment" || data.notification.type == "like_comment") {
+        data_notif_to_bdd.IdFlow = data.notification.sender_info.Id_comment
+      }
+      if (data.notification.type == "send_response" || data.notification.type == "like_response") {
+        data_notif_to_bdd.IdFlow = data.notification.sender_info.Id_response
+      }
     } else {
-      data_notif_to_bdd = {
+      data_notif_to_bdd = { // android
         TypeNotification: data.data.type,
         RegisterIdOfUserToNotify: data.to,
         Content: data.data.sender_info.comment_text,
         IdFlow: data.data.sender_info.IdFlow,
       };
+      if (data.data.type == "send_comment" || data.data.type == "like_comment") {
+        data_notif_to_bdd.IdFlow = data.data.sender_info.Id_comment
+      }
+      if (data.data.type == "send_response" || data.data.type == "like_response") {
+        data_notif_to_bdd.IdFlow = data.data.sender_info.Id_response
+      }
     }
     $.ajax({
       type: "POST",

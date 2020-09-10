@@ -756,66 +756,59 @@ function UpdateCommentList(response, data_block) {
     if (Array.isArray(response.Data)) {
         /*(response.Data.length == 1) ? (text_comment_number = response.Data.length + " commentaire") : (text_comment_number = response.Data.length + " commentaires");
         $(".fcomment_number").text(text_comment_number);*/
-        setTimeout(function () {
-            if ($(".loading_tl")) $(".loading_tl").remove();
-            if (CommentListCurrentIndex == 0) {
-                $(".fblock_comment_content")[0].innerHTML = "";
-                let loading_tl = document.createElement("div");
-                loading_tl.className = "loading-spinner loading_tl";
-                $(".fblock_comment_content")[0].appendChild(loading_tl);
-            }
-            for (let i = 0; i < response.Data.length; i++) {
-                const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data[i].ProfilePicture.name + '?';
-                const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data[i].ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data[i].ProfilePicture.timestamp}`;
-                let profilePicLink = src_profile_img + param_profile_img;
 
-                let comment_data = {
-                    PrivateId: response.Data[i].PrivateId,
-                    ProfilePicture: profilePicLink,
-                    Comment: response.Data[i].Comment,
-                    Comment_text: response.Data[i].Comment,
-                    Like_number: response.Data[i].Likes,
-                    Time: response.Data[i].Time,
-                    IsLike: response.Data[i].IsLike,
-                    IdComment: response.Data[i].IdComment,
-                    RegisterId: response.Data[i].RegisterId,
-                    LastOs: response.Data[i].LastOs,
-                    Flow_block_id: data_block.ObjectId,
-                    Responses: response.Data[i].Responses //nombre de reponses
-                };
+        if ($(".loading_tl")) $(".loading_tl").remove();
+        if (CommentListCurrentIndex == 0) {
+            // $(".fblock_comment_content")[0].innerHTML = "";
+            let loading_tl = document.createElement("div");
+            loading_tl.className = "loading-spinner loading_tl";
+            $(".fblock_comment_content")[0].appendChild(loading_tl);
+        }
+        for (let i = 0; i < response.Data.length; i++) {
+            const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data[i].ProfilePicture.name + '?';
+            const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data[i].ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data[i].ProfilePicture.timestamp}`;
+            let profilePicLink = src_profile_img + param_profile_img;
 
-                comment_data.Comment = comment_data.Comment.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
-                let block_commentaire = new block_comment(comment_data);
-                //block_commentaire.chris_test = "chacal";
-                /*$(block_commentaire.fblock_comment_comment).each(function() {
-    
-                    console.log( $(this).html($(this).text()));
-                    $(this).html($(this).text()
-                                .replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>'));
-                });*/
-                current_flow_block.all_comment_blocks.push(block_commentaire);
-                $(".fblock_comment_content").append(block_commentaire);
-            }
-            CommentListCurrentIndex++;
-            if ($(".loading_tl")) $(".loading_tl").remove();
-            console.log("user updated !");
-            pullToRefreshEnd();
-            if (response.Data.length < 10) {
-                CanRefreshCommentList = false;
-                let tick_tl = document.createElement("div");
-                tick_tl.className = "tick_icon";
-                $(".fblock_comment_content")[0].appendChild(tick_tl);
-            } else {
-                CanRefreshCommentList = true;
-                let loading_tl = document.createElement("div");
-                loading_tl.className = "loading-spinner loading_tl";
-                $(".fblock_comment_content")[0].appendChild(loading_tl);
-            }
-        }, 500);
+            let comment_data = {
+                PrivateId: response.Data[i].PrivateId,
+                ProfilePicture: profilePicLink,
+                Comment: response.Data[i].Comment,
+                Comment_text: response.Data[i].Comment,
+                Like_number: response.Data[i].Likes,
+                Time: response.Data[i].Time,
+                IsLike: response.Data[i].IsLike,
+                IdComment: response.Data[i].IdComment,
+                RegisterId: response.Data[i].RegisterId,
+                LastOs: response.Data[i].LastOs,
+                Flow_block_id: data_block.ObjectId,
+                Responses: response.Data[i].Responses //nombre de reponses
+            };
+
+            comment_data.Comment = comment_data.Comment.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
+            let block_commentaire = new block_comment(comment_data);
+            current_flow_block.all_comment_blocks.push(block_commentaire);
+            $(".fblock_comment_content").append(block_commentaire);
+        }
+        CommentListCurrentIndex++;
+        if ($(".loading_tl")) $(".loading_tl").remove();
+        console.log("user updated !");
+        pullToRefreshEnd();
+        if (response.Data.length < 10) {
+            CanRefreshCommentList = false;
+            let tick_tl = document.createElement("div");
+            tick_tl.className = "tick_icon";
+            $(".fblock_comment_content")[0].appendChild(tick_tl);
+        } else {
+            CanRefreshCommentList = true;
+            let loading_tl = document.createElement("div");
+            loading_tl.className = "loading-spinner loading_tl";
+            $(".fblock_comment_content")[0].appendChild(loading_tl);
+        }
     } else {
         text_comment_number = " 0 commentaire";
         StopRefreshTL();
     }
+
 }
 
 

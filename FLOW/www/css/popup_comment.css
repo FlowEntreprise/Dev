@@ -26,6 +26,7 @@
 	position: relative;
     width: 100vw;
 	margin-bottom: 1vh;
+	padding-bottom: 1vh;
 }
 
 .fblock_response {

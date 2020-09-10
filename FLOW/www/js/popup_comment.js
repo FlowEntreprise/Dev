@@ -12,7 +12,7 @@ var nombre_de_reponses_restant;
 
 // });
 
-function block_response(response_data) {
+function block_response(response_data, response_is_specifique) {
     var block_response = this;
     this.Flow_block_id = response_data.Flow_block_id;
     this.ObjectId = response_data.Idresponse;
@@ -32,7 +32,13 @@ function block_response(response_data) {
 
     this.fblock_response = document.createElement('div');
     this.fblock_response.className = 'fblock_response';
-    $(current_comment_block.fblock_response_container).append(this.fblock_response);
+    if (response_is_specifique) {
+        $(current_comment_block.fblock_response_container).prepend(this.fblock_response);
+    }
+    else {
+
+        $(current_comment_block.fblock_response_container).append(this.fblock_response);
+    }
 
     $(this.fblock_response).on('click', function () {
         current_response_block = block_response;
@@ -122,7 +128,7 @@ function block_response(response_data) {
 
 
 
-function block_comment(comment_data) {
+function block_comment(comment_data, comment_is_specifique) {
 
     let block_comment = this;
     this.Flow_block_id = comment_data.Flow_block_id;
@@ -141,7 +147,13 @@ function block_comment(comment_data) {
 
     this.fblock_comment = document.createElement('div');
     this.fblock_comment.className = 'fblock_comment';
-    $(".fblock_comment_content").append(this.fblock_comment);
+    if (comment_is_specifique) {
+        $(".fblock_comment_content").prepend(this.fblock_comment);
+    }
+    else {
+
+        $(".fblock_comment_content").append(this.fblock_comment);
+    }
 
     $(this.fblock_comment).on('click', function () {
         current_comment_block = block_comment;
@@ -513,7 +525,7 @@ function send_response_to_server(data) {
             car il ya le cas de reponses à un commentaire et le cas de reponse à une reponse
         */
         response_data.RegisterId = current_comment_block.RegisterId;
-        send_notif_to_user(response_data, "send_comment");
+        send_notif_to_user(response_data, "send_response");
     } else {
         for (let i = 0; i < tableau_response_to_tag_users.length; i++) {
             if (tableau_response_to_tag_users[i].slice(0, 1) == "@") {
@@ -521,7 +533,7 @@ function send_response_to_server(data) {
                     if (tableau_response_to_tag_users[i] == all_tagged_users[i_all_tag].private_Id &&
                         registrationId != all_tagged_users[i_all_tag].RegisterId) {
                         response_data.RegisterId = all_tagged_users[i_all_tag].RegisterId;
-                        send_notif_to_user(response_data, "tag_in_response");
+                        send_notif_to_user(response_data, "tag_in_comment");
                     }
                 }
 
@@ -757,12 +769,12 @@ function color_like(block, like) // like des commentaires et de reponses
                 let last_like = Math.floor(((now - block.last_like_time) / 1000) / 60);
                 if (last_like > 29 && registrationId != block.RegisterId) {
                     block.Comment_text = block.fresponse_text; // pour faciliter les notifs à redev ulterieurement
-                    send_notif_to_user(block, "like_comment");
+                    send_notif_to_user(block, "like_response");
                     block.last_like_time = Date.now();
                 }
             } else if (block.last_like_time == undefined && registrationId != block.RegisterId) {
                 block.Comment_text = block.fresponse_text; // pour faciliter les notifs à redev ulterieurement
-                send_notif_to_user(block, "like_comment");
+                send_notif_to_user(block, "like_response");
                 block.last_like_time = Date.now();
             }
 

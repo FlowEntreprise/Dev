@@ -160,13 +160,13 @@ var app = {
             if (window.cordova.platformId == "ios") {
                 let data_apns_to_fcm =
 
-                    {
-                        "application": "com.flowapp.flow",
-                        "sandbox": true,
-                        "apns_tokens": [
-                            registrationId
-                        ]
-                    }
+                {
+                    "application": "com.flowapp.flow",
+                    "sandbox": true,
+                    "apns_tokens": [
+                        registrationId
+                    ]
+                }
                 console.info(" le registrationid avant la transformation est : " + registrationId);
                 ServerManager.APNS_token_to_FCM_token(data_apns_to_fcm);
             }
@@ -193,15 +193,30 @@ var app = {
 
                     $(".flow_specifique_container").html("");
                     let myApp = new Framework7();
-                    let data_flow = {
-                        IdFlow: data.additionalData.sender_info.IdFlow
-                    };
-                    if (data.additionalData.type == "send_comment" || data.additionalData.type == "like_comment") {
-                        ServerManager.GetSingle(data_flow, true);
-                    } else {
 
-                        ServerManager.GetSingle(data_flow);
+
+                    if (data.additionalData.type == "like_comment" || data.additionalData.type == "send_comment") {
+                        let data_single_comment =
+                        {
+                            ObjectId: data.additionalData.sender_info.Id_comment
+                        };
+                        ServerManager.GetSingleComment(data_single_comment);
                     }
+                    if (data.additionalData.type == "like_response" || data.additionalData.type == "send_response") {
+                        let data_single_response =
+                        {
+                            ObjectId: data.additionalData.sender_info.Id_response
+                        };
+                        ServerManager.GetSingleResponse(data_single_response);
+                    }
+                    if (data.additionalData.type != "like_comment" && data.additionalData.type != "like_response") {
+                        let data_flow = {
+                            IdFlow: data.additionalData.sender_info.IdFlow
+                        };
+                        ServerManager.GetSingle(data_flow);
+
+                    }
+
                 }
             }
             if (data.additionalData.foreground == true) {
