@@ -31,6 +31,7 @@
 
 .fblock_response {
 	position: relative;
+	border-radius: 5px;
 }
 
 /* .fblock_comment:active,

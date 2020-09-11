@@ -97,6 +97,7 @@ function comment_specifique(response, type, data_response) {
 
     comment_data.Comment = comment_data.Comment.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
     let block_commentaire = new block_comment(comment_data, true);
+    current_flow_block.all_comment_blocks.push(block_commentaire);
     if (type == "comment") {
         $(block_commentaire.fblock_comment).css("background-color", "#1A84EF26");
         setTimeout(function () {
@@ -111,19 +112,19 @@ function comment_specifique(response, type, data_response) {
         let profilePicLink = src_profile_img + param_profile_img;
 
         let response_data = {
+            response: data_response.Data.Comment,
+            response_text: data_response.Data.Comment,
+            Flow_block_id: data_response.Data.IdFlow,
+            Idresponse: data_response.Data.IdResponse,
+            IsLike: data_response.Data.IsLike,
+            LastOs: data_response.Data.LastOs,
+            Like_number: data_response.Data.Likes,
             PrivateId: data_response.Data.PrivateId,
             ProfilePicture: profilePicLink,
-            Comment: data_response.Data.Comment,
-            Comment_text: data_response.Data.Comment,
-            Like_number: data_response.Data.Likes,
-            Time: data_response.Data.Time,
-            IsLike: data_response.Data.IsLike,
-            Idresponse: data_response.Data.IdResponse,
             RegisterId: data_response.Data.RegisterId,
-            current_comment_block: current_comment_block,
-            current_flow_block: current_comment_block, //peut sembler etrange mais facilite l'envoi des notifs (case "send_response") 
-            tag_user_RegisterId: undefined
+            Time: data_response.Data.Time
         };
+
         let new_block_response = new block_response(response_data, true);
         current_comment_block.all_response_blocks.push(new_block_response);
         $(new_block_response.fblock_response).css("background-color", "#1A84EF26");
@@ -133,7 +134,7 @@ function comment_specifique(response, type, data_response) {
 
     }
 
-    current_flow_block.all_comment_blocks.push(block_commentaire);
+
 
 }
 

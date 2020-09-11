@@ -405,13 +405,13 @@ function display_response(response) { // affiche les reponses par 5
             };
             response_data.response = response_data.response.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
             let new_block_response = new block_response(response_data);
-            current_comment_block.all_response_blocks.push(new_block_response);
 
-            for (let i_response = 0; i_response < current_comment_block.all_response_blocks.length; i_response++) {
-                if (response_data.Idresponse == current_comment_block.all_response_blocks[i_response].ObjectId) {
-                    $(current_comment_block.all_response_blocks[i_response]).remove();
+            for (let i = 0; i < current_comment_block.all_response_blocks.length; i++) {
+                if (current_comment_block.all_response_blocks[i].ObjectId == new_block_response.ObjectId) {
+                    $(new_block_response.fblock_response).remove();
                 }
             }
+            current_comment_block.all_response_blocks.push(new_block_response);
 
             $(".loading_tl").remove();
         }
