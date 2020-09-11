@@ -786,13 +786,6 @@ function UpdateCommentList(response, data_block) {
 
             comment_data.Comment = comment_data.Comment.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
             let block_commentaire = new block_comment(comment_data);
-
-            for (let i = 0; i < current_flow_block.all_comment_blocks.length; i++) {
-                if (current_flow_block.all_comment_blocks[i].ObjectId == block_commentaire.ObjectId) {
-                    console.log("l'objectId est le meme");
-                    $(block_commentaire.fblock_comment).remove();
-                }
-            }
             current_flow_block.all_comment_blocks.push(block_commentaire);
             $(".fblock_comment_content").append(block_commentaire);
         }
