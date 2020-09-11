@@ -789,6 +789,7 @@ function UpdateCommentList(response, data_block) {
 
             for (let i = 0; i < current_flow_block.all_comment_blocks.length; i++) {
                 if (current_flow_block.all_comment_blocks[i].ObjectId == block_commentaire.ObjectId) {
+                    console.log("l'objectId est le meme");
                     $(block_commentaire.fblock_comment).remove();
                 }
             }

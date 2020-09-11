@@ -96,6 +96,12 @@ function comment_specifique(response, type, data_response) {
     };
 
     comment_data.Comment = comment_data.Comment.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
+    for (let i = 0; i < current_flow_block.all_comment_blocks.length; i++) {
+        if (current_flow_block.all_comment_blocks[i].ObjectId == comment_data.IdComment) {
+            console.log("l'objectId est le meme");
+            $(current_flow_block.all_comment_blocks[i].fblock_comment).remove();
+        }
+    }
     let block_commentaire = new block_comment(comment_data, true);
     current_flow_block.all_comment_blocks.push(block_commentaire);
     if (type == "comment") {
