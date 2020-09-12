@@ -157,16 +157,16 @@ var app = {
             console.log(data.registrationId);
             registrationId = data.registrationId;
 
-            if (window.cordova.platformId == "ios") {
+            if (window.cordova.platformId == "ios" && registrationId.length < 100) {
                 let data_apns_to_fcm =
 
-                {
-                    "application": "com.flowapp.flow",
-                    "sandbox": true,
-                    "apns_tokens": [
-                        registrationId
-                    ]
-                }
+                    {
+                        "application": "com.flowapp.flow",
+                        "sandbox": true,
+                        "apns_tokens": [
+                            registrationId
+                        ]
+                    }
                 console.info(" le registrationid avant la transformation est : " + registrationId);
                 ServerManager.APNS_token_to_FCM_token(data_apns_to_fcm);
             }
@@ -196,15 +196,13 @@ var app = {
 
 
                     if (data.additionalData.type == "like_comment" || data.additionalData.type == "send_comment") {
-                        let data_single_comment =
-                        {
+                        let data_single_comment = {
                             ObjectId: data.additionalData.sender_info.Id_comment
                         };
                         ServerManager.GetSingleComment(data_single_comment);
                     }
                     if (data.additionalData.type == "like_response" || data.additionalData.type == "send_response") {
-                        let data_single_response =
-                        {
+                        let data_single_response = {
                             ObjectId: data.additionalData.sender_info.Id_response
                         };
                         ServerManager.GetSingleResponse(data_single_response);

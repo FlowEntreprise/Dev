@@ -758,8 +758,9 @@ function UpdateCommentList(response, data_block) {
         $(".fcomment_number").text(text_comment_number);*/
 
         if ($(".loading_tl")) $(".loading_tl").remove();
+        $(".fblock_comment_content")[0].innerHTML = "";
         if (CommentListCurrentIndex == 0) {
-            // $(".fblock_comment_content")[0].innerHTML = "";
+            
             let loading_tl = document.createElement("div");
             loading_tl.className = "loading-spinner loading_tl";
             $(".fblock_comment_content")[0].appendChild(loading_tl);
