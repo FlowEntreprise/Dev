@@ -155,5 +155,7 @@ document.getElementById("popup-specifique").addEventListener("opened", function 
 });
 document.getElementById("popup-specifique").addEventListener("closed", function () {
     in_specifique = false;
+    current_flow_block.all_comment_blocks.length = 0
+    current_comment_block.all_response_blocks.length = 0
     stopAllBlocksAudio();
 });
