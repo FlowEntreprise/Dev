@@ -153,6 +153,7 @@
 .list-block {
 	margin: 0 !important;
 	padding-bottom: 12vh;
+    overflow-x : hidden;
 }
 
 .preloader {

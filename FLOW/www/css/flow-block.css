@@ -1,15 +1,15 @@
 .fflow {
-	position: relative;
-	width: 90vw;
-	margin-left: 5vw;
-	margin-right: 5vw;
-	margin-top: 5vw;
-	height: calc(35 * var(--custom-vh));
-	background-color: #ffffff;
-	border-radius: 2vw;
-	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
-	font-family: "Roboto-Light";
-	transform: translateZ(0);
+    position: relative;
+    width: 90vw;
+    margin-left: 5vw;
+    /*margin-right: 5vw;*/
+    margin-top: 5vw;
+    height: calc(35 * var(--custom-vh));
+    background-color: #ffffff;
+    border-radius: 2vw;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+    font-family: "Roboto-Light";
+    transform: translateZ(0);
 }
 
 .fposter_photo {
