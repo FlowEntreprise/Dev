@@ -2,7 +2,8 @@
 
 var block_id = 0;
 var audio_playing = false;
-
+var CanRefreshCommentList = true;
+var CommentListCurrentIndex = 0;
 /*********** BLOCK PARAMS *************
  * var block_params = {
     parent_element: undefined,
@@ -41,19 +42,22 @@ function block(params) {
     this.Comments = params.Comments;
     this.ready = false;
     this.last_like_time;
+    this.offset_indicator = 0;
 
     this.flowplay = function () {
         if (this.ready) {
-            if (window.cordova.platformId == "ios") {
-                cordova.plugins.backgroundMode.enable();
-            }
+            // if (window.cordova.platformId == "ios") {
+            //     cordova.plugins.backgroundMode.enable();
+            // }
             block.fplay_button.style.display = "none";
             block.fpause_button.style.display = "block";
             wave.start();
             waveform.style.display = "block";
             block.myaudio.play();
             audio_playing = true;
-            block.progress_div.style.transitionDuration = block.myaudio.duration - block.myaudio.currentTime + "s";
+            // console.log(params.duration);
+            // console.log(block.currentTime);
+            block.progress_div.style.transitionDuration = params.duration - block.currentTime + "s";
             block.progress_div.style.display = 'block';
             // block.progress_div.style.borderTopRightRadius = '0vw';
             block.progress_div.style.width = "100%";
@@ -68,19 +72,30 @@ function block(params) {
 
     this.flowpause = function () {
         if (this.ready) {
-            if (window.cordova.platformId == "ios") {
-                cordova.plugins.backgroundMode.disable();
-            }
+            // if (window.cordova.platformId == "ios") {
+            //     cordova.plugins.backgroundMode.disable();
+            // }
+            // console.log("pause (" + block.offset_indicator + ")");
             block.fplay_button.style.display = "block";
             block.fpause_button.style.display = "none";
             waveform.style.display = "none";
             wave.stop();
             block.isPlaying = false;
-            block.myaudio.pause();
             audio_playing = false;
             block.myRange.style.pointerEvents = "none";
             block.progress_div.style.transitionDuration = "0s";
-            block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
+            block.myaudio.pause();
+            block.myaudio.getCurrentPosition(function (position) {
+                // console.log("pause : " + position);
+                // console.log("-->" + position - block.currentTime);
+                let width = (position + block.offset_indicator) * 100 / params.duration;
+                block.progress_div.style.width = width + '%';
+                block.currentTime = position;
+                // block.offset_indicator = 0;
+                // block.myaudio.seekTo(block.currentTime * 1000);
+            }, function (err) {
+                console.log(err)
+            });
         }
     };
 
@@ -97,44 +112,14 @@ function block(params) {
         let indicator_txt = "";
         let indicator_icon = "";
         if (params.LikeBy != null) {
-            if (params.LikeBy.match(/,/g)) {
-                params.LikeBy = params.LikeBy.split(",");
-                params.LikeBy = params.LikeBy.map(x => x.replace(/\[/g, ""));
-                params.LikeBy = params.LikeBy.map(x => x.replace(/\]/g, ""));
-                let index_of_name = params.LikeBy.indexOf(window.localStorage.getItem("user_private_id"));
-                params.LikeBy.splice(index_of_name, 1);
-                params.LikeBy = params.LikeBy[0];
-                indicator_txt = params.LikeBy + " a aimé ceci";
-                indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Like.png' width='15vw' height='30vw' align='middle'>";
-
-            }
-            else {
-                params.LikeBy = params.LikeBy.slice(1, -1);
-                if (params.LikeBy != window.localStorage.getItem("user_private_id")) {
-                    indicator_txt = params.LikeBy + " a aimé ceci";
-                    indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Like.png' width='15vw' height='30vw' align='middle'>";
-                }
-            }
+            params.LikeBy = params.LikeBy.replace(/[\[\]']+/g, '');
+            indicator_txt = params.LikeBy + " a aimé ceci";
+            indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Like.png' width='15vw' height='30vw' align='middle'>";
         }
         if (params.CommentBy != null) {
-            if (params.CommentBy.match(/,/g)) {
-                params.CommentBy = params.CommentBy.split(",");
-                params.CommentBy = params.CommentBy.map(x => x.replace(/\[/g, ""));
-                params.CommentBy = params.CommentBy.map(x => x.replace(/\]/g, ""));
-                let index_of_name = params.CommentBy.indexOf(window.localStorage.getItem("user_private_id"));
-                params.CommentBy.splice(index_of_name, 1);
-                params.CommentBy = params.CommentBy[0];
-                indicator_txt = params.CommentBy + " a commenté ceci";
-                indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Comment.png' width='15vw' height='30vw' align='middle'>";
-
-            }
-            else {
-                params.CommentBy = params.CommentBy.slice(1, -1);
-                if (params.CommentBy != window.localStorage.getItem("user_private_id")) {
-                    indicator_txt = params.CommentBy + " a commenté ceci";
-                    indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Comment.png' width='15vw' height='30vw' align='middle'>";
-                }
-            }
+            params.CommentBy = params.CommentBy.replace(/[\[\]']+/g, '');
+            indicator_txt = params.CommentBy + " a commenté ceci";
+            indicator_icon = "<img class='tl_indicator_icon' src='./src/icons/Comment.png' width='15vw' height='30vw' align='middle'>";
         }
         let tl_indicator = document.createElement("p");
         tl_indicator.className = "tl_indicator";
@@ -284,7 +269,7 @@ function block(params) {
         this.ftxt_impression_comment.innerText = affichage_nombre(this.Comments, 1);
         this.fcomment.appendChild(this.ftxt_impression_comment);
 
-        this.ftxt_impression_like.addEventListener('touchstart', function () {
+        this.ftxt_impression_like.addEventListener('touchend', function () {
             Popup('popup-likes', true, 40);
             current_flow_block = block;
             display_all_likes(current_flow_block);
@@ -369,30 +354,52 @@ function block(params) {
         let local_flow = FlowLoader.DownloadFlow(params.audioURL);
         local_flow.OnReady(function (url) {
             console.log("local url : " + url);
-            block.myaudio.src = url;
-            block.myaudio.volume = 1.0;
-            block.ready = true;
-            block.floading_flow.style.display = "none";
-            block.fplay_button.style.display = "block";
-            block.fpause_button.style.display = "none";
+            // block.myaudio.src = url;
+            // block.myaudio.volume = 1.0;
+            block.myaudio = new Media(url, mediaSuccess, mediaFailure, mediaStatus);
+
+            function mediaSuccess() {
+                // console.log("Successfully finished task.");
+            }
+
+            function mediaFailure(err) {
+                // console.log("An error occurred: " + err.code);
+            }
+
+            function mediaStatus(status) {
+                // console.log("A status change occurred: " + status);
+                if (status == 4) {
+                    block.flowend();
+                }
+            }
+            block.myaudio.play();
+            block.myaudio.setVolume('0.0');
+            setTimeout(function () {
+                // console.log("duration : " + block.myaudio.getDuration());
+                params.duration = block.myaudio.getDuration();
+                block.ready = true;
+                block.floading_flow.style.display = "none";
+                block.fplay_button.style.display = "block";
+                block.fpause_button.style.display = "none";
+                block.myaudio.stop();
+                block.myaudio.seekTo(0);
+                block.myaudio.setVolume('1.0');
+                block.currentTime = 0;
+                block.offset_indicator = 0.25;
+            }, 500);
+            // setTimeout(function () {
+            //     
+            // }, 500)
         });
     }
 
     this.isPlaying = false;
-    this.myaudio.ontimeupdate = function () {
-
-        // if (block.isPlaying && !block.seeking) {
-        //     this.progress = Math.round(block.myaudio.currentTime * 100 / params.duration);
-        //     block.myRange.value = this.progress;
-        //     block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
-        //     if (block.progress_div.style.width > '99.8%' && block.progress_div.style.width < '101%') {
-        //         block.progress_div.style.borderTopRightRadius = '2vw';
-
-        //     }
-        // }
-    };
 
     this.myaudio.onended = function () {
+        block.flowend();
+    };
+
+    this.flowend = function () {
         audio_playing = false;
         waveform.style.display = "none";
         block.progress_div.style.transitionDuration = '0s';
@@ -402,27 +409,35 @@ function block(params) {
         setTimeout(function () {
             block.progress_div.style.opacity = '1';
             block.progress_div.style.width = '0%';
+            block.offset_indicator = 0.25;
         }, 100);
         block.currentTime = 0;
-    };
+    }
 
-    this.seek = function () {
-        console.log("seek");
-        console.log(block.myRange.value);
-        this.progress = block.myRange.value;
-        this.time = this.progress * params.duration / 100;
-        block.myaudio.currentTime = Math.round(this.time);
-        block.myaudio.currentTime = block.currentTime;
-        block.seeking = true;
-        block.progress_div.style.display = "block";
-        block.progress_div.style.width = block.myaudio.currentTime * 100 / params.duration + '%';
-        setTimeout(function () {
-            block.seeking = false;
-            console.log("seeking = false");
-        }, 600);
-        // block.flowplay();
-        // console.log("flow play");
-    };
+    // this.seek = function () {
+    //     console.log("seek");
+    //     console.log(block.myRange.value);
+    //     this.progress = block.myRange.value;
+    //     this.time = this.progress * params.duration / 100;
+    //     // block.myaudio.currentTime = Math.round(this.time);
+    //     console.log("seek to : " + block.curentTime);
+    //     block.myaudio.seekTo(block.currentTime);
+    //     // block.myaudio.currentTime = block.currentTime;
+    //     block.seeking = true;
+    //     block.progress_div.style.display = "block";
+    //     block.myaudio.getCurrentPosition(function (position) {
+    //         block.currentTime = position;
+    //         block.progress_div.style.width = position * 100 / params.duration + '%';
+    //     }, function (err) {
+    //         console.log(err)
+    //     });
+    //     setTimeout(function () {
+    //         block.seeking = false;
+    //         console.log("seeking = false");
+    //     }, 600);
+    //     // block.flowplay();
+    //     // console.log("flow play");
+    // };
 
     this.fplay_button.addEventListener('click', function () {
         stopAllBlocksAudio();
@@ -443,11 +458,14 @@ function block(params) {
     });
 
     this.myRange.addEventListener('touchend', function () {
-        block.myaudio.currentTime = block.currentTime;
-        setTimeout(function () {
-            block.flowplay();
-        }, 100)
-        console.log("flow play");
+        // block.myaudio.currentTime = block.currentTime;
+        // console.log("seek to : " + block.currentTime);
+        block.myaudio.seekTo(block.currentTime * 1000);
+        block.offset_indicator = 0;
+        // setTimeout(function () {
+        block.flowplay();
+        // }, 100)
+        // console.log("flow play");
         //current_flow_block
     });
 
@@ -469,7 +487,7 @@ function block(params) {
         this.focus();
         block.flowpause();
         block.progress = block.myRange.value;
-        block.progress_div.style.transitionDuration = block.myaudio.duration / 100 + "s";
+        block.progress_div.style.transitionDuration = params.duration / 100 + "s";
         if (block.progress > 99) block.progress = 99;
         block.currentTime = block.progress * params.duration / 100;
         block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
@@ -509,6 +527,10 @@ function block(params) {
     $(this.fimg_impression_comment).on('click', function () {
         if (connected) {
             current_flow_block = block;
+            (+current_flow_block.Comments == 0) ? (text_comment_number = current_flow_block.Comments + " commentaire") : (text_comment_number = current_flow_block.Comments + " commentaires");
+            $(".fcomment_number").text(text_comment_number);
+            CanRefreshCommentList = true;
+            CommentListCurrentIndex = 0;
             display_all_comments(current_flow_block);
         } else {
             Popup("popup-connect", true, 60);
@@ -541,22 +563,23 @@ $(".fpopover_delete_flow").on("click", function () {
     delete_flow(current_flow_block);
 });
 
-
-
-function display_all_comments(block) //fonction permettant d'affiher tout les commentaires
+function display_all_comments(block) //fonction permettant d'affiher tous les commentaires
 {
     $(".fblock_comment_content").html("");
-
+    console.log(" le display all comment à ete appelé");
     var loading_comment = document.createElement("div");
     loading_comment.className = "loading-spinner loading_tl loading_comment";
     $(".fblock_comment_content").append(loading_comment);
-    $(".fcomment_number").text("");
+    //$(".fcomment_number").text("");
     let ObjectId;
     if (block.ObjectId == undefined && block.IdFlow == undefined) ObjectId = block.additionalData.sender_info.IdFlow;
     if (block.ObjectId == undefined && block.additionalData == undefined) ObjectId = block.IdFlow;
     if (block.IdFlow == undefined && block.additionalData == undefined) ObjectId = block.ObjectId;
+    CanRefreshCommentList = true;
+    CommentListCurrentIndex = 0;
     let data = {
         ObjectId: ObjectId,
+        Index: CommentListCurrentIndex,
         IsComment: block.IsComment
     };
     ServerManager.GetFlowComment(data);
@@ -603,11 +626,11 @@ function impression_coloring(object, type, block, like_type) {
                     $(block.ftxt_impression_like).text(+like_number + 1);
                     if (block.last_like_time != undefined) {
                         let last_like = Math.floor(((now - block.last_like_time) / 1000) / 60);
-                        if (last_like > 29) {
+                        if (last_like > 29 && registrationId != block.RegisterId) {
                             send_notif_to_user(block, "like_flow");
                             block.last_like_time = Date.now();
                         }
-                    } else if (block.last_like_time == undefined) {
+                    } else if (block.last_like_time == undefined && registrationId != block.RegisterId) {
                         send_notif_to_user(block, "like_flow");
                         block.last_like_time = Date.now();
                     }
@@ -642,30 +665,7 @@ function impression_coloring(object, type, block, like_type) {
     }
 
 }
-/*
-$(document).on('click', 'a.fposter_photo, .fimg_user, .fphoto_block_notif_like', function () {
-    
-    var parent = $(this).parent().parent();
-    var parentBlockId = parent.attr("block_id");
-    if (all_blocks[parentBlockId].privateID == window.localStorage.getItem("user_private_id")) {
-        if (current_page != "my-account") {
-            Popup("popup-specifique", false);
-            Popup("popup-myaccount", true);
-        } else {
-            shake("tabMonCompte1");
 
-        }
-    } else {
-        if (current_page == "account" && privateIDAccount == all_blocks[parentBlockId].privateID) {
-            shake("tabCompte1");
-        } else {
-            Popup("popup-account", true);
-            fInitialisationAccount(all_blocks[parentBlockId].privateID);
-        }
-    }
-
-});
-*/
 
 function go_to_account(data) //fonction permettant apres click sur sa photo d'aller sur le compte de l'utilisateur
 {
@@ -730,28 +730,46 @@ function shake(element_id) {
     tabs.classList.add("shake");
 }
 
-function get_all_comment(response, data_block) {
-
-    var text_comment_number;
-    if (response == "ERROR GET COMMENT FLOW") {
-        $(".loading_comment").remove();
-        text_comment_number = " 0 commentaire";
-    } else if (response.Data.length) {
-
-        (response.Data.length == 1) ? (text_comment_number = response.Data.length + " commentaire") : (text_comment_number = response.Data.length + " commentaires");
+//--------------------------Comment 10 par 10-------------------------------
+$(".fblock_comment_content").scroll(function () {
+    var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+    if (CanRefreshCommentList == true) {
+        if (Math.round($(this).scrollTop()) >= limit * 0.85) {
+            CanRefreshCommentList = false;
+            console.log("Get comment on Server");
+            console.log("CommentListCurrentIndex : " + CommentListCurrentIndex);
+            let data = {
+                ObjectId: current_flow_block.ObjectId,
+                Index: CommentListCurrentIndex,
+                IsComment: block.IsComment
+            };
+            ServerManager.GetFlowComment(data);
+        }
     }
-    $(".fcomment_number").text(text_comment_number);
+});
 
-    console.log(response);
-    var i = 0;
-    if (response.Data) {
-        for (i = 0; i < response.Data.length; i++) {
 
+function UpdateCommentList(response, data_block) {
+    console.log("updating comment list...");
+    var text_comment_number;
+    // console.log(data.Data);
+    if (Array.isArray(response.Data)) {
+        /*(response.Data.length == 1) ? (text_comment_number = response.Data.length + " commentaire") : (text_comment_number = response.Data.length + " commentaires");
+        $(".fcomment_number").text(text_comment_number);*/
+
+        if ($(".loading_tl")) $(".loading_tl").remove();
+        if (CommentListCurrentIndex == 0) {
+            // $(".fblock_comment_content")[0].innerHTML = "";
+            let loading_tl = document.createElement("div");
+            loading_tl.className = "loading-spinner loading_tl";
+            $(".fblock_comment_content")[0].appendChild(loading_tl);
+        }
+        for (let i = 0; i < response.Data.length; i++) {
             const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data[i].ProfilePicture.name + '?';
             const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data[i].ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data[i].ProfilePicture.timestamp}`;
-            var profilePicLink = src_profile_img + param_profile_img;
+            let profilePicLink = src_profile_img + param_profile_img;
 
-            var comment_data = {
+            let comment_data = {
                 PrivateId: response.Data[i].PrivateId,
                 ProfilePicture: profilePicLink,
                 Comment: response.Data[i].Comment,
@@ -762,29 +780,37 @@ function get_all_comment(response, data_block) {
                 IdComment: response.Data[i].IdComment,
                 RegisterId: response.Data[i].RegisterId,
                 LastOs: response.Data[i].LastOs,
-                Flow_block_id: data_block.ObjectId
+                Flow_block_id: data_block.ObjectId,
+                Responses: response.Data[i].Responses //nombre de reponses
             };
 
             comment_data.Comment = comment_data.Comment.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
             let block_commentaire = new block_comment(comment_data);
-            block_commentaire.chris_test = "chacal";
-            /*$(block_commentaire.fblock_comment_comment).each(function() {
-
-                console.log( $(this).html($(this).text()));
-                $(this).html($(this).text()
-                            .replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>'));
-            });*/
-
             current_flow_block.all_comment_blocks.push(block_commentaire);
             $(".fblock_comment_content").append(block_commentaire);
-
         }
-    }
-    if ($.trim($(".fblock_comment_content").html()) != "") {
-        $(".loading_comment").remove();
+        CommentListCurrentIndex++;
+        if ($(".loading_tl")) $(".loading_tl").remove();
+        console.log("user updated !");
+        pullToRefreshEnd();
+        if (response.Data.length < 10) {
+            CanRefreshCommentList = false;
+            let tick_tl = document.createElement("div");
+            tick_tl.className = "tick_icon";
+            $(".fblock_comment_content")[0].appendChild(tick_tl);
+        } else {
+            CanRefreshCommentList = true;
+            let loading_tl = document.createElement("div");
+            loading_tl.className = "loading-spinner loading_tl";
+            $(".fblock_comment_content")[0].appendChild(loading_tl);
+        }
+    } else {
+        text_comment_number = " 0 commentaire";
+        StopRefreshTL();
     }
 
 }
+
 
 function get_all_likes(response) {
     // if (response == "ERROR GET LIKES FLOW" || response.Data.length == 0) {
@@ -869,7 +895,7 @@ function set_timestamp(timestamp) { // fonction qui permet d'afficher le temp ec
 
     if (minute_past <= 59 && hour_past <= 0) {
 
-        (minute_past > -2 && minute_past < 2) ? (time_str = "il y a 1 minute") : (time_str = "il y a " + minute_past + " minutes");
+        (minute_past > -2 && minute_past < 2) ? (time_str = "1 min") : (time_str = minute_past + " min");
         return time_str;
 
     }
@@ -877,21 +903,21 @@ function set_timestamp(timestamp) { // fonction qui permet d'afficher le temp ec
     if (hour_past > 0 && hour_past <= 23) {
 
 
-        (hour_past > 1) ? (time_str = "il y a " + hour_past + " heures") : (time_str = "il y a " + hour_past + " heure");
+        (hour_past > 1) ? (time_str = hour_past + " h") : (time_str = hour_past + " h");
         return time_str;
 
     }
 
     if (day_past > 0 && day_past < 7) {
 
-        (day_past > 1) ? (time_str = "il y a " + day_past + " jours") : (time_str = "il y a " + day_past + " jour");
+        (day_past > 1) ? (time_str = day_past + " j") : (time_str = day_past + " j");
         return time_str;
 
     }
 
     if (week_past >= 1 && week_past <= 5) {
 
-        (week_past == 1) ? (time_str = "il y a " + week_past + " semaine") : (time_str = "il y a " + week_past + " semaines");
+        (week_past == 1) ? (time_str = week_past + " sem") : (time_str = week_past + " sem");
         return time_str;
 
     }
@@ -899,14 +925,14 @@ function set_timestamp(timestamp) { // fonction qui permet d'afficher le temp ec
     if (month_past > 0 && month_past <= 12) {
 
 
-        (month_past < 2) ? (time_str = "il y a " + month_past + " mois") : (time_str = "il y a " + month_past + " mois");
+        (month_past < 2) ? (time_str = month_past + " m") : (time_str = month_past + " m");
         return time_str;
 
     }
 
     if (year_past > 0) {
 
-        (year_past < 2) ? (time_str = "il y a " + year_past + " an") : (time_str = "il y a " + year_past + " ans");
+        (year_past < 2) ? (time_str = year_past + " an") : (time_str = year_past + " ans");
         return time_str;
 
     }
@@ -954,6 +980,8 @@ document.getElementById("popup-comment").addEventListener("opened", function () 
     if (window.cordova.platformId == "android") {
         StatusBar.backgroundColorByHexString('#949494');
         StatusBar.styleLightContent();
+        CanRefreshCommentList = true;
+        CommentListCurrentIndex = 0;
     }
 });
 
@@ -962,6 +990,8 @@ document.getElementById("popup-comment").addEventListener("closed", function () 
         StatusBar.backgroundColorByHexString('#f7f7f8');
         StatusBar.styleDefault();
     }
+    CanRefreshCommentList = true;
+    CommentListCurrentIndex = 0;
 });
 
 document.getElementById("popup-likes").addEventListener("opened", function () {

@@ -8,15 +8,21 @@ var indexMyFlow;
 var indexMyLike;
 var MyFlowAdd = true;
 var MyLikeAdd = true;
-
+var PPHasChanged = false;
 $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
-
+$(".faccount")[0].addEventListener("touchstart", function () {
+    if (connected) {
+        Popup("popup-myaccount", true);
+    } else {
+        Popup("popup-connect", true, 60);
+    }
+});
 document.getElementById("popup-myaccount").addEventListener("opened", function () {
     last_scroll = 0;
     current_page = "my-account";
     $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
     $(".ftabsMonCompte")[0].style.display = "block";
-    $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
+    // $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
     $("scrollEvent").remove(".swiper-wrapper");
     $("#accountBannerScroll").css("transition-duration", "0.2s");
     $("#accountBannerScroll").css("transform", "translate3d(0vw, 0vh, 0vh)");
@@ -25,7 +31,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     $(".ftabsMonCompte").css("transition-duration", "0.2s");
     var scrollTest = $(".scrollMyAccunt").scrollTop();
     $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
-    $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(4 * var(--custom-vh)), 0vh)");
+    $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(-20 * var(--custom-vh)), 0vh)");
     boolScrollTop = true;
     $("#MyActivity").addClass("fblockMonComptePadding");
 
@@ -91,6 +97,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     });
 
     var scroll_element = $("#tabMonCompte1");
+    scroll_element[0].scrollTop = 0;
     checkScroll();
     $$('#tabMonCompte1').on('tab:show', function () {
         scroll_element = $("#tabMonCompte1");
@@ -114,43 +121,49 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
     });
 
     function checkScroll() {
-        let current_scroll = scroll_element.scrollTop();
-        if (current_scroll > last_scroll + 10) {
-            if (scroll_element[0].scrollHeight > document.body.clientHeight) {
-                //console.log("94vh");
-                // event.preventDefault();
-                // event.stopPropagation();
-                $("scrollEvent").remove(".swiper-wrapper");
-                $("#accountBannerScroll").css("transform", "translate3d(0vw, -30vh, 0vh)");
-                if (boolScrollTop) {
-                    $(".ftabsMonCompte")[0].setAttribute("style", "height:94vh !important");
+        let current_scroll = scroll_element.scrollTop() + scroll_element.innerHeight();
+        if (current_scroll > last_scroll + 10 && last_scroll != 0) {
+            // if (scroll_element[0].scrollHeight > document.body.clientHeight) {
+            //console.log("94vh");
+            // event.preventDefault();
+            // event.stopPropagation();
+            $("scrollEvent").remove(".swiper-wrapper");
+            $("#accountBannerScroll").css("transform", "translate3d(0vw, -30vh, 0vh)");
+            if (boolScrollTop) {
+                // $(".ftabsMonCompte")[0].setAttribute("style", "height:94vh !important");
 
 
-                    $(".fnavMonCompte").removeClass("fnavMonCompteTransitionDown");
-                    $(".fnavMonCompte").addClass("fnavMonCompteTransitionTop");
-                    $(".ftabsMonCompte").css("transition-duration", "0.4s");
-                    $(".fnavMonCompte").css("transform", "translate3d(0vw, -20vh, 0vh)");
-                    $(".ftabsMonCompte").css("transform", "translate3d(0vw, -23vh, 0vh)");
-                    boolScrollTop = false;
-                }
-                $("#MyActivity").removeClass("fblockMonComptePadding");
-                $("scrollEvent").addClass(".swiper-wrapper");
+                $(".fnavMonCompte").removeClass("fnavMonCompteTransitionDown");
+                $(".fnavMonCompte").addClass("fnavMonCompteTransitionTop");
+                $(".fnavMonCompte").css("transform", "translate3d(0vw, -20vh, 0vh)");
+                $(".ftabsMonCompte").css({
+                    "transition-duration": "0.4s",
+                    // "transform": "translate3d(0vw, -23vh, 0vh)"
+                });
+                boolScrollTop = false;
             }
+            $("#MyActivity").removeClass("fblockMonComptePadding");
+            $("scrollEvent").addClass(".swiper-wrapper");
+            // }
         } else {
-            if (current_scroll < last_scroll - 10) {
+            if ((current_scroll < last_scroll - 10 && current_scroll < scroll_element[0].scrollHeight - 30) || current_scroll <= scroll_element.innerHeight()) {
                 // event.preventDefault();
                 // event.stopPropagation();
                 if (boolScrollTop == false) {
-                    $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
+                    // $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
                     $("scrollEvent").remove(".swiper-wrapper");
                     $("#accountBannerScroll").css("transition-duration", "0.2s");
                     $("#accountBannerScroll").css("transform", "translate3d(0vw, 0vh, 0vh)");
                     $(".fnavMonCompte").removeClass("fnavMonCompteTransitionTop");
                     $(".fnavMonCompte").addClass("fnavMonCompteTransitionDown");
-                    $(".ftabsMonCompte").css("transition-duration", "0.2s");
+                    // $(".ftabsMonCompte").css("transition-duration", "0.2s");
                     var scrollTest = $(".scrollMyAccunt").scrollTop();
                     $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
-                    $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(2 * var(--custom-vh)), 0vh)");
+                    // $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(2 * var(--custom-vh)), 0vh)");
+                    $(".ftabsMonCompte").css({
+                        "transition-duration": "0.2s",
+                        // "transform": "translate3d(0vw, 2vh, 0vh)"
+                    });
                     boolScrollTop = true;
                     $("#MyActivity").addClass("fblockMonComptePadding");
                 }
@@ -192,6 +205,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 
     $("#feditProfil").click(function () {
         in_editprofile = true;
+        PPHasChanged = false;
         $("#feditProfilePopupContainer").css("opacity", "1");
         $("#editProfilePopup").css({
             "transform": "scale(1)",
@@ -202,18 +216,11 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
         $("#fprofilPicturePopup").css({
             "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
         });
+        $("#fprofilPicturePopup")[0].onclick = function () {
+            GetPhotoFromGallery(true);
+        }
         $("#editProfileName").val(nameMonCompte);
         $("#feditBio").val(bioMonCompte);
-    });
-
-    $("#fcloseProfilPopup").click(function () {
-        in_editprofile = false;
-        closeEditProfile();
-    });
-
-    $("#feditProfilePopupContainer").click(function () {
-        in_editprofile = false;
-        closeEditProfile();
     });
 
     $("#tabMonCompte1").scroll(function () {
@@ -253,14 +260,26 @@ function liked_flow_get_block_and_blocked_users(data_liked_flow, mine) {
     ServerManager.GetBlockedUsers(data_liked_flow, "liked_flow", mine);
 }
 
+$("#fcloseProfilPopup").click(function () {
+    in_editprofile = false;
+    closeEditProfile();
+});
+
+$("#feditProfilePopupContainer").click(function () {
+    in_editprofile = false;
+    closeEditProfile();
+});
 
 function closeEditProfile() {
     if ($.trim($("#editProfileName").val()) != "") {
-        if ($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte) {
-            var updateEditProfile = {
+        if ($("#editProfileName").val() != nameMonCompte || $("#feditBio").val() != bioMonCompte || PPHasChanged) {
+            let updateEditProfile = {
                 FullName: $("#editProfileName").val(),
-                Biography: $("#feditBio").val()
+                Biography: $("#feditBio").val(),
             };
+            if (!window.localStorage.getItem("user_profile_pic").includes("https")) {
+                updateEditProfile.Image = window.localStorage.getItem("user_profile_pic");
+            }
             ServerManager.UpdateProfile(updateEditProfile);
         }
         $("#feditProfilePopupContainer").css("opacity", "0");
@@ -273,13 +292,20 @@ function closeEditProfile() {
     }
 }
 
-function UpdateProfile(profileName, profileBio) {
+function UpdateProfile(profileName, profileBio, profilePicture) {
     $("#fnameMonCompte").html(profileName);
     window.localStorage.setItem("user_name", profileName);
     $("#fbioMonCompte").html(profileBio);
     window.localStorage.setItem("user_bio", profileBio);
     nameMonCompte = profileName;
     bioMonCompte = profileBio;
+    window.localStorage.setItem("user_profile_pic", profilePicture)
+    $("#fmyprofilPicture").css({
+        "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+    });
+    $(".faccount").css({
+        "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+    });
 }
 
 function ShowMyFlow(flow) {
@@ -345,6 +371,7 @@ function ShowMyFlow(flow) {
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
+            if (i == 0) new_block.block_flow.style.marginTop = "calc(27 * var(--custom-vh))";
             //console.log("Pop Flow");
             //console.log(new_block);
         }
@@ -454,6 +481,7 @@ function ShowMyLikedFlows(flow, data_block_user) {
                         };
                         let new_block = new block(block_params);
                         all_blocks.push(new_block);
+                        if (i == 0) new_block.block_flow.style.marginTop = "calc(27 * var(--custom-vh))";
                         if ($(".loading_myaccount")) $(".loading_myaccount").remove();
 
                         //console.log("Pop Flow");
@@ -485,6 +513,7 @@ function ShowMyLikedFlows(flow, data_block_user) {
                 };
                 let new_block = new block(block_params);
                 all_blocks.push(new_block);
+                if (i == 0) new_block.block_flow.style.marginTop = "calc(27 * var(--custom-vh))";
                 if ($(".loading_myaccount")) $(".loading_myaccount").remove();
 
                 //console.log("Pop Flow");
@@ -524,3 +553,39 @@ $(".disconnect_btn")[0].addEventListener("touchstart", function () {
     $("#feditProfilePopupContainer").css("pointer-events", "none");
     DisconnectUser();
 });
+
+function onProfilePhotoDataSuccess(imageData) {
+    // console.log("PP picture success");
+    // console.log(imageData);
+    // $(".ios_camera_auth")[0].style.display = "none";
+    // window.localStorage.setItem("ios_photos_init", "true");
+
+    var options = {
+        url: imageData, // required.
+        ratio: "1/1", // required. (here you can define your custom ration) "1/1" for square images
+        title: "Crop image", // optional. android only. (here you can put title of image cropper activity) default: Image Cropper
+        autoZoomEnabled: true // optional. android only. for iOS its always true (if it is true then cropper will automatically adjust the view) default: true
+    };
+
+    appState.takingPicture = false;
+    appState.imageUri = imageData;
+
+    window.plugins.k.imagecropper.open(options, function (data) {
+        // its return an object with the cropped image cached url, cropped width & height, you need to manually delete the image from the application cache.
+        console.log(data);
+        //$scope.croppedImage = data;
+        // new_block.ftop_part.style.backgroundImage = "url('" + data.imgPath + "')";
+        toDataUrl(data.imgPath, function (b64) {
+            // image64 = b64;
+            // console.log(b64)
+            PPHasChanged = true;
+            window.localStorage.setItem("user_profile_pic", b64);
+            $("#fprofilPicturePopup").css({
+                "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+            });
+
+        });
+    }, function (error) {
+        console.log(error);
+    });
+}
