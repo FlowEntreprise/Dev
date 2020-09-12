@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <!--
-        FLOW by Chris / Victor / (pas Alexis) & Thomas
+        FLOW by Chris / Victor / Thomas
         -->
 <meta name="format-detection" content="telephone=no" />
 <meta name="msapplication-tap-highlight" content="no" />
@@ -24,6 +24,7 @@
 <link rel="stylesheet" type="text/css" href="css/story.css" />
 <link rel="stylesheet" type="text/css" href="css/popup_comment.css" />
 <link rel="stylesheet" type="text/css" href="css/flow_specifique.css" />
+<link rel="stylesheet" type="text/css" href="css/comment_specifique.css" />
 <link rel="stylesheet" type="text/css" href="css/custom_popup.css" />
 <link rel="stylesheet" type="text/css" href="css/popup_follow.css" />
 <!-- <link rel="stylesheet" type="text/css" href="css/popup_follow_list.css" /> -->
@@ -96,9 +97,8 @@
                 <div class="navbar-inner">
                     <div class="fhome-bar">
                         <div class="ftitle">FLOW</div>
-                        <div class="fneed_connect" style="right: 0px; top: 0px; height: 10vh"></div>
+                        <!-- <div class="fneed_connect" style="right: 0px; top: 0px; height: 10vh"></div> -->
                         <!-- <a href="../www/pages/myAccount.html" class="faccount open-login-screen"></a> -->
-                        <div class="faccount" onclick="Popup('popup-myaccount', true)"></div>
                         <!-- <div class="fstories_title">Stories</div> -->
                         <ul class="fstory_list">
                             <li>
@@ -505,13 +505,15 @@
                     </div>
                 </div>
             </div>
+
+            <div class="faccount"></div>
         </div>
     </div>
 
     <div class="fneed_connect" style="left: 37.5vw; width: 25vw; height: 15vh;"></div>
 
     <svg viewBox="0 0 32 32">
-        <circle class="frecord_indicator" r="16" cx="16" cy="16" />
+        <circle class="frecord_indicator" r="16" cx="16" cy="16" />ZZZZ
     </svg>
     <div class="record-shadow"></div>
     <div class="frecord-btn">
@@ -753,6 +755,7 @@
     <script type="text/javascript" src="js/myAccount.js"></script>
     <script type="text/javascript" src="js/account.js"></script>
     <script type="text/javascript" src="js/flow_specifique.js"></script>
+    <script type="text/javascript" src="js/comment_specifique.js"></script>
     <script type="text/javascript" src="js/popup_follow.js"></script>
     <script type="text/javascript" src="js/jquery.highlight-within-textarea.js"></script>
 </body>

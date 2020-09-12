@@ -1,7 +1,7 @@
 var element_to_copy;
 var element_to_delete = {};
 
-function delete_flow_from_bdd(element) {
+function delete_flow_from_bdd(element) { // affiche la popup option
     element_to_copy = "flow_tittle";
     $("#label_copy_button").text("Copier le titre du flow");
     $("#label_report_button").text("Signaler le flow");
@@ -29,7 +29,7 @@ function delete_flow_from_html(element) {
     }
 }
 
-function delete_comment_from_bdd(element) {
+function delete_comment_from_bdd(element, is_a_response) {//affiche la popup option delete les comments et les response
     element_to_copy = "comment";
     $("#label_copy_button").text("Copier le commentaire");
     $("#label_report_button").text("Signaler le commentaire");
@@ -39,12 +39,19 @@ function delete_comment_from_bdd(element) {
     Popup("popup-option", true, 85.5);
 
     if (window.localStorage.getItem("user_private_id") == element.private_Id) {
-        element_to_delete.type = "comment";
-        element_to_delete.element = element;
+        if (is_a_response == true) {
+            element_to_delete.type = "response";
+            element_to_delete.element = element;
+        }
+        else {
+            element_to_delete.type = "comment";
+            element_to_delete.element = element;
+        }
         $("#delete_button").css("display", "table");
         $("#report_button").css("display", "none");
     }
 }
+
 
 function delete_comment_from_html(element) {
     let nb_comment_in_current_flow_block = 0;
@@ -58,7 +65,7 @@ function delete_comment_from_html(element) {
             current_flow_block.all_comment_blocks.splice(i, 1);
             element.fblock_comment.remove();
             nb_comment = nb_comment - 1;
-            nb_comment == 0 ? $(".fcomment_number").text(nb_comment + " commentaire") : $(".fcomment_number").text(nb_comment + " commentaires");
+            nb_comment <= 1 ? $(".fcomment_number").text(nb_comment + " commentaire") : $(".fcomment_number").text(nb_comment + " commentaires");
             $(current_flow_block.ftxt_impression_comment).text(nb_comment);
             if (nb_comment == 0) {
                 $(current_flow_block.fimg_impression_comment).attr('src', 'src/icons/Comment.png');
@@ -68,6 +75,29 @@ function delete_comment_from_html(element) {
 
     }
 }
+
+
+function delete_response_from_html(element) {
+    let nb_response = current_comment_block.nombre_de_reponses;
+
+    for (var i = 0; i < current_comment_block.all_response_blocks.length; i++) {
+        if (element.Id == current_comment_block.all_response_blocks[i].Id) {
+            current_comment_block.all_response_blocks.splice(i, 1);
+            element.fblock_response.remove();
+            nb_response = nb_response - 1;
+            if (nb_response == 0) {
+                $(current_comment_block.fblock_comment_label_afficher_les_reponses).css("opacity", "0");
+            }
+            else {
+                //$(".fresponse_number").text(nb_response + " responseaires");
+                $(current_comment_block.fblock_comment_label_afficher_les_reponses).text("Afficher les reponses (" + nb_response + ")");
+            }
+            Popup("popup-option", false);
+        }
+
+    }
+}
+
 
 $("#report_button").on("touchend", function () {
     if (element_to_copy == "flow_tittle") { // element_to_copy c'est juste l'elem selectionné
@@ -97,7 +127,7 @@ $("#report_button").on("touchend", function () {
                 };
                 in_app_notif(data);
             }
-        }, "Confirmation", ["Oui", "Annuler"])
+        }, "Confirmation", ["Oui", "Annuler"]);
     }
 });
 
@@ -108,6 +138,10 @@ $("#copy_button").on("touchend", function () {
     }
     if (element_to_copy == "comment") {
         cordova.plugins.clipboard.copy(current_comment_block.Comment_text);
+        Popup("popup-option", false);
+    }
+    if (element_to_copy == "response") {
+        cordova.plugins.clipboard.copy(current_response_block.response_text);
         Popup("popup-option", false);
     }
 });
@@ -130,8 +164,9 @@ $("#delete_button").on("touchend", function () {
                     ServerManager.DeleteFlow(data_delete_flow, element_to_delete.element);
                     in_app_notif(data);
                 }
-            }, "Confirmation", ["Oui", "Annuler"])
-        } else {
+            }, "Confirmation", ["Oui", "Annuler"]);
+        }
+        if (element_to_delete.type == "comment") {
             navigator.notification.confirm("Veux-tu vraiment supprimer ce commentaire ?", function (id) {
                 if (id == 1) {
                     Popup("popup-option", false);
@@ -149,6 +184,29 @@ $("#delete_button").on("touchend", function () {
                 }
             }, "Confirmation", ["Oui", "Annuler"]);
         }
+
+        if (element_to_delete.type == "response") {
+            navigator.notification.confirm("Veux-tu vraiment supprimer ce commentaire ?", function (id) {
+                if (id == 1) {
+                    Popup("popup-option", false);
+                    let data = {
+                        additionalData: {
+                            type: "delete_comment"
+                        }
+                    };
+                    let data_delete_comment = {
+                        //element: element,
+                        ObjectId: element_to_delete.element.Id,
+                        CommentObjectId: current_comment_block.Id
+                    };
+                    ServerManager.DeleteResponse(data_delete_comment, element_to_delete.element);
+                    in_app_notif(data);
+                }
+            }, "Confirmation", ["Oui", "Annuler"]);
+        }
+
+
+
     } else {
         //alert("Une erreur est survenue lors de la suppression de cet élément");
         navigator.notification.alert("Une erreur est survenue lors de la suppression de cet élément", alertDismissed, "Information");

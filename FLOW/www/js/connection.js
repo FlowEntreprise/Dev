@@ -78,6 +78,19 @@ function DisconnectUser() {
 
     window.localStorage.clear();
     window.localStorage.setItem("first_open", "false");
+    if (window.cordova.platformId == "android") {
+        window.plugins.googleplus.disconnect(
+            function (info) {
+                console.log(info); // do something useful instead of alerting
+            }
+        );
+    }
+    facebookConnectPlugin.logout(function (success) {
+        console.log(success)
+    }, function (error) {
+        console.log(error);
+    })
+
     //$( "#fswipe_area" ).css({"pointer-events": "none"});
 }
 
