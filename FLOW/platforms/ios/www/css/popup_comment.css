@@ -24,8 +24,14 @@
 
 .fblock_comment {
 	position: relative;
-	width: 100vw;
-	height: calc(13 * var(--custom-vh));
+    width: 100vw;
+	margin-bottom: 1vh;
+	padding-bottom: 1vh;
+}
+
+.fblock_response {
+	position: relative;
+	border-radius: 5px;
 }
 
 /* .fblock_comment:active,
@@ -45,7 +51,7 @@
 .fblock_comment_content {
 	position: absolute;
 	width: 100vw;
-	height: calc(100% - 10 * var(--custom-vh));
+	height: calc(96% - 10 * var(--custom-vh));
 	top: calc(5.5 * var(--custom-vh));
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
@@ -64,6 +70,7 @@
 	top: calc(1 * var(--custom-vh));
 }
 
+
 .fid_user {
 	position: absolute;
 	left: 20.5vw;
@@ -71,6 +78,15 @@
 	font-size: calc(2.2 * var(--custom-vh));
 	top: calc(1 * var(--custom-vh));
 	width: 70vw;
+}
+
+.f_response_id_user {
+position: absolute;
+    left: 12vw;
+    color: #4a4a4a;
+    font-size: calc(2 * var(--custom-vh));
+    top: calc(1 * var(--custom-vh));
+    width: 67.5vw;
 }
 
 .fblock_comment_comment {
@@ -81,7 +97,7 @@
 	max-width: 100%;
 	top: calc(4.5 * var(--custom-vh));
 	max-width: 68vw;
-	height: calc(7 * var(--custom-vh));
+	/*height: calc(7 * var(--custom-vh));*/
 	font-size: calc(1.7 * var(--custom-vh));
 	text-align: left;
 	color: #4a4a4a;
@@ -89,10 +105,31 @@
 	font-family: "Roboto-Light";
 	margin: 0;
 	padding: 0;
+	padding-bottom: 2.5vh;
 	font-weight: 500;
 }
 
-.fdate {
+.fblock_response_response {
+	position: relative;
+	left: 12vw;
+	display: block;
+	overflow-wrap: break-word;
+	max-width: 100%;
+	top: calc(3.5 * var(--custom-vh));
+	max-width: 58vw;
+	/*height: calc(7 * var(--custom-vh));*/
+	font-size: calc(1.7 * var(--custom-vh));
+	text-align: left;
+	color: #4a4a4a;
+	line-height: 1.15;
+	font-family: "Roboto-Light";
+	margin: 0;
+	padding: 0;
+	padding-bottom: 2.5vh;
+	font-weight: 500;
+}
+
+.fdate{
 	position: relative;
 	top: calc(0.5 * var(--custom-vh));
 	color: #4a4a4a;
@@ -100,7 +137,91 @@
 	font-family: "Roboto-Light";
 }
 
+.f_response_date
+{
+	position: relative;
+	top: calc(0.5 * var(--custom-vh));
+	color: #4a4a4a;
+	font-size: calc(1.6 * var(--custom-vh));
+	font-family: "Roboto-Light";
+}
+
+.fblock_comment_label_repondre
+{
+position: relative;
+    top: calc(0.5 * var(--custom-vh));
+    color: #92abb2;
+    font-size: calc(1.6 * var(--custom-vh));
+    font-family: "Roboto-Light";
+    font-weight: 600;
+    left: 5vw;
+}
+
+.fblock_response_label_repondre
+{
+	position: relative;
+    top: calc(0.5 * var(--custom-vh));
+    color: #92abb2;
+    font-size: calc(1.6 * var(--custom-vh));
+    font-family: "Roboto-Light";
+    font-weight: 600;
+    left: 5vw;
+}
+
+.fblock_comment_label_afficher_les_reponses
+{
+position: relative;
+    top: calc(0.5 * var(--custom-vh));
+    color: #92abb2;
+    font-size: calc(1.6 * var(--custom-vh));
+    font-family: "Roboto-Light";
+    font-weight: 600;
+    left: 10vw;
+}
+
+.afficher_plus_de_reponses_container
+{
+text-align: center;
+margin-left: 19.5vw;
+width: 80.5VW;
+color: #92abb2;
+    font-size: calc(1.6 * var(--custom-vh));
+    font-family: "Roboto-Light";
+	font-weight: 600;
+	display: none;
+    vertical-align: middle;
+    /* text-align: center; */
+    height: 2vh;
+}
+
+.label_afficher_plus_de_reponses
+{
+	width: 30vw;
+	margin-left: 20.25vw;
+}
+
+.label_hide_and_up_arrow_grey_container
+{
+    position: absolute;
+	width: 20vw;
+    right: 6vw;
+}
+
+.up_arrow_grey
+{
+	height: 1.5vh;
+	width: 5.5vw;
+	margin-left: 2vw;
+}
 .fcomment_like {
+	position: absolute;
+	right: 3.5vw;
+	width: 6vw;
+	height: calc(2.7 * var(--custom-vh));
+	top: calc(3.25 * var(--custom-vh));
+}
+
+.fresponse_like {
 	position: absolute;
 	right: 3.5vw;
 	width: 6vw;
@@ -118,6 +239,45 @@
 	font-size: calc(1.8 * var(--custom-vh));
 	font-family: "Roboto-Light";
 }
+
+.f_response_number_like {
+	position: absolute;
+	right: 2.3vw;
+	width: 8vw;
+	text-align: center;
+	top: calc(6.5 * var(--custom-vh));
+	color: #92abb2;
+	font-size: calc(1.8 * var(--custom-vh));
+	font-family: "Roboto-Light";
+}
+.fblock_response_container
+{
+position: relative;
+/*top: 4vh;*/
+left: 19.5vw;
+width: 80.5VW;
+overflow: hidden;
+transition: height 0.25s;
+}
+
+.loading_response
+{
+	margin-top: 68vh !important;
+}
+
+.f_response_img_user {
+    position: absolute;
+    width: calc(4 * var(--custom-vh));
+    height: calc(4 * var(--custom-vh));
+    border-radius: calc(7 * var(--custom-vh));
+    border: 1px solid white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    background-size: cover;
+    background-position: center;
+    top: calc(1 * var(--custom-vh));
+    left: 1vw;
+}
+
 
 .fwrite_comment {
 	position: absolute;

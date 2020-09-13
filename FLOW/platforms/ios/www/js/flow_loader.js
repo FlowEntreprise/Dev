@@ -20,7 +20,11 @@ class FlowLoaderClass {
 class FlowObj {
     constructor(url) {
         this.online_url = url;
-        this.fileName = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+        if (url.includes("blob")) {
+            this.fileName = url.replace("blob:file:///", "");
+        } else {
+            this.fileName = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+        }
         this.local_url = "";
         this.ready = false;
         this.LoadFromUrl(this.online_url);

@@ -405,7 +405,9 @@ function story_comment_uploaded() {
         RegisterId: story_data[story_index].register_id,
         LastOs: story_data[story_index].LastOs
     }
-    send_notif_to_user(story_comment_data, "story_comment");
+    if (registrationId != story_comment_data.RegisterId) {
+        send_notif_to_user(story_comment_data, "story_comment");
+    }
     $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";
     $(".fstory_addcomment_btn")[0].style.pointerEvents = "auto";
 
@@ -871,7 +873,7 @@ function stop_comments() {
     if (story_data[story_index].data[storyFlow_index] != null) {
         for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
             let com = story_data[story_index].data[storyFlow_index].comments[i];
-            let div_comment = $("div[comment_id='" + i + "']")[0];
+            let div_comment = $("div[comment_id='" + (i + story_comment_index * 10) + "']")[0];
             if (div_comment) {
                 div_comment.style.backgroundImage = "url('src/icons/play.png')";
             }
@@ -909,12 +911,12 @@ function loadStoryComments(data) {
         comment_time.className = "fstory_comment_time";
         let comment_loading = document.createElement("div");
         comment_loading.className = "fstory_comment_loading";
-        comment_loading.setAttribute("comment_loading_id", i);
+        comment_loading.setAttribute("comment_loading_id", (i + story_comment_index * 10));
         let comment_pp = document.createElement("div");
         comment_pp.className = "fstory_comment_pp";
         comment_pp.style.backgroundImage = "url(" + com.user_picture + ")";
         let comment_play = document.createElement("div");
-        comment_play.setAttribute("comment_id", i);
+        comment_play.setAttribute("comment_id", (i + story_comment_index * 10));
         comment_play.className = "fstory_comment_play";
         comment_play.onclick = function () {
             if (com.ready) {
@@ -977,10 +979,10 @@ function loadStoryComments(data) {
 
 function playStoryComment(comment, htmlelement) {
     // stop all comments except current one
+    console.log(story_data[story_index].data[storyFlow_index].comments.length);
     for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
         let com = story_data[story_index].data[storyFlow_index].comments[i];
         if (com != comment) {
-            $("div[comment_id='" + i + "']")[0].style.backgroundImage = "url('src/icons/play.png')";
             com.audio.pause();
             audio_playing = false;
             com.audio.currentTime = 0;
@@ -989,7 +991,7 @@ function playStoryComment(comment, htmlelement) {
     }
 
     if (!comment.isPlaying) {
-        var loading_com = $("div[comment_loading_id='" + htmlelement.getAttribute("comment_id") + "']")[0];
+        var loading_com = $("div[comment_loading_id='" + (htmlelement.getAttribute("comment_id")) + "']")[0];
         // var current_value = 0;
         htmlelement.style.backgroundImage = "url('src/icons/pause.png')";
         comment.audio.play();
