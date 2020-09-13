@@ -91,7 +91,7 @@ class FlowObj {
 
             fileWriter.onwriteend = function () {
                 console.log("Successful file writed : " + fileWriter.localURL);
-                self.local_url = "./src/sound/son.mp3";
+                self.local_url = fileWriter.localURL;
                 self.ready = true;
             };
 

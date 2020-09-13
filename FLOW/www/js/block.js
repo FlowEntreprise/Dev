@@ -30,7 +30,7 @@ function block(params) {
     this.seeking = false;
     this.wasPlaying = false;
     this.patternKey;
-    this.duration = params.fake_duration;
+    this.duration = params.duration;
     this.privateID = params.PrivateId;
     this.Time = params.Times;
     this.block_id = block_id;
@@ -44,7 +44,7 @@ function block(params) {
     this.ready = false;
     this.last_like_time;
     this.offset_indicator = 0;
-    params.fake_duration = 89;
+    params.duration = 89;
 
     this.flowplay = function () {
         if (this.ready) {
@@ -58,9 +58,9 @@ function block(params) {
             waveform.style.display = "block";
             block.myaudio.play();
             audio_playing = true;
-            console.log(params.fake_duration);
+            console.log(params.duration);
             console.log("play : " + block.currentTime);
-            block.progress_div.style.transitionDuration = params.fake_duration - block.currentTime + "s";
+            block.progress_div.style.transitionDuration = params.duration - block.currentTime + "s";
             block.progress_div.style.display = 'block';
             // block.progress_div.style.borderTopRightRadius = '0vw';
             block.progress_div.style.width = "100%";
@@ -93,7 +93,7 @@ function block(params) {
                 console.log("pause : " + position);
                 console.log(block.currentTime);
                 console.log("-->" + (position - block.currentTime));
-                let width = (position + block.offset_indicator) * 100 / params.fake_duration;
+                let width = (position + block.offset_indicator) * 100 / params.duration;
                 block.progress_div.style.width = width + '%';
                 block.currentTime = position;
                 if (typeof callback === "function") callback();
@@ -388,7 +388,7 @@ function block(params) {
             // block.myaudio.setVolume('0.0');
             // setTimeout(function () {
             // console.log("duration : " + block.myaudio.getDuration());
-            // params.fake_duration = block.myaudio.getDuration();
+            // params.duration = block.myaudio.getDuration();
             block.ready = true;
             block.floading_flow.style.display = "none";
             block.fplay_button.style.display = "block";
@@ -466,8 +466,8 @@ function block(params) {
         block.progress = block.myRange.value;
         block.progress_div.style.transitionDuration = "0s";
         if (block.progress > 99) block.progress = 99;
-        block.currentTime = block.progress * params.fake_duration / 100;
-        block.progress_div.style.width = block.currentTime * 100 / params.fake_duration + '%';
+        block.currentTime = block.progress * params.duration / 100;
+        block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
     });
 
     this.myRange.addEventListener('touchend', function () {
@@ -500,10 +500,10 @@ function block(params) {
         this.focus();
         block.flowpause();
         block.progress = block.myRange.value;
-        block.progress_div.style.transitionDuration = params.fake_duration / 100 + "s";
+        block.progress_div.style.transitionDuration = params.duration / 100 + "s";
         if (block.progress > 99) block.progress = 99;
-        block.currentTime = block.progress * params.fake_duration / 100;
-        block.progress_div.style.width = block.currentTime * 100 / params.fake_duration + '%';
+        block.currentTime = block.progress * params.duration / 100;
+        block.progress_div.style.width = block.currentTime * 100 / params.duration + '%';
     }, {
         passive: true
     });
