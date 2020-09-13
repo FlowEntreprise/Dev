@@ -57,7 +57,7 @@ function block(params) {
             block.myaudio.play();
             audio_playing = true;
             console.log(params.fake_duration);
-            console.log(block.currentTime);
+            console.log("play : " + block.currentTime);
             block.progress_div.style.transitionDuration = params.fake_duration - block.currentTime + "s";
             block.progress_div.style.display = 'block';
             // block.progress_div.style.borderTopRightRadius = '0vw';
@@ -69,7 +69,7 @@ function block(params) {
         }
     };
 
-    this.flowpause = function () {
+    this.flowpause = function (now) {
         if (this.ready) {
             // if (window.cordova.platformId == "ios") {
             //     cordova.plugins.backgroundMode.disable();
@@ -83,7 +83,12 @@ function block(params) {
             audio_playing = false;
             block.myRange.style.pointerEvents = "none";
             block.progress_div.style.transitionDuration = "0s";
+            if (now) {
+                block.myaudio.pause();
+                console.log("pause now !");
+            }
             block.myaudio.getCurrentPosition(function (position) {
+                console.log("actual pause");
                 block.myaudio.pause();
                 if (position == -1) position = 0;
                 if (block.currentTime == -1) block.currentTime = 0;
@@ -93,6 +98,7 @@ function block(params) {
                 let width = (position + block.offset_indicator) * 100 / params.fake_duration;
                 block.progress_div.style.width = width + '%';
                 block.currentTime = position;
+                if (callback) callback();
                 // block.offset_indicator = 0;
                 // block.myaudio.seekTo(block.currentTime * 1000);
             }, function (err) {
@@ -443,7 +449,9 @@ function block(params) {
 
     this.fplay_button.addEventListener("click", function () {
         stopAllBlocksAudio();
+        // setTimeout(function () {
         block.flowplay(block);
+        // }, 100);
     });
     this.fpause_button.addEventListener("click", function () {
         block.flowpause(block);
@@ -896,7 +904,8 @@ var last_story_color;
 
 function stopAllBlocksAudio() {
     if (audio_playing) {
-        all_blocks.map((a) => a.flowpause(a));
+        console.log("stop all audio");
+        all_blocks.map((a) => a.flowpause(true));
         audio_playing = false;
     }
 }
