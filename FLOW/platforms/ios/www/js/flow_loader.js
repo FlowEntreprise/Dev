@@ -56,10 +56,13 @@ class FlowObj {
                     type: 'audio/mpeg'
                 });
                 console.log("saving to local file...");
-                self.blob_url = window.URL.createObjectURL(blob);
-                let audio = new Audio(self.blob_url);
-                self.duration = audio.duration;
-                console.log("blob duration : " + self.duration);
+                let AudioElement = document.createElement('audio');
+                AudioElement.addEventListener('loadedmetadata', function () {
+                    console.log("calculated duration : " + AudioElement.duration);
+                    self.duration = AudioElement.duration;
+                });
+
+                AudioElement.src = window.URL.createObjectURL(blob);
                 // self.ready = true;
                 window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function (dirEntry) {
                     var isAppend = true;
