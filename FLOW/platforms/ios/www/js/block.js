@@ -88,8 +88,10 @@ function block(params) {
                 console.log("pause now !");
             }
             block.myaudio.getCurrentPosition(function (position) {
-                console.log("actual pause");
-                block.myaudio.pause();
+                if (!now) {
+                    console.log("actual pause");
+                    block.myaudio.pause();
+                }
                 if (position == -1) position = 0;
                 if (block.currentTime == -1) block.currentTime = 0;
                 console.log("pause : " + position);
@@ -448,9 +450,9 @@ function block(params) {
 
     this.fplay_button.addEventListener("click", function () {
         stopAllBlocksAudio();
-        // setTimeout(function () {
-        block.flowplay(block);
-        // }, 100);
+        setTimeout(function () {
+            block.flowplay(block);
+        }, 200);
     });
     this.fpause_button.addEventListener("click", function () {
         block.flowpause(block);
