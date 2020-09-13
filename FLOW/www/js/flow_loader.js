@@ -55,8 +55,11 @@ class FlowObj {
                 var blob = new Blob([this.response], {
                     type: 'audio/mpeg'
                 });
-                // console.log("saving to local file...");
-                // self.local_url = window.URL.createObjectURL(blob);
+                console.log("saving to local file...");
+                self.blob_url = window.URL.createObjectURL(blob);
+                let audio = new Audio(self.blob_url);
+                self.duration = audio.duration;
+                console.log("blob duration : " + self.duration);
                 // self.ready = true;
                 window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function (dirEntry) {
                     var isAppend = true;

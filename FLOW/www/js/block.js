@@ -365,10 +365,11 @@ function block(params) {
     if (params.audioURL) {
         let local_flow = FlowLoader.DownloadFlow(params.audioURL);
         local_flow.OnReady(function (url) {
-            console.log("local url : " + url);
+            console.log(local_flow);
             // block.myaudio.src = url;
             // block.myaudio.volume = 1.0;
             block.myaudio = new Media(url, mediaSuccess, mediaFailure, mediaStatus);
+            params.duration = local_flow.duration;
 
             function mediaSuccess() {
                 console.log("Successfully finished task.");
