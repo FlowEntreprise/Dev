@@ -85,6 +85,8 @@ function block(params) {
             block.progress_div.style.transitionDuration = "0s";
             block.myaudio.getCurrentPosition(function (position) {
                 block.myaudio.pause();
+                if (position == -1) position = 0;
+                if (block.currentTime == -1) block.currentTime = 0;
                 console.log("pause : " + position);
                 console.log(block.currentTime);
                 console.log("-->" + (position - block.currentTime));
