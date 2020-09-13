@@ -4,6 +4,7 @@ var block_id = 0;
 var audio_playing = false;
 var CanRefreshCommentList = true;
 var CommentListCurrentIndex = 0;
+var current_block_playing = null;
 /*********** BLOCK PARAMS *************
  * var block_params = {
     parent_element: undefined,
@@ -22,7 +23,7 @@ var CommentListCurrentIndex = 0;
  ****************************************/
 function block(params) {
     //console.log("NEW BLOCK CREATED");
-    var block = this;
+    let block = this;
     this.ObjectId = params.ObjectId;
     this.all_comment_blocks = [];
     this.isPlaying = false;
@@ -50,6 +51,7 @@ function block(params) {
             // if (window.cordova.platformId == "ios") {
             //     cordova.plugins.backgroundMode.enable();
             // }
+            current_block_playing = block;
             block.fplay_button.style.display = "none";
             block.fpause_button.style.display = "block";
             wave.start();
@@ -69,7 +71,7 @@ function block(params) {
         }
     };
 
-    this.flowpause = function (now) {
+    this.flowpause = function (callback) {
         if (this.ready) {
             // if (window.cordova.platformId == "ios") {
             //     cordova.plugins.backgroundMode.disable();
@@ -83,15 +85,9 @@ function block(params) {
             audio_playing = false;
             block.myRange.style.pointerEvents = "none";
             block.progress_div.style.transitionDuration = "0s";
-            if (now) {
-                block.myaudio.pause();
-                console.log("pause now !");
-            }
             block.myaudio.getCurrentPosition(function (position) {
-                if (!now) {
-                    console.log("actual pause");
-                    block.myaudio.pause();
-                }
+                console.log("actual pause");
+                block.myaudio.pause();
                 if (position == -1) position = 0;
                 if (block.currentTime == -1) block.currentTime = 0;
                 console.log("pause : " + position);
@@ -100,6 +96,7 @@ function block(params) {
                 let width = (position + block.offset_indicator) * 100 / params.fake_duration;
                 block.progress_div.style.width = width + '%';
                 block.currentTime = position;
+                if (typeof callback === "function") callback();
                 // block.offset_indicator = 0;
                 // block.myaudio.seekTo(block.currentTime * 1000);
             }, function (err) {
@@ -449,13 +446,18 @@ function block(params) {
     // };
 
     this.fplay_button.addEventListener("click", function () {
-        stopAllBlocksAudio();
-        setTimeout(function () {
-            block.flowplay(block);
-        }, 200);
+        if (audio_playing) {
+            stopAllBlocksAudio(function () {
+                block.flowplay();
+            });
+        } else {
+            block.flowplay();
+        }
+        // setTimeout(function () {
+        // }, 200);
     });
     this.fpause_button.addEventListener("click", function () {
-        block.flowpause(block);
+        block.flowpause();
     });
 
     this.myRange.addEventListener('input', function () {
@@ -903,10 +905,11 @@ function get_all_likes(response) {
 var all_blocks = [];
 var last_story_color;
 
-function stopAllBlocksAudio() {
+function stopAllBlocksAudio(callback) {
     if (audio_playing) {
         console.log("stop all audio");
-        all_blocks.map((a) => a.flowpause(true));
+        // all_blocks.map((a) => a.flowpause(true));
+        current_block_playing.flowpause(callback);
         audio_playing = false;
     }
 }
