@@ -56,15 +56,14 @@ class FlowObj {
                     type: 'audio/mpeg'
                 });
                 // console.log("saving to local file...");
-                // self.local_url = window.URL.createObjectURL(blob);
-                // self.ready = true;
-                window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function (dirEntry) {
-                    var isAppend = true;
-                    console.log(blob, self.fileName);
-                    self.saveFile(dirEntry, blob, self.fileName);
-                }, function (err) {
-                    console.error(err);
-                });
+                self.local_url = window.URL.createObjectURL(blob);
+                self.ready = true;
+                // window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function (dirEntry) {
+                //     var isAppend = true;
+                //     self.saveFile(dirEntry, blob, self.fileName);
+                // }, function (err) {
+                //     console.error(err);
+                // });
             }
         };
         xhr.send();
@@ -90,8 +89,7 @@ class FlowObj {
         fileEntry.createWriter(function (fileWriter) {
 
             fileWriter.onwriteend = function () {
-                console.log("Successful file writed : " + fileWriter.localURL);
-                self.local_url = fileWriter.localURL;
+                // console.log("Successful file writed !");
                 self.ready = true;
             };
 
