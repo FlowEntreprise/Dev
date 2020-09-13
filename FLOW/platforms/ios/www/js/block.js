@@ -29,7 +29,7 @@ function block(params) {
     this.seeking = false;
     this.wasPlaying = false;
     this.patternKey;
-    this.duration = params.duration;
+    this.duration = params.fake_duration;
     this.privateID = params.PrivateId;
     this.Time = params.Times;
     this.block_id = block_id;
@@ -43,26 +43,27 @@ function block(params) {
     this.ready = false;
     this.last_like_time;
     this.offset_indicator = 0;
+    params.fake_duration = 89;
 
     this.flowplay = function () {
         if (this.ready) {
-            if (window.cordova.platformId == "ios") {
-                cordova.plugins.backgroundMode.enable();
-            }
+            // if (window.cordova.platformId == "ios") {
+            //     cordova.plugins.backgroundMode.enable();
+            // }
             block.fplay_button.style.display = "none";
             block.fpause_button.style.display = "block";
             wave.start();
             waveform.style.display = "block";
             block.myaudio.play();
             audio_playing = true;
-            block.progress_div.style.transitionDuration =
-                block.myaudio.duration - block.myaudio.currentTime + "s";
-            block.progress_div.style.display = "block";
+            console.log(params.fake_duration);
+            console.log(block.currentTime);
+            block.progress_div.style.transitionDuration = params.fake_duration - block.currentTime + "s";
+            block.progress_div.style.display = 'block';
             // block.progress_div.style.borderTopRightRadius = '0vw';
             block.progress_div.style.width = "100%";
             block.isPlaying = true;
             block.myRange.style.pointerEvents = "all";
-            console.log(block.myaudio);
         } else {
             console.log("audio not ready");
         }
@@ -73,8 +74,7 @@ function block(params) {
             // if (window.cordova.platformId == "ios") {
             //     cordova.plugins.backgroundMode.disable();
             // }
-            // console.log("pause (" + block.offset_indicator + ")");
-            block.myaudio.pause();
+            console.log("pause (" + block.offset_indicator + ")");
             block.fplay_button.style.display = "block";
             block.fpause_button.style.display = "none";
             waveform.style.display = "none";
@@ -83,8 +83,19 @@ function block(params) {
             audio_playing = false;
             block.myRange.style.pointerEvents = "none";
             block.progress_div.style.transitionDuration = "0s";
-            block.progress_div.style.width =
-                (block.myaudio.currentTime * 100) / block.myaudio.duration + "%";
+            block.myaudio.getCurrentPosition(function (position) {
+                block.myaudio.pause();
+                console.log("pause : " + position);
+                console.log(block.currentTime);
+                console.log("-->" + (position - block.currentTime));
+                let width = (position + block.offset_indicator) * 100 / params.fake_duration;
+                block.progress_div.style.width = width + '%';
+                block.currentTime = position;
+                // block.offset_indicator = 0;
+                // block.myaudio.seekTo(block.currentTime * 1000);
+            }, function (err) {
+                console.log(err)
+            });
         }
     };
 
@@ -349,61 +360,84 @@ function block(params) {
         let local_flow = FlowLoader.DownloadFlow(params.audioURL);
         local_flow.OnReady(function (url) {
             console.log("local url : " + url);
-            block.myaudio.src = url;
-            block.myaudio.volume = 1.0;
+            // block.myaudio.src = url;
+            // block.myaudio.volume = 1.0;
+            block.myaudio = new Media(url, mediaSuccess, mediaFailure, mediaStatus);
+
+            function mediaSuccess() {
+                console.log("Successfully finished task.");
+            }
+
+            function mediaFailure(err) {
+                console.log("An error occurred: " + err.code);
+            }
+
+            function mediaStatus(status) {
+                console.log("A status change occurred: " + status);
+                if (status == 4) {
+                    block.flowend();
+                }
+            }
+            // block.myaudio.play();
+            // block.myaudio.setVolume('0.0');
+            // setTimeout(function () {
+            // console.log("duration : " + block.myaudio.getDuration());
+            // params.fake_duration = block.myaudio.getDuration();
             block.ready = true;
-            params.duration = block.myaudio.duration;
             block.floading_flow.style.display = "none";
             block.fplay_button.style.display = "block";
             block.fpause_button.style.display = "none";
+            // block.myaudio.stop();
+            // block.myaudio.seekTo(0);
+            block.myaudio.setVolume('1.0');
+            block.currentTime = 0;
+            block.offset_indicator = 0.25;
+            // }, 500);
+            // setTimeout(function () {
+            //     
+            // }, 500)
         });
     }
 
     this.isPlaying = false;
-    this.myaudio.ontimeupdate = function () {
-        // if (block.isPlaying && !block.seeking) {
-        //     this.progress = Math.round(block.myaudio.currentTime * 100 / block.duration);
-        //     block.myRange.value = this.progress;
-        //     block.progress_div.style.width = block.myaudio.currentTime * 100 / block.duration + '%';
-        //     if (block.progress_div.style.width > '99.8%' && block.progress_div.style.width < '101%') {
-        //         block.progress_div.style.borderTopRightRadius = '2vw';
-        //     }
-        // }
-    };
 
     this.myaudio.onended = function () {
+        block.flowend();
+    };
+
+    this.flowend = function () {
         audio_playing = false;
         waveform.style.display = "none";
-        block.progress_div.style.transitionDuration = "0s";
+        block.progress_div.style.transitionDuration = '0s';
         // block.progress_div.style.borderTopRightRadius = '2vw';
-        block.progress_div.style.opacity = "0";
+        block.progress_div.style.opacity = '0';
         block.flowpause();
         setTimeout(function () {
-            block.progress_div.style.opacity = "1";
-            block.progress_div.style.width = "0%";
+            block.progress_div.style.opacity = '1';
+            block.progress_div.style.width = '0%';
             block.offset_indicator = 0.25;
         }, 100);
         block.currentTime = 0;
-    };
+    }
 
-    this.seek = function () {
-        console.log("seek");
-        console.log(block.myRange.value);
-        this.progress = block.myRange.value;
-        this.time = (this.progress * block.myaudio.duration) / 100;
-        block.myaudio.currentTime = Math.round(this.time);
-        block.myaudio.currentTime = block.currentTime;
-        block.seeking = true;
-        block.progress_div.style.display = "block";
-        block.progress_div.style.width =
-            (block.myaudio.currentTime * 100) / block.myaudio.duration + "%";
-        setTimeout(function () {
-            block.seeking = false;
-            console.log("seeking = false");
-        }, 600);
-        // block.flowplay();
-        // console.log("flow play");
-    };
+    // this.seek = function () {
+    //     console.log("seek");
+    //     console.log(block.myRange.value);
+    //     this.progress = block.myRange.value;
+    //     this.time = (this.progress * block.myaudio.duration) / 100;
+    //     block.myaudio.currentTime = Math.round(this.time);
+    //     block.myaudio.currentTime = block.currentTime;
+    //     block.seeking = true;
+    //     block.progress_div.style.display = "block";
+    //     block.progress_div.style.width =
+    //         (block.myaudio.currentTime * 100) / block.myaudio.duration + "%";
+    //     setTimeout(function () {
+    //         block.seeking = false;
+    //         console.log("seeking = false");
+    //     }, 600);
+    //     // block.flowplay();
+    //     // console.log("flow play");
+    // };
 
     this.fplay_button.addEventListener("click", function () {
         stopAllBlocksAudio();
@@ -413,22 +447,24 @@ function block(params) {
         block.flowpause(block);
     });
 
-    this.myRange.addEventListener("input", function () {
+    this.myRange.addEventListener('input', function () {
         // console.log("change");
         // block.seek();
         block.progress = block.myRange.value;
         block.progress_div.style.transitionDuration = "0s";
         if (block.progress > 99) block.progress = 99;
-        block.currentTime = (block.progress * block.myaudio.duration) / 100;
-        block.progress_div.style.width =
-            (block.currentTime * 100) / block.myaudio.duration + "%";
+        block.currentTime = block.progress * params.fake_duration / 100;
+        block.progress_div.style.width = block.currentTime * 100 / params.fake_duration + '%';
     });
 
-    this.myRange.addEventListener("touchend", function () {
-        block.myaudio.currentTime = block.currentTime;
-        setTimeout(function () {
-            block.flowplay();
-        }, 100);
+    this.myRange.addEventListener('touchend', function () {
+        // block.myaudio.currentTime = block.currentTime;
+        console.log("seek to : " + block.currentTime);
+        block.myaudio.seekTo(block.currentTime * 1000);
+        block.offset_indicator = 0;
+        // setTimeout(function () {
+        block.flowplay();
+        // }, 100)
         console.log("flow play");
         //current_flow_block
     });
@@ -446,23 +482,18 @@ function block(params) {
     //     event.stopPropagation();
     // });
 
-    this.myRange.addEventListener(
-        "touchstart",
-        function (e) {
-            iosPolyfill(e, this);
-            this.focus();
-            block.flowpause();
-            block.progress = block.myRange.value;
-            block.progress_div.style.transitionDuration =
-                block.myaudio.duration / 100 + "s";
-            if (block.progress > 99) block.progress = 99;
-            block.currentTime = (block.progress * block.myaudio.duration) / 100;
-            block.progress_div.style.width =
-                (block.currentTime * 100) / block.myaudio.duration + "%";
-        }, {
-            passive: true,
-        }
-    );
+    this.myRange.addEventListener("touchstart", function (e) {
+        iosPolyfill(e, this);
+        this.focus();
+        block.flowpause();
+        block.progress = block.myRange.value;
+        block.progress_div.style.transitionDuration = params.fake_duration / 100 + "s";
+        if (block.progress > 99) block.progress = 99;
+        block.currentTime = block.progress * params.fake_duration / 100;
+        block.progress_div.style.width = block.currentTime * 100 / params.fake_duration + '%';
+    }, {
+        passive: true
+    });
 
     // Like d'un flow
     $(this.fimg_impression_like).on("click", function () {

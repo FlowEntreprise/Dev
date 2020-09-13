@@ -4,7 +4,7 @@ class FlowLoaderClass {
     }
 
     DownloadFlow(url) {
-        let returned_flow = this.flows.filter((flow) => flow.online_url == url);
+        let returned_flow = this.flows.filter(flow => (flow.online_url == url));
         console.log(returned_flow);
         if (returned_flow.length == 0) {
             let new_flow = new FlowObj(url);
@@ -23,10 +23,7 @@ class FlowObj {
         if (url.includes("blob")) {
             this.fileName = url.replace("blob:file:///", "");
         } else {
-            this.fileName = url.substring(
-                url.lastIndexOf("/") + 1,
-                url.lastIndexOf(".")
-            );
+            this.fileName = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
         }
         this.local_url = "";
         this.ready = false;
@@ -48,31 +45,26 @@ class FlowObj {
         console.log(url);
         let self = this;
         var xhr = new XMLHttpRequest();
-        console.log("downloading flow from online url...");
-        xhr.open("GET", url, true);
-        xhr.responseType = "blob";
+        // console.log("downloading flow from online url...");
+        xhr.open('GET', url, true);
+        xhr.responseType = 'blob';
 
         xhr.onload = function () {
             if (this.status == 200) {
-                console.log("flow successfully downloaded !");
+                // console.log("flow successfully downloaded !");
                 var blob = new Blob([this.response], {
-                    type: "audio/mpeg",
+                    type: 'audio/mpeg'
                 });
                 // console.log("saving to local file...");
                 // self.local_url = window.URL.createObjectURL(blob);
                 // self.ready = true;
-                // console.log("successfully saved local url : " + self.local_url);
-                window.resolveLocalFileSystemURL(
-                    cordova.file.tempDirectory,
-                    function (dirEntry) {
-                        var isAppend = true;
-                        console.log(blob, self.fileName);
-                        self.saveFile(dirEntry, blob, self.fileName);
-                    },
-                    function (err) {
-                        console.error(err);
-                    }
-                );
+                window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function (dirEntry) {
+                    var isAppend = true;
+                    console.log(blob, self.fileName);
+                    self.saveFile(dirEntry, blob, self.fileName);
+                }, function (err) {
+                    console.error(err);
+                });
             }
         };
         xhr.send();
@@ -80,27 +72,25 @@ class FlowObj {
 
     saveFile(dirEntry, fileData, fileName) {
         let self = this;
-        dirEntry.getFile(
-            fileName, {
-                create: true,
-                exclusive: false,
-            },
-            function (fileEntry) {
-                self.writeFile(fileEntry, fileData);
-            },
-            function (err) {
-                console.error(err);
-            }
-        );
+        dirEntry.getFile(fileName, {
+            create: true,
+            exclusive: false
+        }, function (fileEntry) {
+
+            self.writeFile(fileEntry, fileData);
+
+        }, function (err) {
+            console.error(err);
+        });
     }
 
     writeFile(fileEntry, dataObj) {
         let self = this;
         // Create a FileWriter object for our FileEntry (log.txt).
         fileEntry.createWriter(function (fileWriter) {
+
             fileWriter.onwriteend = function () {
-                let path = cordova.file.applicationDirectory + "www/" + self.fileName;
-                // console.log("Successful file writed : " + path);
+                console.log("Successful file writed : " + fileWriter.localURL);
                 self.local_url = "./src/sound/son.mp3";
                 self.ready = true;
             };
