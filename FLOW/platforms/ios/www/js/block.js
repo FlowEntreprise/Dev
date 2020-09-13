@@ -84,7 +84,7 @@ function block(params) {
             block.myRange.style.pointerEvents = "none";
             block.progress_div.style.transitionDuration = "0s";
             block.progress_div.style.width =
-                (block.myaudio.currentTime * 100) / block.duration + "%";
+                (block.myaudio.currentTime * 100) / block.myaudio.duration + "%";
         }
     };
 
@@ -352,7 +352,7 @@ function block(params) {
             block.myaudio.src = url;
             block.myaudio.volume = 1.0;
             block.ready = true;
-            block.duration = block.myaudio.duration;
+            params.duration = block.myaudio.duration;
             block.floading_flow.style.display = "none";
             block.fplay_button.style.display = "block";
             block.fpause_button.style.display = "none";
@@ -390,13 +390,13 @@ function block(params) {
         console.log("seek");
         console.log(block.myRange.value);
         this.progress = block.myRange.value;
-        this.time = (this.progress * block.duration) / 100;
+        this.time = (this.progress * block.myaudio.duration) / 100;
         block.myaudio.currentTime = Math.round(this.time);
         block.myaudio.currentTime = block.currentTime;
         block.seeking = true;
         block.progress_div.style.display = "block";
         block.progress_div.style.width =
-            (block.myaudio.currentTime * 100) / block.duration + "%";
+            (block.myaudio.currentTime * 100) / block.myaudio.duration + "%";
         setTimeout(function () {
             block.seeking = false;
             console.log("seeking = false");
@@ -419,9 +419,9 @@ function block(params) {
         block.progress = block.myRange.value;
         block.progress_div.style.transitionDuration = "0s";
         if (block.progress > 99) block.progress = 99;
-        block.currentTime = (block.progress * block.duration) / 100;
+        block.currentTime = (block.progress * block.myaudio.duration) / 100;
         block.progress_div.style.width =
-            (block.currentTime * 100) / block.duration + "%";
+            (block.currentTime * 100) / block.myaudio.duration + "%";
     });
 
     this.myRange.addEventListener("touchend", function () {
@@ -456,9 +456,9 @@ function block(params) {
             block.progress_div.style.transitionDuration =
                 block.myaudio.duration / 100 + "s";
             if (block.progress > 99) block.progress = 99;
-            block.currentTime = (block.progress * block.duration) / 100;
+            block.currentTime = (block.progress * block.myaudio.duration) / 100;
             block.progress_div.style.width =
-                (block.currentTime * 100) / block.duration + "%";
+                (block.currentTime * 100) / block.myaudio.duration + "%";
         }, {
             passive: true,
         }

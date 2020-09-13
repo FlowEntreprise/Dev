@@ -63,7 +63,7 @@ class FlowObj {
                 // self.ready = true;
                 // console.log("successfully saved local url : " + self.local_url);
                 window.resolveLocalFileSystemURL(
-                    cordova.file.cordova.file.tempDirectory,
+                    cordova.file.tempDirectory,
                     function (dirEntry) {
                         var isAppend = true;
                         console.log(blob, self.fileName);
