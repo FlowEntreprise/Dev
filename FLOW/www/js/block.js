@@ -98,7 +98,6 @@ function block(params) {
                 let width = (position + block.offset_indicator) * 100 / params.fake_duration;
                 block.progress_div.style.width = width + '%';
                 block.currentTime = position;
-                if (callback) callback();
                 // block.offset_indicator = 0;
                 // block.myaudio.seekTo(block.currentTime * 1000);
             }, function (err) {
