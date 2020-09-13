@@ -27,12 +27,13 @@ class FlowObj {
         }
         this.local_url = "";
         this.ready = false;
+        this.duration = null;
         this.LoadFromUrl(this.online_url);
     }
 
     OnReady(callback) {
         let self = this;
-        if (!this.ready) {
+        if (!this.ready || !this.duration) {
             setTimeout(function () {
                 self.OnReady(callback);
             }, 50);
