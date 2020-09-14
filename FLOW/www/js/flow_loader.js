@@ -27,12 +27,13 @@ class FlowObj {
         }
         this.local_url = "";
         this.ready = false;
+        // this.duration = null;
         this.LoadFromUrl(this.online_url);
     }
 
     OnReady(callback) {
         let self = this;
-        if (!this.ready) {
+        if (!this.ready /*|| !this.duration*/ ) {
             setTimeout(function () {
                 self.OnReady(callback);
             }, 50);
@@ -55,15 +56,22 @@ class FlowObj {
                 var blob = new Blob([this.response], {
                     type: 'audio/mpeg'
                 });
-                // console.log("saving to local file...");
-                self.local_url = window.URL.createObjectURL(blob);
-                self.ready = true;
-                // window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function (dirEntry) {
-                //     var isAppend = true;
-                //     self.saveFile(dirEntry, blob, self.fileName);
-                // }, function (err) {
-                //     console.error(err);
+                console.log("saving to local file...");
+                // let AudioElement = document.createElement('audio');
+                // AudioElement.addEventListener('loadedmetadata', function () {
+                //     console.log("calculated duration : " + AudioElement.duration);
+                //     self.duration = AudioElement.duration;
                 // });
+
+                // AudioElement.src = window.URL.createObjectURL(blob);
+                // self.ready = true;
+                window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function (dirEntry) {
+                    var isAppend = true;
+                    console.log(blob, self.fileName);
+                    self.saveFile(dirEntry, blob, self.fileName);
+                }, function (err) {
+                    console.error(err);
+                });
             }
         };
         xhr.send();
@@ -89,7 +97,8 @@ class FlowObj {
         fileEntry.createWriter(function (fileWriter) {
 
             fileWriter.onwriteend = function () {
-                // console.log("Successful file writed !");
+                console.log("Successful file writed : " + fileWriter.localURL);
+                self.local_url = fileWriter.localURL;
                 self.ready = true;
             };
 
