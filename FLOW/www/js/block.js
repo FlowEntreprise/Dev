@@ -44,7 +44,6 @@ function block(params) {
     this.ready = false;
     this.last_like_time;
     this.offset_indicator = 0;
-    params.duration = 89;
 
     this.flowplay = function () {
         if (this.ready) {
@@ -369,7 +368,7 @@ function block(params) {
             // block.myaudio.src = url;
             // block.myaudio.volume = 1.0;
             block.myaudio = new Media(url, mediaSuccess, mediaFailure, mediaStatus);
-            params.duration = local_flow.duration;
+            // params.duration = local_flow.duration;
 
             function mediaSuccess() {
                 console.log("Successfully finished task.");
