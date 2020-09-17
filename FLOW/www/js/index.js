@@ -219,7 +219,8 @@ var app = {
 
           if (
             data.additionalData.type == "like_comment" ||
-            data.additionalData.type == "send_comment"
+            data.additionalData.type == "send_comment" ||
+            data.additionalData.type == "tag_in_comment" && data.additionalData.sender_info.Id_comment
           ) {
             let data_single_comment = {
               ObjectId: data.additionalData.sender_info.Id_comment,
@@ -228,7 +229,8 @@ var app = {
           }
           if (
             data.additionalData.type == "like_response" ||
-            data.additionalData.type == "send_response"
+            data.additionalData.type == "send_response" ||
+            data.additionalData.type == "tag_in_comment" && data.additionalData.sender_info.Id_response
           ) {
             let data_single_response = {
               ObjectId: data.additionalData.sender_info.Id_response,
@@ -236,8 +238,7 @@ var app = {
             ServerManager.GetSingleResponse(data_single_response);
           }
           if (
-            data.additionalData.type != "like_comment" &&
-            data.additionalData.type != "like_response"
+            data.additionalData.type == "like_flow"
           ) {
             let data_flow = {
               IdFlow: data.additionalData.sender_info.IdFlow,

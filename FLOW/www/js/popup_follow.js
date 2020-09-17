@@ -189,7 +189,7 @@ function UpdateFollowersList(data, follow_list) {
       if (FollowersListCurrentIndex == 0) {
         $(".popup_followers_container")[0].innerHTML = "";
         let loading_tl = document.createElement("div");
-        loading_tl.className = "loading_circle loading_tl";
+        loading_tl.className = "loading-spinner loading_tl";
         $(".popup_followers_container")[0].appendChild(loading_tl);
       }
       for (let i = 0; i < data.length; i++) {
@@ -202,13 +202,13 @@ function UpdateFollowersList(data, follow_list) {
       pullToRefreshEnd();
       if (data.length < 10) {
         CanRefreshFollowersList = false;
-        let tick_tl = document.createElement("div");
-        tick_tl.className = "tick_icon";
-        $(".popup_followers_container")[0].appendChild(tick_tl);
+        // let tick_tl = document.createElement("div");
+        // tick_tl.className = "tick_icon";
+        // $(".popup_followers_container")[0].appendChild(tick_tl);
       } else {
         CanRefreshFollowersList = true;
         let loading_tl = document.createElement("div");
-        loading_tl.className = "loading_circle loading_tl";
+        loading_tl.className = "loading-spinner loading_tl";
         $(".popup_followers_container")[0].appendChild(loading_tl);
       }
     }, 500);
@@ -287,7 +287,7 @@ function UpdatefollowingsList(data, follow_list) {
       if (followingsListCurrentIndex == 0) {
         $(".popup_followings_container")[0].innerHTML = "";
         let loading_tl = document.createElement("div");
-        loading_tl.className = "loading_circle loading_tl";
+        loading_tl.className = "loading-spinner loading_tl";
         $(".popup_followings_container")[0].appendChild(loading_tl);
       }
       for (let i = 0; i < data.length; i++) {
@@ -300,13 +300,13 @@ function UpdatefollowingsList(data, follow_list) {
       pullToRefreshEnd();
       if (data.length < 10) {
         CanRefreshfollowingsList = false;
-        let tick_tl = document.createElement("div");
-        tick_tl.className = "tick_icon";
-        $(".popup_followings_container")[0].appendChild(tick_tl);
+        // let tick_tl = document.createElement("div");
+        // tick_tl.className = "tick_icon";
+        // $(".popup_followings_container")[0].appendChild(tick_tl);
       } else {
         CanRefreshfollowingsList = true;
         let loading_tl = document.createElement("div");
-        loading_tl.className = "loading_circle loading_tl";
+        loading_tl.className = "loading-spinner loading_tl";
         $(".popup_followings_container")[0].appendChild(loading_tl);
       }
     }, 500);
@@ -363,7 +363,7 @@ function UpdateIdentificationList(data, follow_list, search) {
     if (IdentificationListCurrentIndex == 0) {
       // $(".popup_identification_container")[0].innerHTML = "";
       let loading_tl = document.createElement("div");
-      loading_tl.className = "loading_circle loading_tl";
+      loading_tl.className = "loading-spinner loading_tl";
       $(".popup_identification_container")[0].appendChild(loading_tl);
     }
     let unique_block_user;
@@ -390,7 +390,7 @@ function UpdateIdentificationList(data, follow_list, search) {
     // } else {
     //   CanRefreshIdentificationList = true;
     //   let loading_tl = document.createElement("div");
-    //   loading_tl.className = "loading_circle loading_tl";
+    //   loading_tl.className = "loading-spinner loading_tl";
     //   $(".popup_identification_container")[0].appendChild(loading_tl);
     // }
     // }, 500);
