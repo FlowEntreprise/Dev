@@ -23,8 +23,7 @@ function block_response(response_data, response_is_specifique) {
     if (response_data.Comment) { // CTRL+F hack_response pour les explications
         this.fresponse_text = response_data.Comment;
         this.response_text = response_data.Comment_text;
-    }
-    else {
+    } else {
         this.fresponse_text = response_data.response;
         this.response_text = response_data.response_text;
     }
@@ -34,8 +33,7 @@ function block_response(response_data, response_is_specifique) {
     this.fblock_response.className = 'fblock_response';
     if (response_is_specifique) {
         $(current_comment_block.fblock_response_container).prepend(this.fblock_response);
-    }
-    else {
+    } else {
 
         $(current_comment_block.fblock_response_container).append(this.fblock_response);
     }
@@ -149,8 +147,7 @@ function block_comment(comment_data, comment_is_specifique) {
     this.fblock_comment.className = 'fblock_comment';
     if (comment_is_specifique) {
         $(".fblock_comment_content").prepend(this.fblock_comment);
-    }
-    else {
+    } else {
 
         $(".fblock_comment_content").append(this.fblock_comment);
     }
@@ -205,13 +202,11 @@ function block_comment(comment_data, comment_is_specifique) {
                 //$(current_comment_block.fblock_response_container).animate({ height: current_comment_block.response_container_previous_height + "px" }, 'smooth');
                 $(current_comment_block.fblock_response_container).css("height", "" + current_comment_block.response_container_previous_height + "px");
                 $(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
-            }
-            else {
+            } else {
                 let loading_tl = document.createElement("div");
                 loading_tl.className = "loading-spinner loading_tl loading_response";
                 $("#popup-comment").append(loading_tl);
-                let data =
-                {
+                let data = {
                     ObjectId: current_comment_block.ObjectId,
                     Index: response_current_index
 
@@ -257,8 +252,8 @@ function block_comment(comment_data, comment_is_specifique) {
         let loading_tl = document.createElement("div");
         loading_tl.className = "loading-spinner loading_tl loading_response";
         $("#popup-comment").append(loading_tl);
-        let data =
-        {
+        $(current_comment_block.fblock_response_container).css("height", "");
+        let data = {
             ObjectId: current_comment_block.ObjectId,
             Index: response_current_index
 
@@ -283,7 +278,9 @@ function block_comment(comment_data, comment_is_specifique) {
         $(current_comment_block.fblock_comment_label_afficher_les_reponses).css("opacity", "1");
         //$(".fblock_comment_content").scrollTop(scroll_to.top);
         setTimeout(function () {
-            $(".fblock_comment_content").animate({ scrollTop: scroll_to }, 400, 'swing');
+            $(".fblock_comment_content").animate({
+                scrollTop: scroll_to
+            }, 400, 'swing');
         }, 350);
 
         //current_comment_block.scrollIntoView();
@@ -423,9 +420,11 @@ function display_response(response) { // affiche les reponses par 5
         }
         $(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + current_comment_block.nombre_de_reponses + ")");
         $(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
-        response_current_index++;
-    }
-    else {
+        if (response.Data.length <= 5) {
+
+            response_current_index++;
+        }
+    } else {
         $(".loading_tl").remove();
     }
 
@@ -467,7 +466,7 @@ function send_comment_to_server(data) {
                 for (let i_all_tag = 0; i_all_tag < all_tagged_users.length; i_all_tag++) {
                     if (tableau_comment_to_tag_users[i] == all_tagged_users[i_all_tag].private_Id &&
                         registrationId != all_tagged_users[i_all_tag].RegisterId) {
-                        comment_data.RegisterId = all_tagged_users[i_all_tag].RegisterId;
+                        comment_data.tag_user_RegisterId = all_tagged_users[i_all_tag].RegisterId;
                         send_notif_to_user(comment_data, "tag_in_comment");
                     }
                 }
@@ -554,6 +553,9 @@ function send_response_to_server(data) {
     $(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + current_comment_block.nombre_de_reponses + ")");
     $(current_comment_block.fblock_comment_label_afficher_les_reponses).css("opacity", "0");
     $(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
+    if (response_current_index == 0 && current_comment_block.label_afficher_plus_de_reponses) {
+        $(current_comment_block.label_afficher_plus_de_reponses).click();
+    }
     if (initial_response_number == 0) {
         $(current_comment_block.label_afficher_plus_de_reponses).css("opacity", "0");
     }
@@ -562,6 +564,7 @@ function send_response_to_server(data) {
     $(".tick_icon").remove();
 }
 
+// send comment
 $('.fsend_comment').on('click', function () {
 
     var text = ($("#finput_comment").val()).trim();
@@ -574,7 +577,10 @@ $('.fsend_comment').on('click', function () {
             Response: text
         };
 
-        if (it_is_a_response_to_a_response == true && current_response_block.private_Id != window.localStorage.getItem("user_private_id")) {
+        if (it_is_a_response_to_a_response == true &&
+            current_response_block &&
+            current_response_block.private_Id != window.localStorage.getItem("user_private_id")) {
+
             data.Response = "@" + current_response_block.private_Id + " " + text;
         }
 
@@ -589,8 +595,7 @@ $('.fsend_comment').on('click', function () {
         }
 
 
-    }
-    else { // envoi de commentaires
+    } else { // envoi de commentaires
         data = {
 
             ObjectId: current_flow_block.ObjectId,
@@ -739,6 +744,7 @@ function delete_comment(element) {
 document.getElementById("popup-comment").addEventListener("opened", function () {
     $(".fwrite_comment").css("display", "block");
     in_comments = true;
+    CommentListCurrentIndex = 0;
 });
 
 //Notif lors d'un nouveau commentaire
@@ -746,6 +752,15 @@ document.getElementById("popup-comment").addEventListener("opened", function () 
 document.getElementById("popup-comment").addEventListener("closed", function () {
     $(".fwrite_comment")[0].style.display = "none";
     in_comments = false;
+    CommentListCurrentIndex = 0;
+    if (current_flow_block) {
+        current_flow_block.all_comment_blocks.length = 0
+
+    }
+    if (current_comment_block) {
+
+        current_comment_block.all_response_blocks.length = 0
+    }
     /*rent_flow_block !== undefined) {
         current_flow_block.all_comment_blocks.length = 0;
     }*/
@@ -784,9 +799,7 @@ function color_like(block, like) // like des commentaires et de reponses
             block.f_response_number_like.innerHTML = parseInt(block.f_response_number_like.innerHTML) - 1;
         }
 
-    }
-
-    else { // si c'est un like de commentaire
+    } else { // si c'est un like de commentaire
         if (like) {
             console.log("chris color is like like like ");
 

@@ -274,7 +274,6 @@ dependencies {
     compile "com.facebook.android:facebook-android-sdk:4.40.0"
     compile "com.google.android.gms:play-services-auth:11.8.0"
     compile "com.google.android.gms:play-services-identity:11.8.0"
-    compile "com.android.support:support-v4:24.1.1+"
     compile "com.theartofdev.edmodo:android-image-cropper:2.7.+"
     compile "com.android.support:appcompat-v7:27.+"
     compile "com.android.support:support-v13:27.+"
@@ -284,6 +283,7 @@ dependencies {
     compile "org.json:json:20171018"
     compile "com.google.android.gms:play-services-auth:15.0.1"
     compile "com.google.android.gms:play-services-identity:15.0.1"
+    compile "com.android.support:support-v4:27.+"
     // SUB-PROJECT DEPENDENCIES END
     implementation 'com.google.firebase:firebase-core:16.0.1'
 }

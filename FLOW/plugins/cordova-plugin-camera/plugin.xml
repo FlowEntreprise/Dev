@@ -22,7 +22,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     id="cordova-plugin-camera"
-    version="4.0.3">
+    version="4.0.4-dev">
     <name>Camera</name>
     <description>Cordova Camera Plugin</description>
     <license>Apache 2.0</license>
@@ -31,6 +31,7 @@
     <issue>https://issues.apache.org/jira/browse/CB/component/12320645</issue>
 
     <engines>
+        <engine name="cordova" version=">=7.1.0"/>
         <engine name="cordova-android" version=">=6.3.0" />
     </engines>
 
@@ -81,7 +82,8 @@
             <clobbers target="CameraPopoverHandle" />
           </js-module>
 
-        <framework src="com.android.support:support-v4:24.1.1+" />
+        <preference name="ANDROID_SUPPORT_V4_VERSION" default="27.+"/>
+        <framework src="com.android.support:support-v4:$ANDROID_SUPPORT_V4_VERSION"/>
 
       </platform>
 

@@ -265,16 +265,16 @@ class ServerManagerClass {
       url: ServerParams.ServerURL + ServerParams.AddFlowURL,
       data: JSON.stringify(final_data),
       success: function (response) {
-        //// console.log('Flow added sucessfully : ');
-        //// console.log(response);
+        console.log('Flow added sucessfully : ');
+        console.log(response);
         // ServerManager.GetFlowById(response.ObjectId);
         TLCurrentIndex = 0;
         ServerManager.GetTimeline(0);
         CloseAfterRecord();
       },
       error: function (response) {
-        //// console.log("Flow adding error : ");
-        //// console.log(response);
+        console.log("Flow adding error : ");
+        console.log(response);
         CloseAfterRecord();
       },
     });
@@ -812,30 +812,6 @@ class ServerManagerClass {
     });
   }
 
-  AddFlow(data) {
-    let final_data = {
-      Data: data,
-      Action: "AddFlow",
-      TokenId: window.localStorage.getItem("user_token"),
-    };
-
-    $.ajax({
-      type: "POST",
-      url: ServerParams.ServerURL + ServerParams.AddFlowURL,
-      data: JSON.stringify(final_data),
-      success: function (response) {
-        //console.log('Flow added sucessfully : ');
-        //console.log(response);
-        // ServerManager.GetFlowById(response.ObjectId);
-        CloseAfterRecord();
-      },
-      error: function (response) {
-        //// console.log("Flow adding error : ");
-        //// console.log(response);
-      },
-    });
-  }
-
   GetTimeline(data) {
     let final_data = {
       TokenId: window.localStorage.getItem("user_token"),
@@ -994,7 +970,7 @@ class ServerManagerClass {
       success: function (response) {
         //console.log(response);
         delete_comment_from_html(element);
-        //console.log("Commentaire supprimé avec succes");
+        console.log("Commentaire supprimé avec succes");
       },
       error: function (response) {
         //console.log(response);
