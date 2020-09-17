@@ -115,13 +115,13 @@ function block(params) {
         let indicator_txt = "";
         let indicator_icon = "";
         if (params.LikeBy != null) {
-            params.LikeBy = params.LikeBy.replace(/[\[\]']+/g, "");
+            params.LikeBy = params.LikeBy.split(",")[0].replace(/[\[\]']+/g, "");
             indicator_txt = params.LikeBy + " a aimé ceci";
             indicator_icon =
                 "<img class='tl_indicator_icon' src='./src/icons/Like.png' width='15vw' height='30vw' align='middle'>";
         }
         if (params.CommentBy != null) {
-            params.CommentBy = params.CommentBy.replace(/[\[\]']+/g, "");
+            params.CommentBy = params.CommentBy.split(",")[0].replace(/[\[\]']+/g, "");
             indicator_txt = params.CommentBy + " a commenté ceci";
             indicator_icon =
                 "<img class='tl_indicator_icon' src='./src/icons/Comment.png' width='15vw' height='30vw' align='middle'>";
@@ -273,8 +273,8 @@ function block(params) {
         this.fimg_impression_comment.className = "fimg_impression";
         this.fimg_impression_comment.src =
             this.IsComment == 1 ?
-                "src/icons/Comment_filled.png" :
-                "src/icons/Comment.png";
+            "src/icons/Comment_filled.png" :
+            "src/icons/Comment.png";
         this.fcomment.appendChild(this.fimg_impression_comment);
         this.ftxt_impression_comment = document.createElement("p");
         this.ftxt_impression_comment.className = "ftxt_impression";
@@ -538,7 +538,7 @@ function block(params) {
     $(this.fimg_impression_comment).on("click", function () {
         if (connected) {
             current_flow_block = block; +
-                current_flow_block.Comments == 0 ?
+            current_flow_block.Comments == 0 ?
                 (text_comment_number = current_flow_block.Comments + " commentaire") :
                 (text_comment_number = current_flow_block.Comments + " commentaires")
             $(".fcomment_number").text(text_comment_number);
@@ -693,9 +693,9 @@ function go_to_account(data) {
         Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
     facebookConnectPlugin.logEvent(
         "current_page", {
-        page: current_page,
-        duration: time_in_last_screen,
-    },
+            page: current_page,
+            duration: time_in_last_screen,
+        },
         null,
         function () {
             console.log("fb current_page event success");
