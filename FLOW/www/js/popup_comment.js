@@ -23,8 +23,7 @@ function block_response(response_data, response_is_specifique) {
     if (response_data.Comment) { // CTRL+F hack_response pour les explications
         this.fresponse_text = response_data.Comment;
         this.response_text = response_data.Comment_text;
-    }
-    else {
+    } else {
         this.fresponse_text = response_data.response;
         this.response_text = response_data.response_text;
     }
@@ -34,8 +33,7 @@ function block_response(response_data, response_is_specifique) {
     this.fblock_response.className = 'fblock_response';
     if (response_is_specifique) {
         $(current_comment_block.fblock_response_container).prepend(this.fblock_response);
-    }
-    else {
+    } else {
 
         $(current_comment_block.fblock_response_container).append(this.fblock_response);
     }
@@ -149,8 +147,7 @@ function block_comment(comment_data, comment_is_specifique) {
     this.fblock_comment.className = 'fblock_comment';
     if (comment_is_specifique) {
         $(".fblock_comment_content").prepend(this.fblock_comment);
-    }
-    else {
+    } else {
 
         $(".fblock_comment_content").append(this.fblock_comment);
     }
@@ -205,13 +202,11 @@ function block_comment(comment_data, comment_is_specifique) {
                 //$(current_comment_block.fblock_response_container).animate({ height: current_comment_block.response_container_previous_height + "px" }, 'smooth');
                 $(current_comment_block.fblock_response_container).css("height", "" + current_comment_block.response_container_previous_height + "px");
                 $(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
-            }
-            else {
+            } else {
                 let loading_tl = document.createElement("div");
                 loading_tl.className = "loading-spinner loading_tl loading_response";
                 $("#popup-comment").append(loading_tl);
-                let data =
-                {
+                let data = {
                     ObjectId: current_comment_block.ObjectId,
                     Index: response_current_index
 
@@ -258,8 +253,7 @@ function block_comment(comment_data, comment_is_specifique) {
         loading_tl.className = "loading-spinner loading_tl loading_response";
         $("#popup-comment").append(loading_tl);
         $(current_comment_block.fblock_response_container).css("height", "");
-        let data =
-        {
+        let data = {
             ObjectId: current_comment_block.ObjectId,
             Index: response_current_index
 
@@ -284,7 +278,9 @@ function block_comment(comment_data, comment_is_specifique) {
         $(current_comment_block.fblock_comment_label_afficher_les_reponses).css("opacity", "1");
         //$(".fblock_comment_content").scrollTop(scroll_to.top);
         setTimeout(function () {
-            $(".fblock_comment_content").animate({ scrollTop: scroll_to }, 400, 'swing');
+            $(".fblock_comment_content").animate({
+                scrollTop: scroll_to
+            }, 400, 'swing');
         }, 350);
 
         //current_comment_block.scrollIntoView();
@@ -428,8 +424,7 @@ function display_response(response) { // affiche les reponses par 5
 
             response_current_index++;
         }
-    }
-    else {
+    } else {
         $(".loading_tl").remove();
     }
 
@@ -600,8 +595,7 @@ $('.fsend_comment').on('click', function () {
         }
 
 
-    }
-    else { // envoi de commentaires
+    } else { // envoi de commentaires
         data = {
 
             ObjectId: current_flow_block.ObjectId,
@@ -750,6 +744,7 @@ function delete_comment(element) {
 document.getElementById("popup-comment").addEventListener("opened", function () {
     $(".fwrite_comment").css("display", "block");
     in_comments = true;
+    CommentListCurrentIndex = 0;
 });
 
 //Notif lors d'un nouveau commentaire
@@ -757,6 +752,7 @@ document.getElementById("popup-comment").addEventListener("opened", function () 
 document.getElementById("popup-comment").addEventListener("closed", function () {
     $(".fwrite_comment")[0].style.display = "none";
     in_comments = false;
+    CommentListCurrentIndex = 0;
     if (current_flow_block) {
         current_flow_block.all_comment_blocks.length = 0
 
@@ -803,9 +799,7 @@ function color_like(block, like) // like des commentaires et de reponses
             block.f_response_number_like.innerHTML = parseInt(block.f_response_number_like.innerHTML) - 1;
         }
 
-    }
-
-    else { // si c'est un like de commentaire
+    } else { // si c'est un like de commentaire
         if (like) {
             console.log("chris color is like like like ");
 
