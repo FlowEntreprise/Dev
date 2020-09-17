@@ -61,7 +61,7 @@ function delete_comment_from_html(element) {
         if (current_flow_block.all_comment_blocks[i].private_Id == window.localStorage.getItem("user_private_id")) {
             nb_comment_in_current_flow_block++;
         }
-        if (element.Id == current_flow_block.all_comment_blocks[i].Id) {
+        if (element.ObjectId == current_flow_block.all_comment_blocks[i].ObjectId) {
             current_flow_block.all_comment_blocks.splice(i, 1);
             element.fblock_comment.remove();
             nb_comment = nb_comment - 1;
@@ -81,7 +81,7 @@ function delete_response_from_html(element) {
     let nb_response = current_comment_block.nombre_de_reponses;
 
     for (var i = 0; i < current_comment_block.all_response_blocks.length; i++) {
-        if (element.Id == current_comment_block.all_response_blocks[i].Id) {
+        if (element.ObjectId == current_comment_block.all_response_blocks[i].ObjectId) {
             current_comment_block.all_response_blocks.splice(i, 1);
             element.fblock_response.remove();
             nb_response = nb_response - 1;
@@ -177,7 +177,7 @@ $("#delete_button").on("touchend", function () {
                     };
                     let data_delete_comment = {
                         //element: element,
-                        ObjectId: element_to_delete.element.Id
+                        ObjectId: element_to_delete.element.ObjectId
                     };
                     ServerManager.DeleteComment(data_delete_comment, element_to_delete.element);
                     in_app_notif(data);
@@ -196,8 +196,8 @@ $("#delete_button").on("touchend", function () {
                     };
                     let data_delete_comment = {
                         //element: element,
-                        ObjectId: element_to_delete.element.Id,
-                        CommentObjectId: current_comment_block.Id
+                        ObjectId: element_to_delete.element.ObjectId,
+                        CommentObjectId: current_comment_block.ObjectId
                     };
                     ServerManager.DeleteResponse(data_delete_comment, element_to_delete.element);
                     in_app_notif(data);
