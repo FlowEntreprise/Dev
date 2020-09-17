@@ -750,11 +750,13 @@ function delete_comment(element) {
 document.getElementById("popup-comment").addEventListener("opened", function () {
     $(".fwrite_comment").css("display", "block");
     in_comments = true;
+    CommentListCurrentIndex = 0
 });
 
 //Notif lors d'un nouveau commentaire
 
 document.getElementById("popup-comment").addEventListener("closed", function () {
+    CommentListCurrentIndex = 0
     $(".fwrite_comment")[0].style.display = "none";
     in_comments = false;
     if (current_flow_block) {
