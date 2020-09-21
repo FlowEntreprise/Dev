@@ -30,8 +30,9 @@ var app = {
     document.addEventListener("resume", this.onResume, false);
   },
   onDeviceReady: function () {
+    Keyboard.hide();
+    navigator.splashscreen.hide();
     setTimeout(function () {
-      navigator.splashscreen.hide();
       if (!window.cordova.platformId == "android") {
         StatusBar.overlaysWebView(false);
       }
@@ -55,7 +56,7 @@ var app = {
         }, 100);
       }
       startTuto();
-    }, 500);
+    }, 1000);
 
     this.receivedEvent("deviceready");
   },
@@ -66,8 +67,7 @@ var app = {
     let time_in_last_screen =
       Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
     facebookConnectPlugin.logEvent(
-      "current_page",
-      {
+      "current_page", {
         page: current_page,
         duration: time_in_last_screen,
       },
@@ -117,8 +117,7 @@ var app = {
     let time_in_last_screen =
       Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
     facebookConnectPlugin.logEvent(
-      "current_page",
-      {
+      "current_page", {
         page: current_page,
         duration: time_in_last_screen,
       },
@@ -133,9 +132,9 @@ var app = {
     last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
     httpd =
-      cordova && cordova.plugins && cordova.plugins.CorHttpd
-        ? cordova.plugins.CorHttpd
-        : null;
+      cordova && cordova.plugins && cordova.plugins.CorHttpd ?
+      cordova.plugins.CorHttpd :
+      null;
 
     // No need since no using workers anymore
     // httpd.startServer({
@@ -165,10 +164,8 @@ var app = {
 
     var push = PushNotification.init({
       android: {
-        icon:
-          device.manufacturer == "OnePlus"
-            ? "flow_icone_one_plus"
-            : "flow_icone",
+        icon: device.manufacturer == "OnePlus" ?
+          "flow_icone_one_plus" : "flow_icone",
       },
       ios: {
         alert: "true",
