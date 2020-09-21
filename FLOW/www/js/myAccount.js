@@ -277,8 +277,7 @@ function closeEditProfile() {
                 FullName: $("#editProfileName").val(),
                 Biography: $("#feditBio").val(),
             };
-            console.log(window.localStorage.getItem("user_profile_pic"));
-            if (!window.localStorage.getItem("user_profile_pic").includes("https") && window.localStorage.getItem("user_profile_pic").length > 0) {
+            if (!window.localStorage.getItem("user_profile_pic").includes("https")) {
                 updateEditProfile.Image = window.localStorage.getItem("user_profile_pic");
             }
             ServerManager.UpdateProfile(updateEditProfile);
@@ -300,15 +299,13 @@ function UpdateProfile(profileName, profileBio, profilePicture) {
     window.localStorage.setItem("user_bio", profileBio);
     nameMonCompte = profileName;
     bioMonCompte = profileBio;
-    if (profilePicture) {
-        window.localStorage.setItem("user_profile_pic", profilePicture)
-        $("#fmyprofilPicture").css({
-            "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
-        });
-        $(".faccount").css({
-            "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
-        });
-    }
+    window.localStorage.setItem("user_profile_pic", profilePicture)
+    $("#fmyprofilPicture").css({
+        "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+    });
+    $(".faccount").css({
+        "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+    });
 }
 
 function ShowMyFlow(flow) {
@@ -374,7 +371,7 @@ function ShowMyFlow(flow) {
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
-            if (i == 0 && indexMyFlow == 0) new_block.block_flow.style.marginTop = "calc(27 * var(--custom-vh))";
+            if (i == 0) new_block.block_flow.style.marginTop = "calc(27 * var(--custom-vh))";
             //console.log("Pop Flow");
             //console.log(new_block);
         }

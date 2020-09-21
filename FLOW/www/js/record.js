@@ -312,8 +312,6 @@ $$('.fvalidate-after_btn').on('touchend', function () {
             $(".fvalidate-after_btn.record")[0].setAttribute("style", "background: linear-gradient(to bottom, #1A84EF, #FF0054)");
             $(".floading-spinner.loading-record-flow")[0].style.display = "block";
             setTimeout(function () {
-                console.log("add flow");
-                console.log(data);
                 ServerManager.AddFlow(data);
 
                 facebookConnectPlugin.logEvent("record_flow", {

@@ -151,10 +151,10 @@ position: absolute;
 position: relative;
     top: calc(0.5 * var(--custom-vh));
     color: #92abb2;
-    font-size: calc(1.5 * var(--custom-vh));
+    font-size: calc(1.6 * var(--custom-vh));
     font-family: "Roboto-Light";
     font-weight: 600;
-    left: 3vw;
+    left: 5vw;
 }
 
 .fblock_response_label_repondre
@@ -173,10 +173,10 @@ position: relative;
 position: relative;
     top: calc(0.5 * var(--custom-vh));
     color: #92abb2;
-    font-size: calc(1.5 * var(--custom-vh));
+    font-size: calc(1.6 * var(--custom-vh));
     font-family: "Roboto-Light";
     font-weight: 600;
-    left: 7vw;
+    left: 10vw;
 }
 
 .afficher_plus_de_reponses_container

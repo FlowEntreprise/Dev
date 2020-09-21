@@ -13,7 +13,6 @@ var recorded_com;
 
 var debug_record = false;
 var current_story_audio;
-var current_story_comment;
 var next_prev_delay = 200;
 var can_next_prev = true;
 var tryLoadTimeout;
@@ -52,11 +51,11 @@ const pSBC = (p, c0, c1, l) => {
         b: 0,
         a: -1
     } : {
-        r: 255,
-        g: 255,
-        b: 255,
-        a: -1
-    }, p = P ? p * -1 : p, P = 1 - p;
+            r: 255,
+            g: 255,
+            b: 255,
+            a: -1
+        }, p = P ? p * -1 : p, P = 1 - p;
     if (!f || !t) return null;
     if (l) r = m(P * f.r + p * t.r), g = m(P * f.g + p * t.g), b = m(P * f.b + p * t.b);
     else r = m((P * f.r ** 2 + p * t.r ** 2) ** 0.5), g = m((P * f.g ** 2 + p * t.g ** 2) ** 0.5), b = m((P * f.b ** 2 + p * t.b ** 2) ** 0.5);
@@ -90,7 +89,6 @@ class StoryFlow {
         this.id = "";
         this.time = "...";
         this.audio = new Audio("src/sound/son.opus");
-        this.audio_src = "";
         this.duration = 0;
         this.comments = [];
         // for (let i = 0; i < 5; i++) {
@@ -98,9 +96,9 @@ class StoryFlow {
         // }
         this.seen = [];
         /* this.seen_number = 5;
-        for (let i = 0; i < 15; i++) {
-            this.seen.push(new StorySeen());
-        }*/
+         for (let i = 0; i < 15; i++) {
+             this.seen.push(new StorySeen());
+         }*/
     }
 }
 
@@ -113,9 +111,6 @@ class StoryComment {
         this.user_picture = "src/pictures/girl1.jpg";
         this.isPlaying = false;
         this.ready = false;
-        this.duration = 0;
-        this.htmlelement = null;
-        this.current_value = 0;
     }
 }
 
@@ -578,7 +573,7 @@ function showStoryMain(play_story) {
 
     if (play_story) {
         tryLoadStory(story_index, storyFlow_index);
-        // current_story_audio.audio.play(); commented by Thomas with Media but not sure why (fixing an error in console)
+        current_story_audio.audio.play();
         audio_playing = true;
     }
 }
@@ -618,8 +613,7 @@ function GetStoryForUserFromServer(data) {
         let src_flow = 'https://' + data.LinkBuilder.Hostname + '/stories/' + data.Data[i].Audio.name + '?';
         let param_flow = `${data.LinkBuilder.Params.hash}=${data.Data[i].Audio.hash}&${data.LinkBuilder.Params.time}=${data.Data[i].Audio.timestamp}`;
         let audio_link = src_flow + param_flow;
-        story_flow.audio_src = audio_link;
-        // story_flow.audio = new Media(audio_link);
+        story_flow.audio = new Audio(audio_link);
         story_flow.seen_number = data.Data[i].NbView;
         story_data[story_index].data.push(story_flow);
     }
@@ -674,44 +668,12 @@ function loadStory(story_index, storyFlow_index) {
     // current_story_audio = new Audio(story_data[story_index].data[storyFlow_index].audio.src);
     $(".loading_story")[0].style.opacity = "1";
     document.getElementById("fstory_wave").style.opacity = "0";
-    // current_story_audio = new Audio();
-    let local_story = FlowLoader.DownloadFlow(story_data[story_index].data[storyFlow_index].audio_src);
+    current_story_audio = new Audio();
+    let local_story = FlowLoader.DownloadFlow(story_data[story_index].data[storyFlow_index].audio.src);
     local_story.OnReady(function (url) {
         console.log("local url : " + url);
-        current_story_audio = new Media(url, function () {}, function () {}, storyAudioStatus);
-
-        function storyAudioStatus(status) {
-            console.log("A status change occurred: " + status);
-            if (status == 4) {
-                story_completion.style.width = "100%";
-                story_data[story_index].data[storyFlow_index].audio.pause();
-                audio_playing = false;
-                // setTimeout(function () {
-                nextStory();
-            } else if (status == 2) {
-                story_timeupdate();
-            }
-        }
-
-        function story_timeupdate() {
-            let tmp_currentstory = current_story_audio;
-            setTimeout(function () {
-                if (current_story_audio) {
-                    current_story_audio.getCurrentPosition(function (position) {
-                        let progress = Math.floor(position * 100 / story_data[story_index].data[storyFlow_index].duration);
-                        story_completion.style.width = progress + "%";
-                        if (tmp_currentstory == current_story_audio && audio_playing) {
-                            story_timeupdate();
-                        }
-                    }, function (err) {
-                        console.log(err)
-                    });
-                }
-
-            }, 250);
-        }
-        // current_story_audio.src = url;
-        // current_story_audio.volume = 1.0;
+        current_story_audio.src = url;
+        current_story_audio.volume = 1.0;
         $(".loading_story")[0].style.opacity = "0";
         document.getElementById("fstory_wave").style.opacity = "1";
         current_story_audio.play();
@@ -750,22 +712,22 @@ function loadStory(story_index, storyFlow_index) {
     //         StorySiriWave.amplitude = 1;
     //     }
     // }
-    // current_story_audio.ontimeupdate = function () {
-    //     if (current_story_audio) {
-    //         let progress = Math.floor(current_story_audio.currentTime * 100 / story_data[story_index].data[storyFlow_index].duration);
-    //         story_completion.style.width = progress + "%";
-    //         // console.log(progress);
-    //     }
-    // };
+    current_story_audio.ontimeupdate = function () {
+        if (current_story_audio) {
+            let progress = Math.floor(current_story_audio.currentTime * 100 / story_data[story_index].data[storyFlow_index].duration);
+            story_completion.style.width = progress + "%";
+            // console.log(progress);
+        }
+    };
 
-    // current_story_audio.onended = function () {
-    //     story_completion.style.width = "100%";
-    //     story_data[story_index].data[storyFlow_index].audio.pause();
-    //     audio_playing = false;
-    //     // setTimeout(function () {
-    //     nextStory();
-    //     // }, 500);
-    // }
+    current_story_audio.onended = function () {
+        story_completion.style.width = "100%";
+        story_data[story_index].data[storyFlow_index].audio.pause();
+        audio_playing = false;
+        // setTimeout(function () {
+        nextStory();
+        // }, 500);
+    }
     // REPLACE EVERYTING WITH current_story_audio !!!!!!!!!!!!!!!!!!!!
 
     // setTimeout(function () {
@@ -821,39 +783,34 @@ function previousStory() {
     if (can_next_prev) {
         current_story_audio.pause();
         audio_playing = false;
-        current_story_audio.getCurrentPosition(function (position) {
-            if (position < 1) {
-                stopAllStoriesAudio();
-                if (storyFlow_index > 0) {
-                    storyFlow_index--;
-                    tryLoadStory(story_index, storyFlow_index);
-                } else if (story_index > 0) {
-                    story_index--;
-                    storyFlow_index = story_data[story_index].data.length - 1;
-                    tryLoadStory(story_index, storyFlow_index);
-                } else {
-                    CloseStory();
-                }
-            } else {
-                $(".fstory_completion")[0].style.transitionDuration = "0s";
-                current_story_audio.seekTo(0.0);
-                StorySiriWave.speed = 0;
-                StorySiriWave.amplitude = 0;
-                setTimeout(function () {
-                    $(".fstory_completion")[0].style.transitionDuration = (story_data[story_index].data[storyFlow_index].duration / 10) + "s";
-                    StorySiriWave.speed = 0.2;
-                    StorySiriWave.amplitude = 1;
-                }, 100);
+        if (current_story_audio.currentTime < 1) {
+            stopAllStoriesAudio();
+            if (storyFlow_index > 0) {
+                storyFlow_index--;
                 tryLoadStory(story_index, storyFlow_index);
+            } else if (story_index > 0) {
+                story_index--;
+                storyFlow_index = story_data[story_index].data.length - 1;
+                tryLoadStory(story_index, storyFlow_index);
+            } else {
+                CloseStory();
             }
-            can_next_prev = false;
+        } else {
+            $(".fstory_completion")[0].style.transitionDuration = "0s";
+            current_story_audio.currentTime = 0.0;
+            StorySiriWave.speed = 0;
+            StorySiriWave.amplitude = 0;
             setTimeout(function () {
-                can_next_prev = true
-            }, next_prev_delay);
-        }, function (err) {
-            console.log(err)
-        });
-
+                $(".fstory_completion")[0].style.transitionDuration = (story_data[story_index].data[storyFlow_index].duration / 10) + "s";
+                StorySiriWave.speed = 0.2;
+                StorySiriWave.amplitude = 1;
+            }, 100);
+            tryLoadStory(story_index, storyFlow_index);
+        }
+        can_next_prev = false;
+        setTimeout(function () {
+            can_next_prev = true
+        }, next_prev_delay);
     }
 
 }
@@ -886,7 +843,7 @@ function stopAllStoriesAudio() {
     if (current_story_audio) {
         current_story_audio.pause();
         audio_playing = false;
-        current_story_audio.seekTo(0.0);
+        current_story_audio.currentTime = 0.0;
         current_story_audio = null;
     }
     // for (var i = 0; i < story_data.length; i++) {
@@ -896,21 +853,15 @@ function stopAllStoriesAudio() {
     //     }
     // }
 
-    if (current_story_comment) {
-        current_story_comment.audio.pause();
-        audio_playing = false;
-        current_story_comment.audio.seekTo(0.0);
-        current_story_comment = null;
+    if (story_data[story_index] && story_data[story_index].data[storyFlow_index]) {
+        for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
+            let com = story_data[story_index].data[storyFlow_index].comments[i];
+            com.audio.pause();
+            audio_playing = false;
+            com.audio.currentTime = 0;
+            com.isPlaying = false;
+        }
     }
-    // if (story_data[story_index] && story_data[story_index].data[storyFlow_index]) {
-    //     for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
-    //         let com = story_data[story_index].data[storyFlow_index].comments[i];
-    //         com.audio.pause();
-    //         audio_playing = false;
-    //         com.audio.seekTo(0.0);
-    //         com.isPlaying = false;
-    //     }
-    // }
 
     if (recorded_com) {
         recorded_com.pause();
@@ -928,7 +879,7 @@ function stop_comments() {
             }
             com.audio.pause();
             audio_playing = false;
-            com.audio.seekTo(0.0);
+            com.audio.currentTime = 0;
             com.isPlaying = false;
         }
     }
@@ -942,17 +893,16 @@ function loadStoryComments(data) {
     }
     let i = 0;
     for (let comment of data.Data) {
-        console.log(comment);
         let com = new StoryComment();
         com.private_id = comment.PrivateId;
         com.time = set_timestamp(comment.Time);
-        com.duration = parseFloat(comment.Duration);
         let src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + comment.ProfilePicture.name + '?';
         let param = `${data.LinkBuilder.Params.hash}=${comment.ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${comment.ProfilePicture.timestamp}`;
         com.user_picture = src + param;
         let src_comment_audio = 'https://' + data.LinkBuilder.Hostname + '/comments/' + comment.Audio.name + '?';
         let param_comment_audio = `${data.LinkBuilder.Params.hash}=${comment.Audio.hash}&${data.LinkBuilder.Params.time}=${comment.Audio.timestamp}`;
         com.ready = false;
+        com.audio = new Audio();
 
         let comment_li = document.createElement("li");
         comment_li.className = "fstory_comment_li";
@@ -973,7 +923,6 @@ function loadStoryComments(data) {
                 playStoryComment(com, comment_play)
             }
         };
-        com.htmlelement = comment_play;
         let comment_pseudo = document.createElement("label");
         comment_pseudo.className = "fstory_comment_pseudo";
         comment_pseudo.innerHTML = com.private_id;
@@ -997,28 +946,7 @@ function loadStoryComments(data) {
         let local_comment = FlowLoader.DownloadFlow(src_comment_audio + param_comment_audio);
         local_comment.OnReady(function (url) {
             console.log("local url : " + url);
-            // com.audio.src = url;
-            com.audio = new Media(url, function (success) {
-                console.log(success)
-            }, function (err) {
-                console.log(err)
-            }, storyCommentStatus);
-            // current_story_comment = com;
-
-            function storyCommentStatus(status) {
-                console.log("A status change occurred: " + status);
-                console.log(current_story_comment);
-                if (status == 4) {
-                    current_story_comment.htmlelement.style.backgroundImage = "url('src/icons/play.png')";
-                    current_story_comment.isPlaying = false;
-                    audio_playing = false;
-                    current_story_comment.audio.seekTo(0.0);
-                    current_story_comment.current_value = 0;
-                }
-                // else if (status == 2) {
-                //     story_timeupdate();
-                // }
-            }
+            com.audio.src = url;
             com.ready = true;
             comment_play.style.backgroundImage = "url(\"src/icons/play.png\")";
         });
@@ -1051,53 +979,41 @@ function loadStoryComments(data) {
 
 function playStoryComment(comment, htmlelement) {
     // stop all comments except current one
-    // for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
-    //     let com = story_data[story_index].data[storyFlow_index].comments[i];
-    //     if (com != comment) {
-    //         com.audio.pause();
-    //         audio_playing = false;
-    //         com.audio.seekTo(0.0);
-    //         com.isPlaying = false;
-    //     }
-    // }
-    if (current_story_comment && current_story_comment != comment) {
-        current_story_comment.audio.pause();
-        audio_playing = false;
-        current_story_comment.audio.seekTo(0);
-        current_story_comment.isPlaying = false;
-        current_story_comment.htmlelement.style.backgroundImage = "url('src/icons/play.png')";
-
+    console.log(story_data[story_index].data[storyFlow_index].comments.length);
+    for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
+        let com = story_data[story_index].data[storyFlow_index].comments[i];
+        if (com != comment) {
+            com.audio.pause();
+            audio_playing = false;
+            com.audio.currentTime = 0;
+            com.isPlaying = false;
+        }
     }
-    console.log(comment);
-    console.log(current_story_comment);
-    current_story_comment = comment;
 
     if (!comment.isPlaying) {
-        console.log("play !");
         var loading_com = $("div[comment_loading_id='" + (htmlelement.getAttribute("comment_id")) + "']")[0];
         // var current_value = 0;
         htmlelement.style.backgroundImage = "url('src/icons/pause.png')";
-        current_story_comment.audio.play();
+        comment.audio.play();
         audio_playing = true;
-        // comment.audio.onended = function () {
-        //     htmlelement.style.backgroundImage = "url('src/icons/play.png')";
-        //     comment.isPlaying = false;
-        //     audio_playing = false;
-        //     comment.audio.seekTo(0.0);
-        //     current_value = 0;
-        // };
-        // comment.audio.ontimeupdate = function () {
-        //     //console.log(loading_com);
-        //     //--let target_value = (comment.audio.currentTime / comment.audio.duration) * 100;
-        //     // current_value = Lerp(current_value, target_value, 0.5);
-        //     //--let css = "rgba(0, 0, 0, 0) conic-gradient(white 0deg, white "+target_value+"%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
-        //     //--$(loading_com).css({"background": css});//.style.backgroundImage = "conic-gradient(white 0 50%, transparent 0 100%);";
-        // }
-        current_value = (comment.audio.currentTime / comment.duration) * 100;
+        comment.audio.onended = function () {
+            htmlelement.style.backgroundImage = "url('src/icons/play.png')";
+            comment.isPlaying = false;
+            audio_playing = false;
+            comment.audio.currentTime = 0;
+            current_value = 0;
+        };
+        comment.audio.ontimeupdate = function () {
+            //console.log(loading_com);
+            //--let target_value = (comment.audio.currentTime / comment.audio.duration) * 100;
+            // current_value = Lerp(current_value, target_value, 0.5);
+            //--let css = "rgba(0, 0, 0, 0) conic-gradient(white 0deg, white "+target_value+"%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
+            //--$(loading_com).css({"background": css});//.style.backgroundImage = "conic-gradient(white 0 50%, transparent 0 100%);";
+        }
+        current_value = (comment.audio.currentTime / comment.audio.duration) * 100;
         smoothUpdateBar(loading_com, comment);
         comment.isPlaying = true;
     } else {
-        console.log("pause !");
         htmlelement.style.backgroundImage = "url('src/icons/play.png')";
         comment.audio.pause();
         audio_playing = false;
@@ -1111,21 +1027,15 @@ function lerp(start, end, amt) {
 
 function smoothUpdateBar(loading_com, comment) {
     setTimeout(function () {
-        comment.audio.getCurrentPosition(function (position) {
-            let target_value = (position / comment.duration) * 100;
-            // current_story_comment.current_value = Lerp(current_story_comment.current_value, target_value, 0.5);
-            current_story_comment.current_value = target_value;
-            let css = "rgba(0, 0, 0, 0) conic-gradient(white 0deg, white " + current_story_comment.current_value + "%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
-            $(loading_com).css({
-                "background": css
-            });
-            if (comment.isPlaying) {
-                smoothUpdateBar(loading_com, comment);
-            }
-        }, function (err) {
-            console.log(err)
+        let target_value = (comment.audio.currentTime / comment.audio.duration) * 100;
+        current_value = Lerp(current_value, target_value, 0.5);
+        let css = "rgba(0, 0, 0, 0) conic-gradient(white 0deg, white " + current_value + "%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
+        $(loading_com).css({
+            "background": css
         });
-
+        if (comment.isPlaying) {
+            smoothUpdateBar(loading_com, comment);
+        }
     }, 40);
 }
 

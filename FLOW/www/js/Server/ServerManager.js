@@ -59,7 +59,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-  constructor() {}
+  constructor() { }
 
   /* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
    * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -165,7 +165,7 @@ class ServerManagerClass {
         };
         break;
       default:
-        //console.log("Error in parameters sent to Connect() in ServerManager.");
+      //console.log("Error in parameters sent to Connect() in ServerManager.");
     }
     $.ajax({
       type: "POST",
@@ -265,16 +265,16 @@ class ServerManagerClass {
       url: ServerParams.ServerURL + ServerParams.AddFlowURL,
       data: JSON.stringify(final_data),
       success: function (response) {
-        console.log('Flow added sucessfully : ');
-        console.log(response);
+        //// console.log('Flow added sucessfully : ');
+        //// console.log(response);
         // ServerManager.GetFlowById(response.ObjectId);
         TLCurrentIndex = 0;
         ServerManager.GetTimeline(0);
         CloseAfterRecord();
       },
       error: function (response) {
-        console.log("Flow adding error : ");
-        console.log(response);
+        //// console.log("Flow adding error : ");
+        //// console.log(response);
         CloseAfterRecord();
       },
     });
@@ -611,7 +611,7 @@ class ServerManagerClass {
       success: function (response) {
         ShowMyFlow(response);
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -635,7 +635,7 @@ class ServerManagerClass {
           }
         }
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -652,7 +652,7 @@ class ServerManagerClass {
       success: function (response) {
         ShowUserFlow(response);
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -668,7 +668,7 @@ class ServerManagerClass {
         //console.log(response);
         ShowMyInfosUser(response);
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -684,7 +684,7 @@ class ServerManagerClass {
         //console.log("on recup le getInfosUserNumber");
         ShowInfosUserNumber(response);
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -712,7 +712,7 @@ class ServerManagerClass {
           ShowUserProfile(response);
         }
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -735,7 +735,7 @@ class ServerManagerClass {
         //console.log(response);
         UpdateFollowersList(response, data.follow_list);
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -761,7 +761,7 @@ class ServerManagerClass {
           UpdatefollowingsList(response, data.follow_list);
         }
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -782,7 +782,7 @@ class ServerManagerClass {
         RefreshTL();
         FollowResponse(response, data.type, data.block_user);
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 
@@ -808,6 +808,30 @@ class ServerManagerClass {
         //// console.log("Flow update error : ");
         console.log(response);
         //// console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
+      },
+    });
+  }
+
+  AddFlow(data) {
+    let final_data = {
+      Data: data,
+      Action: "AddFlow",
+      TokenId: window.localStorage.getItem("user_token"),
+    };
+
+    $.ajax({
+      type: "POST",
+      url: ServerParams.ServerURL + ServerParams.AddFlowURL,
+      data: JSON.stringify(final_data),
+      success: function (response) {
+        //console.log('Flow added sucessfully : ');
+        //console.log(response);
+        // ServerManager.GetFlowById(response.ObjectId);
+        CloseAfterRecord();
+      },
+      error: function (response) {
+        //// console.log("Flow adding error : ");
+        //// console.log(response);
       },
     });
   }
@@ -892,7 +916,8 @@ class ServerManagerClass {
         }
         if (type == "response") {
           comment_specifique(response, type, data_response);
-        } else {
+        }
+        else {
 
           flow_for_comment_specifique("comment", response);
         }
@@ -970,7 +995,7 @@ class ServerManagerClass {
       success: function (response) {
         //console.log(response);
         delete_comment_from_html(element);
-        console.log("Commentaire supprimé avec succes");
+        //console.log("Commentaire supprimé avec succes");
       },
       error: function (response) {
         //console.log(response);
@@ -1131,7 +1156,7 @@ class ServerManagerClass {
                 ServerManager.UpdateRegisterId(data);*/
         console.log(registrationId);
       },
-      error: function (response) {},
+      error: function (response) { },
     });
   }
 

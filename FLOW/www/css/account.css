@@ -2,11 +2,6 @@
 	background-color: white !important;
 }
 
-#tabCompte1,
-#tabCompte2 {
-	overflow-x: hidden;
-}
-
 .fnavAccount {
 	position: absolute;
 	top: calc(22 * var(--custom-vh)) !important;
