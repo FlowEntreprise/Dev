@@ -19,7 +19,7 @@ var user_is_blocked;
 var blocked_by_user;
 var last_scroll = 0;
 
-function alertDismissed() {};
+function alertDismissed() { };
 
 function fInitialisationAccount(privateId) {
     $("#UserActivity")[0].innerHTML = "";
@@ -514,7 +514,7 @@ function ShowUserFlow(flow) {
             };
             var new_block = new block(block_params);
             all_blocks.push(new_block);
-            if (i == 0 && indexAccount == 0) new_block.block_flow.style.marginTop = "calc(37 * var(--custom-vh))";
+            if (i == 0) new_block.block_flow.style.marginTop = "calc(37 * var(--custom-vh))";
         }
         if (countFlow < 5) {
             indexAccount++;
@@ -664,7 +664,7 @@ function FollowResponse(response, type, element) {
         follow = false;
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    } else {}
+    } else { }
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }

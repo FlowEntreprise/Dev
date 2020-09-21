@@ -27,13 +27,12 @@ class FlowObj {
         }
         this.local_url = "";
         this.ready = false;
-        // this.duration = null;
         this.LoadFromUrl(this.online_url);
     }
 
     OnReady(callback) {
         let self = this;
-        if (!this.ready /*|| !this.duration*/ ) {
+        if (!this.ready) {
             setTimeout(function () {
                 self.OnReady(callback);
             }, 50);
@@ -56,14 +55,8 @@ class FlowObj {
                 var blob = new Blob([this.response], {
                     type: 'audio/mpeg'
                 });
-                console.log("saving to local file...");
-                // let AudioElement = document.createElement('audio');
-                // AudioElement.addEventListener('loadedmetadata', function () {
-                //     console.log("calculated duration : " + AudioElement.duration);
-                //     self.duration = AudioElement.duration;
-                // });
-
-                // AudioElement.src = window.URL.createObjectURL(blob);
+                // console.log("saving to local file...");
+                // self.local_url = window.URL.createObjectURL(blob);
                 // self.ready = true;
                 window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function (dirEntry) {
                     var isAppend = true;

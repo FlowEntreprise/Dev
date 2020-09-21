@@ -351,7 +351,7 @@ function ShowMoreUsers() {
     $(".top_flows")[0].style.display = "none";
     // $(".show_more_flows")[0].style.display = "none";
     $(".show_more_flows").remove();
-    $(".top_users")[0].style.height = " calc(62 * var(--custom-vh))";
+    $(".top_users")[0].style.height = " calc(66 * var(--custom-vh))";
     search_index += 1;
     let data = {
         Index: search_index,
@@ -369,7 +369,7 @@ function ShowMoreFlows() {
     // $(".show_more_flows")[0].style.display = "none";
     $(".show_more_flows").remove();
     $(".top_flows_txt")[0].style.top = " calc(20 * var(--custom-vh))";
-    $(".top_flows")[0].style.height = " calc(62 * var(--custom-vh))";
+    $(".top_flows")[0].style.height = " calc(66 * var(--custom-vh))";
     $(".top_flows")[0].style.top = " calc(27 * var(--custom-vh))";
     search_index += 1;
     let data = {

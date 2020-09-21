@@ -2,11 +2,6 @@
 	background-color: white !important;
 }
 
-#tabMonCompte1,
-#tabMonCompte2 {
-	overflow-x: hidden;
-}
-
 #accountBannerScroll {
 	position: absolute;
 	width: 100vw;
@@ -374,7 +369,7 @@
 
 .empty_content {
 	position: absolute;
-	top: calc(45 * var(--custom-vh));
+	top: 25vh;
 	left: 0;
 	width: 100vw;
 	text-align: center;
