@@ -64,7 +64,6 @@ function flow_specifique(data, LinkBuilder, show_comment, type, data_specifique)
 }
 
 
-
 function flow_for_comment_specifique(type, response) {
 
     let data_flow = {
@@ -106,9 +105,6 @@ function comment_specifique(response, type, data_response) {
     current_flow_block.all_comment_blocks.push(block_commentaire);
     if (type == "comment") {
         $(block_commentaire.fblock_comment).css("background-color", "#1A84EF26");
-        setTimeout(function () {
-            $(block_commentaire.fblock_comment).css("background-color", "");
-        }, 3000);
     }
     if (type == "response") {
         $(block_commentaire.fblock_comment_label_afficher_les_reponses).click();
@@ -134,20 +130,14 @@ function comment_specifique(response, type, data_response) {
         let new_block_response = new block_response(response_data, true);
         current_comment_block.all_response_blocks.push(new_block_response);
         $(new_block_response.fblock_response).css("background-color", "#1A84EF26");
-        setTimeout(function () {
-            $(new_block_response.fblock_response).css("background-color", "");
-        }, 3000);
 
     }
-
-
 
 }
 
 function flow_and_comment_for_response_specifique(response) {
     flow_for_comment_specifique("response", response);
 }
-
 
 
 document.getElementById("popup-specifique").addEventListener("opened", function () {

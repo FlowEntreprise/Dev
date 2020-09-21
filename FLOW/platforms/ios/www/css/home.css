@@ -29,6 +29,10 @@
   overflow-x: hidden;
 }
 
+#tab2 {
+  overflow-x: hidden;
+}
+
 .fstories_title {
   position: absolute;
   top: calc(5 * var(--custom-vh));
@@ -190,7 +194,7 @@
   pointer-events: none;
 }
 
-#menu1 > .toolbar {
+#menu1>.toolbar {
   bottom: auto !important;
   top: calc(93 * var(--custom-vh) - 15px);
 }
@@ -255,7 +259,7 @@
   user-select: none;
 }
 
-.empty_tl > .title {
+.empty_tl>.title {
   position: absolute;
   top: 25vh;
   left: 0;
@@ -266,7 +270,7 @@
   color: #1a84ef;
 }
 
-.empty_tl > .txt {
+.empty_tl>.txt {
   position: absolute;
   top: 30vh;
   left: 10vw;
@@ -276,7 +280,7 @@
   color: #92abb2;
 }
 
-.empty_tl > .btn {
+.empty_tl>.btn {
   position: absolute;
   top: 37vh;
   left: 15vw;

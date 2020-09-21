@@ -205,15 +205,11 @@
         "parents": {
           "NSMicrophoneUsageDescription": [
             {
-              "xml": "<string>This app needs microphone access</string>",
+              "xml": "<string>Cette application requiert l'utilisation du microphone pour enregistrer des flows.</string>",
               "count": 1
             }
           ],
           "UIBackgroundModes": [
-            {
-              "xml": "<array><string>audio</string></array>",
-              "count": 1
-            },
             {
               "xml": "<array><string>remote-notification</string></array>",
               "count": 1

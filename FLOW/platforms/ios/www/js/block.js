@@ -2,7 +2,7 @@
 
 var block_id = 0;
 var audio_playing = false;
-var CanRefreshCommentList = true;
+var CanRefreshCommentList = false;
 var CommentListCurrentIndex = 0;
 var current_block_playing = null;
 /*********** BLOCK PARAMS *************
@@ -115,13 +115,13 @@ function block(params) {
         let indicator_txt = "";
         let indicator_icon = "";
         if (params.LikeBy != null) {
-            params.LikeBy = params.LikeBy.replace(/[\[\]']+/g, "");
+            params.LikeBy = params.LikeBy.split(",")[0].replace(/[\[\]']+/g, "");
             indicator_txt = params.LikeBy + " a aimé ceci";
             indicator_icon =
                 "<img class='tl_indicator_icon' src='./src/icons/Like.png' width='15vw' height='30vw' align='middle'>";
         }
         if (params.CommentBy != null) {
-            params.CommentBy = params.CommentBy.replace(/[\[\]']+/g, "");
+            params.CommentBy = params.CommentBy.split(",")[0].replace(/[\[\]']+/g, "");
             indicator_txt = params.CommentBy + " a commenté ceci";
             indicator_icon =
                 "<img class='tl_indicator_icon' src='./src/icons/Comment.png' width='15vw' height='30vw' align='middle'>";
@@ -281,7 +281,7 @@ function block(params) {
         this.ftxt_impression_comment.innerText = affichage_nombre(this.Comments, 1);
         this.fcomment.appendChild(this.ftxt_impression_comment);
 
-        this.ftxt_impression_like.addEventListener("touchend", function () {
+        this.ftxt_impression_like.addEventListener("click", function () {
             Popup("popup-likes", true, 40);
             current_flow_block = block;
             display_all_likes(current_flow_block);
@@ -540,10 +540,8 @@ function block(params) {
             current_flow_block = block; +
             current_flow_block.Comments == 0 ?
                 (text_comment_number = current_flow_block.Comments + " commentaire") :
-                (text_comment_number = current_flow_block.Comments + " commentaires");
+                (text_comment_number = current_flow_block.Comments + " commentaires")
             $(".fcomment_number").text(text_comment_number);
-            CanRefreshCommentList = true;
-            CommentListCurrentIndex = 0;
             display_all_comments(current_flow_block);
         } else {
             Popup("popup-connect", true, 60);
@@ -589,8 +587,6 @@ function display_all_comments(block) {
         ObjectId = block.IdFlow;
     if (block.IdFlow == undefined && block.additionalData == undefined)
         ObjectId = block.ObjectId;
-    CanRefreshCommentList = true;
-    CommentListCurrentIndex = 0;
     let data = {
         ObjectId: ObjectId,
         Index: CommentListCurrentIndex,
@@ -786,7 +782,7 @@ function UpdateCommentList(response, data_block) {
             $(".fcomment_number").text(text_comment_number);*/
 
         if ($(".loading_tl")) $(".loading_tl").remove();
-        $(".fblock_comment_content")[0].innerHTML = "";
+        //$(".fblock_comment_content")[0].innerHTML = "";
         if (CommentListCurrentIndex == 0) {
             let loading_tl = document.createElement("div");
             loading_tl.className = "loading-spinner loading_tl";
@@ -827,17 +823,18 @@ function UpdateCommentList(response, data_block) {
             current_flow_block.all_comment_blocks.push(block_commentaire);
             $(".fblock_comment_content").append(block_commentaire);
         }
-        CommentListCurrentIndex++;
+
         if ($(".loading_tl")) $(".loading_tl").remove();
         console.log("user updated !");
         pullToRefreshEnd();
         if (response.Data.length < 10) {
             CanRefreshCommentList = false;
-            let tick_tl = document.createElement("div");
-            tick_tl.className = "tick_icon";
-            $(".fblock_comment_content")[0].appendChild(tick_tl);
+            // let tick_tl = document.createElement("div");
+            // tick_tl.className = "tick_icon";
+            // $(".fblock_comment_content")[0].appendChild(tick_tl);
         } else {
             CanRefreshCommentList = true;
+            CommentListCurrentIndex++;
             let loading_tl = document.createElement("div");
             loading_tl.className = "loading-spinner loading_tl";
             $(".fblock_comment_content")[0].appendChild(loading_tl);
@@ -1018,8 +1015,10 @@ document
         if (window.cordova.platformId == "android") {
             StatusBar.backgroundColorByHexString("#949494");
             StatusBar.styleLightContent();
-            CanRefreshCommentList = true;
+            CanRefreshCommentList = false;
             CommentListCurrentIndex = 0;
+            response_current_index = 0;
+
         }
     });
 
@@ -1029,9 +1028,11 @@ document
         if (window.cordova.platformId == "android") {
             StatusBar.backgroundColorByHexString("#f7f7f8");
             StatusBar.styleDefault();
+            CanRefreshCommentList = false;
+            CommentListCurrentIndex = 0;
+            response_current_index = 0;
         }
-        CanRefreshCommentList = true;
-        CommentListCurrentIndex = 0;
+
     });
 
 document.getElementById("popup-likes").addEventListener("opened", function () {

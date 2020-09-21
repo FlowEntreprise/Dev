@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-  ServerURL: "https://api-test.flowappweb.com/",
+  ServerURL: "https://api.flowappweb.com/",
   ConnexionURL: "ConnexionFromApi",
   AddFlowURL: "AddFlow",
   GetSingleFlowURL: "GetSingle",
@@ -970,7 +970,7 @@ class ServerManagerClass {
       success: function (response) {
         //console.log(response);
         delete_comment_from_html(element);
-        //console.log("Commentaire supprimé avec succes");
+        console.log("Commentaire supprimé avec succes");
       },
       error: function (response) {
         //console.log(response);
