@@ -600,7 +600,7 @@ function ShowLikedFlows(flow, data_block_user) {
                         };
                         let new_block = new block(block_params);
                         all_blocks.push(new_block);
-                        if (i == 0) new_block.block_flow.style.marginTop = "calc(37 * var(--custom-vh))";
+                        if (i == 0 && indexAccountLike == 0) new_block.block_flow.style.marginTop = "calc(37 * var(--custom-vh))";
                         if ($(".loading_account")) $(".loading_account").remove();
                     }
                 }
