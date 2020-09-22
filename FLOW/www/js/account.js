@@ -388,14 +388,21 @@ function manageFollow(type, element) { // html_element est element html qui doit
         if (follow) {
             $(element.following_button).text("ABONNÉ");
             $(element.following_button).addClass("activeButtunFollow");
-            MyFollowing = +MyFollowing + 1;
-            $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+            if (current_page == "my-account") {
+                MyFollowing = +MyFollowing + 1;
+                $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+            }
+
 
         } else {
+
             $(element.following_button).text("S'ABONNER");
             $(element.following_button).removeClass("activeButtunFollow");
-            MyFollowing = +MyFollowing - 1;
-            $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+            if (current_page == "my-account") {
+                MyFollowing = +MyFollowing - 1;
+                $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+            }
+
         }
     }
 
@@ -652,8 +659,10 @@ function ShowLikedFlows(flow, data_block_user) {
 function FollowResponse(response, type, element) {
     if (response.Follow !== undefined) {
         follow = true;
-        Follower++;
-        $("#ffollowersBandeauChiffre").html(Follower);
+        if (type != "block_user_follow") {
+            Follower++;
+            $("#ffollowersBandeauChiffre").html(Follower);
+        }
         let data_notif_follow = {
             sender_private_id: window.localStorage.getItem("user_private_id"),
             RegisterId: account_registrationId,
@@ -666,8 +675,11 @@ function FollowResponse(response, type, element) {
         send_notif_to_user(data_notif_follow, "follow");
     } else if (response.UnFollow !== undefined) {
         follow = false;
-        Follower--;
-        $("#ffollowersBandeauChiffre").html(Follower);
+        if (type != "block_user_follow") {
+            Follower--;
+            $("#ffollowersBandeauChiffre").html(Follower);
+        }
+
     } else { }
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
@@ -692,7 +704,10 @@ $("#block_button").on('click', function () {
                 $("#fFollowYouButtunAccount").css("display", "none");
                 $("#fFollowButtunAccount").removeClass("activeButtunFollow");
                 $("#fFollowButtunAccount").text("S'ABONNER");
-                Follower = +Follower - 1;
+                if (follow == true && Follower > 0) {
+                    Follower = +Follower - 1;
+                }
+
                 $("#ffollowersBandeauChiffre").html(Follower);
                 user_is_blocked = true;
             }
