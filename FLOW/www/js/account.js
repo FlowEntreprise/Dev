@@ -19,7 +19,7 @@ var user_is_blocked;
 var blocked_by_user;
 var last_scroll = 0;
 
-function alertDismissed() {};
+function alertDismissed() { };
 
 function fInitialisationAccount(privateId) {
     $("#UserActivity")[0].innerHTML = "";
@@ -659,12 +659,16 @@ function FollowResponse(response, type, element) {
             RegisterId: account_registrationId,
             LastOs: LastOs
         };
+        if (type == "block_user_follow") {
+            data_notif_follow.RegisterId = element.RegisterId,
+                data_notif_follow.LastOs = element.LastOs
+        }
         send_notif_to_user(data_notif_follow, "follow");
     } else if (response.UnFollow !== undefined) {
         follow = false;
         Follower--;
         $("#ffollowersBandeauChiffre").html(Follower);
-    } else {}
+    } else { }
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }
