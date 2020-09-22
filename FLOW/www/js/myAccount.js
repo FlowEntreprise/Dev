@@ -9,6 +9,7 @@ var indexMyLike;
 var MyFlowAdd = true;
 var MyLikeAdd = true;
 var PPHasChanged = false;
+var b64_profile_pic = null;
 $(".fnavMonCompte").css("transform", "translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)");
 $(".faccount")[0].addEventListener("touchstart", function () {
     if (connected) {
@@ -278,8 +279,8 @@ function closeEditProfile() {
                 Biography: $("#feditBio").val(),
             };
             console.log(window.localStorage.getItem("user_profile_pic"));
-            if (!window.localStorage.getItem("user_profile_pic").includes("https") && window.localStorage.getItem("user_profile_pic").length > 0) {
-                updateEditProfile.Image = window.localStorage.getItem("user_profile_pic");
+            if (PPHasChanged) {
+                updateEditProfile.Image = b64_profile_pic;
             }
             ServerManager.UpdateProfile(updateEditProfile);
         }
@@ -290,6 +291,8 @@ function closeEditProfile() {
             "pointer-events": "none"
         });
         $("#feditProfilePopupContainer").css("pointer-events", "none");
+        PPHasChanged = false;
+        b64_profile_pic = null;
     }
 }
 
@@ -301,12 +304,9 @@ function UpdateProfile(profileName, profileBio, profilePicture) {
     nameMonCompte = profileName;
     bioMonCompte = profileBio;
     if (profilePicture) {
-        window.localStorage.setItem("user_profile_pic", profilePicture)
-        $("#fmyprofilPicture").css({
-            "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
-        });
-        $(".faccount").css({
-            "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+        // window.localStorage.setItem("user_profile_pic", profilePicture)
+        ServerManager.GetUserInfo({
+            PrivateId: window.localStorage.getItem("user_private_id")
         });
     }
 }
@@ -582,9 +582,9 @@ function onProfilePhotoDataSuccess(imageData) {
             // image64 = b64;
             // console.log(b64)
             PPHasChanged = true;
-            window.localStorage.setItem("user_profile_pic", b64);
+            b64_profile_pic = b64;
             $("#fprofilPicturePopup").css({
-                "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+                "background-image": "url('" + b64 + "')"
             });
 
         });
