@@ -665,7 +665,6 @@ class ServerManagerClass {
       url: ServerParams.ServerURL + ServerParams.GetMyUserInfosURL,
       data: JSON.stringify(final_data),
       success: function (response) {
-        //console.log(response);
         ShowMyInfosUser(response);
       },
       error: function (response) {},

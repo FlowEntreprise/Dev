@@ -388,14 +388,21 @@ function manageFollow(type, element) { // html_element est element html qui doit
         if (follow) {
             $(element.following_button).text("ABONNÉ");
             $(element.following_button).addClass("activeButtunFollow");
-            MyFollowing = +MyFollowing + 1;
-            $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+            if (current_page == "my-account") {
+                MyFollowing = +MyFollowing + 1;
+                $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+            }
+
 
         } else {
+
             $(element.following_button).text("S'ABONNER");
             $(element.following_button).removeClass("activeButtunFollow");
-            MyFollowing = +MyFollowing - 1;
-            $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+            if (current_page == "my-account") {
+                MyFollowing = +MyFollowing - 1;
+                $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+            }
+
         }
     }
 
@@ -412,7 +419,20 @@ function manageFollowYou() {
 
 function ShowUserProfile(response) {
     console.log(response);
-    if (response.Data.PrivateId == privateIDAccount) {
+    if (response.Data.PrivateId == window.localStorage.getItem("user_private_id")) {
+        console.log("my profile infos received");
+        const src = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data.ProfilePicture.name + '?';
+        const param = `${response.LinkBuilder.Params.hash}=${response.Data.ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data.ProfilePicture.timestamp}`;
+        console.log(src + param);
+        let link_built = src + param;
+        window.localStorage.setItem("user_profile_pic", link_built);
+        $("#fmyprofilPicture").css({
+            "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+        });
+        $(".faccount").css({
+            "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+        });
+    } else if (response.Data.PrivateId == privateIDAccount) {
         bioCompte = response.Data.Bio;
         // if (Compte.length > 57) bioCompte = bioCompte.substring(0, 57) + "..."; limit bio length by hand (done in css now)
         nameCompte = response.Data.FullName;
@@ -446,7 +466,6 @@ function ShowUserProfile(response) {
         });
 
         //Popup("popup-account", true);
-
     }
 }
 
@@ -600,7 +619,7 @@ function ShowLikedFlows(flow, data_block_user) {
                         };
                         let new_block = new block(block_params);
                         all_blocks.push(new_block);
-                        if (i == 0) new_block.block_flow.style.marginTop = "calc(37 * var(--custom-vh))";
+                        if (i == 0 && indexAccountLike == 0) new_block.block_flow.style.marginTop = "calc(37 * var(--custom-vh))";
                         if ($(".loading_account")) $(".loading_account").remove();
                     }
                 }
@@ -629,7 +648,7 @@ function ShowLikedFlows(flow, data_block_user) {
                 };
                 let new_block = new block(block_params);
                 all_blocks.push(new_block);
-                if (i == 0) new_block.block_flow.style.marginTop = "calc(37 * var(--custom-vh))";
+                if (i == 0 && indexAccountLike == 0) new_block.block_flow.style.marginTop = "calc(37 * var(--custom-vh))";
                 if ($(".loading_account")) $(".loading_account").remove();
             }
         }
@@ -652,18 +671,27 @@ function ShowLikedFlows(flow, data_block_user) {
 function FollowResponse(response, type, element) {
     if (response.Follow !== undefined) {
         follow = true;
-        Follower++;
-        $("#ffollowersBandeauChiffre").html(Follower);
+        if (type != "block_user_follow") {
+            Follower++;
+            $("#ffollowersBandeauChiffre").html(Follower);
+        }
         let data_notif_follow = {
             sender_private_id: window.localStorage.getItem("user_private_id"),
             RegisterId: account_registrationId,
             LastOs: LastOs
         };
+        if (type == "block_user_follow") {
+            data_notif_follow.RegisterId = element.RegisterId,
+                data_notif_follow.LastOs = element.LastOs
+        }
         send_notif_to_user(data_notif_follow, "follow");
     } else if (response.UnFollow !== undefined) {
         follow = false;
-        Follower--;
-        $("#ffollowersBandeauChiffre").html(Follower);
+        if (type != "block_user_follow") {
+            Follower--;
+            $("#ffollowersBandeauChiffre").html(Follower);
+        }
+
     } else {}
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
@@ -688,7 +716,10 @@ $("#block_button").on('click', function () {
                 $("#fFollowYouButtunAccount").css("display", "none");
                 $("#fFollowButtunAccount").removeClass("activeButtunFollow");
                 $("#fFollowButtunAccount").text("S'ABONNER");
-                Follower = +Follower - 1;
+                if (follow == true && Follower > 0) {
+                    Follower = +Follower - 1;
+                }
+
                 $("#ffollowersBandeauChiffre").html(Follower);
                 user_is_blocked = true;
             }

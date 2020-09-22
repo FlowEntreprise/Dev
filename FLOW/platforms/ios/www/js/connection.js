@@ -141,7 +141,6 @@ function storeVariables(data) {
         "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
     });
     $(".mystory_pic")[0].src = window.localStorage.getItem("user_profile_pic");
-
 }
 
 function getBase64Image(imgUrl, callback) {
