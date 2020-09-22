@@ -32,6 +32,7 @@
 .fblock_response {
 	position: relative;
 	border-radius: 5px;
+	margin-top: 0.5VH;
 }
 
 /* .fblock_comment:active,
