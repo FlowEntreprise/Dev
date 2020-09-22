@@ -8,6 +8,8 @@ function block_user(follow_list, target, data) //follow_list true correspond au 
   //var profilePicLink = src_profile_img + param_profile_img;
   var profilePicLink = data.ProfilePicture;
   this.block_user = document.createElement('div');
+  this.RegisterId = data.RegisterId;
+  this.LastOs = data.LastOs;
   follow_list == false ? this.block_user.className = 'f_block_user' : this.block_user.className = 'f_block_user_tag';
   if (target == "followers") {
     $(".popup_followers_container").append(this.block_user);

@@ -19,7 +19,7 @@ var user_is_blocked;
 var blocked_by_user;
 var last_scroll = 0;
 
-function alertDismissed() {};
+function alertDismissed() { };
 
 function fInitialisationAccount(privateId) {
     $("#UserActivity")[0].innerHTML = "";
@@ -388,14 +388,21 @@ function manageFollow(type, element) { // html_element est element html qui doit
         if (follow) {
             $(element.following_button).text("ABONNÉ");
             $(element.following_button).addClass("activeButtunFollow");
-            MyFollowing = +MyFollowing + 1;
-            $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+            if (current_page == "my-account") {
+                MyFollowing = +MyFollowing + 1;
+                $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+            }
+
 
         } else {
+
             $(element.following_button).text("S'ABONNER");
             $(element.following_button).removeClass("activeButtunFollow");
-            MyFollowing = +MyFollowing - 1;
-            $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+            if (current_page == "my-account") {
+                MyFollowing = +MyFollowing - 1;
+                $("#ffollowingmyBandeauChiffre").html(MyFollowing);
+            }
+
         }
     }
 
@@ -600,7 +607,7 @@ function ShowLikedFlows(flow, data_block_user) {
                         };
                         let new_block = new block(block_params);
                         all_blocks.push(new_block);
-                        if (i == 0) new_block.block_flow.style.marginTop = "calc(37 * var(--custom-vh))";
+                        if (i == 0 && indexAccountLike == 0) new_block.block_flow.style.marginTop = "calc(37 * var(--custom-vh))";
                         if ($(".loading_account")) $(".loading_account").remove();
                     }
                 }
@@ -629,7 +636,7 @@ function ShowLikedFlows(flow, data_block_user) {
                 };
                 let new_block = new block(block_params);
                 all_blocks.push(new_block);
-                if (i == 0) new_block.block_flow.style.marginTop = "calc(37 * var(--custom-vh))";
+                if (i == 0 && indexAccountLike == 0) new_block.block_flow.style.marginTop = "calc(37 * var(--custom-vh))";
                 if ($(".loading_account")) $(".loading_account").remove();
             }
         }
@@ -652,19 +659,28 @@ function ShowLikedFlows(flow, data_block_user) {
 function FollowResponse(response, type, element) {
     if (response.Follow !== undefined) {
         follow = true;
-        Follower++;
-        $("#ffollowersBandeauChiffre").html(Follower);
+        if (type != "block_user_follow") {
+            Follower++;
+            $("#ffollowersBandeauChiffre").html(Follower);
+        }
         let data_notif_follow = {
             sender_private_id: window.localStorage.getItem("user_private_id"),
             RegisterId: account_registrationId,
             LastOs: LastOs
         };
+        if (type == "block_user_follow") {
+            data_notif_follow.RegisterId = element.RegisterId,
+                data_notif_follow.LastOs = element.LastOs
+        }
         send_notif_to_user(data_notif_follow, "follow");
     } else if (response.UnFollow !== undefined) {
         follow = false;
-        Follower--;
-        $("#ffollowersBandeauChiffre").html(Follower);
-    } else {}
+        if (type != "block_user_follow") {
+            Follower--;
+            $("#ffollowersBandeauChiffre").html(Follower);
+        }
+
+    } else { }
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }
@@ -688,7 +704,10 @@ $("#block_button").on('click', function () {
                 $("#fFollowYouButtunAccount").css("display", "none");
                 $("#fFollowButtunAccount").removeClass("activeButtunFollow");
                 $("#fFollowButtunAccount").text("S'ABONNER");
-                Follower = +Follower - 1;
+                if (follow == true && Follower > 0) {
+                    Follower = +Follower - 1;
+                }
+
                 $("#ffollowersBandeauChiffre").html(Follower);
                 user_is_blocked = true;
             }
