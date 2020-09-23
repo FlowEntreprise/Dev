@@ -265,5 +265,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-sign-in-with-apple": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-sign-in-with-apple@^0.1.2"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

@@ -390,6 +390,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "CameraPopoverHandle"
       ]
+    },
+    {
+      "id": "cordova-plugin-sign-in-with-apple.SignInWithApple",
+      "file": "plugins/cordova-plugin-sign-in-with-apple/www/sign-in-with-apple.js",
+      "pluginId": "cordova-plugin-sign-in-with-apple",
+      "clobbers": [
+        "cordova.plugins.SignInWithApple"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -421,6 +429,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "phonegap-plugin-push": "2.3.0",
     "cordova-plugin-facebook4": "6.4.0",
     "cordova-plugin-twitter-connect-wkwebview": "1.0.1",
-    "cordova-plugin-camera": "4.1.0"
+    "cordova-plugin-camera": "4.1.0",
+    "cordova-plugin-sign-in-with-apple": "0.1.2"
   };
 });

@@ -116,6 +116,9 @@
 		FE3DFFB50F1D449E9F6D489E /* appbeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0357AE65CEA540969E917511 /* appbeep.wav */; };
 		FECB2EA6FA8145B086DF6D7A /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AE458B365144443191EF4C17 /* CDVNotification.bundle */; };
 		FF2B1BF7C0F3416DA34C57BA /* AppDelegate+FirebaseCrashlyticsPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB76E1C65A94B3EAD0EEC9D /* AppDelegate+FirebaseCrashlyticsPlugin.m */; };
+		021F5BB2BA80482BB255766E /* SignInWithApple.h in Resources */ = {isa = PBXBuildFile; fileRef = 92C3CD2F3F6F44A288BED7ED /* SignInWithApple.h */; };
+		EE0CE88B36814EB693CEA6B1 /* SignInWithApple.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BEAA836AFB4837BCCC5D3C /* SignInWithApple.m */; };
+		0DAEE356319B4277877818F9 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAA737508974468991E6995 /* AuthenticationServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -360,6 +363,9 @@
 		FDBD9C54DF5F43169D3EC44B /* GCDAsyncSocket.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = "cordova-plugin-httpd/GCDAsyncSocket.m"; sourceTree = "<group>"; };
 		FE98E6E129A44CCC889F1AF5 /* GCDWebServerFunctions.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = GCDWebServerFunctions.m; path = "cordova-labs-local-webserver/GCDWebServerFunctions.m"; sourceTree = "<group>"; };
 		FF9A90DFF3914374974B2D0C /* CDVStatusBar.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVStatusBar.h; path = "cordova-plugin-statusbar/CDVStatusBar.h"; sourceTree = "<group>"; };
+		92C3CD2F3F6F44A288BED7ED /* SignInWithApple.h */ = {isa = PBXFileReference; name = "SignInWithApple.h"; path = "cordova-plugin-sign-in-with-apple/SignInWithApple.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		49BEAA836AFB4837BCCC5D3C /* SignInWithApple.m */ = {isa = PBXFileReference; name = "SignInWithApple.m"; path = "cordova-plugin-sign-in-with-apple/SignInWithApple.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		FCAA737508974468991E6995 /* AuthenticationServices.framework */ = {isa = PBXFileReference; name = "AuthenticationServices.framework"; path = "System/Library/Frameworks/AuthenticationServices.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -384,6 +390,7 @@
 				EE313BBC39FD4C9090D38A54 /* ImageIO.framework in Frameworks */,
 				7986D9A7FFF34BBB9BD2AD96 /* CoreLocation.framework in Frameworks */,
 				9C86A605C24840BB95BBF902 /* AVFoundation.framework in Frameworks */,
+				0DAEE356319B4277877818F9 /* AuthenticationServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,6 +483,7 @@
 				0E3134C54D7C4469BDD319CE /* ImageIO.framework */,
 				4720E17590F742CDA93DE5BA /* CoreLocation.framework */,
 				F507B73FAF34481AB5232FE1 /* AVFoundation.framework */,
+				FCAA737508974468991E6995 /* AuthenticationServices.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -663,6 +671,8 @@
 				106D4906DBC84E5798AE815E /* CDVCamera.h */,
 				A30CE6BD13264DABA25073CE /* CDVJpegHeaderWriter.h */,
 				BC1D8F6464554460B3799483 /* CDVExif.h */,
+				92C3CD2F3F6F44A288BED7ED /* SignInWithApple.h */,
+				49BEAA836AFB4837BCCC5D3C /* SignInWithApple.m */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -942,6 +952,8 @@
 				33C1C5F4DF9C4C10B01661ED /* UIImage+CropScaleOrientation.m in Sources */,
 				6B09E252C39E40178ACF0DC5 /* CDVCamera.m in Sources */,
 				40DAB4835FDD4262868EADF8 /* CDVJpegHeaderWriter.m in Sources */,
+				021F5BB2BA80482BB255766E /* SignInWithApple.h in Resources */,
+				EE0CE88B36814EB693CEA6B1 /* SignInWithApple.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
