@@ -296,6 +296,7 @@ function block(params) {
 
         this.finput_description = document.createElement("textarea");
         this.finput_description.className = "finput_description";
+        this.finput_description.id = "finput_description";
         this.finput_description.placeholder = "Touche pour ajouter une description";
         this.finput_description.maxLength = "80";
         this.fbottom_part.appendChild(this.finput_description);
