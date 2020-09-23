@@ -108,10 +108,6 @@
     <feature name="Camera">
         <param name="ios-package" value="CDVCamera" />
     </feature>
-    <feature name="SignInWithApple">
-        <param name="ios-package" value="SignInWithApple" />
-        <param name="onload" value="true" />
-    </feature>
     <widget>
         <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
         <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />

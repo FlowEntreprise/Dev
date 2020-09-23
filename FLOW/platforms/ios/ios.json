@@ -151,10 +151,6 @@
             {
               "xml": "<preference name=\"CameraUsesGeolocation\" value=\"false\" />",
               "count": 1
-            },
-            {
-              "xml": "<feature name=\"SignInWithApple\"><param name=\"ios-package\" value=\"SignInWithApple\" /><param name=\"onload\" value=\"true\" /></feature>",
-              "count": 1
             }
           ],
           "widget": [
@@ -264,26 +260,6 @@
             }
           ]
         }
-      },
-      "*/Entitlements-Debug.plist": {
-        "parents": {
-          "com.apple.developer.applesignin": [
-            {
-              "xml": "<array><string>Default</string></array>",
-              "count": 1
-            }
-          ]
-        }
-      },
-      "*/Entitlements-Release.plist": {
-        "parents": {
-          "com.apple.developer.applesignin": [
-            {
-              "xml": "<array><string>Default</string></array>",
-              "count": 1
-            }
-          ]
-        }
       }
     }
   },
@@ -381,9 +357,6 @@
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-camera": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-sign-in-with-apple": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -779,14 +752,6 @@
       "clobbers": [
         "CameraPopoverHandle"
       ]
-    },
-    {
-      "id": "cordova-plugin-sign-in-with-apple.SignInWithApple",
-      "file": "plugins/cordova-plugin-sign-in-with-apple/www/sign-in-with-apple.js",
-      "pluginId": "cordova-plugin-sign-in-with-apple",
-      "clobbers": [
-        "cordova.plugins.SignInWithApple"
-      ]
     }
   ],
   "plugin_metadata": {
@@ -818,7 +783,6 @@
     "phonegap-plugin-push": "2.3.0",
     "cordova-plugin-facebook4": "6.4.0",
     "cordova-plugin-twitter-connect-wkwebview": "1.0.1",
-    "cordova-plugin-camera": "4.1.0",
-    "cordova-plugin-sign-in-with-apple": "0.1.2"
+    "cordova-plugin-camera": "4.1.0"
   }
 }
