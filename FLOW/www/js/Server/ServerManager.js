@@ -253,7 +253,7 @@ class ServerManagerClass {
     // });
   }
 
-  AddFlow(data) {
+  AddFlow(data, all_tagged_users) {
     let final_data = {
       Data: data,
       Action: "AddFlow",
@@ -268,6 +268,7 @@ class ServerManagerClass {
         console.log('Flow added sucessfully : ');
         console.log(response);
         // ServerManager.GetFlowById(response.ObjectId);
+        clean_all_tagged_users(all_tagged_users, response.ObjectId, data.Description);// clean et envoi les notifs
         TLCurrentIndex = 0;
         ServerManager.GetTimeline(0);
         CloseAfterRecord();
@@ -1036,7 +1037,7 @@ class ServerManagerClass {
       data: JSON.stringify(final_data),
       success: function (response) {
         //console.log(response);
-        //console.log("notif added to bdd");
+        console.log("notif added to bdd");
       },
       error: function (response) {
         //console.log(response);
@@ -1150,6 +1151,7 @@ class ServerManagerClass {
       if (data.notification.type == "send_response" || data.notification.type == "like_response") {
         data_notif_to_bdd.IdFlow = data.notification.sender_info.Id_response
       }
+
     } else {
       data_notif_to_bdd = { // android
         TypeNotification: data.data.type,
