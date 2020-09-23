@@ -283,6 +283,7 @@ function block_notification_comment(data) {
 
     if (data.TypeOfNotification == "tag_in_flow") {
         this.fnotif_label.innerText = '@' + this.private_Id + " t'a identifié dans un flow";
+        if (this.fnotif_label.innerText.length > 28) this.fnotif_label.innerText = this.fnotif_label.innerText.substring(0, 28) + "...";
     }
 
     this.block_notification_comment.appendChild(this.fnotif_label);
@@ -775,6 +776,7 @@ function send_notif_to_user(block, type) {
         IdFlow: prepare_id_flow == undefined ? prepare_id_flow = "undefined" : prepare_id_flow,
         Id_comment: block.IdComment /*? block.ObjectId : undefined*/,
         Id_response: block.Idresponse /*? block.ObjectId : undefined*/,
+        tag_in_flow: block.tag_in_flow
     };
     if (sender_info.comment_text == undefined) {
         sender_info.comment_text = sender_info.post_texte;
@@ -1225,6 +1227,11 @@ function pop_notif_block(data) { //bloc de notif de l'onglet notifications
         case 'story_comment':
 
             push_notif_block('story_comment', data);
+            break;
+
+        case 'tag_in_flow':
+
+            push_notif_block('comment', data);
             break;
     }
 }
