@@ -19,7 +19,7 @@ var user_is_blocked;
 var blocked_by_user;
 var last_scroll = 0;
 
-function alertDismissed() { };
+function alertDismissed() {};
 
 function fInitialisationAccount(privateId) {
     $("#UserActivity")[0].innerHTML = "";
@@ -419,7 +419,20 @@ function manageFollowYou() {
 
 function ShowUserProfile(response) {
     console.log(response);
-    if (response.Data.PrivateId == privateIDAccount) {
+    if (response.Data.PrivateId == window.localStorage.getItem("user_private_id")) {
+        console.log("my profile infos received");
+        const src = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data.ProfilePicture.name + '?';
+        const param = `${response.LinkBuilder.Params.hash}=${response.Data.ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data.ProfilePicture.timestamp}`;
+        console.log(src + param);
+        let link_built = src + param;
+        window.localStorage.setItem("user_profile_pic", link_built);
+        $("#fmyprofilPicture").css({
+            "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+        });
+        $(".faccount").css({
+            "background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')"
+        });
+    } else if (response.Data.PrivateId == privateIDAccount) {
         bioCompte = response.Data.Bio;
         // if (Compte.length > 57) bioCompte = bioCompte.substring(0, 57) + "..."; limit bio length by hand (done in css now)
         nameCompte = response.Data.FullName;
@@ -453,7 +466,6 @@ function ShowUserProfile(response) {
         });
 
         //Popup("popup-account", true);
-
     }
 }
 
@@ -680,7 +692,7 @@ function FollowResponse(response, type, element) {
             $("#ffollowersBandeauChiffre").html(Follower);
         }
 
-    } else { }
+    } else {}
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }
