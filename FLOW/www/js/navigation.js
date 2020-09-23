@@ -47,9 +47,15 @@ $$('#tab1').on('tab:show', function () {
     $(".fnotifications-bar").css({
         "display": "none"
     });
-    $(".faccount").css({
-        "top": "calc(0 * var(--custom-vh) + 7px)"
-    });
+    if (window.cordova.platformId == "ios") {
+        $(".faccount").css({
+            "top": "calc(0 * var(--custom-vh) + 47px)"
+        });
+    } else {
+        $(".faccount").css({
+            "top": "calc(0 * var(--custom-vh) + 17px)"
+        });
+    }
     stopAllBlocksAudio();
 });
 
@@ -82,9 +88,15 @@ $$('#tab2').on('tab:show', function () {
     $(".fnotifications-bar").css({
         "display": "none"
     });
-    $(".faccount").css({
-        "top": "calc(0 * var(--custom-vh) + 7px)"
-    });
+    if (window.cordova.platformId == "ios") {
+        $(".faccount").css({
+            "top": "calc(0 * var(--custom-vh) + 47px)"
+        });
+    } else {
+        $(".faccount").css({
+            "top": "calc(0 * var(--custom-vh) + 17px)"
+        });
+    }
     if (!explore_tabs_initialised) {
 
         var mySwiper3 = app.swiper('.swiper-3', {
@@ -119,9 +131,15 @@ $$('#tab3').on('tab:show', function () {
     $(".navbar").css({
         "display": "none"
     });
-    $(".faccount").css({
-        "top": "calc(0 * var(--custom-vh) + 7px)"
-    });
+    if (window.cordova.platformId == "ios") {
+        $(".faccount").css({
+            "top": "calc(0 * var(--custom-vh) + 47px)"
+        });
+    } else {
+        $(".faccount").css({
+            "top": "calc(0 * var(--custom-vh) + 17px)"
+        });
+    }
     app.hideNavbar($('.navbar'));
     canShowNavbar = false;
     current_page = "messages";
