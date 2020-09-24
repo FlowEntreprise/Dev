@@ -598,7 +598,7 @@ function display_all_comments(block) {
 }
 
 function display_all_likes(block) {
-    //fonction permettant d'affiher tout les likes
+    //fonction permettant d'affiher tout les likes d'un flow
     console.log("display_all_likes");
     likes_index = 0;
     CanRefreshLikes = true;
@@ -617,6 +617,37 @@ function display_all_likes(block) {
     ServerManager.GetFlowLikes(data);
     Popup("popup-likes", true, 40);
     let nb_likes = affichage_nombre(block.Likes, 1);
+    let like_str = "J'aime";
+    if (nb_likes == "0" || nb_likes == "1") like_str = "J'aime";
+    $(".flikes_number").text(nb_likes + " " + like_str);
+}
+
+function display_comment_likes(comment, is_response) {
+    //fonction permettant d'affiher tout les likes d'un commentaire
+    console.log("display_comment_likes");
+    likes_index = 0;
+    CanRefreshLikes = true;
+    $(".fblock_likes_content").html("");
+    var loading_likes = document.createElement("div");
+    loading_likes.className = "loading-spinner loading_tl loading_likes";
+    $(".fblock_likes_content").append(loading_likes);
+    $(".flikes_number").text("");
+    console.log(comment);
+    let ObjectId = comment.ObjectId;
+    /*?
+           block.ObjectId :
+           block.additionalData.sender_info.IdFlow;*/
+    let data = {
+        Index: likes_index,
+        ObjectId: ObjectId,
+    };
+    if (is_response) {
+        ServerManager.GetResponseLikes(data);
+    } else {
+        ServerManager.GetCommentLikes(data);
+    }
+    Popup("popup-likes", true, 50);
+    let nb_likes = affichage_nombre(comment.Likes, 1);
     let like_str = "J'aime";
     if (nb_likes == "0" || nb_likes == "1") like_str = "J'aime";
     $(".flikes_number").text(nb_likes + " " + like_str);

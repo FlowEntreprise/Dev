@@ -100,6 +100,11 @@ function block_response(response_data, response_is_specifique) {
     this.f_response_number_like = document.createElement('label');
     this.f_response_number_like.className = 'f_response_number_like';
     this.f_response_number_like.innerHTML = response_data.Like_number;
+    this.Likes = response_data.Like_number;
+    $(this.f_response_number_like).on('click', function () {
+        console.log("click sur le nombre de like d'un commentaire");
+        display_comment_likes(block_response, true);
+    });
     $(this.fblock_response).append(this.f_response_number_like);
 
     this.fbr_1 = document.createElement('br');
@@ -229,7 +234,12 @@ function block_comment(comment_data, comment_is_specifique) {
     this.fnumber_like = document.createElement('label');
     this.fnumber_like.className = 'fnumber_like';
     this.fnumber_like.innerHTML = comment_data.Like_number;
+    this.Likes = comment_data.Like_number;
     $(this.fblock_comment).append(this.fnumber_like);
+    $(this.fnumber_like).on('click', function () {
+        console.log("click sur le nombre de like d'un commentaire");
+        display_comment_likes(block_comment);
+    });
 
     this.fbr_1 = document.createElement('br');
     $(this.fblock_comment).append(this.fbr_1);

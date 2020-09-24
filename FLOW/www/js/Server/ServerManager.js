@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-  ServerURL: "https://api.flowappweb.com/",
+  ServerURL: "https://api-test.flowappweb.com/",
   ConnexionURL: "ConnexionFromApi",
   AddFlowURL: "AddFlow",
   GetSingleFlowURL: "GetSingle",
@@ -45,7 +45,9 @@ const ServerParams = {
   GetBlockedUsers: "GetBlockedUsers",
   AddReportFlow: "AddReportFlow",
   AddCommentResponse: "AddCommentResponse",
-  GetCommentResponse: "GetCommentResponse"
+  GetCommentResponse: "GetCommentResponse",
+  GetCommentLikes: "GetCommentLikes",
+  GetResponseLikes: "GetResponseLikes"
 };
 
 const apiTypes = {
@@ -512,6 +514,50 @@ class ServerManagerClass {
       error: function (response) {
         //// console.log("comment adding from database error : ");
         //console.log(response);
+      },
+    });
+  }
+
+  GetCommentLikes(data) {
+    let final_data = {
+      Data: data,
+      Action: "GetCommentLikes",
+      TokenId: window.localStorage.getItem("user_token"),
+    };
+
+    console.log(final_data);
+    $.ajax({
+      type: "POST",
+      url: ServerParams.ServerURL + ServerParams.GetCommentLikes,
+      data: JSON.stringify(final_data),
+      success: function (response) {
+        get_all_likes(response, final_data.Data);
+        console.log(response);
+      },
+      error: function (response) {
+        console.log(response);
+      },
+    });
+  }
+
+  GetResponseLikes(data) {
+    let final_data = {
+      Data: data,
+      Action: "GetCommentLikes",
+      TokenId: window.localStorage.getItem("user_token"),
+    };
+
+    console.log(final_data);
+    $.ajax({
+      type: "POST",
+      url: ServerParams.ServerURL + ServerParams.GetResponseLikes,
+      data: JSON.stringify(final_data),
+      success: function (response) {
+        get_all_likes(response, final_data.Data);
+        console.log(response);
+      },
+      error: function (response) {
+        console.log(response);
       },
     });
   }
