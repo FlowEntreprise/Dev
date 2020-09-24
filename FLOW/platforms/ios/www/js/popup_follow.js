@@ -52,44 +52,22 @@ function block_user(follow_list, target, data) //follow_list true correspond au 
 
   if (follow_list == true) {
     //$(this.f_user_private_id).removeClass("f_user_private_id").addClass("f_user_private_id_identification");
-    if (current_page != "after-record") {
-      $(this.block_user).on('click', function () {
-        $('#finput_comment').focus();
-        string_input_comment = string_input_comment.slice(0, string_input_comment.lastIndexOf("@") + 1);
-        $("#finput_comment").val(string_input_comment + data.PrivateId + " ");
-        $('.regex-example').highlightWithinTextarea({
-          highlight: /@[^ ]+/gi
-        });
-        let data_user = {
-          private_Id: "@" + data.PrivateId,
-          RegisterId: data.RegisterId,
-          LastOs: data.LastOs
-        };
-        all_tagged_users.push(data_user);
-        Popup("popup-identification", false, -5);
-
+    $(this.block_user).on('click', function () {
+      $('#finput_comment').focus();
+      string_input_comment = string_input_comment.slice(0, string_input_comment.lastIndexOf("@") + 1);
+      $("#finput_comment").val(string_input_comment + data.PrivateId + " ");
+      $('.regex-example').highlightWithinTextarea({
+        highlight: /@[^ ]+/gi
       });
-    }
-    else {
+      let data_user = {
+        private_Id: "@" + data.PrivateId,
+        RegisterId: data.RegisterId,
+        LastOs: data.LastOs
+      };
+      all_tagged_users.push(data_user);
+      Popup("popup-identification", false, -5);
 
-      $(this.block_user).on('click', function () {
-        $('#finput_description').focus();
-        string_input_comment = string_input_comment.slice(0, string_input_comment.lastIndexOf("@") + 1);
-        $("#finput_description").val(string_input_comment + data.PrivateId + " ");
-        $('.regex-example').highlightWithinTextarea({
-          highlight: /@[^ ]+/gi
-        });
-        let data_user = {
-          private_Id: "@" + data.PrivateId,
-          RegisterId: data.RegisterId,
-          LastOs: data.LastOs
-        };
-        all_tagged_users.push(data_user);
-        Popup("popup-identification", false, -5);
-
-      });
-
-    }
+    });
   }
 
   if (follow_list == false) {

@@ -300,13 +300,6 @@ transition: height 0.25s;
 	font-weight: bold;
 	color: dodgerblue;
 }
-.flow_tagged_users
-{
-	color: dodgerblue;
-	text-align: unset !important; 
-	display: unset !important;
-	font-size: unset !important;
-}
 
 #finput_comment {
 	width: 85vw !important;

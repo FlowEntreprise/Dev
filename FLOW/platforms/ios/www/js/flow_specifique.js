@@ -41,7 +41,7 @@ function flow_specifique(data, LinkBuilder, show_comment, type, data_specifique)
         Comments: data.Comments,
         RegisterId: data.RegisterId,
     };
-    block_params.description = block_params.description.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>');
+
     var new_block = new block(block_params);
     all_blocks.push(new_block);
     if (show_comment == true) $(new_block.fimg_impression_comment).click();
