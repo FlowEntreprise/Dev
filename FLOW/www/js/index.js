@@ -58,6 +58,22 @@ var app = {
       startTuto();
     }, 1000);
 
+    window.addEventListener('native.keyboardshow', keyboardShowHandler);
+
+    function keyboardShowHandler(e) {
+      // console.log('Keyboard height is: ' + e.keyboardHeight);
+    }
+
+    // This event fires when the keyboard will hide
+    window.addEventListener('native.keyboardhide', keyboardHideHandler);
+
+    function keyboardHideHandler(e) {
+      // console.log('Keyboard hidden');
+      if (in_identification) {
+        $(".after-record-block-container").css("margin-top", "-30vh");
+      }
+    }
+
     this.receivedEvent("deviceready");
   },
   onPause: function () {
@@ -68,9 +84,9 @@ var app = {
       Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
     facebookConnectPlugin.logEvent(
       "current_page", {
-      page: current_page,
-      duration: time_in_last_screen,
-    },
+        page: current_page,
+        duration: time_in_last_screen,
+      },
       null,
       function () {
         console.log("fb current_page event success");
@@ -118,9 +134,9 @@ var app = {
       Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
     facebookConnectPlugin.logEvent(
       "current_page", {
-      page: current_page,
-      duration: time_in_last_screen,
-    },
+        page: current_page,
+        duration: time_in_last_screen,
+      },
       null,
       function () {
         console.log("fb current_page event success");
@@ -133,8 +149,8 @@ var app = {
 
     httpd =
       cordova && cordova.plugins && cordova.plugins.CorHttpd ?
-        cordova.plugins.CorHttpd :
-        null;
+      cordova.plugins.CorHttpd :
+      null;
 
     // No need since no using workers anymore
     // httpd.startServer({

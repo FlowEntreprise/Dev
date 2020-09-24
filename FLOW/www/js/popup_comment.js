@@ -121,7 +121,6 @@ function block_response(response_data, response_is_specifique) {
         };
         go_to_account(data);
     });
-
 }
 
 
@@ -814,9 +813,6 @@ document.getElementById("popup-identification").addEventListener("opened", funct
         $(".after-record-block-container").css("margin-top", "-40vh");
     } else {
         $(".after-record-block-container").css("margin-top", "-50vh");
-        document.getElementById("finput_description").addEventListener("blur", function () {
-            $(".after-record-block-container").css("margin-top", "-30vh");
-        });
     }
     in_identification = true;
 });
