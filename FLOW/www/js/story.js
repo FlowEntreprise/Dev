@@ -52,11 +52,11 @@ const pSBC = (p, c0, c1, l) => {
         b: 0,
         a: -1
     } : {
-            r: 255,
-            g: 255,
-            b: 255,
-            a: -1
-        }, p = P ? p * -1 : p, P = 1 - p;
+        r: 255,
+        g: 255,
+        b: 255,
+        a: -1
+    }, p = P ? p * -1 : p, P = 1 - p;
     if (!f || !t) return null;
     if (l) r = m(P * f.r + p * t.r), g = m(P * f.g + p * t.g), b = m(P * f.b + p * t.b);
     else r = m((P * f.r ** 2 + p * t.r ** 2) ** 0.5), g = m((P * f.g ** 2 + p * t.g ** 2) ** 0.5), b = m((P * f.b ** 2 + p * t.b ** 2) ** 0.5);
