@@ -1,6 +1,6 @@
 .ftitle {
   position: absolute;
-  top: calc(0 * var(--custom-vh) + 10px);
+  top: calc(0 * var(--custom-vh));
   left: 0;
   width: 100%;
   text-align: center;
@@ -11,7 +11,7 @@
 
 .faccount {
   position: fixed;
-  top: calc(0 * var(--custom-vh) + 17px);
+  top: calc(0 * var(--custom-vh) + 7px);
   right: 10px;
   width: 35px;
   height: 35px;
@@ -298,12 +298,12 @@
 /* top margins for iOS device */
 @supports (-webkit-touch-callout: none) {
   .ftitle {
-    top: 40px !important;
+    top: 30px !important;
     font-size: 25px;
   }
 
   .faccount {
-    top: 47px !important;
+    top: 37px !important;
   }
 
   .fred_dot_toolbar_new_notif {

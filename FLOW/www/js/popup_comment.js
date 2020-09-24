@@ -497,17 +497,17 @@ function send_response_to_server(data) {
         Idresponse: data.IdResponse,
         RegisterId: "",
         current_comment_block: current_comment_block,
-        current_flow_block: current_comment_block, //peut sembler etrange mais facilite l'envoi des notifs (case "send_comment") 
+        current_flow_block: current_comment_block, //peut sembler etrange mais facilite l'envoi des notifs (case "send_comment")
         tag_user_RegisterId: undefined
     };
     if (it_is_a_response == true && current_response_block != undefined) {
         response_data.current_flow_block = current_response_block;
     }
-    /* 
+    /*
         hack_response
     le response_data.Comment et Comment_text devraient etre des Responses et Responses_text
-       mais flemme de créer une notifs specialement juste pour les reponses donc 
-       je fais passer ça comme une notif de commentaire. 
+       mais flemme de créer une notifs specialement juste pour les reponses donc
+       je fais passer ça comme une notif de commentaire.
     */
 
 
@@ -520,7 +520,7 @@ function send_response_to_server(data) {
     $(current_comment_block.fblock_comment_label_afficher_les_reponses).text("Afficher les reponses (" + current_comment_block.nombre_de_reponses + ")");
     if (response_data.Comment == response_data.Comment_text && registrationId != response_data.current_flow_block.RegisterId) {
         /* registrationId != response_data.current_flow_block.RegisterId permet de tester le RegisterId
-            d'un block commentaire et d'un block response 
+            d'un block commentaire et d'un block response
             car il ya le cas de reponses à un commentaire et le cas de reponse à une reponse
         */
         response_data.RegisterId = current_comment_block.RegisterId;
@@ -796,7 +796,7 @@ $(document).on('keyup', '#finput_description', function () {
             $(".popup_identification_container")[0].innerHTML = "";
         }
         if (window.cordova.platformId == "ios") {
-            Popup("popup-identification", true, 55);
+            Popup("popup-identification", true, 22);
         } else {
             Popup("popup-identification", true, 5);
         }
@@ -810,17 +810,17 @@ $(document).on('keyup', '#finput_description', function () {
 
 
 
+document.getElementById("popup-identification").addEventListener("opened", function () {
+    
+        $(".after-record-block-container").css("margin-top", "-40vh");
+});
 
 
-
-
-
-
-
-
-
-
-
+document.getElementById("popup-identification").addEventListener("closed", function () {
+    
+    $(".after-record-block-container").css("margin-top", "");
+    
+});
 
 
 

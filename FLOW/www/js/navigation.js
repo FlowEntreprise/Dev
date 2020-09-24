@@ -5,8 +5,6 @@ var in_likes = false;
 var in_specifique = false;
 var in_options = false;
 var in_editprofile = false;
-var in_following = false;
-var in_followers = false;
 $("#tab1").load("pages/home.html");
 $("#tab2").load("pages/explore.html");
 $("#tab3").load("pages/messages.html");
@@ -47,15 +45,9 @@ $$('#tab1').on('tab:show', function () {
     $(".fnotifications-bar").css({
         "display": "none"
     });
-    if (window.cordova.platformId == "ios") {
-        $(".faccount").css({
-            "top": "calc(0 * var(--custom-vh) + 47px)"
-        });
-    } else {
-        $(".faccount").css({
-            "top": "calc(0 * var(--custom-vh) + 17px)"
-        });
-    }
+    $(".faccount").css({
+        "top": "calc(0 * var(--custom-vh) + 7px)"
+    });
     stopAllBlocksAudio();
 });
 
@@ -88,15 +80,9 @@ $$('#tab2').on('tab:show', function () {
     $(".fnotifications-bar").css({
         "display": "none"
     });
-    if (window.cordova.platformId == "ios") {
-        $(".faccount").css({
-            "top": "calc(0 * var(--custom-vh) + 47px)"
-        });
-    } else {
-        $(".faccount").css({
-            "top": "calc(0 * var(--custom-vh) + 17px)"
-        });
-    }
+    $(".faccount").css({
+        "top": "calc(0 * var(--custom-vh) + 7px)"
+    });
     if (!explore_tabs_initialised) {
 
         var mySwiper3 = app.swiper('.swiper-3', {
@@ -131,15 +117,9 @@ $$('#tab3').on('tab:show', function () {
     $(".navbar").css({
         "display": "none"
     });
-    if (window.cordova.platformId == "ios") {
-        $(".faccount").css({
-            "top": "calc(0 * var(--custom-vh) + 47px)"
-        });
-    } else {
-        $(".faccount").css({
-            "top": "calc(0 * var(--custom-vh) + 17px)"
-        });
-    }
+    $(".faccount").css({
+        "top": "calc(0 * var(--custom-vh) + 7px)"
+    });
     app.hideNavbar($('.navbar'));
     canShowNavbar = false;
     current_page = "messages";
@@ -254,12 +234,6 @@ function onBackKeyDown() {
     } else if (in_editprofile) {
         closeEditProfile();
         in_editprofile = false;
-    } else if (in_following) {
-        Popup("popup-followings", false);
-        in_following = false;
-    } else if (in_followers) {
-        Popup("popup-followers", false);
-        in_followers = false;
     } else if (searching) {
         back_search();
     } else if (current_page == "record") {
@@ -297,11 +271,7 @@ function onBackKeyDown() {
         current_page = "record-story";
         stopAllBlocksAudio();
     } else if (current_page == "story") {
-        if (currentSection == "comments") {
-            showStoryMain(true);
-        } else {
-            previousStory(0);
-        }
+        previousStory(0);
         // CloseStory();
     } else if (current_page == "my-account") {
         Popup("popup-myaccount", false);

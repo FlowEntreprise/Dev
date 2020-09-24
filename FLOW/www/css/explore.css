@@ -23,7 +23,7 @@
 
 .fsearch-bar {
 	position: absolute;
-	top: calc(1.5 * var(--custom-vh));
+	top: calc(4 * var(--custom-vh));
 	left: 20vw;
 	width: 48vw;
 	height: auto;
@@ -50,7 +50,7 @@
 
 .search_icon {
 	position: absolute;
-	top: calc(1.5 * var(--custom-vh) + 2px);
+	top: calc(4 * var(--custom-vh) + 2px);
 	left: 21.5vw;
 	height: 41px;
 	width: 8vw;
@@ -359,15 +359,6 @@
 	font-family: "Roboto-Regular";
 	font-size: 16px;
 	color: #92abb2;
-}
-
-@supports (-webkit-touch-callout: none) {
-
-	.fsearch-bar,
-	.search_icon {
-		top: calc(4.6 * var(--custom-vh) + 2px);
-
-	}
 }
 
 /* @media (max-height: 600px) { */
