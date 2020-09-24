@@ -812,16 +812,17 @@ $(document).on('keyup', '#finput_description', function () {
 document.getElementById("popup-identification").addEventListener("opened", function () {
 
     if (window.cordova.platformId == "ios") {
-        $(".after-record-block-container").css("margin-top", "-50vh");
-    } else {
         $(".after-record-block-container").css("margin-top", "-40vh");
-    }
 
+    } else {
+        $(".after-record-block-container").css("margin-top", "-50vh");
+    }
+    in_identification = true;
 });
 
 
 document.getElementById("popup-identification").addEventListener("closed", function () {
-
+    in_identification = false;
     $(".after-record-block-container").css("margin-top", "");
 
 });

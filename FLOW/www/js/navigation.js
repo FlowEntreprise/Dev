@@ -7,6 +7,7 @@ var in_options = false;
 var in_editprofile = false;
 var in_following = false;
 var in_followers = false;
+var in_identification = false;
 $("#tab1").load("pages/home.html");
 $("#tab2").load("pages/explore.html");
 $("#tab3").load("pages/messages.html");
@@ -242,6 +243,9 @@ function onBackKeyDown() {
     if (in_options) {
         Popup("popup-option", false);
         in_options = false;
+    } else if (in_identification) {
+        Popup("popup-identification", false);
+        in_identification = false;
     } else if (in_comments) {
         Popup("popup-comment", false);
         in_comments = false;
