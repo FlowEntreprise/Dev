@@ -214,9 +214,9 @@ function RefreshStories() {
         //     story_block.className += " unread";
         // }
         let found = story_read.filter(x => x.private_id == story_data[i].private_id);
-        console.log(story_data[i].private_id);
-        console.log(story_data[i].lastStoryTime);
-        console.log(found);
+        // console.log(story_data[i].private_id);
+        // console.log(story_data[i].lastStoryTime);
+        // console.log(found);
         // let found = story_read.find(function (element) {
         //     return element.private_id == story_data[i].private_id && element.lastStoryTime < story_data[i].lastStoryTime;
         // });

@@ -59,7 +59,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-  constructor() { }
+  constructor() {}
 
   /* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
    * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -165,7 +165,7 @@ class ServerManagerClass {
         };
         break;
       default:
-      //console.log("Error in parameters sent to Connect() in ServerManager.");
+        //console.log("Error in parameters sent to Connect() in ServerManager.");
     }
     $.ajax({
       type: "POST",
@@ -268,7 +268,7 @@ class ServerManagerClass {
         console.log('Flow added sucessfully : ');
         console.log(response);
         // ServerManager.GetFlowById(response.ObjectId);
-        clean_all_tagged_users(all_tagged_users, response.ObjectId, data.Description);// clean et envoi les notifs
+        clean_all_tagged_users(all_tagged_users, response.ObjectId, data.Description); // clean et envoi les notifs
         TLCurrentIndex = 0;
         ServerManager.GetTimeline(0);
         CloseAfterRecord();
@@ -612,7 +612,7 @@ class ServerManagerClass {
       success: function (response) {
         ShowMyFlow(response);
       },
-      error: function (response) { },
+      error: function (response) {},
     });
   }
 
@@ -636,7 +636,7 @@ class ServerManagerClass {
           }
         }
       },
-      error: function (response) { },
+      error: function (response) {},
     });
   }
 
@@ -653,7 +653,7 @@ class ServerManagerClass {
       success: function (response) {
         ShowUserFlow(response);
       },
-      error: function (response) { },
+      error: function (response) {},
     });
   }
 
@@ -668,7 +668,7 @@ class ServerManagerClass {
       success: function (response) {
         ShowMyInfosUser(response);
       },
-      error: function (response) { },
+      error: function (response) {},
     });
   }
 
@@ -684,7 +684,7 @@ class ServerManagerClass {
         //console.log("on recup le getInfosUserNumber");
         ShowInfosUserNumber(response);
       },
-      error: function (response) { },
+      error: function (response) {},
     });
   }
 
@@ -712,7 +712,7 @@ class ServerManagerClass {
           ShowUserProfile(response);
         }
       },
-      error: function (response) { },
+      error: function (response) {},
     });
   }
 
@@ -735,7 +735,7 @@ class ServerManagerClass {
         //console.log(response);
         UpdateFollowersList(response, data.follow_list);
       },
-      error: function (response) { },
+      error: function (response) {},
     });
   }
 
@@ -761,7 +761,7 @@ class ServerManagerClass {
           UpdatefollowingsList(response, data.follow_list);
         }
       },
-      error: function (response) { },
+      error: function (response) {},
     });
   }
 
@@ -782,7 +782,7 @@ class ServerManagerClass {
         RefreshTL();
         FollowResponse(response, data.type, data.block_user);
       },
-      error: function (response) { },
+      error: function (response) {},
     });
   }
 
@@ -819,7 +819,7 @@ class ServerManagerClass {
         Index: data,
       },
     };
-    //console.log(final_data);
+    console.log("Get timeline index : " + data);
     $.ajax({
       type: "POST",
       url: ServerParams.ServerURL + ServerParams.GetTimeline,
@@ -1131,7 +1131,7 @@ class ServerManagerClass {
                 ServerManager.UpdateRegisterId(data);*/
         console.log(registrationId);
       },
-      error: function (response) { },
+      error: function (response) {},
     });
   }
 
