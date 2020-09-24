@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-  ServerURL: "https://api-test.flowappweb.com/",
+  ServerURL: "https://api.flowappweb.com/",
   ConnexionURL: "ConnexionFromApi",
   AddFlowURL: "AddFlow",
   GetSingleFlowURL: "GetSingle",
@@ -268,7 +268,7 @@ class ServerManagerClass {
         console.log('Flow added sucessfully : ');
         console.log(response);
         // ServerManager.GetFlowById(response.ObjectId);
-        clean_all_tagged_users(all_tagged_users, response.ObjectId, data.Description);// clean et envoi les notifs
+        clean_all_tagged_users(all_tagged_users, response.ObjectId, data.Description); // clean et envoi les notifs
         TLCurrentIndex = 0;
         ServerManager.GetTimeline(0);
         CloseAfterRecord();
@@ -819,7 +819,7 @@ class ServerManagerClass {
         Index: data,
       },
     };
-    //console.log(final_data);
+    console.log("Get timeline index : " + data);
     $.ajax({
       type: "POST",
       url: ServerParams.ServerURL + ServerParams.GetTimeline,

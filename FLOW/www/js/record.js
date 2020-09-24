@@ -520,6 +520,12 @@ function Save(blob) {
 
         setTimeout(() => {
             new_block.finput_description.focus();
+            console.log(new_block.finput_description);
+            new_block.finput_description.addEventListener("blur", function () {
+                if (in_identification) {
+                    $(".after-record-block-container").css("margin-top", "-30vh");
+                }
+            });
         }, 500);
     } else if (current_page == "record-story") {
         Popup("popup-story-record", false);
