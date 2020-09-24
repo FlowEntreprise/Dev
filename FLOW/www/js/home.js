@@ -101,7 +101,7 @@ function PopFlow(data, LinkBuilder) {
     CommentBy: data.CommentBy,
     LikeBy: data.LikeBy
   };
-
+  block_params.description = block_params.description.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>');
   var new_block = new block(block_params);
   all_blocks.push(new_block);
 

@@ -119,6 +119,7 @@ document.getElementById("popup-record").addEventListener("closed", function () {
 
 document.getElementById("popup-after-record").addEventListener("opened", function () {
     image64 = null;
+    all_tagged_users.length = 0;
     $(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
     $(".fvalidate-after_btn.record")[0].setAttribute("style", "");
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
@@ -145,6 +146,7 @@ document.getElementById("popup-after-record").addEventListener("closed", functio
     $(".floading-spinner.loading-record-flow")[0].style.display = "none";
     record_was_hold = false;
     image64 = null;
+    all_tagged_users.length = 0;
 });
 
 document.getElementById("popup-after-story-record").addEventListener("opened", function () {
@@ -304,7 +306,7 @@ $$('.fvalidate-after_btn').on('touchend', function () {
                 Sound: appState.blob64,
                 Duration: record_time,
                 Time: "0"
-            }
+            };
             console.log(data);
             // Socket.client.send("Flow", "AddFlow", data); --OLD
             // floading-spinner loading-record-flow
@@ -314,7 +316,7 @@ $$('.fvalidate-after_btn').on('touchend', function () {
             setTimeout(function () {
                 console.log("add flow");
                 console.log(data);
-                ServerManager.AddFlow(data);
+                ServerManager.AddFlow(data, all_tagged_users);
 
                 facebookConnectPlugin.logEvent("record_flow", {
                     // private_id: data.PrivatedId,
