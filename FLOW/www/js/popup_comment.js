@@ -497,17 +497,17 @@ function send_response_to_server(data) {
         Idresponse: data.IdResponse,
         RegisterId: "",
         current_comment_block: current_comment_block,
-        current_flow_block: current_comment_block, //peut sembler etrange mais facilite l'envoi des notifs (case "send_comment") 
+        current_flow_block: current_comment_block, //peut sembler etrange mais facilite l'envoi des notifs (case "send_comment")
         tag_user_RegisterId: undefined
     };
     if (it_is_a_response == true && current_response_block != undefined) {
         response_data.current_flow_block = current_response_block;
     }
-    /* 
+    /*
         hack_response
     le response_data.Comment et Comment_text devraient etre des Responses et Responses_text
-       mais flemme de créer une notifs specialement juste pour les reponses donc 
-       je fais passer ça comme une notif de commentaire. 
+       mais flemme de créer une notifs specialement juste pour les reponses donc
+       je fais passer ça comme une notif de commentaire.
     */
 
 
@@ -520,7 +520,7 @@ function send_response_to_server(data) {
     $(current_comment_block.fblock_comment_label_afficher_les_reponses).text("Afficher les reponses (" + current_comment_block.nombre_de_reponses + ")");
     if (response_data.Comment == response_data.Comment_text && registrationId != response_data.current_flow_block.RegisterId) {
         /* registrationId != response_data.current_flow_block.RegisterId permet de tester le RegisterId
-            d'un block commentaire et d'un block response 
+            d'un block commentaire et d'un block response
             car il ya le cas de reponses à un commentaire et le cas de reponse à une reponse
         */
         response_data.RegisterId = current_comment_block.RegisterId;
@@ -631,6 +631,15 @@ $(document).on('click', '.tagged_users', function () {
     go_to_account(data);
 });
 
+$(document).on('click', '.flow_tagged_users', function () {
+    let tagged_user_private_id = ($(this).text()).slice(1);
+    let data = {
+        private_Id: tagged_user_private_id,
+        user_private_Id: window.localStorage.getItem("user_private_id")
+    };
+    go_to_account(data);
+});
+
 var string_input_comment;
 var all_search_users_with_follow = [];
 var all_search_users_without_follow = [];
@@ -727,6 +736,92 @@ $("#finput_comment").keyup(function () {
     var str2;
     console.log(str1);
 });
+
+
+function clean_all_tagged_users(all_tagged_users, flow_ObjectId, flow_title) {
+    let flow_title_split = flow_title.split(" ");
+
+    for (let i = 0; i < all_tagged_users.length; i++) {
+
+        all_tagged_users[i].ObjectId = flow_ObjectId;
+        all_tagged_users[i].Comment_text = flow_title; // c'est le titre du flow
+        all_tagged_users[i].tag_in_flow = true;
+        for (let i_ = 0; i_ < flow_title_split.length; i_++) {
+            if (all_tagged_users[i].private_Id == flow_title_split[i_]) {
+                send_notif_to_user(all_tagged_users[i], "tag_in_flow");
+            }
+        }
+
+    }
+
+
+}
+
+
+
+$(document).on('keyup', '#finput_description', function () {
+
+    string_input_comment = $("#finput_description").val();
+    string_input_comment_split = string_input_comment.split(" ");
+
+    IdentificationListCurrentIndex = 0;
+    //ne plus looper sur tout le string_input_comment_split lenght
+    var split_lenght = string_input_comment_split.length;
+
+    if (string_input_comment_split[split_lenght - 1].slice(0, 1) == "@") {
+        IdentificationListCurrentIndex = 0;
+        if (string_input_comment_split[split_lenght - 1] == "@") {
+
+            let data_following = {
+                PrivateId: window.localStorage.getItem("user_private_id"),
+                Index: 0,
+                follow_list: true
+            };
+            ServerManager.GetFollowingOfUser(data_following);
+            IdentificationListCurrentIndex = 0;
+
+        } else if (string_input_comment_split[split_lenght - 1].length > 1 && string_input_comment_split[split_lenght - 1] != "@") {
+
+            for (let i = 0; i < 1; i++) {
+                let data_user_search = {
+                    Index: IdentificationListCurrentIndex,
+                    Search: string_input_comment_split[split_lenght - 1].slice(1, string_input_comment_split[split_lenght - 1].length),
+                    Nb: 10
+                };
+                ServerManager.SearchUserForTabExplore(data_user_search);
+                IdentificationListCurrentIndex++;
+                console.log("boucle :" + i);
+                console.log("current index :" + IdentificationListCurrentIndex);
+            }
+            $(".popup_identification_container")[0].innerHTML = "";
+        }
+        if (window.cordova.platformId == "ios") {
+            Popup("popup-identification", true, 22);
+        } else {
+            Popup("popup-identification", true, 5);
+        }
+    } else {
+        Popup("popup-identification", false);
+        IdentificationListCurrentIndex = 0;
+
+    }
+
+});
+
+
+
+document.getElementById("popup-identification").addEventListener("opened", function () {
+    
+        $(".after-record-block-container").css("margin-top", "-40vh");
+});
+
+
+document.getElementById("popup-identification").addEventListener("closed", function () {
+    
+    $(".after-record-block-container").css("margin-top", "");
+    
+});
+
 
 
 //supression de commentaire
