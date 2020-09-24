@@ -798,7 +798,7 @@ $(document).on('keyup', '#finput_description', function () {
         if (window.cordova.platformId == "ios") {
             Popup("popup-identification", true, 22);
         } else {
-            Popup("popup-identification", true, 5);
+            Popup("popup-identification", true, 20);
         }
     } else {
         Popup("popup-identification", false);
@@ -811,15 +811,15 @@ $(document).on('keyup', '#finput_description', function () {
 
 
 document.getElementById("popup-identification").addEventListener("opened", function () {
-    
-        $(".after-record-block-container").css("margin-top", "-40vh");
+
+    $(".after-record-block-container").css("margin-top", "-40vh");
 });
 
 
 document.getElementById("popup-identification").addEventListener("closed", function () {
-    
+
     $(".after-record-block-container").css("margin-top", "");
-    
+
 });
 
 
