@@ -52,22 +52,43 @@ function block_user(follow_list, target, data) //follow_list true correspond au 
 
   if (follow_list == true) {
     //$(this.f_user_private_id).removeClass("f_user_private_id").addClass("f_user_private_id_identification");
-    $(this.block_user).on('click', function () {
-      $('#finput_comment').focus();
-      string_input_comment = string_input_comment.slice(0, string_input_comment.lastIndexOf("@") + 1);
-      $("#finput_comment").val(string_input_comment + data.PrivateId + " ");
-      $('.regex-example').highlightWithinTextarea({
-        highlight: /@[^ ]+/gi
-      });
-      let data_user = {
-        private_Id: "@" + data.PrivateId,
-        RegisterId: data.RegisterId,
-        LastOs: data.LastOs
-      };
-      all_tagged_users.push(data_user);
-      Popup("popup-identification", false, -5);
+    if (current_page != "after-record") {
+      $(this.block_user).on('click', function () {
+        $('#finput_comment').focus();
+        string_input_comment = string_input_comment.slice(0, string_input_comment.lastIndexOf("@") + 1);
+        $("#finput_comment").val(string_input_comment + data.PrivateId + " ");
+        $('.regex-example').highlightWithinTextarea({
+          highlight: /@[^ ]+/gi
+        });
+        let data_user = {
+          private_Id: "@" + data.PrivateId,
+          RegisterId: data.RegisterId,
+          LastOs: data.LastOs
+        };
+        all_tagged_users.push(data_user);
+        Popup("popup-identification", false, -5);
 
-    });
+      });
+    } else {
+
+      $(this.block_user).on('click', function () {
+        $('#finput_description').focus();
+        string_input_comment = string_input_comment.slice(0, string_input_comment.lastIndexOf("@") + 1);
+        $("#finput_description").val(string_input_comment + data.PrivateId + " ");
+        $('.regex-example').highlightWithinTextarea({
+          highlight: /@[^ ]+/gi
+        });
+        let data_user = {
+          private_Id: "@" + data.PrivateId,
+          RegisterId: data.RegisterId,
+          LastOs: data.LastOs
+        };
+        all_tagged_users.push(data_user);
+        Popup("popup-identification", false, -5);
+
+      });
+
+    }
   }
 
   if (follow_list == false) {
@@ -149,11 +170,13 @@ $("#ffollowersBandeau,#ffollowersmyBandeauChiffre,#ffollowersBandeauChiffre").on
   console.log(data_followers);
   ServerManager.GetFollowerOfUser(data_followers);
   Popup("popup-followers", true, 30);
+  in_followers = true;
 
 });
 
 document.getElementById("popup-followers").addEventListener("closed", function () {
   $(".popup_followers_container")[0].innerHTML = "";
+  in_followers = false;
 });
 
 var CanRefreshFollowersList = true;
@@ -247,11 +270,12 @@ $("#ffollowingBandeau,#ffollowingmyBandeauChiffre,#ffollowingBandeauChiffre").on
   console.log(data_followings);
   ServerManager.GetFollowingOfUser(data_followings);
   Popup("popup-followings", true, 30);
-
+  in_following = true;
 });
 
 document.getElementById("popup-followings").addEventListener("closed", function () {
   $(".popup_followings_container")[0].innerHTML = "";
+  in_following = false;
 });
 
 var CanRefreshfollowingsList = true;
