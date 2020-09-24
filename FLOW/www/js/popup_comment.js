@@ -810,12 +810,14 @@ $(document).on('keyup', '#finput_description', function () {
 
 
 document.getElementById("popup-identification").addEventListener("opened", function () {
-
     if (window.cordova.platformId == "ios") {
         $(".after-record-block-container").css("margin-top", "-40vh");
 
     } else {
         $(".after-record-block-container").css("margin-top", "-50vh");
+        document.getElementById("finput_description").addEventListener("blur", function () {
+            $(".after-record-block-container").css("margin-top", "-30vh");
+        });
     }
     in_identification = true;
 });
@@ -824,9 +826,7 @@ document.getElementById("popup-identification").addEventListener("opened", funct
 document.getElementById("popup-identification").addEventListener("closed", function () {
     in_identification = false;
     $(".after-record-block-container").css("margin-top", "");
-
 });
-
 
 
 //supression de commentaire
@@ -883,12 +883,12 @@ function color_like(block, like) // like des commentaires et de reponses
             if (block.last_like_time != undefined) {
                 let last_like = Math.floor(((now - block.last_like_time) / 1000) / 60);
                 if (last_like > 29 && registrationId != block.RegisterId) {
-                    block.Comment_text = block.fresponse_text; // pour faciliter les notifs à redev ulterieurement
+                    block.Comment_text = block.response_text; // pour faciliter les notifs à redev ulterieurement
                     send_notif_to_user(block, "like_response");
                     block.last_like_time = Date.now();
                 }
             } else if (block.last_like_time == undefined && registrationId != block.RegisterId) {
-                block.Comment_text = block.fresponse_text; // pour faciliter les notifs à redev ulterieurement
+                block.Comment_text = block.response_text; // pour faciliter les notifs à redev ulterieurement
                 send_notif_to_user(block, "like_response");
                 block.last_like_time = Date.now();
             }
