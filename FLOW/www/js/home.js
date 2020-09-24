@@ -105,8 +105,8 @@ function PopFlow(data, LinkBuilder) {
   var new_block = new block(block_params);
   all_blocks.push(new_block);
 
-  console.log("Pop Flow");
-  console.log(new_block);
+  // console.log("Pop Flow");
+  // console.log(new_block);
 }
 
 function timeline_get_block_and_blocked_users(data_timeline) {

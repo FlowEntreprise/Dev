@@ -69,8 +69,7 @@ function block_user(follow_list, target, data) //follow_list true correspond au 
         Popup("popup-identification", false, -5);
 
       });
-    }
-    else {
+    } else {
 
       $(this.block_user).on('click', function () {
         $('#finput_description').focus();
@@ -171,11 +170,13 @@ $("#ffollowersBandeau,#ffollowersmyBandeauChiffre,#ffollowersBandeauChiffre").on
   console.log(data_followers);
   ServerManager.GetFollowerOfUser(data_followers);
   Popup("popup-followers", true, 30);
+  in_followers = true;
 
 });
 
 document.getElementById("popup-followers").addEventListener("closed", function () {
   $(".popup_followers_container")[0].innerHTML = "";
+  in_followers = false;
 });
 
 var CanRefreshFollowersList = true;
@@ -269,11 +270,12 @@ $("#ffollowingBandeau,#ffollowingmyBandeauChiffre,#ffollowingBandeauChiffre").on
   console.log(data_followings);
   ServerManager.GetFollowingOfUser(data_followings);
   Popup("popup-followings", true, 30);
-
+  in_following = true;
 });
 
 document.getElementById("popup-followings").addEventListener("closed", function () {
   $(".popup_followings_container")[0].innerHTML = "";
+  in_following = false;
 });
 
 var CanRefreshfollowingsList = true;
