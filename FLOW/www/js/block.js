@@ -273,8 +273,8 @@ function block(params) {
         this.fimg_impression_comment.className = "fimg_impression";
         this.fimg_impression_comment.src =
             this.IsComment == 1 ?
-                "src/icons/Comment_filled.png" :
-                "src/icons/Comment.png";
+            "src/icons/Comment_filled.png" :
+            "src/icons/Comment.png";
         this.fcomment.appendChild(this.fimg_impression_comment);
         this.ftxt_impression_comment = document.createElement("p");
         this.ftxt_impression_comment.className = "ftxt_impression";
@@ -365,7 +365,7 @@ function block(params) {
     if (params.audioURL) {
         let local_flow = FlowLoader.DownloadFlow(params.audioURL);
         local_flow.OnReady(function (url) {
-            console.log(local_flow);
+            // console.log(local_flow);
             // block.myaudio.src = url;
             // block.myaudio.volume = 1.0;
             block.myaudio = new Media(url, mediaSuccess, mediaFailure, mediaStatus);
@@ -376,7 +376,7 @@ function block(params) {
             }
 
             function mediaFailure(err) {
-                console.log("An error occurred: " + err.code);
+                // console.log("An error occurred: " + err.code);
             }
 
             function mediaStatus(status) {
@@ -539,7 +539,7 @@ function block(params) {
     $(this.fimg_impression_comment).on("click", function () {
         if (connected) {
             current_flow_block = block; +
-                current_flow_block.Comments == 0 ?
+            current_flow_block.Comments == 0 ?
                 (text_comment_number = current_flow_block.Comments + " commentaire") :
                 (text_comment_number = current_flow_block.Comments + " commentaires")
             $(".fcomment_number").text(text_comment_number);
@@ -694,9 +694,9 @@ function go_to_account(data) {
         Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
     facebookConnectPlugin.logEvent(
         "current_page", {
-        page: current_page,
-        duration: time_in_last_screen,
-    },
+            page: current_page,
+            duration: time_in_last_screen,
+        },
         null,
         function () {
             console.log("fb current_page event success");
