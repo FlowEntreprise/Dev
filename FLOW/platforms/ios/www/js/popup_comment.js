@@ -798,7 +798,7 @@ $(document).on('keyup', '#finput_description', function () {
         if (window.cordova.platformId == "ios") {
             Popup("popup-identification", true, 22);
         } else {
-            Popup("popup-identification", true, 5);
+            Popup("popup-identification", true, 20);
         }
     } else {
         Popup("popup-identification", false);
