@@ -226,6 +226,7 @@ var current_page = "home";
 var last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
 function onBackKeyDown() {
+    console.log("RETOUR");
     //alert(current_page);
     // Handle the back button
 
