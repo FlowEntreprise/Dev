@@ -54,7 +54,7 @@ function block_response(response_data, response_is_specifique) {
 
     this.fblock_response_response = document.createElement('p');
     this.fblock_response_response.className = 'fblock_response_response';
-    this.fblock_response_response.innerHTML = this.fresponse_text + "<br>";
+    this.fblock_response_response.innerHTML = this.fresponse_text.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>') + "<br>";
     $(this.fblock_response).append(this.fblock_response_response);
 
     this.f_response_date = document.createElement('label');
@@ -172,7 +172,7 @@ function block_comment(comment_data, comment_is_specifique) {
 
     this.fblock_comment_comment = document.createElement('p');
     this.fblock_comment_comment.className = 'fblock_comment_comment';
-    this.fblock_comment_comment.innerHTML = this.fcomment_text + "<br>";
+    this.fblock_comment_comment.innerHTML = this.fcomment_text.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>') + "<br>";
     $(this.fblock_comment).append(this.fblock_comment_comment);
 
     this.fdate = document.createElement('label');
@@ -409,7 +409,7 @@ function display_response(response) { // affiche les reponses par 5
                 RegisterId: response.Data[i].RegisterId,
                 Time: response.Data[i].Time
             };
-            response_data.response = response_data.response.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
+            //response_data.response = response_data.response.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
             let new_block_response = new block_response(response_data);
 
             for (let i = 0; i < current_comment_block.all_response_blocks.length; i++) {
@@ -552,7 +552,7 @@ function send_response_to_server(data) {
     $(".hwt-backdrop").html(" ");
     if (it_is_a_response == true) {
 
-        response_data.Comment = response_data.Comment.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
+        //response_data.Comment = response_data.Comment.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
     }
     $(current_comment_block.fblock_response_container).css("height", "auto");
     var new_block_response = new block_response(response_data);
