@@ -108,9 +108,9 @@ function comment_specifique(response, type, data_response, data_position) {
     }
     if (type == "response") {
         response_current_index = Math.trunc(data_position.rank / 10);
-        response_current_desc_index = response_current_index - 1;
+        response_current_index > 0 ? response_current_desc_index = response_current_index - 1 : response_current_desc_index = 0;
         id_response_specifique = data_response.Data.IdResponse;
-        nombre_de_reponses_precedent = (block_commentaire.nombre_de_reponses - response_current_index * 10) - (block_commentaire.nombre_de_reponses % 10);
+        nombre_de_reponses_precedent = response_current_index * 10;
         $(block_commentaire.fblock_comment_label_afficher_les_reponses).click();
         if (response_current_index > 0) {
             $(block_commentaire.fblock_comment_label_reponses_precedentes).css("display", "block");
