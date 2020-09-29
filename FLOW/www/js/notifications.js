@@ -153,7 +153,7 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
             {
                 ObjectId: block_notification_like.Id_response
             };
-            ServerManager.GetSingleResponse(data_single_response);
+            ServerManager.GetRankOfResponse(data_single_response);
         }
         if (block_notification_like.like_comment != "like_comment" && block_notification_like.like_comment != "like_response") {
             let data_flow = {
@@ -327,7 +327,7 @@ function block_notification_comment(data) {
             {
                 ObjectId: block_notification_comment.Id_response
             };
-            ServerManager.GetSingleResponse(data_single_response);
+            ServerManager.GetRankOfResponse(data_single_response);
         }
         if (block_notification_comment.like_comment == "tag_in_flow") {
             let data_flow = {
@@ -1298,7 +1298,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
             //     {
             //         ObjectId: data.additionalData.sender_info.Id_response
             //     };
-            //     ServerManager.GetSingleResponse(data_single_response);
+            //     ServerManager.GetRankOfResponse(data_single_response);
             // });
             break;
 
@@ -1326,7 +1326,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
             //     {
             //         ObjectId: data.additionalData.sender_info.Id_response
             //     };
-            //     ServerManager.GetSingleResponse(data_single_response);
+            //     ServerManager.GetRankOfResponse(data_single_response);
             // });
             break;
 

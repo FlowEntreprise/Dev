@@ -84,9 +84,9 @@ var app = {
       Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
     facebookConnectPlugin.logEvent(
       "current_page", {
-        page: current_page,
-        duration: time_in_last_screen,
-      },
+      page: current_page,
+      duration: time_in_last_screen,
+    },
       null,
       function () {
         console.log("fb current_page event success");
@@ -134,9 +134,9 @@ var app = {
       Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
     facebookConnectPlugin.logEvent(
       "current_page", {
-        page: current_page,
-        duration: time_in_last_screen,
-      },
+      page: current_page,
+      duration: time_in_last_screen,
+    },
       null,
       function () {
         console.log("fb current_page event success");
@@ -149,8 +149,8 @@ var app = {
 
     httpd =
       cordova && cordova.plugins && cordova.plugins.CorHttpd ?
-      cordova.plugins.CorHttpd :
-      null;
+        cordova.plugins.CorHttpd :
+        null;
 
     // No need since no using workers anymore
     // httpd.startServer({
@@ -248,7 +248,7 @@ var app = {
             let data_single_response = {
               ObjectId: data.additionalData.sender_info.Id_response,
             };
-            ServerManager.GetSingleResponse(data_single_response);
+            ServerManager.GetRankOfResponse(data_single_response);
           }
           if (
             data.additionalData.type == "like_flow" || data.additionalData.type == "tag_in_flow"

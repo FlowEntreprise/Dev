@@ -4,7 +4,11 @@ var current_response_block;
 var it_is_a_response = false;
 var it_is_a_response_to_a_response = false;
 var response_current_index = 0;
+var response_current_desc_index = 0;
 var nombre_de_reponses_restant;
+var nombre_de_reponses_precedent;
+var you_have_to_prepend_response_specifique = false;
+var single_block_response_to_scroll_to;
 // $(document).ready(function() {
 //     $('.regex-example').highlightWithinTextarea({
 //             highlight: /@[^ ]+/gi
@@ -31,8 +35,8 @@ function block_response(response_data, response_is_specifique) {
 
     this.fblock_response = document.createElement('div');
     this.fblock_response.className = 'fblock_response';
-    if (response_is_specifique) {
-        $(current_comment_block.fblock_response_container).prepend(this.fblock_response);
+    if (you_have_to_prepend_response_specifique) {
+        $(current_comment_block.fblock_response_container).find(">:first-child").after(this.fblock_response);
     } else {
 
         $(current_comment_block.fblock_response_container).append(this.fblock_response);
@@ -199,9 +203,13 @@ function block_comment(comment_data, comment_is_specifique) {
         this.fblock_comment_label_afficher_les_reponses.innerHTML = "Afficher les reponses (" + this.nombre_de_reponses + ")";
         $(this.fblock_comment_comment).append(this.fblock_comment_label_afficher_les_reponses);
 
+
         $(this.fblock_comment_label_afficher_les_reponses).on('click', function () {
             current_comment_block = block_comment;
-            response_current_index = 0;
+            if (in_specifique == false) {
+                response_current_index = 0;
+            }
+            nombre_de_reponses_restant = current_comment_block.nombre_de_reponses;
             if (current_comment_block.was_hidden == true) {
                 //$(current_comment_block.fblock_response_container).animate({ height: current_comment_block.response_container_previous_height + "px" }, 'smooth');
                 $(current_comment_block.fblock_response_container).css("height", "" + current_comment_block.response_container_previous_height + "px");
@@ -213,13 +221,12 @@ function block_comment(comment_data, comment_is_specifique) {
                 let data = {
                     ObjectId: current_comment_block.ObjectId,
                     Index: response_current_index
-
                 };
                 ServerManager.GetCommentResponse(data);
-
             }
             $(current_comment_block.fblock_comment_label_afficher_les_reponses).css("opacity", "0");
         });
+
     }
 
     this.fcomment_like = document.createElement('img');
@@ -248,6 +255,24 @@ function block_comment(comment_data, comment_is_specifique) {
     this.fblock_response_container.className = 'fblock_response_container';
     (this.fblock_comment).append(this.fblock_response_container);
 
+    this.fblock_comment_label_reponses_precedentes = document.createElement('label');
+    this.fblock_comment_label_reponses_precedentes.className = 'fblock_comment_label_reponses_precedentes';
+    this.fblock_comment_label_reponses_precedentes.innerHTML = "Réponses précédentes (" + this.nombre_de_reponses + ")";
+    $(this.fblock_response_container).append(this.fblock_comment_label_reponses_precedentes);
+
+
+    $(this.fblock_comment_label_reponses_precedentes).on('click', function () {
+        you_have_to_prepend_response_specifique = true;
+        single_block_response_to_scroll_to = undefined;
+        $(current_comment_block.fblock_response_container).css("height", "");
+        let data = {
+            ObjectId: current_comment_block.ObjectId,
+            Index: response_current_desc_index
+
+        };
+        ServerManager.GetCommentResponse(data);
+    });
+
     this.afficher_plus_de_reponses_container = document.createElement('div');
     this.afficher_plus_de_reponses_container.className = 'afficher_plus_de_reponses_container';
     $(this.fblock_comment).append(this.afficher_plus_de_reponses_container);
@@ -258,6 +283,8 @@ function block_comment(comment_data, comment_is_specifique) {
     $(this.afficher_plus_de_reponses_container).append(this.label_afficher_plus_de_reponses);
 
     $(this.label_afficher_plus_de_reponses).on('click', function () {
+        you_have_to_prepend_response_specifique = false;
+        single_block_response_to_scroll_to = undefined;
         let loading_tl = document.createElement("div");
         loading_tl.className = "loading-spinner loading_tl loading_response";
         $("#popup-comment").append(loading_tl);
@@ -268,6 +295,7 @@ function block_comment(comment_data, comment_is_specifique) {
 
         };
         ServerManager.GetCommentResponse(data);
+
     });
 
     this.label_hide_and_up_arrow_grey_container = document.createElement('div');
@@ -387,8 +415,8 @@ const copyToClipboard = str => {
 
 var pseudo = "@adc_98";
 var account_imageURL = "src/pictures/notif1.png";
-
-function display_response(response) { // affiche les reponses par 5
+var id_response_specifique;
+function display_response(response, data_response_unique) { // affiche les reponses par 10
 
     if (typeof (response) != "string") {
         for (let i = 0; i < response.Data.length; i++) {
@@ -412,32 +440,56 @@ function display_response(response) { // affiche les reponses par 5
             //response_data.response = response_data.response.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
             let new_block_response = new block_response(response_data);
 
-            for (let i = 0; i < current_comment_block.all_response_blocks.length; i++) {
-                if (current_comment_block.all_response_blocks[i].ObjectId == new_block_response.ObjectId) {
-                    $(new_block_response.fblock_response).remove();
-                }
+            if (new_block_response.ObjectId == id_response_specifique) {
+                $(new_block_response.fblock_response).css("background-color", "#1A84EF26");
+                single_block_response_to_scroll_to = new_block_response;
             }
             current_comment_block.all_response_blocks.push(new_block_response);
 
             $(".loading_tl").remove();
         }
-        if (current_comment_block.nombre_de_reponses > 5) {
-            current_comment_block.nombre_de_reponses = current_comment_block.nombre_de_reponses - 5;
+        if (single_block_response_to_scroll_to) {
+            let single_block_response_position = $(single_block_response_to_scroll_to.fblock_response).position();
+            $(".fblock_comment_content").scrollTop(single_block_response_position.top);
         }
-        if (response.Data.length < 5 || current_comment_block.nombre_de_reponses == 0) {
-            $(current_comment_block.label_afficher_plus_de_reponses).css("display", "none");
+        if (you_have_to_prepend_response_specifique == false) { // reponses suivantes
+            if (nombre_de_reponses_restant > 10) {
+                nombre_de_reponses_restant = nombre_de_reponses_restant - ((response_current_index + 1) * 10);
+            }
+            if (response.Data.length < 10 ||
+                nombre_de_reponses_restant == 0 ||
+                response_current_index == Math.trunc(current_comment_block.nombre_de_reponses / 10)) {
+                $(current_comment_block.label_afficher_plus_de_reponses).css("display", "none");
+            }
+            $(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + nombre_de_reponses_restant + ")");
+            $(current_comment_block.fblock_comment_label_reponses_precedentes).text("Réponses précédentes (" + nombre_de_reponses_precedent + ")");
+            //$(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
+            if (response_current_index < Math.trunc(current_comment_block.nombre_de_reponses / 10)) {
+                response_current_index++;
+            }
         }
-        $(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + current_comment_block.nombre_de_reponses + ")");
+        else { // reponses precedentes
+            if (nombre_de_reponses_precedent > 10) {
+                nombre_de_reponses_precedent = nombre_de_reponses_precedent - ((response_current_desc_index + 1) * 10);
+            }
+            if (response_current_desc_index == 0) {
+                $(current_comment_block.fblock_comment_label_reponses_precedentes).css("display", "none");
+            }
+            //$(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + nombre_de_reponses_restant + ")");
+            $(current_comment_block.fblock_comment_label_reponses_precedentes).text("Réponses précédentes (" + nombre_de_reponses_precedent + ")");
+            //$(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
+            if (response_current_index > 0) {
+                response_current_desc_index--;
+            }
+        }
         $(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
-        if (response.Data.length <= 5) {
 
-            response_current_index++;
-        }
     } else {
         $(".loading_tl").remove();
     }
 
 }
+
 
 //post de commentaire
 
@@ -850,6 +902,7 @@ document.getElementById("popup-comment").addEventListener("opened", function () 
     $(".fwrite_comment").css("display", "block");
     in_comments = true;
     CommentListCurrentIndex = 0;
+    response_current_index = 0;
 });
 
 //Notif lors d'un nouveau commentaire
@@ -858,6 +911,7 @@ document.getElementById("popup-comment").addEventListener("closed", function () 
     $(".fwrite_comment")[0].style.display = "none";
     in_comments = false;
     CommentListCurrentIndex = 0;
+    response_current_index = 0;
     if (current_flow_block) {
         current_flow_block.all_comment_blocks.length = 0
 

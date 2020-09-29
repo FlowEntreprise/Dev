@@ -22,6 +22,7 @@ const ServerParams = {
   GetSingle: "GetSingle",
   GetSingleComment: "GetSingleComment",
   GetSingleResponse: "GetSingleResponse",
+  GetRankOfResponse: "GetRankOfResponse",
   ActionFollowProfil: "Follow",
   UpdateRegisterId: "UpdateRegisterId",
   GetFollowerOfUser: "GetFollowerOfUser",
@@ -468,7 +469,7 @@ class ServerManagerClass {
     });
   }
 
-  GetCommentResponse(data) {
+  GetCommentResponse(data, data_response_unique) {
     let final_data = {
       Data: data,
       Action: "GetCommentResponse",
@@ -482,7 +483,7 @@ class ServerManagerClass {
       data: JSON.stringify(final_data),
       success: function (response) {
         //get_all_comment(response, final_data.Data);
-        display_response(response);
+        display_response(response, data_response_unique);
         console.log("Les reponses de commentaires sont :");
       },
       error: function (response) {
@@ -883,7 +884,7 @@ class ServerManagerClass {
     });
   }
 
-  GetSingle(data, show_comment, type, data_specifique) { // data d'un commentaire ou d'une reponse
+  GetSingle(data, show_comment, type, data_specifique, data_position) { // data d'un commentaire ou d'une reponse
     let final_data = {
       Data: data,
       TokenId: window.localStorage.getItem("user_token"),
@@ -905,7 +906,7 @@ class ServerManagerClass {
           );
           return;
         }
-        flow_specifique(response.Data, response.LinkBuilder, show_comment, type, data_specifique);
+        flow_specifique(response.Data, response.LinkBuilder, show_comment, type, data_specifique, data_position);
       },
       error: function (response) {
         //console.log(response);
@@ -914,7 +915,7 @@ class ServerManagerClass {
     });
   }
 
-  GetSingleComment(data, type, data_response) {
+  GetSingleComment(data, type, data_response, data_position) {
     let final_data = {
       Data: data,
       TokenId: window.localStorage.getItem("user_token"),
@@ -937,7 +938,7 @@ class ServerManagerClass {
           return;
         }
         if (type == "response") {
-          comment_specifique(response, type, data_response);
+          comment_specifique(response, type, data_response, data_position);
         } else {
 
           flow_for_comment_specifique("comment", response);
@@ -950,7 +951,7 @@ class ServerManagerClass {
     });
   }
 
-  GetSingleResponse(data) {
+  GetSingleResponse(data, data_position) {
     let final_data = {
       Data: data,
       TokenId: window.localStorage.getItem("user_token"),
@@ -972,7 +973,9 @@ class ServerManagerClass {
           );
           return;
         }
-        flow_and_comment_for_response_specifique(response);
+        else {
+          flow_and_comment_for_response_specifique(response, data_position);
+        }
       },
       error: function (response) {
         //console.log(response);
@@ -980,6 +983,46 @@ class ServerManagerClass {
       },
     });
   }
+
+  GetRankOfResponse(data) {
+    let final_data = {
+      Data: data,
+      TokenId: window.localStorage.getItem("user_token"),
+    };
+    //console.log(final_data);
+    $.ajax({
+      type: "POST",
+      url: ServerParams.ServerURL + ServerParams.GetRankOfResponse,
+      data: JSON.stringify(final_data),
+      success: function (response) {
+        //console.log(response);
+        //console.log("success dans la recuperation de flow unique");
+        if (typeof (response) == "string") {
+          // alert("Ce flow n'est plus disponible");
+          navigator.notification.alert(
+            "Cette réponse n'est plus disponible",
+            alertDismissed,
+            "Information"
+          );
+          return;
+        }
+        else {
+
+          let response_position =
+          {
+            rank: response.Data.rank,
+            total: response.Data.total
+          };
+          ServerManager.GetSingleResponse(data, response_position);
+        }
+      },
+      error: function (response) {
+        //console.log(response);
+        //console.log("error dans la recuperation de flow unique");
+      },
+    });
+  }
+
 
   DeleteFlow(data, element) {
     let final_data = {
