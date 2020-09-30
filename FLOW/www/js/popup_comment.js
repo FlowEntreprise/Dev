@@ -481,11 +481,12 @@ function display_response(response, data_response_unique) { // affiche les repon
             if (response_current_desc_index == 0) {
                 $(current_comment_block.fblock_comment_label_reponses_precedentes).css("display", "none");
             }
+
+            if (nombre_de_reponses_precedent > 10) {
+                nombre_de_reponses_precedent = response_current_desc_index * 10;
+            }
             if (response_current_desc_index > 0) {
                 response_current_desc_index--;
-            }
-            if (nombre_de_reponses_precedent > 10) {
-                nombre_de_reponses_precedent = nombre_de_reponses_precedent - ((response_current_desc_index) * 10);
             }
 
             //$(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + nombre_de_reponses_restant + ")");

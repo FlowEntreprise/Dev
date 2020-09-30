@@ -1,5 +1,5 @@
 var all_notifications_block = [];
-
+var loading_before_popup_specifique;
 function block_notification_like(data) { //type permet de defini si c'est le like d'un flow ou le like d'un commentaire
     this.seen = !!+data.IsView;
     var block_notification_like = this;
@@ -133,6 +133,10 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
 
 
     $(this.block_notification_like).on("click", function () {
+        loading_before_popup_specifique = document.createElement("div");
+        loading_before_popup_specifique.className = "loading-spinner loading_tl";
+        $("#tab4").append(loading_before_popup_specifique);
+        $(loading_before_popup_specifique).css("top", "46vh");
         $(block_notification_like.fred_dot_border).css('display', 'none');
         console.log("le point rouge shoud disparaitre pour de la notif de like");
         set_seen(block_notification_like);
@@ -309,6 +313,10 @@ function block_notification_comment(data) {
     this.block_notification_comment.appendChild(this.ftime);
 
     $(this.block_notification_comment).on("click", function () {
+        loading_before_popup_specifique = document.createElement("div");
+        loading_before_popup_specifique.className = "loading-spinner loading_tl";
+        $("#tab4").append(loading_before_popup_specifique);
+        $(loading_before_popup_specifique).css("top", "46vh");
         $(block_notification_comment.fred_dot_border).css('display', 'none');
         set_seen(block_notification_comment);
         check_seen();

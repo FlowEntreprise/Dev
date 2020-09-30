@@ -130,6 +130,7 @@ function flow_and_comment_for_response_specifique(response, data_position) {
 
 
 document.getElementById("popup-specifique").addEventListener("opened", function () {
+    $(loading_before_popup_specifique).remove();
     in_specifique = true;
     response_current_index = 0;
     id_response_specifique = undefined;
