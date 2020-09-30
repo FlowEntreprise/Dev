@@ -760,10 +760,10 @@ function TakePhoto() {
             }
         });
     } else {
-        capturePhoto();
         if (window.localStorage.getItem("ios_photos_init") != "true") {
             $(".ios_camera_auth")[0].style.display = "block";
         }
+        capturePhoto();
     }
 }
 
@@ -797,10 +797,10 @@ function GetPhotoFromGallery(is_profile_picture) {
             }
         });
     } else {
-        getPhoto(is_profile_picture);
         if (window.localStorage.getItem("ios_photos_init") != "true") {
             $(".ios_camera_auth")[0].style.display = "block";
         }
+        getPhoto(is_profile_picture);
     }
 }
 
