@@ -763,7 +763,7 @@ function TakePhoto() {
         });
     } else {
         // if (window.localStorage.getItem("ios_photos_init") != "true") {
-        if (ios_photo_init) {
+        if (ios_photos_init) {
             $(".ios_camera_auth")[0].style.display = "block";
         }
         capturePhoto();
@@ -801,7 +801,7 @@ function GetPhotoFromGallery(is_profile_picture) {
         });
     } else {
         // if (window.localStorage.getItem("ios_photos_init") != "true") {
-        if (ios_photo_init) {
+        if (ios_photos_init) {
             $(".ios_camera_auth")[0].style.display = "block";
         }
         getPhoto(is_profile_picture);
@@ -811,7 +811,7 @@ function GetPhotoFromGallery(is_profile_picture) {
 function onPhotoDataSuccess(imageData) {
     $(".ios_camera_auth")[0].style.display = "none";
     // window.localStorage.setItem("ios_photos_init", "true");
-    ios_photo_init = true;
+    ios_photos_init = true;
 
     var options = {
         url: imageData, // required.
@@ -873,7 +873,7 @@ function onFail(message) {
     appState.takingPicture = false;
     $(".ios_camera_auth")[0].style.display = "none";
     // window.localStorage.setItem("ios_photos_init", "true");
-    ios_photo_init = true;
+    ios_photos_init = true;
     console.log(message);
     // alert('Failed because: ' + message);
 }
