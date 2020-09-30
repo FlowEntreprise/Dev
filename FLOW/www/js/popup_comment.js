@@ -9,6 +9,8 @@ var nombre_de_reponses_restant;
 var nombre_de_reponses_precedent;
 var you_have_to_prepend_response_specifique = false;
 var single_block_response_to_scroll_to;
+var lastScrollHeight;
+var scrollDiff;
 // $(document).ready(function() {
 //     $('.regex-example').highlightWithinTextarea({
 //             highlight: /@[^ ]+/gi
@@ -260,17 +262,21 @@ function block_comment(comment_data, comment_is_specifique) {
     this.fblock_comment_label_reponses_precedentes.innerHTML = "Réponses précédentes (" + this.nombre_de_reponses + ")";
     $(this.fblock_response_container).append(this.fblock_comment_label_reponses_precedentes);
 
-
     $(this.fblock_comment_label_reponses_precedentes).on('click', function () {
         you_have_to_prepend_response_specifique = true;
         single_block_response_to_scroll_to = undefined;
-        $(current_comment_block.fblock_response_container).css("height", "");
+        let loading_tl = document.createElement("div");
+        loading_tl.className = "loading-spinner loading_tl loading_response";
+        $("#popup-comment").append(loading_tl);
+        lastScrollHeight = current_comment_block.fblock_response_container.scrollHeight;
         let data = {
             ObjectId: current_comment_block.ObjectId,
             Index: response_current_desc_index
 
         };
         ServerManager.GetCommentResponse(data);
+        $(loading_tl).remove();
+        //$(current_comment_block.fblock_response_container).scrollTop(scroll_to);
     });
 
     this.afficher_plus_de_reponses_container = document.createElement('div');
@@ -494,7 +500,9 @@ function display_response(response, data_response_unique) { // affiche les repon
             //$(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
         }
         $(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
-
+        $(current_comment_block.fblock_response_container).css("height", "");
+        scrollDiff = current_comment_block.fblock_response_container.scrollHeight - lastScrollHeight;
+        $(".fblock_comment_content").scrollTop(scrollDiff);
     } else {
         $(".loading_tl").remove();
     }
