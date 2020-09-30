@@ -803,8 +803,12 @@ function GetPhotoFromGallery(is_profile_picture) {
         // if (window.localStorage.getItem("ios_photos_init") != "true") {
         if (ios_photos_init) {
             $(".ios_camera_auth")[0].style.display = "block";
+            setTimeout(function () {
+                getPhoto(is_profile_picture);
+            }, 500);
+        } else {
+            getPhoto(is_profile_picture);
         }
-        getPhoto(is_profile_picture);
     }
 }
 
