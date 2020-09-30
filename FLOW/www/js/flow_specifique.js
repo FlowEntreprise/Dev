@@ -136,6 +136,7 @@ document.getElementById("popup-specifique").addEventListener("opened", function 
     id_response_specifique = undefined;
 });
 document.getElementById("popup-specifique").addEventListener("closed", function () {
+            commentaire_unique = null;
     in_specifique = false;
     response_current_index = 0;
     id_response_specifique = undefined;

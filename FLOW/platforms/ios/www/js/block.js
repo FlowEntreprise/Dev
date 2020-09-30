@@ -852,7 +852,7 @@ function UpdateCommentList(response, data_block) {
                 /@[^ ]+/gi,
                 '<span class="tagged_users">$&</span>'
             );*/
-            if (commentaire_unique.ObjectId != comment_data.IdComment) {
+            if ((commentaire_unique && commentaire_unique.ObjectId != comment_data.IdComment) || !commentaire_unique) {
                 let block_commentaire = new block_comment(comment_data);
                 current_flow_block.all_comment_blocks.push(block_commentaire);
                 $(".fblock_comment_content").append(block_commentaire);
