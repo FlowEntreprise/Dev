@@ -5,6 +5,7 @@ var audio_playing = false;
 var CanRefreshCommentList = false;
 var CommentListCurrentIndex = 0;
 var current_block_playing = null;
+var commentaire_unique;
 /*********** BLOCK PARAMS *************
  * var block_params = {
     parent_element: undefined,
@@ -847,13 +848,16 @@ function UpdateCommentList(response, data_block) {
                 Responses: response.Data[i].Responses, //nombre de reponses
             };
 
-            comment_data.Comment = comment_data.Comment.replace(
+            /*comment_data.Comment = comment_data.Comment.replace(
                 /@[^ ]+/gi,
                 '<span class="tagged_users">$&</span>'
-            );
-            let block_commentaire = new block_comment(comment_data);
-            current_flow_block.all_comment_blocks.push(block_commentaire);
-            $(".fblock_comment_content").append(block_commentaire);
+            );*/
+            if (commentaire_unique.ObjectId != comment_data.IdComment) {
+                let block_commentaire = new block_comment(comment_data);
+                current_flow_block.all_comment_blocks.push(block_commentaire);
+                $(".fblock_comment_content").append(block_commentaire);
+            }
+
         }
 
         if ($(".loading_tl")) $(".loading_tl").remove();

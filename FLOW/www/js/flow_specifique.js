@@ -101,19 +101,19 @@ function comment_specifique(response, type, data_response, data_position) {
             $(current_flow_block.all_comment_blocks[i].fblock_comment).remove();
         }
     }
-    let block_commentaire = new block_comment(comment_data, true);
-    current_flow_block.all_comment_blocks.push(block_commentaire);
+    commentaire_unique = new block_comment(comment_data, true);
+    current_flow_block.all_comment_blocks.push(commentaire_unique);
     if (type == "comment") {
-        $(block_commentaire.fblock_comment).css("background-color", "#1A84EF26");
+        $(commentaire_unique.fblock_comment).css("background-color", "#1A84EF26");
     }
     if (type == "response") {
         response_current_index = Math.trunc(data_position.rank / 10);
         response_current_index > 0 ? response_current_desc_index = response_current_index - 1 : response_current_desc_index = 0;
         id_response_specifique = data_response.Data.IdResponse;
         nombre_de_reponses_precedent = response_current_index * 10;
-        $(block_commentaire.fblock_comment_label_afficher_les_reponses).click();
+        $(commentaire_unique.fblock_comment_label_afficher_les_reponses).click();
         if (response_current_index > 0) {
-            $(block_commentaire.fblock_comment_label_reponses_precedentes).css("display", "block");
+            $(commentaire_unique.fblock_comment_label_reponses_precedentes).css("display", "block");
         }
         /* let data = {
              ObjectId: current_comment_block.ObjectId,

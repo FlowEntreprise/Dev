@@ -498,11 +498,15 @@ function display_response(response, data_response_unique) { // affiche les repon
             //$(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + nombre_de_reponses_restant + ")");
             $(current_comment_block.fblock_comment_label_reponses_precedentes).text("Réponses précédentes (" + nombre_de_reponses_precedent + ")");
             //$(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
+            $(current_comment_block.fblock_response_container).css("height", "");
+            scrollDiff = current_comment_block.fblock_response_container.scrollHeight - lastScrollHeight;
+            //$(".fblock_comment_content").scrollTop(scrollDiff);
+            /*$(".fblock_comment_content").animate({
+                scrollTop: scrollDiff
+            }, 400, 'swing');*/
         }
         $(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
-        $(current_comment_block.fblock_response_container).css("height", "");
-        scrollDiff = current_comment_block.fblock_response_container.scrollHeight - lastScrollHeight;
-        $(".fblock_comment_content").scrollTop(scrollDiff);
+
     } else {
         $(".loading_tl").remove();
     }
