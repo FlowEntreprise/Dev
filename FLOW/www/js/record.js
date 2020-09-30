@@ -765,8 +765,12 @@ function TakePhoto() {
         // if (window.localStorage.getItem("ios_photos_init") != "true") {
         if (!ios_photos_init) {
             $(".ios_camera_auth")[0].style.display = "block";
+            setTimeout(function () {
+                capturePhoto();
+            }, 500);
+        } else {
+            capturePhoto();
         }
-        capturePhoto();
     }
 }
 
