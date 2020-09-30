@@ -50,8 +50,7 @@ function flow_specifique(data, LinkBuilder, show_comment, type, data_specifique,
     }
 
     if (type == "response") {
-        let data_single_comment =
-        {
+        let data_single_comment = {
             ObjectId: data_specifique.Data.IdComment
         };
         ServerManager.GetSingleComment(data_single_comment, "response", data_specifique, data_position);
@@ -136,6 +135,7 @@ document.getElementById("popup-specifique").addEventListener("opened", function 
     id_response_specifique = undefined;
 });
 document.getElementById("popup-specifique").addEventListener("closed", function () {
+    commentaire_unique = null;
     in_specifique = false;
     response_current_index = 0;
     id_response_specifique = undefined;

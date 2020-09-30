@@ -274,8 +274,8 @@ function block(params) {
         this.fimg_impression_comment.className = "fimg_impression";
         this.fimg_impression_comment.src =
             this.IsComment == 1 ?
-                "src/icons/Comment_filled.png" :
-                "src/icons/Comment.png";
+            "src/icons/Comment_filled.png" :
+            "src/icons/Comment.png";
         this.fcomment.appendChild(this.fimg_impression_comment);
         this.ftxt_impression_comment = document.createElement("p");
         this.ftxt_impression_comment.className = "ftxt_impression";
@@ -540,7 +540,7 @@ function block(params) {
     $(this.fimg_impression_comment).on("click", function () {
         if (connected) {
             current_flow_block = block; +
-                current_flow_block.Comments == 0 ?
+            current_flow_block.Comments == 0 ?
                 (text_comment_number = current_flow_block.Comments + " commentaire") :
                 (text_comment_number = current_flow_block.Comments + " commentaires")
             $(".fcomment_number").text(text_comment_number);
@@ -726,9 +726,9 @@ function go_to_account(data) {
         Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
     facebookConnectPlugin.logEvent(
         "current_page", {
-        page: current_page,
-        duration: time_in_last_screen,
-    },
+            page: current_page,
+            duration: time_in_last_screen,
+        },
         null,
         function () {
             console.log("fb current_page event success");
@@ -852,7 +852,7 @@ function UpdateCommentList(response, data_block) {
                 /@[^ ]+/gi,
                 '<span class="tagged_users">$&</span>'
             );*/
-            if (commentaire_unique.ObjectId != comment_data.IdComment) {
+            if ((commentaire_unique && commentaire_unique.ObjectId != comment_data.IdComment) || !commentaire_unique) {
                 let block_commentaire = new block_comment(comment_data);
                 current_flow_block.all_comment_blocks.push(block_commentaire);
                 $(".fblock_comment_content").append(block_commentaire);
