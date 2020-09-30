@@ -1,5 +1,5 @@
 var all_notifications_block = [];
-
+var loading_before_popup_specifique;
 function block_notification_like(data) { //type permet de defini si c'est le like d'un flow ou le like d'un commentaire
     this.seen = !!+data.IsView;
     var block_notification_like = this;
@@ -133,6 +133,10 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
 
 
     $(this.block_notification_like).on("click", function () {
+        loading_before_popup_specifique = document.createElement("div");
+        loading_before_popup_specifique.className = "loading-spinner loading_tl";
+        $("#tab4").append(loading_before_popup_specifique);
+        $(loading_before_popup_specifique).css("top", "46vh");
         $(block_notification_like.fred_dot_border).css('display', 'none');
         console.log("le point rouge shoud disparaitre pour de la notif de like");
         set_seen(block_notification_like);
@@ -153,7 +157,7 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
             {
                 ObjectId: block_notification_like.Id_response
             };
-            ServerManager.GetSingleResponse(data_single_response);
+            ServerManager.GetRankOfResponse(data_single_response);
         }
         if (block_notification_like.like_comment != "like_comment" && block_notification_like.like_comment != "like_response") {
             let data_flow = {
@@ -235,6 +239,7 @@ function block_notification_comment(data) {
         this.IdFlow = data.additionalData.sender_info.IdFlow;
         this.Id_comment = data.additionalData.sender_info.Id_comment;
         this.seen = false;
+
     } else {
         this.full_name = data.FullName;
         this.message = data.Content;
@@ -249,6 +254,9 @@ function block_notification_comment(data) {
         }
         if (data.TypeOfNotification == "like_response" || data.TypeOfNotification == "send_response") {
             this.Id_response = data.ObjectId;
+        }
+        if (data.TypeOfNotification == "tag_in_flow") {
+            this.IdFlow = data.ObjectId;
         }
     }
     if (this.message.length > 28) this.message = this.message.substring(0, 28) + "...";
@@ -277,6 +285,11 @@ function block_notification_comment(data) {
         if (this.fnotif_label.innerText.length > 28) this.fnotif_label.innerText = this.fnotif_label.innerText.substring(0, 28) + "...";
     }
 
+    if (data.TypeOfNotification == "tag_in_flow") {
+        this.fnotif_label.innerText = '@' + this.private_Id + " t'a identifié dans un flow";
+        if (this.fnotif_label.innerText.length > 28) this.fnotif_label.innerText = this.fnotif_label.innerText.substring(0, 28) + "...";
+    }
+
     this.block_notification_comment.appendChild(this.fnotif_label);
 
     this.fnotif_text = document.createElement('label');
@@ -300,6 +313,10 @@ function block_notification_comment(data) {
     this.block_notification_comment.appendChild(this.ftime);
 
     $(this.block_notification_comment).on("click", function () {
+        loading_before_popup_specifique = document.createElement("div");
+        loading_before_popup_specifique.className = "loading-spinner loading_tl";
+        $("#tab4").append(loading_before_popup_specifique);
+        $(loading_before_popup_specifique).css("top", "46vh");
         $(block_notification_comment.fred_dot_border).css('display', 'none');
         set_seen(block_notification_comment);
         check_seen();
@@ -318,7 +335,13 @@ function block_notification_comment(data) {
             {
                 ObjectId: block_notification_comment.Id_response
             };
-            ServerManager.GetSingleResponse(data_single_response);
+            ServerManager.GetRankOfResponse(data_single_response);
+        }
+        if (block_notification_comment.like_comment == "tag_in_flow") {
+            let data_flow = {
+                IdFlow: block_notification_comment.IdFlow,
+            };
+            ServerManager.GetSingle(data_flow);
         }
     });
 
@@ -760,7 +783,8 @@ function send_notif_to_user(block, type) {
         like_comment_text: block.fcomment_text, // texte lorsque l'on like un commentaire
         IdFlow: prepare_id_flow == undefined ? prepare_id_flow = "undefined" : prepare_id_flow,
         Id_comment: block.IdComment /*? block.ObjectId : undefined*/,
-        Id_response: block.Idresponse /*? block.ObjectId : undefined*/
+        Id_response: block.Idresponse /*? block.ObjectId : undefined*/,
+        tag_in_flow: block.tag_in_flow
     };
     if (sender_info.comment_text == undefined) {
         sender_info.comment_text = sender_info.post_texte;
@@ -899,6 +923,51 @@ function send_notif_to_user(block, type) {
             ServerManager.Send_notif(data);
 
             break;
+
+        case 'tag_in_flow':
+            if (block.LastOs == "ios") {
+                data = {
+                    "data": {
+                        "title": sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " t'a identifié dans un flow : " + block.Comment_text,
+                        "type": "tag_in_flow",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "notification": {
+                        "title": sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " t'a identifié dans un flow : " + block.Comment_text,
+                        "type": "tag_in_flow",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "to": block.RegisterId
+                    //registrationId
+                };
+            } else {
+                data = {
+                    "data": {
+                        "title": sender_info.fullname,
+                        "body": "@" + sender_info.privateId + " t'a identifié dans un flow : " + block.Comment_text,
+                        "type": "tag_in_flow",
+                        "sender_info": sender_info,
+                        "force-start": 1,
+                        "notId": noteId,
+                        "content_available": true,
+                        "priority": "high"
+                    },
+                    "to": block.RegisterId
+                    //registrationId
+                };
+            }
+            ServerManager.Send_notif(data);
+
+            break;
+
 
         case 'send_response':
             if (block.current_flow_block.LastOs == "ios") {
@@ -1167,6 +1236,11 @@ function pop_notif_block(data) { //bloc de notif de l'onglet notifications
 
             push_notif_block('story_comment', data);
             break;
+
+        case 'tag_in_flow':
+
+            push_notif_block('comment', data);
+            break;
     }
 }
 
@@ -1195,13 +1269,14 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
 
         case 'send_comment':
 
-            if (data.additionalData.tag_in_comment) {
+            if (data.additionalData.tag_in_comment || data.additionalData.sender_info.tag_in_flow) {
                 $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " t'a identifié");
             }
             else {
 
                 $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a commenté ton flow");
             }
+
             $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
 
             // $(".f_in_app_notif").on("click", function () {
@@ -1231,7 +1306,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
             //     {
             //         ObjectId: data.additionalData.sender_info.Id_response
             //     };
-            //     ServerManager.GetSingleResponse(data_single_response);
+            //     ServerManager.GetRankOfResponse(data_single_response);
             // });
             break;
 
@@ -1259,7 +1334,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
             //     {
             //         ObjectId: data.additionalData.sender_info.Id_response
             //     };
-            //     ServerManager.GetSingleResponse(data_single_response);
+            //     ServerManager.GetRankOfResponse(data_single_response);
             // });
             break;
 

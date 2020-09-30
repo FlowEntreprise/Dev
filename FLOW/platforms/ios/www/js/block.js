@@ -5,6 +5,7 @@ var audio_playing = false;
 var CanRefreshCommentList = false;
 var CommentListCurrentIndex = 0;
 var current_block_playing = null;
+var commentaire_unique;
 /*********** BLOCK PARAMS *************
  * var block_params = {
     parent_element: undefined,
@@ -233,7 +234,7 @@ function block(params) {
 
         this.fpost_description = document.createElement("div");
         this.fpost_description.className = "fpost_description";
-        this.fpost_description.innerHTML = params.description;
+        this.fpost_description.innerHTML = params.description.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>');
         this.fbottom_part.appendChild(this.fpost_description);
 
         this.fpost_tag = document.createElement("p");
@@ -296,6 +297,7 @@ function block(params) {
 
         this.finput_description = document.createElement("textarea");
         this.finput_description.className = "finput_description";
+        this.finput_description.id = "finput_description";
         this.finput_description.placeholder = "Touche pour ajouter une description";
         this.finput_description.maxLength = "80";
         this.fbottom_part.appendChild(this.finput_description);
@@ -364,7 +366,7 @@ function block(params) {
     if (params.audioURL) {
         let local_flow = FlowLoader.DownloadFlow(params.audioURL);
         local_flow.OnReady(function (url) {
-            console.log(local_flow);
+            // console.log(local_flow);
             // block.myaudio.src = url;
             // block.myaudio.volume = 1.0;
             block.myaudio = new Media(url, mediaSuccess, mediaFailure, mediaStatus);
@@ -375,7 +377,7 @@ function block(params) {
             }
 
             function mediaFailure(err) {
-                console.log("An error occurred: " + err.code);
+                // console.log("An error occurred: " + err.code);
             }
 
             function mediaStatus(status) {
@@ -597,7 +599,7 @@ function display_all_comments(block) {
 }
 
 function display_all_likes(block) {
-    //fonction permettant d'affiher tout les likes
+    //fonction permettant d'affiher tout les likes d'un flow
     console.log("display_all_likes");
     likes_index = 0;
     CanRefreshLikes = true;
@@ -616,6 +618,37 @@ function display_all_likes(block) {
     ServerManager.GetFlowLikes(data);
     Popup("popup-likes", true, 40);
     let nb_likes = affichage_nombre(block.Likes, 1);
+    let like_str = "J'aime";
+    if (nb_likes == "0" || nb_likes == "1") like_str = "J'aime";
+    $(".flikes_number").text(nb_likes + " " + like_str);
+}
+
+function display_comment_likes(comment, is_response) {
+    //fonction permettant d'affiher tout les likes d'un commentaire
+    console.log("display_comment_likes");
+    likes_index = 0;
+    CanRefreshLikes = true;
+    $(".fblock_likes_content").html("");
+    var loading_likes = document.createElement("div");
+    loading_likes.className = "loading-spinner loading_tl loading_likes";
+    $(".fblock_likes_content").append(loading_likes);
+    $(".flikes_number").text("");
+    console.log(comment);
+    let ObjectId = comment.ObjectId;
+    /*?
+           block.ObjectId :
+           block.additionalData.sender_info.IdFlow;*/
+    let data = {
+        Index: likes_index,
+        ObjectId: ObjectId,
+    };
+    if (is_response) {
+        ServerManager.GetResponseLikes(data);
+    } else {
+        ServerManager.GetCommentLikes(data);
+    }
+    Popup("popup-likes", true, 50);
+    let nb_likes = affichage_nombre(comment.Likes, 1);
     let like_str = "J'aime";
     if (nb_likes == "0" || nb_likes == "1") like_str = "J'aime";
     $(".flikes_number").text(nb_likes + " " + like_str);
@@ -815,13 +848,16 @@ function UpdateCommentList(response, data_block) {
                 Responses: response.Data[i].Responses, //nombre de reponses
             };
 
-            comment_data.Comment = comment_data.Comment.replace(
+            /*comment_data.Comment = comment_data.Comment.replace(
                 /@[^ ]+/gi,
                 '<span class="tagged_users">$&</span>'
-            );
-            let block_commentaire = new block_comment(comment_data);
-            current_flow_block.all_comment_blocks.push(block_commentaire);
-            $(".fblock_comment_content").append(block_commentaire);
+            );*/
+            if (commentaire_unique.ObjectId != comment_data.IdComment) {
+                let block_commentaire = new block_comment(comment_data);
+                current_flow_block.all_comment_blocks.push(block_commentaire);
+                $(".fblock_comment_content").append(block_commentaire);
+            }
+
         }
 
         if ($(".loading_tl")) $(".loading_tl").remove();

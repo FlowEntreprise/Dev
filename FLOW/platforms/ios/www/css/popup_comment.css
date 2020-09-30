@@ -180,6 +180,19 @@ position: relative;
     left: 7vw;
 }
 
+.fblock_comment_label_reponses_precedentes
+{
+	position: relative;
+    top: calc(0.5 * var(--custom-vh));
+    color: #92abb2;
+    font-size: calc(1.5 * var(--custom-vh));
+    font-family: "Roboto-Light";
+    font-weight: 600;    
+    display: inline-flex;   
+    text-align: center;        
+	display: none;
+}
+
 .afficher_plus_de_reponses_container
 {
 text-align: center;
@@ -299,6 +312,13 @@ transition: height 0.25s;
 .tagged_users {
 	font-weight: bold;
 	color: dodgerblue;
+}
+.flow_tagged_users
+{
+	color: dodgerblue;
+	text-align: unset !important; 
+	display: unset !important;
+	font-size: unset !important;
 }
 
 #finput_comment {
