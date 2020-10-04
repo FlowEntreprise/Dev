@@ -19,7 +19,7 @@ var user_is_blocked;
 var blocked_by_user;
 var last_scroll = 0;
 
-function alertDismissed() {};
+function alertDismissed() { };
 
 function fInitialisationAccount(privateId) {
     $("#UserActivity")[0].innerHTML = "";
@@ -692,7 +692,7 @@ function FollowResponse(response, type, element) {
             $("#ffollowersBandeauChiffre").html(Follower);
         }
 
-    } else {}
+    } else { }
     $("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
     manageFollow(type, element);
 }
@@ -704,24 +704,37 @@ $("#block_button").on('click', function () {
     if (user_is_blocked == false) { // block.png icone grise donc user debloqué
         navigator.notification.confirm("Veux-tu vraiment bloquer cet utilisateur ?", function (id) {
             if (id == 1) {
+                function alertDismissed() {
 
-                let data = {
-                    additionalData: {
-                        type: "block_user",
-                        privateId: privateIDAccount
-                    }
-                };
-                ServerManager.BlockUser(data);
-                $("#block_button").css('background-image', 'url("src/icons/block_filled.png")');
-                $("#fFollowYouButtunAccount").css("display", "none");
-                $("#fFollowButtunAccount").removeClass("activeButtunFollow");
-                $("#fFollowButtunAccount").text("S'ABONNER");
-                if (follow == true && Follower > 0) {
-                    Follower = +Follower - 1;
                 }
+                // On me bloque pas moi.
+                if (privateIDAccount == "King.Chris" || privateIDAccount == "CRYOS" || privateIDAccount == "Vicfou") {
+                    navigator.notification.alert(
+                        'Une erreur est survenue veuillez réessayer ultérieurement',
+                        alertDismissed,
+                        'Information',
+                        'Ok'
+                    );
+                }
+                else {
+                    let data = {
+                        additionalData: {
+                            type: "block_user",
+                            privateId: privateIDAccount
+                        }
+                    };
+                    ServerManager.BlockUser(data);
+                    $("#block_button").css('background-image', 'url("src/icons/block_filled.png")');
+                    $("#fFollowYouButtunAccount").css("display", "none");
+                    $("#fFollowButtunAccount").removeClass("activeButtunFollow");
+                    $("#fFollowButtunAccount").text("S'ABONNER");
+                    if (follow == true && Follower > 0) {
+                        Follower = +Follower - 1;
+                    }
 
-                $("#ffollowersBandeauChiffre").html(Follower);
-                user_is_blocked = true;
+                    $("#ffollowersBandeauChiffre").html(Follower);
+                    user_is_blocked = true;
+                }
             }
         }, "Confirmation", ["Oui", "Annuler"]);
 

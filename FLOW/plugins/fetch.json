@@ -248,5 +248,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-app-review": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-app-review"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

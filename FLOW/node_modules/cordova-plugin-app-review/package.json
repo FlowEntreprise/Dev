@@ -1,0 +1,64 @@
+{
+  "_from": "cordova-plugin-app-review",
+  "_id": "cordova-plugin-app-review@2.0.1",
+  "_inBundle": false,
+  "_integrity": "sha512-aqpKnVnm7QvC6/jUxEIaIc0hgm0cH5q1YT8O7CP/5hdwReTElAknG7ZyAVtKr5YYv6i6jrMHeCqR4xiOIGm7iQ==",
+  "_location": "/cordova-plugin-app-review",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-app-review",
+    "name": "cordova-plugin-app-review",
+    "escapedName": "cordova-plugin-app-review",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-app-review/-/cordova-plugin-app-review-2.0.1.tgz",
+  "_shasum": "c8a21b37cfaa95c3ef4513f82129ba018bd942d6",
+  "_spec": "cordova-plugin-app-review",
+  "_where": "C:\\Users\\chris\\Documents\\GitHub\\Dev\\FLOW",
+  "author": {
+    "name": "Maksim Chemerisuk",
+    "email": "chemerisuk@gmail.com",
+    "url": "https://github.com/chemerisuk"
+  },
+  "bugs": {
+    "url": "https://github.com/chemerisuk/cordova-plugin-app-review/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-app-review",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova plugin to review app",
+  "homepage": "https://github.com/chemerisuk/cordova-plugin-app-review#readme",
+  "keywords": [
+    "cordova",
+    "review",
+    "inapp review",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-app-review",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chemerisuk/cordova-plugin-app-review.git"
+  },
+  "scripts": {
+    "postversion": "git push && git push --tags",
+    "version": "replace -s 'version=\"(.+)(?=\">)' 'version=\"'$npm_package_version plugin.xml && git add plugin.xml"
+  },
+  "version": "2.0.1"
+}

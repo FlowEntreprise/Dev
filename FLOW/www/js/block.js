@@ -540,7 +540,7 @@ function block(params) {
     $(this.fimg_impression_comment).on("click", function () {
         if (connected) {
             current_flow_block = block; +
-                current_flow_block.Comments == 0 ?
+                current_flow_block.Comments <= 1 ?
                 (text_comment_number = current_flow_block.Comments + " commentaire") :
                 (text_comment_number = current_flow_block.Comments + " commentaires")
             $(".fcomment_number").text(text_comment_number);
@@ -852,11 +852,12 @@ function UpdateCommentList(response, data_block) {
                 /@[^ ]+/gi,
                 '<span class="tagged_users">$&</span>'
             );*/
-            if (commentaire_unique.ObjectId != comment_data.IdComment) {
+            if ((commentaire_unique && commentaire_unique.ObjectId != comment_data.IdComment) || !commentaire_unique) {
                 let block_commentaire = new block_comment(comment_data);
                 current_flow_block.all_comment_blocks.push(block_commentaire);
                 $(".fblock_comment_content").append(block_commentaire);
             }
+
 
         }
 
