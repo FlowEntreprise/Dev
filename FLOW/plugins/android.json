@@ -35,7 +35,24 @@
     "cordova-plugin-camera": {
       "ANDROID_SUPPORT_V4_VERSION": "27.+",
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-customurlscheme": {
+      "URL_SCHEME": "comflowapp",
+      "ANDROID_SCHEME": " ",
+      "ANDROID_HOST": " ",
+      "ANDROID_PATHPREFIX": "/",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-androidx": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    }
+  }
 }

@@ -486,6 +486,28 @@ module.exports = [
     "clobbers": [
       "CameraPopoverHandle"
     ]
+  },
+  {
+    "id": "cordova-plugin-customurlscheme.LaunchMyApp",
+    "file": "plugins/cordova-plugin-customurlscheme/www/android/LaunchMyApp.js",
+    "pluginId": "cordova-plugin-customurlscheme",
+    "clobbers": [
+      "window.plugins.launchmyapp"
+    ]
+  },
+  {
+    "id": "es6-promise-plugin.Promise",
+    "file": "plugins/es6-promise-plugin/www/promise.js",
+    "pluginId": "es6-promise-plugin",
+    "runs": true
+  },
+  {
+    "id": "cordova-plugin-x-socialsharing.SocialSharing",
+    "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
+    "pluginId": "cordova-plugin-x-socialsharing",
+    "clobbers": [
+      "window.plugins.socialsharing"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -519,7 +541,11 @@ module.exports.metadata =
   "cordova-plugin-googleplus": "8.1.1",
   "cordova-plugin-dialogs": "2.0.2",
   "cordova-clipboard": "1.3.0",
-  "cordova-plugin-camera": "4.0.4-dev"
+  "cordova-plugin-camera": "4.0.4-dev",
+  "cordova-plugin-customurlscheme": "5.0.2",
+  "es6-promise-plugin": "4.2.2",
+  "cordova-plugin-x-socialsharing": "6.0.2",
+  "cordova-plugin-androidx": "3.0.0"
 };
 // BOTTOM OF METADATA
 });

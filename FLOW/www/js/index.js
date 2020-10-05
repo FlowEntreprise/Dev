@@ -84,9 +84,9 @@ var app = {
       Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
     facebookConnectPlugin.logEvent(
       "current_page", {
-      page: current_page,
-      duration: time_in_last_screen,
-    },
+        page: current_page,
+        duration: time_in_last_screen,
+      },
       null,
       function () {
         console.log("fb current_page event success");
@@ -134,9 +134,9 @@ var app = {
       Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
     facebookConnectPlugin.logEvent(
       "current_page", {
-      page: current_page,
-      duration: time_in_last_screen,
-    },
+        page: current_page,
+        duration: time_in_last_screen,
+      },
       null,
       function () {
         console.log("fb current_page event success");
@@ -149,8 +149,8 @@ var app = {
 
     httpd =
       cordova && cordova.plugins && cordova.plugins.CorHttpd ?
-        cordova.plugins.CorHttpd :
-        null;
+      cordova.plugins.CorHttpd :
+      null;
 
     // No need since no using workers anymore
     // httpd.startServer({
@@ -352,6 +352,17 @@ function online() {
   ServerManager.GetStory();
 }
 
+window.handleOpenURL = function (url) {
+  setTimeout(function () {
+    console.log("received url: " + url);
+    if (url.includes("share")) {
+      let IdFlow = url.split("share/")[1];
+      ServerManager.GetSingle({
+        IdFlow: IdFlow
+      });
+    }
+  }, 200);
+}
 /*
 J'ai remove ça du config.xml juste pour save ça qq part :
 <preference name="AndroidLaunchMode" value="singleInstance" />

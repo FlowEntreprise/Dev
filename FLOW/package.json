@@ -12,11 +12,14 @@
         "cordova-clipboard": "^1.3.0",
         "cordova-httpd": "git+https://github.com/floatinghotpot/cordova-httpd.git",
         "cordova-plugin-android-permissions": "^1.0.0",
+        "cordova-plugin-androidx": "^3.0.0",
+        "cordova-plugin-androidx-adapter": "^1.1.1",
         "cordova-plugin-app-review": "^2.0.1",
         "cordova-plugin-audioinput": "^1.0.2",
         "cordova-plugin-browsersync": "^1.1.0",
         "cordova-plugin-camera": "file:cordova-plugin-camera-fixed",
         "cordova-plugin-compat": "^1.2.0",
+        "cordova-plugin-customurlscheme": "^5.0.2",
         "cordova-plugin-device": "^2.0.3",
         "cordova-plugin-dialogs": "^2.0.2",
         "cordova-plugin-facebook4": "4.2.1",
@@ -34,11 +37,13 @@
         "cordova-plugin-splashscreen": "git+https://github.com/goinnn/cordova-plugin-splashscreen.git#4.0.0#colors",
         "cordova-plugin-statusbar": "^2.4.2",
         "cordova-plugin-whitelist": "^1.3.3",
+        "cordova-plugin-x-socialsharing": "^6.0.2",
         "cordova-support-android-plugin": "^1.0.1",
         "cordova-support-google-services": "^1.3.1",
         "cordova-twitter3-connect-plugin": "git+https://github.com/guylando/twitterkit3-plugin.git",
         "csp-parse": "0.0.2",
         "elementtree": "^0.1.7",
+        "es6-promise-plugin": "^4.2.2",
         "glob": "^5.0.15",
         "jquery.scrollto": "^2.1.2",
         "npm": "^2.15.12",
@@ -96,7 +101,16 @@
             "cordova-plugin-dialogs": {},
             "cordova-plugin-camera": {
                 "ANDROID_SUPPORT_V4_VERSION": "27.+"
-            }
+            },
+            "cordova-plugin-customurlscheme": {
+                "URL_SCHEME": "comflowapp",
+                "ANDROID_SCHEME": " ",
+                "ANDROID_HOST": " ",
+                "ANDROID_PATHPREFIX": "/"
+            },
+            "cordova-plugin-x-socialsharing": {},
+            "cordova-plugin-androidx": {},
+            "cordova-plugin-androidx-adapter": {}
         },
         "platforms": []
     }
