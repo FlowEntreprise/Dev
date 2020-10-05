@@ -282,6 +282,7 @@ dependencies {
     compile "org.json:json:20171018"
     compile "com.google.android.gms:play-services-auth:15.0.1"
     compile "com.google.android.gms:play-services-identity:15.0.1"
+    compile "com.google.android.play:core:1.8.0"
     // SUB-PROJECT DEPENDENCIES END
     implementation 'com.google.firebase:firebase-core:16.0.1'
 }

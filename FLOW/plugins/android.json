@@ -1,58 +1,62 @@
 {
-	"prepare_queue": {
-		"installed": [],
-		"uninstalled": []
-	},
-	"config_munge": {
-		"files": {}
-	},
-	"installed_plugins": {
-		"cordova-plugin-android-permissions": {
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"cordova-plugin-audioinput": {
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"cordova-plugin-browsersync": {
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"com.rjfun.cordova.httpd": {
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"cordova-plugin-device": {
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"cordova-plugin-googleplus": {
-			"PLAY_SERVICES_VERSION": "15.0.1",
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"cordova-plugin-dialogs": {
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"cordova-clipboard": {
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"cordova-plugin-camera": {
-			"ANDROID_SUPPORT_V4_VERSION": "27.+",
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"cordova-plugin-customurlscheme": {
-			"URL_SCHEME": "comflowapp",
-			"ANDROID_SCHEME": " ",
-			"ANDROID_HOST": " ",
-			"ANDROID_PATHPREFIX": "/",
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"cordova-plugin-x-socialsharing": {
-			"PACKAGE_NAME": "com.flowapp.flow"
-		},
-		"cordova-plugin-androidx": {
-			"PACKAGE_NAME": "com.flowapp.flow"
-		}
-	},
-	"dependent_plugins": {
-		"es6-promise-plugin": {
-			"PACKAGE_NAME": "com.flowapp.flow"
-		}
-	}
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-audioinput": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-browsersync": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "com.rjfun.cordova.httpd": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-googleplus": {
+      "PLAY_SERVICES_VERSION": "15.0.1",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-clipboard": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-camera": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-customurlscheme": {
+      "URL_SCHEME": "comflowapp",
+      "ANDROID_SCHEME": " ",
+      "ANDROID_HOST": " ",
+      "ANDROID_PATHPREFIX": "/",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-androidx": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-launch-review": {
+      "ANDROID_PLAY_SERVICES_CORE_VERSION": "1.8.0",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    }
+  },
+  "dependent_plugins": {
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    }
+  }
 }
