@@ -708,7 +708,7 @@ $("#block_button").on('click', function () {
 
                 }
                 // On me bloque pas moi.
-                if (privateIDAccount == "King.Chris" || privateIDAccount == "CRYOS" || privateIDAccount == "Vicfou") {
+                if (privateIDAccount.toUpperCase() == "KING.CHRIS" || privateIDAccount.toUpperCase() == "CRYOS" || privateIDAccount.toUpperCase() == "VICFOU") {
                     navigator.notification.alert(
                         'Une erreur est survenue veuillez réessayer ultérieurement',
                         alertDismissed,
