@@ -259,12 +259,12 @@ var app = {
             ServerManager.GetSingle(data_flow);
           }
         }
-
+        refresh_notif(true);
       }
       if (data.additionalData.foreground == true) {
         in_app_notif(data);
+        refresh_notif();
       }
-      refresh_notif(true);
     });
 
     push.on("error", function (e) {
