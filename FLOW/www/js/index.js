@@ -259,17 +259,12 @@ var app = {
             ServerManager.GetSingle(data_flow);
           }
         }
+
       }
       if (data.additionalData.foreground == true) {
         in_app_notif(data);
       }
-      let data_notification = {
-        PrivateId: window.localStorage.getItem("user_private_id"),
-        Index: 0,
-      };
-      NotificationListCurrentIndex = 0;
-      ServerManager.GetNotificationOfUser(data_notification);
-      //pop_notif_block(data);
+      refresh_notif(true);
     });
 
     push.on("error", function (e) {

@@ -59,7 +59,7 @@ function flow_specifique(data, LinkBuilder, show_comment, type, data_specifique,
     }
     console.log("Pop Flow");
     console.log(new_block);
-
+    set_all_notifs_to_seen();
 
 }
 

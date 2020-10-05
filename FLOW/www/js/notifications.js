@@ -568,19 +568,7 @@ $(".fnotif-btn").on("click", function () {
     // var home_scrolling = false;
     if (current_page == "notifications") {
 
-        for (let i = 0; i < all_notifications_block.length; i++) {
-
-            let data_notif_seen = {
-                IdNotif: all_notifications_block[i].IdNotif
-            };
-            ServerManager.UpdateNotificationToView(data_notif_seen);
-            all_notifications_block[i].seen = true;
-            if (all_notifications_block[i].fred_dot_border) {
-                all_notifications_block[i].fred_dot_border.remove();
-            }
-
-        }
-        $(".fred_dot_toolbar_new_notif").css("display", "none");
+        set_all_notifs_to_seen();
         let element = document.getElementById("tab4");
         // element.onscroll = function() {
         //     home_scrolling = true;
@@ -606,15 +594,34 @@ var ptrNotif = $$('.pull-to-refresh-content');
 ptrNotif.on('ptr:refresh', function (e) {
     // Emulate 2s loading
     console.log("refreshing...");
-    NotificationListCurrentIndex = 0;
-    let data_update_Notification_list = {
-        PrivateId: window.localStorage.getItem("user_private_id"),
-        Index: NotificationListCurrentIndex
-    };
-    ServerManager.GetNotificationOfUser(data_update_Notification_list);
-    check_seen();
+    refresh_notif(true);
 });
 
+function refresh_notif(set_to_seen) {
+    let data_notification = {
+        PrivateId: window.localStorage.getItem("user_private_id"),
+        Index: 0,
+    };
+    NotificationListCurrentIndex = 0;
+    all_notifications_block.length = 0;
+    ServerManager.GetNotificationOfUser(data_notification, set_to_seen);
+}
+
+function set_all_notifs_to_seen() {
+    for (let i = 0; i < all_notifications_block.length; i++) {
+        let data_notif_seen = {
+            IdNotif: all_notifications_block[i].IdNotif
+        };
+        if (all_notifications_block[i].seen != true) {
+            ServerManager.UpdateNotificationToView(data_notif_seen);
+            all_notifications_block[i].seen = true;
+            if (all_notifications_block[i].fred_dot_border) {
+                all_notifications_block[i].fred_dot_border.remove();
+            }
+        }
+    }
+    $(".fred_dot_toolbar_new_notif").css("display", "none");
+}
 
 ptrNotif.on('ptr:pullstart', function (e) {
     console.log("pull start");
@@ -658,7 +665,7 @@ $("#tab4").scroll(function () {
     }
 });
 
-function UpdateNotificationList(data) {
+function UpdateNotificationList(data, set_to_seen) {
     console.log("updating notification list...");
     // console.log(data.Data);
     if (Array.isArray(data.Data)) {
@@ -667,37 +674,39 @@ function UpdateNotificationList(data) {
         } else {
             $(".no_notif")[0].style.display = "block";
         }
-        setTimeout(function () {
-            if ($(".loading_tl")) $(".loading_tl").remove();
-            if (NotificationListCurrentIndex == 0) {
-                $(".list-notif-block")[0].innerHTML = "";
-                let loading_tl = document.createElement("div");
-                loading_tl.className = "loading-spinner loading_tl";
-                $(".list-notif-block")[0].appendChild(loading_tl);
-            }
-            for (let i = 0; i < data.Data.length; i++) {
-                pop_notif_block(data.Data[i]);
-            }
-            NotificationListCurrentIndex++;
-            if ($(".loading_tl")) $(".loading_tl").remove();
-            console.log("notification updated !");
-            if (data.Data.length < 10) {
-                CanRefreshNotificationList = false;
-                let tick_tl = document.createElement("div");
-                tick_tl.className = "tick_icon";
-                $(".list-notif-block")[0].appendChild(tick_tl);
+        if ($(".loading_tl")) $(".loading_tl").remove();
+        if (NotificationListCurrentIndex == 0) {
+            $(".list-notif-block")[0].innerHTML = "";
+            let loading_tl = document.createElement("div");
+            loading_tl.className = "loading-spinner loading_tl";
+            $(".list-notif-block")[0].appendChild(loading_tl);
+        }
+        for (let i = 0; i < data.Data.length; i++) {
+            pop_notif_block(data.Data[i]);
+        }
+        NotificationListCurrentIndex++;
+        if ($(".loading_tl")) $(".loading_tl").remove();
+        console.log("notification updated !");
+        if (data.Data.length < 10) {
+            CanRefreshNotificationList = false;
+            let tick_tl = document.createElement("div");
+            tick_tl.className = "tick_icon";
+            $(".list-notif-block")[0].appendChild(tick_tl);
 
-            } else {
-                CanRefreshNotificationList = true;
-                let loading_tl = document.createElement("div");
-                loading_tl.className = "loading-spinner loading_tl";
-                $(".list-notif-block")[0].appendChild(loading_tl);
-            }
-        }, 500);
+        } else {
+            CanRefreshNotificationList = true;
+            let loading_tl = document.createElement("div");
+            loading_tl.className = "loading-spinner loading_tl";
+            $(".list-notif-block")[0].appendChild(loading_tl);
+        }
         notification_list_empty = false;
+        if (set_to_seen) {
+            set_all_notifs_to_seen();
+        }
     } else {
         $(".no_notif")[0].style.display = "block";
     }
+
 }
 
 // fin du copié collé de la fonction de scroll de fdp
