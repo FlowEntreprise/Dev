@@ -265,5 +265,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-launch-review": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-launch-review@^4.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

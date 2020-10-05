@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-  ServerURL: "https://api-test.flowappweb.com/",
+  ServerURL: "https://api.flowappweb.com/",
   ConnexionURL: "ConnexionFromApi",
   AddFlowURL: "AddFlow",
   GetSingleFlowURL: "GetSingle",
@@ -1178,7 +1178,7 @@ class ServerManagerClass {
     });
   }
 
-  GetNotificationOfUser(data) {
+  GetNotificationOfUser(data, set_to_seen) {
     let final_data = {
       Data: data,
       TokenId: window.localStorage.getItem("user_token"),
@@ -1189,7 +1189,7 @@ class ServerManagerClass {
       url: ServerParams.ServerURL + ServerParams.GetNotificationOfUser,
       data: JSON.stringify(final_data),
       success: function (response) {
-        UpdateNotificationList(response);
+        UpdateNotificationList(response, set_to_seen);
       },
       error: function (response) {
         //console.log(response);

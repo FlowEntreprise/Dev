@@ -13,6 +13,7 @@
     "cordova-httpd": "git+https://github.com/floatinghotpot/cordova-httpd.git",
     "cordova-ios": "6.1.0",
     "cordova-labs-local-webserver": "git+https://github.com/apache/cordova-plugins.git#local-webserver",
+    "cordova-launch-review": "^4.0.0",
     "cordova-plugin-android-permissions": "^1.0.0",
     "cordova-plugin-apple-login": "^1.0.0",
     "cordova-plugin-audioinput": "^1.0.2",

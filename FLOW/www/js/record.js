@@ -15,8 +15,6 @@ var patternKey;
 var blob;
 var audioURL;
 
-var ios_photos_init = false;
-
 let options = {
     quality: 75,
     widthRatio: 1,
@@ -762,14 +760,9 @@ function TakePhoto() {
             }
         });
     } else {
-        // if (window.localStorage.getItem("ios_photos_init") != "true") {
-        if (!ios_photos_init) {
+        capturePhoto();
+        if (window.localStorage.getItem("ios_photos_init") != "true") {
             $(".ios_camera_auth")[0].style.display = "block";
-            setTimeout(function () {
-                capturePhoto();
-            }, 500);
-        } else {
-            capturePhoto();
         }
     }
 }
@@ -804,22 +797,16 @@ function GetPhotoFromGallery(is_profile_picture) {
             }
         });
     } else {
-        // if (window.localStorage.getItem("ios_photos_init") != "true") {
-        if (!ios_photos_init) {
+        getPhoto(is_profile_picture);
+        if (window.localStorage.getItem("ios_photos_init") != "true") {
             $(".ios_camera_auth")[0].style.display = "block";
-            setTimeout(function () {
-                getPhoto(is_profile_picture);
-            }, 500);
-        } else {
-            getPhoto(is_profile_picture);
         }
     }
 }
 
 function onPhotoDataSuccess(imageData) {
     $(".ios_camera_auth")[0].style.display = "none";
-    // window.localStorage.setItem("ios_photos_init", "true");
-    ios_photos_init = true;
+    window.localStorage.setItem("ios_photos_init", "true");
 
     var options = {
         url: imageData, // required.
@@ -880,8 +867,7 @@ function getPhoto(is_profile_picture) {
 function onFail(message) {
     appState.takingPicture = false;
     $(".ios_camera_auth")[0].style.display = "none";
-    // window.localStorage.setItem("ios_photos_init", "true");
-    ios_photos_init = true;
+    window.localStorage.setItem("ios_photos_init", "true");
     console.log(message);
     // alert('Failed because: ' + message);
 }
