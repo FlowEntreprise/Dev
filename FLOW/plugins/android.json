@@ -35,6 +35,10 @@
     "cordova-plugin-camera": {
       "ANDROID_SUPPORT_V4_VERSION": "27.+",
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-launch-review": {
+      "ANDROID_PLAY_SERVICES_CORE_VERSION": "1.8.0",
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {}

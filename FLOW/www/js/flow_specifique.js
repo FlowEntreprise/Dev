@@ -59,7 +59,6 @@ function flow_specifique(data, LinkBuilder, show_comment, type, data_specifique,
     }
     console.log("Pop Flow");
     console.log(new_block);
-    set_all_notifs_to_seen();
 
 }
 
@@ -151,3 +150,43 @@ document.getElementById("popup-specifique").addEventListener("closed", function 
     }
     stopAllBlocksAudio();
 });
+
+
+
+
+
+
+var MAX_DIALOG_WAIT_TIME = 5000; //max time to wait for rating dialog to display
+var ratingTimerId;
+
+LaunchReview.rating(function (result) {
+    if (cordova.platformId === "android") {
+        console.log("Rating dialog displayed");
+        window.localStorage.setItem("last_ask_user_rating", date.now());
+    } else if (cordova.platformId === "ios") {
+        if (result === "requested") {
+            console.log("Requested display of rating dialog");
+
+            ratingTimerId = setTimeout(function () {
+                console.warn("Rating dialog was not shown (after " + MAX_DIALOG_WAIT_TIME + "ms)");
+            }, MAX_DIALOG_WAIT_TIME);
+        } else if (result === "shown") {
+            console.log("Rating dialog displayed");
+            window.localStorage.setItem("last_ask_user_rating", date.now());
+            clearTimeout(ratingTimerId);
+        } else if (result === "dismissed") {
+            console.log("Rating dialog dismissed");
+        }
+    }
+
+}, function (err) {
+    console.log("Error opening rating dialog: " + err);
+});
+
+setTimeout(function () {
+    let last_review = Math.floor((Date.now() - window.localStorage.getItem("last_ask_user_rating")) / 1000 / 60 / 60 / 24);
+    if (last_review > 5) {
+        LaunchReview.rating();
+    }
+}, 270000);
+

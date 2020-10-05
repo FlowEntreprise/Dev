@@ -486,6 +486,14 @@ module.exports = [
     "clobbers": [
       "CameraPopoverHandle"
     ]
+  },
+  {
+    "id": "cordova-launch-review.LaunchReview",
+    "file": "plugins/cordova-launch-review/www/launchreview.js",
+    "pluginId": "cordova-launch-review",
+    "clobbers": [
+      "LaunchReview"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -519,7 +527,8 @@ module.exports.metadata =
   "cordova-plugin-googleplus": "8.1.1",
   "cordova-plugin-dialogs": "2.0.2",
   "cordova-clipboard": "1.3.0",
-  "cordova-plugin-camera": "4.0.4-dev"
+  "cordova-plugin-camera": "4.0.4-dev",
+  "cordova-launch-review": "4.0.0"
 };
 // BOTTOM OF METADATA
 });
