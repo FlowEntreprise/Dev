@@ -22,7 +22,7 @@ const ServerParams = {
   GetSingle: "GetSingle",
   GetSingleComment: "GetSingleComment",
   GetSingleResponse: "GetSingleResponse",
-  GetRankOfResponse: "GetRankOfResponse",
+  GetSingleResponseExtended: "GetSingleResponseExtended",
   ActionFollowProfil: "Follow",
   UpdateRegisterId: "UpdateRegisterId",
   GetFollowerOfUser: "GetFollowerOfUser",
@@ -884,7 +884,7 @@ class ServerManagerClass {
     });
   }
 
-  GetSingle(data, show_comment, type, data_specifique, data_position) { // data d'un commentaire ou d'une reponse
+  GetSingle(data, show_comment, type, data_specifique, all_data) { // data d'un commentaire ou d'une reponse
     let final_data = {
       Data: data,
       TokenId: window.localStorage.getItem("user_token"),
@@ -906,7 +906,7 @@ class ServerManagerClass {
           );
           return;
         }
-        flow_specifique(response.Data, response.LinkBuilder, show_comment, type, data_specifique, data_position);
+        flow_specifique(response.Data, show_comment, type, data_specifique, all_data);
       },
       error: function (response) {
         //console.log(response);
@@ -984,7 +984,7 @@ class ServerManagerClass {
     });
   }
 
-  GetRankOfResponse(data) {
+  GetSingleResponseExtended(data) {
     let final_data = {
       Data: data,
       TokenId: window.localStorage.getItem("user_token"),
@@ -992,7 +992,7 @@ class ServerManagerClass {
     //console.log(final_data);
     $.ajax({
       type: "POST",
-      url: ServerParams.ServerURL + ServerParams.GetRankOfResponse,
+      url: ServerParams.ServerURL + ServerParams.GetSingleResponseExtended,
       data: JSON.stringify(final_data),
       success: function (response) {
         //console.log(response);
@@ -1008,12 +1008,7 @@ class ServerManagerClass {
         }
         else {
 
-          let response_position =
-          {
-            rank: response.Data.rank,
-            total: response.Data.total
-          };
-          ServerManager.GetSingleResponse(data, response_position);
+          flow_and_comment_for_response_specifique(response);
         }
       },
       error: function (response) {
