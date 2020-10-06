@@ -214,7 +214,7 @@ var app = {
 
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
-            pas dans l'application */
+			pas dans l'application */
 			if (data.additionalData.foreground == false) {
 				if (window.cordova.platformId == "ios") {
 					data.additionalData.sender_info = JSON.parse(
@@ -254,7 +254,7 @@ var app = {
 						let data_single_response = {
 							ObjectId: data.additionalData.sender_info.Id_response,
 						};
-						ServerManager.GetRankOfResponse(data_single_response);
+						ServerManager.GetSingleResponseExtended(data_single_response);
 					}
 					if (
 						data.additionalData.type == "like_flow" ||
@@ -341,7 +341,7 @@ Storage.prototype.getObj = function (key) {
 // Replace default alert by Sweet Alert
 
 /*window.alert = function (txt) {
-    swal(txt);
+	swal(txt);
 };
 */
 function offline() {
@@ -365,6 +365,54 @@ window.handleOpenURL = function (url) {
 		}
 	}, 200);
 };
+
+var tab1_count = 0;
+var tab2_count = 0;
+var tab3_count = 0;
+var tab4_count = 0;
+$('.fhome-btn').on('click', function () {
+	tab1_count++;
+	setTimeout(function () {
+		tab1_count = 0;
+	}, 1000);
+});
+$('.fexplore-btn').on('click', function () {
+	if (tab1_count == 2) {
+		tab2_count++;
+		setTimeout(function () {
+
+			tab2_count = 0;
+		}, 1000);
+	}
+
+});
+$('.fmessages-btn').on('click', function () {
+	if (tab2_count == 1) {
+		tab3_count++;
+		setTimeout(function () {
+
+			tab3_count = 0;
+		}, 1000);
+	}
+});
+$('.fnotif-btn').on('click', function () {
+
+	if (tab3_count == 5) {
+		if (ServerParams.ServerURL == "https://api-test.flowappweb.com/") {
+			DisconnectUser();
+			ServerParams.ServerURL = "https://api.flowappweb.com/";
+		}
+		else if (ServerParams.ServerURL == "https://api.flowappweb.com/") {
+			DisconnectUser();
+			ServerParams.ServerURL = "https://api-test.flowappweb.com/";
+		}
+		setTimeout(function () {
+
+			tab4_count = 0;
+		}, 1000);
+	}
+
+});
 /*
 J'ai remove ça du config.xml juste pour save ça qq part :
 <preference name="AndroidLaunchMode" value="singleInstance" />
