@@ -8,18 +8,18 @@ var current_block_playing = null;
 var commentaire_unique;
 /*********** BLOCK PARAMS *************
  * var block_params = {
-    parent_element: undefined,
-    afterblock: undefined,
-    audioURL: undefined,
-    duration: undefined,
-    patternKey: undefined,
-    imageURL: undefined,
-    title: undefined,
-    description: undefined,
-    pseudo: undefined,
-    account_imageURL: undefined,
-    Islike,
-    Iscomment
+	parent_element: undefined,
+	afterblock: undefined,
+	audioURL: undefined,
+	duration: undefined,
+	patternKey: undefined,
+	imageURL: undefined,
+	title: undefined,
+	description: undefined,
+	pseudo: undefined,
+	account_imageURL: undefined,
+	Islike,
+	Iscomment
   };
  ****************************************/
 function block(params) {
@@ -577,21 +577,31 @@ function block(params) {
 
 	/*----------------------TEST_LAURE------------
 
-      $(this.fdots).on('click', function () {
+	  $(this.fdots).on('click', function () {
 
-          $("#registration_test").val(registrationId);
-      });
+		  $("#registration_test").val(registrationId);
+	  });
 
-      ----------------------FIN_TEST_LAURE------------*/
-
+	  ----------------------FIN_TEST_LAURE------------*/
 	$(this.fimg_impression_comment).on("click", function () {
 		if (connected) {
-			current_flow_block = block;
-			+current_flow_block.Comments <= 1
-				? (text_comment_number = current_flow_block.Comments + " commentaire")
-				: (text_comment_number = current_flow_block.Comments + " commentaires");
-			$(".fcomment_number").text(text_comment_number);
-			display_all_comments(current_flow_block);
+
+			if (comment_button_was_clicked_in_popup_specifique == false) {
+				current_flow_block = block;
+				+current_flow_block.Comments <= 1
+					? (text_comment_number = current_flow_block.Comments + " commentaire")
+					: (text_comment_number = current_flow_block.Comments + " commentaires");
+				$(".fcomment_number").text(text_comment_number);
+				display_all_comments(current_flow_block);
+			}
+			else {
+				current_flow_block.Comments <= 1
+					? (text_comment_number = current_flow_block.Comments + " commentaire")
+					: (text_comment_number = current_flow_block.Comments + " commentaires");
+				$(".fcomment_number").text(text_comment_number);
+				display_all_comments(current_flow_block);
+				show_specifique_element_for_comment_button(current_notification_block);
+			}
 		} else {
 			Popup("popup-connect", true, 60);
 		}
@@ -683,8 +693,8 @@ function display_comment_likes(comment, is_response) {
 	console.log(comment);
 	let ObjectId = comment.ObjectId;
 	/*?
-           block.ObjectId :
-           block.additionalData.sender_info.IdFlow;*/
+		   block.ObjectId :
+		   block.additionalData.sender_info.IdFlow;*/
 	let data = {
 		Index: likes_index,
 		ObjectId: ObjectId,
@@ -860,7 +870,7 @@ function UpdateCommentList(response, data_block) {
 	// console.log(data.Data);
 	if (Array.isArray(response.Data)) {
 		/*(response.Data.length == 1) ? (text_comment_number = response.Data.length + " commentaire") : (text_comment_number = response.Data.length + " commentaires");
-            $(".fcomment_number").text(text_comment_number);*/
+			$(".fcomment_number").text(text_comment_number);*/
 
 		if ($(".loading_tl")) $(".loading_tl").remove();
 		//$(".fblock_comment_content")[0].innerHTML = "";
@@ -897,9 +907,9 @@ function UpdateCommentList(response, data_block) {
 			};
 
 			/*comment_data.Comment = comment_data.Comment.replace(
-                /@[^ ]+/gi,
-                '<span class="tagged_users">$&</span>'
-            );*/
+				/@[^ ]+/gi,
+				'<span class="tagged_users">$&</span>'
+			);*/
 			if (
 				(commentaire_unique &&
 					commentaire_unique.ObjectId != comment_data.IdComment) ||
@@ -1138,9 +1148,9 @@ document.getElementById("popup-likes").addEventListener("closed", function () {
 
 function iosPolyfill(e, slider) {
 	var val =
-			(e.pageX - slider.getBoundingClientRect().left) /
-			(slider.getBoundingClientRect().right -
-				slider.getBoundingClientRect().left),
+		(e.pageX - slider.getBoundingClientRect().left) /
+		(slider.getBoundingClientRect().right -
+			slider.getBoundingClientRect().left),
 		max = slider.getAttribute("max"),
 		segment = 1 / (max - 1),
 		segmentArr = [];

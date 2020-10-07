@@ -1,3 +1,4 @@
+var comment_button_was_clicked_in_popup_specifique = false;
 function flow_specifique(data, show_comment, type, data_specifique, all_data) { //show comment permet de savoir si les commentaires doivent etre affichées
     //type : un commentaire ou une reponse
     //data_specifique : les datas pour afficher un commentaire specifique ou une reponse specifique
@@ -24,8 +25,13 @@ function flow_specifique(data, show_comment, type, data_specifique, all_data) { 
     };
     //block_params.description = block_params.description.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>');
     var new_block = new block(block_params);
+    current_flow_block = new_block;
     all_blocks.push(new_block);
-    if (show_comment == true) $(new_block.fimg_impression_comment).click();
+    if (show_comment == true && comment_button_was_clicked_in_popup_specifique == false) {
+        $(new_block.fimg_impression_comment).click();
+        comment_button_was_clicked_in_popup_specifique = true;
+    }
+
     if (type == "comment") {
         comment_specifique(data_specifique.Data, type, all_data);
     }
@@ -114,6 +120,7 @@ document.getElementById("popup-specifique").addEventListener("opened", function 
 document.getElementById("popup-specifique").addEventListener("closed", function () {
     commentaire_unique = null;
     in_specifique = false;
+    comment_button_was_clicked_in_popup_specifique = false;
     response_current_index = 0;
     id_response_specifique = undefined;
     you_have_to_prepend_response_specifique = false;

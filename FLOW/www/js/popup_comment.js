@@ -152,7 +152,7 @@ function block_comment(comment_data, comment_is_specifique) {
     this.was_hidden = false;
     this.response_container_previous_height;
     this.all_response_blocks = [];
-
+    this.new_block_response;
     this.fblock_comment = document.createElement('div');
     this.fblock_comment.className = 'fblock_comment';
     if (comment_is_specifique) {
@@ -210,9 +210,6 @@ function block_comment(comment_data, comment_is_specifique) {
             current_comment_block = block_comment;
             if (in_specifique == false) {
                 response_current_index = 0;
-            }
-            if (new_block_response) {
-                new_block_response.fblock_response.remove();
             }
             nombre_de_reponses_restant = current_comment_block.nombre_de_reponses;
             $(current_comment_block.fblock_comment).css("background-color", "");
@@ -295,7 +292,7 @@ function block_comment(comment_data, comment_is_specifique) {
     $(this.label_afficher_plus_de_reponses).on('click', function () {
         you_have_to_prepend_response_specifique = false;
         single_block_response_to_scroll_to = undefined;
-        this.prev().remove();
+        current_comment_block.new_block_response.fblock_response.remove();
         let loading_tl = document.createElement("div");
         loading_tl.className = "loading-spinner loading_tl loading_response";
         $("#popup-comment").append(loading_tl);
@@ -636,8 +633,8 @@ function send_response_to_server(data) {
     }
     $(current_comment_block.fblock_response_container).css("height", "auto");
     $(current_comment_block.fblock_comment).css("background-color", "");
-    var new_block_response = new block_response(response_data, false);
-    current_comment_block.all_response_blocks.push(new_block_response);
+    current_comment_block.new_block_response = new block_response(response_data, false);
+    current_comment_block.all_response_blocks.push(current_comment_block.new_block_response);
     nombre_de_reponses_restant = current_comment_block.nombre_de_reponses;
     console.log("response sucessfully added to database :");
     console.log("data du send response to server" + data + "");

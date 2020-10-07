@@ -898,7 +898,6 @@ class ServerManagerClass {
         //console.log(response);
         //console.log("success dans la recuperation de flow unique");
         if (typeof (response) == "string") {
-          // alert("Ce flow n'est plus disponible");
           navigator.notification.alert(
             "Ce flow n'est plus disponible",
             alertDismissed,
@@ -929,7 +928,6 @@ class ServerManagerClass {
         //console.log(response);
         //console.log("success dans la recuperation de flow unique");
         if (typeof (response) == "string") {
-          // alert("Ce flow n'est plus disponible");
           navigator.notification.alert(
             "Ce commentaire n'est plus disponible",
             alertDismissed,
@@ -965,7 +963,6 @@ class ServerManagerClass {
         //console.log(response);
         //console.log("success dans la recuperation de flow unique");
         if (typeof (response) == "string") {
-          // alert("Ce flow n'est plus disponible");
           navigator.notification.alert(
             "Cette réponse n'est plus disponible",
             alertDismissed,
@@ -998,7 +995,6 @@ class ServerManagerClass {
         //console.log(response);
         //console.log("success dans la recuperation de flow unique");
         if (typeof (response) == "string") {
-          // alert("Ce flow n'est plus disponible");
           navigator.notification.alert(
             "Cette réponse n'est plus disponible",
             alertDismissed,
