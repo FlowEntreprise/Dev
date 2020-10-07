@@ -307,11 +307,15 @@ function block(params) {
 		this.fimg_impression_share.src = "src/icons/share.png";
 		this.fshare.appendChild(this.fimg_impression_share);
 
+		let share_url = "https://share.flowappweb.com/";
+		if (ServerParams.ServerURL.includes("test"))
+			share_url = "https://share-test.flowappweb.com/";
 		// this is the complete list of currently supported params you can pass to the plugin (all optional)
 		let options = {
 			// message: "", // not supported on some apps (Facebook, Instagram)
 			// subject: "FLOW", // fi. for email
-			url: "https://api-test.flowappweb.com/redirect/" + block.ObjectId,
+
+			url: share_url + "redirect/" + block.ObjectId,
 			chooserTitle: "Pick an app", // Android only, you can override the default share sheet title
 			iPadCoordinates: "0,0,0,0", //IOS only iPadCoordinates for where the popover should be point.  Format with x,y,width,height
 		};

@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-  ServerURL: "https://api-test.flowappweb.com/",
+  ServerURL: "https://api.flowappweb.com/",
   ConnexionURL: "ConnexionFromApi",
   AddFlowURL: "AddFlow",
   GetSingleFlowURL: "GetSingle",
@@ -48,7 +48,7 @@ const ServerParams = {
   AddCommentResponse: "AddCommentResponse",
   GetCommentResponse: "GetCommentResponse",
   GetCommentLikes: "GetCommentLikes",
-  GetResponseLikes: "GetResponseLikes"
+  GetResponseLikes: "GetResponseLikes",
 };
 
 const apiTypes = {
@@ -202,7 +202,8 @@ class ServerManagerClass {
     });
 
     let request_data = {
-      url: "https://api.twitter.com/1.1/users/show.json?user_id=" + data.user_id,
+      url:
+        "https://api.twitter.com/1.1/users/show.json?user_id=" + data.user_id,
       method: "GET",
       // data: { status: 'Hello Ladies + Gentlemen, a signed OAuth request!' },
     };
@@ -268,10 +269,14 @@ class ServerManagerClass {
       url: ServerParams.ServerURL + ServerParams.AddFlowURL,
       data: JSON.stringify(final_data),
       success: function (response) {
-        console.log('Flow added sucessfully : ');
+        console.log("Flow added sucessfully : ");
         console.log(response);
         // ServerManager.GetFlowById(response.ObjectId);
-        clean_all_tagged_users(all_tagged_users, response.ObjectId, data.Description); // clean et envoi les notifs
+        clean_all_tagged_users(
+          all_tagged_users,
+          response.ObjectId,
+          data.Description
+        ); // clean et envoi les notifs
         TLCurrentIndex = 0;
         ServerManager.GetTimeline(0);
         CloseAfterRecord();
@@ -415,7 +420,6 @@ class ServerManagerClass {
     });
   }
 
-
   AddCommentResponse(data) {
     let final_data = {
       Data: data,
@@ -441,8 +445,6 @@ class ServerManagerClass {
       },
     });
   }
-
-
 
   GetFlowComment(data) {
     let final_data = {
@@ -492,8 +494,6 @@ class ServerManagerClass {
       },
     });
   }
-
-
 
   GetFlowLikes(data) {
     let final_data = {
@@ -1217,39 +1217,53 @@ class ServerManagerClass {
 
   Send_notif(data) {
     var data_notif_to_bdd;
-    if (data.notification) { //ios
+    if (data.notification) {
+      //ios
       data_notif_to_bdd = {
         TypeNotification: data.notification.type,
         RegisterIdOfUserToNotify: data.to,
         Content: data.notification.sender_info.comment_text,
         IdFlow: data.notification.sender_info.IdFlow,
       };
-      if (data.notification.type == "send_comment" || data.notification.type == "like_comment") {
-        data_notif_to_bdd.IdFlow = data.notification.sender_info.Id_comment
+      if (
+        data.notification.type == "send_comment" ||
+        data.notification.type == "like_comment"
+      ) {
+        data_notif_to_bdd.IdFlow = data.notification.sender_info.Id_comment;
       }
-      if (data.notification.type == "send_response" || data.notification.type == "like_response") {
-        data_notif_to_bdd.IdFlow = data.notification.sender_info.Id_response
+      if (
+        data.notification.type == "send_response" ||
+        data.notification.type == "like_response"
+      ) {
+        data_notif_to_bdd.IdFlow = data.notification.sender_info.Id_response;
       }
-
     } else {
-      data_notif_to_bdd = { // android
+      data_notif_to_bdd = {
+        // android
         TypeNotification: data.data.type,
         RegisterIdOfUserToNotify: data.to,
         Content: data.data.sender_info.comment_text,
         IdFlow: data.data.sender_info.IdFlow,
       };
-      if (data.data.type == "send_comment" || data.data.type == "like_comment") {
-        data_notif_to_bdd.IdFlow = data.data.sender_info.Id_comment
+      if (
+        data.data.type == "send_comment" ||
+        data.data.type == "like_comment"
+      ) {
+        data_notif_to_bdd.IdFlow = data.data.sender_info.Id_comment;
       }
-      if (data.data.type == "send_response" || data.data.type == "like_response") {
-        data_notif_to_bdd.IdFlow = data.data.sender_info.Id_response
+      if (
+        data.data.type == "send_response" ||
+        data.data.type == "like_response"
+      ) {
+        data_notif_to_bdd.IdFlow = data.data.sender_info.Id_response;
       }
     }
     $.ajax({
       type: "POST",
       url: "https://fcm.googleapis.com/fcm/send",
       headers: {
-        Authorization: "key=" +
+        Authorization:
+          "key=" +
           "AAAASolkDdQ:APA91bGQTqtjxefUeH3JhJQXP30B6d6TgHYN239VGsaX3-0qpBEH7_Wy_9MLiVOlniHQ9gqZcHt3q76d5QGb3It-qUIJfo954NZBmz9INY765rMn8S40Cz-fw5zTeBfoQVnZSE3oW4oL",
       },
       contentType: "application/json",

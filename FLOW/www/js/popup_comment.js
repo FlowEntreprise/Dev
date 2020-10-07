@@ -26,7 +26,8 @@ function block_response(response_data, response_is_specifique) {
     this.is_liked = response_data.IsLike;
     this.RegisterId = response_data.RegisterId;
     this.LastOs = response_data.LastOs;
-    if (response_data.Comment) { // CTRL+F hack_response pour les explications
+    if (response_data.Comment) {
+        // CTRL+F hack_response pour les explications
         this.fresponse_text = response_data.Comment;
         this.response_text = response_data.Comment_text;
     } else {
@@ -35,66 +36,79 @@ function block_response(response_data, response_is_specifique) {
     }
     this.last_like_time;
 
-    this.fblock_response = document.createElement('div');
-    this.fblock_response.className = 'fblock_response';
+    this.fblock_response = document.createElement("div");
+    this.fblock_response.className = "fblock_response";
     if (you_have_to_prepend_response_specifique || response_is_specifique) {
-        $(current_comment_block.fblock_response_container).find(">:first-child").after(this.fblock_response);
+        $(current_comment_block.fblock_response_container)
+            .find(">:first-child")
+            .after(this.fblock_response);
     } else {
-
-        $(current_comment_block.fblock_response_container).append(this.fblock_response);
+        $(current_comment_block.fblock_response_container).append(
+            this.fblock_response
+        );
     }
 
-    $(this.fblock_response).on('click', function () {
+    $(this.fblock_response).on("click", function () {
         current_response_block = block_response;
     });
 
-    this.f_response_img_user = document.createElement('div');
-    this.f_response_img_user.className = 'f_response_img_user';
-    $(this.f_response_img_user).css("background-image", "url(" + response_data.ProfilePicture + "");
+    this.f_response_img_user = document.createElement("div");
+    this.f_response_img_user.className = "f_response_img_user";
+    $(this.f_response_img_user).css(
+        "background-image",
+        "url(" + response_data.ProfilePicture + ""
+    );
     $(this.fblock_response).append(this.f_response_img_user);
 
-    this.f_response_id_user = document.createElement('label');
-    this.f_response_id_user.className = 'f_response_id_user';
+    this.f_response_id_user = document.createElement("label");
+    this.f_response_id_user.className = "f_response_id_user";
     this.f_response_id_user.innerHTML = "@" + response_data.PrivateId + "";
     $(this.fblock_response).append(this.f_response_id_user);
 
-    this.fblock_response_response = document.createElement('p');
-    this.fblock_response_response.className = 'fblock_response_response';
-    this.fblock_response_response.innerHTML = this.fresponse_text.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>') + "<br>";
+    this.fblock_response_response = document.createElement("p");
+    this.fblock_response_response.className = "fblock_response_response";
+    this.fblock_response_response.innerHTML =
+        this.fresponse_text.replace(
+            /@[^ ]+/gi,
+            '<span class="tagged_users">$&</span>'
+        ) + "<br>";
     $(this.fblock_response).append(this.fblock_response_response);
 
-    this.f_response_date = document.createElement('label');
-    this.f_response_date.className = 'f_response_date';
-    this.f_response_date.innerHTML = response_data.Time == "0" ? "1 min" : set_timestamp(response_data.Time);
+    this.f_response_date = document.createElement("label");
+    this.f_response_date.className = "f_response_date";
+    this.f_response_date.innerHTML =
+        response_data.Time == "0" ? "1 min" : set_timestamp(response_data.Time);
     $(this.fblock_response_response).append(this.f_response_date);
 
-    this.fblock_response_label_repondre = document.createElement('label');
-    this.fblock_response_label_repondre.className = 'fblock_response_label_repondre';
+    this.fblock_response_label_repondre = document.createElement("label");
+    this.fblock_response_label_repondre.className =
+        "fblock_response_label_repondre";
     this.fblock_response_label_repondre.innerHTML = "Répondre";
     $(this.fblock_response_response).append(this.fblock_response_label_repondre);
 
-    $(this.fblock_response_label_repondre).on('click', function () {
+    $(this.fblock_response_label_repondre).on("click", function () {
         current_response_block = block_response;
         it_is_a_response = true;
         it_is_a_response_to_a_response = true;
         $("#finput_comment").focus();
     });
 
-    this.fresponse_like = document.createElement('img');
-    this.fresponse_like.className = 'fresponse_like';
+    this.fresponse_like = document.createElement("img");
+    this.fresponse_like.className = "fresponse_like";
     if (connected) {
-        this.fresponse_like.src = this.is_liked == 0 ? "src/icons/Like.png" : "src/icons/Like_filled.png";
+        this.fresponse_like.src =
+            this.is_liked == 0 ? "src/icons/Like.png" : "src/icons/Like_filled.png";
     } else {
         this.fresponse_like.src = "src/icons/Like.png";
     }
     $(this.fblock_response).append(this.fresponse_like);
 
-    $(this.fresponse_like).on('click', function () { // like d'un response
+    $(this.fresponse_like).on("click", function () {
+        // like d'un response
         console.log("click sur le like d'une reponse");
         if (connected) {
             current_response_block = block_response;
             let data = {
-
                 ObjectId: current_response_block.ObjectId,
             };
             ServerManager.LikeResponse(data, current_response_block);
@@ -103,38 +117,33 @@ function block_response(response_data, response_is_specifique) {
         }
     });
 
-    this.f_response_number_like = document.createElement('label');
-    this.f_response_number_like.className = 'f_response_number_like';
+    this.f_response_number_like = document.createElement("label");
+    this.f_response_number_like.className = "f_response_number_like";
     this.f_response_number_like.innerHTML = response_data.Like_number;
     this.Likes = response_data.Like_number;
-    $(this.f_response_number_like).on('click', function () {
+    $(this.f_response_number_like).on("click", function () {
         console.log("click sur le nombre de like d'un commentaire");
         display_comment_likes(block_response, true);
     });
     $(this.fblock_response).append(this.f_response_number_like);
 
-    this.fbr_1 = document.createElement('br');
+    this.fbr_1 = document.createElement("br");
     $(this.fblock_response).append(this.fbr_1);
 
-
-    $$(this.fblock_response_response).on('taphold', function () {
+    $$(this.fblock_response_response).on("taphold", function () {
         current_response_block = block_response;
         let delete_response = true;
         delete_comment_from_bdd(current_response_block, delete_response);
     });
 
-
-    $(this.f_response_id_user).on('click', function () {
-
+    $(this.f_response_id_user).on("click", function () {
         let data = {
             private_Id: block_response.private_Id,
-            user_private_Id: window.localStorage.getItem("user_private_id")
+            user_private_Id: window.localStorage.getItem("user_private_id"),
         };
         go_to_account(data);
     });
 }
-
-
 
 function block_comment(comment_data, comment_is_specifique) {
 
@@ -388,11 +397,10 @@ function block_comment(comment_data, comment_is_specifique) {
         };
         go_to_account(data);
     });*/
-
 }
 
 $(".fpopover_button").on("touchend", function () {
-    app.closeModal('.popover');
+    app.closeModal(".popover");
 });
 
 $(".fpopover_copy_comment").on("touchend", function () {
@@ -401,7 +409,11 @@ $(".fpopover_copy_comment").on("touchend", function () {
 
 $(".fpopover_report_comment").on("touchend", function () {
     //alert("Ce commentaire a été signalé");
-    navigator.notification.alert("Ce commentaire a été signalé", alertDismissed, "Information");
+    navigator.notification.alert(
+        "Ce commentaire a été signalé",
+        alertDismissed,
+        "Information"
+    );
 });
 
 $(".fpopover_delete_comment").on("touchend", function () {
@@ -411,24 +423,32 @@ $(".fpopover_delete_comment").on("touchend", function () {
 });
 
 //copy de commentaire
-const copyToClipboard = str => {
-    const el = document.createElement('textarea');
+const copyToClipboard = (str) => {
+    const el = document.createElement("textarea");
     el.value = str;
     document.body.appendChild(el);
     el.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
     document.body.removeChild(el);
-    console.log('copy');
+    console.log("copy");
 };
 
 var pseudo = "@adc_98";
 var account_imageURL = "src/pictures/notif1.png";
 var id_response_specifique;
-function display_response(response, data_response_unique) { // affiche les reponses par 10
+function display_response(response, data_response_unique) {
+    // affiche les reponses par 10
 
-    if (typeof (response) != "string") {
+    if (typeof response != "string") {
         for (let i = 0; i < response.Data.length; i++) {
-            const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data[i].ProfilePicture.name + '?';
+            const src_profile_img =
+                "https://" +
+                response.LinkBuilder.Hostname +
+                ":" +
+                response.LinkBuilder.Port +
+                "/images/" +
+                response.Data[i].ProfilePicture.name +
+                "?";
             const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data[i].ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data[i].ProfilePicture.timestamp}`;
             let profilePicLink = src_profile_img + param_profile_img;
 
@@ -443,13 +463,16 @@ function display_response(response, data_response_unique) { // affiche les repon
                 PrivateId: response.Data[i].PrivateId,
                 ProfilePicture: profilePicLink,
                 RegisterId: response.Data[i].RegisterId,
-                Time: response.Data[i].Time
+                Time: response.Data[i].Time,
             };
             //response_data.response = response_data.response.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
             let new_block_response = new block_response(response_data);
 
             if (new_block_response.ObjectId == id_response_specifique) {
-                $(new_block_response.fblock_response).css("background-color", "#1A84EF26");
+                $(new_block_response.fblock_response).css(
+                    "background-color",
+                    "#1A84EF26"
+                );
                 single_block_response_to_scroll_to = new_block_response;
             }
             current_comment_block.all_response_blocks.push(new_block_response);
@@ -457,37 +480,64 @@ function display_response(response, data_response_unique) { // affiche les repon
             $(".loading_tl").remove();
         }
         if (single_block_response_to_scroll_to) {
-            let single_block_response_position = $(single_block_response_to_scroll_to.fblock_response).position();
-            $(".fblock_comment_content").scrollTop(single_block_response_position.top);
+            let single_block_response_position = $(
+                single_block_response_to_scroll_to.fblock_response
+            ).position();
+            $(".fblock_comment_content").scrollTop(
+                single_block_response_position.top
+            );
         }
-        if (you_have_to_prepend_response_specifique == false) { // reponses suivantes
+        if (you_have_to_prepend_response_specifique == false) {
+            // reponses suivantes
 
-
-            if (response.Data.length < 10 ||
+            if (
+                response.Data.length < 10 ||
                 nombre_de_reponses_restant == 0 ||
-                response_current_index == Math.trunc(current_comment_block.nombre_de_reponses / 10)) {
-                $(current_comment_block.label_afficher_plus_de_reponses).css("display", "none");
+                response_current_index ==
+                Math.trunc(current_comment_block.nombre_de_reponses / 10)
+            ) {
+                $(current_comment_block.label_afficher_plus_de_reponses).css(
+                    "display",
+                    "none"
+                );
             }
 
             if (nombre_de_reponses_restant > 10 && response_current_index != 0) {
-                let nb_total_index = Math.trunc(current_comment_block.nombre_de_reponses / 10);
-                nombre_de_reponses_restant = ((nb_total_index - (response_current_index + 1)) * 10) + current_comment_block.nombre_de_reponses % 10;
+                let nb_total_index = Math.trunc(
+                    current_comment_block.nombre_de_reponses / 10
+                );
+                nombre_de_reponses_restant =
+                    (nb_total_index - (response_current_index + 1)) * 10 +
+                    (current_comment_block.nombre_de_reponses % 10);
             }
             if (response_current_index == 0) {
-                let nb_total_index = Math.trunc(current_comment_block.nombre_de_reponses / 10);
-                nombre_de_reponses_restant = ((nb_total_index - (response_current_index + 1)) * 10) + current_comment_block.nombre_de_reponses % 10;
+                let nb_total_index = Math.trunc(
+                    current_comment_block.nombre_de_reponses / 10
+                );
+                nombre_de_reponses_restant =
+                    (nb_total_index - (response_current_index + 1)) * 10 +
+                    (current_comment_block.nombre_de_reponses % 10);
             }
-            if (response_current_index < Math.trunc(current_comment_block.nombre_de_reponses / 10)) {
+            if (
+                response_current_index <
+                Math.trunc(current_comment_block.nombre_de_reponses / 10)
+            ) {
                 response_current_index++;
             }
-            $(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + nombre_de_reponses_restant + ")");
-            $(current_comment_block.fblock_comment_label_reponses_precedentes).text("Réponses précédentes (" + nombre_de_reponses_precedent + ")");
+            $(current_comment_block.label_afficher_plus_de_reponses).text(
+                "Afficher plus (" + nombre_de_reponses_restant + ")"
+            );
+            $(current_comment_block.fblock_comment_label_reponses_precedentes).text(
+                "Réponses précédentes (" + nombre_de_reponses_precedent + ")"
+            );
             //$(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
-
-        }
-        else { // reponses precedentes
+        } else {
+            // reponses precedentes
             if (response_current_desc_index == 0) {
-                $(current_comment_block.fblock_comment_label_reponses_precedentes).css("display", "none");
+                $(current_comment_block.fblock_comment_label_reponses_precedentes).css(
+                    "display",
+                    "none"
+                );
             }
 
             if (nombre_de_reponses_precedent > 10) {
@@ -498,23 +548,27 @@ function display_response(response, data_response_unique) { // affiche les repon
             }
 
             //$(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + nombre_de_reponses_restant + ")");
-            $(current_comment_block.fblock_comment_label_reponses_precedentes).text("Réponses précédentes (" + nombre_de_reponses_precedent + ")");
+            $(current_comment_block.fblock_comment_label_reponses_precedentes).text(
+                "Réponses précédentes (" + nombre_de_reponses_precedent + ")"
+            );
             //$(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
             $(current_comment_block.fblock_response_container).css("height", "");
-            scrollDiff = current_comment_block.fblock_response_container.scrollHeight - lastScrollHeight;
+            scrollDiff =
+                current_comment_block.fblock_response_container.scrollHeight -
+                lastScrollHeight;
             //$(".fblock_comment_content").scrollTop(scrollDiff);
             /*$(".fblock_comment_content").animate({
                 scrollTop: scrollDiff
             }, 400, 'swing');*/
         }
-        $(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
-
+        $(current_comment_block.afficher_plus_de_reponses_container).css(
+            "display",
+            "inline-flex"
+        );
     } else {
         $(".loading_tl").remove();
     }
-
 }
-
 
 //post de commentaire
 
@@ -522,7 +576,10 @@ function send_comment_to_server(data) {
     let comment_data = {
         PrivateId: window.localStorage.getItem("user_private_id"),
         ProfilePicture: window.localStorage.getItem("user_profile_pic"),
-        Comment: data.Comment.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>'),
+        Comment: data.Comment.replace(
+            /@[^ ]+/gi,
+            '<span class="tagged_users">$&</span>'
+        ),
         Comment_text: data.Comment,
         Like_number: "0",
         Time: "0",
@@ -531,7 +588,7 @@ function send_comment_to_server(data) {
         RegisterId: "",
         current_flow_block: current_flow_block,
         tag_user_RegisterId: undefined,
-        Responses: 0
+        Responses: 0,
     };
 
     let comment_number = parseInt($(".fcomment_number").text());
@@ -543,20 +600,30 @@ function send_comment_to_server(data) {
     }
 
     $(current_flow_block.ftxt_impression_comment).text(comment_number);
-    if (comment_data.Comment == comment_data.Comment_text && registrationId != comment_data.current_flow_block.RegisterId) {
+    if (
+        comment_data.Comment == comment_data.Comment_text &&
+        registrationId != comment_data.current_flow_block.RegisterId
+    ) {
         comment_data.RegisterId = current_flow_block.RegisterId;
         send_notif_to_user(comment_data, "send_comment");
     } else {
         for (let i = 0; i < tableau_comment_to_tag_users.length; i++) {
             if (tableau_comment_to_tag_users[i].slice(0, 1) == "@") {
-                for (let i_all_tag = 0; i_all_tag < all_tagged_users.length; i_all_tag++) {
-                    if (tableau_comment_to_tag_users[i] == all_tagged_users[i_all_tag].private_Id &&
-                        registrationId != all_tagged_users[i_all_tag].RegisterId) {
-                        comment_data.tag_user_RegisterId = all_tagged_users[i_all_tag].RegisterId;
+                for (
+                    let i_all_tag = 0;
+                    i_all_tag < all_tagged_users.length;
+                    i_all_tag++
+                ) {
+                    if (
+                        tableau_comment_to_tag_users[i] ==
+                        all_tagged_users[i_all_tag].private_Id &&
+                        registrationId != all_tagged_users[i_all_tag].RegisterId
+                    ) {
+                        comment_data.tag_user_RegisterId =
+                            all_tagged_users[i_all_tag].RegisterId;
                         send_notif_to_user(comment_data, "tag_in_comment");
                     }
                 }
-
             }
         }
     }
@@ -564,7 +631,7 @@ function send_comment_to_server(data) {
     $(".hwt-backdrop").html(" ");
     var new_block_comment = new block_comment(comment_data);
     current_flow_block.all_comment_blocks.push(new_block_comment);
-    impression_coloring(this, 'comment', current_flow_block);
+    impression_coloring(this, "comment", current_flow_block);
     console.log(current_flow_block.all_comment_blocks[0].fblock_comment);
     console.log("Comment sucessfully added to database :");
     console.log("data du send comment to server" + data + "");
@@ -584,7 +651,7 @@ function send_response_to_server(data) {
         RegisterId: "",
         current_comment_block: current_comment_block,
         current_flow_block: current_comment_block, //peut sembler etrange mais facilite l'envoi des notifs (case "send_comment")
-        tag_user_RegisterId: undefined
+        tag_user_RegisterId: undefined,
     };
     if (it_is_a_response == true && current_response_block != undefined) {
         response_data.current_flow_block = current_response_block;
@@ -596,15 +663,20 @@ function send_response_to_server(data) {
        je fais passer ça comme une notif de commentaire.
     */
 
-
     /*if (current_comment_block.fblock_comment_label_afficher_les_reponses) {
         current_comment_block.nombre_de_reponses = +$(current_comment_block.fblock_comment_label_afficher_les_reponses).text().match(/\d+/)[0];
     }*/
     let initial_response_number = current_comment_block.nombre_de_reponses;
     let tableau_response_to_tag_users = data.Response.split(" ");
-    current_comment_block.nombre_de_reponses = current_comment_block.nombre_de_reponses + 1;
-    $(current_comment_block.fblock_comment_label_afficher_les_reponses).text("Afficher les reponses (" + current_comment_block.nombre_de_reponses + ")");
-    if (response_data.Comment == response_data.Comment_text && registrationId != response_data.current_flow_block.RegisterId) {
+    current_comment_block.nombre_de_reponses =
+        current_comment_block.nombre_de_reponses + 1;
+    $(current_comment_block.fblock_comment_label_afficher_les_reponses).text(
+        "Afficher les reponses (" + current_comment_block.nombre_de_reponses + ")"
+    );
+    if (
+        response_data.Comment == response_data.Comment_text &&
+        registrationId != response_data.current_flow_block.RegisterId
+    ) {
         /* registrationId != response_data.current_flow_block.RegisterId permet de tester le RegisterId
             d'un block commentaire et d'un block response
             car il ya le cas de reponses à un commentaire et le cas de reponse à une reponse
@@ -645,7 +717,10 @@ function send_response_to_server(data) {
         $(current_comment_block.label_afficher_plus_de_reponses).click();
     }*/
     if (initial_response_number == 0) {
-        $(current_comment_block.label_afficher_plus_de_reponses).css("opacity", "0");
+        $(current_comment_block.label_afficher_plus_de_reponses).css(
+            "opacity",
+            "0"
+        );
     }
     it_is_a_response = false;
     it_is_a_response_to_a_response = false;
@@ -653,77 +728,78 @@ function send_response_to_server(data) {
 }
 
 // send comment
-$('.fsend_comment').on('click', function () {
-
-    var text = ($("#finput_comment").val()).trim();
+$(".fsend_comment").on("click", function () {
+    var text = $("#finput_comment").val().trim();
     Popup("popup-identification", false, -5);
     let data;
-    if (it_is_a_response == true) { // envoi de reponses
+    if (it_is_a_response == true) {
+        // envoi de reponses
         data = {
-
             ObjectId: current_comment_block.ObjectId,
-            Response: text
+            Response: text,
         };
 
-        if (it_is_a_response_to_a_response == true &&
+        if (
+            it_is_a_response_to_a_response == true &&
             current_response_block &&
-            current_response_block.private_Id != window.localStorage.getItem("user_private_id")) {
-
+            current_response_block.private_Id !=
+            window.localStorage.getItem("user_private_id")
+        ) {
             data.Response = "@" + current_response_block.private_Id + " " + text;
         }
 
         if (text == "") {
             //alert("Le commentaire est vide");
-            navigator.notification.alert("Le commentaire est vide", alertDismissed, "Information");
+            navigator.notification.alert(
+                "Le commentaire est vide",
+                alertDismissed,
+                "Information"
+            );
         } else {
-
             $("#finput_comment").val("");
 
             ServerManager.AddCommentResponse(data);
         }
-
-
-    } else { // envoi de commentaires
+    } else {
+        // envoi de commentaires
         data = {
-
             ObjectId: current_flow_block.ObjectId,
-            Comment: text
+            Comment: text,
         };
 
         if (text == "") {
             //alert("Le commentaire est vide");
-            navigator.notification.alert("Le commentaire est vide", alertDismissed, "Information");
+            navigator.notification.alert(
+                "Le commentaire est vide",
+                alertDismissed,
+                "Information"
+            );
         } else {
-
             $("#finput_comment").val("");
 
             ServerManager.AddFlowComment(data);
         }
     }
-
-
 });
-
-
 
 $(".finput_comment").keypress(function (event) {
     console.log("la touche pressé est :" + event.key);
 });
 
-$(document).on('click', '.tagged_users', function () {
-    let tagged_user_private_id = ($(this).text()).slice(1);
+$(document).on("click", ".tagged_users", function () {
+    let tagged_user_private_id = $(this).text().slice(1);
     let data = {
         private_Id: tagged_user_private_id,
-        user_private_Id: window.localStorage.getItem("user_private_id")
+        user_private_Id: window.localStorage.getItem("user_private_id"),
     };
     go_to_account(data);
 });
 
-$(document).on('click', '.flow_tagged_users', function () {
-    let tagged_user_private_id = ($(this).text()).slice(1);
+$(document).on("click", ".flow_tagged_users", function () {
+    let tagged_user_private_id = $(this).text().slice(1);
     let data = {
         private_Id: tagged_user_private_id,
-        user_private_Id: window.localStorage.getItem("user_private_id")
+        user_private_Id: window.localStorage.getItem("user_private_id"),
     };
     go_to_account(data);
 });
@@ -734,13 +810,13 @@ var all_search_users_without_follow = [];
 
 function get_users_with_follow(data) {
     UpdateIdentificationList(data, true, "yes_search");
-};
+}
 
 //input des commentaires
 
-$('#finput_comment').on('paste', function () {
-    $(".fsend_comment").css('filter', 'brightness(100%)');
-    $(".fsend_comment").css('pointer-events', 'auto');
+$("#finput_comment").on("paste", function () {
+    $(".fsend_comment").css("filter", "brightness(100%)");
+    $(".fsend_comment").css("pointer-events", "auto");
 });
 
 $("input").focus(function () {
@@ -749,30 +825,25 @@ $("input").focus(function () {
 
 if (window.cordova.platformId == "ios") {
     $("#finput_comment").focus(function () {
-        setTimeout(
-            function () {
-                Popup("popup-comment", true, 55);
-            }, 200)
-
+        setTimeout(function () {
+            Popup("popup-comment", true, 55);
+        }, 200);
     });
 
     $("#finput_comment").focusout(function () {
-        setTimeout(
-            function () {
-                Popup("popup-comment", true, 40);
-            }, 200)
-
+        setTimeout(function () {
+            Popup("popup-comment", true, 40);
+        }, 200);
     });
 }
 
 $("#finput_comment").keyup(function () {
-
-    if (($("#finput_comment").val()).trim() != "") {
-        $(".fsend_comment").css('filter', 'brightness(100%)');
-        $(".fsend_comment").css('pointer-events', 'auto');
-    } else if (($("#finput_comment").val()).trim() == "") {
-        $(".fsend_comment").css('filter', 'brightness(200%)');
-        $(".fsend_comment").css('pointer-events', 'none');
+    if ($("#finput_comment").val().trim() != "") {
+        $(".fsend_comment").css("filter", "brightness(100%)");
+        $(".fsend_comment").css("pointer-events", "auto");
+    } else if ($("#finput_comment").val().trim() == "") {
+        $(".fsend_comment").css("filter", "brightness(200%)");
+        $(".fsend_comment").css("pointer-events", "none");
     }
 
     string_input_comment = $("#finput_comment").val();
@@ -785,22 +856,25 @@ $("#finput_comment").keyup(function () {
     if (string_input_comment_split[split_lenght - 1].slice(0, 1) == "@") {
         IdentificationListCurrentIndex = 0;
         if (string_input_comment_split[split_lenght - 1] == "@") {
-
             let data_following = {
                 PrivateId: window.localStorage.getItem("user_private_id"),
                 Index: 0,
-                follow_list: true
+                follow_list: true,
             };
             ServerManager.GetFollowingOfUser(data_following);
             IdentificationListCurrentIndex = 0;
-
-        } else if (string_input_comment_split[split_lenght - 1].length > 1 && string_input_comment_split[split_lenght - 1] != "@") {
-
+        } else if (
+            string_input_comment_split[split_lenght - 1].length > 1 &&
+            string_input_comment_split[split_lenght - 1] != "@"
+        ) {
             for (let i = 0; i < 1; i++) {
                 let data_user_search = {
                     Index: IdentificationListCurrentIndex,
-                    Search: string_input_comment_split[split_lenght - 1].slice(1, string_input_comment_split[split_lenght - 1].length),
-                    Nb: 10
+                    Search: string_input_comment_split[split_lenght - 1].slice(
+                        1,
+                        string_input_comment_split[split_lenght - 1].length
+                    ),
+                    Nb: 10,
                 };
                 ServerManager.SearchUserForTabExplore(data_user_search);
                 IdentificationListCurrentIndex++;
@@ -817,7 +891,6 @@ $("#finput_comment").keyup(function () {
     } else {
         Popup("popup-identification", false);
         IdentificationListCurrentIndex = 0;
-
     }
 
     var str1 = $("#finput_comment").val();
@@ -825,12 +898,10 @@ $("#finput_comment").keyup(function () {
     console.log(str1);
 });
 
-
 function clean_all_tagged_users(all_tagged_users, flow_ObjectId, flow_title) {
     let flow_title_split = flow_title.split(" ");
 
     for (let i = 0; i < all_tagged_users.length; i++) {
-
         all_tagged_users[i].ObjectId = flow_ObjectId;
         all_tagged_users[i].Comment_text = flow_title; // c'est le titre du flow
         all_tagged_users[i].tag_in_flow = true;
@@ -839,16 +910,10 @@ function clean_all_tagged_users(all_tagged_users, flow_ObjectId, flow_title) {
                 send_notif_to_user(all_tagged_users[i], "tag_in_flow");
             }
         }
-
     }
-
-
 }
 
-
-
-$(document).on('keyup', '#finput_description', function () {
-
+$(document).on("keyup", "#finput_description", function () {
     string_input_comment = $("#finput_description").val();
     string_input_comment_split = string_input_comment.split(" ");
 
@@ -859,22 +924,25 @@ $(document).on('keyup', '#finput_description', function () {
     if (string_input_comment_split[split_lenght - 1].slice(0, 1) == "@") {
         IdentificationListCurrentIndex = 0;
         if (string_input_comment_split[split_lenght - 1] == "@") {
-
             let data_following = {
                 PrivateId: window.localStorage.getItem("user_private_id"),
                 Index: 0,
-                follow_list: true
+                follow_list: true,
             };
             ServerManager.GetFollowingOfUser(data_following);
             IdentificationListCurrentIndex = 0;
-
-        } else if (string_input_comment_split[split_lenght - 1].length > 1 && string_input_comment_split[split_lenght - 1] != "@") {
-
+        } else if (
+            string_input_comment_split[split_lenght - 1].length > 1 &&
+            string_input_comment_split[split_lenght - 1] != "@"
+        ) {
             for (let i = 0; i < 1; i++) {
                 let data_user_search = {
                     Index: IdentificationListCurrentIndex,
-                    Search: string_input_comment_split[split_lenght - 1].slice(1, string_input_comment_split[split_lenght - 1].length),
-                    Nb: 10
+                    Search: string_input_comment_split[split_lenght - 1].slice(
+                        1,
+                        string_input_comment_split[split_lenght - 1].length
+                    ),
+                    Nb: 10,
                 };
                 ServerManager.SearchUserForTabExplore(data_user_search);
                 IdentificationListCurrentIndex++;
@@ -891,120 +959,124 @@ $(document).on('keyup', '#finput_description', function () {
     } else {
         Popup("popup-identification", false);
         IdentificationListCurrentIndex = 0;
-
     }
-
 });
 
+document
+    .getElementById("popup-identification")
+    .addEventListener("opened", function () {
+        if (window.cordova.platformId == "ios") {
+            $(".after-record-block-container").css("margin-top", "-40vh");
+        } else {
+            $(".after-record-block-container").css("margin-top", "-50vh");
+        }
+        in_identification = true;
+    });
 
-document.getElementById("popup-identification").addEventListener("opened", function () {
-    if (window.cordova.platformId == "ios") {
-        $(".after-record-block-container").css("margin-top", "-40vh");
-    } else {
-        $(".after-record-block-container").css("margin-top", "-50vh");
-    }
-    in_identification = true;
-});
-
-
-document.getElementById("popup-identification").addEventListener("closed", function () {
-    in_identification = false;
-    $(".after-record-block-container").css("margin-top", "");
-});
-
+document
+    .getElementById("popup-identification")
+    .addEventListener("closed", function () {
+        in_identification = false;
+        $(".after-record-block-container").css("margin-top", "");
+    });
 
 //supression de commentaire
 function delete_comment(element) {
     for (var i = 0; i < current_flow_block.all_comment_blocks.length; i++) {
         if (current_flow_block.all_comment_blocks[i] == current_comment_block) {
             current_flow_block.all_comment_blocks.splice(i, 1);
-
         }
     }
 
     $(element).remove();
-
 }
-document.getElementById("popup-comment").addEventListener("opened", function () {
-    $(".fwrite_comment").css("display", "block");
-    in_comments = true;
-    CommentListCurrentIndex = 0;
-    response_current_index = 0;
-});
+document
+    .getElementById("popup-comment")
+    .addEventListener("opened", function () {
+        $(".fwrite_comment").css("display", "block");
+        in_comments = true;
+        CommentListCurrentIndex = 0;
+        response_current_index = 0;
+    });
 
 //Notif lors d'un nouveau commentaire
 
-document.getElementById("popup-comment").addEventListener("closed", function () {
-    $(".fwrite_comment")[0].style.display = "none";
-    in_comments = false;
-    CommentListCurrentIndex = 0;
-    response_current_index = 0;
-    if (current_flow_block) {
-        current_flow_block.all_comment_blocks.length = 0
-
-    }
-    if (current_comment_block) {
-
-        current_comment_block.all_response_blocks.length = 0
-    }
-    /*rent_flow_block !== undefined) {
+document
+    .getElementById("popup-comment")
+    .addEventListener("closed", function () {
+        $(".fwrite_comment")[0].style.display = "none";
+        in_comments = false;
+        CommentListCurrentIndex = 0;
+        response_current_index = 0;
+        if (current_flow_block) {
+            current_flow_block.all_comment_blocks.length = 0;
+        }
+        if (current_comment_block) {
+            current_comment_block.all_response_blocks.length = 0;
+        }
+        /*rent_flow_block !== undefined) {
         current_flow_block.all_comment_blocks.length = 0;
     }*/
-    // app.closeModal('#popover_comment');
+        // app.closeModal('#popover_comment');
+    });
 
-});
-
-
-function color_like(block, like) // like des commentaires et de reponses
-{
+function color_like(block, like) {
+    // like des commentaires et de reponses
     let now = Date.now();
     console.log("chris color like");
-    if (block.fblock_response) { // si c'est un like de reponse
+    if (block.fblock_response) {
+        // si c'est un like de reponse
         if (like) {
             console.log("chris color is like like like ");
 
-            $(block.fresponse_like).attr('src', 'src/icons/Like_filled.png');
+            $(block.fresponse_like).attr("src", "src/icons/Like_filled.png");
             block.is_liked = 1;
-            block.f_response_number_like.innerHTML = parseInt(block.f_response_number_like.innerHTML) + 1;
+            block.f_response_number_like.innerHTML =
+                parseInt(block.f_response_number_like.innerHTML) + 1;
             if (block.last_like_time != undefined) {
-                let last_like = Math.floor(((now - block.last_like_time) / 1000) / 60);
+                let last_like = Math.floor((now - block.last_like_time) / 1000 / 60);
                 if (last_like > 29 && registrationId != block.RegisterId) {
                     block.Comment_text = block.response_text; // pour faciliter les notifs à redev ulterieurement
                     send_notif_to_user(block, "like_response");
                     block.last_like_time = Date.now();
                 }
-            } else if (block.last_like_time == undefined && registrationId != block.RegisterId) {
+            } else if (
+                block.last_like_time == undefined &&
+                registrationId != block.RegisterId
+            ) {
                 block.Comment_text = block.response_text; // pour faciliter les notifs à redev ulterieurement
                 send_notif_to_user(block, "like_response");
                 block.last_like_time = Date.now();
             }
-
         } else {
-            $(block.fresponse_like).attr('src', 'src/icons/Like.png');
+            $(block.fresponse_like).attr("src", "src/icons/Like.png");
             block.is_liked = 0;
-            block.f_response_number_like.innerHTML = parseInt(block.f_response_number_like.innerHTML) - 1;
+            block.f_response_number_like.innerHTML =
+                parseInt(block.f_response_number_like.innerHTML) - 1;
         }
-
-    } else { // si c'est un like de commentaire
+    } else {
+        // si c'est un like de commentaire
         if (like) {
             console.log("chris color is like like like ");
 
-            $(block.fcomment_like).attr('src', 'src/icons/Like_filled.png');
+            $(block.fcomment_like).attr("src", "src/icons/Like_filled.png");
             block.is_liked = 1;
             block.fnumber_like.innerHTML = parseInt(block.fnumber_like.innerHTML) + 1;
             if (block.last_like_time != undefined) {
-                let last_like = Math.floor(((now - block.last_like_time) / 1000) / 60);
+                let last_like = Math.floor((now - block.last_like_time) / 1000 / 60);
                 if (last_like > 29 && registrationId != block.RegisterId) {
                     send_notif_to_user(block, "like_comment");
                     block.last_like_time = Date.now();
                 }
-            } else if (block.last_like_time == undefined && registrationId != block.RegisterId) {
+            } else if (
+                block.last_like_time == undefined &&
+                registrationId != block.RegisterId
+            ) {
                 send_notif_to_user(block, "like_comment");
                 block.last_like_time = Date.now();
             }
-
         } else {
-            $(block.fcomment_like).attr('src', 'src/icons/Like.png');
+            $(block.fcomment_like).attr("src", "src/icons/Like.png");
             block.is_liked = 0;
             block.fnumber_like.innerHTML = parseInt(block.fnumber_like.innerHTML) - 1;
         }
