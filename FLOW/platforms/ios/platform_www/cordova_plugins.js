@@ -392,14 +392,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-customurlscheme.LaunchMyApp",
-      "file": "plugins/cordova-plugin-customurlscheme/www/ios/LaunchMyApp.js",
-      "pluginId": "cordova-plugin-customurlscheme",
-      "clobbers": [
-        "window.plugins.launchmyapp"
-      ]
-    },
-    {
       "id": "es6-promise-plugin.Promise",
       "file": "plugins/es6-promise-plugin/www/promise.js",
       "pluginId": "es6-promise-plugin",
@@ -411,6 +403,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "pluginId": "cordova-plugin-x-socialsharing",
       "clobbers": [
         "window.plugins.socialsharing"
+      ]
+    },
+    {
+      "id": "zzzcordova-plugin-customurlscheme.LaunchMyApp",
+      "file": "plugins/zzzcordova-plugin-customurlscheme/www/ios/LaunchMyApp.js",
+      "pluginId": "zzzcordova-plugin-customurlscheme",
+      "clobbers": [
+        "window.plugins.launchmyapp"
       ]
     }
   ];
@@ -444,8 +444,8 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-facebook4": "6.4.0",
     "cordova-plugin-twitter-connect-wkwebview": "1.0.1",
     "cordova-plugin-camera": "4.1.0",
-    "cordova-plugin-customurlscheme": "5.0.2",
     "es6-promise-plugin": "4.2.2",
-    "cordova-plugin-x-socialsharing": "6.0.2"
+    "cordova-plugin-x-socialsharing": "6.0.2",
+    "zzzcordova-plugin-customurlscheme": "5.0.2"
   };
 });

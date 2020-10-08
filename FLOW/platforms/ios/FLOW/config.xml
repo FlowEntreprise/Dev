@@ -135,6 +135,7 @@
     <resource-file src="GoogleService-Info.plist" />
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
+    <allow-intent href="comflowapp:" />
     <splash height="480" src="res/screen/ios/LaunchImage-320x480.png" width="320" />
     <splash height="960" src="res/screen/ios/LaunchImage-640x960.png" width="640" />
     <splash height="1024" src="res/screen/ios/LaunchImage-768x1024.png" width="768" />

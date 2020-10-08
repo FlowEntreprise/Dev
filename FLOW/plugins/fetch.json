@@ -274,16 +274,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-customurlscheme": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-customurlscheme@^5.0.2"
-    },
-    "is_top_level": true,
-    "variables": {
-      "URL_SCHEME": "comflowapp"
-    }
-  },
   "cordova-plugin-x-socialsharing": {
     "source": {
       "type": "registry",
@@ -302,5 +292,15 @@
     },
     "is_top_level": false,
     "variables": {}
+  },
+  "zzzcordova-plugin-customurlscheme": {
+    "source": {
+      "type": "local",
+      "path": "C:\\Users\\thoma\\Documents\\Projets_persos\\FLOW\\Dev\\FLOW\\node_modules\\zzzcordova-plugin-customurlscheme"
+    },
+    "is_top_level": true,
+    "variables": {
+      "URL_SCHEME": "comflowapp"
+    }
   }
 }

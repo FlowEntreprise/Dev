@@ -86,13 +86,13 @@
     "cordova-plugin-camera": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova-plugin-customurlscheme": {
-      "URL_SCHEME": "comflowapp",
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
     "cordova-plugin-x-socialsharing": {
       "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
       "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "zzzcordova-plugin-customurlscheme": {
+      "URL_SCHEME": "comflowapp",
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
