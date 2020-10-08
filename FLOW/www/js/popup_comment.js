@@ -301,7 +301,9 @@ function block_comment(comment_data, comment_is_specifique) {
     $(this.label_afficher_plus_de_reponses).on('click', function () {
         you_have_to_prepend_response_specifique = false;
         single_block_response_to_scroll_to = undefined;
-        current_comment_block.new_block_response.fblock_response.remove();
+        if (current_comment_block && current_comment_block.new_block_response) {
+            current_comment_block.new_block_response.fblock_response.remove();
+        }
         let loading_tl = document.createElement("div");
         loading_tl.className = "loading-spinner loading_tl loading_response";
         $("#popup-comment").append(loading_tl);
@@ -490,19 +492,7 @@ function display_response(response, data_response_unique) {
         if (you_have_to_prepend_response_specifique == false) {
             // reponses suivantes
 
-            if (
-                response.Data.length < 10 ||
-                current_comment_block.nombre_de_reponses_restant == 0 ||
-                current_comment_block.response_current_index ==
-                Math.trunc(current_comment_block.nombre_de_reponses / 10)
-            ) {
-                $(current_comment_block.label_afficher_plus_de_reponses).css(
-                    "display",
-                    "none"
-                );
-            }
-
-            if (current_comment_block.nombre_de_reponses_restant > 10 && current_comment_block.response_current_index != 0) {
+            if (current_comment_block.nombre_de_reponses_restant >= 10 && current_comment_block.response_current_index != 0) {
                 let nb_total_index = Math.trunc(
                     current_comment_block.nombre_de_reponses / 10
                 );
@@ -510,6 +500,19 @@ function display_response(response, data_response_unique) {
                     (nb_total_index - (current_comment_block.response_current_index + 1)) * 10 +
                     (current_comment_block.nombre_de_reponses % 10);
             }
+            if (
+                response.Data.length < 10 ||
+                current_comment_block.nombre_de_reponses_restant == 0 ||
+                current_comment_block.response_current_index ==
+                Math.trunc(current_comment_block.nombre_de_reponses / 10) ||
+                current_comment_block.response_current_index == (current_comment_block.nombre_de_reponses / 10)
+            ) {
+                $(current_comment_block.label_afficher_plus_de_reponses).css(
+                    "display",
+                    "none"
+                );
+            }
+
             if (current_comment_block.response_current_index == 0) {
                 let nb_total_index = Math.trunc(
                     current_comment_block.nombre_de_reponses / 10
@@ -670,6 +673,10 @@ function send_response_to_server(data) {
     let tableau_response_to_tag_users = data.Response.split(" ");
     current_comment_block.nombre_de_reponses =
         current_comment_block.nombre_de_reponses + 1;
+    let nombre_de_reponses_apres_ajout = initial_response_number - (current_comment_block.response_current_index * 10) + 1
+    if (current_comment_block.response_current_index == 0) {
+        nombre_de_reponses_apres_ajout = current_comment_block.nombre_de_reponses;
+    }
     $(current_comment_block.fblock_comment_label_afficher_les_reponses).text(
         "Afficher les reponses (" + current_comment_block.nombre_de_reponses + ")"
     );
@@ -710,7 +717,7 @@ function send_response_to_server(data) {
     current_comment_block.nombre_de_reponses_restant = current_comment_block.nombre_de_reponses;
     console.log("response sucessfully added to database :");
     console.log("data du send response to server" + data + "");
-    $(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + current_comment_block.nombre_de_reponses + ")");
+    $(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + nombre_de_reponses_apres_ajout + ")");
     $(current_comment_block.fblock_comment_label_afficher_les_reponses).css("opacity", "0");
     $(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
     /*if (current_comment_block.response_current_index == 0 && current_comment_block.label_afficher_plus_de_reponses) {
@@ -996,7 +1003,10 @@ document
         $(".fwrite_comment").css("display", "block");
         in_comments = true;
         CommentListCurrentIndex = 0;
-        current_comment_block.response_current_index = 0;
+        if (current_comment_block) {
+
+            current_comment_block.response_current_index = 0;
+        }
     });
 
 //Notif lors d'un nouveau commentaire
@@ -1007,12 +1017,12 @@ document
         $(".fwrite_comment")[0].style.display = "none";
         in_comments = false;
         CommentListCurrentIndex = 0;
-        current_comment_block.response_current_index = 0;
         if (current_flow_block) {
             current_flow_block.all_comment_blocks.length = 0;
         }
         if (current_comment_block) {
             current_comment_block.all_response_blocks.length = 0;
+            current_comment_block.response_current_index = 0;
         }
         /*rent_flow_block !== undefined) {
         current_flow_block.all_comment_blocks.length = 0;
