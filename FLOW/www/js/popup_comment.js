@@ -811,6 +811,15 @@ $(document).on("click", ".flow_tagged_users", function () {
     go_to_account(data);
 });
 
+$(document).on("click", ".tl_private_id_indicator", function () {
+    let tagged_user_private_id = $(this).text();
+    let data = {
+        private_Id: tagged_user_private_id,
+        user_private_Id: window.localStorage.getItem("user_private_id"),
+    };
+    go_to_account(data);
+});
+
 var string_input_comment;
 var all_search_users_with_follow = [];
 var all_search_users_without_follow = [];
