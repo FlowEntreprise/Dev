@@ -151,6 +151,10 @@
             {
               "xml": "<preference name=\"CameraUsesGeolocation\" value=\"false\" />",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"SocialSharing\"><param name=\"ios-package\" value=\"SocialSharing\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
             }
           ],
           "widget": [
@@ -223,6 +227,10 @@
             {
               "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>twitterkit-JwyvPlw7GcOvE8pXmRvqTyZL3</string></array></dict></array>",
               "count": 1
+            },
+            {
+              "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>comflowapp</string></array></dict></array>",
+              "count": 1
             }
           ],
           "LSApplicationQueriesSchemes": [
@@ -256,6 +264,18 @@
           "NSAppTransportSecurity": [
             {
               "xml": "<dict><key>NSExceptionDomains</key><dict><key>facebook.com</key><dict><key>NSIncludesSubdomains</key><true /><key>NSThirdPartyExceptionRequiresForwardSecrecy</key><false /></dict><key>fbcdn.net</key><dict><key>NSIncludesSubdomains</key><true /><key>NSThirdPartyExceptionRequiresForwardSecrecy</key><false /></dict><key>akamaihd.net</key><dict><key>NSIncludesSubdomains</key><true /><key>NSThirdPartyExceptionRequiresForwardSecrecy</key><false /></dict></dict></dict>",
+              "count": 1
+            }
+          ],
+          "NSPhotoLibraryAddUsageDescription": [
+            {
+              "xml": "<string>This app requires photo library access to function properly.</string>",
+              "count": 1
+            }
+          ],
+          "NSPhotoLibraryUsageDescription": [
+            {
+              "xml": "<string>This app requires photo library access to function properly.</string>",
               "count": 1
             }
           ]
@@ -357,6 +377,18 @@
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-customurlscheme": {
+      "URL_SCHEME": "comflowapp",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
+      "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -752,6 +784,28 @@
       "clobbers": [
         "CameraPopoverHandle"
       ]
+    },
+    {
+      "id": "cordova-plugin-customurlscheme.LaunchMyApp",
+      "file": "plugins/cordova-plugin-customurlscheme/www/ios/LaunchMyApp.js",
+      "pluginId": "cordova-plugin-customurlscheme",
+      "clobbers": [
+        "window.plugins.launchmyapp"
+      ]
+    },
+    {
+      "id": "es6-promise-plugin.Promise",
+      "file": "plugins/es6-promise-plugin/www/promise.js",
+      "pluginId": "es6-promise-plugin",
+      "runs": true
+    },
+    {
+      "id": "cordova-plugin-x-socialsharing.SocialSharing",
+      "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
+      "pluginId": "cordova-plugin-x-socialsharing",
+      "clobbers": [
+        "window.plugins.socialsharing"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -783,6 +837,9 @@
     "phonegap-plugin-push": "2.3.0",
     "cordova-plugin-facebook4": "6.4.0",
     "cordova-plugin-twitter-connect-wkwebview": "1.0.1",
-    "cordova-plugin-camera": "4.1.0"
+    "cordova-plugin-camera": "4.1.0",
+    "cordova-plugin-customurlscheme": "5.0.2",
+    "es6-promise-plugin": "4.2.2",
+    "cordova-plugin-x-socialsharing": "6.0.2"
   }
 }
