@@ -357,8 +357,8 @@ function online() {
 window.handleOpenURL = function (url) {
 	setTimeout(function () {
 		console.log("received url: " + url);
-		if (url.includes("share")) {
-			let IdFlow = url.split("share/")[1];
+		if (url.includes("flow")) {
+			let IdFlow = url.split("flow/")[1];
 			ServerManager.GetSingle({
 				IdFlow: IdFlow,
 			});

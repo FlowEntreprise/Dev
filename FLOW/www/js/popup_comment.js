@@ -3,10 +3,6 @@ var current_comment_block;
 var current_response_block;
 var it_is_a_response = false;
 var it_is_a_response_to_a_response = false;
-var response_current_index = 0;
-var response_current_desc_index = 0;
-var nombre_de_reponses_restant;
-var nombre_de_reponses_precedent;
 var you_have_to_prepend_response_specifique = false;
 var single_block_response_to_scroll_to;
 var lastScrollHeight;
@@ -164,6 +160,10 @@ function block_comment(comment_data, comment_is_specifique) {
     this.new_block_response;
     this.fblock_comment = document.createElement('div');
     this.fblock_comment.className = 'fblock_comment';
+    this.response_current_index = 0;
+    this.response_current_desc_index = 0;
+    this.nombre_de_reponses_restant;
+    this.nombre_de_reponses_precedent;
     if (comment_is_specifique) {
         $(".fblock_comment_content").prepend(this.fblock_comment);
     } else {
@@ -218,9 +218,9 @@ function block_comment(comment_data, comment_is_specifique) {
         $(this.fblock_comment_label_afficher_les_reponses).on('click', function () {
             current_comment_block = block_comment;
             if (in_specifique == false) {
-                response_current_index = 0;
+                current_comment_block.response_current_index = 0;
             }
-            nombre_de_reponses_restant = current_comment_block.nombre_de_reponses;
+            current_comment_block.nombre_de_reponses_restant = current_comment_block.nombre_de_reponses;
             $(current_comment_block.fblock_comment).css("background-color", "");
             if (current_comment_block.was_hidden == true) {
                 //$(current_comment_block.fblock_response_container).animate({ height: current_comment_block.response_container_previous_height + "px" }, 'smooth');
@@ -232,7 +232,7 @@ function block_comment(comment_data, comment_is_specifique) {
                 $("#popup-comment").append(loading_tl);
                 let data = {
                     ObjectId: current_comment_block.ObjectId,
-                    Index: response_current_index
+                    Index: current_comment_block.response_current_index
                 };
                 ServerManager.GetCommentResponse(data);
             }
@@ -281,7 +281,7 @@ function block_comment(comment_data, comment_is_specifique) {
         lastScrollHeight = current_comment_block.fblock_response_container.scrollHeight;
         let data = {
             ObjectId: current_comment_block.ObjectId,
-            Index: response_current_desc_index
+            Index: current_comment_block.response_current_desc_index
 
         };
         ServerManager.GetCommentResponse(data);
@@ -308,7 +308,7 @@ function block_comment(comment_data, comment_is_specifique) {
         $(current_comment_block.fblock_response_container).css("height", "");
         let data = {
             ObjectId: current_comment_block.ObjectId,
-            Index: response_current_index
+            Index: current_comment_block.response_current_index
 
         };
         ServerManager.GetCommentResponse(data);
@@ -492,8 +492,8 @@ function display_response(response, data_response_unique) {
 
             if (
                 response.Data.length < 10 ||
-                nombre_de_reponses_restant == 0 ||
-                response_current_index ==
+                current_comment_block.nombre_de_reponses_restant == 0 ||
+                current_comment_block.response_current_index ==
                 Math.trunc(current_comment_block.nombre_de_reponses / 10)
             ) {
                 $(current_comment_block.label_afficher_plus_de_reponses).css(
@@ -502,54 +502,54 @@ function display_response(response, data_response_unique) {
                 );
             }
 
-            if (nombre_de_reponses_restant > 10 && response_current_index != 0) {
+            if (current_comment_block.nombre_de_reponses_restant > 10 && current_comment_block.response_current_index != 0) {
                 let nb_total_index = Math.trunc(
                     current_comment_block.nombre_de_reponses / 10
                 );
-                nombre_de_reponses_restant =
-                    (nb_total_index - (response_current_index + 1)) * 10 +
+                current_comment_block.nombre_de_reponses_restant =
+                    (nb_total_index - (current_comment_block.response_current_index + 1)) * 10 +
                     (current_comment_block.nombre_de_reponses % 10);
             }
-            if (response_current_index == 0) {
+            if (current_comment_block.response_current_index == 0) {
                 let nb_total_index = Math.trunc(
                     current_comment_block.nombre_de_reponses / 10
                 );
-                nombre_de_reponses_restant =
-                    (nb_total_index - (response_current_index + 1)) * 10 +
+                current_comment_block.nombre_de_reponses_restant =
+                    (nb_total_index - (current_comment_block.response_current_index + 1)) * 10 +
                     (current_comment_block.nombre_de_reponses % 10);
             }
             if (
-                response_current_index <
+                current_comment_block.response_current_index <
                 Math.trunc(current_comment_block.nombre_de_reponses / 10)
             ) {
-                response_current_index++;
+                current_comment_block.response_current_index++;
             }
             $(current_comment_block.label_afficher_plus_de_reponses).text(
-                "Afficher plus (" + nombre_de_reponses_restant + ")"
+                "Afficher plus (" + current_comment_block.nombre_de_reponses_restant + ")"
             );
             $(current_comment_block.fblock_comment_label_reponses_precedentes).text(
-                "Réponses précédentes (" + nombre_de_reponses_precedent + ")"
+                "Réponses précédentes (" + current_comment_block.nombre_de_reponses_precedent + ")"
             );
             //$(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
         } else {
             // reponses precedentes
-            if (response_current_desc_index == 0) {
+            if (current_comment_block.response_current_desc_index == 0) {
                 $(current_comment_block.fblock_comment_label_reponses_precedentes).css(
                     "display",
                     "none"
                 );
             }
 
-            if (nombre_de_reponses_precedent > 10) {
-                nombre_de_reponses_precedent = response_current_desc_index * 10;
+            if (current_comment_block.nombre_de_reponses_precedent > 10) {
+                current_comment_block.nombre_de_reponses_precedent = current_comment_block.response_current_desc_index * 10;
             }
-            if (response_current_desc_index > 0) {
-                response_current_desc_index--;
+            if (current_comment_block.response_current_desc_index > 0) {
+                current_comment_block.response_current_desc_index--;
             }
 
-            //$(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + nombre_de_reponses_restant + ")");
+            //$(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + current_comment_block.nombre_de_reponses_restant + ")");
             $(current_comment_block.fblock_comment_label_reponses_precedentes).text(
-                "Réponses précédentes (" + nombre_de_reponses_precedent + ")"
+                "Réponses précédentes (" + current_comment_block.nombre_de_reponses_precedent + ")"
             );
             //$(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
             $(current_comment_block.fblock_response_container).css("height", "");
@@ -707,13 +707,13 @@ function send_response_to_server(data) {
     $(current_comment_block.fblock_comment).css("background-color", "");
     current_comment_block.new_block_response = new block_response(response_data, false);
     current_comment_block.all_response_blocks.push(current_comment_block.new_block_response);
-    nombre_de_reponses_restant = current_comment_block.nombre_de_reponses;
+    current_comment_block.nombre_de_reponses_restant = current_comment_block.nombre_de_reponses;
     console.log("response sucessfully added to database :");
     console.log("data du send response to server" + data + "");
     $(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + current_comment_block.nombre_de_reponses + ")");
     $(current_comment_block.fblock_comment_label_afficher_les_reponses).css("opacity", "0");
     $(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
-    /*if (response_current_index == 0 && current_comment_block.label_afficher_plus_de_reponses) {
+    /*if (current_comment_block.response_current_index == 0 && current_comment_block.label_afficher_plus_de_reponses) {
         $(current_comment_block.label_afficher_plus_de_reponses).click();
     }*/
     if (initial_response_number == 0) {
@@ -996,7 +996,7 @@ document
         $(".fwrite_comment").css("display", "block");
         in_comments = true;
         CommentListCurrentIndex = 0;
-        response_current_index = 0;
+        current_comment_block.response_current_index = 0;
     });
 
 //Notif lors d'un nouveau commentaire
@@ -1007,7 +1007,7 @@ document
         $(".fwrite_comment")[0].style.display = "none";
         in_comments = false;
         CommentListCurrentIndex = 0;
-        response_current_index = 0;
+        current_comment_block.response_current_index = 0;
         if (current_flow_block) {
             current_flow_block.all_comment_blocks.length = 0;
         }

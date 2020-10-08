@@ -84,22 +84,23 @@ function comment_specifique(response, type, all_data) {
         }
     }
     commentaire_unique = new block_comment(comment_data, true);
+    current_comment_block = commentaire_unique;
     current_flow_block.all_comment_blocks.push(commentaire_unique);
     if (type == "comment") {
         $(commentaire_unique.fblock_comment).css("background-color", "#1A84EF26");
     }
     if (type == "response") {
         if (Number.isInteger(all_data.Data.rank.rank / 10) && all_data.Data.rank.rank != 0) {
-            response_current_index = (all_data.Data.rank.rank / 10) - 1;
+            current_comment_block.response_current_index = (all_data.Data.rank.rank / 10) - 1;
         }
         else {
-            response_current_index = Math.trunc(all_data.Data.rank.rank / 10);
+            current_comment_block.response_current_index = Math.trunc(all_data.Data.rank.rank / 10);
         }
-        response_current_index > 0 ? response_current_desc_index = response_current_index - 1 : response_current_desc_index = 0;
+        current_comment_block.response_current_index > 0 ? current_comment_block.response_current_desc_index = current_comment_block.response_current_index - 1 : current_comment_block.response_current_desc_index = 0;
         id_response_specifique = all_data.Data.response.IdResponse;
-        nombre_de_reponses_precedent = response_current_index * 10;
+        current_comment_block.nombre_de_reponses_precedent = current_comment_block.response_current_index * 10;
         $(commentaire_unique.fblock_comment_label_afficher_les_reponses).click();
-        if (response_current_index > 0) {
+        if (current_comment_block.response_current_index > 0) {
             $(commentaire_unique.fblock_comment_label_reponses_precedentes).css("display", "block");
         }
     }
@@ -114,14 +115,14 @@ function flow_and_comment_for_response_specifique(response) {
 document.getElementById("popup-specifique").addEventListener("opened", function () {
     $(loading_before_popup_specifique).remove();
     in_specifique = true;
-    response_current_index = 0;
+    current_comment_block.response_current_index = 0;
     id_response_specifique = undefined;
 });
 document.getElementById("popup-specifique").addEventListener("closed", function () {
     commentaire_unique = null;
     in_specifique = false;
     comment_button_was_clicked_in_popup_specifique = false;
-    response_current_index = 0;
+    current_comment_block.response_current_index = 0;
     id_response_specifique = undefined;
     you_have_to_prepend_response_specifique = false;
     if (current_flow_block) {
