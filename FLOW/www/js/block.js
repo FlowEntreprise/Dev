@@ -589,19 +589,19 @@ function block(params) {
 	  ----------------------FIN_TEST_LAURE------------*/
 	$(this.fimg_impression_comment).on("click", function () {
 		if (connected) {
-
 			if (comment_button_was_clicked_in_popup_specifique == false) {
 				current_flow_block = block;
 				+current_flow_block.Comments <= 1
 					? (text_comment_number = current_flow_block.Comments + " commentaire")
-					: (text_comment_number = current_flow_block.Comments + " commentaires");
+					: (text_comment_number =
+							current_flow_block.Comments + " commentaires");
 				$(".fcomment_number").text(text_comment_number);
 				display_all_comments(current_flow_block);
-			}
-			else {
+			} else {
 				current_flow_block.Comments <= 1
 					? (text_comment_number = current_flow_block.Comments + " commentaire")
-					: (text_comment_number = current_flow_block.Comments + " commentaires");
+					: (text_comment_number =
+							current_flow_block.Comments + " commentaires");
 				$(".fcomment_number").text(text_comment_number);
 				display_all_comments(current_flow_block);
 				show_specifique_element_for_comment_button(current_notification_block);
@@ -1004,7 +1004,7 @@ var all_blocks = [];
 var last_story_color;
 
 function stopAllBlocksAudio(callback) {
-	if (audio_playing) {
+	if (audio_playing || current_block_playing) {
 		console.log("stop all audio");
 		// all_blocks.map((a) => a.flowpause(true));
 		current_block_playing.flowpause(callback);
@@ -1152,9 +1152,9 @@ document.getElementById("popup-likes").addEventListener("closed", function () {
 
 function iosPolyfill(e, slider) {
 	var val =
-		(e.pageX - slider.getBoundingClientRect().left) /
-		(slider.getBoundingClientRect().right -
-			slider.getBoundingClientRect().left),
+			(e.pageX - slider.getBoundingClientRect().left) /
+			(slider.getBoundingClientRect().right -
+				slider.getBoundingClientRect().left),
 		max = slider.getAttribute("max"),
 		segment = 1 / (max - 1),
 		segmentArr = [];

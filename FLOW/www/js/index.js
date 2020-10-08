@@ -31,7 +31,6 @@ var app = {
 	},
 	onDeviceReady: function () {
 		Keyboard.hide();
-		navigator.splashscreen.hide();
 		setTimeout(function () {
 			if (!window.cordova.platformId == "android") {
 				StatusBar.overlaysWebView(false);
@@ -56,6 +55,7 @@ var app = {
 				}, 100);
 			}
 			startTuto();
+			navigator.splashscreen.hide();
 		}, 1000);
 
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
@@ -104,6 +104,8 @@ var app = {
 	},
 	onResume: function (event) {
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+		stopAllStoriesAudio();
+		stopAllBlocksAudio();
 	},
 
 	// Update DOM on a Received Event
@@ -370,48 +372,41 @@ var tab1_count = 0;
 var tab2_count = 0;
 var tab3_count = 0;
 var tab4_count = 0;
-$('.fhome-btn').on('click', function () {
+$(".fhome-btn").on("click", function () {
 	tab1_count++;
 	setTimeout(function () {
 		tab1_count = 0;
 	}, 1000);
 });
-$('.fexplore-btn').on('click', function () {
+$(".fexplore-btn").on("click", function () {
 	if (tab1_count == 2) {
 		tab2_count++;
 		setTimeout(function () {
-
 			tab2_count = 0;
 		}, 1000);
 	}
-
 });
-$('.fmessages-btn').on('click', function () {
+$(".fmessages-btn").on("click", function () {
 	if (tab2_count == 1) {
 		tab3_count++;
 		setTimeout(function () {
-
 			tab3_count = 0;
 		}, 1000);
 	}
 });
-$('.fnotif-btn').on('click', function () {
-
+$(".fnotif-btn").on("click", function () {
 	if (tab3_count == 5) {
 		if (ServerParams.ServerURL == "https://api-test.flowappweb.com/") {
 			DisconnectUser();
 			ServerParams.ServerURL = "https://api.flowappweb.com/";
-		}
-		else if (ServerParams.ServerURL == "https://api.flowappweb.com/") {
+		} else if (ServerParams.ServerURL == "https://api.flowappweb.com/") {
 			DisconnectUser();
 			ServerParams.ServerURL = "https://api-test.flowappweb.com/";
 		}
 		setTimeout(function () {
-
 			tab4_count = 0;
 		}, 1000);
 	}
-
 });
 /*
 J'ai remove ça du config.xml juste pour save ça qq part :
