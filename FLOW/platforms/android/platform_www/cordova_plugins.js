@@ -516,6 +516,14 @@ module.exports = [
     "clobbers": [
       "LaunchReview"
     ]
+  },
+  {
+    "id": "cordova-plugin-appversion.RareloopAppVersion",
+    "file": "plugins/cordova-plugin-appversion/www/app-version.js",
+    "pluginId": "cordova-plugin-appversion",
+    "clobbers": [
+      "AppVersion"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -554,7 +562,8 @@ module.exports.metadata =
   "es6-promise-plugin": "4.2.2",
   "cordova-plugin-x-socialsharing": "6.0.2",
   "cordova-plugin-androidx": "3.0.0",
-  "cordova-launch-review": "4.0.0"
+  "cordova-launch-review": "4.0.0",
+  "cordova-plugin-appversion": "1.0.0"
 };
 // BOTTOM OF METADATA
 });

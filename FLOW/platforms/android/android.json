@@ -389,6 +389,10 @@
             {
               "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" onload=\"true\" value=\"io.ionic.keyboard.IonicKeyboard\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"RareloopAppVersion\"><param name=\"android-package\" value=\"com.rareloop.cordova.appversion.RareloopAppVersion\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -518,6 +522,9 @@
     },
     "cordova-launch-review": {
       "ANDROID_PLAY_SERVICES_CORE_VERSION": "1.8.0",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-appversion": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -1039,6 +1046,14 @@
       "clobbers": [
         "LaunchReview"
       ]
+    },
+    {
+      "id": "cordova-plugin-appversion.RareloopAppVersion",
+      "file": "plugins/cordova-plugin-appversion/www/app-version.js",
+      "pluginId": "cordova-plugin-appversion",
+      "clobbers": [
+        "AppVersion"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -1075,6 +1090,7 @@
     "es6-promise-plugin": "4.2.2",
     "cordova-plugin-x-socialsharing": "6.0.2",
     "cordova-plugin-androidx": "3.0.0",
-    "cordova-launch-review": "4.0.0"
+    "cordova-launch-review": "4.0.0",
+    "cordova-plugin-appversion": "1.0.0"
   }
 }
