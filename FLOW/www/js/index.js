@@ -346,6 +346,22 @@ Storage.prototype.getObj = function (key) {
 	swal(txt);
 };
 */
+
+function check_app_version(app_version) {
+	if (app_version != AppVersion.version) {
+		navigator.notification.confirm("Une version plus récente de l'application est disponible,veux-tu effectuer la mise à jour ?", function (id) {
+			if (id == 1) {
+				if (window.cordova.platformId == "ios") {
+					window.location = 'https://apps.apple.com/fr/app/flow-reseau-social-vocal/id1505107977?l=en';
+				}
+				if (window.cordova.platformId == "android") {
+					window.location = 'https://play.google.com/store/apps/details?id=com.flowapp.flow';
+				}
+			}
+		}, "Information", ["Oui", "Annuler"]);
+	}
+}
+
 function offline() {
 	console.log("you are offline");
 	pullToRefreshEnd();
