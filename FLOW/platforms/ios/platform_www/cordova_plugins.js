@@ -406,12 +406,13 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "zzzcordova-plugin-customurlscheme.LaunchMyApp",
-      "file": "plugins/zzzcordova-plugin-customurlscheme/www/ios/LaunchMyApp.js",
-      "pluginId": "zzzcordova-plugin-customurlscheme",
+      "id": "ionic-plugin-deeplinks.deeplink",
+      "file": "plugins/ionic-plugin-deeplinks/www/deeplink.js",
+      "pluginId": "ionic-plugin-deeplinks",
       "clobbers": [
-        "window.plugins.launchmyapp"
-      ]
+        "IonicDeeplink"
+      ],
+      "runs": true
     }
   ];
   module.exports.metadata = {
@@ -446,6 +447,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-camera": "4.1.0",
     "es6-promise-plugin": "4.2.2",
     "cordova-plugin-x-socialsharing": "6.0.2",
-    "zzzcordova-plugin-customurlscheme": "5.0.2"
+    "ionic-plugin-deeplinks": "1.0.20"
   };
 });

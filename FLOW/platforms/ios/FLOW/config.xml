@@ -183,4 +183,10 @@
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
     <preference name="deployment-target" value="11.0" />
     <preference name="KeyboardShrinksView" value="true" />
+    <feature name="IonicDeeplinkPlugin">
+        <param name="ios-package" onload="true" value="IonicDeeplinkPlugin" />
+    </feature>
+    <preference name="URL_SCHEME" value="comflowapp" />
+    <preference name="DEEPLINK_SCHEME" value="https" />
+    <preference name="DEEPLINK_HOST" value="flowappweb.com" />
 </widget>

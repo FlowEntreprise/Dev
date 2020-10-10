@@ -155,6 +155,22 @@
             {
               "xml": "<feature name=\"SocialSharing\"><param name=\"ios-package\" value=\"SocialSharing\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"IonicDeeplinkPlugin\"><param name=\"ios-package\" onload=\"true\" value=\"IonicDeeplinkPlugin\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"URL_SCHEME\" value=\"comflowapp\" />",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"DEEPLINK_SCHEME\" value=\"https\" />",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"DEEPLINK_HOST\" value=\"flowappweb.com\" />",
+              "count": 1
             }
           ],
           "widget": [
@@ -387,8 +403,10 @@
       "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "zzzcordova-plugin-customurlscheme": {
+    "ionic-plugin-deeplinks": {
       "URL_SCHEME": "comflowapp",
+      "DEEPLINK_SCHEME": "https",
+      "DEEPLINK_HOST": "flowappweb.com",
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -800,12 +818,13 @@
       ]
     },
     {
-      "id": "zzzcordova-plugin-customurlscheme.LaunchMyApp",
-      "file": "plugins/zzzcordova-plugin-customurlscheme/www/ios/LaunchMyApp.js",
-      "pluginId": "zzzcordova-plugin-customurlscheme",
+      "id": "ionic-plugin-deeplinks.deeplink",
+      "file": "plugins/ionic-plugin-deeplinks/www/deeplink.js",
+      "pluginId": "ionic-plugin-deeplinks",
       "clobbers": [
-        "window.plugins.launchmyapp"
-      ]
+        "IonicDeeplink"
+      ],
+      "runs": true
     }
   ],
   "plugin_metadata": {
@@ -840,6 +859,6 @@
     "cordova-plugin-camera": "4.1.0",
     "es6-promise-plugin": "4.2.2",
     "cordova-plugin-x-socialsharing": "6.0.2",
-    "zzzcordova-plugin-customurlscheme": "5.0.2"
+    "ionic-plugin-deeplinks": "1.0.20"
   }
 }

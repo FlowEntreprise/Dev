@@ -44,14 +44,14 @@
     "elementtree": "^0.1.7",
     "es6-promise-plugin": "^4.2.2",
     "glob": "^5.0.15",
+    "ionic-plugin-deeplinks": "^1.0.20",
     "jquery.scrollto": "^2.1.2",
     "npm": "^2.15.12",
     "phonegap-plugin-multidex": "^1.0.0",
     "phonegap-plugin-push": "^2.3.0",
     "plist": "^1.2.0",
     "q": "^1.5.1",
-    "vorbis-encoder-js": "^1.0.2",
-    "zzzcordova-plugin-customurlscheme": "file:customurl_scheme_renamed"
+    "vorbis-encoder-js": "^1.0.2"
   },
   "cordova": {
     "plugins": {
@@ -93,8 +93,10 @@
         "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly."
       },
-      "zzzcordova-plugin-customurlscheme": {
-        "URL_SCHEME": "comflowapp"
+      "ionic-plugin-deeplinks": {
+        "URL_SCHEME": "comflowapp",
+        "DEEPLINK_SCHEME": "https",
+        "DEEPLINK_HOST": "flowappweb.com"
       }
     },
     "platforms": []

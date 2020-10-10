@@ -73,7 +73,30 @@ var app = {
 				$(".after-record-block-container").css("margin-top", "-30vh");
 			}
 		}
-
+        
+        IonicDeeplink.route(
+                    {
+                        "/flow/:FlowId": {
+                            target: "flow",
+                            parent: "flow",
+                        },
+                    },
+                    function (match) {
+                        console.log("deeplink match !", match);
+                    },
+                    function (nomatch) {
+                        console.log("deeplink didnt match 😞", nomatch);
+                        if (nomatch.$link.path) {
+                            let FlowId = nomatch.$link.path.replace("/", "");
+                            setTimeout(function () {
+                                ServerManager.GetSingle({
+                                    IdFlow: FlowId,
+                                });
+                            }, 200);
+                        }
+                    }
+                );
+        
 		this.receivedEvent("deviceready");
 	},
 	onPause: function () {

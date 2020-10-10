@@ -91,8 +91,10 @@
       "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "zzzcordova-plugin-customurlscheme": {
+    "ionic-plugin-deeplinks": {
       "URL_SCHEME": "comflowapp",
+      "DEEPLINK_SCHEME": "https",
+      "DEEPLINK_HOST": "flowappweb.com",
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },

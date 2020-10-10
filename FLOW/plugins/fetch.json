@@ -293,14 +293,16 @@
     "is_top_level": false,
     "variables": {}
   },
-  "zzzcordova-plugin-customurlscheme": {
+  "ionic-plugin-deeplinks": {
     "source": {
-      "type": "local",
-      "path": "C:\\Users\\thoma\\Documents\\Projets_persos\\FLOW\\Dev\\FLOW\\node_modules\\zzzcordova-plugin-customurlscheme"
+      "type": "registry",
+      "id": "ionic-plugin-deeplinks"
     },
     "is_top_level": true,
     "variables": {
-      "URL_SCHEME": "comflowapp"
+      "URL_SCHEME": "comflowapp",
+      "DEEPLINK_SCHEME": "https",
+      "DEEPLINK_HOST": "flowappweb.com"
     }
   }
 }
