@@ -21,7 +21,6 @@
         "cordova-plugin-browsersync": "^1.1.0",
         "cordova-plugin-camera": "file:cordova-plugin-camera-fixed",
         "cordova-plugin-compat": "^1.2.0",
-        "cordova-plugin-customurlscheme": "^5.0.2",
         "cordova-plugin-device": "^2.0.3",
         "cordova-plugin-dialogs": "^2.0.2",
         "cordova-plugin-facebook4": "4.2.1",
@@ -47,6 +46,7 @@
         "elementtree": "^0.1.7",
         "es6-promise-plugin": "^4.2.2",
         "glob": "^5.0.15",
+        "ionic-plugin-deeplinks": "^1.0.20",
         "jquery.scrollto": "^2.1.2",
         "npm": "^2.15.12",
         "phonegap-plugin-multidex": "^1.0.0",
@@ -104,19 +104,31 @@
             "cordova-plugin-camera": {
                 "ANDROID_SUPPORT_V4_VERSION": "27.+"
             },
-            "cordova-plugin-customurlscheme": {
-                "URL_SCHEME": "comflowapp",
-                "ANDROID_SCHEME": " ",
-                "ANDROID_HOST": " ",
-                "ANDROID_PATHPREFIX": "/"
-            },
             "cordova-plugin-x-socialsharing": {},
             "cordova-plugin-androidx": {},
             "cordova-plugin-androidx-adapter": {},
             "cordova-launch-review": {
                 "ANDROID_PLAY_SERVICES_CORE_VERSION": "1.8.0"
             },
-            "cordova-plugin-appversion": {}
+            "cordova-plugin-appversion": {},
+            "ionic-plugin-deeplinks": {
+                "URL_SCHEME": "comflowapp",
+                "DEEPLINK_SCHEME": "https",
+                "DEEPLINK_HOST": "flowappweb.com",
+                "ANDROID_PATH_PREFIX": "/",
+                "ANDROID_2_PATH_PREFIX": "/",
+                "ANDROID_3_PATH_PREFIX": "/",
+                "ANDROID_4_PATH_PREFIX": "/",
+                "ANDROID_5_PATH_PREFIX": "/",
+                "DEEPLINK_2_SCHEME": " ",
+                "DEEPLINK_2_HOST": " ",
+                "DEEPLINK_3_SCHEME": " ",
+                "DEEPLINK_3_HOST": " ",
+                "DEEPLINK_4_SCHEME": " ",
+                "DEEPLINK_4_HOST": " ",
+                "DEEPLINK_5_SCHEME": " ",
+                "DEEPLINK_5_HOST": " "
+            }
         },
         "platforms": []
     }

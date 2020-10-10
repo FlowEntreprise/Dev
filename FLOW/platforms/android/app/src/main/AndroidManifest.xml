@@ -13,10 +13,14 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="comflowapp" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+                <data android:host="flowappweb.com" android:pathPrefix="/" android:scheme="https" />
+                <data android:host=" " android:pathPrefix="/" android:scheme=" " />
+                <data android:host=" " android:pathPrefix="/" android:scheme=" " />
+                <data android:host=" " android:pathPrefix="/" android:scheme=" " />
                 <data android:host=" " android:pathPrefix="/" android:scheme=" " />
             </intent-filter>
         </activity>

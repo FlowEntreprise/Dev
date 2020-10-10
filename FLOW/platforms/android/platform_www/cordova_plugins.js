@@ -488,14 +488,6 @@ module.exports = [
     ]
   },
   {
-    "id": "cordova-plugin-customurlscheme.LaunchMyApp",
-    "file": "plugins/cordova-plugin-customurlscheme/www/android/LaunchMyApp.js",
-    "pluginId": "cordova-plugin-customurlscheme",
-    "clobbers": [
-      "window.plugins.launchmyapp"
-    ]
-  },
-  {
     "id": "es6-promise-plugin.Promise",
     "file": "plugins/es6-promise-plugin/www/promise.js",
     "pluginId": "es6-promise-plugin",
@@ -524,6 +516,15 @@ module.exports = [
     "clobbers": [
       "AppVersion"
     ]
+  },
+  {
+    "id": "ionic-plugin-deeplinks.deeplink",
+    "file": "plugins/ionic-plugin-deeplinks/www/deeplink.js",
+    "pluginId": "ionic-plugin-deeplinks",
+    "clobbers": [
+      "IonicDeeplink"
+    ],
+    "runs": true
   }
 ];
 module.exports.metadata = 
@@ -558,12 +559,12 @@ module.exports.metadata =
   "cordova-plugin-dialogs": "2.0.2",
   "cordova-clipboard": "1.3.0",
   "cordova-plugin-camera": "4.0.4-dev",
-  "cordova-plugin-customurlscheme": "5.0.2",
   "es6-promise-plugin": "4.2.2",
   "cordova-plugin-x-socialsharing": "6.0.2",
   "cordova-plugin-androidx": "3.0.0",
   "cordova-launch-review": "4.0.0",
-  "cordova-plugin-appversion": "1.0.0"
+  "cordova-plugin-appversion": "1.0.0",
+  "ionic-plugin-deeplinks": "1.0.20"
 };
 // BOTTOM OF METADATA
 });

@@ -257,16 +257,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-customurlscheme": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-customurlscheme"
-    },
-    "is_top_level": true,
-    "variables": {
-      "URL_SCHEME": "comflowapp"
-    }
-  },
   "cordova-plugin-x-socialsharing": {
     "source": {
       "type": "registry",
@@ -314,5 +304,17 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "ionic-plugin-deeplinks": {
+    "source": {
+      "type": "registry",
+      "id": "ionic-plugin-deeplinks"
+    },
+    "is_top_level": true,
+    "variables": {
+      "URL_SCHEME": "comflowapp",
+      "DEEPLINK_SCHEME": "https",
+      "DEEPLINK_HOST": "flowappweb.com"
+    }
   }
 }

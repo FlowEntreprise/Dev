@@ -74,6 +74,29 @@ var app = {
 			}
 		}
 
+		IonicDeeplink.route(
+			{
+				"/flow/:FlowId": {
+					target: "flow",
+					parent: "flow",
+				},
+			},
+			function (match) {
+				console.log("deeplink match !", match);
+			},
+			function (nomatch) {
+				console.log("deeplink didnt match :(", nomatch);
+				if (nomatch.$link.path) {
+					let FlowId = nomatch.$link.path.replace("/", "");
+					setTimeout(function () {
+						ServerManager.GetSingle({
+							IdFlow: FlowId,
+						});
+					}, 200);
+				}
+			}
+		);
+
 		this.receivedEvent("deviceready");
 	},
 	onPause: function () {
@@ -349,16 +372,23 @@ Storage.prototype.getObj = function (key) {
 
 function check_app_version(app_version) {
 	if (app_version != AppVersion.version) {
-		navigator.notification.confirm("Une version plus récente de l'application est disponible,veux-tu effectuer la mise à jour ?", function (id) {
-			if (id == 1) {
-				if (window.cordova.platformId == "ios") {
-					window.location = 'https://apps.apple.com/fr/app/flow-reseau-social-vocal/id1505107977?l=en';
+		navigator.notification.confirm(
+			"Une version plus récente de l'application est disponible,veux-tu effectuer la mise à jour ?",
+			function (id) {
+				if (id == 1) {
+					if (window.cordova.platformId == "ios") {
+						window.location =
+							"https://apps.apple.com/fr/app/flow-reseau-social-vocal/id1505107977?l=en";
+					}
+					if (window.cordova.platformId == "android") {
+						window.location =
+							"https://play.google.com/store/apps/details?id=com.flowapp.flow";
+					}
 				}
-				if (window.cordova.platformId == "android") {
-					window.location = 'https://play.google.com/store/apps/details?id=com.flowapp.flow';
-				}
-			}
-		}, "Information", ["Oui", "Annuler"]);
+			},
+			"Information",
+			["Oui", "Annuler"]
+		);
 	}
 }
 
