@@ -49,11 +49,11 @@
     "cordova-plugin-androidx": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova-launch-review": {
-      "ANDROID_PLAY_SERVICES_CORE_VERSION": "1.8.0",
+    "cordova-plugin-appversion": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova-plugin-appversion": {
+    "cordova-launch-review": {
+      "ANDROID_PLAY_SERVICES_CORE_VERSION": "1.8.0",
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },

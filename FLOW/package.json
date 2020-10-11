@@ -113,10 +113,8 @@
             "cordova-plugin-x-socialsharing": {},
             "cordova-plugin-androidx": {},
             "cordova-plugin-androidx-adapter": {},
-            "cordova-launch-review": {
-                "ANDROID_PLAY_SERVICES_CORE_VERSION": "1.8.0"
-            },
-            "cordova-plugin-appversion": {}
+            "cordova-plugin-appversion": {},
+            "cordova-launch-review": {}
         },
         "platforms": []
     }
