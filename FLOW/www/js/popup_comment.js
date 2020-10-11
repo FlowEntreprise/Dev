@@ -1052,6 +1052,7 @@ function color_like(block, like) {
             block.is_liked = 1;
             block.f_response_number_like.innerHTML =
                 parseInt(block.f_response_number_like.innerHTML) + 1;
+            block.Likes = +block.Likes + 1;
             if (block.last_like_time != undefined) {
                 let last_like = Math.floor((now - block.last_like_time) / 1000 / 60);
                 if (last_like > 29 && registrationId != block.RegisterId) {
@@ -1081,6 +1082,7 @@ function color_like(block, like) {
             $(block.fcomment_like).attr("src", "src/icons/Like_filled.png");
             block.is_liked = 1;
             block.fnumber_like.innerHTML = parseInt(block.fnumber_like.innerHTML) + 1;
+            block.Likes = +block.Likes + 1;
             if (block.last_like_time != undefined) {
                 let last_like = Math.floor((now - block.last_like_time) / 1000 / 60);
                 if (last_like > 29 && registrationId != block.RegisterId) {
