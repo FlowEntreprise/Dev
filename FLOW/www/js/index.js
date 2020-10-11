@@ -56,7 +56,7 @@ var app = {
 			}
 			startTuto();
 			navigator.splashscreen.hide();
-		}, 1000);
+		}, 1200);
 
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
 

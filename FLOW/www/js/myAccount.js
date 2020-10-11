@@ -209,19 +209,17 @@ document
 		}
 
 		$("#fmyprofilPicture").click(function () {
-			$("#fmybigProfilPictureContainer").css({
-				transform: "scale(1)",
-				opacity: "1",
-				"pointer-events": "auto",
-			});
+			openMyPP();
 		});
 
 		$("#returnmyProfilPicture").click(function () {
+			closeMyPP();
 			$("#fmybigProfilPictureContainer").css({
 				transform: "scale(0.4)",
 				opacity: "0",
 				"pointer-events": "none",
 			});
+			in_mypp = false;
 		});
 
 		$("#fmybigProfilPicture").css({
@@ -314,6 +312,24 @@ $("#feditProfilePopupContainer").click(function () {
 	in_editprofile = false;
 	closeEditProfile();
 });
+
+function openMyPP() {
+	$("#fmybigProfilPictureContainer").css({
+		transform: "scale(1)",
+		opacity: "1",
+		"pointer-events": "auto",
+	});
+	in_mypp = true;
+}
+
+function closeMyPP() {
+	$("#fmybigProfilPictureContainer").css({
+		transform: "scale(0.4)",
+		opacity: "0",
+		"pointer-events": "none",
+	});
+	in_mypp = false;
+}
 
 function closeEditProfile() {
 	if ($.trim($("#editProfileName").val()) != "") {
