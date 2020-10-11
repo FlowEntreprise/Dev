@@ -96,6 +96,51 @@ var app = {
 				}
 			}
 		);
+		var MAX_DIALOG_WAIT_TIME = 5000;
+		var ratingTimerId;
+		LaunchReview.rating(
+			function (result) {
+				if (cordova.platformId === "android") {
+					console.log("Rating dialog displayed");
+					window.localStorage.setItem("last_ask_user_rating", Date.now());
+				} else if (cordova.platformId === "ios") {
+					if (result === "requested") {
+						console.log("Requested display of rating dialog");
+
+						ratingTimerId = setTimeout(function () {
+							console.warn(
+								"Rating dialog was not shown (after " +
+									MAX_DIALOG_WAIT_TIME +
+									"ms)"
+							);
+						}, MAX_DIALOG_WAIT_TIME);
+					} else if (result === "shown") {
+						console.log("Rating dialog displayed");
+						window.localStorage.setItem("last_ask_user_rating", Date.now());
+						clearTimeout(ratingTimerId);
+					} else if (result === "dismissed") {
+						console.log("Rating dialog dismissed");
+					}
+				}
+			},
+			function (err) {
+				console.log("Error opening rating dialog: " + err);
+			}
+		);
+
+		setTimeout(function () {
+			let last_review = Math.floor(
+				(Date.now() - window.localStorage.getItem("last_ask_user_rating")) /
+					1000 /
+					60 /
+					60 /
+					24
+			);
+			if (last_review > 5) {
+				LaunchReview.rating();
+				LaunchReview.launch();
+			}
+		}, 270000);
 
 		this.receivedEvent("deviceready");
 	},
@@ -249,6 +294,10 @@ var app = {
 				if (data.additionalData.type == "story_comment") {
 					return;
 				}
+				if (data.additionalData.type == "back_after_few_days") {
+					$(".fexplore-btn").click();
+					return;
+				}
 				if (data.additionalData.type == "follow") {
 					let data_go_to_account = {
 						private_Id: data.additionalData.sender_info.privateId,
@@ -371,7 +420,12 @@ Storage.prototype.getObj = function (key) {
 */
 
 function check_app_version(app_version) {
-	if (app_version != AppVersion.version) {
+	if (
+		(window.cordova.platformId == "ios" &&
+			app_version.ios != AppVersion.version) ||
+		(window.cordova.platformId == "android" &&
+			app_version.android != AppVersion.version)
+	) {
 		navigator.notification.confirm(
 			"Une version plus récente de l'application est disponible,veux-tu effectuer la mise à jour ?",
 			function (id) {
@@ -454,6 +508,7 @@ $(".fnotif-btn").on("click", function () {
 		}, 1000);
 	}
 });
+
 /*
 J'ai remove ça du config.xml juste pour save ça qq part :
 <preference name="AndroidLaunchMode" value="singleInstance" />
