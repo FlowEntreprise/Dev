@@ -51,7 +51,7 @@
 
     // if value is missing, default to yes
     if ((autoHideSplashScreenValue == nil) || [autoHideSplashScreenValue boolValue]) {
-        [self setVisible:NO];
+        //[self setVisible:NO];
     }
 }
 

@@ -8,217 +8,244 @@ var in_editprofile = false;
 var in_following = false;
 var in_followers = false;
 var in_identification = false;
+var in_mypp = false;
+var in_pp = false;
 $("#tab1").load("pages/home.html");
 $("#tab2").load("pages/explore.html");
 $("#tab3").load("pages/messages.html");
 $("#tab4").load("pages/notifications.html");
 
 $(".navbar").css({
-    "display": "block",
-    "height": "calc(19 * var(--custom-vh))"
+	display: "block",
+	height: "calc(19 * var(--custom-vh))",
 });
 // $("#popup-myaccount").find(".popup_content").load("pages/myAccount.html");
 
-$$('#tab1').on('tab:show', function () {
-    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-    facebookConnectPlugin.logEvent("current_page", {
-        page: current_page,
-        duration: time_in_last_screen
-    }, null, function () {
-        console.log("fb current_page event success")
-    }, function () {
-        console.log("fb current_page error")
-    });
-    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+$$("#tab1").on("tab:show", function () {
+	let time_in_last_screen =
+		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+	facebookConnectPlugin.logEvent(
+		"current_page",
+		{
+			page: current_page,
+			duration: time_in_last_screen,
+		},
+		null,
+		function () {
+			console.log("fb current_page event success");
+		},
+		function () {
+			console.log("fb current_page error");
+		}
+	);
+	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
-    $(".navbar").css({
-        "display": "block",
-        "height": "calc(19 * var(--custom-vh))"
-    });
-    app.showNavbar($('.navbar'));
-    canShowNavbar = true;
-    current_page = "home";
+	$(".navbar").css({
+		display: "block",
+		height: "calc(19 * var(--custom-vh))",
+	});
+	app.showNavbar($(".navbar"));
+	canShowNavbar = true;
+	current_page = "home";
 
-    $(".fhome-bar").css({
-        "display": "block"
-    });
-    $(".fexplore-bar").css({
-        "display": "none"
-    });
-    $(".fnotifications-bar").css({
-        "display": "none"
-    });
-    if (window.cordova.platformId == "ios") {
-        $(".faccount").css({
-            "top": "calc(0 * var(--custom-vh) + 47px)"
-        });
-    } else {
-        $(".faccount").css({
-            "top": "calc(0 * var(--custom-vh) + 17px)"
-        });
-    }
-    stopAllBlocksAudio();
+	$(".fhome-bar").css({
+		display: "block",
+	});
+	$(".fexplore-bar").css({
+		display: "none",
+	});
+	$(".fnotifications-bar").css({
+		display: "none",
+	});
+	if (window.cordova.platformId == "ios") {
+		$(".faccount").css({
+			top: "calc(0 * var(--custom-vh) + 47px)",
+		});
+	} else {
+		$(".faccount").css({
+			top: "calc(0 * var(--custom-vh) + 17px)",
+		});
+	}
+	stopAllBlocksAudio();
 });
 
-$$('#tab2').on('tab:show', function () {
-    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-    facebookConnectPlugin.logEvent("current_page", {
-        page: current_page,
-        duration: time_in_last_screen
-    }, null, function () {
-        console.log("fb current_page event success")
-    }, function () {
-        console.log("fb current_page error")
-    });
-    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+$$("#tab2").on("tab:show", function () {
+	let time_in_last_screen =
+		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+	facebookConnectPlugin.logEvent(
+		"current_page",
+		{
+			page: current_page,
+			duration: time_in_last_screen,
+		},
+		null,
+		function () {
+			console.log("fb current_page event success");
+		},
+		function () {
+			console.log("fb current_page error");
+		}
+	);
+	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
-    $(".navbar").css({
-        "display": "block",
-        "height": "calc(19 * var(--custom-vh))"
-    });
-    app.showNavbar($('.navbar'));
-    canShowNavbar = true;
-    current_page = "explore";
+	$(".navbar").css({
+		display: "block",
+		height: "calc(19 * var(--custom-vh))",
+	});
+	app.showNavbar($(".navbar"));
+	canShowNavbar = true;
+	current_page = "explore";
 
-    $(".fhome-bar").css({
-        "display": "none"
-    });
-    $(".fexplore-bar").css({
-        "display": "block"
-    });
-    $(".fnotifications-bar").css({
-        "display": "none"
-    });
-    if (window.cordova.platformId == "ios") {
-        $(".faccount").css({
-            "top": "calc(0 * var(--custom-vh) + 47px)"
-        });
-    } else {
-        $(".faccount").css({
-            "top": "calc(0 * var(--custom-vh) + 17px)"
-        });
-    }
-    if (!explore_tabs_initialised) {
+	$(".fhome-bar").css({
+		display: "none",
+	});
+	$(".fexplore-bar").css({
+		display: "block",
+	});
+	$(".fnotifications-bar").css({
+		display: "none",
+	});
+	if (window.cordova.platformId == "ios") {
+		$(".faccount").css({
+			top: "calc(0 * var(--custom-vh) + 47px)",
+		});
+	} else {
+		$(".faccount").css({
+			top: "calc(0 * var(--custom-vh) + 17px)",
+		});
+	}
+	if (!explore_tabs_initialised) {
+		var mySwiper3 = app.swiper(".swiper-3", {
+			pagination: ".swiper-3 .swiper-pagination",
+			spaceBetween: 0,
+			slidesPerView: 3,
+		});
 
-        var mySwiper3 = app.swiper('.swiper-3', {
-            pagination: '.swiper-3 .swiper-pagination',
-            spaceBetween: 0,
-            slidesPerView: 3
-        });
+		mySwiper3.on("slideChangeStart", function () {
+			var target = "#" + $(".swiper-slide-next").attr("target");
+			app.showTab(target);
+		});
 
-        mySwiper3.on('slideChangeStart', function () {
-            var target = "#" + $(".swiper-slide-next").attr("target");
-            app.showTab(target);
-        });
+		explore_tabs_initialised = true;
+	}
 
-        explore_tabs_initialised = true;
-    }
-
-    stopAllBlocksAudio();
+	stopAllBlocksAudio();
 });
 
-$$('#tab3').on('tab:show', function () {
-    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-    facebookConnectPlugin.logEvent("current_page", {
-        page: current_page,
-        duration: time_in_last_screen
-    }, null, function () {
-        console.log("fb current_page event success")
-    }, function () {
-        console.log("fb current_page error")
-    });
-    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+$$("#tab3").on("tab:show", function () {
+	let time_in_last_screen =
+		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+	facebookConnectPlugin.logEvent(
+		"current_page",
+		{
+			page: current_page,
+			duration: time_in_last_screen,
+		},
+		null,
+		function () {
+			console.log("fb current_page event success");
+		},
+		function () {
+			console.log("fb current_page error");
+		}
+	);
+	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
-    $(".navbar").css({
-        "display": "none"
-    });
-    if (window.cordova.platformId == "ios") {
-        $(".faccount").css({
-            "top": "calc(0 * var(--custom-vh) + 47px)"
-        });
-    } else {
-        $(".faccount").css({
-            "top": "calc(0 * var(--custom-vh) + 17px)"
-        });
-    }
-    app.hideNavbar($('.navbar'));
-    canShowNavbar = false;
-    current_page = "messages";
+	$(".navbar").css({
+		display: "none",
+	});
+	if (window.cordova.platformId == "ios") {
+		$(".faccount").css({
+			top: "calc(0 * var(--custom-vh) + 47px)",
+		});
+	} else {
+		$(".faccount").css({
+			top: "calc(0 * var(--custom-vh) + 17px)",
+		});
+	}
+	app.hideNavbar($(".navbar"));
+	canShowNavbar = false;
+	current_page = "messages";
 
-    if (!connected) {
-        setTimeout(function () {
-            app.showTab("#tab1");
-            Popup("popup-connect", true, 60);
-        }, 100);
-    }
+	if (!connected) {
+		setTimeout(function () {
+			app.showTab("#tab1");
+			Popup("popup-connect", true, 60);
+		}, 100);
+	}
 
-    stopAllBlocksAudio();
+	stopAllBlocksAudio();
 });
 
-$$('#tab4').on('tab:show', function () {
-    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-    facebookConnectPlugin.logEvent("current_page", {
-        page: current_page,
-        duration: time_in_last_screen
-    }, null, function () {
-        console.log("fb current_page event success")
-    }, function () {
-        console.log("fb current_page error")
-    });
-    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+$$("#tab4").on("tab:show", function () {
+	let time_in_last_screen =
+		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+	facebookConnectPlugin.logEvent(
+		"current_page",
+		{
+			page: current_page,
+			duration: time_in_last_screen,
+		},
+		null,
+		function () {
+			console.log("fb current_page event success");
+		},
+		function () {
+			console.log("fb current_page error");
+		}
+	);
+	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
-    if (window.cordova.platformId == "android") {
-        $(".navbar").css({
-            "display": "block",
-            "height": "calc(8 * var(--custom-vh))"
-        });
-    } else {
-        $(".navbar").css({
-            "display": "block",
-            "height": "calc(8 * var(--custom-vh) + 15px)"
-        });
-    }
-    app.showNavbar($('.navbar'));
-    canShowNavbar = true;
-    current_page = "home";
+	if (window.cordova.platformId == "android") {
+		$(".navbar").css({
+			display: "block",
+			height: "calc(8 * var(--custom-vh))",
+		});
+	} else {
+		$(".navbar").css({
+			display: "block",
+			height: "calc(8 * var(--custom-vh) + 15px)",
+		});
+	}
+	app.showNavbar($(".navbar"));
+	canShowNavbar = true;
+	current_page = "home";
 
-    $(".fhome-bar").css({
-        "display": "none"
-    });
-    $(".fexplore-bar").css({
-        "display": "none"
-    });
-    $(".fnotifications-bar").css({
-        "display": "block"
-    });
-    canShowNavbar = true;
-    current_page = "notifications";
-    $(".faccount").css({
-        "top": "calc(1 * var(--custom-vh) + 7px)"
-    });
-    if (!connected) {
-        setTimeout(function () {
-            app.showTab("#tab1");
-            Popup("popup-connect", true, 60);
-        }, 100);
-    }
+	$(".fhome-bar").css({
+		display: "none",
+	});
+	$(".fexplore-bar").css({
+		display: "none",
+	});
+	$(".fnotifications-bar").css({
+		display: "block",
+	});
+	canShowNavbar = true;
+	current_page = "notifications";
+	$(".faccount").css({
+		top: "calc(1 * var(--custom-vh) + 7px)",
+	});
+	if (!connected) {
+		setTimeout(function () {
+			app.showTab("#tab1");
+			Popup("popup-connect", true, 60);
+		}, 100);
+	}
 
-    stopAllBlocksAudio();
-
+	stopAllBlocksAudio();
 });
 
-
-$$('.fnav-btn').on('touchstart', function () {
-    if (!$$(this).hasClass("fflow-btn")) {
-        PlayNavRipple($$(this));
-    }
+$$(".fnav-btn").on("touchstart", function () {
+	if (!$$(this).hasClass("fflow-btn")) {
+		PlayNavRipple($$(this));
+	}
 });
 
 function PlayNavRipple(element) {
-    // element.removeClass('fripple');
-    // setTimeout(function () {
-    //     element.addClass('fripple');
-    // }, 10);
+	// element.removeClass('fripple');
+	// setTimeout(function () {
+	//     element.addClass('fripple');
+	// }, 10);
 }
 
 document.addEventListener("backbutton", onBackKeyDown, false);
@@ -226,110 +253,122 @@ var current_page = "home";
 var last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
 function onBackKeyDown() {
-    console.log("RETOUR");
-    //alert(current_page);
-    // Handle the back button
+	console.log("RETOUR");
+	//alert(current_page);
+	// Handle the back button
 
-    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-    facebookConnectPlugin.logEvent("current_page", {
-        page: current_page,
-        duration: time_in_last_screen
-    }, null, function () {
-        console.log("fb current_page event success")
-    }, function () {
-        console.log("fb current_page error")
-    });
-    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+	let time_in_last_screen =
+		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+	facebookConnectPlugin.logEvent(
+		"current_page",
+		{
+			page: current_page,
+			duration: time_in_last_screen,
+		},
+		null,
+		function () {
+			console.log("fb current_page event success");
+		},
+		function () {
+			console.log("fb current_page error");
+		}
+	);
+	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
-    if (in_options) {
-        Popup("popup-option", false);
-        in_options = false;
-    } else if (in_identification) {
-        Popup("popup-identification", false);
-        in_identification = false;
-    } else if (in_comments) {
-        Popup("popup-comment", false);
-        in_comments = false;
-    } else if (in_likes) {
-        Popup("popup-likes", false);
-        in_likes = false;
-    } else if (in_specifique) {
-        Popup("popup-specifique", false);
-        in_specifique = false;
-    } else if (in_editprofile) {
-        closeEditProfile();
-        in_editprofile = false;
-    } else if (in_following) {
-        Popup("popup-followings", false);
-        in_following = false;
-    } else if (in_followers) {
-        Popup("popup-followers", false);
-        in_followers = false;
-    } else if (searching) {
-        back_search();
-    } else if (current_page == "record") {
-        // app.closeModal('.popup-record');
-        Popup("popup-record", false);
-        if (recording) {
-            console.log("stop recording");
-            stopCapture(false);
-        }
-        current_page = "home";
-    } else if (current_page == "record-story") {
-        // app.closeModal('.popup-story-record');
-        Popup("popup-story-record", false);
-        if (recording) {
-            console.log("stop recording");
-            stopCapture(false);
-        }
-        current_page = "home";
-    } else if (current_page == "connect-popup") {
-        // app.closeModal('.popup-connect');
-        Popup("popup-connect", false);
-        current_page = "home";
-    } else if (current_page == "after-record") {
-        // app.closeModal('.popup-after-record');
-        // app.popup('.popup-record');
-        Popup("popup-after-record", false);
-        Popup("popup-record", true);
-        current_page = "record";
-        stopAllBlocksAudio();
-    } else if (current_page == "after-story-record") {
-        // app.closeModal('.popup-after-story-record');
-        Popup("popup-after-story-record", false);
-        // app.popup('.popup-story-record');
-        Popup("popup-story-record", true);
-        current_page = "record-story";
-        stopAllBlocksAudio();
-    } else if (current_page == "story") {
-        if (currentSection == "comments") {
-            showStoryMain(true);
-        } else {
-            previousStory(0);
-        }
-        // CloseStory();
-    } else if (current_page == "my-account") {
-        Popup("popup-myaccount", false);
-        current_page = "home";
-        stopAllBlocksAudio();
-        $(".fflow-btn").css("display", "block");
-        $(".flow-btn-shadow").css("display", "block");
-        $(".fflow-btn").css("z-index", "1");
-        $(".flow-btn-shadow").css("z-index", "0");
-    } else if (current_page == "account") {
-        Popup("popup-account", false);
-        current_page = "home";
-        stopAllBlocksAudio();
-        $(".fflow-btn").css("display", "block");
-        $(".flow-btn-shadow").css("display", "block");
-        $(".fflow-btn").css("z-index", "1");
-        $(".flow-btn-shadow").css("z-index", "0");
-    } else if (current_page == "home") {
-        //navigator.app.exitApp();
-        stopAllBlocksAudio();
-        console.log("prevent exit");
-    }
+	if (in_mypp) {
+		closeMyPP();
+		in_mypp = false;
+	} else if (in_pp) {
+		closePP();
+		in_pp = false;
+	} else if (in_options) {
+		Popup("popup-option", false);
+		in_options = false;
+	} else if (in_identification) {
+		Popup("popup-identification", false);
+		in_identification = false;
+	} else if (in_comments) {
+		Popup("popup-comment", false);
+		in_comments = false;
+	} else if (in_likes) {
+		Popup("popup-likes", false);
+		in_likes = false;
+	} else if (in_specifique) {
+		Popup("popup-specifique", false);
+		in_specifique = false;
+	} else if (in_editprofile) {
+		closeEditProfile();
+		in_editprofile = false;
+	} else if (in_following) {
+		Popup("popup-followings", false);
+		in_following = false;
+	} else if (in_followers) {
+		Popup("popup-followers", false);
+		in_followers = false;
+	} else if (searching) {
+		back_search();
+	} else if (current_page == "record") {
+		// app.closeModal('.popup-record');
+		Popup("popup-record", false);
+		if (recording) {
+			console.log("stop recording");
+			stopCapture(false);
+		}
+		current_page = "home";
+	} else if (current_page == "record-story") {
+		// app.closeModal('.popup-story-record');
+		Popup("popup-story-record", false);
+		if (recording) {
+			console.log("stop recording");
+			stopCapture(false);
+		}
+		current_page = "home";
+	} else if (current_page == "connect-popup") {
+		// app.closeModal('.popup-connect');
+		Popup("popup-connect", false);
+		current_page = "home";
+	} else if (current_page == "after-record") {
+		// app.closeModal('.popup-after-record');
+		// app.popup('.popup-record');
+		Popup("popup-after-record", false);
+		Popup("popup-record", true);
+		current_page = "record";
+		stopAllBlocksAudio();
+	} else if (current_page == "after-story-record") {
+		// app.closeModal('.popup-after-story-record');
+		Popup("popup-after-story-record", false);
+		// app.popup('.popup-story-record');
+		Popup("popup-story-record", true);
+		current_page = "record-story";
+		stopAllBlocksAudio();
+	} else if (current_page == "story") {
+		if (currentSection == "comments") {
+			showStoryMain(true);
+		} else {
+			previousStory(0);
+		}
+		// CloseStory();
+	} else if (current_page == "my-account") {
+		Popup("popup-myaccount", false);
+		current_page = "home";
+		stopAllBlocksAudio();
+		$(".fflow-btn").css("display", "block");
+		$(".flow-btn-shadow").css("display", "block");
+		$(".fflow-btn").css("z-index", "1");
+		$(".flow-btn-shadow").css("z-index", "0");
+	} else if (current_page == "account") {
+		Popup("popup-account", false);
+		current_page = "home";
+		stopAllBlocksAudio();
+		$(".fflow-btn").css("display", "block");
+		$(".flow-btn-shadow").css("display", "block");
+		$(".fflow-btn").css("z-index", "1");
+		$(".flow-btn-shadow").css("z-index", "0");
+	} else if (current_page == "home") {
+		//navigator.app.exitApp();
+		stopAllBlocksAudio();
+		console.log("prevent exit");
+	}
 
-    // analytics.setCurrentScreen(current_page);
-
+	// analytics.setCurrentScreen(current_page);
 }

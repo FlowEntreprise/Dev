@@ -188,11 +188,10 @@
 	display: table-cell;
 	vertical-align: middle;
 	overflow: hidden;
-	width: 65vw;
-	max-width: 65vw;
+	width: 60vw;
 	height: calc(6 * var(--custom-vh));
 	max-height: calc(6 * var(--custom-vh));
-	font-size: 15px;
+	font-size: 13px;
 	left: 2vw;
 	top: calc(2.5 * var(--custom-vh));
 	color: #92abb2;
@@ -218,7 +217,7 @@
 .flike {
 	position: absolute;
 	width: 10vw;
-	left: 68vw;
+	left: 62vw;
 	top: calc(2.5 * var(--custom-vh));
 	text-align: center;
 	height: calc(7 * var(--custom-vh));
@@ -227,7 +226,16 @@
 .fcomment {
 	position: absolute;
 	width: 10vw;
-	left: 78vw;
+	left: 71vw;
+	top: calc(2.5 * var(--custom-vh));
+	text-align: center;
+	height: calc(7 * var(--custom-vh));
+}
+
+.fshare {
+	position: absolute;
+	width: 10vw;
+	left: 80vw;
 	top: calc(2.5 * var(--custom-vh));
 	text-align: center;
 	height: calc(7 * var(--custom-vh));
@@ -244,7 +252,7 @@
 
 .fimg_impression {
 	text-align: center;
-	width: calc(3.5 * var(--custom-vh));
+	width: calc(3 * var(--custom-vh));
 	height: calc(3.5 * var(--custom-vh));
 	object-fit: contain;
 }

@@ -99,7 +99,8 @@ function PopFlow(data, LinkBuilder) {
     RegisterId: data.RegisterId,
     LastOs: data.LastOs,
     CommentBy: data.CommentBy,
-    LikeBy: data.LikeBy
+    LikeBy: data.LikeBy,
+    Responses: data.Responses
   };
   //block_params.description = block_params.description.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>');
   var new_block = new block(block_params);
@@ -244,6 +245,7 @@ function successFunction() {
 
   // }, 200);
 }
+
 
 function errorFunction(error) {
   console.error(error);

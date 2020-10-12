@@ -108,6 +108,19 @@
     <feature name="Camera">
         <param name="ios-package" value="CDVCamera" />
     </feature>
+    <feature name="SocialSharing">
+        <param name="ios-package" value="SocialSharing" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="IonicDeeplinkPlugin">
+        <param name="ios-package" onload="true" value="IonicDeeplinkPlugin" />
+    </feature>
+    <feature name="LaunchReview">
+        <param name="ios-package" value="LaunchReview" />
+    </feature>
+    <feature name="RareloopAppVersion">
+        <param name="ios-package" value="RareloopAppVersion" />
+    </feature>
     <widget>
         <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
         <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
@@ -131,6 +144,7 @@
     <resource-file src="GoogleService-Info.plist" />
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
+    <allow-intent href="comflowapp:" />
     <splash height="480" src="res/screen/ios/LaunchImage-320x480.png" width="320" />
     <splash height="960" src="res/screen/ios/LaunchImage-640x960.png" width="640" />
     <splash height="1024" src="res/screen/ios/LaunchImage-768x1024.png" width="768" />
@@ -170,6 +184,9 @@
     <preference name="StatusBarStyle" value="default" />
     <preference name="CordovaLocalWebServerStartOnSimulator" value="true" />
     <preference name="CameraUsesGeolocation" value="false" />
+    <preference name="URL_SCHEME" value="comflowapp" />
+    <preference name="DEEPLINK_SCHEME" value="https" />
+    <preference name="DEEPLINK_HOST" value="flowappweb.com" />
     <preference name="Orientation" value="portrait" />
     <preference name="fullscreen" value="false" />
     <preference name="StatusBarBackgroundColor" value="#f7f7f8" />

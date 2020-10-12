@@ -2,10 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en_US</string>
 	<key>CFBundleDisplayName</key>
 	<string>FLOW</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en_US</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -32,6 +32,12 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>twitterkit-JwyvPlw7GcOvE8pXmRvqTyZL3</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>comflowapp</string>
 			</array>
 		</dict>
 	</array>
@@ -115,5 +121,9 @@
 	<array>
 		<string>remote-notification</string>
 	</array>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app requires photo library access to function properly.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires photo library access to function properly.</string>
 </dict>
 </plist>

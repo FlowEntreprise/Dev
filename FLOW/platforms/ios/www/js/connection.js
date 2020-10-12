@@ -22,12 +22,9 @@ function ConnectUser() {
     });
     ServerManager.GetStory();
     ServerManager.GetTimeline(0);
-    let data_notification = {
-        PrivateId: window.localStorage.getItem("user_private_id"),
-        Index: 0
-    };
-    ServerManager.GetNotificationOfUser(data_notification);
     check_seen();
+    RefreshExplore();
+    refresh_notif();
     let loading_tl = document.createElement("div");
     loading_tl.className = "loading-spinner loading_tl";
     $(".list-block")[0].appendChild(loading_tl);
@@ -45,7 +42,8 @@ function ConnectUser() {
         ServerManager.UpdateRegisterId(data);
         $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
     }, 100);
-
+    ServerManager.GetVersionProtocol();
+    ServerManager.UpdateUserLastConnexion();
     //$( "#fswipe_area" ).css({"pointer-events": "all"});
 }
 

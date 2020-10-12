@@ -390,6 +390,45 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "CameraPopoverHandle"
       ]
+    },
+    {
+      "id": "es6-promise-plugin.Promise",
+      "file": "plugins/es6-promise-plugin/www/promise.js",
+      "pluginId": "es6-promise-plugin",
+      "runs": true
+    },
+    {
+      "id": "cordova-plugin-x-socialsharing.SocialSharing",
+      "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
+      "pluginId": "cordova-plugin-x-socialsharing",
+      "clobbers": [
+        "window.plugins.socialsharing"
+      ]
+    },
+    {
+      "id": "ionic-plugin-deeplinks.deeplink",
+      "file": "plugins/ionic-plugin-deeplinks/www/deeplink.js",
+      "pluginId": "ionic-plugin-deeplinks",
+      "clobbers": [
+        "IonicDeeplink"
+      ],
+      "runs": true
+    },
+    {
+      "id": "cordova-launch-review.LaunchReview",
+      "file": "plugins/cordova-launch-review/www/launchreview.js",
+      "pluginId": "cordova-launch-review",
+      "clobbers": [
+        "LaunchReview"
+      ]
+    },
+    {
+      "id": "cordova-plugin-appversion.RareloopAppVersion",
+      "file": "plugins/cordova-plugin-appversion/www/app-version.js",
+      "pluginId": "cordova-plugin-appversion",
+      "clobbers": [
+        "AppVersion"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -421,6 +460,11 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "phonegap-plugin-push": "2.3.0",
     "cordova-plugin-facebook4": "6.4.0",
     "cordova-plugin-twitter-connect-wkwebview": "1.0.1",
-    "cordova-plugin-camera": "4.1.0"
+    "cordova-plugin-camera": "4.1.0",
+    "es6-promise-plugin": "4.2.2",
+    "cordova-plugin-x-socialsharing": "6.0.2",
+    "ionic-plugin-deeplinks": "1.0.20",
+    "cordova-launch-review": "4.0.0",
+    "cordova-plugin-appversion": "1.0.0"
   };
 });

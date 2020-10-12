@@ -265,5 +265,52 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-launch-review": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-launch-review@^4.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-x-socialsharing": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-x-socialsharing"
+    },
+    "is_top_level": true,
+    "variables": {
+      "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
+      "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly."
+    }
+  },
+  "es6-promise-plugin": {
+    "source": {
+      "type": "registry",
+      "id": "es6-promise-plugin@^4.1.0"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "ionic-plugin-deeplinks": {
+    "source": {
+      "type": "registry",
+      "id": "ionic-plugin-deeplinks"
+    },
+    "is_top_level": true,
+    "variables": {
+      "URL_SCHEME": "comflowapp",
+      "DEEPLINK_SCHEME": "https",
+      "DEEPLINK_HOST": "flowappweb.com"
+    }
+  },
+  "cordova-plugin-appversion": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-appversion"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

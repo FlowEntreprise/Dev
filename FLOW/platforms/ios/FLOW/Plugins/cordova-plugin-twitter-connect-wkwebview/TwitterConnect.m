@@ -76,8 +76,19 @@ BOOL authNotResolved = true;
 #pragma mark - AppDelegate Overrides
 
 @implementation AppDelegate (TwitterConnect)
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
-    NSLog(@"Twitter handle url using application:openURL:options:: %@", url);
-  return [[Twitter sharedInstance] application:app openURL:url options:options];
+- (BOOL)swizzled_application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
+    if (!url) {
+        return NO;
+    }
+
+    if ([url.absoluteString rangeOfString:@"twitterkit"].location == NSNotFound) {
+        return [self swizzled_application:application openURL:url options:options];
+    }
+    else {
+        [[Twitter sharedInstance] application:application openURL:url options:options];
+        NSLog(@"Twitter handle url using application:openURL:sourceApplication:annotation: %@", url);
+        // Call existing method
+        return [self swizzled_application:application openURL:url options:options];
+    }
 }
 @end

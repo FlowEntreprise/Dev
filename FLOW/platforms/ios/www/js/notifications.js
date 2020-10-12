@@ -1,5 +1,6 @@
 var all_notifications_block = [];
 var loading_before_popup_specifique;
+var current_notification_block;
 function block_notification_like(data) { //type permet de defini si c'est le like d'un flow ou le like d'un commentaire
     this.seen = !!+data.IsView;
     var block_notification_like = this;
@@ -14,6 +15,7 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
         this.Id_comment = data.additionalData.sender_info.Id_comment;
         this.Id_response = data.additionalData.sender_info.Id_response;
         this.seen = false;
+        this.type = data.additionalData.type;
         //if(this.like_comment == "like_comment")
         //{this.message = data.additionalData.sender_info.comment_text;}
     } else {
@@ -23,6 +25,7 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
         this.like_comment = data.TypeOfNotification;
         this.private_Id = data.PrivateId;
         this.time = data.Time;
+        this.type = data.TypeOfNotification;
         if (data.TypeOfNotification == "like_comment" || data.TypeOfNotification == "send_comment") {
             this.Id_comment = data.ObjectId;
         }
@@ -133,6 +136,7 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
 
 
     $(this.block_notification_like).on("click", function () {
+        current_notification_block = block_notification_like;
         loading_before_popup_specifique = document.createElement("div");
         loading_before_popup_specifique.className = "loading-spinner loading_tl";
         $("#tab4").append(loading_before_popup_specifique);
@@ -157,9 +161,9 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
             {
                 ObjectId: block_notification_like.Id_response
             };
-            ServerManager.GetRankOfResponse(data_single_response);
+            ServerManager.GetSingleResponseExtended(data_single_response);
         }
-        if (block_notification_like.like_comment != "like_comment" && block_notification_like.like_comment != "like_response") {
+        if (block_notification_like.like_comment == "like_flow") {
             let data_flow = {
                 IdFlow: block_notification_like.IdFlow
             };
@@ -239,6 +243,7 @@ function block_notification_comment(data) {
         this.IdFlow = data.additionalData.sender_info.IdFlow;
         this.Id_comment = data.additionalData.sender_info.Id_comment;
         this.seen = false;
+        this.type = data.additionalData.type;
 
     } else {
         this.full_name = data.FullName;
@@ -249,6 +254,7 @@ function block_notification_comment(data) {
         this.time = data.Time;
         this.seen = !!+data.IsView;
         this.IdNotif = data.IdNotif;
+        this.type = data.TypeOfNotification;
         if (data.TypeOfNotification == "like_comment" || data.TypeOfNotification == "send_comment") {
             this.Id_comment = data.ObjectId;
         }
@@ -313,6 +319,7 @@ function block_notification_comment(data) {
     this.block_notification_comment.appendChild(this.ftime);
 
     $(this.block_notification_comment).on("click", function () {
+        current_notification_block = block_notification_comment;
         loading_before_popup_specifique = document.createElement("div");
         loading_before_popup_specifique.className = "loading-spinner loading_tl";
         $("#tab4").append(loading_before_popup_specifique);
@@ -335,7 +342,7 @@ function block_notification_comment(data) {
             {
                 ObjectId: block_notification_comment.Id_response
             };
-            ServerManager.GetRankOfResponse(data_single_response);
+            ServerManager.GetSingleResponseExtended(data_single_response);
         }
         if (block_notification_comment.like_comment == "tag_in_flow") {
             let data_flow = {
@@ -368,6 +375,7 @@ function block_notification_follow(data) {
         this.time = Date.now();
         this.IdFlow = data.additionalData.sender_info.IdFlow;
         this.seen = false;
+        this.type = data.additionalData.type;
     } else {
         this.full_name = data.FullName;
         this.message = data.Content;
@@ -378,6 +386,7 @@ function block_notification_follow(data) {
         this.IdFlow = data.IdFlow;
         this.seen = !!+data.IsView;
         this.IdNotif = data.IdNotif;
+        this.type = data.TypeOfNotification;
     }
     if (this.message.length > 28) this.message = this.message.substring(0, 28) + "...";
     this.block_notification_follow = document.createElement('div');
@@ -465,6 +474,7 @@ function block_notification_story_comment(data) {
         this.time = Date.now();
         this.IdFlow = data.additionalData.sender_info.IdFlow;
         this.seen = false;
+        this.type = data.additionalData.type;
     } else {
         this.full_name = data.FullName;
         this.message = data.Content;
@@ -475,6 +485,7 @@ function block_notification_story_comment(data) {
         this.IdFlow = data.IdFlow;
         this.seen = !!+data.IsView;
         this.IdNotif = data.IdNotif;
+        this.type = data.TypeOfNotification;
     }
     if (this.message.length > 28) this.message = this.message.substring(0, 28) + "...";
     this.block_notification_story_comment = document.createElement('div');
@@ -568,19 +579,7 @@ $(".fnotif-btn").on("click", function () {
     // var home_scrolling = false;
     if (current_page == "notifications") {
 
-        for (let i = 0; i < all_notifications_block.length; i++) {
-
-            let data_notif_seen = {
-                IdNotif: all_notifications_block[i].IdNotif
-            };
-            ServerManager.UpdateNotificationToView(data_notif_seen);
-            all_notifications_block[i].seen = true;
-            if (all_notifications_block[i].fred_dot_border) {
-                all_notifications_block[i].fred_dot_border.remove();
-            }
-
-        }
-        $(".fred_dot_toolbar_new_notif").css("display", "none");
+        set_all_notifs_to_seen();
         let element = document.getElementById("tab4");
         // element.onscroll = function() {
         //     home_scrolling = true;
@@ -606,14 +605,61 @@ var ptrNotif = $$('.pull-to-refresh-content');
 ptrNotif.on('ptr:refresh', function (e) {
     // Emulate 2s loading
     console.log("refreshing...");
-    NotificationListCurrentIndex = 0;
-    let data_update_Notification_list = {
-        PrivateId: window.localStorage.getItem("user_private_id"),
-        Index: NotificationListCurrentIndex
-    };
-    ServerManager.GetNotificationOfUser(data_update_Notification_list);
-    check_seen();
+    refresh_notif(true);
 });
+
+function refresh_notif(set_to_seen) {
+    let data_notification = {
+        PrivateId: window.localStorage.getItem("user_private_id"),
+        Index: 0,
+    };
+    NotificationListCurrentIndex = 0;
+    all_notifications_block.length = 0;
+    ServerManager.GetNotificationOfUser(data_notification, set_to_seen);
+}
+
+function set_all_notifs_to_seen() {
+    for (let i = 0; i < all_notifications_block.length; i++) {
+        let data_notif_seen = {
+            IdNotif: all_notifications_block[i].IdNotif
+        };
+        if (all_notifications_block[i].seen != true) {
+            ServerManager.UpdateNotificationToView(data_notif_seen);
+            all_notifications_block[i].seen = true;
+            if (all_notifications_block[i].fred_dot_border) {
+                all_notifications_block[i].fred_dot_border.remove();
+            }
+        }
+    }
+    $(".fred_dot_toolbar_new_notif").css("display", "none");
+}
+
+function show_specifique_element_for_comment_button(notif_block) {
+    if (notif_block.type == "like_comment" || notif_block.type == "send_comment") {
+        let data_single_comment =
+        {
+            ObjectId: notif_block.Id_comment
+        };
+        ServerManager.GetSingleComment(data_single_comment);
+        return;
+    }
+    if (notif_block.type == "like_response" || notif_block.type == "send_response") {
+        let data_single_response =
+        {
+            ObjectId: notif_block.Id_response
+        };
+        ServerManager.GetSingleResponseExtended(data_single_response);
+        return;
+    }
+    if (notif_block.type == "like_flow") {
+        let data_flow = {
+            IdFlow: notif_block.IdFlow
+        };
+        ServerManager.GetSingle(data_flow);
+        return;
+    }
+}
+
 
 
 ptrNotif.on('ptr:pullstart', function (e) {
@@ -658,7 +704,7 @@ $("#tab4").scroll(function () {
     }
 });
 
-function UpdateNotificationList(data) {
+function UpdateNotificationList(data, set_to_seen) {
     console.log("updating notification list...");
     // console.log(data.Data);
     if (Array.isArray(data.Data)) {
@@ -667,37 +713,39 @@ function UpdateNotificationList(data) {
         } else {
             $(".no_notif")[0].style.display = "block";
         }
-        setTimeout(function () {
-            if ($(".loading_tl")) $(".loading_tl").remove();
-            if (NotificationListCurrentIndex == 0) {
-                $(".list-notif-block")[0].innerHTML = "";
-                let loading_tl = document.createElement("div");
-                loading_tl.className = "loading-spinner loading_tl";
-                $(".list-notif-block")[0].appendChild(loading_tl);
-            }
-            for (let i = 0; i < data.Data.length; i++) {
-                pop_notif_block(data.Data[i]);
-            }
-            NotificationListCurrentIndex++;
-            if ($(".loading_tl")) $(".loading_tl").remove();
-            console.log("notification updated !");
-            if (data.Data.length < 10) {
-                CanRefreshNotificationList = false;
-                let tick_tl = document.createElement("div");
-                tick_tl.className = "tick_icon";
-                $(".list-notif-block")[0].appendChild(tick_tl);
+        if ($(".loading_tl")) $(".loading_tl").remove();
+        if (NotificationListCurrentIndex == 0) {
+            $(".list-notif-block")[0].innerHTML = "";
+            let loading_tl = document.createElement("div");
+            loading_tl.className = "loading-spinner loading_tl";
+            $(".list-notif-block")[0].appendChild(loading_tl);
+        }
+        for (let i = 0; i < data.Data.length; i++) {
+            pop_notif_block(data.Data[i]);
+        }
+        NotificationListCurrentIndex++;
+        if ($(".loading_tl")) $(".loading_tl").remove();
+        console.log("notification updated !");
+        if (data.Data.length < 10) {
+            CanRefreshNotificationList = false;
+            let tick_tl = document.createElement("div");
+            tick_tl.className = "tick_icon";
+            $(".list-notif-block")[0].appendChild(tick_tl);
 
-            } else {
-                CanRefreshNotificationList = true;
-                let loading_tl = document.createElement("div");
-                loading_tl.className = "loading-spinner loading_tl";
-                $(".list-notif-block")[0].appendChild(loading_tl);
-            }
-        }, 500);
+        } else {
+            CanRefreshNotificationList = true;
+            let loading_tl = document.createElement("div");
+            loading_tl.className = "loading-spinner loading_tl";
+            $(".list-notif-block")[0].appendChild(loading_tl);
+        }
         notification_list_empty = false;
+        if (set_to_seen) {
+            set_all_notifs_to_seen();
+        }
     } else {
         $(".no_notif")[0].style.display = "block";
     }
+
 }
 
 // fin du copié collé de la fonction de scroll de fdp
@@ -1306,7 +1354,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
             //     {
             //         ObjectId: data.additionalData.sender_info.Id_response
             //     };
-            //     ServerManager.GetRankOfResponse(data_single_response);
+            //     ServerManager.GetSingleResponseExtended(data_single_response);
             // });
             break;
 
@@ -1334,7 +1382,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
             //     {
             //         ObjectId: data.additionalData.sender_info.Id_response
             //     };
-            //     ServerManager.GetRankOfResponse(data_single_response);
+            //     ServerManager.GetSingleResponseExtended(data_single_response);
             // });
             break;
 
