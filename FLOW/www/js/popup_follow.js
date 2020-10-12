@@ -31,14 +31,15 @@ function block_user(follow_list, target, data) //follow_list true correspond au 
   this.fphoto_block_user.style.backgroundImage = "url('" + profilePicLink + "')";
   this.block_user.appendChild(this.fphoto_block_user);
 
-  $(this.fphoto_block_user).on('click', function () {
-
-    let data_user = {
-      private_Id: data.PrivateId,
-      user_private_Id: window.localStorage.getItem("user_private_id")
-    };
-    go_to_account(data_user);
-  });
+    $(this.fphoto_block_user).on('click', function () {
+        if (follow_list != true) {
+          let data_user = {
+            private_Id: data.PrivateId,
+            user_private_Id: window.localStorage.getItem("user_private_id")
+          };
+          go_to_account(data_user);
+        }
+      });
 
   this.f_user_fullname = document.createElement('label');
   this.f_user_fullname.className = 'f_user_fullname';
