@@ -425,9 +425,9 @@ function check_app_version(app_version) {
                 setTimeout(function () {
                     if (
                         (window.cordova.platformId == "ios" &&
-                            app_version.ios != AppVersion.version) ||
+                            app_version.Ios != AppVersion.version) ||
                         (window.cordova.platformId == "android" &&
-                            app_version.android != AppVersion.version)
+                            app_version.Android != AppVersion.version)
                     ) {
                         navigator.notification.confirm(
                             "Mets l'application à jour pour profiter des toutes dernières fonctionnalités.",
