@@ -1,37 +1,19 @@
-function flow_specifique(data, LinkBuilder, show_comment, type, data_specifique, data_position) { //show comment permet de savoir si les commentaires doivent etre affichées
+var comment_button_was_clicked_in_popup_specifique = false;
+function flow_specifique(data, show_comment, type, data_specifique, all_data) { //show comment permet de savoir si les commentaires doivent etre affichées
     //type : un commentaire ou une reponse
     //data_specifique : les datas pour afficher un commentaire specifique ou une reponse specifique
     Popup("popup-specifique", true);
     $(".flow_specifique_container")[0].innerHTML = "";
-    var image_link = undefined;
-    var pattern_key = undefined;
-    if (data.Background.PatternKey == undefined) {
-        const src_img = 'https://' + LinkBuilder.Hostname + ':' + LinkBuilder.Port + '/images/' + data.Background.name + '?';
-        const param_img = `${LinkBuilder.Params.hash}=${data.Background.hash}&${LinkBuilder.Params.time}=${data.Background.timestamp}`;
-        image_link = src_img + param_img;
-    } else {
-        pattern_key = data.Background.PatternKey;
-    }
-
-    const src_flow = 'https://' + LinkBuilder.Hostname + ':' + LinkBuilder.Port + '/flows/' + data.Audio.name + '?';
-    const param_flow = `${LinkBuilder.Params.hash}=${data.Audio.hash}&${LinkBuilder.Params.time}=${data.Audio.timestamp}`;
-    const flow_link = src_flow + param_flow;
-
-    const src_profile_img = 'https://' + LinkBuilder.Hostname + ':' + LinkBuilder.Port + '/images/' + data.ProfilPicture.name + '?';
-    const param_profile_img = `${LinkBuilder.Params.hash}=${data.ProfilPicture.hash}&${LinkBuilder.Params.time}=${data.ProfilPicture.timestamp}`;
-    var profilePicLink = src_profile_img + param_profile_img;
-
     let block_params = {
         parent_element: $(".flow_specifique_container"),
         afterblock: false,
-        audioURL: flow_link,
+        audioURL: data.Audio,
         duration: data.Duration,
-        patternKey: pattern_key,
-        imageURL: image_link,
+        imageURL: data.Background,
         title: data.Title,
         description: data.Description,
         pseudo: data.PrivateId,
-        account_imageURL: profilePicLink,
+        account_imageURL: data.ProfilePicture,
         ObjectId: data.ObjectId,
         PrivateId: data.PrivateId,
         Times: data.Time,
@@ -40,22 +22,23 @@ function flow_specifique(data, LinkBuilder, show_comment, type, data_specifique,
         Likes: data.Likes,
         Comments: data.Comments,
         RegisterId: data.RegisterId,
+        Responses: data.Responses
     };
     //block_params.description = block_params.description.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>');
     var new_block = new block(block_params);
+    current_flow_block = new_block;
     all_blocks.push(new_block);
-    if (show_comment == true) $(new_block.fimg_impression_comment).click();
+    if (show_comment == true && comment_button_was_clicked_in_popup_specifique == false) {
+        $(new_block.fimg_impression_comment).click();
+        comment_button_was_clicked_in_popup_specifique = true;
+    }
+
     if (type == "comment") {
-        comment_specifique(data_specifique, type, data_specifique);
+        comment_specifique(data_specifique.Data, type, all_data);
     }
 
     if (type == "response") {
-        let data_single_comment =
-        {
-            ObjectId: data_specifique.Data.IdComment
-        };
-        ServerManager.GetSingleComment(data_single_comment, "response", data_specifique, data_position);
-
+        comment_specifique(all_data.Data.comment, type, all_data);
     }
     console.log("Pop Flow");
     console.log(new_block);
@@ -63,34 +46,35 @@ function flow_specifique(data, LinkBuilder, show_comment, type, data_specifique,
 }
 
 
-function flow_for_comment_specifique(type, response, data_position) {
+function flow_for_comment_specifique(type, response) {
+    if (type == "comment") {
+        let data_flow = {
+            IdFlow: response.Data.IdFlow
+        };
+        ServerManager.GetSingle(data_flow, true, type, response);
+    }
+    else {
 
-    let data_flow = {
-        IdFlow: response.Data.IdFlow
-    };
-    ServerManager.GetSingle(data_flow, true, type, response, data_position);
+        flow_specifique(response.Data.flow, true, type, response.Data.response, response);
+    }
 
 }
 
-function comment_specifique(response, type, data_response, data_position) {
-
-    const src_profile_img = 'https://' + response.LinkBuilder.Hostname + ':' + response.LinkBuilder.Port + '/images/' + response.Data.ProfilePicture.name + '?';
-    const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data.ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data.ProfilePicture.timestamp}`;
-    let profilePicLink = src_profile_img + param_profile_img;
+function comment_specifique(response, type, all_data) {
 
     let comment_data = {
-        PrivateId: response.Data.PrivateId,
-        ProfilePicture: profilePicLink,
-        Comment: response.Data.Comment,
-        Comment_text: response.Data.Comment,
-        Like_number: response.Data.Likes,
-        Time: response.Data.Time,
-        IsLike: response.Data.IsLike,
-        IdComment: response.Data.IdComment,
-        RegisterId: response.Data.RegisterId,
-        LastOs: response.Data.LastOs,
-        Flow_block_id: response.Data.IdFlow,
-        Responses: response.Data.Responses //nombre de reponses
+        PrivateId: response.PrivateId,
+        ProfilePicture: response.ProfilePicture,
+        Comment: response.Comment,
+        Comment_text: response.Comment,
+        Like_number: response.Likes,
+        Time: response.Time,
+        IsLike: response.IsLike,
+        IdComment: response.IdComment,
+        RegisterId: response.RegisterId,
+        LastOs: response.LastOs,
+        Flow_block_id: response.IdFlow,
+        Responses: response.Responses //nombre de reponses
     };
 
     comment_data.Comment = comment_data.Comment.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
@@ -101,43 +85,45 @@ function comment_specifique(response, type, data_response, data_position) {
         }
     }
     commentaire_unique = new block_comment(comment_data, true);
+    current_comment_block = commentaire_unique;
     current_flow_block.all_comment_blocks.push(commentaire_unique);
     if (type == "comment") {
         $(commentaire_unique.fblock_comment).css("background-color", "#1A84EF26");
     }
     if (type == "response") {
-        response_current_index = Math.trunc(data_position.rank / 10);
-        response_current_index > 0 ? response_current_desc_index = response_current_index - 1 : response_current_desc_index = 0;
-        id_response_specifique = data_response.Data.IdResponse;
-        nombre_de_reponses_precedent = response_current_index * 10;
+        if (Number.isInteger(all_data.Data.rank.rank / 10) && all_data.Data.rank.rank != 0) {
+            current_comment_block.response_current_index = (all_data.Data.rank.rank / 10) - 1;
+        }
+        else {
+            current_comment_block.response_current_index = Math.trunc(all_data.Data.rank.rank / 10);
+        }
+        current_comment_block.response_current_index > 0 ? current_comment_block.response_current_desc_index = current_comment_block.response_current_index - 1 : current_comment_block.response_current_desc_index = 0;
+        id_response_specifique = all_data.Data.response.IdResponse;
+        current_comment_block.nombre_de_reponses_precedent = current_comment_block.response_current_index * 10;
         $(commentaire_unique.fblock_comment_label_afficher_les_reponses).click();
-        if (response_current_index > 0) {
+        if (current_comment_block.response_current_index > 0) {
             $(commentaire_unique.fblock_comment_label_reponses_precedentes).css("display", "block");
         }
-        /* let data = {
-             ObjectId: current_comment_block.ObjectId,
-             Index: response_current_index
-         };
-         ServerManager.GetCommentResponse(data, data_response);*/
     }
 
 }
 
-function flow_and_comment_for_response_specifique(response, data_position) {
-    flow_for_comment_specifique("response", response, data_position);
+function flow_and_comment_for_response_specifique(response) {
+    flow_for_comment_specifique("response", response);
 }
 
 
 document.getElementById("popup-specifique").addEventListener("opened", function () {
     $(loading_before_popup_specifique).remove();
     in_specifique = true;
-    response_current_index = 0;
+    current_comment_block.response_current_index = 0;
     id_response_specifique = undefined;
 });
 document.getElementById("popup-specifique").addEventListener("closed", function () {
     commentaire_unique = null;
     in_specifique = false;
-    response_current_index = 0;
+    comment_button_was_clicked_in_popup_specifique = false;
+    current_comment_block.response_current_index = 0;
     id_response_specifique = undefined;
     you_have_to_prepend_response_specifique = false;
     if (current_flow_block) {
@@ -151,42 +137,4 @@ document.getElementById("popup-specifique").addEventListener("closed", function 
     stopAllBlocksAudio();
 });
 
-
-
-
-
-
-var MAX_DIALOG_WAIT_TIME = 5000; //max time to wait for rating dialog to display
-var ratingTimerId;
-
-LaunchReview.rating(function (result) {
-    if (cordova.platformId === "android") {
-        console.log("Rating dialog displayed");
-        window.localStorage.setItem("last_ask_user_rating", date.now());
-    } else if (cordova.platformId === "ios") {
-        if (result === "requested") {
-            console.log("Requested display of rating dialog");
-
-            ratingTimerId = setTimeout(function () {
-                console.warn("Rating dialog was not shown (after " + MAX_DIALOG_WAIT_TIME + "ms)");
-            }, MAX_DIALOG_WAIT_TIME);
-        } else if (result === "shown") {
-            console.log("Rating dialog displayed");
-            window.localStorage.setItem("last_ask_user_rating", date.now());
-            clearTimeout(ratingTimerId);
-        } else if (result === "dismissed") {
-            console.log("Rating dialog dismissed");
-        }
-    }
-
-}, function (err) {
-    console.log("Error opening rating dialog: " + err);
-});
-
-setTimeout(function () {
-    let last_review = Math.floor((Date.now() - window.localStorage.getItem("last_ask_user_rating")) / 1000 / 60 / 60 / 24);
-    if (last_review > 5) {
-        LaunchReview.rating();
-    }
-}, 270000);
 

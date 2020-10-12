@@ -122,6 +122,10 @@
 		D30EB1DCEE10437E935CCA9C /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C296B2E8672F4BD49CE98207 /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		449BCFF9CBFF47E791A006AF /* AppDelegate+IonicDeeplink.m in Sources */ = {isa = PBXBuildFile; fileRef = 34DB2DC34CCE476BB3233002 /* AppDelegate+IonicDeeplink.m */; };
 		73F944D38D6F41BEBE142BFD /* IonicDeeplinkPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 048FB18722894290919D5FD1 /* IonicDeeplinkPlugin.m */; };
+		209A44BC769C45AB8B68ED09 /* LaunchReview.m in Sources */ = {isa = PBXBuildFile; fileRef = CAE14F11BB8446959DA2DA13 /* LaunchReview.m */; };
+		098A8435F6CA4366943FDFA6 /* UIWindow+DismissNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 71C761FF4FE74D4A95D5D4B6 /* UIWindow+DismissNotification.m */; };
+		EFF3C7BB10E440A097ED20D7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D382945064934149B52F11D9 /* StoreKit.framework */; };
+		E49A521AEC2B478B92487E3C /* RareloopAppVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 232BCE4F514C492BA0A2FD26 /* RareloopAppVersion.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -375,6 +379,13 @@
 		34DB2DC34CCE476BB3233002 /* AppDelegate+IonicDeeplink.m */ = {isa = PBXFileReference; name = "AppDelegate+IonicDeeplink.m"; path = "ionic-plugin-deeplinks/AppDelegate+IonicDeeplink.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		048FB18722894290919D5FD1 /* IonicDeeplinkPlugin.m */ = {isa = PBXFileReference; name = "IonicDeeplinkPlugin.m"; path = "ionic-plugin-deeplinks/IonicDeeplinkPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		425624DCCEFA4D9A93111447 /* IonicDeeplinkPlugin.h */ = {isa = PBXFileReference; name = "IonicDeeplinkPlugin.h"; path = "ionic-plugin-deeplinks/IonicDeeplinkPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		CAE14F11BB8446959DA2DA13 /* LaunchReview.m */ = {isa = PBXFileReference; name = "LaunchReview.m"; path = "cordova-launch-review/LaunchReview.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		71C761FF4FE74D4A95D5D4B6 /* UIWindow+DismissNotification.m */ = {isa = PBXFileReference; name = "UIWindow+DismissNotification.m"; path = "cordova-launch-review/UIWindow+DismissNotification.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		A2A5BFAEE9AE4556BBB2A4DB /* LaunchReview.h */ = {isa = PBXFileReference; name = "LaunchReview.h"; path = "cordova-launch-review/LaunchReview.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		74860B2AE62B4F4882A82276 /* UIWindow+DismissNotification.h */ = {isa = PBXFileReference; name = "UIWindow+DismissNotification.h"; path = "cordova-launch-review/UIWindow+DismissNotification.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		D382945064934149B52F11D9 /* StoreKit.framework */ = {isa = PBXFileReference; name = "StoreKit.framework"; path = "System/Library/Frameworks/StoreKit.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		232BCE4F514C492BA0A2FD26 /* RareloopAppVersion.m */ = {isa = PBXFileReference; name = "RareloopAppVersion.m"; path = "cordova-plugin-appversion/RareloopAppVersion.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		B5A3C57DB3B34A0DA0FD8A8A /* RareloopAppVersion.h */ = {isa = PBXFileReference; name = "RareloopAppVersion.h"; path = "cordova-plugin-appversion/RareloopAppVersion.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -401,6 +412,7 @@
 				9C86A605C24840BB95BBF902 /* AVFoundation.framework in Frameworks */,
 				33E4CF056AB44B36B2B4B449 /* Social.framework in Frameworks */,
 				D30EB1DCEE10437E935CCA9C /* MessageUI.framework in Frameworks */,
+				EFF3C7BB10E440A097ED20D7 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +507,7 @@
 				F507B73FAF34481AB5232FE1 /* AVFoundation.framework */,
 				0AD4E412855340C1924088A7 /* Social.framework */,
 				C296B2E8672F4BD49CE98207 /* MessageUI.framework */,
+				D382945064934149B52F11D9 /* StoreKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -689,6 +702,12 @@
 				34DB2DC34CCE476BB3233002 /* AppDelegate+IonicDeeplink.m */,
 				048FB18722894290919D5FD1 /* IonicDeeplinkPlugin.m */,
 				425624DCCEFA4D9A93111447 /* IonicDeeplinkPlugin.h */,
+				CAE14F11BB8446959DA2DA13 /* LaunchReview.m */,
+				71C761FF4FE74D4A95D5D4B6 /* UIWindow+DismissNotification.m */,
+				A2A5BFAEE9AE4556BBB2A4DB /* LaunchReview.h */,
+				74860B2AE62B4F4882A82276 /* UIWindow+DismissNotification.h */,
+				232BCE4F514C492BA0A2FD26 /* RareloopAppVersion.m */,
+				B5A3C57DB3B34A0DA0FD8A8A /* RareloopAppVersion.h */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -972,6 +991,9 @@
 				9465B7235647480494870199 /* SocialSharing.m in Sources */,
 				449BCFF9CBFF47E791A006AF /* AppDelegate+IonicDeeplink.m in Sources */,
 				73F944D38D6F41BEBE142BFD /* IonicDeeplinkPlugin.m in Sources */,
+				209A44BC769C45AB8B68ED09 /* LaunchReview.m in Sources */,
+				098A8435F6CA4366943FDFA6 /* UIWindow+DismissNotification.m in Sources */,
+				E49A521AEC2B478B92487E3C /* RareloopAppVersion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

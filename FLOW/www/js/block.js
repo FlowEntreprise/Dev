@@ -8,18 +8,18 @@ var current_block_playing = null;
 var commentaire_unique;
 /*********** BLOCK PARAMS *************
  * var block_params = {
-    parent_element: undefined,
-    afterblock: undefined,
-    audioURL: undefined,
-    duration: undefined,
-    patternKey: undefined,
-    imageURL: undefined,
-    title: undefined,
-    description: undefined,
-    pseudo: undefined,
-    account_imageURL: undefined,
-    Islike,
-    Iscomment
+	parent_element: undefined,
+	afterblock: undefined,
+	audioURL: undefined,
+	duration: undefined,
+	patternKey: undefined,
+	imageURL: undefined,
+	title: undefined,
+	description: undefined,
+	pseudo: undefined,
+	account_imageURL: undefined,
+	Islike,
+	Iscomment
   };
  ****************************************/
 function block(params) {
@@ -41,10 +41,12 @@ function block(params) {
 	this.Likes = params.Likes;
 	this.RegisterId = params.RegisterId;
 	this.LastOs = params.LastOs;
-	this.Comments = params.Comments;
+	params.Responses == null ? params.Responses = "0" : params.Responses = params.Responses;
+	this.Comments = parseInt(params.Comments) + parseInt(params.Responses);
 	this.ready = false;
 	this.last_like_time;
 	this.offset_indicator = 0;
+	this.Responses = params.Responses;
 
 	this.flowplay = function () {
 		if (this.ready) {
@@ -122,6 +124,7 @@ function block(params) {
 		let indicator_icon = "";
 		if (params.LikeBy != null) {
 			params.LikeBy = params.LikeBy.split(",")[0].replace(/[\[\]']+/g, "");
+			params.LikeBy = '<span class="tl_private_id_indicator">' + params.LikeBy + '</span>';
 			indicator_txt = params.LikeBy + " a aimé ceci";
 			indicator_icon =
 				"<img class='tl_indicator_icon' src='./src/icons/Like.png' width='15vw' height='30vw' align='middle'>";
@@ -131,6 +134,7 @@ function block(params) {
 				/[\[\]']+/g,
 				""
 			);
+			params.CommentBy = '<span class="tl_private_id_indicator">' + params.CommentBy + '</span>';
 			indicator_txt = params.CommentBy + " a commenté ceci";
 			indicator_icon =
 				"<img class='tl_indicator_icon' src='./src/icons/Comment.png' width='15vw' height='30vw' align='middle'>";
@@ -307,11 +311,15 @@ function block(params) {
 		this.fimg_impression_share.src = "src/icons/share.png";
 		this.fshare.appendChild(this.fimg_impression_share);
 
+		let share_url = "https://share.flowappweb.com/";
+		if (ServerParams.ServerURL.includes("test"))
+			share_url = "https://share-test.flowappweb.com/";
 		// this is the complete list of currently supported params you can pass to the plugin (all optional)
 		let options = {
 			// message: "", // not supported on some apps (Facebook, Instagram)
 			// subject: "FLOW", // fi. for email
-			url: "https://api-test.flowappweb.com/redirect/" + block.ObjectId,
+
+			url: share_url + "redirect/" + block.ObjectId,
 			chooserTitle: "Pick an app", // Android only, you can override the default share sheet title
 			iPadCoordinates: "0,0,0,0", //IOS only iPadCoordinates for where the popover should be point.  Format with x,y,width,height
 		};
@@ -577,21 +585,31 @@ function block(params) {
 
 	/*----------------------TEST_LAURE------------
 
-      $(this.fdots).on('click', function () {
+	  $(this.fdots).on('click', function () {
 
-          $("#registration_test").val(registrationId);
-      });
+		  $("#registration_test").val(registrationId);
+	  });
 
-      ----------------------FIN_TEST_LAURE------------*/
-
+	  ----------------------FIN_TEST_LAURE------------*/
 	$(this.fimg_impression_comment).on("click", function () {
 		if (connected) {
-			current_flow_block = block;
-			+current_flow_block.Comments <= 1
-				? (text_comment_number = current_flow_block.Comments + " commentaire")
-				: (text_comment_number = current_flow_block.Comments + " commentaires");
-			$(".fcomment_number").text(text_comment_number);
-			display_all_comments(current_flow_block);
+			if (comment_button_was_clicked_in_popup_specifique == false) {
+				current_flow_block = block;
+				+current_flow_block.Comments <= 1
+					? (text_comment_number = current_flow_block.Comments + " commentaire")
+					: (text_comment_number =
+						current_flow_block.Comments + " commentaires");
+				$(".fcomment_number").text(text_comment_number);
+				display_all_comments(current_flow_block);
+			} else {
+				current_flow_block.Comments <= 1
+					? (text_comment_number = current_flow_block.Comments + " commentaire")
+					: (text_comment_number =
+						current_flow_block.Comments + " commentaires");
+				$(".fcomment_number").text(text_comment_number);
+				display_all_comments(current_flow_block);
+				show_specifique_element_for_comment_button(current_notification_block);
+			}
 		} else {
 			Popup("popup-connect", true, 60);
 		}
@@ -683,8 +701,8 @@ function display_comment_likes(comment, is_response) {
 	console.log(comment);
 	let ObjectId = comment.ObjectId;
 	/*?
-           block.ObjectId :
-           block.additionalData.sender_info.IdFlow;*/
+		   block.ObjectId :
+		   block.additionalData.sender_info.IdFlow;*/
 	let data = {
 		Index: likes_index,
 		ObjectId: ObjectId,
@@ -708,7 +726,7 @@ function impression_coloring(object, type, block, like_type) {
 		case "like":
 			$(object).each(function () {
 				let like_number = $(block.ftxt_impression_like).text();
-
+				block.Likes = +block.Likes + 1;
 				var attr_img_like = $(object).attr("src");
 				if (attr_img_like === "src/icons/Like.png") {
 					$(block.fimg_impression_like).attr(
@@ -860,7 +878,7 @@ function UpdateCommentList(response, data_block) {
 	// console.log(data.Data);
 	if (Array.isArray(response.Data)) {
 		/*(response.Data.length == 1) ? (text_comment_number = response.Data.length + " commentaire") : (text_comment_number = response.Data.length + " commentaires");
-            $(".fcomment_number").text(text_comment_number);*/
+			$(".fcomment_number").text(text_comment_number);*/
 
 		if ($(".loading_tl")) $(".loading_tl").remove();
 		//$(".fblock_comment_content")[0].innerHTML = "";
@@ -897,9 +915,9 @@ function UpdateCommentList(response, data_block) {
 			};
 
 			/*comment_data.Comment = comment_data.Comment.replace(
-                /@[^ ]+/gi,
-                '<span class="tagged_users">$&</span>'
-            );*/
+				/@[^ ]+/gi,
+				'<span class="tagged_users">$&</span>'
+			);*/
 			if (
 				(commentaire_unique &&
 					commentaire_unique.ObjectId != comment_data.IdComment) ||
@@ -990,7 +1008,7 @@ var all_blocks = [];
 var last_story_color;
 
 function stopAllBlocksAudio(callback) {
-	if (audio_playing) {
+	if (audio_playing || current_block_playing) {
 		console.log("stop all audio");
 		// all_blocks.map((a) => a.flowpause(true));
 		current_block_playing.flowpause(callback);
@@ -1138,9 +1156,9 @@ document.getElementById("popup-likes").addEventListener("closed", function () {
 
 function iosPolyfill(e, slider) {
 	var val =
-			(e.pageX - slider.getBoundingClientRect().left) /
-			(slider.getBoundingClientRect().right -
-				slider.getBoundingClientRect().left),
+		(e.pageX - slider.getBoundingClientRect().left) /
+		(slider.getBoundingClientRect().right -
+			slider.getBoundingClientRect().left),
 		max = slider.getAttribute("max"),
 		segment = 1 / (max - 1),
 		segmentArr = [];

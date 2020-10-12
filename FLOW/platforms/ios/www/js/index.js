@@ -31,7 +31,6 @@ var app = {
 	},
 	onDeviceReady: function () {
 		Keyboard.hide();
-		navigator.splashscreen.hide();
 		setTimeout(function () {
 			if (!window.cordova.platformId == "android") {
 				StatusBar.overlaysWebView(false);
@@ -56,7 +55,8 @@ var app = {
 				}, 100);
 			}
 			startTuto();
-		}, 1000);
+			navigator.splashscreen.hide();
+		}, 1200);
 
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
 
@@ -73,30 +73,75 @@ var app = {
 				$(".after-record-block-container").css("margin-top", "-30vh");
 			}
 		}
-        
-        IonicDeeplink.route(
-                    {
-                        "/flow/:FlowId": {
-                            target: "flow",
-                            parent: "flow",
-                        },
-                    },
-                    function (match) {
-                        console.log("deeplink match !", match);
-                    },
-                    function (nomatch) {
-                        console.log("deeplink didnt match 😞", nomatch);
-                        if (nomatch.$link.path) {
-                            let FlowId = nomatch.$link.path.replace("/", "");
-                            setTimeout(function () {
-                                ServerManager.GetSingle({
-                                    IdFlow: FlowId,
-                                });
-                            }, 200);
-                        }
-                    }
-                );
-        
+
+		IonicDeeplink.route(
+			{
+				"/flow/:FlowId": {
+					target: "flow",
+					parent: "flow",
+				},
+			},
+			function (match) {
+				console.log("deeplink match !", match);
+			},
+			function (nomatch) {
+				console.log("deeplink didnt match :(", nomatch);
+				if (nomatch.$link.path) {
+					let FlowId = nomatch.$link.path.replace("/", "");
+					setTimeout(function () {
+						ServerManager.GetSingle({
+							IdFlow: FlowId,
+						});
+					}, 200);
+				}
+			}
+		);
+		var MAX_DIALOG_WAIT_TIME = 5000;
+		var ratingTimerId;
+		LaunchReview.rating(
+			function (result) {
+				if (cordova.platformId === "android") {
+					console.log("Rating dialog displayed");
+					window.localStorage.setItem("last_ask_user_rating", Date.now());
+				} else if (cordova.platformId === "ios") {
+					if (result === "requested") {
+						console.log("Requested display of rating dialog");
+
+						ratingTimerId = setTimeout(function () {
+							console.warn(
+								"Rating dialog was not shown (after " +
+									MAX_DIALOG_WAIT_TIME +
+									"ms)"
+							);
+						}, MAX_DIALOG_WAIT_TIME);
+					} else if (result === "shown") {
+						console.log("Rating dialog displayed");
+						window.localStorage.setItem("last_ask_user_rating", Date.now());
+						clearTimeout(ratingTimerId);
+					} else if (result === "dismissed") {
+						console.log("Rating dialog dismissed");
+					}
+				}
+			},
+			function (err) {
+				console.log("Error opening rating dialog: " + err);
+			}
+		);
+
+		setTimeout(function () {
+			let last_review = Math.floor(
+				(Date.now() - window.localStorage.getItem("last_ask_user_rating")) /
+					1000 /
+					60 /
+					60 /
+					24
+			);
+			if (last_review > 5) {
+				LaunchReview.rating();
+				LaunchReview.launch();
+			}
+		}, 2700000);
+
 		this.receivedEvent("deviceready");
 	},
 	onPause: function () {
@@ -127,6 +172,8 @@ var app = {
 	},
 	onResume: function (event) {
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+		stopAllStoriesAudio();
+		stopAllBlocksAudio();
 	},
 
 	// Update DOM on a Received Event
@@ -237,7 +284,7 @@ var app = {
 
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
-            pas dans l'application */
+			pas dans l'application */
 			if (data.additionalData.foreground == false) {
 				if (window.cordova.platformId == "ios") {
 					data.additionalData.sender_info = JSON.parse(
@@ -245,6 +292,10 @@ var app = {
 					);
 				}
 				if (data.additionalData.type == "story_comment") {
+					return;
+				}
+				if (data.additionalData.type == "back_after_few_days") {
+					$(".fexplore-btn").click();
 					return;
 				}
 				if (data.additionalData.type == "follow") {
@@ -277,7 +328,7 @@ var app = {
 						let data_single_response = {
 							ObjectId: data.additionalData.sender_info.Id_response,
 						};
-						ServerManager.GetRankOfResponse(data_single_response);
+						ServerManager.GetSingleResponseExtended(data_single_response);
 					}
 					if (
 						data.additionalData.type == "like_flow" ||
@@ -364,9 +415,37 @@ Storage.prototype.getObj = function (key) {
 // Replace default alert by Sweet Alert
 
 /*window.alert = function (txt) {
-    swal(txt);
+	swal(txt);
 };
 */
+
+function check_app_version(app_version) {
+	if (
+		(window.cordova.platformId == "ios" &&
+			app_version.ios != AppVersion.version) ||
+		(window.cordova.platformId == "android" &&
+			app_version.android != AppVersion.version)
+	) {
+		navigator.notification.confirm(
+			"Mets l'application à jour pour profiter des toutes dernières fonctionnalités.",
+			function (id) {
+				if (id == 1) {
+					if (window.cordova.platformId == "ios") {
+						window.location =
+							"https://apps.apple.com/fr/app/flow-reseau-social-vocal/id1505107977?l=en";
+					}
+					if (window.cordova.platformId == "android") {
+						window.location =
+							"https://play.google.com/store/apps/details?id=com.flowapp.flow";
+					}
+				}
+			},
+			"Nouvelle version de l'application disponible !",
+			["OK", "Annuler"]
+		);
+	}
+}
+
 function offline() {
 	console.log("you are offline");
 	pullToRefreshEnd();
@@ -380,14 +459,56 @@ function online() {
 window.handleOpenURL = function (url) {
 	setTimeout(function () {
 		console.log("received url: " + url);
-		if (url.includes("share")) {
-			let IdFlow = url.split("share/")[1];
+		if (url.includes("flow")) {
+			let IdFlow = url.split("flow/")[1];
 			ServerManager.GetSingle({
 				IdFlow: IdFlow,
 			});
 		}
 	}, 200);
 };
+
+var tab1_count = 0;
+var tab2_count = 0;
+var tab3_count = 0;
+var tab4_count = 0;
+$(".fhome-btn").on("click", function () {
+	tab1_count++;
+	setTimeout(function () {
+		tab1_count = 0;
+	}, 1000);
+});
+$(".fexplore-btn").on("click", function () {
+	if (tab1_count == 2) {
+		tab2_count++;
+		setTimeout(function () {
+			tab2_count = 0;
+		}, 1000);
+	}
+});
+$(".fmessages-btn").on("click", function () {
+	if (tab2_count == 1) {
+		tab3_count++;
+		setTimeout(function () {
+			tab3_count = 0;
+		}, 1000);
+	}
+});
+$(".fnotif-btn").on("click", function () {
+	if (tab3_count == 5) {
+		if (ServerParams.ServerURL == "https://api-test.flowappweb.com/") {
+			DisconnectUser();
+			ServerParams.ServerURL = "https://api.flowappweb.com/";
+		} else if (ServerParams.ServerURL == "https://api.flowappweb.com/") {
+			DisconnectUser();
+			ServerParams.ServerURL = "https://api-test.flowappweb.com/";
+		}
+		setTimeout(function () {
+			tab4_count = 0;
+		}, 1000);
+	}
+});
+
 /*
 J'ai remove ça du config.xml juste pour save ça qq part :
 <preference name="AndroidLaunchMode" value="singleInstance" />

@@ -304,5 +304,13 @@
       "DEEPLINK_SCHEME": "https",
       "DEEPLINK_HOST": "flowappweb.com"
     }
+  },
+  "cordova-plugin-appversion": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-appversion"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

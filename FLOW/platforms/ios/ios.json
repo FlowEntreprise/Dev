@@ -171,6 +171,14 @@
             {
               "xml": "<preference name=\"DEEPLINK_HOST\" value=\"flowappweb.com\" />",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"LaunchReview\"><param name=\"ios-package\" value=\"LaunchReview\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"RareloopAppVersion\"><param name=\"ios-package\" value=\"RareloopAppVersion\" /></feature>",
+              "count": 1
             }
           ],
           "widget": [
@@ -407,6 +415,12 @@
       "URL_SCHEME": "comflowapp",
       "DEEPLINK_SCHEME": "https",
       "DEEPLINK_HOST": "flowappweb.com",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-launch-review": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-appversion": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -825,6 +839,22 @@
         "IonicDeeplink"
       ],
       "runs": true
+    },
+    {
+      "id": "cordova-launch-review.LaunchReview",
+      "file": "plugins/cordova-launch-review/www/launchreview.js",
+      "pluginId": "cordova-launch-review",
+      "clobbers": [
+        "LaunchReview"
+      ]
+    },
+    {
+      "id": "cordova-plugin-appversion.RareloopAppVersion",
+      "file": "plugins/cordova-plugin-appversion/www/app-version.js",
+      "pluginId": "cordova-plugin-appversion",
+      "clobbers": [
+        "AppVersion"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -859,6 +889,8 @@
     "cordova-plugin-camera": "4.1.0",
     "es6-promise-plugin": "4.2.2",
     "cordova-plugin-x-socialsharing": "6.0.2",
-    "ionic-plugin-deeplinks": "1.0.20"
+    "ionic-plugin-deeplinks": "1.0.20",
+    "cordova-launch-review": "4.0.0",
+    "cordova-plugin-appversion": "1.0.0"
   }
 }

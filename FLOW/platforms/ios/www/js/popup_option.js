@@ -85,12 +85,19 @@ function delete_response_from_html(element) {
             current_comment_block.all_response_blocks.splice(i, 1);
             element.fblock_response.remove();
             nb_response = nb_response - 1;
+            let initial_response_number = current_comment_block.nombre_de_reponses;
+            current_comment_block.nombre_de_reponses =
+                current_comment_block.nombre_de_reponses + 1;
+            let nombre_de_reponses_apres_ajout = initial_response_number - (current_comment_block.response_current_index * 10) + 1
+            if (current_comment_block.response_current_index == 0) {
+                nombre_de_reponses_apres_ajout = current_comment_block.nombre_de_reponses;
+            }
             if (nb_response == 0) {
                 $(current_comment_block.fblock_comment_label_afficher_les_reponses).css("opacity", "0");
             }
             else {
-                //$(".fresponse_number").text(nb_response + " responseaires");
                 $(current_comment_block.fblock_comment_label_afficher_les_reponses).text("Afficher les reponses (" + nb_response + ")");
+                $(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + nombre_de_reponses_apres_ajout + ")");
             }
             Popup("popup-option", false);
         }

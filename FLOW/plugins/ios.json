@@ -96,6 +96,12 @@
       "DEEPLINK_SCHEME": "https",
       "DEEPLINK_HOST": "flowappweb.com",
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-launch-review": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-appversion": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {

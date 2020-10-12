@@ -320,6 +320,12 @@ transition: height 0.25s;
 	display: unset !important;
 	font-size: unset !important;
 }
+.tl_private_id_indicator 
+{
+	text-align: unset !important;
+    display: unset !important;
+    font-size: unset !important;
+}
 
 #finput_comment {
 	width: 85vw !important;
