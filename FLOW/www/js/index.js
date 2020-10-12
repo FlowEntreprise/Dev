@@ -30,14 +30,8 @@ var app = {
 		document.addEventListener("resume", this.onResume, false);
 	},
 	onDeviceReady: function () {
-		// navigator.splashscreen.show();
 		Keyboard.hide();
 		setTimeout(function () {
-			Keyboard.hide();
-		}, 500);
-		setTimeout(function () {
-			Keyboard.hide();
-			console.log("WEEEEEEEEEEESH");
 			if (!window.cordova.platformId == "android") {
 				StatusBar.overlaysWebView(false);
 			}
@@ -62,7 +56,7 @@ var app = {
 			}
 			startTuto();
 			navigator.splashscreen.hide();
-		}, 1000);
+		}, 1200);
 
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
 
@@ -104,37 +98,37 @@ var app = {
 		);
 		var MAX_DIALOG_WAIT_TIME = 5000;
 		var ratingTimerId;
-		LaunchReview.rating(
-			function (result) {
-				if (cordova.platformId === "android") {
-					console.log("Rating dialog displayed");
-					window.localStorage.setItem("last_ask_user_rating", Date.now());
-				} else if (cordova.platformId === "ios") {
-					if (result === "requested") {
-						console.log("Requested display of rating dialog");
-
-						ratingTimerId = setTimeout(function () {
-							console.warn(
-								"Rating dialog was not shown (after " +
-									MAX_DIALOG_WAIT_TIME +
-									"ms)"
-							);
-						}, MAX_DIALOG_WAIT_TIME);
-					} else if (result === "shown") {
+		setTimeout(function () {
+			LaunchReview.rating(
+				function (result) {
+					if (cordova.platformId === "android") {
 						console.log("Rating dialog displayed");
 						window.localStorage.setItem("last_ask_user_rating", Date.now());
-						clearTimeout(ratingTimerId);
-					} else if (result === "dismissed") {
-						console.log("Rating dialog dismissed");
-					}
-				}
-			},
-			function (err) {
-				console.log("Error opening rating dialog: " + err);
-			}
-		);
+					} else if (cordova.platformId === "ios") {
+						if (result === "requested") {
+							console.log("Requested display of rating dialog");
 
-		setTimeout(function () {
+							ratingTimerId = setTimeout(function () {
+								console.warn(
+									"Rating dialog was not shown (after " +
+										MAX_DIALOG_WAIT_TIME +
+										"ms)"
+								);
+							}, MAX_DIALOG_WAIT_TIME);
+						} else if (result === "shown") {
+							console.log("Rating dialog displayed");
+							window.localStorage.setItem("last_ask_user_rating", Date.now());
+							clearTimeout(ratingTimerId);
+						} else if (result === "dismissed") {
+							console.log("Rating dialog dismissed");
+						}
+					}
+				},
+				function (err) {
+					console.log("Error opening rating dialog: " + err);
+				}
+			);
+
 			let last_review = Math.floor(
 				(Date.now() - window.localStorage.getItem("last_ask_user_rating")) /
 					1000 /
@@ -290,7 +284,7 @@ var app = {
 
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
-			pas dans l'application */
+            pas dans l'application */
 			if (data.additionalData.foreground == false) {
 				if (window.cordova.platformId == "ios") {
 					data.additionalData.sender_info = JSON.parse(
@@ -421,35 +415,37 @@ Storage.prototype.getObj = function (key) {
 // Replace default alert by Sweet Alert
 
 /*window.alert = function (txt) {
-	swal(txt);
+    swal(txt);
 };
 */
 
 function check_app_version(app_version) {
-	if (
-		(window.cordova.platformId == "ios" &&
-			app_version.ios != AppVersion.version) ||
-		(window.cordova.platformId == "android" &&
-			app_version.android != AppVersion.version)
-	) {
-		navigator.notification.confirm(
-			"Mets l'application à jour pour profiter des toutes dernières fonctionnalités.",
-			function (id) {
-				if (id == 1) {
-					if (window.cordova.platformId == "ios") {
-						window.location =
-							"https://apps.apple.com/fr/app/flow-reseau-social-vocal/id1505107977?l=en";
+	setTimeout(function () {
+		if (
+			(window.cordova.platformId == "ios" &&
+				app_version.ios != AppVersion.version) ||
+			(window.cordova.platformId == "android" &&
+				app_version.android != AppVersion.version)
+		) {
+			navigator.notification.confirm(
+				"Mets l'application à jour pour profiter des toutes dernières fonctionnalités.",
+				function (id) {
+					if (id == 1) {
+						if (window.cordova.platformId == "ios") {
+							window.location =
+								"https://apps.apple.com/fr/app/flow-reseau-social-vocal/id1505107977?l=en";
+						}
+						if (window.cordova.platformId == "android") {
+							window.location =
+								"https://play.google.com/store/apps/details?id=com.flowapp.flow";
+						}
 					}
-					if (window.cordova.platformId == "android") {
-						window.location =
-							"https://play.google.com/store/apps/details?id=com.flowapp.flow";
-					}
-				}
-			},
-			"Nouvelle version de l'application disponible !",
-			["OK", "Annuler"]
-		);
-	}
+				},
+				"Nouvelle version de l'application disponible !",
+				["OK", "Annuler"]
+			);
+		}
+	}, 1000);
 }
 
 function offline() {
