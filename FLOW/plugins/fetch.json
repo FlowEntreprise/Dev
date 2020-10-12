@@ -154,14 +154,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-splashscreen": {
-    "source": {
-      "type": "registry",
-      "id": "https://github.com/goinnn/cordova-plugin-splashscreen.git#4.0.0#colors"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-firebase-crashlytics": {
     "source": {
       "type": "registry",
@@ -316,5 +308,13 @@
       "DEEPLINK_SCHEME": "https",
       "DEEPLINK_HOST": "flowappweb.com"
     }
+  },
+  "cordova-plugin-splashscreen": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/desmeit/cordova-plugin-splashscreen.git"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

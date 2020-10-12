@@ -30,8 +30,14 @@ var app = {
 		document.addEventListener("resume", this.onResume, false);
 	},
 	onDeviceReady: function () {
+		// navigator.splashscreen.show();
 		Keyboard.hide();
 		setTimeout(function () {
+			Keyboard.hide();
+		}, 500);
+		setTimeout(function () {
+			Keyboard.hide();
+			console.log("WEEEEEEEEEEESH");
 			if (!window.cordova.platformId == "android") {
 				StatusBar.overlaysWebView(false);
 			}
@@ -56,7 +62,7 @@ var app = {
 			}
 			startTuto();
 			navigator.splashscreen.hide();
-		}, 1200);
+		}, 1000);
 
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
 

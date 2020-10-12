@@ -67,6 +67,9 @@
       "DEEPLINK_5_SCHEME": " ",
       "DEEPLINK_5_HOST": " ",
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {

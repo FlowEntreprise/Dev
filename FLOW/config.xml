@@ -29,8 +29,6 @@
         <resource-file src="google-services.json" target="google-services.json" />
         <preference name="SplashStatusBarBackgroundColor" value="#007EFF" />
         <preference name="SplashNavigationBarBackgroundColor" value="#FF0054" />
-        <preference name="SplashScreen" value="screen" />
-        <preference name="AutoHideSplashScreen" value="false" />
         <resource-file src="res/icon/android/drawable/flow_icone.png" target="app/src/main/res/drawable/flow_icone.png" />
         <resource-file src="res/icon/android/drawable/flow_icone_one_plus.png" target="app/src/main/res/drawable/flow_icone_one_plus.png" />
         <splash density="port-hdpi" src="res/screen/android/drawable-hdpi/splash.png" />
@@ -41,6 +39,7 @@
         <splash density="port-xxxhdpi" src="res/screen/android/drawable-xxxhdpi/splash.png" />
         <preference name="ShowSplashScreenSpinner" value="true" />
         <preference name="SplashMaintainAspectRatio" value="true" />
+        <preference name="AutoHideSplashScreen" value="false" />
     </platform>
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />

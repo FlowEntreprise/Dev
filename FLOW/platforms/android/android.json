@@ -85,10 +85,6 @@
               "count": 1
             },
             {
-              "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
-              "count": 1
-            },
-            {
               "xml": "<feature name=\"FirebaseCrashlytics\"><param name=\"android-package\" value=\"uk.co.reallysmall.cordova.plugin.firebase.crashlytics.FirebaseCrashlyticsPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
             },
@@ -138,6 +134,10 @@
             },
             {
               "xml": "<feature name=\"IonicDeeplinkPlugin\"><param name=\"android-package\" value=\"io.ionic.links.IonicDeeplink\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
             }
           ],
@@ -465,9 +465,6 @@
     "cordova-plugin-audioinput": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
     "cordova-plugin-firebase-crashlytics": {
       "ANDROID_FIREBASE_VERSION": "11.8.0",
       "PACKAGE_NAME": "com.flowapp.flow"
@@ -537,6 +534,9 @@
       "DEEPLINK_4_HOST": " ",
       "DEEPLINK_5_SCHEME": " ",
       "DEEPLINK_5_HOST": " ",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -918,14 +918,6 @@
       ]
     },
     {
-      "id": "cordova-plugin-splashscreen.SplashScreen",
-      "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
-      "pluginId": "cordova-plugin-splashscreen",
-      "clobbers": [
-        "navigator.splashscreen"
-      ]
-    },
-    {
       "id": "cordova-plugin-firebase-crashlytics.FirebaseCrashlytics",
       "file": "plugins/cordova-plugin-firebase-crashlytics/www/crashlytics.js",
       "pluginId": "cordova-plugin-firebase-crashlytics",
@@ -1067,6 +1059,14 @@
       "clobbers": [
         "LaunchReview"
       ]
+    },
+    {
+      "id": "cordova-plugin-splashscreen.SplashScreen",
+      "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+      "pluginId": "cordova-plugin-splashscreen",
+      "clobbers": [
+        "navigator.splashscreen"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -1088,7 +1088,6 @@
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-media": "5.0.3",
     "cordova-plugin-audioinput": "1.0.2",
-    "cordova-plugin-splashscreen": "4.0.0",
     "cordova-plugin-firebase-crashlytics": "0.0.6",
     "cordova-support-android-plugin": "1.0.1",
     "cordova-plugin-firebase-analytics": "2.0.4",
@@ -1104,6 +1103,7 @@
     "cordova-plugin-androidx": "3.0.0",
     "cordova-launch-review": "4.0.0",
     "cordova-plugin-appversion": "1.0.0",
-    "ionic-plugin-deeplinks": "1.0.20"
+    "ionic-plugin-deeplinks": "1.0.20",
+    "cordova-plugin-splashscreen": "5.0.3-dev"
   }
 }
