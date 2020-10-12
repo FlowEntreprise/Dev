@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-  ServerURL: "https://api.flowappweb.com/",
+  ServerURL: "https://api-test.flowappweb.com/",
   ConnexionURL: "ConnexionFromApi",
   AddFlowURL: "AddFlow",
   GetSingleFlowURL: "GetSingle",
@@ -49,6 +49,8 @@ const ServerParams = {
   GetCommentResponse: "GetCommentResponse",
   GetCommentLikes: "GetCommentLikes",
   GetResponseLikes: "GetResponseLikes",
+  GetVersionProtocol: "GetVersionProtocol",
+  UpdateUserLastConnexion: "UpdateUserLastConnexion"
 };
 
 const apiTypes = {
@@ -261,7 +263,7 @@ class ServerManagerClass {
     let final_data = {
       Data: data,
       Action: "AddFlow",
-      TokenId: window.localStorage.getItem("user_token"),
+      TokenId: window.localStorage.getItem("user_token")
     };
 
     $.ajax({
@@ -288,6 +290,45 @@ class ServerManagerClass {
       },
     });
   }
+
+
+  GetVersionProtocol() {
+    let final_data = {
+      Data: {},
+      Action: "GetVersionProtocol",
+      TokenId: window.localStorage.getItem("user_token")
+    };
+    $.ajax({
+      type: "POST",
+      url: ServerParams.ServerURL + ServerParams.GetVersionProtocol,
+      data: JSON.stringify(final_data),
+      success: function (response) {
+        check_app_version(response.Data);
+      },
+      error: function (response) {
+      },
+    });
+  }
+
+
+  UpdateUserLastConnexion() {
+    let final_data = {
+      Data: {},
+      Action: "UpdateUserLastConnexion",
+      TokenId: window.localStorage.getItem("user_token")
+    };
+    $.ajax({
+      type: "POST",
+      url: ServerParams.ServerURL + ServerParams.UpdateUserLastConnexion,
+      data: JSON.stringify(final_data),
+      success: function (response) {
+        console.log("User last connexion updated");
+      },
+      error: function (response) {
+      },
+    });
+  }
+
 
   GetFlowById(id) {
     let final_data = {

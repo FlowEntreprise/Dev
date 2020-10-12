@@ -22,6 +22,7 @@ function flow_specifique(data, show_comment, type, data_specifique, all_data) { 
         Likes: data.Likes,
         Comments: data.Comments,
         RegisterId: data.RegisterId,
+        Responses: data.Responses
     };
     //block_params.description = block_params.description.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>');
     var new_block = new block(block_params);

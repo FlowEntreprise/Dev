@@ -41,10 +41,12 @@ function block(params) {
 	this.Likes = params.Likes;
 	this.RegisterId = params.RegisterId;
 	this.LastOs = params.LastOs;
-	this.Comments = params.Comments;
+	params.Responses == null ? params.Responses = "0" : params.Responses = params.Responses;
+	this.Comments = parseInt(params.Comments) + parseInt(params.Responses);
 	this.ready = false;
 	this.last_like_time;
 	this.offset_indicator = 0;
+	this.Responses = params.Responses;
 
 	this.flowplay = function () {
 		if (this.ready) {

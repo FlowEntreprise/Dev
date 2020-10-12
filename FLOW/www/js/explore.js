@@ -430,6 +430,7 @@ function UpdateTop50(data, data_block_user) {
                                 Comments: flow.Comments,
                                 RegisterId: flow.RegisterId,
                                 LastOs: flow.LastOs,
+                                Responses: flow.Responses
                             };
                             let new_block = new block(block_params);
                             all_blocks.push(new_block);

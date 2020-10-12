@@ -42,7 +42,8 @@ function ConnectUser() {
         ServerManager.UpdateRegisterId(data);
         $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
     }, 100);
-
+    ServerManager.GetVersionProtocol();
+    ServerManager.UpdateUserLastConnexion();
     //$( "#fswipe_area" ).css({"pointer-events": "all"});
 }
 
