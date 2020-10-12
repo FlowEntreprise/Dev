@@ -140,7 +140,7 @@ var app = {
 				LaunchReview.rating();
 				LaunchReview.launch();
 			}
-		}, 2700000);
+		}, 270000);
 
 		this.receivedEvent("deviceready");
 	},
