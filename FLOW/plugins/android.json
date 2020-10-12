@@ -35,7 +35,43 @@
     "cordova-plugin-camera": {
       "ANDROID_SUPPORT_V4_VERSION": "27.+",
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-androidx": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-appversion": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-launch-review": {
+      "ANDROID_PLAY_SERVICES_CORE_VERSION": "1.8.0",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "ionic-plugin-deeplinks": {
+      "URL_SCHEME": "comflowapp",
+      "DEEPLINK_SCHEME": "https",
+      "DEEPLINK_HOST": "flowappweb.com",
+      "ANDROID_PATH_PREFIX": "/",
+      "ANDROID_2_PATH_PREFIX": "/",
+      "ANDROID_3_PATH_PREFIX": "/",
+      "ANDROID_4_PATH_PREFIX": "/",
+      "ANDROID_5_PATH_PREFIX": "/",
+      "DEEPLINK_2_SCHEME": " ",
+      "DEEPLINK_2_HOST": " ",
+      "DEEPLINK_3_SCHEME": " ",
+      "DEEPLINK_3_HOST": " ",
+      "DEEPLINK_4_SCHEME": " ",
+      "DEEPLINK_4_HOST": " ",
+      "DEEPLINK_5_SCHEME": " ",
+      "DEEPLINK_5_HOST": " ",
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    }
+  }
 }

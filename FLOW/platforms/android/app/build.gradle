@@ -269,21 +269,20 @@ dependencies {
     implementation fileTree(include: '*.jar', dir: 'libs')
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: ":CordovaLib"))
-    compile "com.android.support:support-v4:26.+"
-    compile "com.android.support:appcompat-v7:26.+"
+    compile "androidx.legacy:legacy-support-v4:1.0.0"
+    compile "androidx.appcompat:appcompat:1.0.0"
     compile "com.facebook.android:facebook-android-sdk:4.40.0"
     compile "com.google.android.gms:play-services-auth:11.8.0"
     compile "com.google.android.gms:play-services-identity:11.8.0"
     compile "com.theartofdev.edmodo:android-image-cropper:2.7.+"
-    compile "com.android.support:appcompat-v7:27.+"
-    compile "com.android.support:support-v13:27.+"
+    compile "androidx.legacy:legacy-support-v13:1.0.0"
     compile "me.leolin:ShortcutBadger:1.1.17@aar"
     compile "com.google.firebase:firebase-messaging:17.0.+"
     compile "com.google.firebase:firebase-core:11.8.0"
     compile "org.json:json:20171018"
     compile "com.google.android.gms:play-services-auth:15.0.1"
     compile "com.google.android.gms:play-services-identity:15.0.1"
-    compile "com.android.support:support-v4:27.+"
+    compile "com.google.android.play:core:1.8.0"
     // SUB-PROJECT DEPENDENCIES END
     implementation 'com.google.firebase:firebase-core:16.0.1'
 }

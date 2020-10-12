@@ -61,7 +61,7 @@
 
 #label_i_am_blocked {
 	position: absolute;
-	top: 25vh;
+	top: calc(25 * var(--custom-vh));
 	/* left: 20vw; */
 	width: 100%;
 	font-size: 15px;
@@ -95,7 +95,7 @@
 	background-color: white;
 	right: 0vw;
 	width: 65vw;
-	height: 8vh;
+	height: calc(8 * var(--custom-vh));
 	border-radius: 25px 0px 0px 25px;
 	box-shadow: 0px 3px 8px rgba(120, 120, 120, 0.2);
 }
@@ -370,7 +370,6 @@
 .mobile600 #fFollowButtunAccount {
 	font-size: 9px;
 }
-
 
 .mobile600 #fFollowYouButtunAccount {
 	width: 16px;

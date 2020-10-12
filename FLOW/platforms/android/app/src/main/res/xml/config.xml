@@ -84,6 +84,16 @@
     <feature name="Camera">
         <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
     </feature>
+    <feature name="SocialSharing">
+        <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+    </feature>
+    <feature name="LaunchReview">
+        <param name="android-package" value="uk.co.workingedge.phonegap.plugin.LaunchReview" />
+    </feature>
+    <feature name="IonicDeeplinkPlugin">
+        <param name="android-package" value="io.ionic.links.IonicDeeplink" />
+        <param name="onload" value="true" />
+    </feature>
     <widget>
         <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
         <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
@@ -122,6 +132,9 @@
     </feature>
     <feature name="Keyboard">
         <param name="android-package" onload="true" value="io.ionic.keyboard.IonicKeyboard" />
+    </feature>
+    <feature name="RareloopAppVersion">
+        <param name="android-package" value="com.rareloop.cordova.appversion.RareloopAppVersion" />
     </feature>
     <name>FLOW</name>
     <description>

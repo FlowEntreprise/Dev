@@ -22,7 +22,7 @@ package com.flowapp.flow;
 import android.os.Bundle;
 import android.os.Build;
 import android.view.View;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import org.apache.cordova.*;
 
 public class MainActivity extends CordovaActivity
