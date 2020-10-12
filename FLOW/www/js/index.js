@@ -110,8 +110,8 @@ var app = {
 						ratingTimerId = setTimeout(function () {
 							console.warn(
 								"Rating dialog was not shown (after " +
-								MAX_DIALOG_WAIT_TIME +
-								"ms)"
+									MAX_DIALOG_WAIT_TIME +
+									"ms)"
 							);
 						}, MAX_DIALOG_WAIT_TIME);
 					} else if (result === "shown") {
@@ -131,10 +131,10 @@ var app = {
 		setTimeout(function () {
 			let last_review = Math.floor(
 				(Date.now() - window.localStorage.getItem("last_ask_user_rating")) /
-				1000 /
-				60 /
-				60 /
-				24
+					1000 /
+					60 /
+					60 /
+					24
 			);
 			if (last_review > 5) {
 				LaunchReview.rating();
@@ -427,7 +427,7 @@ function check_app_version(app_version) {
 			app_version.android != AppVersion.version)
 	) {
 		navigator.notification.confirm(
-			"Une version plus récente de l'application est disponible, veux-tu effectuer la mise à jour ?",
+			"Mets l'application à jour pour profiter des toutes dernières fonctionnalités.",
 			function (id) {
 				if (id == 1) {
 					if (window.cordova.platformId == "ios") {
@@ -440,8 +440,8 @@ function check_app_version(app_version) {
 					}
 				}
 			},
-			"Information",
-			["Oui", "Annuler"]
+			"Nouvelle version de l'application disponible !",
+			["OK", "Annuler"]
 		);
 	}
 }
