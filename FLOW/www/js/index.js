@@ -31,6 +31,7 @@ var app = {
 	},
 	onDeviceReady: function () {
 		Keyboard.hide();
+		document.addEventListener("backbutton", onBackKeyDown, false);
 		setTimeout(function () {
 			if (!window.cordova.platformId == "android") {
 				StatusBar.overlaysWebView(false);

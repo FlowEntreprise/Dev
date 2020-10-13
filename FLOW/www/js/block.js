@@ -41,7 +41,9 @@ function block(params) {
 	this.Likes = params.Likes;
 	this.RegisterId = params.RegisterId;
 	this.LastOs = params.LastOs;
-	params.Responses == null ? params.Responses = "0" : params.Responses = params.Responses;
+	params.Responses == null
+		? (params.Responses = "0")
+		: (params.Responses = params.Responses);
 	this.Comments = parseInt(params.Comments) + parseInt(params.Responses);
 	this.ready = false;
 	this.last_like_time;
@@ -124,7 +126,8 @@ function block(params) {
 		let indicator_icon = "";
 		if (params.LikeBy != null) {
 			params.LikeBy = params.LikeBy.split(",")[0].replace(/[\[\]']+/g, "");
-			params.LikeBy = '<span class="tl_private_id_indicator">' + params.LikeBy + '</span>';
+			params.LikeBy =
+				'<span class="tl_private_id_indicator">' + params.LikeBy + "</span>";
 			indicator_txt = params.LikeBy + " a aimé ceci";
 			indicator_icon =
 				"<img class='tl_indicator_icon' src='./src/icons/Like.png' width='15vw' height='30vw' align='middle'>";
@@ -134,7 +137,8 @@ function block(params) {
 				/[\[\]']+/g,
 				""
 			);
-			params.CommentBy = '<span class="tl_private_id_indicator">' + params.CommentBy + '</span>';
+			params.CommentBy =
+				'<span class="tl_private_id_indicator">' + params.CommentBy + "</span>";
 			indicator_txt = params.CommentBy + " a commenté ceci";
 			indicator_icon =
 				"<img class='tl_indicator_icon' src='./src/icons/Comment.png' width='15vw' height='30vw' align='middle'>";
@@ -598,14 +602,14 @@ function block(params) {
 				+current_flow_block.Comments <= 1
 					? (text_comment_number = current_flow_block.Comments + " commentaire")
 					: (text_comment_number =
-						current_flow_block.Comments + " commentaires");
+							current_flow_block.Comments + " commentaires");
 				$(".fcomment_number").text(text_comment_number);
 				display_all_comments(current_flow_block);
 			} else {
 				current_flow_block.Comments <= 1
 					? (text_comment_number = current_flow_block.Comments + " commentaire")
 					: (text_comment_number =
-						current_flow_block.Comments + " commentaires");
+							current_flow_block.Comments + " commentaires");
 				$(".fcomment_number").text(text_comment_number);
 				display_all_comments(current_flow_block);
 				show_specifique_element_for_comment_button(current_notification_block);
@@ -1156,9 +1160,9 @@ document.getElementById("popup-likes").addEventListener("closed", function () {
 
 function iosPolyfill(e, slider) {
 	var val =
-		(e.pageX - slider.getBoundingClientRect().left) /
-		(slider.getBoundingClientRect().right -
-			slider.getBoundingClientRect().left),
+			(e.pageX - slider.getBoundingClientRect().left) /
+			(slider.getBoundingClientRect().right -
+				slider.getBoundingClientRect().left),
 		max = slider.getAttribute("max"),
 		segment = 1 / (max - 1),
 		segmentArr = [];

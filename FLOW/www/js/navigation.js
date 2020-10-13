@@ -248,7 +248,6 @@ function PlayNavRipple(element) {
 	// }, 10);
 }
 
-document.addEventListener("backbutton", onBackKeyDown, false);
 var current_page = "home";
 var last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
@@ -365,9 +364,15 @@ function onBackKeyDown() {
 		$(".fflow-btn").css("z-index", "1");
 		$(".flow-btn-shadow").css("z-index", "0");
 	} else if (current_page == "home") {
-		//navigator.app.exitApp();
+		navigator.app.exitApp();
 		stopAllBlocksAudio();
-		console.log("prevent exit");
+	} else if (
+		current_page == "explore" ||
+		current_page == "notifications" ||
+		current_page == "messages"
+	) {
+		navigator.app.exitApp();
+		stopAllBlocksAudio();
 	}
 
 	// analytics.setCurrentScreen(current_page);
