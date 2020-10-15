@@ -456,6 +456,7 @@ function ShowMyFlow(flow) {
 				Comments: data.Comments,
 				RegisterId: data.RegisterId,
 				LastOs: data.LastOs,
+				Responses: data.Responses
 			};
 			var new_block = new block(block_params);
 			all_blocks.push(new_block);
@@ -578,6 +579,7 @@ function ShowMyLikedFlows(flow, data_block_user) {
 							Times: data.Time,
 							Comments: data.Comments,
 							RegisterId: data.RegisterId,
+							Responses: data.Responses
 						};
 						let new_block = new block(block_params);
 						all_blocks.push(new_block);
@@ -611,6 +613,7 @@ function ShowMyLikedFlows(flow, data_block_user) {
 					Times: data.Time,
 					Comments: data.Comments,
 					RegisterId: data.RegisterId,
+					Responses: data.Responses
 				};
 				let new_block = new block(block_params);
 				all_blocks.push(new_block);
