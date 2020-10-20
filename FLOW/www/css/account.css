@@ -246,6 +246,10 @@
 	top: calc(17 * var(--custom-vh));
 	font-family: "Roboto-Regular";
 	opacity: 0.5;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 60vw;
 }
 
 #fbigProfilPictureContainer {

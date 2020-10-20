@@ -16,6 +16,7 @@ var scrollDiff;
 
 function block_response(response_data, response_is_specifique) {
     var block_response = this;
+    console.log(response_data);
     this.Flow_block_id = response_data.Flow_block_id;
     this.ObjectId = response_data.Idresponse;
     this.private_Id = response_data.PrivateId;
@@ -58,7 +59,8 @@ function block_response(response_data, response_is_specifique) {
 
     this.f_response_id_user = document.createElement("label");
     this.f_response_id_user.className = "f_response_id_user";
-    this.f_response_id_user.innerHTML = "@" + response_data.PrivateId + "";
+    // this.f_response_id_user.innerHTML = "@" + response_data.PrivateId + "";
+    this.f_response_id_user.innerHTML = response_data.FullName + "";
     $(this.fblock_response).append(this.f_response_id_user);
 
     this.fblock_response_response = document.createElement("p");
@@ -144,6 +146,7 @@ function block_response(response_data, response_is_specifique) {
 function block_comment(comment_data, comment_is_specifique) {
 
     let block_comment = this;
+    console.log(comment_data);
     this.Flow_block_id = comment_data.Flow_block_id;
     this.ObjectId = comment_data.IdComment;
     this.private_Id = comment_data.PrivateId;
@@ -183,6 +186,7 @@ function block_comment(comment_data, comment_is_specifique) {
     this.fid_user = document.createElement('label');
     this.fid_user.className = 'fid_user';
     this.fid_user.innerHTML = "@" + comment_data.PrivateId + "";
+    this.fid_user.innerHTML = comment_data.FullName;
     $(this.fblock_comment).append(this.fid_user);
 
     this.fblock_comment_comment = document.createElement('p');
@@ -438,6 +442,7 @@ const copyToClipboard = (str) => {
 var pseudo = "@adc_98";
 var account_imageURL = "src/pictures/notif1.png";
 var id_response_specifique;
+
 function display_response(response, data_response_unique) {
     // affiche les reponses par 10
 
@@ -453,7 +458,7 @@ function display_response(response, data_response_unique) {
                 "?";
             const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data[i].ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data[i].ProfilePicture.timestamp}`;
             let profilePicLink = src_profile_img + param_profile_img;
-
+            console.log(response.Data[i]);
             let response_data = {
                 response: response.Data[i].Comment,
                 response_text: response.Data[i].Comment,
@@ -466,6 +471,7 @@ function display_response(response, data_response_unique) {
                 ProfilePicture: profilePicLink,
                 RegisterId: response.Data[i].RegisterId,
                 Time: response.Data[i].Time,
+                FullName: response.Data[i].FullName,
             };
             //response_data.response = response_data.response.replace(/@[^ ]+/gi, '<span class="tagged_users">$&</span>');
             let new_block_response = new block_response(response_data);
@@ -613,9 +619,7 @@ function send_comment_to_server(data) {
         for (let i = 0; i < tableau_comment_to_tag_users.length; i++) {
             if (tableau_comment_to_tag_users[i].slice(0, 1) == "@") {
                 for (
-                    let i_all_tag = 0;
-                    i_all_tag < all_tagged_users.length;
-                    i_all_tag++
+                    let i_all_tag = 0; i_all_tag < all_tagged_users.length; i_all_tag++
                 ) {
                     if (
                         tableau_comment_to_tag_users[i] ==
@@ -746,22 +750,13 @@ $(".fsend_comment").on("click", function () {
             Response: text,
         };
 
-        if (
-            it_is_a_response_to_a_response == true &&
-            current_response_block &&
-            current_response_block.private_Id !=
-            window.localStorage.getItem("user_private_id")
-        ) {
+        if (it_is_a_response_to_a_response == true && current_response_block && current_response_block.private_Id != window.localStorage.getItem("user_private_id")) {
             data.Response = "@" + current_response_block.private_Id + " " + text;
         }
 
         if (text == "") {
             //alert("Le commentaire est vide");
-            navigator.notification.alert(
-                "Le commentaire est vide",
-                alertDismissed,
-                "Information"
-            );
+            navigator.notification.alert("Le commentaire est vide", alertDismissed, "Information");
         } else {
             $("#finput_comment").val("");
 

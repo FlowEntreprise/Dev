@@ -41,9 +41,9 @@ function block(params) {
 	this.Likes = params.Likes;
 	this.RegisterId = params.RegisterId;
 	this.LastOs = params.LastOs;
-	params.Responses == null
-		? (params.Responses = "0")
-		: (params.Responses = params.Responses);
+	params.Responses == null ?
+		(params.Responses = "0") :
+		(params.Responses = params.Responses);
 	this.Comments = parseInt(params.Comments) + parseInt(params.Responses);
 	this.ready = false;
 	this.last_like_time;
@@ -292,9 +292,9 @@ function block(params) {
 		this.fimg_impression_comment = document.createElement("img");
 		this.fimg_impression_comment.className = "fimg_impression";
 		this.fimg_impression_comment.src =
-			this.IsComment == 1
-				? "src/icons/Comment_filled.png"
-				: "src/icons/Comment.png";
+			this.IsComment == 1 ?
+			"src/icons/Comment_filled.png" :
+			"src/icons/Comment.png";
 		this.fcomment.appendChild(this.fimg_impression_comment);
 		this.ftxt_impression_comment = document.createElement("p");
 		this.ftxt_impression_comment.className = "ftxt_impression";
@@ -563,8 +563,7 @@ function block(params) {
 			block.currentTime = (block.progress * params.duration) / 100;
 			block.progress_div.style.width =
 				(block.currentTime * 100) / params.duration + "%";
-		},
-		{
+		}, {
 			passive: true,
 		}
 	);
@@ -598,18 +597,18 @@ function block(params) {
 	$(this.fimg_impression_comment).on("click", function () {
 		if (connected) {
 			if (comment_button_was_clicked_in_popup_specifique == false) {
-				current_flow_block = block;
-				+current_flow_block.Comments <= 1
-					? (text_comment_number = current_flow_block.Comments + " commentaire")
-					: (text_comment_number =
-							current_flow_block.Comments + " commentaires");
+				current_flow_block = block; +
+				current_flow_block.Comments <= 1 ?
+					(text_comment_number = current_flow_block.Comments + " commentaire") :
+					(text_comment_number =
+						current_flow_block.Comments + " commentaires");
 				$(".fcomment_number").text(text_comment_number);
 				display_all_comments(current_flow_block);
 			} else {
-				current_flow_block.Comments <= 1
-					? (text_comment_number = current_flow_block.Comments + " commentaire")
-					: (text_comment_number =
-							current_flow_block.Comments + " commentaires");
+				current_flow_block.Comments <= 1 ?
+					(text_comment_number = current_flow_block.Comments + " commentaire") :
+					(text_comment_number =
+						current_flow_block.Comments + " commentaires");
 				$(".fcomment_number").text(text_comment_number);
 				display_all_comments(current_flow_block);
 				show_specifique_element_for_comment_button(current_notification_block);
@@ -677,9 +676,9 @@ function display_all_likes(block) {
 	loading_likes.className = "loading-spinner loading_tl loading_likes";
 	$(".fblock_likes_content").append(loading_likes);
 	$(".flikes_number").text("");
-	let ObjectId = block.ObjectId
-		? block.ObjectId
-		: block.additionalData.sender_info.IdFlow;
+	let ObjectId = block.ObjectId ?
+		block.ObjectId :
+		block.additionalData.sender_info.IdFlow;
 	let data = {
 		Index: likes_index,
 		ObjectId: ObjectId,
@@ -794,8 +793,7 @@ function go_to_account(data) {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page",
-		{
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},
@@ -916,6 +914,7 @@ function UpdateCommentList(response, data_block) {
 				LastOs: response.Data[i].LastOs,
 				Flow_block_id: data_block.ObjectId,
 				Responses: response.Data[i].Responses, //nombre de reponses
+				FullName: response.Data[i].FullName
 			};
 
 			/*comment_data.Comment = comment_data.Comment.replace(
@@ -971,6 +970,7 @@ function get_all_likes(response) {
 		likes_index++;
 		for (i = 0; i < response.Data.length; i++) {
 			let like_data = response.Data[i];
+			console.log(like_data);
 			this.fblock_like = document.createElement("div");
 			this.fblock_like.className = "fblock_like";
 			$(".fblock_likes_content").append(this.fblock_like);
@@ -985,7 +985,8 @@ function get_all_likes(response) {
 
 			this.fid_user = document.createElement("label");
 			this.fid_user.className = "fid_user_likes";
-			this.fid_user.innerHTML = "@" + like_data.PrivateId + "";
+			// this.fid_user.innerHTML = "@" + like_data.PrivateId + "";
+			this.fid_user.innerHTML = like_data.FullName + "";
 			$(this.fblock_like).append(this.fid_user);
 
 			this.fimg_user.onclick = function () {
@@ -1041,16 +1042,16 @@ function set_timestamp(timestamp) {
 	var year_past = Math.floor(month_past / 12);
 
 	if (minute_past <= 59 && hour_past <= 0) {
-		minute_past > -2 && minute_past < 2
-			? (time_str = "1 min")
-			: (time_str = minute_past + " min");
+		minute_past > -2 && minute_past < 2 ?
+			(time_str = "1 min") :
+			(time_str = minute_past + " min");
 		return time_str;
 	}
 
 	if (hour_past > 0 && hour_past <= 23) {
-		hour_past > 1
-			? (time_str = hour_past + " h")
-			: (time_str = hour_past + " h");
+		hour_past > 1 ?
+			(time_str = hour_past + " h") :
+			(time_str = hour_past + " h");
 		return time_str;
 	}
 
@@ -1060,23 +1061,23 @@ function set_timestamp(timestamp) {
 	}
 
 	if (week_past >= 1 && week_past <= 5) {
-		week_past == 1
-			? (time_str = week_past + " sem")
-			: (time_str = week_past + " sem");
+		week_past == 1 ?
+			(time_str = week_past + " sem") :
+			(time_str = week_past + " sem");
 		return time_str;
 	}
 
 	if (month_past > 0 && month_past <= 12) {
-		month_past < 2
-			? (time_str = month_past + " mois")
-			: (time_str = month_past + " mois");
+		month_past < 2 ?
+			(time_str = month_past + " mois") :
+			(time_str = month_past + " mois");
 		return time_str;
 	}
 
 	if (year_past > 0) {
-		year_past < 2
-			? (time_str = year_past + " an")
-			: (time_str = year_past + " ans");
+		year_past < 2 ?
+			(time_str = year_past + " an") :
+			(time_str = year_past + " ans");
 		return time_str;
 	}
 }
@@ -1160,9 +1161,9 @@ document.getElementById("popup-likes").addEventListener("closed", function () {
 
 function iosPolyfill(e, slider) {
 	var val =
-			(e.pageX - slider.getBoundingClientRect().left) /
-			(slider.getBoundingClientRect().right -
-				slider.getBoundingClientRect().left),
+		(e.pageX - slider.getBoundingClientRect().left) /
+		(slider.getBoundingClientRect().right -
+			slider.getBoundingClientRect().left),
 		max = slider.getAttribute("max"),
 		segment = 1 / (max - 1),
 		segmentArr = [];
