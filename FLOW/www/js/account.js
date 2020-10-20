@@ -499,7 +499,12 @@ function ShowUserProfile(response) {
 		}
 		$("#fbioCompte").html(bioCompte);
 		$("#fnameCompte").html(nameCompte);
-		$("#privateID").html("@" + privateIDAccount);
+		if (privateIDAccount.length > 20) {
+			$("#privateID").html("@" + privateIDAccount.substring(0, 20) + "...");
+		}
+		else {
+			$("#privateID").html("@" + privateIDAccount);
+		}
 		const src_profile_img =
 			"https://" +
 			response.LinkBuilder.Hostname +

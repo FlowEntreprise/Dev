@@ -24,6 +24,7 @@ var commentaire_unique;
  ****************************************/
 function block(params) {
 	//console.log("NEW BLOCK CREATED");
+
 	let block = this;
 	this.ObjectId = params.ObjectId;
 	this.all_comment_blocks = [];
@@ -33,6 +34,7 @@ function block(params) {
 	this.patternKey;
 	this.duration = params.duration;
 	this.privateID = params.PrivateId;
+	this.name = params.pseudo;
 	this.Time = params.Times;
 	this.block_id = block_id;
 	this.currentTime = 0;
@@ -218,7 +220,13 @@ function block(params) {
 
 	this.fposter_name = document.createElement("p");
 	this.fposter_name.className = "fposter_name";
-	this.fposter_name.innerText = params.pseudo;
+	if (this.name.length > 35) {
+		this.fposter_name.innerText = this.name.substring(0, 35) + "...";
+	}
+	else {
+		this.fposter_name.innerText = this.name;
+	}
+	this.fposter_name.innerText = this.name;
 	this.ftop_part.appendChild(this.fposter_name);
 
 	this.fbottom_part = document.createElement("div");
@@ -602,14 +610,14 @@ function block(params) {
 				+current_flow_block.Comments <= 1
 					? (text_comment_number = current_flow_block.Comments + " commentaire")
 					: (text_comment_number =
-							current_flow_block.Comments + " commentaires");
+						current_flow_block.Comments + " commentaires");
 				$(".fcomment_number").text(text_comment_number);
 				display_all_comments(current_flow_block);
 			} else {
 				current_flow_block.Comments <= 1
 					? (text_comment_number = current_flow_block.Comments + " commentaire")
 					: (text_comment_number =
-							current_flow_block.Comments + " commentaires");
+						current_flow_block.Comments + " commentaires");
 				$(".fcomment_number").text(text_comment_number);
 				display_all_comments(current_flow_block);
 				show_specifique_element_for_comment_button(current_notification_block);
@@ -1160,9 +1168,9 @@ document.getElementById("popup-likes").addEventListener("closed", function () {
 
 function iosPolyfill(e, slider) {
 	var val =
-			(e.pageX - slider.getBoundingClientRect().left) /
-			(slider.getBoundingClientRect().right -
-				slider.getBoundingClientRect().left),
+		(e.pageX - slider.getBoundingClientRect().left) /
+		(slider.getBoundingClientRect().right -
+			slider.getBoundingClientRect().left),
 		max = slider.getAttribute("max"),
 		segment = 1 / (max - 1),
 		segmentArr = [];

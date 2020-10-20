@@ -111,7 +111,14 @@ document
 				"url('" + window.localStorage.getItem("user_profile_pic") + "')",
 		});
 		$("#fnameMonCompte").html(nameMonCompte);
-		$("#myprivateID").html("@" + privateID);
+		if (privateID.length > 20) {
+			$("#myprivateID").html("@" + privateID.substring(0, 20) + "...");
+		}
+		else {
+			$("#myprivateID").html("@" + privateID);
+		}
+
+
 		$("#fbioMonCompte").html(bioMonCompte);
 		$("#fgobackmonCompte").click(function () {
 			Popup("popup-myaccount", false);

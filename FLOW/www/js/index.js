@@ -286,6 +286,8 @@ var app = {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
 			pas dans l'application */
 			if (data.additionalData.foreground == false) {
+				Popup("popup-specifique", false);
+				Popup("popup-comment", false);
 				if (window.cordova.platformId == "ios") {
 					data.additionalData.sender_info = JSON.parse(
 						data.additionalData.sender_info
