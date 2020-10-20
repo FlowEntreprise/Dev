@@ -6,6 +6,7 @@
     height: calc(100 * var(--custom-vh));
     width: 100vw;
     z-index: 9999;
+    opacity: 0;
 }
 
 .popup_bg {
