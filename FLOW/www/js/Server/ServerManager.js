@@ -64,7 +64,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-	constructor() {}
+	constructor() { }
 
 	/* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -304,7 +304,7 @@ class ServerManagerClass {
 			success: function (response) {
 				check_app_version(response.Data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -321,7 +321,7 @@ class ServerManagerClass {
 			success: function (response) {
 				console.log("User last connexion updated");
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -609,7 +609,7 @@ class ServerManagerClass {
 		current_block.current_flow_block = current_comment_block;
 		current_block.IdComment = block.ObjectId;
 		/*la ligne du dessus pour simplifier l'envoi des notifs sans trop redev
-    meme si ça parrait pas super coherant*/
+	meme si ça parrait pas super coherant*/
 		//console.log(final_data);
 		$.ajax({
 			type: "POST",
@@ -638,7 +638,7 @@ class ServerManagerClass {
 		current_block.current_flow_block = current_response_block;
 		current_block.Idresponse = block.ObjectId;
 		/*la ligne du dessus pour simplifier l'envoi des notifs sans trop redev
-    meme si ça parrait pas super coherant*/
+	meme si ça parrait pas super coherant*/
 		//console.log(final_data);
 		$.ajax({
 			type: "POST",
@@ -698,7 +698,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -722,7 +722,7 @@ class ServerManagerClass {
 					}
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -739,7 +739,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowUserFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -754,7 +754,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyInfosUser(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -770,7 +770,7 @@ class ServerManagerClass {
 				//console.log("on recup le getInfosUserNumber");
 				ShowInfosUserNumber(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -787,7 +787,7 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				//console.log("on recup le profil");
-				if (response == "ERROR GET PROFIL") {
+				if (typeof response == "string") {
 					// alert("Utilisateur introuvable");
 					navigator.notification.alert(
 						"Utilisateur introuvable",
@@ -798,7 +798,7 @@ class ServerManagerClass {
 					ShowUserProfile(response);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -821,7 +821,7 @@ class ServerManagerClass {
 				//console.log(response);
 				UpdateFollowersList(response, data.follow_list);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -847,7 +847,7 @@ class ServerManagerClass {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -868,7 +868,7 @@ class ServerManagerClass {
 				RefreshTL();
 				FollowResponse(response, data.type, data.block_user);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1251,13 +1251,13 @@ class ServerManagerClass {
 				console.info(response);
 				registrationId = response.results[0].registration_token;
 				/*let data = {
-                    RegisterId: registrationId,
-                    LastOs: window.cordova.platformId
-                };
-                ServerManager.UpdateRegisterId(data);*/
+					RegisterId: registrationId,
+					LastOs: window.cordova.platformId
+				};
+				ServerManager.UpdateRegisterId(data);*/
 				console.log(registrationId);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1318,10 +1318,10 @@ class ServerManagerClass {
 
 			success: function (response) {
 				/*
-                                TypeNotification : data.data.type
-                                RegisterIdOfUserToNotify : data.to
-                                Content : data.data.message
-                */
+								TypeNotification : data.data.type
+								RegisterIdOfUserToNotify : data.to
+								Content : data.data.message
+				*/
 				ServerManager.AddNotificationToUser(data_notif_to_bdd);
 				console.log("Notif envoyé avec succes");
 			},

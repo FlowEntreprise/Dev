@@ -7,12 +7,7 @@ var you_have_to_prepend_response_specifique = false;
 var single_block_response_to_scroll_to;
 var lastScrollHeight;
 var scrollDiff;
-// $(document).ready(function() {
-//     $('.regex-example').highlightWithinTextarea({
-//             highlight: /@[^ ]+/gi
-//     });
 
-// });
 
 function block_response(response_data, response_is_specifique) {
     var block_response = this;
@@ -184,9 +179,17 @@ function block_comment(comment_data, comment_is_specifique) {
     $(this.fblock_comment).append(this.fimg_user);
 
     this.fid_user = document.createElement('label');
-    this.fid_user.className = 'fid_user';
+    this.fid_user.className = 'fid_user'; <<
+    << << < HEAD
     this.fid_user.innerHTML = "@" + comment_data.PrivateId + "";
-    this.fid_user.innerHTML = comment_data.FullName;
+    this.fid_user.innerHTML = comment_data.FullName; ===
+    === =
+    if (this.private_Id.length > 22) {
+        this.fid_user.innerHTML = "@" + this.private_Id.substring(0, 22) + "...";
+    } else {
+        this.fid_user.innerHTML = "@" + this.private_Id + "";
+    } >>>
+    >>> > f3ccbc4cb2223aaa3f682f5dbee3252db10bc08d
     $(this.fblock_comment).append(this.fid_user);
 
     this.fblock_comment_comment = document.createElement('p');

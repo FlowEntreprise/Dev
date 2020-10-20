@@ -24,6 +24,7 @@ var commentaire_unique;
  ****************************************/
 function block(params) {
 	//console.log("NEW BLOCK CREATED");
+
 	let block = this;
 	this.ObjectId = params.ObjectId;
 	this.all_comment_blocks = [];
@@ -33,6 +34,7 @@ function block(params) {
 	this.patternKey;
 	this.duration = params.duration;
 	this.privateID = params.PrivateId;
+	this.name = params.pseudo;
 	this.Time = params.Times;
 	this.block_id = block_id;
 	this.currentTime = 0;
@@ -218,7 +220,12 @@ function block(params) {
 
 	this.fposter_name = document.createElement("p");
 	this.fposter_name.className = "fposter_name";
-	this.fposter_name.innerText = params.pseudo;
+	if (this.name.length > 35) {
+		this.fposter_name.innerText = this.name.substring(0, 35) + "...";
+	} else {
+		this.fposter_name.innerText = this.name;
+	}
+	this.fposter_name.innerText = this.name;
 	this.ftop_part.appendChild(this.fposter_name);
 
 	this.fbottom_part = document.createElement("div");

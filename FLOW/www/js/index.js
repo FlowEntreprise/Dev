@@ -112,8 +112,8 @@ var app = {
 							ratingTimerId = setTimeout(function () {
 								console.warn(
 									"Rating dialog was not shown (after " +
-										MAX_DIALOG_WAIT_TIME +
-										"ms)"
+									MAX_DIALOG_WAIT_TIME +
+									"ms)"
 								);
 							}, MAX_DIALOG_WAIT_TIME);
 						} else if (result === "shown") {
@@ -132,14 +132,13 @@ var app = {
 
 			let last_review = Math.floor(
 				(Date.now() - window.localStorage.getItem("last_ask_user_rating")) /
-					1000 /
-					60 /
-					60 /
-					24
+				1000 /
+				60 /
+				60 /
+				24
 			);
 			if (last_review > 5) {
 				LaunchReview.rating();
-				LaunchReview.launch();
 			}
 		}, 270000);
 
@@ -285,8 +284,10 @@ var app = {
 
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
-            pas dans l'application */
+			pas dans l'application */
 			if (data.additionalData.foreground == false) {
+				Popup("popup-specifique", false);
+				Popup("popup-comment", false);
 				if (window.cordova.platformId == "ios") {
 					data.additionalData.sender_info = JSON.parse(
 						data.additionalData.sender_info
@@ -416,7 +417,7 @@ Storage.prototype.getObj = function (key) {
 // Replace default alert by Sweet Alert
 
 /*window.alert = function (txt) {
-    swal(txt);
+	swal(txt);
 };
 */
 

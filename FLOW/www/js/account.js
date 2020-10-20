@@ -19,7 +19,7 @@ var user_is_blocked;
 var blocked_by_user;
 var last_scroll = 0;
 
-function alertDismissed() {}
+function alertDismissed() { }
 
 function fInitialisationAccount(privateId) {
 	$("#UserActivity")[0].innerHTML = "";
@@ -111,9 +111,9 @@ function i_am_blocked() {
 	$("#UserActivity").append(label_i_am_blocked);
 	//$("#UserLikes").append(label_i_am_blocked);
 	/*$("#fFollowButtunAccount").css("background-color", "#ff0054");
-    $("#fFollowButtunAccount").css("border", "solid 1.5px #ff0054");
-    $("#fFollowButtunAccount").innerHTML = "BLOQUÉ";
-    $("#fFollowButtunAccount").css("pointer-events", "none");*/
+	$("#fFollowButtunAccount").css("border", "solid 1.5px #ff0054");
+	$("#fFollowButtunAccount").innerHTML = "BLOQUÉ";
+	$("#fFollowButtunAccount").css("pointer-events", "none");*/
 	$("#fFollowYouButtunAccount").css("display", "none");
 	$("#block_button").css("display", "none");
 }
@@ -193,17 +193,17 @@ document
 			$("#block_button").css("display", "block");
 		}
 		/* 
-    c'est le pire code au monde putin 
+	c'est le pire code au monde putin 
     
-    $("#fflowBandeauChiffre").html("");
-    $("#ffollowersBandeauChiffre").html("");
-    $("#ffollowingBandeauChiffre").html("");
-    $("#fbioCompte").html("loading");
-    $("#fnameCompte").html("loading");
-    $("#privateID").html("loading");
-    $("#fprofilPicture").css({
-        "background-image": "none"
-    });*/
+	$("#fflowBandeauChiffre").html("");
+	$("#ffollowersBandeauChiffre").html("");
+	$("#ffollowingBandeauChiffre").html("");
+	$("#fbioCompte").html("loading");
+	$("#fnameCompte").html("loading");
+	$("#privateID").html("loading");
+	$("#fprofilPicture").css({
+		"background-image": "none"
+	});*/
 
 		var scroll_element = $("#tabCompte1");
 		scroll_element[0].scrollTop = 0;
@@ -499,7 +499,12 @@ function ShowUserProfile(response) {
 		}
 		$("#fbioCompte").html(bioCompte);
 		$("#fnameCompte").html(nameCompte);
-		$("#privateID").html("@" + privateIDAccount);
+		if (privateIDAccount.length > 20) {
+			$("#privateID").html("@" + privateIDAccount.substring(0, 20) + "...");
+		}
+		else {
+			$("#privateID").html("@" + privateIDAccount);
+		}
 		const src_profile_img =
 			"https://" +
 			response.LinkBuilder.Hostname +
@@ -614,6 +619,7 @@ function ShowUserFlow(flow) {
 				RegisterId: data.RegisterId,
 				LastOs: data.LastOs,
 				Comments: data.Comments,
+				Responses: data.Responses
 			};
 			var new_block = new block(block_params);
 			all_blocks.push(new_block);
@@ -705,6 +711,7 @@ function ShowLikedFlows(flow, data_block_user) {
 							RegisterId: data.RegisterId,
 							LastOs: data.LastOs,
 							Comments: data.Comments,
+							Responses: data.Responses
 						};
 						let new_block = new block(block_params);
 						all_blocks.push(new_block);
@@ -736,6 +743,7 @@ function ShowLikedFlows(flow, data_block_user) {
 					RegisterId: data.RegisterId,
 					LastOs: data.LastOs,
 					Comments: data.Comments,
+					Responses: data.Responses
 				};
 				let new_block = new block(block_params);
 				all_blocks.push(new_block);
@@ -817,7 +825,7 @@ $("#block_button").on("click", function () {
 			"Veux-tu vraiment bloquer cet utilisateur ?",
 			function (id) {
 				if (id == 1) {
-					function alertDismissed() {}
+					function alertDismissed() { }
 					// On me bloque pas moi.
 					if (
 						privateIDAccount.toUpperCase() == "KING.CHRIS" ||
