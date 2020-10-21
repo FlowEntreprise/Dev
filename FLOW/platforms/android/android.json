@@ -139,6 +139,10 @@
             {
               "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"AppMinimize\"><param name=\"android-package\" value=\"tomloprod.AppMinimize\" /></feature>",
+              "count": 1
             }
           ],
           "widget": [
@@ -265,7 +269,7 @@
           ],
           "/manifest/application/activity[@android:name='MainActivity']": [
             {
-              "xml": "<application android:debuggable=\"false\" />",
+              "xml": "<activity android:name=\"MainActivity\" android:windowSoftInputMode=\"adjustResize\" />",
               "count": 2,
               "mode": "merge",
               "id": "config.xml",
@@ -281,7 +285,7 @@
               }
             },
             {
-              "xml": "<activity android:name=\"MainActivity\" android:windowSoftInputMode=\"adjustResize\" />",
+              "xml": "<application android:debuggable=\"false\" />",
               "count": 1,
               "mode": "merge",
               "id": "config.xml",
@@ -537,6 +541,9 @@
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-appminimize": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -1067,6 +1074,14 @@
       "clobbers": [
         "navigator.splashscreen"
       ]
+    },
+    {
+      "id": "cordova-plugin-appminimize.AppMinimize",
+      "file": "plugins/cordova-plugin-appminimize/www/AppMinimize.js",
+      "pluginId": "cordova-plugin-appminimize",
+      "clobbers": [
+        "cordova.plugins.appMinimize"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -1104,6 +1119,7 @@
     "cordova-launch-review": "4.0.0",
     "cordova-plugin-appversion": "1.0.0",
     "ionic-plugin-deeplinks": "1.0.20",
-    "cordova-plugin-splashscreen": "5.0.3-dev"
+    "cordova-plugin-splashscreen": "5.0.3-dev",
+    "cordova-plugin-appminimize": "1.0.1"
   }
 }

@@ -70,6 +70,9 @@
     },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-appminimize": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {

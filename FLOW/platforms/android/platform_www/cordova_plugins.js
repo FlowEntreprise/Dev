@@ -525,6 +525,14 @@ module.exports = [
     "clobbers": [
       "navigator.splashscreen"
     ]
+  },
+  {
+    "id": "cordova-plugin-appminimize.AppMinimize",
+    "file": "plugins/cordova-plugin-appminimize/www/AppMinimize.js",
+    "pluginId": "cordova-plugin-appminimize",
+    "clobbers": [
+      "cordova.plugins.appMinimize"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -564,7 +572,8 @@ module.exports.metadata =
   "cordova-launch-review": "4.0.0",
   "cordova-plugin-appversion": "1.0.0",
   "ionic-plugin-deeplinks": "1.0.20",
-  "cordova-plugin-splashscreen": "5.0.3-dev"
+  "cordova-plugin-splashscreen": "5.0.3-dev",
+  "cordova-plugin-appminimize": "1.0.1"
 };
 // BOTTOM OF METADATA
 });
