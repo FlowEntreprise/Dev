@@ -316,5 +316,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-appminimize": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-appminimize@^1.0.1"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

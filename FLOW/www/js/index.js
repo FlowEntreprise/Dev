@@ -57,6 +57,9 @@ var app = {
 			}
 			startTuto();
 			navigator.splashscreen.hide();
+			$(".custom_popup").css({
+				"opacity": "1"
+			})
 		}, 1200);
 
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
@@ -75,8 +78,7 @@ var app = {
 			}
 		}
 
-		IonicDeeplink.route(
-			{
+		IonicDeeplink.route({
 				"/flow/:FlowId": {
 					target: "flow",
 					parent: "flow",
@@ -112,8 +114,8 @@ var app = {
 							ratingTimerId = setTimeout(function () {
 								console.warn(
 									"Rating dialog was not shown (after " +
-										MAX_DIALOG_WAIT_TIME +
-										"ms)"
+									MAX_DIALOG_WAIT_TIME +
+									"ms)"
 								);
 							}, MAX_DIALOG_WAIT_TIME);
 						} else if (result === "shown") {
@@ -132,14 +134,13 @@ var app = {
 
 			let last_review = Math.floor(
 				(Date.now() - window.localStorage.getItem("last_ask_user_rating")) /
-					1000 /
-					60 /
-					60 /
-					24
+				1000 /
+				60 /
+				60 /
+				24
 			);
 			if (last_review > 5) {
 				LaunchReview.rating();
-				LaunchReview.launch();
 			}
 		}, 270000);
 
@@ -152,8 +153,7 @@ var app = {
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -205,8 +205,7 @@ var app = {
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -221,9 +220,9 @@ var app = {
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
 		httpd =
-			cordova && cordova.plugins && cordova.plugins.CorHttpd
-				? cordova.plugins.CorHttpd
-				: null;
+			cordova && cordova.plugins && cordova.plugins.CorHttpd ?
+			cordova.plugins.CorHttpd :
+			null;
 
 		// No need since no using workers anymore
 		// httpd.startServer({
@@ -253,10 +252,8 @@ var app = {
 
 		var push = PushNotification.init({
 			android: {
-				icon:
-					device.manufacturer == "OnePlus"
-						? "flow_icone_one_plus"
-						: "flow_icone",
+				icon: device.manufacturer == "OnePlus" ?
+					"flow_icone_one_plus" : "flow_icone",
 			},
 			ios: {
 				alert: "true",
@@ -285,8 +282,10 @@ var app = {
 
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
-            pas dans l'application */
+			pas dans l'application */
 			if (data.additionalData.foreground == false) {
+				Popup("popup-specifique", false);
+				Popup("popup-comment", false);
 				if (window.cordova.platformId == "ios") {
 					data.additionalData.sender_info = JSON.parse(
 						data.additionalData.sender_info
@@ -416,7 +415,7 @@ Storage.prototype.getObj = function (key) {
 // Replace default alert by Sweet Alert
 
 /*window.alert = function (txt) {
-    swal(txt);
+	swal(txt);
 };
 */
 

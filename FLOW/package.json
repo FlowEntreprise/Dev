@@ -16,6 +16,7 @@
 		"cordova-plugin-androidx": "^3.0.0",
 		"cordova-plugin-androidx-adapter": "^1.1.1",
 		"cordova-plugin-app-review": "^2.0.1",
+		"cordova-plugin-appminimize": "^1.0.1",
 		"cordova-plugin-appversion": "^1.0.0",
 		"cordova-plugin-audioinput": "^1.0.2",
 		"cordova-plugin-browsersync": "^1.1.0",
@@ -128,7 +129,8 @@
 				"DEEPLINK_5_SCHEME": " ",
 				"DEEPLINK_5_HOST": " "
 			},
-			"cordova-plugin-splashscreen": {}
+			"cordova-plugin-splashscreen": {},
+			"cordova-plugin-appminimize": {}
 		},
 		"platforms": []
 	}

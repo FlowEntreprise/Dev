@@ -1,4 +1,5 @@
 var comment_button_was_clicked_in_popup_specifique = false;
+
 function flow_specifique(data, show_comment, type, data_specifique, all_data) {
 	//show comment permet de savoir si les commentaires doivent etre affichées
 	//type : un commentaire ou une reponse
@@ -15,7 +16,7 @@ function flow_specifique(data, show_comment, type, data_specifique, all_data) {
 		patternKey: data.Background.PatternKey,
 		title: data.Title,
 		description: data.Description,
-		pseudo: data.PrivateId,
+		pseudo: data.FullName ? data.FullName : data.PrivateId,
 		account_imageURL: data.ProfilePicture,
 		ObjectId: data.ObjectId,
 		PrivateId: data.PrivateId,
@@ -81,6 +82,7 @@ function comment_specifique(response, type, all_data) {
 		LastOs: response.LastOs,
 		Flow_block_id: response.IdFlow,
 		Responses: response.Responses, //nombre de reponses
+		FullName: response.FullName
 	};
 
 	comment_data.Comment = comment_data.Comment.replace(
@@ -114,10 +116,10 @@ function comment_specifique(response, type, all_data) {
 				all_data.Data.rank.rank / 10
 			);
 		}
-		current_comment_block.response_current_index > 0
-			? (current_comment_block.response_current_desc_index =
-					current_comment_block.response_current_index - 1)
-			: (current_comment_block.response_current_desc_index = 0);
+		current_comment_block.response_current_index > 0 ?
+			(current_comment_block.response_current_desc_index =
+				current_comment_block.response_current_index - 1) :
+			(current_comment_block.response_current_desc_index = 0);
 		id_response_specifique = all_data.Data.response.IdResponse;
 		current_comment_block.nombre_de_reponses_precedent =
 			current_comment_block.response_current_index * 10;

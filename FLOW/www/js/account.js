@@ -111,9 +111,9 @@ function i_am_blocked() {
 	$("#UserActivity").append(label_i_am_blocked);
 	//$("#UserLikes").append(label_i_am_blocked);
 	/*$("#fFollowButtunAccount").css("background-color", "#ff0054");
-    $("#fFollowButtunAccount").css("border", "solid 1.5px #ff0054");
-    $("#fFollowButtunAccount").innerHTML = "BLOQUÉ";
-    $("#fFollowButtunAccount").css("pointer-events", "none");*/
+	$("#fFollowButtunAccount").css("border", "solid 1.5px #ff0054");
+	$("#fFollowButtunAccount").innerHTML = "BLOQUÉ";
+	$("#fFollowButtunAccount").css("pointer-events", "none");*/
 	$("#fFollowYouButtunAccount").css("display", "none");
 	$("#block_button").css("display", "none");
 }
@@ -164,8 +164,7 @@ document
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -193,17 +192,17 @@ document
 			$("#block_button").css("display", "block");
 		}
 		/* 
-    c'est le pire code au monde putin 
+	c'est le pire code au monde putin 
     
-    $("#fflowBandeauChiffre").html("");
-    $("#ffollowersBandeauChiffre").html("");
-    $("#ffollowingBandeauChiffre").html("");
-    $("#fbioCompte").html("loading");
-    $("#fnameCompte").html("loading");
-    $("#privateID").html("loading");
-    $("#fprofilPicture").css({
-        "background-image": "none"
-    });*/
+	$("#fflowBandeauChiffre").html("");
+	$("#ffollowersBandeauChiffre").html("");
+	$("#ffollowingBandeauChiffre").html("");
+	$("#fbioCompte").html("loading");
+	$("#fnameCompte").html("loading");
+	$("#privateID").html("loading");
+	$("#fprofilPicture").css({
+		"background-image": "none"
+	});*/
 
 		var scroll_element = $("#tabCompte1");
 		scroll_element[0].scrollTop = 0;
@@ -358,8 +357,7 @@ document
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -478,12 +476,10 @@ function ShowUserProfile(response) {
 		let link_built = src + param;
 		window.localStorage.setItem("user_profile_pic", link_built);
 		$("#fmyprofilPicture").css({
-			"background-image":
-				"url('" + window.localStorage.getItem("user_profile_pic") + "')",
+			"background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')",
 		});
 		$(".faccount").css({
-			"background-image":
-				"url('" + window.localStorage.getItem("user_profile_pic") + "')",
+			"background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')",
 		});
 	} else if (response.Data.PrivateId == privateIDAccount) {
 		bioCompte = response.Data.Bio;
@@ -499,7 +495,11 @@ function ShowUserProfile(response) {
 		}
 		$("#fbioCompte").html(bioCompte);
 		$("#fnameCompte").html(nameCompte);
-		$("#privateID").html("@" + privateIDAccount);
+		if (privateIDAccount.length > 20) {
+			$("#privateID").html("@" + privateIDAccount.substring(0, 20) + "...");
+		} else {
+			$("#privateID").html("@" + privateIDAccount);
+		}
 		const src_profile_img =
 			"https://" +
 			response.LinkBuilder.Hostname +
@@ -604,7 +604,7 @@ function ShowUserFlow(flow) {
 				imageURL: image_link,
 				title: data.Title,
 				description: data.Description,
-				pseudo: data.PrivateId,
+				pseudo: data.FullName ? data.FullName : data.PrivateId,
 				account_imageURL: profilePicLink,
 				IsLike: data.IsLike,
 				IsComment: data.IsComment,
@@ -614,6 +614,7 @@ function ShowUserFlow(flow) {
 				RegisterId: data.RegisterId,
 				LastOs: data.LastOs,
 				Comments: data.Comments,
+				Responses: data.Responses
 			};
 			var new_block = new block(block_params);
 			all_blocks.push(new_block);
@@ -694,7 +695,7 @@ function ShowLikedFlows(flow, data_block_user) {
 							imageURL: image_link,
 							title: data.Title,
 							description: data.Description,
-							pseudo: data.PrivateId,
+							pseudo: data.FullName ? data.FullName : data.PrivateId,
 							account_imageURL: profilePicLink,
 							IsLike: data.IsLike,
 							IsComment: data.IsComment,
@@ -705,12 +706,13 @@ function ShowLikedFlows(flow, data_block_user) {
 							RegisterId: data.RegisterId,
 							LastOs: data.LastOs,
 							Comments: data.Comments,
+							Responses: data.Responses
 						};
 						let new_block = new block(block_params);
 						all_blocks.push(new_block);
 						if (i == 0 && indexAccountLike == 0)
 							new_block.block_flow.style.marginTop =
-								"calc(37 * var(--custom-vh))";
+							"calc(37 * var(--custom-vh))";
 						if ($(".loading_account")) $(".loading_account").remove();
 					}
 				}
@@ -725,7 +727,7 @@ function ShowLikedFlows(flow, data_block_user) {
 					imageURL: image_link,
 					title: data.Title,
 					description: data.Description,
-					pseudo: data.PrivateId,
+					pseudo: data.FullName ? data.FullName : data.PrivateId,
 					account_imageURL: profilePicLink,
 					IsLike: data.IsLike,
 					IsComment: data.IsComment,
@@ -736,6 +738,7 @@ function ShowLikedFlows(flow, data_block_user) {
 					RegisterId: data.RegisterId,
 					LastOs: data.LastOs,
 					Comments: data.Comments,
+					Responses: data.Responses
 				};
 				let new_block = new block(block_params);
 				all_blocks.push(new_block);
@@ -792,7 +795,7 @@ function FollowResponse(response, type, element) {
 		};
 		if (type == "block_user_follow") {
 			(data_notif_follow.RegisterId = element.RegisterId),
-				(data_notif_follow.LastOs = element.LastOs);
+			(data_notif_follow.LastOs = element.LastOs);
 		}
 		send_notif_to_user(data_notif_follow, "follow");
 	} else if (response.UnFollow !== undefined) {
@@ -801,8 +804,7 @@ function FollowResponse(response, type, element) {
 			Follower--;
 			$("#ffollowersBandeauChiffre").html(Follower);
 		}
-	} else {
-	}
+	} else {}
 	$("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
 	manageFollow(type, element);
 }
