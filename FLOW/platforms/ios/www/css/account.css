@@ -241,11 +241,15 @@
 #privateID {
 	color: #1a84ef;
 	position: absolute;
-	font-size: 4.5vw;
+	font-size: 18px;
 	left: 36vw;
 	top: calc(17 * var(--custom-vh));
 	font-family: "Roboto-Regular";
 	opacity: 0.5;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 60vw;
 }
 
 #fbigProfilPictureContainer {
