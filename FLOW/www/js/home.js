@@ -83,7 +83,7 @@ function PopFlow(data, LinkBuilder) {
 		imageURL: data.Background,
 		title: data.Title,
 		description: data.Description,
-		pseudo: data.FullName,
+		pseudo: data.FullName ? data.FullName : data.PrivateId,
 		account_imageURL: data.ProfilePicture,
 		ObjectId: data.ObjectId,
 		PrivateId: data.PrivateId,
@@ -228,7 +228,7 @@ function EnableImmersiveMode() {
 	}, 50);
 	AndroidFullScreen.setSystemUiVisibility(
 		AndroidFullScreen.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-			AndroidFullScreen.SYSTEM_UI_FLAG_LAYOUT_STABLE,
+		AndroidFullScreen.SYSTEM_UI_FLAG_LAYOUT_STABLE,
 		successFunction,
 		errorFunction
 	);

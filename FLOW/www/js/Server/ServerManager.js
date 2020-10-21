@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-	ServerURL: "https://api-test.flowappweb.com/",
+	ServerURL: "https://api.flowappweb.com/",
 	ConnexionURL: "ConnexionFromApi",
 	AddFlowURL: "AddFlow",
 	GetSingleFlowURL: "GetSingle",
@@ -64,7 +64,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-	constructor() { }
+	constructor() {}
 
 	/* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -170,7 +170,7 @@ class ServerManagerClass {
 				};
 				break;
 			default:
-			//console.log("Error in parameters sent to Connect() in ServerManager.");
+				//console.log("Error in parameters sent to Connect() in ServerManager.");
 		}
 		$.ajax({
 			type: "POST",
@@ -204,8 +204,7 @@ class ServerManagerClass {
 		});
 
 		let request_data = {
-			url:
-				"https://api.twitter.com/1.1/users/show.json?user_id=" + data.user_id,
+			url: "https://api.twitter.com/1.1/users/show.json?user_id=" + data.user_id,
 			method: "GET",
 			// data: { status: 'Hello Ladies + Gentlemen, a signed OAuth request!' },
 		};
@@ -304,7 +303,7 @@ class ServerManagerClass {
 			success: function (response) {
 				check_app_version(response.Data);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -321,7 +320,7 @@ class ServerManagerClass {
 			success: function (response) {
 				console.log("User last connexion updated");
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -698,7 +697,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyFlow(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -722,7 +721,7 @@ class ServerManagerClass {
 					}
 				}
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -739,7 +738,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowUserFlow(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -754,7 +753,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyInfosUser(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -770,7 +769,7 @@ class ServerManagerClass {
 				//console.log("on recup le getInfosUserNumber");
 				ShowInfosUserNumber(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -798,7 +797,7 @@ class ServerManagerClass {
 					ShowUserProfile(response);
 				}
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -821,7 +820,7 @@ class ServerManagerClass {
 				//console.log(response);
 				UpdateFollowersList(response, data.follow_list);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -847,7 +846,7 @@ class ServerManagerClass {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -868,7 +867,7 @@ class ServerManagerClass {
 				RefreshTL();
 				FollowResponse(response, data.type, data.block_user);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -909,6 +908,7 @@ class ServerManagerClass {
 				Index: data,
 			},
 		};
+		console.log(final_data);
 		console.log("Get timeline index : " + data);
 		$.ajax({
 			type: "POST",
@@ -916,7 +916,7 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				//console.log("success");
-				//console.log(response);
+				console.log(response);
 				timeline_get_block_and_blocked_users(response);
 			},
 			error: function (response) {
@@ -1238,8 +1238,7 @@ class ServerManagerClass {
 			type: "POST",
 			url: " https://iid.googleapis.com/iid/v1:batchImport",
 			headers: {
-				Authorization:
-					"key=" +
+				Authorization: "key=" +
 					"AAAASolkDdQ:APA91bGQTqtjxefUeH3JhJQXP30B6d6TgHYN239VGsaX3-0qpBEH7_Wy_9MLiVOlniHQ9gqZcHt3q76d5QGb3It-qUIJfo954NZBmz9INY765rMn8S40Cz-fw5zTeBfoQVnZSE3oW4oL",
 			},
 			contentType: "application/json",
@@ -1257,7 +1256,7 @@ class ServerManagerClass {
 				ServerManager.UpdateRegisterId(data);*/
 				console.log(registrationId);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -1308,8 +1307,7 @@ class ServerManagerClass {
 			type: "POST",
 			url: "https://fcm.googleapis.com/fcm/send",
 			headers: {
-				Authorization:
-					"key=" +
+				Authorization: "key=" +
 					"AAAASolkDdQ:APA91bGQTqtjxefUeH3JhJQXP30B6d6TgHYN239VGsaX3-0qpBEH7_Wy_9MLiVOlniHQ9gqZcHt3q76d5QGb3It-qUIJfo954NZBmz9INY765rMn8S40Cz-fw5zTeBfoQVnZSE3oW4oL",
 			},
 			contentType: "application/json",

@@ -55,6 +55,7 @@ function block_response(response_data, response_is_specifique) {
     this.f_response_id_user = document.createElement("label");
     this.f_response_id_user.className = "f_response_id_user";
     // this.f_response_id_user.innerHTML = "@" + response_data.PrivateId + "";
+    if (!response_data.FullName) response_data.FullName = response_data.PrivateId;
     this.f_response_id_user.innerHTML = response_data.FullName + "";
     $(this.fblock_response).append(this.f_response_id_user);
 
@@ -179,17 +180,10 @@ function block_comment(comment_data, comment_is_specifique) {
     $(this.fblock_comment).append(this.fimg_user);
 
     this.fid_user = document.createElement('label');
-    this.fid_user.className = 'fid_user'; <<
-    << << < HEAD
-    this.fid_user.innerHTML = "@" + comment_data.PrivateId + "";
-    this.fid_user.innerHTML = comment_data.FullName; ===
-    === =
-    if (this.private_Id.length > 22) {
-        this.fid_user.innerHTML = "@" + this.private_Id.substring(0, 22) + "...";
-    } else {
-        this.fid_user.innerHTML = "@" + this.private_Id + "";
-    } >>>
-    >>> > f3ccbc4cb2223aaa3f682f5dbee3252db10bc08d
+    this.fid_user.className = 'fid_user';
+    // this.fid_user.innerHTML = "@" + comment_data.PrivateId + "";
+    if (!comment_data.FullName) comment_data.FullName = comment_data.PrivateId;
+    this.fid_user.innerHTML = comment_data.FullName;
     $(this.fblock_comment).append(this.fid_user);
 
     this.fblock_comment_comment = document.createElement('p');

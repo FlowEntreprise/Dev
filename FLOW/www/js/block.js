@@ -220,11 +220,6 @@ function block(params) {
 
 	this.fposter_name = document.createElement("p");
 	this.fposter_name.className = "fposter_name";
-	if (this.name.length > 35) {
-		this.fposter_name.innerText = this.name.substring(0, 35) + "...";
-	} else {
-		this.fposter_name.innerText = this.name;
-	}
 	this.fposter_name.innerText = this.name;
 	this.ftop_part.appendChild(this.fposter_name);
 
@@ -993,6 +988,7 @@ function get_all_likes(response) {
 			this.fid_user = document.createElement("label");
 			this.fid_user.className = "fid_user_likes";
 			// this.fid_user.innerHTML = "@" + like_data.PrivateId + "";
+			if (!like_data.FullName) like_data.FullName = like_data.PrivateId;
 			this.fid_user.innerHTML = like_data.FullName + "";
 			$(this.fblock_like).append(this.fid_user);
 

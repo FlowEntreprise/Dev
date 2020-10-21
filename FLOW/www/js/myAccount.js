@@ -54,8 +54,7 @@ document
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -107,14 +106,12 @@ document
 		$(".fflow-btn").css("display", "none");
 		$(".flow-btn-shadow").css("display", "none");
 		$("#fmyprofilPicture").css({
-			"background-image":
-				"url('" + window.localStorage.getItem("user_profile_pic") + "')",
+			"background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')",
 		});
 		$("#fnameMonCompte").html(nameMonCompte);
 		if (privateID.length > 20) {
 			$("#myprivateID").html("@" + privateID.substring(0, 20) + "...");
-		}
-		else {
+		} else {
 			$("#myprivateID").html("@" + privateID);
 		}
 
@@ -230,8 +227,7 @@ document
 		});
 
 		$("#fmybigProfilPicture").css({
-			"background-image":
-				"url('" + window.localStorage.getItem("user_profile_pic") + "')",
+			"background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')",
 		});
 		var profilePicture = document.createElement("img");
 		profilePicture.setAttribute(
@@ -259,8 +255,7 @@ document
 			});
 			$("#feditProfilePopupContainer").css("pointer-events", "auto");
 			$("#fprofilPicturePopup").css({
-				"background-image":
-					"url('" + window.localStorage.getItem("user_profile_pic") + "')",
+				"background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')",
 			});
 			$("#fprofilPicturePopup")[0].onclick = function () {
 				GetPhotoFromGallery(true);
@@ -452,7 +447,7 @@ function ShowMyFlow(flow) {
 				imageURL: image_link,
 				title: data.Title,
 				description: data.Description,
-				pseudo: data.FullName,
+				pseudo: data.FullName ? data.FullName : data.PrivateId,
 				account_imageURL: profilePicLink,
 				IsLike: data.IsLike,
 				IsComment: data.IsComment,
@@ -499,8 +494,7 @@ document
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -576,7 +570,7 @@ function ShowMyLikedFlows(flow, data_block_user) {
 							imageURL: image_link,
 							title: data.Title,
 							description: data.Description,
-							pseudo: data.FullName,
+							pseudo: data.FullName ? data.FullName : data.PrivateId,
 							account_imageURL: profilePicLink,
 							IsLike: data.IsLike,
 							IsComment: data.IsComment,
@@ -592,7 +586,7 @@ function ShowMyLikedFlows(flow, data_block_user) {
 						all_blocks.push(new_block);
 						if (i == 0 && indexMyLike == 0)
 							new_block.block_flow.style.marginTop =
-								"calc(27 * var(--custom-vh))";
+							"calc(27 * var(--custom-vh))";
 						if ($(".loading_myaccount")) $(".loading_myaccount").remove();
 
 						//console.log("Pop Flow");
@@ -610,7 +604,7 @@ function ShowMyLikedFlows(flow, data_block_user) {
 					imageURL: image_link,
 					title: data.Title,
 					description: data.Description,
-					pseudo: data.FullName,
+					pseudo: data.FullName ? data.FullName : data.PrivateId,
 					account_imageURL: profilePicLink,
 					IsLike: data.IsLike,
 					IsComment: data.IsComment,

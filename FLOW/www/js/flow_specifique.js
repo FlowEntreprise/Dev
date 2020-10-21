@@ -16,7 +16,7 @@ function flow_specifique(data, show_comment, type, data_specifique, all_data) {
 		patternKey: data.Background.PatternKey,
 		title: data.Title,
 		description: data.Description,
-		pseudo: data.FullName,
+		pseudo: data.FullName ? data.FullName : data.PrivateId,
 		account_imageURL: data.ProfilePicture,
 		ObjectId: data.ObjectId,
 		PrivateId: data.PrivateId,
