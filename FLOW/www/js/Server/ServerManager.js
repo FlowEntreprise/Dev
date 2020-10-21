@@ -170,7 +170,7 @@ class ServerManagerClass {
 				};
 				break;
 			default:
-			//console.log("Error in parameters sent to Connect() in ServerManager.");
+				//console.log("Error in parameters sent to Connect() in ServerManager.");
 		}
 		$.ajax({
 			type: "POST",
@@ -204,8 +204,7 @@ class ServerManagerClass {
 		});
 
 		let request_data = {
-			url:
-				"https://api.twitter.com/1.1/users/show.json?user_id=" + data.user_id,
+			url: "https://api.twitter.com/1.1/users/show.json?user_id=" + data.user_id,
 			method: "GET",
 			// data: { status: 'Hello Ladies + Gentlemen, a signed OAuth request!' },
 		};
@@ -609,7 +608,7 @@ class ServerManagerClass {
 		current_block.current_flow_block = current_comment_block;
 		current_block.IdComment = block.ObjectId;
 		/*la ligne du dessus pour simplifier l'envoi des notifs sans trop redev
-    meme si ça parrait pas super coherant*/
+	meme si ça parrait pas super coherant*/
 		//console.log(final_data);
 		$.ajax({
 			type: "POST",
@@ -638,7 +637,7 @@ class ServerManagerClass {
 		current_block.current_flow_block = current_response_block;
 		current_block.Idresponse = block.ObjectId;
 		/*la ligne du dessus pour simplifier l'envoi des notifs sans trop redev
-    meme si ça parrait pas super coherant*/
+	meme si ça parrait pas super coherant*/
 		//console.log(final_data);
 		$.ajax({
 			type: "POST",
@@ -787,7 +786,7 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				//console.log("on recup le profil");
-				if (response == "ERROR GET PROFIL") {
+				if (typeof response == "string") {
 					// alert("Utilisateur introuvable");
 					navigator.notification.alert(
 						"Utilisateur introuvable",
@@ -909,6 +908,7 @@ class ServerManagerClass {
 				Index: data,
 			},
 		};
+		console.log(final_data);
 		console.log("Get timeline index : " + data);
 		$.ajax({
 			type: "POST",
@@ -916,7 +916,7 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				//console.log("success");
-				//console.log(response);
+				console.log(response);
 				timeline_get_block_and_blocked_users(response);
 			},
 			error: function (response) {
@@ -1238,8 +1238,7 @@ class ServerManagerClass {
 			type: "POST",
 			url: " https://iid.googleapis.com/iid/v1:batchImport",
 			headers: {
-				Authorization:
-					"key=" +
+				Authorization: "key=" +
 					"AAAASolkDdQ:APA91bGQTqtjxefUeH3JhJQXP30B6d6TgHYN239VGsaX3-0qpBEH7_Wy_9MLiVOlniHQ9gqZcHt3q76d5QGb3It-qUIJfo954NZBmz9INY765rMn8S40Cz-fw5zTeBfoQVnZSE3oW4oL",
 			},
 			contentType: "application/json",
@@ -1251,10 +1250,10 @@ class ServerManagerClass {
 				console.info(response);
 				registrationId = response.results[0].registration_token;
 				/*let data = {
-                    RegisterId: registrationId,
-                    LastOs: window.cordova.platformId
-                };
-                ServerManager.UpdateRegisterId(data);*/
+					RegisterId: registrationId,
+					LastOs: window.cordova.platformId
+				};
+				ServerManager.UpdateRegisterId(data);*/
 				console.log(registrationId);
 			},
 			error: function (response) {},
@@ -1308,8 +1307,7 @@ class ServerManagerClass {
 			type: "POST",
 			url: "https://fcm.googleapis.com/fcm/send",
 			headers: {
-				Authorization:
-					"key=" +
+				Authorization: "key=" +
 					"AAAASolkDdQ:APA91bGQTqtjxefUeH3JhJQXP30B6d6TgHYN239VGsaX3-0qpBEH7_Wy_9MLiVOlniHQ9gqZcHt3q76d5QGb3It-qUIJfo954NZBmz9INY765rMn8S40Cz-fw5zTeBfoQVnZSE3oW4oL",
 			},
 			contentType: "application/json",
@@ -1318,10 +1316,10 @@ class ServerManagerClass {
 
 			success: function (response) {
 				/*
-                                TypeNotification : data.data.type
-                                RegisterIdOfUserToNotify : data.to
-                                Content : data.data.message
-                */
+								TypeNotification : data.data.type
+								RegisterIdOfUserToNotify : data.to
+								Content : data.data.message
+				*/
 				ServerManager.AddNotificationToUser(data_notif_to_bdd);
 				console.log("Notif envoyé avec succes");
 			},

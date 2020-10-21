@@ -25,8 +25,7 @@ $$("#tab1").on("tab:show", function () {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page",
-		{
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},
@@ -73,8 +72,7 @@ $$("#tab2").on("tab:show", function () {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page",
-		{
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},
@@ -136,8 +134,7 @@ $$("#tab3").on("tab:show", function () {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page",
-		{
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},
@@ -181,8 +178,7 @@ $$("#tab4").on("tab:show", function () {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page",
-		{
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},
@@ -248,7 +244,6 @@ function PlayNavRipple(element) {
 	// }, 10);
 }
 
-document.addEventListener("backbutton", onBackKeyDown, false);
 var current_page = "home";
 var last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
@@ -260,8 +255,7 @@ function onBackKeyDown() {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page",
-		{
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},
@@ -365,9 +359,17 @@ function onBackKeyDown() {
 		$(".fflow-btn").css("z-index", "1");
 		$(".flow-btn-shadow").css("z-index", "0");
 	} else if (current_page == "home") {
-		//navigator.app.exitApp();
+		// navigator.app.exitApp();
 		stopAllBlocksAudio();
-		console.log("prevent exit");
+		window.plugins.appMinimize.minimize();
+	} else if (
+		current_page == "explore" ||
+		current_page == "notifications" ||
+		current_page == "messages"
+	) {
+		// navigator.app.exitApp();
+		stopAllBlocksAudio();
+		window.plugins.appMinimize.minimize();
 	}
 
 	// analytics.setCurrentScreen(current_page);

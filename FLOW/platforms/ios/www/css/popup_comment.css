@@ -79,6 +79,9 @@
 	font-size: calc(2.2 * var(--custom-vh));
 	top: calc(1 * var(--custom-vh));
 	width: 70vw;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .f_response_id_user {
@@ -88,6 +91,9 @@ position: absolute;
     font-size: calc(2 * var(--custom-vh));
     top: calc(1 * var(--custom-vh));
     width: 67.5vw;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .fblock_comment_comment {
