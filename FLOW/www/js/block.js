@@ -43,6 +43,7 @@ function block(params) {
 	this.Likes = params.Likes;
 	this.RegisterId = params.RegisterId;
 	this.LastOs = params.LastOs;
+	this.Views = +params.Views; // nombre d'ecoutes d'un flow
 	params.Responses == null ?
 		(params.Responses = "0") :
 		(params.Responses = params.Responses);
@@ -244,11 +245,10 @@ function block(params) {
 		this.fdots.innerText = "...";
 		this.ftop_part.appendChild(this.fdots);
 
-		// this.fpost_title = document.createElement('p');
-		// this.fpost_title.className = 'fpost_title';
-		// this.fpost_title.innerText = params.title;
-		// this.fpost_title.setAttribute('maxlength', 20);
-		// this.fbottom_part.appendChild(this.fpost_title);
+		this.fposte_nombre_ecoute = document.createElement('p');
+		this.fposte_nombre_ecoute.className = 'fposte_nombre_ecoute';
+		this.fposte_nombre_ecoute.innerText = this.Views > 1 ? this.Views + " écoutes" : this.Views + " écoute";
+		this.ftop_part.appendChild(this.fposte_nombre_ecoute);
 
 		this.fpost_description = document.createElement("div");
 		this.fpost_description.className = "fpost_description";
@@ -295,8 +295,8 @@ function block(params) {
 		this.fimg_impression_comment.className = "fimg_impression";
 		this.fimg_impression_comment.src =
 			this.IsComment == 1 ?
-			"src/icons/Comment_filled.png" :
-			"src/icons/Comment.png";
+				"src/icons/Comment_filled.png" :
+				"src/icons/Comment.png";
 		this.fcomment.appendChild(this.fimg_impression_comment);
 		this.ftxt_impression_comment = document.createElement("p");
 		this.ftxt_impression_comment.className = "ftxt_impression";
@@ -566,8 +566,8 @@ function block(params) {
 			block.progress_div.style.width =
 				(block.currentTime * 100) / params.duration + "%";
 		}, {
-			passive: true,
-		}
+		passive: true,
+	}
 	);
 
 	// Like d'un flow
@@ -600,7 +600,7 @@ function block(params) {
 		if (connected) {
 			if (comment_button_was_clicked_in_popup_specifique == false) {
 				current_flow_block = block; +
-				current_flow_block.Comments <= 1 ?
+					current_flow_block.Comments <= 1 ?
 					(text_comment_number = current_flow_block.Comments + " commentaire") :
 					(text_comment_number =
 						current_flow_block.Comments + " commentaires");
@@ -796,9 +796,9 @@ function go_to_account(data) {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
