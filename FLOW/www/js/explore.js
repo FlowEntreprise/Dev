@@ -181,19 +181,19 @@ document.addEventListener("deviceready", function () {
 		}
 	});
 
-	if (in_top50) {
-		let data = {
-			Index: exploreCurrentIndex,
-		};
+	// if (in_top50) {
+	let data1 = {
+		Index: exploreCurrentIndex,
+	};
 
-		ServerManager.GetTop50(data);
-	} else if (in_recents) {
-		let data = {
-			Index: recentsCurrentIndex,
-		};
+	ServerManager.GetTop50(data1);
+	// } else if (in_recents) {
+	let data2 = {
+		Index: recentsCurrentIndex,
+	};
 
-		ServerManager.GetNewFlows(data);
-	}
+	ServerManager.GetNewFlows(data2);
+	// }
 
 	// const ptr = PullToRefresh.init({
 	//     mainElement: '#tab2',
