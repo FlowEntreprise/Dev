@@ -52,6 +52,7 @@ const ServerParams = {
 	GetVersionProtocol: "GetVersionProtocol",
 	UpdateUserLastConnexion: "UpdateUserLastConnexion",
 	AddViewFlow: "AddViewFlow",
+	GetNewFlows: "GetNewFlows",
 };
 
 const apiTypes = {
@@ -1511,6 +1512,9 @@ class ServerManagerClass {
 				if (action == "explore") {
 					UpdateTop50(data, response);
 				}
+				if (action == "recents") {
+					UpdateRecents(data, response);
+				}
 				if (action == "liked_flow") {
 					if (mine) {
 						ShowMyLikedFlows(data, response);
@@ -1613,7 +1617,7 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.GetTop50,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
+				console.log(response);
 				if (connected) {
 					explore_get_block_and_blocked_users(response);
 				} else {
@@ -1640,6 +1644,32 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				console.log(response);
+			},
+			error: function (response) {
+				console.log(response);
+			},
+		});
+	}
+
+	GetNewFlows(data) {
+		let final_data = {
+			TokenId: window.localStorage.getItem("user_token"),
+			Data: {
+				Index: data.Index,
+			},
+		};
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.GetNewFlows,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				console.log(response);
+				if (connected) {
+					recents_get_block_and_blocked_users(response.Data);
+				} else {
+					//console.log("faut afficher le top50 maintenant");
+					UpdateRecents(response.Data);
+				}
 			},
 			error: function (response) {
 				console.log(response);

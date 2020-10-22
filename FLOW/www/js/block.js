@@ -479,7 +479,6 @@ function block(params) {
 	};
 
 	this.flowend = function () {
-		canAddView = true;
 		audio_playing = false;
 		waveform.style.display = "none";
 		block.progress_div.style.transitionDuration = "0s";
