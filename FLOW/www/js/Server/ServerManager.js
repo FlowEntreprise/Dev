@@ -1215,6 +1215,28 @@ class ServerManagerClass {
 		});
 	}
 
+	AddViewFlow(data) {
+		let final_data = {
+			Data: data,
+			TokenId: window.localStorage.getItem("user_token"),
+		};
+		//console.log(final_data);
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.AddViewFlow,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				//console.log(response);
+				//console.log("notif set to seen");
+			},
+			error: function (response) {
+				//console.log(response);
+			},
+		});
+	}
+
+
+
 	GetNotificationOfUser(data, set_to_seen) {
 		let final_data = {
 			Data: data,
