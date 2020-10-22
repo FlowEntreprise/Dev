@@ -6,6 +6,7 @@ var CanRefreshCommentList = false;
 var CommentListCurrentIndex = 0;
 var current_block_playing = null;
 var commentaire_unique;
+var canAddView = true;
 /*********** BLOCK PARAMS *************
  * var block_params = {
 	parent_element: undefined,
@@ -58,6 +59,7 @@ function block(params) {
 			// if (window.cordova.platformId == "ios") {
 			//     cordova.plugins.backgroundMode.enable();
 			// }
+			if (current_block_playing != block) canAddView = true;
 			current_block_playing = block;
 			block.fplay_button.style.display = "none";
 			block.fpause_button.style.display = "block";
@@ -79,7 +81,7 @@ function block(params) {
 		}
 	};
 
-	this.flowpause = function (callback) {
+	this.flowpause = function (callback, stop) {
 		if (this.ready) {
 			// if (window.cordova.platformId == "ios") {
 			//     cordova.plugins.backgroundMode.disable();
@@ -106,6 +108,14 @@ function block(params) {
 						((position + block.offset_indicator) * 100) / params.duration;
 					block.progress_div.style.width = width + "%";
 					block.currentTime = position;
+					console.log(width, block.currentTime, canAddView);
+					if ((width >= 33 || block.currentTime <= 0) && canAddView && !stop) {
+						console.log(stop);
+						console.log("add 1 view to current playing flow");
+						let data = block.ObjectId;
+						ServerManager.AddViewFlow(data);
+						canAddView = false;
+					}
 					if (typeof callback === "function") callback();
 					// block.offset_indicator = 0;
 					// block.myaudio.seekTo(block.currentTime * 1000);
@@ -295,8 +305,8 @@ function block(params) {
 		this.fimg_impression_comment.className = "fimg_impression";
 		this.fimg_impression_comment.src =
 			this.IsComment == 1 ?
-				"src/icons/Comment_filled.png" :
-				"src/icons/Comment.png";
+			"src/icons/Comment_filled.png" :
+			"src/icons/Comment.png";
 		this.fcomment.appendChild(this.fimg_impression_comment);
 		this.ftxt_impression_comment = document.createElement("p");
 		this.ftxt_impression_comment.className = "ftxt_impression";
@@ -469,6 +479,7 @@ function block(params) {
 	};
 
 	this.flowend = function () {
+		canAddView = true;
 		audio_playing = false;
 		waveform.style.display = "none";
 		block.progress_div.style.transitionDuration = "0s";
@@ -479,6 +490,7 @@ function block(params) {
 			block.progress_div.style.opacity = "1";
 			block.progress_div.style.width = "0%";
 			block.offset_indicator = 0.25;
+			canAddView = true;
 		}, 100);
 		block.currentTime = 0;
 	};
@@ -566,8 +578,8 @@ function block(params) {
 			block.progress_div.style.width =
 				(block.currentTime * 100) / params.duration + "%";
 		}, {
-		passive: true,
-	}
+			passive: true,
+		}
 	);
 
 	// Like d'un flow
@@ -600,7 +612,7 @@ function block(params) {
 		if (connected) {
 			if (comment_button_was_clicked_in_popup_specifique == false) {
 				current_flow_block = block; +
-					current_flow_block.Comments <= 1 ?
+				current_flow_block.Comments <= 1 ?
 					(text_comment_number = current_flow_block.Comments + " commentaire") :
 					(text_comment_number =
 						current_flow_block.Comments + " commentaires");
@@ -796,9 +808,9 @@ function go_to_account(data) {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-		page: current_page,
-		duration: time_in_last_screen,
-	},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -1019,7 +1031,7 @@ function stopAllBlocksAudio(callback) {
 	if (audio_playing || current_block_playing) {
 		console.log("stop all audio");
 		// all_blocks.map((a) => a.flowpause(true));
-		current_block_playing.flowpause(callback);
+		current_block_playing.flowpause(callback, "stop");
 		audio_playing = false;
 	}
 }
