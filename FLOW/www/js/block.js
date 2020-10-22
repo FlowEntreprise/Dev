@@ -515,12 +515,6 @@ function block(params) {
 	// };
 
 	this.fplay_button.addEventListener("click", function () {
-		// test AddViewFlow
-		let data = {
-			ObjectId: block.ObjectId
-		};
-		ServerManager.AddViewFlow(data);
-		//fin de test
 		if (audio_playing) {
 			stopAllBlocksAudio(function () {
 				block.flowplay();
