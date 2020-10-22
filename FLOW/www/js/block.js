@@ -247,7 +247,7 @@ function block(params) {
 
 		this.fposte_nombre_ecoute = document.createElement('p');
 		this.fposte_nombre_ecoute.className = 'fposte_nombre_ecoute';
-		this.fposte_nombre_ecoute.innerText = this.Views > 1 ? this.Views + " écoutes" : this.Views + " écoute";
+		this.fposte_nombre_ecoute.innerText = this.Views > 1 ? affichage_nombre(this.Views, 1) + " écoutes" : affichage_nombre(this.Views, 1) + " écoute";
 		this.ftop_part.appendChild(this.fposte_nombre_ecoute);
 
 		this.fpost_description = document.createElement("div");
@@ -503,6 +503,12 @@ function block(params) {
 	// };
 
 	this.fplay_button.addEventListener("click", function () {
+		// test AddViewFlow
+		let data = {
+			ObjectId: block.ObjectId
+		};
+		ServerManager.AddViewFlow(data);
+		//fin de test
 		if (audio_playing) {
 			stopAllBlocksAudio(function () {
 				block.flowplay();
