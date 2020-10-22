@@ -115,6 +115,13 @@ function block(params) {
 						let data = block.ObjectId;
 						ServerManager.AddViewFlow(data);
 						canAddView = false;
+						current_block_playing.Views = current_block_playing.Views + 1;
+						if (current_block_playing.Views > 1) {
+							$(current_block_playing.fposte_nombre_ecoute).text(current_block_playing.Views + " écoutes");
+						}
+						else {
+							$(current_block_playing.fposte_nombre_ecoute).text(current_block_playing.Views + " écoute");
+						}
 					}
 					if (typeof callback === "function") callback();
 					// block.offset_indicator = 0;
@@ -305,8 +312,8 @@ function block(params) {
 		this.fimg_impression_comment.className = "fimg_impression";
 		this.fimg_impression_comment.src =
 			this.IsComment == 1 ?
-			"src/icons/Comment_filled.png" :
-			"src/icons/Comment.png";
+				"src/icons/Comment_filled.png" :
+				"src/icons/Comment.png";
 		this.fcomment.appendChild(this.fimg_impression_comment);
 		this.ftxt_impression_comment = document.createElement("p");
 		this.ftxt_impression_comment.className = "ftxt_impression";
@@ -577,8 +584,8 @@ function block(params) {
 			block.progress_div.style.width =
 				(block.currentTime * 100) / params.duration + "%";
 		}, {
-			passive: true,
-		}
+		passive: true,
+	}
 	);
 
 	// Like d'un flow
@@ -611,7 +618,7 @@ function block(params) {
 		if (connected) {
 			if (comment_button_was_clicked_in_popup_specifique == false) {
 				current_flow_block = block; +
-				current_flow_block.Comments <= 1 ?
+					current_flow_block.Comments <= 1 ?
 					(text_comment_number = current_flow_block.Comments + " commentaire") :
 					(text_comment_number =
 						current_flow_block.Comments + " commentaires");
@@ -807,9 +814,9 @@ function go_to_account(data) {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
