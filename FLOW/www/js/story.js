@@ -678,7 +678,7 @@ function loadStory(story_index, storyFlow_index) {
     let local_story = FlowLoader.DownloadFlow(story_data[story_index].data[storyFlow_index].audio_src);
     local_story.OnReady(function (url) {
         console.log("local url : " + url);
-        current_story_audio = new Media(url, function () {}, function () {}, storyAudioStatus);
+        current_story_audio = new Media(url, function () { }, function () { }, storyAudioStatus);
 
         function storyAudioStatus(status) {
             console.log("A status change occurred: " + status);

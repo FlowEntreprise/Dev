@@ -55,9 +55,9 @@ document
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -458,6 +458,7 @@ function ShowMyFlow(flow) {
 				Comments: data.Comments,
 				RegisterId: data.RegisterId,
 				LastOs: data.LastOs,
+				Views: data.Views,
 				Responses: data.Responses
 			};
 			var new_block = new block(block_params);
@@ -495,9 +496,9 @@ document
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -580,13 +581,15 @@ function ShowMyLikedFlows(flow, data_block_user) {
 							Times: data.Time,
 							Comments: data.Comments,
 							RegisterId: data.RegisterId,
-							Responses: data.Responses
+							Responses: data.Responses,
+							LastOs: data.LastOs,
+							Views: data.Views
 						};
 						let new_block = new block(block_params);
 						all_blocks.push(new_block);
 						if (i == 0 && indexMyLike == 0)
 							new_block.block_flow.style.marginTop =
-							"calc(27 * var(--custom-vh))";
+								"calc(27 * var(--custom-vh))";
 						if ($(".loading_myaccount")) $(".loading_myaccount").remove();
 
 						//console.log("Pop Flow");
@@ -614,7 +617,9 @@ function ShowMyLikedFlows(flow, data_block_user) {
 					Times: data.Time,
 					Comments: data.Comments,
 					RegisterId: data.RegisterId,
-					Responses: data.Responses
+					Responses: data.Responses,
+					LastOs: data.LastOs,
+					Views: data.Views
 				};
 				let new_block = new block(block_params);
 				all_blocks.push(new_block);

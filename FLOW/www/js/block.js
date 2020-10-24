@@ -6,6 +6,7 @@ var CanRefreshCommentList = false;
 var CommentListCurrentIndex = 0;
 var current_block_playing = null;
 var commentaire_unique;
+var canAddView = true;
 /*********** BLOCK PARAMS *************
  * var block_params = {
 	parent_element: undefined,
@@ -43,6 +44,7 @@ function block(params) {
 	this.Likes = params.Likes;
 	this.RegisterId = params.RegisterId;
 	this.LastOs = params.LastOs;
+	this.Views = +params.Views; // nombre d'ecoutes d'un flow
 	params.Responses == null ?
 		(params.Responses = "0") :
 		(params.Responses = params.Responses);
@@ -57,6 +59,7 @@ function block(params) {
 			// if (window.cordova.platformId == "ios") {
 			//     cordova.plugins.backgroundMode.enable();
 			// }
+			if (current_block_playing != block) canAddView = true;
 			current_block_playing = block;
 			block.fplay_button.style.display = "none";
 			block.fpause_button.style.display = "block";
@@ -78,7 +81,7 @@ function block(params) {
 		}
 	};
 
-	this.flowpause = function (callback) {
+	this.flowpause = function (callback, stop) {
 		if (this.ready) {
 			// if (window.cordova.platformId == "ios") {
 			//     cordova.plugins.backgroundMode.disable();
@@ -105,6 +108,21 @@ function block(params) {
 						((position + block.offset_indicator) * 100) / params.duration;
 					block.progress_div.style.width = width + "%";
 					block.currentTime = position;
+					console.log(width, block.currentTime, canAddView);
+					if ((width >= 33 || block.currentTime <= 0) && canAddView && !stop) {
+						console.log(stop);
+						console.log("add 1 view to current playing flow");
+						let data = block.ObjectId;
+						ServerManager.AddViewFlow(data);
+						canAddView = false;
+						console.log(current_block_playing);
+						current_block_playing.Views += 1;
+						if (current_block_playing.Views > 1) {
+							$(current_block_playing.fposte_nombre_ecoute).text(current_block_playing.Views + " écoutes");
+						} else {
+							$(current_block_playing.fposte_nombre_ecoute).text(current_block_playing.Views + " écoute");
+						}
+					}
 					if (typeof callback === "function") callback();
 					// block.offset_indicator = 0;
 					// block.myaudio.seekTo(block.currentTime * 1000);
@@ -244,11 +262,10 @@ function block(params) {
 		this.fdots.innerText = "...";
 		this.ftop_part.appendChild(this.fdots);
 
-		// this.fpost_title = document.createElement('p');
-		// this.fpost_title.className = 'fpost_title';
-		// this.fpost_title.innerText = params.title;
-		// this.fpost_title.setAttribute('maxlength', 20);
-		// this.fbottom_part.appendChild(this.fpost_title);
+		this.fposte_nombre_ecoute = document.createElement('p');
+		this.fposte_nombre_ecoute.className = 'fposte_nombre_ecoute';
+		this.fposte_nombre_ecoute.innerText = this.Views > 1 ? affichage_nombre(this.Views, 1) + " écoutes" : affichage_nombre(this.Views, 1) + " écoute";
+		this.ftop_part.appendChild(this.fposte_nombre_ecoute);
 
 		this.fpost_description = document.createElement("div");
 		this.fpost_description.className = "fpost_description";
@@ -479,6 +496,7 @@ function block(params) {
 			block.progress_div.style.opacity = "1";
 			block.progress_div.style.width = "0%";
 			block.offset_indicator = 0.25;
+			canAddView = true;
 		}, 100);
 		block.currentTime = 0;
 	};
@@ -1019,7 +1037,7 @@ function stopAllBlocksAudio(callback) {
 	if (audio_playing || current_block_playing) {
 		console.log("stop all audio");
 		// all_blocks.map((a) => a.flowpause(true));
-		current_block_playing.flowpause(callback);
+		current_block_playing.flowpause(callback, "stop");
 		audio_playing = false;
 	}
 }
