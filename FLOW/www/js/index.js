@@ -324,7 +324,8 @@ var app = {
 					return;
 				}
 				if (data.additionalData.type == "back_after_few_days") {
-					$(".fexplore-btn").click();
+					app.showTab("#tab2");
+					explore_categories.slideTo(1);
 					return;
 				}
 				if (data.additionalData.type == "follow") {
