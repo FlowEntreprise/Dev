@@ -310,7 +310,7 @@ ul {
 }
 
 #paragraphe_div_new_feature {
-	top: 10vh;
+	top: 12vh;
 	position: relative;
 	width: 70vw;
 	left: 5vw;
@@ -342,30 +342,6 @@ ul {
 	color: #fff;
 	font-weight: bold;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* --------- RIPPLE ----------- */
@@ -434,7 +410,7 @@ ul {
 	}
 
 	#close_div_new_features {
-		top: calc(6 * var(--custom-vh));
+		bottom: calc(3 * var(--custom-vh));
 	}
 }
 
