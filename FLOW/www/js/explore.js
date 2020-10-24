@@ -102,6 +102,7 @@ ptrContent_explore.on("ptr:pullend", function (e) {
 
 $(".fexplore-btn").on("touchend", function () {
 	// var home_scrolling = false;
+	$(".fred_dot_toolbar_explore").css("display", "none");
 	if (current_page == "explore") {
 		let element = document.getElementById("tab2");
 		// element.onscroll = function() {

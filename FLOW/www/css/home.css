@@ -180,11 +180,9 @@
 	opacity: 0;
 }
 
-.fred_dot_toolbar_new_notif {
+.fred_dot_toolbar{
 	position: absolute;
 	z-index: 1;
-	top: 3vw;
-	left: 93vw;
 	width: 3vw;
 	height: 3vw;
 	border-radius: 3vw;
@@ -193,6 +191,26 @@
 	display: none;
 	pointer-events: none;
 }
+
+
+.fred_dot_toolbar_new_notif {
+	top: 3vw;
+	left: 93vw;
+}
+
+.fred_dot_toolbar_explore {
+	top: 5vw;
+    left: 28vw;
+    display: block;
+}
+.fred_dot_toolbar_recent
+{
+	top: 13vh;
+    right: 12vh;
+    display: block;
+    z-index: 2;
+}
+
 
 #menu1 > .toolbar {
 	bottom: auto !important;
