@@ -322,14 +322,11 @@ ul {
 	height: 5vh;
 	background-color: #1a84ef;
 	left: 10vw;
-	position: relative;
 	border-radius: 5vh;
-	justify-content: center;
-	align-items: center;
-	top: 22vh;
 	opacity: 0.5;
 	pointer-events: none;
 	transition-duration: 0.4s;
+	bottom: 3vh;
 }
 
 #border_close_div_new_features {
