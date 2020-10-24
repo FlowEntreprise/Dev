@@ -180,11 +180,9 @@
 	opacity: 0;
 }
 
-.fred_dot_toolbar_new_notif {
+.fred_dot_toolbar {
 	position: absolute;
 	z-index: 1;
-	top: 3vw;
-	left: 93vw;
 	width: 3vw;
 	height: 3vw;
 	border-radius: 3vw;
@@ -194,7 +192,32 @@
 	pointer-events: none;
 }
 
-#menu1 > .toolbar {
+
+.fred_dot_toolbar_new_notif {
+	top: 3vw;
+	left: 93vw;
+}
+
+.fred_dot_toolbar_explore {
+	top: 3vw;
+	left: 28vw;
+	display: block;
+	pointer-events: none;
+}
+
+.fred_dot_toolbar_recent {
+	top: 13vh;
+	right: 15vw;
+	display: block;
+	z-index: 2;
+	width: 1.5vw;
+	height: 1.5vw;
+	border-radius: 1.5w;
+	pointer-events: none;
+}
+
+
+#menu1>.toolbar {
 	bottom: auto !important;
 	top: calc(93 * var(--custom-vh) - 15px);
 }
@@ -259,7 +282,7 @@
 	user-select: none;
 }
 
-.empty_tl > .title {
+.empty_tl>.title {
 	position: absolute;
 	top: 25vh;
 	left: 0;
@@ -270,7 +293,7 @@
 	color: #1a84ef;
 }
 
-.empty_tl > .txt {
+.empty_tl>.txt {
 	position: absolute;
 	top: 30vh;
 	left: 10vw;
@@ -280,7 +303,7 @@
 	color: #92abb2;
 }
 
-.empty_tl > .btn {
+.empty_tl>.btn {
 	position: absolute;
 	top: 37vh;
 	left: 15vw;

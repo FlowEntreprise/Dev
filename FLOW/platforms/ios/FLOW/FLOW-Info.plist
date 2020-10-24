@@ -2,10 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDisplayName</key>
-	<string>FLOW</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en_US</string>
+	<key>CFBundleDisplayName</key>
+	<string>FLOW</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -49,6 +49,8 @@
 	<string>FLOW</string>
 	<key>FacebookHybridAppEvents</key>
 	<string>false</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.social-networking</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -93,12 +95,18 @@
 	<string>cette application requiert l'utilisation de la camera pour prendre des photos afin d'illustrer les flows</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Cette application peut accèder à votre localisation pour proposer du contenu audio local en fonction de votre position.</string>
-	<key>NSMainNibFile</key>
-	<string/>
 	<key>NSMainNibFile~ipad</key>
 	<string/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Cette application requiert l'utilisation du microphone pour enregistrer des flows.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app requires photo library access to function properly.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires photo library access to function properly.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UIInterfaceOrientation</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -117,13 +125,5 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>remote-notification</string>
-	</array>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>This app requires photo library access to function properly.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app requires photo library access to function properly.</string>
 </dict>
 </plist>

@@ -144,6 +144,35 @@ var app = {
 			}
 		}, 270000);
 
+		if (window.localStorage.getItem("new_features_version") != AppVersion.version) {
+
+			$("#div_new_features").css("display", "block");
+			$("#div_new_features_background").css("display", "block");
+			$("#border_close_div_new_features")[0].innerHTML = "5 secondes";
+			setTimeout(function () {
+				$("#border_close_div_new_features")[0].innerHTML = "4 secondes";
+			}, 3000);
+			setTimeout(function () {
+				$("#border_close_div_new_features")[0].innerHTML = "3 secondes";
+			}, 4000);
+			setTimeout(function () {
+				$("#border_close_div_new_features")[0].innerHTML = "2 secondes";
+			}, 5000);
+			setTimeout(function () {
+				$("#border_close_div_new_features")[0].innerHTML = "1 seconde";
+			}, 6000);
+			setTimeout(function () {
+				$("#border_close_div_new_features")[0].innerHTML = "C'est parti !";
+				$("#close_div_new_features").css({
+					"opacity": "1",
+					"pointer-events": "auto"
+				});
+			}, 7000);
+		} else {
+			$(".fred_dot_toolbar_recent").css("display", "none");
+			$(".fred_dot_toolbar_explore").css("display", "none");
+		}
+
 		this.receivedEvent("deviceready");
 	},
 	onPause: function () {
@@ -295,7 +324,8 @@ var app = {
 					return;
 				}
 				if (data.additionalData.type == "back_after_few_days") {
-					$(".fexplore-btn").click();
+					app.showTab("#tab2");
+					explore_categories.slideTo(1);
 					return;
 				}
 				if (data.additionalData.type == "follow") {
@@ -418,6 +448,11 @@ Storage.prototype.getObj = function (key) {
 	swal(txt);
 };
 */
+$("#close_div_new_features").on("click", function () {
+	$("#div_new_features").css("display", "none");
+	$("#div_new_features_background").css("display", "none");
+	window.localStorage.setItem("new_features_version", AppVersion.version);
+});
 
 function check_app_version(app_version) {
 	setTimeout(function () {

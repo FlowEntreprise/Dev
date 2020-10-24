@@ -183,7 +183,8 @@
 	color: white !important;
 }
 
-.list-block-top50 {
+.list-block-top50,
+.list-block-recents {
 	padding-bottom: 12vh;
 }
 

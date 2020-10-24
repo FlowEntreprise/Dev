@@ -113,19 +113,24 @@
                     </div>
 
                     <div class="fexplore-bar">
+                        <a class="fred_dot_toolbar fred_dot_toolbar_recent"></a>
                         <div class="faccount"></div>
                         <input class="fsearch-bar" placeholder="Explorer" />
                         <div class="search_icon"></div>
                         <div class="search_back"></div>
                         <div class="swiper-container swiper-3 explore-swiper">
+
                             <div class="swiper-pagination"></div>
                             <div class="fexplore_bg_div"></div>
                             <div class="swiper-wrapper fexplore_wrapper">
                                 <div class="swiper-slide fexplore_text" target="">
                                     <span></span>
                                 </div>
-                                <div class="swiper-slide fexplore_text" target="top50">
+                                <div class="swiper-slide fexplore_text top50_btn" target="top50">
                                     <span>Tendances</span>
+                                </div>
+                                <div class="swiper-slide fexplore_text recents_btn" target="recents">
+                                    <span>Récents</span>
                                 </div>
                                 <!-- <div class="swiper-slide fexplore_text" target="comingsoon">
                                     <span>Musique</span>
@@ -148,9 +153,10 @@
                                 <div class="swiper-slide fexplore_text" target="comingsoon">
                                     <span>ASMR</span>
                                 </div>
+                                -->
                                 <div class="swiper-slide fexplore_text" target="">
                                     <span></span>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -175,9 +181,24 @@
                     <div class="fneed_connect" style="left: 68vw;"></div>
                     <div class="fneed_connect" style="left: 84vw;"></div>
                 </div>
-                <a class="fred_dot_toolbar_new_message"></a>
-                <a class="fred_dot_toolbar_new_notif"></a>
+                <a class="fred_dot_toolbar fred_dot_toolbar_new_message"></a>
+                <a class="fred_dot_toolbar fred_dot_toolbar_new_notif"></a>
+                <a class="fred_dot_toolbar fred_dot_toolbar_explore"></a>
+
             </div>
+
+            <div id="div_new_features_background">
+            </div>
+            <div id="div_new_features">
+                <label id="title_div_new_features">Nouveautés !</label>
+                <p id="paragraphe_div_new_feature">Tu peux maintenant decouvrir les flows les plus récents à coté des
+                    flows les plus tendances.<br>Tu peux également désormais voir le nombre d'écoutes des flows.</p>
+                <div id="close_div_new_features">
+                    <div id="border_close_div_new_features">C'est parti </div>
+                </div>
+            </div>
+
+
 
             <div class="custom_popup" id="popup-record">
                 <div class="popup_bg">
