@@ -349,6 +349,7 @@ function SpawnFlowSearch(data) {
 			Likes: flow.Likes,
 			Comments: flow.Comments,
 			RegisterId: flow.RegisterId,
+			Views: flow.Views,
 			Responses: flow.Responses,
 		};
 		console.log(top_flows);
