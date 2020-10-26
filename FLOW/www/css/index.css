@@ -310,11 +310,15 @@ ul {
 }
 
 #paragraphe_div_new_feature {
-	top: 12vh;
 	position: relative;
-	width: 70vw;
+	top: 0vh;
 	left: 5vw;
+	vertical-align: middle;
+	display: table-cell;
+	height: 40vh;
+	width: 70vw;
 	font-size: 16px;
+	margin: 0;
 }
 
 #close_div_new_features {
