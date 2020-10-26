@@ -180,11 +180,9 @@
 	opacity: 0;
 }
 
-.fred_dot_toolbar_new_notif {
+.fred_dot_toolbar{
 	position: absolute;
 	z-index: 1;
-	top: 3vw;
-	left: 93vw;
 	width: 3vw;
 	height: 3vw;
 	border-radius: 3vw;
@@ -192,6 +190,24 @@
 	border: 1px solid red;
 	display: none;
 	pointer-events: none;
+}
+
+.fred_dot_toolbar_new_notif {
+	top: 3vw;
+	left: 93vw;
+}
+
+.fred_dot_toolbar_explore {
+	top: 5vw;
+    left: 28vw;
+    display: block;
+}
+.fred_dot_toolbar_recent
+{
+	top: 13vh;
+    right: 12vh;
+    display: block;
+    z-index: 2;
 }
 
 #menu1 > .toolbar {
@@ -312,6 +328,17 @@
 		width: 3vw;
 		height: 3vw;
 	}
+
+	.fred_dot_toolbar_recent {
+        top: 14vh;
+        right: 25vw;
+        display: block;
+        z-index: 2;
+        width: 1.5vw;
+        height: 1.5vw;
+        border-radius: 1.5w;
+        pointer-events: none;
+    }
 }
 
 /* @media (max-height: 700px) { */

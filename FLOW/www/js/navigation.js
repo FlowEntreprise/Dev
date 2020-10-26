@@ -10,6 +10,9 @@ var in_followers = false;
 var in_identification = false;
 var in_mypp = false;
 var in_pp = false;
+var explore_categories = null;
+var in_top50 = true;
+var in_recents = false;
 $("#tab1").load("pages/home.html");
 $("#tab2").load("pages/explore.html");
 $("#tab3").load("pages/messages.html");
@@ -26,9 +29,9 @@ $$("#tab1").on("tab:show", function () {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -69,13 +72,12 @@ $$("#tab1").on("tab:show", function () {
 });
 
 $$("#tab2").on("tab:show", function () {
-	let time_in_last_screen =
-		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+	let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -84,6 +86,19 @@ $$("#tab2").on("tab:show", function () {
 			console.log("fb current_page error");
 		}
 	);
+	if (explore_categories) {
+		console.log(explore_categories.realIndex);
+		if (explore_categories.realIndex == 0) {
+			if (in_recents) $("#tab2").scrollTop(0);
+			in_top50 = true;
+			in_recents = false;
+		} else if (explore_categories.realIndex == 1) {
+			if (in_top50) $("#tab2").scrollTop(0);
+			in_top50 = false;
+			in_recents = true;
+		}
+	}
+
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
 	$(".navbar").css({
@@ -113,20 +128,32 @@ $$("#tab2").on("tab:show", function () {
 		});
 	}
 	if (!explore_tabs_initialised) {
-		var mySwiper3 = app.swiper(".swiper-3", {
+		let mySwiper = app.swiper(".swiper-3", {
 			pagination: ".swiper-3 .swiper-pagination",
 			spaceBetween: 0,
 			slidesPerView: 3,
 		});
 
-		mySwiper3.on("slideChangeStart", function () {
+		explore_categories = mySwiper;
+
+		mySwiper.on("slideChangeStart", function () {
 			var target = "#" + $(".swiper-slide-next").attr("target");
 			app.showTab(target);
 		});
 
+		explore_categories = mySwiper;
+
+		$(".recents_btn")[0].addEventListener("click", function () {
+			explore_categories.slideTo(1);
+			$(".fred_dot_toolbar_recent").css("display", "none");
+		})
+
+		$(".top50_btn")[0].addEventListener("click", function () {
+			explore_categories.slideTo(0);
+		})
+
 		explore_tabs_initialised = true;
 	}
-
 	stopAllBlocksAudio();
 });
 
@@ -135,9 +162,9 @@ $$("#tab3").on("tab:show", function () {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -179,9 +206,9 @@ $$("#tab4").on("tab:show", function () {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -256,9 +283,9 @@ function onBackKeyDown() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");

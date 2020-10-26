@@ -275,6 +275,75 @@ h1 {
 	padding-top: 0px !important;
 }
 
+ul {
+	list-style-type: none;
+}
+
+#div_new_features_background {
+	background-color: rgba(0, 0, 0, 0.4);
+	width: 100vw;
+	position: absolute;
+	height: calc(100 * var(--custom-vh));
+	z-index: 999;
+	display: none;
+}
+
+#div_new_features {
+	position: absolute;
+	width: 80vw;
+	height: 50vh;
+	background-color: #fff;
+	z-index: 999;
+	top: 25vh;
+	left: 10vw;
+	border-radius: 5px;
+	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+	text-align: center;
+	display: none;
+}
+
+#title_div_new_features {
+	font-size: 25px;
+	font-weight: 600;
+	top: 2vh;
+	position: relative;
+}
+
+#paragraphe_div_new_feature {
+	top: 12vh;
+	position: relative;
+	width: 70vw;
+	left: 5vw;
+	font-size: 16px;
+}
+
+#close_div_new_features {
+	position: absolute;
+	width: 60vw;
+	height: 5vh;
+	background-color: #1a84ef;
+	left: 10vw;
+	border-radius: 5vh;
+	opacity: 0.5;
+	pointer-events: none;
+	transition-duration: 0.4s;
+	bottom: 3vh;
+}
+
+#border_close_div_new_features {
+	position: absolute;
+	width: 100%;
+	height: calc(4 * var(--custom-vh));
+	align-items: center;
+	text-align: center;
+	line-height: calc(4.5 * var(--custom-vh));
+	border-radius: 5px;
+	transition-duration: 0.5s;
+	color: #fff;
+	font-weight: bold;
+}
+
+
 /* --------- RIPPLE ----------- */
 
 .fripple::after {
@@ -338,6 +407,10 @@ h1 {
 	body,
 	html {
 		height: calc(100 * var(--custom-vh)) !important;
+	}
+
+	#close_div_new_features {
+		bottom: calc(3 * var(--custom-vh));
 	}
 }
 

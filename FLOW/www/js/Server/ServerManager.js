@@ -51,6 +51,8 @@ const ServerParams = {
 	GetResponseLikes: "GetResponseLikes",
 	GetVersionProtocol: "GetVersionProtocol",
 	UpdateUserLastConnexion: "UpdateUserLastConnexion",
+	AddViewFlow: "AddViewFlow",
+	GetNewFlows: "GetNewFlows",
 };
 
 const apiTypes = {
@@ -64,7 +66,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-	constructor() {}
+	constructor() { }
 
 	/* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -170,7 +172,7 @@ class ServerManagerClass {
 				};
 				break;
 			default:
-				//console.log("Error in parameters sent to Connect() in ServerManager.");
+			//console.log("Error in parameters sent to Connect() in ServerManager.");
 		}
 		$.ajax({
 			type: "POST",
@@ -303,7 +305,7 @@ class ServerManagerClass {
 			success: function (response) {
 				check_app_version(response.Data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -320,7 +322,7 @@ class ServerManagerClass {
 			success: function (response) {
 				console.log("User last connexion updated");
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -697,7 +699,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -721,7 +723,7 @@ class ServerManagerClass {
 					}
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -738,7 +740,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowUserFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -753,7 +755,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyInfosUser(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -769,7 +771,7 @@ class ServerManagerClass {
 				//console.log("on recup le getInfosUserNumber");
 				ShowInfosUserNumber(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -797,7 +799,7 @@ class ServerManagerClass {
 					ShowUserProfile(response);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -820,7 +822,7 @@ class ServerManagerClass {
 				//console.log(response);
 				UpdateFollowersList(response, data.follow_list);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -846,7 +848,7 @@ class ServerManagerClass {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -867,7 +869,7 @@ class ServerManagerClass {
 				RefreshTL();
 				FollowResponse(response, data.type, data.block_user);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1256,7 +1258,7 @@ class ServerManagerClass {
 				ServerManager.UpdateRegisterId(data);*/
 				console.log(registrationId);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1488,6 +1490,9 @@ class ServerManagerClass {
 				if (action == "explore") {
 					UpdateTop50(data, response);
 				}
+				if (action == "recents") {
+					UpdateRecents(data, response);
+				}
 				if (action == "liked_flow") {
 					if (mine) {
 						ShowMyLikedFlows(data, response);
@@ -1590,7 +1595,7 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.GetTop50,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
+				console.log(response);
 				if (connected) {
 					explore_get_block_and_blocked_users(response);
 				} else {
@@ -1600,6 +1605,52 @@ class ServerManagerClass {
 			},
 			error: function (response) {
 				//console.log(response);
+			},
+		});
+	}
+
+	AddViewFlow(data) {
+		let final_data = {
+			TokenId: window.localStorage.getItem("user_token"),
+			Data: {
+				ObjectId: data,
+			},
+		};
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.AddViewFlow,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				console.log(response);
+			},
+			error: function (response) {
+				console.log(response);
+			},
+		});
+	}
+
+	GetNewFlows(data) {
+		let final_data = {
+			TokenId: window.localStorage.getItem("user_token"),
+			Data: {
+				Index: data.Index,
+			},
+		};
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.GetNewFlows,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				console.log(response);
+				if (connected) {
+					recents_get_block_and_blocked_users(response.Data);
+				} else {
+					//console.log("faut afficher le top50 maintenant");
+					UpdateRecents(response.Data);
+				}
+			},
+			error: function (response) {
+				console.log(response);
 			},
 		});
 	}
