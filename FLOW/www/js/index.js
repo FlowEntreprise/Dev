@@ -60,6 +60,7 @@ var app = {
 			$(".custom_popup").css({
 				"opacity": "1"
 			})
+			initFDJParticles();
 		}, 1200);
 
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
@@ -325,7 +326,7 @@ var app = {
 				}
 				if (data.additionalData.type == "back_after_few_days") {
 					app.showTab("#tab2");
-					explore_categories.slideTo(1);
+					explore_categories.slideTo(2);
 					return;
 				}
 				if (data.additionalData.type == "follow") {

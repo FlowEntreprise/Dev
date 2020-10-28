@@ -1,0 +1,216 @@
+.fdj_pp {
+    position: absolute;
+    top: calc(25 * var(--custom-vh));
+    left: 8vw;
+    height: 65px;
+    width: 65px;
+    border-radius: 120px;
+    border: 3px solid #CFA441;
+    background-image: url("https://api.flowappweb.com:/images/1600513766w87IbyMl.jpg?qr=88e40cbe3505cc66432da6dd591828357f5a50654907911504ab5934845b4459&rx=8901lhe");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition-duration: 1s;
+}
+
+.fdj_pp.reduced {
+    top: calc(22 * var(--custom-vh));
+    left: 4vw;
+    height: 45px;
+    width: 45px;
+    border: 3px solid #CFA441;
+}
+
+.fdj_crown {
+    position: absolute;
+    top: calc(25 * var(--custom-vh) - 38px);
+    left: calc(8vw - 14px);
+    width: 65px;
+    height: 50px;
+    background-image: url("../src/icons/crown6.png");
+    transform: rotate(-20deg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition-duration: 1s;
+}
+
+.fdj_title {
+    position: absolute;
+    top: 24vh;
+    left: 20vw;
+    width: 80vw;
+    text-align: center;
+    color: #CFA441;
+    font-family: 'Roboto-Bold';
+    font-size: 15px;
+    transition-duration: 1s;
+}
+
+.fdj_title.reduced {
+    top: 23vh;
+    font-family: 'Roboto-Regular';
+    font-size: 12px;
+    text-align: left;
+    left: 19vw;
+    width: 77vw;
+}
+
+.fdj_follow {
+    position: absolute;
+    top: 27.5vh;
+    left: 45vw;
+    width: 30vw;
+    height: 3.5vh;
+    background: #CFA441;
+    text-align: center;
+    line-height: calc(3.5 * var(--custom-vh));
+    border-radius: 50px;
+    color: white;
+    font-size: 14px;
+    transition-duration: 1s;
+}
+
+.fdj_follow.reduced {
+    top: 23vh;
+    left: 68vw;
+    width: 26vw;
+    font-size: 11px;
+}
+
+.fdj_timer.reduced {
+    top: 25vh;
+    left: 19vw;
+    width: 50vw;
+    text-align: left;
+    font-size: 10.5px;
+}
+
+.fdj_timer {
+    position: absolute;
+    top: 32.5vh;
+    left: 35vw;
+    width: 50vw;
+    text-align: center;
+    color: #92abb2;
+    opacity: 0.5;
+    font-size: 12px;
+    transition-duration: 1s;
+}
+
+.empty_flow {
+    position: absolute;
+    top: 35vh;
+    width: 90vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-top: 5vw;
+    height: calc(35 * var(--custom-vh));
+    background-color: #ffffff;
+    border-radius: 2vw;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+    font-family: "Roboto-Light";
+    transform: translateZ(0);
+    /* box-shadow: 0px 0px 0px 3px #CFA441; */
+}
+
+.loading_fdj {
+    top: 13vh;
+    margin-left: -5vw;
+}
+
+.random_flow_btn {
+    position: absolute;
+    bottom: 16vh;
+    padding-left: 20px;
+    left: 15vw;
+    width: calc(70vw - 20px);
+    height: 6vh;
+    background-color: #1a84ef;
+    border-radius: 50px;
+    color: white;
+    line-height: calc(5.5 * var(--custom-vh));
+    text-align: center;
+    pointer-events: block;
+    opacity: 1;
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+
+.random_flow_btn.searching {
+    pointer-events: none;
+    opacity: 0.5;
+    box-shadow: 0 0 0 0 rgba(90, 153, 212, 0.5);
+    -webkit-animation: RandomPulse 1.5s infinite;
+}
+
+.random_icon {
+    position: relative;
+    margin-left: -5px;
+    margin-top: -6vh;
+    width: 40px;
+    height: 95%;
+    background-image: url("../src/icons/dices.png");
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.fdj_txt {
+    position: absolute;
+    top: 33vh;
+    left: 0;
+    width: 100vw;
+    text-align: center;
+    color: #1a84ef;
+    opacity: 0.5f;
+    font-size: 15px;
+    /* display: none; */
+    pointer-events: none;
+    opacity: 0;
+}
+
+.list-block-flowoftheday {
+    padding-top: 12.5vh;
+}
+
+.fdj_canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0;
+    transition-duration: 1s;
+}
+
+
+@-webkit-keyframes RandomPulse {
+    0% {
+        -moz-transform: scale(0.95);
+        -ms-transform: scale(0.95);
+        -webkit-transform: scale(0.95);
+        transform: scale(0.95);
+    }
+
+    70% {
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        box-shadow: 0 0 0 30px rgba(90, 153, 212, 0);
+    }
+
+    100% {
+        -moz-transform: scale(0.95);
+        -ms-transform: scale(0.95);
+        -webkit-transform: scale(0.95);
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(90, 153, 212, 0);
+    }
+}

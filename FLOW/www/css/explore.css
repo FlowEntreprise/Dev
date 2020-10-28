@@ -165,7 +165,7 @@
 .swiper-slide span {
 	text-align: center;
 	display: block;
-	font-size: 21px;
+	font-size: 18px;
 }
 
 .swiper-pagination-bullets {
@@ -184,7 +184,8 @@
 }
 
 .list-block-top50,
-.list-block-recents {
+.list-block-recents,
+.list-block-flowoftheday {
 	padding-bottom: 12vh;
 }
 

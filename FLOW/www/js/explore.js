@@ -88,6 +88,9 @@ function RefreshExplore() {
 		Index: recentsCurrentIndex,
 	};
 	ServerManager.GetNewFlows(data2);
+
+	// ServerManager.GetRandomFlow(randomExcluded);
+	ServerManager.GetFDJ();
 }
 
 ptrContent_explore.on("ptr:pullstart", function (e) {
@@ -194,6 +197,9 @@ document.addEventListener("deviceready", function () {
 	};
 
 	ServerManager.GetNewFlows(data2);
+
+	// ServerManager.GetRandomFlow(randomExcluded);
+	ServerManager.GetFDJ();
 	// }
 
 	// const ptr = PullToRefresh.init({
