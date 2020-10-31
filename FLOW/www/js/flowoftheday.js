@@ -102,12 +102,29 @@ function initFDJParticles() {
     $(".fdj_follow").on("click", function () {
         if (showingFDJ) {
             console.log("follow the person");
+            if ($(".fdj_follow").text() == "S'ABONNER") {
+                $(".fdj_follow").text("ABONNÉ");
+                $(".fdj_follow").css({ "background": "#CFA441", "color": "white" });
+            }
+            else if ($(".fdj_follow").text() == "ABONNÉ") {
+                $(".fdj_follow").text("S'ABONNER");
+                $(".fdj_follow").css({ "background": "white", "color": "#CFA441" });
+            }
+            let data_user = {
+                PrivateId: block_user_fdj.PrivateId,
+                type: "block_user_follow",
+                block_user: block_user_fdj
+            };
+            ServerManager.ActionFollow(data_user);
+
         } else {
             showingFDJ = true;
             ServerManager.GetFDJ();
         }
     });
 }
+
+var block_user_fdj = {};
 
 function startFDJParticles() {
     FDJParticles_seed += 1;
@@ -182,6 +199,9 @@ function showFDJ(data) {
     let container = $(".list-block-flowoftheday");
     container[0].innerHTML = "";
     let pattern_key = "";
+    block_user_fdj.RegisterId = flow.RegisterId;
+    block_user_fdj.LastOs = flow.LastOs;
+    block_user_fdj.PrivateId = flow.PrivateId;
     if (flow.Background.PatternKey) pattern_key = flow.Background.PatternKey;
     let block_params = {
         parent_element: container,
@@ -202,6 +222,7 @@ function showFDJ(data) {
         Likes: flow.Likes,
         Comments: flow.Comments,
         RegisterId: flow.RegisterId,
+        LastOs: flow.LastOs,
         Views: flow.Views,
         Responses: flow.Responses,
     };

@@ -62,11 +62,12 @@
     left: 45vw;
     width: 30vw;
     height: 3.5vh;
-    background: #CFA441;
+    color: #CFA441;
+    background: white;
+    border: 1px solid #CFA441;
     text-align: center;
     line-height: calc(3.5 * var(--custom-vh));
     border-radius: 50px;
-    color: white;
     font-size: 14px;
     transition-duration: 1s;
 }
