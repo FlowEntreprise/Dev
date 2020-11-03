@@ -10,9 +10,9 @@ function block_user(follow_list, target, data) {
 	this.block_user = document.createElement("div");
 	this.RegisterId = data.RegisterId;
 	this.LastOs = data.LastOs;
-	follow_list == false
-		? (this.block_user.className = "f_block_user")
-		: (this.block_user.className = "f_block_user_tag");
+	follow_list == false ?
+		(this.block_user.className = "f_block_user") :
+		(this.block_user.className = "f_block_user_tag");
 	if (target == "followers") {
 		$(".popup_followers_container").append(this.block_user);
 	}
@@ -113,7 +113,11 @@ function block_user(follow_list, target, data) {
 				type: "block_user_follow",
 				block_user: block_user,
 			};
-			ServerManager.ActionFollow(data_user);
+			ServerManager.ActionFollow(data_user, function (response, data) {
+				ServerManager.GetFDJ();
+				RefreshTL();
+				FollowResponse(response, data.type, data.block_user);
+			});
 		});
 
 		if (data.YouFollowHim == "true") {

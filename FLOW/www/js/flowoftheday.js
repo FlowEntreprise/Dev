@@ -3,8 +3,58 @@ var FDJplaying = false;
 var FDJParticles_seed = 0;
 var gettingRandomFlow = false;
 var showingFDJ = true;
-
+var followingFDJ = false;
+var youAreFDJ = false;
 var randomExcluded = [];
+
+// var countdownFDJ;
+
+function setupFDJ() {
+    initFDJParticles();
+
+    $(".fdj_follow").on("click", function () {
+        if (showingFDJ) {
+            // console.log("follow the person");
+            // if ($(".fdj_follow").text() == "S'ABONNER") {
+            //     $(".fdj_follow").text("ABONNÉ");
+            //     $(".fdj_follow").css({
+            //         "background": "#CFA441",
+            //         "color": "white"
+            //     });
+            // } else if ($(".fdj_follow").text() == "ABONNÉ") {
+            //     $(".fdj_follow").text("S'ABONNER");
+            //     $(".fdj_follow").css({
+            //         "background": "transparent",
+            //         "color": "#CFA441"
+            //     });
+            // }
+
+            $(".fdj_follow").toggleClass("followed");
+            followingFDJ = !followingFDJ;
+            if (followingFDJ) {
+                if (!$(".fdj_follow").hasClass("followed")) $(".fdj_follow").addClass("followed");
+                $(".fdj_follow")[0].innerHTML = "ABONNÉ";
+            } else {
+                if ($(".fdj_follow").hasClass("followed")) $(".fdj_follow").removeClass("followed");
+                $(".fdj_follow")[0].innerHTML = "S'ABONNER";
+            }
+
+            let data_user = {
+                PrivateId: block_user_fdj.PrivateId,
+                type: "block_user_follow",
+                block_user: block_user_fdj
+            };
+            ServerManager.ActionFollow(data_user, function (response, data) {
+                ServerManager.GetFDJ();
+                RefreshTL();
+            });
+
+        } else {
+            showingFDJ = true;
+            ServerManager.GetFDJ();
+        }
+    });
+}
 
 function initFDJParticles() {
     var COLORS, Confetti, NUM_CONFETTI, PI_2, canvas, confetti, context, drawCircle, i, range, resizeWindow, xpos;
@@ -99,29 +149,6 @@ function initFDJParticles() {
         }
     };
 
-    $(".fdj_follow").on("click", function () {
-        if (showingFDJ) {
-            console.log("follow the person");
-            if ($(".fdj_follow").text() == "S'ABONNER") {
-                $(".fdj_follow").text("ABONNÉ");
-                $(".fdj_follow").css({ "background": "#CFA441", "color": "white" });
-            }
-            else if ($(".fdj_follow").text() == "ABONNÉ") {
-                $(".fdj_follow").text("S'ABONNER");
-                $(".fdj_follow").css({ "background": "white", "color": "#CFA441" });
-            }
-            let data_user = {
-                PrivateId: block_user_fdj.PrivateId,
-                type: "block_user_follow",
-                block_user: block_user_fdj
-            };
-            ServerManager.ActionFollow(data_user);
-
-        } else {
-            showingFDJ = true;
-            ServerManager.GetFDJ();
-        }
-    });
 }
 
 var block_user_fdj = {};
@@ -230,8 +257,22 @@ function showFDJ(data) {
     var new_block = new block(block_params);
     all_blocks.push(new_block);
 
+    $(".fdj_pp")[0].style.backgroundImage = "url(" + flow.ProfilePicture + ")";
+    let pseudo = flow.FullName;
+    if (flow.PrivateId != window.localStorage.getItem("user_private_id")) { // MODIFIE POUR TEST remettre "==" et pas "!="
+        youAreFDJ = true;
+        pseudo = "Vous";
+    } else {
+        youAreFDJ = false;
+    }
+    $(".fdj_title")[0].innerHTML = pseudo + " a été élu flow du jour !";
+
+    if (flow.YouFollowHim == "1") followingFDJ = true;
+    else followingFDJ = false;
+
     showingFDJ = true;
     gettingRandomFlow = false;
+    $(".fdj_crown")[0].style.opacity = 1;
     $(".random_flow_btn").removeClass("searching");
     $(".fdj_txt")[0].style.opacity = 0;
     $(".fdj_txt")[0].innerHTML = "Recherche dans la bibliothèque de flows...";
@@ -239,12 +280,87 @@ function showFDJ(data) {
     $(".fdj_title").removeClass("reduced");
     $(".fdj_timer").removeClass("reduced");
     $(".fdj_follow").removeClass("reduced");
-    $(".fdj_follow")[0].innerHTML = "S'ABONNER";
     $(".empty_flow")[0].style.boxShadow = "0px 0px 0px 3px #CFA441";
-    startFDJParticles();
-    setTimeout(function () {
-        stopFDJParticles();
-    }, 5000);
+
+    if (!youAreFDJ) {
+        if ($(".fdj_follow").hasClass("rank")) $(".fdj_follow").removeClass("rank");
+        if (followingFDJ) {
+            if (!$(".fdj_follow").hasClass("followed")) $(".fdj_follow").addClass("followed");
+            $(".fdj_follow")[0].innerHTML = "ABONNÉ";
+        } else {
+            if ($(".fdj_follow").hasClass("followed")) $(".fdj_follow").removeClass("followed");
+            $(".fdj_follow")[0].innerHTML = "S'ABONNER";
+        }
+    } else {
+        let rank = parseInt(flow.NbFlowsOfTheDay);
+        let rank_tables = {
+            0: 0,
+            1: 1,
+            2: 2,
+            3: 3,
+            4: 3,
+            5: 4,
+            6: 4,
+            7: 5,
+            8: 5,
+            9: 5,
+            10: 6,
+            11: 6,
+            12: 6,
+            13: 6,
+            14: 6,
+            15: 7,
+            16: 7,
+            17: 7,
+            18: 7,
+            19: 7,
+            20: 8
+        }
+
+        if (rank >= 20) rank = 8;
+        else rank = rank_tables[rank];
+
+        console.log(rank);
+        let crown_colors = ["#a77b5d", "#7b8a9d", "#CFA441", "#CFA441", "#CFA441", "#c82e21", "#16dc81", "#41dde4"];
+        let crown_color = crown_colors[rank - 1];
+        document.documentElement.style.setProperty("--crown_color", crown_color);
+
+        if ($(".fdj_follow").hasClass("followed")) $(".fdj_follow").removeClass("followed");
+        if (!$(".fdj_follow").hasClass("rank")) $(".fdj_follow").addClass("rank");
+        $(".fdj_follow")[0].innerHTML = "";
+        let parent = document.createElement("div");
+        parent.className = "fdj_rank_parent"
+        let txt = document.createElement("span");
+        txt.innerHTML = "RANG ACTUEL : " + flow.NbFlowsOfTheDay;
+        parent.appendChild(txt);
+        let img = document.createElement("img");
+        img.src = "./src/icons/crown" + rank + ".png";
+        parent.appendChild(img);
+        $(".fdj_follow")[0].appendChild(parent);
+        startFDJParticles();
+        setTimeout(function () {
+            stopFDJParticles();
+        }, 5000);
+    }
+    let today = new Date();
+    let tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    let endtime = new Date(today.setHours(18, 0, 0, 0));
+    if (Date.parse(endtime) - Date.parse(today) <= 0) endtime = new Date(tomorrow.setHours(18, 0, 0, 0));
+    $(".fdj_timer")[0].innerHTML = getTimeRemaining(endtime);
+    // if (countdownFDJ) {
+    //     clearInterval(countdownFDJ);
+    // }
+    // countdownFDJ = setInterval(function () {
+    //     let today = new Date();
+    //     let tomorrow = new Date(today);
+    //     tomorrow.setDate(tomorrow.getDate() + 1);
+
+    //     let endtime = new Date(today.setHours(12, 13, 0, 0));
+    //     if (Date.parse(endtime) - Date.parse(today) <= 0) endtime = new Date(tomorrow.setHours(12, 13, 0, 0));
+    //     $(".fdj_timer")[0].innerHTML = getTimeRemaining(endtime);
+    // }, 1000);
 }
 
 function GetRandomFlow() {
@@ -255,6 +371,7 @@ function GetRandomFlow() {
         $(".list-block-flowoftheday")[0].innerHTML = "";
         $(".empty_flow")[0].style.boxShadow = "none";
         $(".fdj_crown")[0].style.opacity = 0;
+        if ($(".fdj_follow").hasClass("rank")) $(".fdj_follow").removeClass("rank");
         if (!$(".fdj_pp").hasClass("reduced")) $(".fdj_pp").addClass("reduced");
         if (!$(".fdj_title").hasClass("reduced")) $(".fdj_title").addClass("reduced");
         if (!$(".fdj_timer").hasClass("reduced")) $(".fdj_timer").addClass("reduced");
@@ -270,4 +387,29 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getTimeRemaining(endtime) {
+    const total = Date.parse(endtime) - Date.parse(new Date());
+    const seconds = Math.floor((total / 1000) % 60);
+    const minutes = Math.floor((total / 1000 / 60) % 60);
+    const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(total / (1000 * 60 * 60 * 24));
+
+    let result = "";
+    if (hours > 0) result = "prochaine élection dans " + (hours + 1) + " heures.";
+    // else if (hours == 1) result = "prochaine élection dans " + hours + " heure.";
+    else if (minutes > 0) result = "prochaine élection dans " + (minutes + 1) + " minutes.";
+    else if (seconds > 1) result = "prochaine élection dans " + seconds + " secondes.";
+    else if (seconds == 1) result = "prochaine élection dans " + seconds + " seconde.";
+    else result = "rafraîchis pour découvrir le flow du jour !";
+
+    return result;
+    // return {
+    //     total,
+    //     days,
+    //     hours,
+    //     minutes,
+    //     seconds
+    // };
 }

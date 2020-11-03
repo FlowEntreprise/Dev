@@ -152,13 +152,13 @@ document
 		commentaire_unique = null;
 		in_specifique = false;
 		comment_button_was_clicked_in_popup_specifique = false;
-		current_comment_block.response_current_index = 0;
 		id_response_specifique = undefined;
 		you_have_to_prepend_response_specifique = false;
-		if (current_flow_block) {
+		if (typeof current_flow_block !== 'undefined' && current_flow_block) {
 			current_flow_block.all_comment_blocks.length = 0;
 		}
-		if (current_comment_block) {
+		if (typeof current_comment_block !== 'undefined' && current_comment_block) {
+			current_comment_block.response_current_index = 0;
 			current_comment_block.all_response_blocks.length = 0;
 		}
 		stopAllBlocksAudio();

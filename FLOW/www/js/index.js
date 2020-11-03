@@ -35,6 +35,7 @@ var app = {
 		setTimeout(function () {
 			if (!window.cordova.platformId == "android") {
 				StatusBar.overlaysWebView(false);
+				Keyboard.hide();
 			}
 			StatusBar.backgroundColorByHexString("#f7f7f8");
 			let custom_vh = window.innerHeight / 100;
@@ -60,7 +61,7 @@ var app = {
 			$(".custom_popup").css({
 				"opacity": "1"
 			})
-			initFDJParticles();
+			setupFDJ();
 		}, 1200);
 
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
@@ -80,11 +81,11 @@ var app = {
 		}
 
 		IonicDeeplink.route({
-			"/flow/:FlowId": {
-				target: "flow",
-				parent: "flow",
+				"/flow/:FlowId": {
+					target: "flow",
+					parent: "flow",
+				},
 			},
-		},
 			function (match) {
 				console.log("deeplink match !", match);
 			},
@@ -184,9 +185,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+				page: current_page,
+				duration: time_in_last_screen,
+			},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -236,9 +237,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+				page: current_page,
+				duration: time_in_last_screen,
+			},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -251,8 +252,8 @@ var app = {
 
 		httpd =
 			cordova && cordova.plugins && cordova.plugins.CorHttpd ?
-				cordova.plugins.CorHttpd :
-				null;
+			cordova.plugins.CorHttpd :
+			null;
 
 		// No need since no using workers anymore
 		// httpd.startServer({

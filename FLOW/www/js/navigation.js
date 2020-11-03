@@ -93,7 +93,7 @@ $$("#tab2").on("tab:show", function () {
 			in_top50 = false;
 			in_recents = false;
 			in_flowoftheday = true;
-			if (showingFDJ) {
+			if (showingFDJ && youAreFDJ) {
 				startFDJParticles();
 				setTimeout(function () {
 					stopFDJParticles();

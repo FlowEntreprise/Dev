@@ -6,7 +6,7 @@
     width: 65px;
     border-radius: 120px;
     border: 3px solid #CFA441;
-    background-image: url("https://api.flowappweb.com:/images/1600513766w87IbyMl.jpg?qr=88e40cbe3505cc66432da6dd591828357f5a50654907911504ab5934845b4459&rx=8901lhe");
+    background-image: none;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -63,13 +63,25 @@
     width: 30vw;
     height: 3.5vh;
     color: #CFA441;
-    background: white;
-    border: 1px solid #CFA441;
+    border: 2px solid #CFA441;
     text-align: center;
     line-height: calc(3.5 * var(--custom-vh));
     border-radius: 50px;
     font-size: 14px;
+    font-family: "Roboto-Bold";
     transition-duration: 1s;
+}
+
+.fdj_follow.rank {
+    left: 38.5vw;
+    width: 43vw;
+    color: var(--crown_color);
+    border: 2px solid var(--crown_color);
+}
+
+.fdj_follow.followed {
+    background: #CFA441;
+    color: white;
 }
 
 .fdj_follow.reduced {
@@ -78,6 +90,28 @@
     width: 26vw;
     font-size: 11px;
 }
+
+.fdj_rank_parent {
+    display: flex;
+    margin-top: 0.4vh;
+    width: 100%;
+    height: 3vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.fdj_rank_parent>span {
+    font-size: 13px;
+}
+
+.fdj_rank_parent>img {
+    width: 3.5vh;
+    height: 3vh;
+    object-fit: contain;
+    margin-top: -5px;
+    margin-left: 2px;
+}
+
 
 .fdj_timer.reduced {
     top: 25vh;
@@ -90,8 +124,8 @@
 .fdj_timer {
     position: absolute;
     top: 32.5vh;
-    left: 35vw;
-    width: 50vw;
+    left: 30vw;
+    width: 60vw;
     text-align: center;
     color: #92abb2;
     opacity: 0.5;

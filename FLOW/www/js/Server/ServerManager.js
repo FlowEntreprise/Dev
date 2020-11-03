@@ -53,7 +53,8 @@ const ServerParams = {
 	UpdateUserLastConnexion: "UpdateUserLastConnexion",
 	AddViewFlow: "AddViewFlow",
 	GetNewFlows: "GetNewFlows",
-	GetRandomFlow: "GetRandomFlow"
+	GetRandomFlow: "GetRandomFlow",
+	GetFlowOfTheDay: "GetFlowOfTheDay"
 };
 
 const apiTypes = {
@@ -853,7 +854,7 @@ class ServerManagerClass {
 		});
 	}
 
-	ActionFollow(data) {
+	ActionFollow(data, callback) {
 		let final_data = {
 			Data: data,
 			TokenId: window.localStorage.getItem("user_token"),
@@ -867,8 +868,7 @@ class ServerManagerClass {
 				//console.log(response);
 				// let myApp = new Framework7();
 				// myApp.pullToRefreshTrigger(ptrContent);
-				RefreshTL();
-				FollowResponse(response, data.type, data.block_user);
+				callback(response, data);
 			},
 			error: function (response) {},
 		});
@@ -1691,7 +1691,7 @@ class ServerManagerClass {
 		//// console.log(final_data);
 		$.ajax({
 			type: "POST",
-			url: ServerParams.ServerURL + ServerParams.GetRandomFlow,
+			url: ServerParams.ServerURL + ServerParams.GetFlowOfTheDay,
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				console.log(response);
