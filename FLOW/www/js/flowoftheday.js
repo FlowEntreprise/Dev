@@ -6,6 +6,29 @@ var showingFDJ = true;
 var followingFDJ = false;
 var youAreFDJ = false;
 var randomExcluded = [];
+var rank_tables = {
+    0: 0,
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 3,
+    5: 4,
+    6: 4,
+    7: 5,
+    8: 5,
+    9: 5,
+    10: 6,
+    11: 6,
+    12: 6,
+    13: 6,
+    14: 6,
+    15: 7,
+    16: 7,
+    17: 7,
+    18: 7,
+    19: 7,
+    20: 8
+}
 
 // var countdownFDJ;
 
@@ -259,7 +282,7 @@ function showFDJ(data) {
 
     $(".fdj_pp")[0].style.backgroundImage = "url(" + flow.ProfilePicture + ")";
     let pseudo = flow.FullName;
-    if (flow.PrivateId != window.localStorage.getItem("user_private_id")) { // MODIFIE POUR TEST remettre "==" et pas "!="
+    if (flow.PrivateId == window.localStorage.getItem("user_private_id")) { // MODIFIE POUR TEST remettre "==" et pas "!="
         youAreFDJ = true;
         pseudo = "Vous";
     } else {
@@ -293,35 +316,11 @@ function showFDJ(data) {
         }
     } else {
         let rank = parseInt(flow.NbFlowsOfTheDay);
-        let rank_tables = {
-            0: 0,
-            1: 1,
-            2: 2,
-            3: 3,
-            4: 3,
-            5: 4,
-            6: 4,
-            7: 5,
-            8: 5,
-            9: 5,
-            10: 6,
-            11: 6,
-            12: 6,
-            13: 6,
-            14: 6,
-            15: 7,
-            16: 7,
-            17: 7,
-            18: 7,
-            19: 7,
-            20: 8
-        }
-
         if (rank >= 20) rank = 8;
         else rank = rank_tables[rank];
 
         console.log(rank);
-        let crown_colors = ["#a77b5d", "#7b8a9d", "#CFA441", "#CFA441", "#CFA441", "#c82e21", "#16dc81", "#41dde4"];
+        let crown_colors = ["#9E7D6D", "#7b8a9d", "#CFA441", "#CFA441", "#CFA441", "#c82e21", "#16dc81", "#41dde4"];
         let crown_color = crown_colors[rank - 1];
         document.documentElement.style.setProperty("--crown_color", crown_color);
 
