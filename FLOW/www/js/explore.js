@@ -18,6 +18,8 @@ $(".fsearch-bar")[0].addEventListener("focus", function () {
 	$(".list-block-recents")[0].style.opacity = 0;
 	$(".list-block-recents")[0].style.display = "none";
 	$(".list-block-recents")[0].style.pointerEvents = "none";
+	$(".fdj_parent")[0].style.display = "none";
+
 	// $(".list-block-top50")[0].innerHTML = "";
 	exploreCurrentIndex = 0;
 	recentsCurrentIndex = 0;
@@ -42,6 +44,7 @@ $(".fsearch-bar")[0].addEventListener("blur", function () {
 		$(".list-block-recents")[0].style.display = "block";
 		$(".list-block-recents")[0].style.pointerEvents = "auto";
 		$(".explore-swiper")[0].style.display = "block";
+		$(".fdj_parent")[0].style.display = "block";
 	}
 });
 $(".search_back")[0].addEventListener("touchend", function () {
@@ -60,6 +63,7 @@ function back_search() {
 	$(".list-block-recents")[0].style.pointerEvents = "auto";
 	$(".explore-swiper")[0].style.display = "block";
 	$(".search_back")[0].style.display = "none";
+	$(".fdj_parent")[0].style.display = "block";
 	searching = false;
 	$(".fsearch-bar").blur();
 	$(".fsearch-bar")[0].value = "";
