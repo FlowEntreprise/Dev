@@ -303,7 +303,7 @@ ul {
 }
 
 #title_div_new_features {
-	font-size: 25px;
+	font-size: 20px;
 	font-weight: 600;
 	top: calc(2 * var(--custom-vh));
 	position: relative;
@@ -317,8 +317,24 @@ ul {
 	display: table-cell;
 	height: calc(40 * var(--custom-vh));
 	width: 70vw;
-	font-size: 16px;
+	font-size: 13px;
 	margin: 0;
+}
+
+#paragraphe_div_new_feature>.img1 {
+	padding-top: 5px;
+	padding-bottom: 10px;
+	height: 9vh;
+	width: 100%;
+	object-fit: contain;
+}
+
+#paragraphe_div_new_feature>.img2 {
+	padding-top: 5px;
+	padding-bottom: 10px;
+	height: 4vh;
+	width: 60%;
+	object-fit: contain;
 }
 
 #close_div_new_features {

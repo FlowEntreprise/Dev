@@ -204,9 +204,9 @@
 	pointer-events: none;
 }
 
-.fred_dot_toolbar_recent {
+.fred_dot_toolbar_fdj {
 	top: calc(13 * var(--custom-vh));
-	right: 15vw;
+	left: 15vw;
 	display: block;
 	z-index: 2;
 	width: 1.5vw;
@@ -334,7 +334,7 @@
 		height: 3vw;
 	}
 
-	.fred_dot_toolbar_recent {
+	.fred_dot_toolbar_fdj {
 		top: calc(14 * var(--custom-vh));
 		right: 25vw;
 		display: block;

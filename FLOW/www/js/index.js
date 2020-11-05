@@ -64,6 +64,12 @@ var app = {
 			setTimeout(function () {
 				let custom_vh = window.innerHeight / 100;
 				document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
+
+				if (window.innerHeight <= 600) {
+					document.body.classList.add("mobile600");
+				} else if (window.innerHeight <= 700) {
+					document.body.classList.add("mobile700");
+				}
 			}, 500);
 		}, 1200);
 
@@ -168,7 +174,7 @@ var app = {
 				});
 			}, 7000);
 		} else {
-			$(".fred_dot_toolbar_recent").css("display", "none");
+			$(".fred_dot_toolbar_fdj").css("display", "none");
 			$(".fred_dot_toolbar_explore").css("display", "none");
 		}
 
