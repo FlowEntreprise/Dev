@@ -33,16 +33,15 @@ var app = {
 		Keyboard.hide();
 		document.addEventListener("backbutton", onBackKeyDown, false);
 		setTimeout(function () {
+			Keyboard.hide();
+		}, 500);
+		setTimeout(function () {
 			if (!window.cordova.platformId == "android") {
 				StatusBar.overlaysWebView(false);
-				Keyboard.hide();
 			}
 			StatusBar.backgroundColorByHexString("#f7f7f8");
 			let custom_vh = window.innerHeight / 100;
-			document.documentElement.style.setProperty(
-				"--custom-vh",
-				custom_vh + "px"
-			);
+			document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
 
 			if (window.innerHeight <= 600) {
 				document.body.classList.add("mobile600");
@@ -62,6 +61,10 @@ var app = {
 				"opacity": "1"
 			})
 			setupFDJ();
+			setTimeout(function () {
+				let custom_vh = window.innerHeight / 100;
+				document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
+			}, 500);
 		}, 1200);
 
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
