@@ -38,13 +38,16 @@
 .fdj_title {
     position: absolute;
     top: calc(24 * var(--custom-vh));
-    left: 20vw;
-    width: 80vw;
+    left: 25vw;
+    width: 70vw;
     text-align: center;
     color: #CFA441;
     font-family: 'Roboto-Bold';
     font-size: 15px;
     transition-duration: 1s;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .fdj_title.reduced {
@@ -53,7 +56,7 @@
     font-size: 12px;
     text-align: left;
     left: 19vw;
-    width: 77vw;
+    width: 49vw;
 }
 
 .fdj_follow {
