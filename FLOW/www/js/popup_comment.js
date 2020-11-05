@@ -1018,10 +1018,10 @@ document
         $(".fwrite_comment")[0].style.display = "none";
         in_comments = false;
         CommentListCurrentIndex = 0;
-        if (current_flow_block) {
+        if (typeof current_flow_block !== 'undefined' && current_flow_block) {
             current_flow_block.all_comment_blocks.length = 0;
         }
-        if (current_comment_block) {
+        if (typeof current_comment_block !== 'undefined' && current_comment_block) {
             current_comment_block.all_response_blocks.length = 0;
             current_comment_block.response_current_index = 0;
         }

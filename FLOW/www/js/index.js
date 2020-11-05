@@ -33,15 +33,15 @@ var app = {
 		Keyboard.hide();
 		document.addEventListener("backbutton", onBackKeyDown, false);
 		setTimeout(function () {
+			Keyboard.hide();
+		}, 500);
+		setTimeout(function () {
 			if (!window.cordova.platformId == "android") {
 				StatusBar.overlaysWebView(false);
 			}
 			StatusBar.backgroundColorByHexString("#f7f7f8");
 			let custom_vh = window.innerHeight / 100;
-			document.documentElement.style.setProperty(
-				"--custom-vh",
-				custom_vh + "px"
-			);
+			document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
 
 			if (window.innerHeight <= 600) {
 				document.body.classList.add("mobile600");
@@ -60,6 +60,17 @@ var app = {
 			$(".custom_popup").css({
 				"opacity": "1"
 			})
+			setupFDJ();
+			setTimeout(function () {
+				let custom_vh = window.innerHeight / 100;
+				document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
+
+				if (window.innerHeight <= 600) {
+					document.body.classList.add("mobile600");
+				} else if (window.innerHeight <= 700) {
+					document.body.classList.add("mobile700");
+				}
+			}, 500);
 		}, 1200);
 
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
@@ -132,13 +143,7 @@ var app = {
 				}
 			);
 
-			let last_review = Math.floor(
-				(Date.now() - window.localStorage.getItem("last_ask_user_rating")) /
-				1000 /
-				60 /
-				60 /
-				24
-			);
+			let last_review = Math.floor((Date.now() - window.localStorage.getItem("last_ask_user_rating")) / 1000 / 60 / 60 / 24);
 			if (last_review > 5) {
 				LaunchReview.rating();
 			}
@@ -169,7 +174,7 @@ var app = {
 				});
 			}, 7000);
 		} else {
-			$(".fred_dot_toolbar_recent").css("display", "none");
+			$(".fred_dot_toolbar_fdj").css("display", "none");
 			$(".fred_dot_toolbar_explore").css("display", "none");
 		}
 
@@ -323,9 +328,9 @@ var app = {
 				if (data.additionalData.type == "story_comment") {
 					return;
 				}
-				if (data.additionalData.type == "back_after_few_days") {
+				if (data.additionalData.type == "flow_du_jour") {
 					app.showTab("#tab2");
-					explore_categories.slideTo(1);
+					explore_categories.slideTo(0);
 					return;
 				}
 				if (data.additionalData.type == "follow") {

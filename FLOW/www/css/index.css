@@ -245,10 +245,10 @@ h1 {
 .flow-btn-shadow {
 	position: absolute;
 	display: block;
-	height: 10vh !important;
-	width: 10vh !important;
-	left: calc(50vw - 5vh);
-	bottom: 2vh;
+	height: calc(10 * var(--custom-vh)) !important;
+	width: calc(10 * var(--custom-vh)) !important;
+	left: calc(50vw - (5 * var(--custom-vh)));
+	bottom: calc(2 * var(--custom-vh));
 	border-radius: 100%;
 	background: linear-gradient(#1a84ef, #ff0054);
 	filter: blur(10px);
@@ -291,10 +291,10 @@ ul {
 #div_new_features {
 	position: absolute;
 	width: 80vw;
-	height: 50vh;
+	height: calc(50 * var(--custom-vh));
 	background-color: #fff;
 	z-index: 999;
-	top: 25vh;
+	top: calc(25 * var(--custom-vh));
 	left: 10vw;
 	border-radius: 5px;
 	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
@@ -303,31 +303,51 @@ ul {
 }
 
 #title_div_new_features {
-	font-size: 25px;
+	font-size: 20px;
 	font-weight: 600;
-	top: 2vh;
+	top: calc(2 * var(--custom-vh));
 	position: relative;
 }
 
 #paragraphe_div_new_feature {
-	top: 10vh;
 	position: relative;
-	width: 70vw;
+	top: 0vh;
 	left: 5vw;
-	font-size: 16px;
+	vertical-align: middle;
+	display: table-cell;
+	height: calc(40 * var(--custom-vh));
+	width: 70vw;
+	font-size: 13px;
+	margin: 0;
+}
+
+#paragraphe_div_new_feature>.img1 {
+	padding-top: 5px;
+	padding-bottom: 10px;
+	height: 9vh;
+	width: 100%;
+	object-fit: contain;
+}
+
+#paragraphe_div_new_feature>.img2 {
+	padding-top: 5px;
+	padding-bottom: 10px;
+	height: 4vh;
+	width: 60%;
+	object-fit: contain;
 }
 
 #close_div_new_features {
 	position: absolute;
 	width: 60vw;
-	height: 5vh;
+	height: calc(5 * var(--custom-vh));
 	background-color: #1a84ef;
 	left: 10vw;
-	border-radius: 5vh;
+	border-radius: calc(5 * var(--custom-vh));
 	opacity: 0.5;
 	pointer-events: none;
 	transition-duration: 0.4s;
-	bottom: 3vh;
+	bottom: calc(3 * var(--custom-vh));
 }
 
 #border_close_div_new_features {
@@ -342,30 +362,6 @@ ul {
 	color: #fff;
 	font-weight: bold;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* --------- RIPPLE ----------- */
@@ -416,10 +412,10 @@ ul {
 	}
 
 	.flow-btn-shadow {
-		height: 9vh !important;
-		width: 9vh !important;
+		height: calc(9 * var(--custom-vh)) !important;
+		width: calc(9 * var(--custom-vh)) !important;
 		left: calc(50vw - 4.5vh);
-		bottom: 2vh;
+		bottom: calc(2 * var(--custom-vh));
 	}
 
 	.fflow-btn {
@@ -446,10 +442,10 @@ ul {
 }
 
 .mobile700 .flow-btn-shadow {
-	height: 12vh !important;
-	width: 12vh !important;
-	left: calc(50vw - 6vh);
-	bottom: 1.5vh;
+	height: calc(12 * var(--custom-vh)) !important;
+	width: calc(12 * var(--custom-vh)) !important;
+	left: calc(50vw - (6 * var(--custom-vh)));
+	bottom: calc(1.5 * var(--custom-vh));
 }
 
 /* } */
