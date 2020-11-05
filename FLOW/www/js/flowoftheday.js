@@ -247,11 +247,18 @@ function showRandomFlow(data) {
                 var new_block = new block(block_params);
                 all_blocks.push(new_block);
             }
-            // }, getRandomInt(800, 2300)); original
-        }, getRandomInt(10, 20));
+        }, getRandomInt(800, 2300));
         let tmp_random_excluded = window.localStorage.getItem("random_excluded");
         if (!tmp_random_excluded) tmp_random_excluded = "";
         window.localStorage.setItem("random_excluded", tmp_random_excluded + flow.ObjectId + ",");
+
+        // check random_excluded limit to 100 objectId
+        let random_excluded_array = window.localStorage.getItem("random_excluded").split(",");
+        if (random_excluded_array.length > 100) {
+            random_excluded_array.shift();
+            let random_excluded_string = random_excluded_array.join(",");
+            window.localStorage.setItem("random_excluded", random_excluded_string);
+        }
     }
 }
 
