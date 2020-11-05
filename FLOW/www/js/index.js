@@ -137,13 +137,7 @@ var app = {
 				}
 			);
 
-			let last_review = Math.floor(
-				(Date.now() - window.localStorage.getItem("last_ask_user_rating")) /
-				1000 /
-				60 /
-				60 /
-				24
-			);
+			let last_review = Math.floor((Date.now() - window.localStorage.getItem("last_ask_user_rating")) / 1000 / 60 / 60 / 24);
 			if (last_review > 5) {
 				LaunchReview.rating();
 			}
