@@ -199,6 +199,14 @@ function stopFDJParticles() {
 
 function showRandomFlow(data) {
     if (!showingFDJ) {
+        if (!data.Data) {
+            gettingRandomFlow = false;
+            $(".random_flow_btn").toggleClass("searching");
+            window.localStorage.removeItem("random_excluded");
+            console.log("tu as fais le tour de tous les flows de l'app");
+            GetRandomFlow();
+            return false
+        }
         let flow = data.Data;
         let container = $(".list-block-flowoftheday");
         container[0].innerHTML = "";
@@ -239,8 +247,11 @@ function showRandomFlow(data) {
                 var new_block = new block(block_params);
                 all_blocks.push(new_block);
             }
-        }, getRandomInt(800, 2300));
-
+            // }, getRandomInt(800, 2300)); original
+        }, getRandomInt(10, 20));
+        let tmp_random_excluded = window.localStorage.getItem("random_excluded");
+        if (!tmp_random_excluded) tmp_random_excluded = "";
+        window.localStorage.setItem("random_excluded", tmp_random_excluded + flow.ObjectId + ",");
     }
 }
 
@@ -378,6 +389,9 @@ function GetRandomFlow() {
         $(".fdj_follow")[0].innerHTML = "VOIR LE FLOW";
         $(".fdj_txt")[0].style.opacity = 0.5;
         $(".fdj_txt")[0].innerHTML = "Recherche dans la bibliothèque de flows...";
+        let tmp_random_excluded = window.localStorage.getItem("random_excluded");
+        if (!tmp_random_excluded) randomExcluded = [];
+        else randomExcluded = tmp_random_excluded.split(",");
         ServerManager.GetRandomFlow(randomExcluded);
     }
 }
