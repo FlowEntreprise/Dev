@@ -23,283 +23,286 @@ $(".faccount").each(function () {
 		}
 	});
 });
-document
-	.getElementById("popup-myaccount")
-	.addEventListener("opened", function () {
-		last_scroll = 0;
-		current_page = "my-account";
-		$(".faccount")[0].style.backgroundImage =
-			"url('" + window.localStorage.getItem("user_profile_pic") + "')";
-		$(".ftabsMonCompte")[0].style.display = "block";
-		// $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
-		$("scrollEvent").remove(".swiper-wrapper");
-		$("#accountBannerScroll").css("transition-duration", "0.2s");
-		$("#accountBannerScroll").css("transform", "translate3d(0vw, 0vh, 0vh)");
-		$(".fnavMonCompte").removeClass("fnavMonCompteTransitionTop");
-		$(".fnavMonCompte").addClass("fnavMonCompteTransitionDown");
-		$(".ftabsMonCompte").css("transition-duration", "0.2s");
-		var scrollTest = $(".scrollMyAccunt").scrollTop();
-		$(".fnavMonCompte").css(
-			"transform",
-			"translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)"
-		);
-		$(".ftabsMonCompte").css(
-			"transform",
-			"translate3d(0vw, calc(-20 * var(--custom-vh)), 0vh)"
-		);
-		boolScrollTop = true;
-		$("#MyActivity").addClass("fblockMonComptePadding");
+document.getElementById("popup-myaccount").addEventListener("opened", function () {
+	last_scroll = 0;
+	current_page = "my-account";
+	$(".faccount")[0].style.backgroundImage =
+		"url('" + window.localStorage.getItem("user_profile_pic") + "')";
+	$(".ftabsMonCompte")[0].style.display = "block";
+	// $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
+	$("scrollEvent").remove(".swiper-wrapper");
+	$("#accountBannerScroll").css("transition-duration", "0.2s");
+	$("#accountBannerScroll").css("transform", "translate3d(0vw, 0vh, 0vh)");
+	$(".fnavMonCompte").removeClass("fnavMonCompteTransitionTop");
+	$(".fnavMonCompte").addClass("fnavMonCompteTransitionDown");
+	$(".ftabsMonCompte").css("transition-duration", "0.2s");
+	var scrollTest = $(".scrollMyAccunt").scrollTop();
+	$(".fnavMonCompte").css(
+		"transform",
+		"translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)"
+	);
+	$(".ftabsMonCompte").css(
+		"transform",
+		"translate3d(0vw, calc(-20 * var(--custom-vh)), 0vh)"
+	);
+	boolScrollTop = true;
+	$("#MyActivity").addClass("fblockMonComptePadding");
 
-		stopAllBlocksAudio();
-		let time_in_last_screen =
-			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-		facebookConnectPlugin.logEvent(
-			"current_page", {
+	stopAllBlocksAudio();
+	let time_in_last_screen =
+		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+	facebookConnectPlugin.logEvent(
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},
-			null,
-			function () {
-				console.log("fb current_page event success");
-			},
-			function () {
-				console.log("fb current_page error");
-			}
-		);
-		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-
-		// analytics.setCurrentScreen(current_page);
-
-		indexMyFlow = 0;
-		indexMyLike = 0;
-		$("#MyActivity")[0].innerHTML = "";
-		$("#MyLikes")[0].innerHTML = "";
-		let loading_tl = document.createElement("div");
-		loading_tl.className = "loading-spinner loading_myaccount";
-		loading_tl.style.marginTop = "50%";
-		$("#MyActivity")[0].appendChild(loading_tl);
-		$("#MyLikes")[0].appendChild(loading_tl);
-		$("#fnameMonCompte").html(nameMonCompte);
-		$("#fbioMonCompte").html(bioMonCompte);
-		var getFlow = {
-			Index: indexMyFlow,
-			PrivateId: window.localStorage.getItem("user_private_id"),
-		};
-		ServerManager.GetMyFlow(getFlow);
-		let data = {
-			Index: indexMyLike,
-			PrivateId: window.localStorage.getItem("user_private_id"),
-		};
-		ServerManager.GetLikedFlows(data, true);
-
-		var GetMyUserInfoNumber = {
-			PrivateId: window.localStorage.getItem("user_private_id"),
-		};
-		ServerManager.GetMyUserInfoNumber(GetMyUserInfoNumber);
-
-		//console.log("init");
-		nameMonCompte = window.localStorage.getItem("user_name");
-		privateID = window.localStorage.getItem("user_private_id");
-		bioMonCompte = window.localStorage.getItem("user_bio") || "";
-		if (bioMonCompte.length > 57)
-			bioMonCompte = bioMonCompte.substring(0, 57) + "...";
-		$(".fflow-btn").css("display", "none");
-		$(".flow-btn-shadow").css("display", "none");
-		$("#fmyprofilPicture").css({
-			"background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')",
-		});
-		$("#fnameMonCompte").html(nameMonCompte);
-		if (privateID.length > 20) {
-			$("#myprivateID").html("@" + privateID.substring(0, 20) + "...");
-		} else {
-			$("#myprivateID").html("@" + privateID);
+		null,
+		function () {
+			console.log("fb current_page event success");
+		},
+		function () {
+			console.log("fb current_page error");
 		}
+	);
+	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+
+	// analytics.setCurrentScreen(current_page);
+
+	indexMyFlow = 0;
+	indexMyLike = 0;
+	$("#MyActivity")[0].innerHTML = "";
+	$("#MyLikes")[0].innerHTML = "";
+	let loading_tl = document.createElement("div");
+	loading_tl.className = "loading-spinner loading_myaccount";
+	loading_tl.style.marginTop = "50%";
+	$("#MyActivity")[0].appendChild(loading_tl);
+	$("#MyLikes")[0].appendChild(loading_tl);
+	$("#fnameMonCompte").html(nameMonCompte);
+	$("#fbioMonCompte").html(bioMonCompte);
+	let getFlow = {
+		Index: indexMyFlow,
+		PrivateId: window.localStorage.getItem("user_private_id"),
+	};
+	ServerManager.GetMyFlow(getFlow);
+	let data = {
+		Index: indexMyLike,
+		PrivateId: window.localStorage.getItem("user_private_id"),
+	};
+	ServerManager.GetLikedFlows(data, true);
+
+	let GetMyUserInfoNumber = {
+		PrivateId: window.localStorage.getItem("user_private_id"),
+	};
+	ServerManager.GetMyUserInfoNumber(GetMyUserInfoNumber);
+
+	let getMyUserInfoAccount = {
+		PrivateId: window.localStorage.getItem("user_private_id"),
+	};
+	ServerManager.GetUserInfo(getMyUserInfoAccount);
+
+	//console.log("init");
+	nameMonCompte = window.localStorage.getItem("user_name");
+	privateID = window.localStorage.getItem("user_private_id");
+	bioMonCompte = window.localStorage.getItem("user_bio") || "";
+	if (bioMonCompte.length > 57)
+		bioMonCompte = bioMonCompte.substring(0, 57) + "...";
+	$(".fflow-btn").css("display", "none");
+	$(".flow-btn-shadow").css("display", "none");
+	$("#fmyprofilPicture").css({
+		"background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')",
+	});
+	$("#fnameMonCompte").html(nameMonCompte);
+	if (privateID.length > 20) {
+		$("#myprivateID").html("@" + privateID.substring(0, 20) + "...");
+	} else {
+		$("#myprivateID").html("@" + privateID);
+	}
 
 
-		$("#fbioMonCompte").html(bioMonCompte);
-		$("#fgobackmonCompte").click(function () {
-			Popup("popup-myaccount", false);
-			//$(".flow-btn-shadow").css("display", "block");
-		});
+	$("#fbioMonCompte").html(bioMonCompte);
+	$("#fgobackmonCompte").click(function () {
+		Popup("popup-myaccount", false);
+		//$(".flow-btn-shadow").css("display", "block");
+	});
 
-		var scroll_element = $("#tabMonCompte1");
-		scroll_element[0].scrollTop = 0;
+	var scroll_element = $("#tabMonCompte1");
+	scroll_element[0].scrollTop = 0;
+	checkScroll();
+	$$("#tabMonCompte1").on("tab:show", function () {
+		scroll_element = $("#tabMonCompte1");
 		checkScroll();
-		$$("#tabMonCompte1").on("tab:show", function () {
-			scroll_element = $("#tabMonCompte1");
-			checkScroll();
-		});
+	});
 
-		$$("#tabMonCompte2").on("tab:show", function () {
-			scroll_element = $("#tabMonCompte2");
-			checkScroll();
-		});
+	$$("#tabMonCompte2").on("tab:show", function () {
+		scroll_element = $("#tabMonCompte2");
+		checkScroll();
+	});
 
-		// $$('#tabMonCompte3').on('tab:show', function () {
-		//     scroll_element = $("#tabMonCompte3");
-		//     checkScroll();
-		// });
+	// $$('#tabMonCompte3').on('tab:show', function () {
+	//     scroll_element = $("#tabMonCompte3");
+	//     checkScroll();
+	// });
 
-		var boolScrollTop = true;
+	var boolScrollTop = true;
 
-		$(".scrollMyAccunt").scroll(function () {
-			checkScroll();
-		});
+	$(".scrollMyAccunt").scroll(function () {
+		checkScroll();
+	});
 
-		function checkScroll() {
-			let current_scroll =
-				scroll_element.scrollTop() + scroll_element.innerHeight();
-			if (current_scroll > last_scroll + 10 && last_scroll != 0) {
-				// if (scroll_element[0].scrollHeight > document.body.clientHeight) {
-				//console.log("94vh");
+	function checkScroll() {
+		let current_scroll =
+			scroll_element.scrollTop() + scroll_element.innerHeight();
+		if (current_scroll > last_scroll + 10 && last_scroll != 0) {
+			// if (scroll_element[0].scrollHeight > document.body.clientHeight) {
+			//console.log("94vh");
+			// event.preventDefault();
+			// event.stopPropagation();
+			$("scrollEvent").remove(".swiper-wrapper");
+			$("#accountBannerScroll").css(
+				"transform",
+				"translate3d(0vw, -30vh, 0vh)"
+			);
+			if (boolScrollTop) {
+				// $(".ftabsMonCompte")[0].setAttribute("style", "height:94vh !important");
+
+				$(".fnavMonCompte").removeClass("fnavMonCompteTransitionDown");
+				$(".fnavMonCompte").addClass("fnavMonCompteTransitionTop");
+				$(".fnavMonCompte").css("transform", "translate3d(0vw, -20vh, 0vh)");
+				$(".ftabsMonCompte").css({
+					"transition-duration": "0.4s",
+					// "transform": "translate3d(0vw, -23vh, 0vh)"
+				});
+				boolScrollTop = false;
+			}
+			$("#MyActivity").removeClass("fblockMonComptePadding");
+			$("scrollEvent").addClass(".swiper-wrapper");
+			// }
+		} else {
+			if (
+				(current_scroll < last_scroll - 10 &&
+					current_scroll < scroll_element[0].scrollHeight - 30) ||
+				current_scroll <= scroll_element.innerHeight()
+			) {
 				// event.preventDefault();
 				// event.stopPropagation();
-				$("scrollEvent").remove(".swiper-wrapper");
-				$("#accountBannerScroll").css(
-					"transform",
-					"translate3d(0vw, -30vh, 0vh)"
-				);
-				if (boolScrollTop) {
-					// $(".ftabsMonCompte")[0].setAttribute("style", "height:94vh !important");
-
-					$(".fnavMonCompte").removeClass("fnavMonCompteTransitionDown");
-					$(".fnavMonCompte").addClass("fnavMonCompteTransitionTop");
-					$(".fnavMonCompte").css("transform", "translate3d(0vw, -20vh, 0vh)");
+				if (boolScrollTop == false) {
+					// $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
+					$("scrollEvent").remove(".swiper-wrapper");
+					$("#accountBannerScroll").css("transition-duration", "0.2s");
+					$("#accountBannerScroll").css(
+						"transform",
+						"translate3d(0vw, 0vh, 0vh)"
+					);
+					$(".fnavMonCompte").removeClass("fnavMonCompteTransitionTop");
+					$(".fnavMonCompte").addClass("fnavMonCompteTransitionDown");
+					// $(".ftabsMonCompte").css("transition-duration", "0.2s");
+					var scrollTest = $(".scrollMyAccunt").scrollTop();
+					$(".fnavMonCompte").css(
+						"transform",
+						"translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)"
+					);
+					// $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(2 * var(--custom-vh)), 0vh)");
 					$(".ftabsMonCompte").css({
-						"transition-duration": "0.4s",
-						// "transform": "translate3d(0vw, -23vh, 0vh)"
+						"transition-duration": "0.2s",
+						// "transform": "translate3d(0vw, 2vh, 0vh)"
 					});
-					boolScrollTop = false;
-				}
-				$("#MyActivity").removeClass("fblockMonComptePadding");
-				$("scrollEvent").addClass(".swiper-wrapper");
-				// }
-			} else {
-				if (
-					(current_scroll < last_scroll - 10 &&
-						current_scroll < scroll_element[0].scrollHeight - 30) ||
-					current_scroll <= scroll_element.innerHeight()
-				) {
-					// event.preventDefault();
-					// event.stopPropagation();
-					if (boolScrollTop == false) {
-						// $(".ftabsMonCompte")[0].setAttribute("style", "height:68% !important");
-						$("scrollEvent").remove(".swiper-wrapper");
-						$("#accountBannerScroll").css("transition-duration", "0.2s");
-						$("#accountBannerScroll").css(
-							"transform",
-							"translate3d(0vw, 0vh, 0vh)"
-						);
-						$(".fnavMonCompte").removeClass("fnavMonCompteTransitionTop");
-						$(".fnavMonCompte").addClass("fnavMonCompteTransitionDown");
-						// $(".ftabsMonCompte").css("transition-duration", "0.2s");
-						var scrollTest = $(".scrollMyAccunt").scrollTop();
-						$(".fnavMonCompte").css(
-							"transform",
-							"translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)"
-						);
-						// $(".ftabsMonCompte").css("transform", "translate3d(0vw, calc(2 * var(--custom-vh)), 0vh)");
-						$(".ftabsMonCompte").css({
-							"transition-duration": "0.2s",
-							// "transform": "translate3d(0vw, 2vh, 0vh)"
-						});
-						boolScrollTop = true;
-						$("#MyActivity").addClass("fblockMonComptePadding");
-					}
+					boolScrollTop = true;
+					$("#MyActivity").addClass("fblockMonComptePadding");
 				}
 			}
-			// position = scroll;
-			last_scroll = current_scroll;
 		}
+		// position = scroll;
+		last_scroll = current_scroll;
+	}
 
-		$("#fmyprofilPicture").click(function () {
-			openMyPP();
+	$("#fmyprofilPicture").click(function () {
+		openMyPP();
+	});
+
+	$("#returnmyProfilPicture").click(function () {
+		closeMyPP();
+		$("#fmybigProfilPictureContainer").css({
+			transform: "scale(0.4)",
+			opacity: "0",
+			"pointer-events": "none",
 		});
+		in_mypp = false;
+	});
 
-		$("#returnmyProfilPicture").click(function () {
-			closeMyPP();
-			$("#fmybigProfilPictureContainer").css({
-				transform: "scale(0.4)",
-				opacity: "0",
-				"pointer-events": "none",
-			});
-			in_mypp = false;
+	$("#fmybigProfilPicture").css({
+		"background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')",
+	});
+	var profilePicture = document.createElement("img");
+	profilePicture.setAttribute(
+		"src",
+		window.localStorage.getItem("user_profile_pic")
+	);
+
+	profilePicture.addEventListener("load", function () {
+		var vibrant = new Vibrant(profilePicture);
+		var swatches = vibrant.swatches();
+		$("#fmybigProfilPictureContainer").css(
+			"background-color",
+			swatches.Muted.getHex()
+		);
+	});
+
+	$("#feditProfil").click(function () {
+		in_editprofile = true;
+		PPHasChanged = false;
+		$("#feditProfilePopupContainer").css("opacity", "1");
+		$("#editProfilePopup").css({
+			transform: "scale(1)",
+			opacity: "1",
+			"pointer-events": "auto",
 		});
-
-		$("#fmybigProfilPicture").css({
+		$("#feditProfilePopupContainer").css("pointer-events", "auto");
+		$("#fprofilPicturePopup").css({
 			"background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')",
 		});
-		var profilePicture = document.createElement("img");
-		profilePicture.setAttribute(
-			"src",
-			window.localStorage.getItem("user_profile_pic")
-		);
-
-		profilePicture.addEventListener("load", function () {
-			var vibrant = new Vibrant(profilePicture);
-			var swatches = vibrant.swatches();
-			$("#fmybigProfilPictureContainer").css(
-				"background-color",
-				swatches.Muted.getHex()
-			);
-		});
-
-		$("#feditProfil").click(function () {
-			in_editprofile = true;
-			PPHasChanged = false;
-			$("#feditProfilePopupContainer").css("opacity", "1");
-			$("#editProfilePopup").css({
-				transform: "scale(1)",
-				opacity: "1",
-				"pointer-events": "auto",
-			});
-			$("#feditProfilePopupContainer").css("pointer-events", "auto");
-			$("#fprofilPicturePopup").css({
-				"background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')",
-			});
-			$("#fprofilPicturePopup")[0].onclick = function () {
-				GetPhotoFromGallery(true);
-			};
-			$("#editProfileName").val(nameMonCompte);
-			$("#feditBio").val(bioMonCompte);
-		});
-
-		$("#tabMonCompte1").scroll(function () {
-			var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-			if (MyFlowAdd == true) {
-				if (
-					Math.round($(this).scrollTop()) >= limit * 0.75 &&
-					indexMyFlow > 0
-				) {
-					MyFlowAdd = false;
-					var addMyFlow = {
-						Index: indexMyFlow,
-						PrivateId: window.localStorage.getItem("user_private_id"),
-					};
-					ServerManager.GetMyFlow(addMyFlow);
-				}
-			}
-		});
-
-		$("#tabMonCompte2").scroll(function () {
-			var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-			if (MyLikeAdd == true) {
-				if (
-					Math.round($(this).scrollTop()) >= limit * 0.75 &&
-					indexMyLike > 0
-				) {
-					MyLikeAdd = false;
-					var data = {
-						Index: indexMyLike,
-						PrivateId: window.localStorage.getItem("user_private_id"),
-					};
-					ServerManager.GetLikedFlows(data, true);
-				}
-			}
-		});
-		// first_open_myaccount = false;
-		// }
+		$("#fprofilPicturePopup")[0].onclick = function () {
+			GetPhotoFromGallery(true);
+		};
+		$("#editProfileName").val(nameMonCompte);
+		$("#feditBio").val(bioMonCompte);
 	});
+
+	$("#tabMonCompte1").scroll(function () {
+		var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+		if (MyFlowAdd == true) {
+			if (
+				Math.round($(this).scrollTop()) >= limit * 0.75 &&
+				indexMyFlow > 0
+			) {
+				MyFlowAdd = false;
+				var addMyFlow = {
+					Index: indexMyFlow,
+					PrivateId: window.localStorage.getItem("user_private_id"),
+				};
+				ServerManager.GetMyFlow(addMyFlow);
+			}
+		}
+	});
+
+	$("#tabMonCompte2").scroll(function () {
+		var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+		if (MyLikeAdd == true) {
+			if (
+				Math.round($(this).scrollTop()) >= limit * 0.75 &&
+				indexMyLike > 0
+			) {
+				MyLikeAdd = false;
+				var data = {
+					Index: indexMyLike,
+					PrivateId: window.localStorage.getItem("user_private_id"),
+				};
+				ServerManager.GetLikedFlows(data, true);
+			}
+		}
+	});
+	// first_open_myaccount = false;
+	// }
+});
 
 function liked_flow_get_block_and_blocked_users(data_liked_flow, mine) {
 	ServerManager.GetBlockedUsers(data_liked_flow, "liked_flow", mine);
@@ -496,9 +499,9 @@ document
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+				page: current_page,
+				duration: time_in_last_screen,
+			},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -589,7 +592,7 @@ function ShowMyLikedFlows(flow, data_block_user) {
 						all_blocks.push(new_block);
 						if (i == 0 && indexMyLike == 0)
 							new_block.block_flow.style.marginTop =
-								"calc(27 * var(--custom-vh))";
+							"calc(27 * var(--custom-vh))";
 						if ($(".loading_myaccount")) $(".loading_myaccount").remove();
 
 						//console.log("Pop Flow");

@@ -10,10 +10,10 @@
 
 .loading-spinner {
 	position: absolute;
-	margin-top: 3.5vh;
+	margin-top: calc(3.5* var(--custom-vh));
 	left: 50vw;
-	height: 4vh;
-	width: 4vh;
+	height: calc(4* var(--custom-vh));
+	width: calc(4* var(--custom-vh));
 	border: 3px solid #1a84ef;
 	border-top-color: transparent;
 	border-radius: 50%;
