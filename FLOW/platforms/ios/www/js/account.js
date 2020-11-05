@@ -19,7 +19,7 @@ var user_is_blocked;
 var blocked_by_user;
 var last_scroll = 0;
 
-function alertDismissed() { }
+function alertDismissed() {}
 
 function fInitialisationAccount(privateId) {
 	$("#UserActivity")[0].innerHTML = "";
@@ -165,9 +165,9 @@ document
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+				page: current_page,
+				duration: time_in_last_screen,
+			},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -338,46 +338,44 @@ document
 		});
 	});
 
-document
-	.getElementById("popup-account")
-	.addEventListener("closed", function () {
-		//$(".flow-btn-shadow").css("display", "block");
-		privateIDAccount = "";
-		profilePicLink = "";
-		bioCompte = "";
-		nameCompte = "";
-		// follow = "";
-		// followYou = "";
-		$(".fflow-btn").css("display", "block");
-		$(".flow-btn-shadow").css("display", "block");
-		$(".fflow-btn").css("z-index", "1");
-		$(".flow-btn-shadow").css("z-index", "0");
-		//$("#tabCompte2").css("display", "none");
-		$(".ftabsAccount")[0].style.display = "none";
-		let time_in_last_screen =
-			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-		facebookConnectPlugin.logEvent(
-			"current_page", {
+document.getElementById("popup-account").addEventListener("closed", function () {
+	//$(".flow-btn-shadow").css("display", "block");
+	privateIDAccount = "";
+	profilePicLink = "";
+	bioCompte = "";
+	nameCompte = "";
+	// follow = "";
+	// followYou = "";
+	$(".fflow-btn").css("display", "block");
+	$(".flow-btn-shadow").css("display", "block");
+	$(".fflow-btn").css("z-index", "1");
+	$(".flow-btn-shadow").css("z-index", "0");
+	//$("#tabCompte2").css("display", "none");
+	$(".ftabsAccount")[0].style.display = "none";
+	let time_in_last_screen =
+		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+	facebookConnectPlugin.logEvent(
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},
-			null,
-			function () {
-				console.log("fb current_page event success");
-			},
-			function () {
-				console.log("fb current_page error");
-			}
-		);
-		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-		current_page = "home";
+		null,
+		function () {
+			console.log("fb current_page event success");
+		},
+		function () {
+			console.log("fb current_page error");
+		}
+	);
+	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+	current_page = "home";
 
-		// analytics.setCurrentScreen(current_page);
+	// analytics.setCurrentScreen(current_page);
 
-		stopAllBlocksAudio();
-		// mainView.back();
-		// tabCompte2
-	});
+	stopAllBlocksAudio();
+	// mainView.back();
+	// tabCompte2
+});
 
 $("#fFollowButtunAccount").click(function () {
 	if (connected) {
@@ -394,7 +392,11 @@ $("#fFollowButtunAccount").click(function () {
 				PrivateId: privateIDAccount,
 				type: "profile_follow",
 			};
-			ServerManager.ActionFollow(data);
+			ServerManager.ActionFollow(data, function (response, data) {
+				ServerManager.GetFDJ();
+				RefreshTL();
+				FollowResponse(response, data.type, data.block_user);
+			});
 		}
 		if (user_is_blocked == true) {
 			//alert("Débloquez d'abord cet utilisateur");
@@ -459,18 +461,11 @@ function manageFollowYou() {
 
 function ShowUserProfile(response) {
 	console.log(response);
-	if (
-		response.Data.PrivateId == window.localStorage.getItem("user_private_id")
-	) {
+	let myrank_number;
+	let myrank_img;
+	if (response.Data.PrivateId == window.localStorage.getItem("user_private_id")) {
 		console.log("my profile infos received");
-		const src =
-			"https://" +
-			response.LinkBuilder.Hostname +
-			":" +
-			response.LinkBuilder.Port +
-			"/images/" +
-			response.Data.ProfilePicture.name +
-			"?";
+		const src = "https://" + response.LinkBuilder.Hostname + ":" + response.LinkBuilder.Port + "/images/" + response.Data.ProfilePicture.name + "?";
 		const param = `${response.LinkBuilder.Params.hash}=${response.Data.ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data.ProfilePicture.timestamp}`;
 		console.log(src + param);
 		let link_built = src + param;
@@ -481,6 +476,9 @@ function ShowUserProfile(response) {
 		$(".faccount").css({
 			"background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')",
 		});
+
+		myrank_number = $(".myrank_number")[0];
+		myrank_img = $(".myrank_img")[0];
 	} else if (response.Data.PrivateId == privateIDAccount) {
 		bioCompte = response.Data.Bio;
 		// if (Compte.length > 57) bioCompte = bioCompte.substring(0, 57) + "..."; limit bio length by hand (done in css now)
@@ -500,14 +498,10 @@ function ShowUserProfile(response) {
 		} else {
 			$("#privateID").html("@" + privateIDAccount);
 		}
-		const src_profile_img =
-			"https://" +
-			response.LinkBuilder.Hostname +
-			":" +
-			response.LinkBuilder.Port +
-			"/images/" +
-			response.Data.ProfilePicture.name +
-			"?";
+		myrank_number = $(".rank_number")[0];
+		myrank_img = $(".rank_img")[0];
+
+		const src_profile_img = "https://" + response.LinkBuilder.Hostname + ":" + response.LinkBuilder.Port + "/images/" + response.Data.ProfilePicture.name + "?";
 		const param_profile_img = `${response.LinkBuilder.Params.hash}=${response.Data.ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data.ProfilePicture.timestamp}`;
 		profilePicLink = src_profile_img + param_profile_img;
 		$("#fprofilPicture").css({
@@ -529,6 +523,26 @@ function ShowUserProfile(response) {
 		});
 
 		//Popup("popup-account", true);
+	}
+
+	let rank = parseInt(response.Data.NbFlowsOfTheDay);
+	if (rank >= 20) rank = 8;
+	else if (rank == 0) rank = 1;
+	else rank = rank_tables[rank];
+
+	console.log(rank);
+	let crown_colors = ["#9E7D6D", "#7b8a9d", "#CFA441", "#CFA441", "#CFA441", "#c82e21", "#16dc81", "#41dde4"];
+	let crown_color = crown_colors[rank - 1];
+	console.log(crown_color);
+	myrank_number.innerHTML = response.Data.NbFlowsOfTheDay;
+	myrank_number.style.color = crown_color;
+	myrank_img.style.backgroundImage = "url('./src/icons/crown" + rank + ".png')";
+	if (response.Data.NbFlowsOfTheDay == 0) {
+		myrank_number.style.opacity = 0.5;
+		myrank_img.style.opacity = 0.5;
+	} else {
+		myrank_number.style.opacity = 1;
+		myrank_img.style.opacity = 1;
 	}
 }
 
@@ -714,7 +728,7 @@ function ShowLikedFlows(flow, data_block_user) {
 						all_blocks.push(new_block);
 						if (i == 0 && indexAccountLike == 0)
 							new_block.block_flow.style.marginTop =
-								"calc(37 * var(--custom-vh))";
+							"calc(37 * var(--custom-vh))";
 						if ($(".loading_account")) $(".loading_account").remove();
 					}
 				}
@@ -798,7 +812,7 @@ function FollowResponse(response, type, element) {
 		};
 		if (type == "block_user_follow") {
 			(data_notif_follow.RegisterId = element.RegisterId),
-				(data_notif_follow.LastOs = element.LastOs);
+			(data_notif_follow.LastOs = element.LastOs);
 		}
 		send_notif_to_user(data_notif_follow, "follow");
 	} else if (response.UnFollow !== undefined) {
@@ -807,7 +821,7 @@ function FollowResponse(response, type, element) {
 			Follower--;
 			$("#ffollowersBandeauChiffre").html(Follower);
 		}
-	} else { }
+	} else {}
 	$("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
 	manageFollow(type, element);
 }
@@ -822,7 +836,7 @@ $("#block_button").on("click", function () {
 			"Veux-tu vraiment bloquer cet utilisateur ?",
 			function (id) {
 				if (id == 1) {
-					function alertDismissed() { }
+					function alertDismissed() {}
 					// On me bloque pas moi.
 					if (
 						privateIDAccount.toUpperCase() == "KING.CHRIS" ||

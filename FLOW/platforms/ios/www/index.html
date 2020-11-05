@@ -24,6 +24,7 @@
 <link rel="stylesheet" type="text/css" href="css/story.css" />
 <link rel="stylesheet" type="text/css" href="css/popup_comment.css" />
 <link rel="stylesheet" type="text/css" href="css/flow_specifique.css" />
+<link rel="stylesheet" type="text/css" href="css/flowoftheday.css" />
 <!-- <link rel="stylesheet" type="text/css" href="css/comment_specifique.css" /> -->
 <link rel="stylesheet" type="text/css" href="css/custom_popup.css" />
 <link rel="stylesheet" type="text/css" href="css/popup_follow.css" />
@@ -113,7 +114,7 @@
                     </div>
 
                     <div class="fexplore-bar">
-                        <a class="fred_dot_toolbar fred_dot_toolbar_recent"></a>
+                        <a class="fred_dot_toolbar fred_dot_toolbar_fdj"></a>
                         <div class="faccount"></div>
                         <input class="fsearch-bar" placeholder="Explorer" />
                         <div class="search_icon"></div>
@@ -125,6 +126,9 @@
                             <div class="swiper-wrapper fexplore_wrapper">
                                 <div class="swiper-slide fexplore_text" target="">
                                     <span></span>
+                                </div>
+                                <div class="swiper-slide fexplore_text flowoftheday_btn" target="flowoftheday">
+                                    <span>Flow du jour</span>
                                 </div>
                                 <div class="swiper-slide fexplore_text top50_btn" target="top50">
                                     <span>Tendances</span>
@@ -190,9 +194,13 @@
             <div id="div_new_features_background">
             </div>
             <div id="div_new_features">
-                <label id="title_div_new_features">Nouveautés !</label>
-                <p id="paragraphe_div_new_feature">Tu peux maintenant decouvrir les flows les plus récents à coté des
-                    flows les plus tendances.<br>Tu peux également désormais voir le nombre d'écoutes des flows.</p>
+                <label id="title_div_new_features">Découvre le FLOW du jour !</label>
+                <p id="paragraphe_div_new_feature">
+                    Chaque jour à 18h, le flow le plus populaire des dernières 24h est mis en avant.
+                    <br><img class="img1" src="./src/icons/new_features2.png"><br>
+                    Plus tu es élu, plus ton rang progresse.
+                    <br><img class="img2" src="./src/icons/new_features.png"><br>
+                    Retrouve ton rang et ceux de tes amis dans l'onglet profil.</p>
                 <div id="close_div_new_features">
                     <div id="border_close_div_new_features">C'est parti </div>
                 </div>
@@ -335,6 +343,8 @@
                             <div id="myprivateID"></div>
                             <div id="fbioMonCompte"></div>
                             <div id="feditProfil">MODIFIER PROFIL</div>
+                            <div class="myrank_img"></div>
+                            <div class="myrank_number">0</div>
                         </div>
                         <div class="toolbar no-border fnavMonCompte fnavMonCompteTransitionTop">
                             <div class="toolbar-inner sizeTollBar">
@@ -398,6 +408,8 @@
                             <div id="fFollowButtunAccount">S'ABONNER</div>
                             <div id="fFollowYouButtunAccount"></div>
                             <div id="block_button"></div>
+                            <div class="rank_img"></div>
+                            <div class="rank_number">0</div>
                         </div>
                         <div class="toolbar no-border fnavAccount fnavAccountTransitionTop">
                             <div class="toolbar-inner sizeTollBarAccount">
@@ -782,6 +794,7 @@
     <script type="text/javascript" src="js/flow_specifique.js"></script>
     <!-- <script type="text/javascript" src="js/comment_specifique.js"></script> -->
     <script type="text/javascript" src="js/popup_follow.js"></script>
+    <script type="text/javascript" src="js/flowoftheday.js"></script>
     <script type="text/javascript" src="js/jquery.highlight-within-textarea.js"></script>
 </body>
 

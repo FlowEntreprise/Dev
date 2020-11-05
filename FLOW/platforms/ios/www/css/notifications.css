@@ -4,7 +4,7 @@
 
 .no_notif {
 	position: absolute;
-	top: 45vh;
+	top: calc(45* var(--custom-vh));
 	left: 0;
 	width: 100vw;
 	text-align: center;
@@ -156,7 +156,7 @@
 
 .list-notif-block {
 	margin-top: calc(2 * var(--custom-vh)) !important;
-	padding-bottom: 12vh;
+	padding-bottom: calc(12* var(--custom-vh));
 }
 
 .layer_notif {

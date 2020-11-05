@@ -55,7 +55,7 @@
 	/* #92abb2; */
 }
 
-.messages_txt > span {
+.messages_txt>span {
 	font-size: 15px;
 	color: #1a84ef;
 	display: inline;
@@ -63,6 +63,7 @@
 }
 
 @keyframes balance {
+
 	0%,
 	100% {
 		transform: rotate(-5deg);
@@ -82,7 +83,7 @@
 	font-size: 16px;
 }
 
-.mobile700 .messages_txt > span {
+.mobile700 .messages_txt>span {
 	font-size: 13px;
 	color: #1a84ef;
 	display: inline;
@@ -99,7 +100,7 @@
 	font-size: 16px;
 }
 
-.mobile600 .messages_txt > span {
+.mobile600 .messages_txt>span {
 	font-size: 13px;
 	color: #1a84ef;
 	display: inline;
