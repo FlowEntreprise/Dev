@@ -105,11 +105,11 @@ var app = {
 		}
 
 		IonicDeeplink.route({
-				"/flow/:FlowId": {
-					target: "flow",
-					parent: "flow",
-				},
+			"/flow/:FlowId": {
+				target: "flow",
+				parent: "flow",
 			},
+		},
 			function (match) {
 				console.log("deeplink match !", match);
 			},
@@ -203,9 +203,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -255,9 +255,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -270,8 +270,8 @@ var app = {
 
 		httpd =
 			cordova && cordova.plugins && cordova.plugins.CorHttpd ?
-			cordova.plugins.CorHttpd :
-			null;
+				cordova.plugins.CorHttpd :
+				null;
 
 		// No need since no using workers anymore
 		// httpd.startServer({
@@ -309,6 +309,14 @@ var app = {
 				badge: "true",
 				sound: "true",
 			},
+		});
+
+		let topic = window.cordova.platformId == "ios" ? "all-ios" : "all-android";
+
+		push.subscribe(topic, function () {
+			console.log('subscribe success: ' + topic);
+		}, function (e) {
+			console.log()('subscribe error:');
 		});
 
 		push.on("registration", function (data) {
