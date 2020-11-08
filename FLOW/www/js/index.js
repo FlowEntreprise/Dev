@@ -80,7 +80,7 @@ var app = {
 					color: '#1a84ef',
 					trigger: {
 						every: {
-							hour: 17,
+							hour: 18,
 							minute: 0,
 						},
 					}
