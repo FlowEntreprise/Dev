@@ -607,12 +607,12 @@ function send_comment_to_server(data) {
 
     $(current_flow_block.ftxt_impression_comment).text(comment_number);
     if (
-        comment_data.Comment == comment_data.Comment_text &&
         registrationId != comment_data.current_flow_block.RegisterId
     ) {
         comment_data.RegisterId = current_flow_block.RegisterId;
         send_notif_to_user(comment_data, "send_comment");
-    } else {
+    }
+    if (comment_data.Comment != comment_data.Comment_text) {
         for (let i = 0; i < tableau_comment_to_tag_users.length; i++) {
             if (tableau_comment_to_tag_users[i].slice(0, 1) == "@") {
                 for (
@@ -625,6 +625,7 @@ function send_comment_to_server(data) {
                     ) {
                         comment_data.tag_user_RegisterId =
                             all_tagged_users[i_all_tag].RegisterId;
+                        comment_data.LastOs = all_tagged_users[i_all_tag].LastOs;
                         send_notif_to_user(comment_data, "tag_in_comment");
                     }
                 }
@@ -646,7 +647,10 @@ function send_response_to_server(data) {
     let response_data = {
         PrivateId: window.localStorage.getItem("user_private_id"),
         ProfilePicture: window.localStorage.getItem("user_profile_pic"),
-        Comment: data.Response,
+        Comment: data.Response.replace(
+            /@[^ ]+/gi,
+            '<span class="tagged_users">$&</span>'
+        ),
         Comment_text: data.Response,
         Like_number: "0",
         Time: "0",
@@ -672,6 +676,7 @@ function send_response_to_server(data) {
     }*/
     let initial_response_number = current_comment_block.nombre_de_reponses;
     let tableau_response_to_tag_users = data.Response.split(" ");
+    tableau_response_to_tag_users.shift();
     current_comment_block.nombre_de_reponses =
         current_comment_block.nombre_de_reponses + 1;
     let nombre_de_reponses_apres_ajout = initial_response_number - (current_comment_block.response_current_index * 10) + 1
@@ -682,7 +687,6 @@ function send_response_to_server(data) {
         "Afficher les reponses (" + current_comment_block.nombre_de_reponses + ")"
     );
     if (
-        response_data.Comment == response_data.Comment_text &&
         registrationId != response_data.current_flow_block.RegisterId
     ) {
         /* registrationId != response_data.current_flow_block.RegisterId permet de tester le RegisterId
@@ -691,13 +695,15 @@ function send_response_to_server(data) {
         */
         response_data.RegisterId = current_comment_block.RegisterId;
         send_notif_to_user(response_data, "send_response");
-    } else {
+    }
+    if (response_data.Comment != response_data.Comment_text) {
         for (let i = 0; i < tableau_response_to_tag_users.length; i++) {
             if (tableau_response_to_tag_users[i].slice(0, 1) == "@") {
                 for (let i_all_tag = 0; i_all_tag < all_tagged_users.length; i_all_tag++) {
                     if (tableau_response_to_tag_users[i] == all_tagged_users[i_all_tag].private_Id &&
                         registrationId != all_tagged_users[i_all_tag].RegisterId) {
-                        response_data.RegisterId = all_tagged_users[i_all_tag].RegisterId;
+                        response_data.tag_user_RegisterId = all_tagged_users[i_all_tag].RegisterId;
+                        response_data.LastOs = all_tagged_users[i_all_tag].LastOs;
                         send_notif_to_user(response_data, "tag_in_comment");
                     }
                 }
