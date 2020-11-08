@@ -71,6 +71,21 @@ var app = {
 					document.body.classList.add("mobile700");
 				}
 			}, 500);
+			if (window.localStorage.getItem("fdj_notif_setup") != "ok") {
+				cordova.plugins.notification.local.clearAll();
+				cordova.plugins.notification.local.schedule({
+					title: 'Découvre le flow du jour !',
+					text: "Seras-tu l'heureux élu 👑 ?",
+					trigger: {
+						every: {
+							hour: 18,
+							minute: 0,
+						},
+					}
+				});
+				window.localStorage.setItem("fdj_notif_setup", "ok");
+			}
+
 		}, 1200);
 
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);

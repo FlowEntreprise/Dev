@@ -73,10 +73,17 @@
     },
     "cordova-plugin-appminimize": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-local-notification": {
+      "ANDROID_SUPPORT_V4_VERSION": "26.+",
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {
     "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-badge": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   }

@@ -97,6 +97,8 @@ apply from: "../cordova-support-google-services/flow-build.gradle"
 apply from: "../phonegap-plugin-multidex/flow-multidex.gradle"
 apply from: "../cordova-plugin-firebase-crashlytics/flow-firebase-crashlytics.gradle"
 apply from: "../cordova-twitter3-connect-plugin/flow-twitter.gradle"
+apply from: "../cordova-plugin-badge/flow-badge.gradle"
+apply from: "../cordova-plugin-local-notification/flow-localnotification.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()
