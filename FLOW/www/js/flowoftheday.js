@@ -207,6 +207,7 @@ function showRandomFlow(data) {
             GetRandomFlow();
             return false
         }
+        stopAllBlocksAudio();
         let flow = data.Data;
         let container = $(".list-block-flowoftheday");
         container[0].innerHTML = "";
@@ -271,6 +272,7 @@ function showFDJ(data) {
     block_user_fdj.LastOs = flow.LastOs;
     block_user_fdj.PrivateId = flow.PrivateId;
     if (flow.Background.PatternKey) pattern_key = flow.Background.PatternKey;
+    stopAllBlocksAudio();
     let block_params = {
         parent_element: container,
         afterblock: false,
@@ -299,6 +301,13 @@ function showFDJ(data) {
     all_blocks.push(new_block);
 
     $(".fdj_pp")[0].style.backgroundImage = "url(" + flow.ProfilePicture + ")";
+    $(".fdj_pp").on("click", function () {
+        let data_go_to_account = {
+            private_Id: flow.PrivateId,
+            user_private_Id: window.localStorage.getItem("user_private_id"),
+        };
+        go_to_account(data_go_to_account);
+    })
     let pseudo = flow.FullName;
     if (flow.PrivateId == window.localStorage.getItem("user_private_id")) { // MODIFIE POUR TEST remettre "==" et pas "!="
         youAreFDJ = true;
@@ -400,6 +409,7 @@ function GetRandomFlow() {
         if (!tmp_random_excluded) randomExcluded = [];
         else randomExcluded = tmp_random_excluded.split(",");
         ServerManager.GetRandomFlow(randomExcluded);
+        stopAllBlocksAudio();
     }
 }
 
