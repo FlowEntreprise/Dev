@@ -52,6 +52,14 @@ function block_response(response_data, response_is_specifique) {
     );
     $(this.fblock_response).append(this.f_response_img_user);
 
+    $(this.f_response_img_user).on("click", function () {
+        let data = {
+            private_Id: block_response.private_Id,
+            user_private_Id: window.localStorage.getItem("user_private_id"),
+        };
+        go_to_account(data);
+    });
+
     this.f_response_id_user = document.createElement("label");
     this.f_response_id_user.className = "f_response_id_user";
     // this.f_response_id_user.innerHTML = "@" + response_data.PrivateId + "";
@@ -129,6 +137,7 @@ function block_response(response_data, response_is_specifique) {
         let delete_response = true;
         delete_comment_from_bdd(current_response_block, delete_response);
     });
+
 
     $(this.f_response_id_user).on("click", function () {
         let data = {
@@ -808,7 +817,7 @@ $(document).on("click", ".flow_tagged_users", function () {
     };
     go_to_account(data);
 });
-
+/* onclick tl_private_id_indicator
 $(document).on("click", ".tl_private_id_indicator", function () {
     let tagged_user_private_id = $(this).text();
     let data = {
@@ -816,7 +825,7 @@ $(document).on("click", ".tl_private_id_indicator", function () {
         user_private_Id: window.localStorage.getItem("user_private_id"),
     };
     go_to_account(data);
-});
+});*/
 
 var string_input_comment;
 var all_search_users_with_follow = [];
