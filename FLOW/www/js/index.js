@@ -76,14 +76,21 @@ var app = {
 				cordova.plugins.notification.local.schedule({
 					title: 'Découvre le flow du jour !',
 					text: "Seras-tu l'heureux élu 👑 ?",
+					smallIcon: 'res://flow_icone_one_plus',
+					color: '#1a84ef',
 					trigger: {
 						every: {
-							hour: 18,
+							hour: 17,
 							minute: 0,
 						},
 					}
 				});
 				window.localStorage.setItem("fdj_notif_setup", "ok");
+			} else {
+				cordova.plugins.notification.local.on('click', function () {
+					app.showTab("#tab2");
+					explore_categories.slideTo(0);
+				});
 			}
 
 		}, 1200);
@@ -105,11 +112,11 @@ var app = {
 		}
 
 		IonicDeeplink.route({
-			"/flow/:FlowId": {
-				target: "flow",
-				parent: "flow",
+				"/flow/:FlowId": {
+					target: "flow",
+					parent: "flow",
+				},
 			},
-		},
 			function (match) {
 				console.log("deeplink match !", match);
 			},
@@ -203,9 +210,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+				page: current_page,
+				duration: time_in_last_screen,
+			},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -255,9 +262,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+				page: current_page,
+				duration: time_in_last_screen,
+			},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -270,8 +277,8 @@ var app = {
 
 		httpd =
 			cordova && cordova.plugins && cordova.plugins.CorHttpd ?
-				cordova.plugins.CorHttpd :
-				null;
+			cordova.plugins.CorHttpd :
+			null;
 
 		// No need since no using workers anymore
 		// httpd.startServer({
