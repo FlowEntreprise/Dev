@@ -87,13 +87,13 @@ var app = {
 					}
 				});
 				window.localStorage.setItem("fdj_notif_setup", "ok");
-			} else {
-				cordova.plugins.notification.local.on('click', function () {
-					console.log(" show flow du jour");
-					app.showTab("#tab2");
-					explore_categories.slideTo(0);
-				});
 			}
+			cordova.plugins.notification.local.on('click', function () {
+				console.log(" show flow du jour");
+				app.showTab("#tab2");
+				explore_categories.slideTo(0);
+			});
+
 
 		}, 1200);
 
