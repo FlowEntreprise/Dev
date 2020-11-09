@@ -179,6 +179,14 @@
             {
               "xml": "<feature name=\"RareloopAppVersion\"><param name=\"ios-package\" value=\"RareloopAppVersion\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"Badge\"><param name=\"ios-package\" value=\"APPBadge\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"LocalNotification\"><param name=\"ios-package\" onload=\"true\" value=\"APPLocalNotification\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
             }
           ],
           "widget": [
@@ -421,6 +429,12 @@
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-appversion": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-local-notification": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -855,6 +869,22 @@
       "clobbers": [
         "AppVersion"
       ]
+    },
+    {
+      "id": "cordova-plugin-badge.Badge",
+      "file": "plugins/cordova-plugin-badge/www/badge.js",
+      "pluginId": "cordova-plugin-badge",
+      "clobbers": [
+        "cordova.plugins.notification.badge"
+      ]
+    },
+    {
+      "id": "cordova-plugin-local-notification.LocalNotification",
+      "file": "plugins/cordova-plugin-local-notification/www/local-notification.js",
+      "pluginId": "cordova-plugin-local-notification",
+      "clobbers": [
+        "cordova.plugins.notification.local"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -891,6 +921,8 @@
     "cordova-plugin-x-socialsharing": "6.0.2",
     "ionic-plugin-deeplinks": "1.0.20",
     "cordova-launch-review": "4.0.0",
-    "cordova-plugin-appversion": "1.0.0"
+    "cordova-plugin-appversion": "1.0.0",
+    "cordova-plugin-badge": "0.8.8",
+    "cordova-plugin-local-notification": "0.9.0-beta.3"
   }
 }

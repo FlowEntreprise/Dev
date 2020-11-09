@@ -129,6 +129,26 @@
 	text-overflow: ellipsis;
 }
 
+.rank_img {
+	position: absolute;
+	top: calc(3 * var(--custom-vh));
+	left: 12.5vw;
+	width: 10vw;
+	height: calc(3 * var(--custom-vh));
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.rank_number {
+	position: absolute;
+	top: calc(6 * var(--custom-vh));
+	left: 12.5vw;
+	width: 10vw;
+	height: calc(3 * var(--custom-vh));
+	text-align: center;
+}
+
 .finfoBandeau {
 	color: #92abb2;
 }
