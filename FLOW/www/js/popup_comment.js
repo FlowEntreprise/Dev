@@ -93,6 +93,7 @@ function block_response(response_data, response_is_specifique) {
         it_is_a_response = true;
         it_is_a_response_to_a_response = true;
         $("#finput_comment").focus();
+        $("#finput_comment").attr("placeholder", "Ajouter une réponse...");
     });
 
     this.fresponse_like = document.createElement("img");
@@ -215,6 +216,7 @@ function block_comment(comment_data, comment_is_specifique) {
         current_response_block = undefined;
         it_is_a_response = true;
         $("#finput_comment").focus();
+        $("#finput_comment").attr("placeholder", "Ajouter une réponse...");
     });
 
     if (this.nombre_de_reponses > 0) {
