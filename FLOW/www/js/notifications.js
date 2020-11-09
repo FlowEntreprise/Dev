@@ -1,7 +1,7 @@
 var all_notifications_block = [];
 var loading_before_popup_specifique;
 var current_notification_block;
-function block_notification_like(data) { //type permet de defini si c'est le like d'un flow ou le like d'un commentaire
+function block_notification_like(data) {  //type permet de defini si c'est le like d'un flow ou le like d'un commentaire
     this.seen = !!+data.IsView;
     var block_notification_like = this;
     if (data.additionalData) {
@@ -1110,7 +1110,7 @@ function send_notif_to_user(block, type) {
                 data = {
                     "data": {
                         "title": sender_info.fullname,
-                        "body": block.Comment,
+                        "body": block.Comment_text,
                         "type": "send_comment",
                         "sender_info": sender_info,
                         "force-start": 1,
@@ -1120,7 +1120,7 @@ function send_notif_to_user(block, type) {
                     },
                     "notification": {
                         "title": sender_info.fullname,
-                        "body": block.Comment,
+                        "body": block.Comment_text,
                         "type": "send_comment",
                         "sender_info": sender_info,
                         "force-start": 1,
@@ -1135,7 +1135,7 @@ function send_notif_to_user(block, type) {
                 data = {
                     "data": {
                         "title": sender_info.fullname,
-                        "body": block.Comment,
+                        "body": block.Comment_text,
                         "type": "send_comment",
                         "sender_info": sender_info,
                         "force-start": 1,

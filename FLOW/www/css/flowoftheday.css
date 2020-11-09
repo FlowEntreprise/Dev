@@ -33,6 +33,7 @@
     background-position: center;
     background-repeat: no-repeat;
     transition-duration: 1s;
+    pointer-events: none;
 }
 
 .fdj_title {
@@ -48,6 +49,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    pointer-events: none;
 }
 
 .fdj_title.reduced {
@@ -134,6 +136,7 @@
     opacity: 0.5;
     font-size: 12px;
     transition-duration: 1s;
+    pointer-events: none;
 }
 
 .empty_flow {

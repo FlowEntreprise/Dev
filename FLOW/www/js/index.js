@@ -71,6 +71,28 @@ var app = {
 					document.body.classList.add("mobile700");
 				}
 			}, 500);
+			if (window.localStorage.getItem("fdj_notif_setup") != "ok") {
+				cordova.plugins.notification.local.clearAll();
+				cordova.plugins.notification.local.schedule({
+					title: 'Découvre le flow du jour !',
+					text: "Seras-tu l'heureux élu 👑 ?",
+					smallIcon: 'res://flow_icone_one_plus',
+					color: '#1a84ef',
+					trigger: {
+						every: {
+							hour: 18,
+							minute: 0,
+						},
+					}
+				});
+				window.localStorage.setItem("fdj_notif_setup", "ok");
+			} else {
+				cordova.plugins.notification.local.on('click', function () {
+					app.showTab("#tab2");
+					explore_categories.slideTo(0);
+				});
+			}
+
 		}, 1200);
 
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
@@ -294,6 +316,14 @@ var app = {
 				badge: "true",
 				sound: "true",
 			},
+		});
+
+		let topic = window.cordova.platformId == "ios" ? "all-ios" : "all-android";
+
+		push.subscribe(topic, function () {
+			console.log('subscribe success: ' + topic);
+		}, function (e) {
+			console.log()('subscribe error:');
 		});
 
 		push.on("registration", function (data) {

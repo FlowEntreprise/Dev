@@ -97,6 +97,9 @@
     <feature name="AppMinimize">
         <param name="android-package" value="tomloprod.AppMinimize" />
     </feature>
+    <feature name="LocalNotification">
+        <param name="android-package" value="de.appplant.cordova.plugin.localnotification.LocalNotification" />
+    </feature>
     <widget>
         <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
         <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
@@ -138,6 +141,9 @@
     </feature>
     <feature name="RareloopAppVersion">
         <param name="android-package" value="com.rareloop.cordova.appversion.RareloopAppVersion" />
+    </feature>
+    <feature name="Badge">
+        <param name="android-package" value="de.appplant.cordova.plugin.badge.Badge" />
     </feature>
     <name>FLOW</name>
     <description>
