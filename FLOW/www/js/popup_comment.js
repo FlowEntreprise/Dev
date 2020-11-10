@@ -196,6 +196,15 @@ function block_comment(comment_data, comment_is_specifique) {
     this.fid_user.innerHTML = comment_data.FullName;
     $(this.fblock_comment).append(this.fid_user);
 
+    $(this.fid_user).on('click', function () {
+
+        let data = {
+            private_Id: block_comment.private_Id,
+            user_private_Id: window.localStorage.getItem("user_private_id")
+        };
+        go_to_account(data);
+    });
+
     this.fblock_comment_comment = document.createElement('p');
     this.fblock_comment_comment.className = 'fblock_comment_comment';
     this.fblock_comment_comment.innerHTML = this.fcomment_text.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>') + "<br>";
