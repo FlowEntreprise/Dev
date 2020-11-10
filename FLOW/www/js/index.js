@@ -78,6 +78,7 @@ var app = {
 					text: "Seras-tu l'heureux élu 👑 ?",
 					smallIcon: 'res://flow_icone_one_plus',
 					color: '#1a84ef',
+					type: "flow_du_jour",
 					trigger: {
 						every: {
 							hour: 18,
@@ -86,14 +87,19 @@ var app = {
 					}
 				});
 				window.localStorage.setItem("fdj_notif_setup", "ok");
-			} else {
-				cordova.plugins.notification.local.on('click', function () {
-					app.showTab("#tab2");
-					explore_categories.slideTo(0);
-				});
 			}
+			cordova.plugins.notification.local.on('click', function () {
+				console.log(" show flow du jour");
+				app.showTab("#tab2");
+				explore_categories.slideTo(0);
+			});
+
 
 		}, 1200);
+
+
+
+
 
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
 
@@ -112,16 +118,16 @@ var app = {
 		}
 
 		IonicDeeplink.route({
-				"/flow/:FlowId": {
-					target: "flow",
-					parent: "flow",
-				},
+			"/flow/:FlowId": {
+				target: "flow",
+				parent: "flow",
 			},
+		},
 			function (match) {
 				console.log("deeplink match !", match);
 			},
 			function (nomatch) {
-				console.log("deeplink didnt match :(", nomatch);
+				console.log("deeplink didnt match 😞", nomatch);
 				if (nomatch.$link.path) {
 					let FlowId = nomatch.$link.path.replace("/", "");
 					setTimeout(function () {
@@ -210,9 +216,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -262,9 +268,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -277,8 +283,8 @@ var app = {
 
 		httpd =
 			cordova && cordova.plugins && cordova.plugins.CorHttpd ?
-			cordova.plugins.CorHttpd :
-			null;
+				cordova.plugins.CorHttpd :
+				null;
 
 		// No need since no using workers anymore
 		// httpd.startServer({
@@ -347,10 +353,13 @@ var app = {
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
 			pas dans l'application */
+			console.log(data);
+			console.log("pluggin push chris");
+
 			if (data.additionalData.foreground == false) {
 				Popup("popup-specifique", false);
 				Popup("popup-comment", false);
-				if (window.cordova.platformId == "ios") {
+				if (window.cordova.platformId == "ios" && data.additionalData.type != "flow_du_jour") {
 					data.additionalData.sender_info = JSON.parse(
 						data.additionalData.sender_info
 					);
@@ -407,7 +416,7 @@ var app = {
 				}
 				refresh_notif(true);
 			}
-			if (data.additionalData.foreground == true) {
+			if (data.additionalData.foreground == true && data.additionalData.type != "flow_du_jour") {
 				in_app_notif(data);
 				refresh_notif();
 			}
