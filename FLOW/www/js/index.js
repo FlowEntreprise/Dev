@@ -374,6 +374,7 @@ var app = {
 				if (data.additionalData.type == "flow_du_jour") {
 					app.showTab("#tab2");
 					explore_categories.slideTo(0);
+					setupFDJ();
 					return;
 				}
 				if (data.additionalData.type == "follow") {
