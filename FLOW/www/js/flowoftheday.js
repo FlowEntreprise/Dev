@@ -246,6 +246,7 @@ function showRandomFlow(data) {
                 $(".fdj_txt")[0].style.opacity = 1;
                 $(".fdj_txt")[0].innerHTML = "Flow aléatoire trouvé !";
                 var new_block = new block(block_params);
+                new_block.block_flow.style.marginTop = "1vw";
                 all_blocks.push(new_block);
             }
         }, getRandomInt(800, 2300));
@@ -298,6 +299,7 @@ function showFDJ(data) {
     };
 
     var new_block = new block(block_params);
+    new_block.block_flow.style.marginTop = "1vw";
     all_blocks.push(new_block);
 
     $(".fdj_pp")[0].style.backgroundImage = "url(" + flow.ProfilePicture + ")";

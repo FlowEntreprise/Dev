@@ -81,7 +81,7 @@
 	color: #4a4a4a;
 	font-size: calc(2.2 * var(--custom-vh));
 	top: calc(1 * var(--custom-vh));
-	width: 70vw;
+	max-width: 50vw;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -93,7 +93,7 @@
 	color: #4a4a4a;
 	font-size: calc(2 * var(--custom-vh));
 	top: calc(1 * var(--custom-vh));
-	width: 67.5vw;
+	max-width: 45vw;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;

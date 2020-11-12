@@ -69,7 +69,9 @@ function block_user(follow_list, target, data) {
 					RegisterId: data.RegisterId,
 					LastOs: data.LastOs,
 				};
-				all_tagged_users.push(data_user);
+				if (!all_tagged_users.some(user => user.private_Id === data_user.private_Id)) {
+					all_tagged_users.push(data_user);
+				}
 				Popup("popup-identification", false, -5);
 			});
 		} else {
