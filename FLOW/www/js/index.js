@@ -71,28 +71,30 @@ var app = {
 					document.body.classList.add("mobile700");
 				}
 			}, 500);
-			if (window.localStorage.getItem("fdj_notif_setup") != "ok") {
-				cordova.plugins.notification.local.clearAll();
-				cordova.plugins.notification.local.schedule({
-					title: 'Découvre le flow du jour !',
-					text: "Seras-tu l'heureux élu 👑 ?",
-					smallIcon: 'res://flow_icone_one_plus',
-					color: '#1a84ef',
-					type: "flow_du_jour",
-					trigger: {
-						every: {
-							hour: 18,
-							minute: 0,
-						},
-					}
-				});
-				window.localStorage.setItem("fdj_notif_setup", "ok");
-			}
-			cordova.plugins.notification.local.on('click', function () {
-				console.log(" show flow du jour");
-				app.showTab("#tab2");
-				explore_categories.slideTo(0);
-			});
+			cordova.plugins.notification.local.clearAll();
+
+			// if (window.localStorage.getItem("fdj_notif_setup") != "ok") {
+			// 	cordova.plugins.notification.local.clearAll();
+			// 	cordova.plugins.notification.local.schedule({
+			// 		title: 'Découvre le flow du jour !',
+			// 		text: "Seras-tu l'heureux élu 👑 ?",
+			// 		smallIcon: 'res://flow_icone_one_plus',
+			// 		color: '#1a84ef',
+			// 		type: "flow_du_jour",
+			// 		trigger: {
+			// 			every: {
+			// 				hour: 18,
+			// 				minute: 0,
+			// 			},
+			// 		}
+			// 	});
+			// 	window.localStorage.setItem("fdj_notif_setup", "ok");
+			// }
+			// cordova.plugins.notification.local.on('click', function () {
+			// 	console.log(" show flow du jour");
+			// 	app.showTab("#tab2");
+			// 	explore_categories.slideTo(0);
+			// });
 
 
 		}, 1200);
@@ -179,28 +181,31 @@ var app = {
 
 		if (window.localStorage.getItem("new_features_version") != AppVersion.version) {
 
-			$("#div_new_features").css("display", "block");
-			$("#div_new_features_background").css("display", "block");
-			$("#border_close_div_new_features")[0].innerHTML = "5 secondes";
-			setTimeout(function () {
-				$("#border_close_div_new_features")[0].innerHTML = "4 secondes";
-			}, 3000);
-			setTimeout(function () {
-				$("#border_close_div_new_features")[0].innerHTML = "3 secondes";
-			}, 4000);
-			setTimeout(function () {
-				$("#border_close_div_new_features")[0].innerHTML = "2 secondes";
-			}, 5000);
-			setTimeout(function () {
-				$("#border_close_div_new_features")[0].innerHTML = "1 seconde";
-			}, 6000);
-			setTimeout(function () {
-				$("#border_close_div_new_features")[0].innerHTML = "C'est parti !";
-				$("#close_div_new_features").css({
-					"opacity": "1",
-					"pointer-events": "auto"
-				});
-			}, 7000);
+			// Exception pour cette version : pas de popup nouveautés :
+			$(".fred_dot_toolbar_fdj").css("display", "none");
+			$(".fred_dot_toolbar_explore").css("display", "none");
+			// $("#div_new_features").css("display", "block");
+			// $("#div_new_features_background").css("display", "block");
+			// $("#border_close_div_new_features")[0].innerHTML = "5 secondes";
+			// setTimeout(function () {
+			// 	$("#border_close_div_new_features")[0].innerHTML = "4 secondes";
+			// }, 3000);
+			// setTimeout(function () {
+			// 	$("#border_close_div_new_features")[0].innerHTML = "3 secondes";
+			// }, 4000);
+			// setTimeout(function () {
+			// 	$("#border_close_div_new_features")[0].innerHTML = "2 secondes";
+			// }, 5000);
+			// setTimeout(function () {
+			// 	$("#border_close_div_new_features")[0].innerHTML = "1 seconde";
+			// }, 6000);
+			// setTimeout(function () {
+			// 	$("#border_close_div_new_features")[0].innerHTML = "C'est parti !";
+			// 	$("#close_div_new_features").css({
+			// 		"opacity": "1",
+			// 		"pointer-events": "auto"
+			// 	});
+			// }, 7000);
 		} else {
 			$(".fred_dot_toolbar_fdj").css("display", "none");
 			$(".fred_dot_toolbar_explore").css("display", "none");
@@ -314,8 +319,7 @@ var app = {
 
 		var push = PushNotification.init({
 			android: {
-				icon: device.manufacturer == "OnePlus" ?
-					"flow_icone_one_plus" : "flow_icone",
+				icon: "flow_icone_one_plus",
 			},
 			ios: {
 				alert: "true",
@@ -370,6 +374,7 @@ var app = {
 				if (data.additionalData.type == "flow_du_jour") {
 					app.showTab("#tab2");
 					explore_categories.slideTo(0);
+					setupFDJ();
 					return;
 				}
 				if (data.additionalData.type == "follow") {

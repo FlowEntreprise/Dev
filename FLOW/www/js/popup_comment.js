@@ -196,6 +196,15 @@ function block_comment(comment_data, comment_is_specifique) {
     this.fid_user.innerHTML = comment_data.FullName;
     $(this.fblock_comment).append(this.fid_user);
 
+    $(this.fid_user).on('click', function () {
+
+        let data = {
+            private_Id: block_comment.private_Id,
+            user_private_Id: window.localStorage.getItem("user_private_id")
+        };
+        go_to_account(data);
+    });
+
     this.fblock_comment_comment = document.createElement('p');
     this.fblock_comment_comment.className = 'fblock_comment_comment';
     this.fblock_comment_comment.innerHTML = this.fcomment_text.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>') + "<br>";
@@ -663,6 +672,7 @@ function send_response_to_server(data) {
             '<span class="tagged_users">$&</span>'
         ),
         Comment_text: data.Response,
+        Notif_text: data.Notif_text,
         Like_number: "0",
         Time: "0",
         IsLike: 0,
@@ -761,7 +771,7 @@ $(".fsend_comment").on("click", function () {
         // envoi de reponses
         data = {
             ObjectId: current_comment_block.ObjectId,
-            Response: text,
+            Notif_text: text
         };
 
         if (it_is_a_response_to_a_response == true && current_response_block && current_response_block.private_Id != window.localStorage.getItem("user_private_id")) {

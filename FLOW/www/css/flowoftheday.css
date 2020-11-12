@@ -215,7 +215,10 @@
 }
 
 .list-block-flowoftheday {
-    padding-top: calc(12.5 * var(--custom-vh));
+    position: absolute;
+    top: 37vh;
+    padding: 0;
+    /* padding-top: calc(12.5 * var(--custom-vh)); */
 }
 
 .fdj_canvas {
