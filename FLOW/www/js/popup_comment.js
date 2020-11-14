@@ -771,7 +771,8 @@ $(".fsend_comment").on("click", function () {
         // envoi de reponses
         data = {
             ObjectId: current_comment_block.ObjectId,
-            Notif_text: text
+            Notif_text: text,
+            Response: text
         };
 
         if (it_is_a_response_to_a_response == true && current_response_block && current_response_block.private_Id != window.localStorage.getItem("user_private_id")) {
