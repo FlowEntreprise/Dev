@@ -87,7 +87,7 @@ $$("#tab2").on("tab:show", function () {
 			console.log("fb current_page error");
 		}
 	);
-    $(".fred_dot_toolbar_explore").css("display", "none");
+	$(".fred_dot_toolbar_explore").css("display", "none");
 	if (explore_categories) {
 		if (explore_categories.realIndex == 0) {
 			if (in_flowoftheday) $("#tab2").scrollTop(0);

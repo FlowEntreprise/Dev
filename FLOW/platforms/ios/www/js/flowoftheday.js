@@ -1,3 +1,4 @@
+var FDJ_setup = false;
 var canPlayFDJParticles = false;
 var FDJplaying = false;
 var FDJParticles_seed = 0;
@@ -33,50 +34,41 @@ var rank_tables = {
 // var countdownFDJ;
 
 function setupFDJ() {
-    initFDJParticles();
+    if (!FDJ_setup) {
+        initFDJParticles();
 
-    $(".fdj_follow").on("click", function () {
-        if (showingFDJ) {
-            // console.log("follow the person");
-            // if ($(".fdj_follow").text() == "S'ABONNER") {
-            //     $(".fdj_follow").text("ABONNÉ");
-            //     $(".fdj_follow").css({
-            //         "background": "#CFA441",
-            //         "color": "white"
-            //     });
-            // } else if ($(".fdj_follow").text() == "ABONNÉ") {
-            //     $(".fdj_follow").text("S'ABONNER");
-            //     $(".fdj_follow").css({
-            //         "background": "transparent",
-            //         "color": "#CFA441"
-            //     });
-            // }
+        $(".fdj_follow").on("click", function () {
+            if (showingFDJ) {
+                $(".fdj_follow").toggleClass("followed");
+                followingFDJ = !followingFDJ;
+                if (followingFDJ) {
+                    if (!$(".fdj_follow").hasClass("followed")) $(".fdj_follow").addClass("followed");
+                    $(".fdj_follow")[0].innerHTML = "ABONNÉ";
+                } else {
+                    if ($(".fdj_follow").hasClass("followed")) $(".fdj_follow").removeClass("followed");
+                    $(".fdj_follow")[0].innerHTML = "S'ABONNER";
+                }
 
-            $(".fdj_follow").toggleClass("followed");
-            followingFDJ = !followingFDJ;
-            if (followingFDJ) {
-                if (!$(".fdj_follow").hasClass("followed")) $(".fdj_follow").addClass("followed");
-                $(".fdj_follow")[0].innerHTML = "ABONNÉ";
+                let data_user = {
+                    PrivateId: block_user_fdj.PrivateId,
+                    type: "block_user_follow",
+                    block_user: block_user_fdj
+                };
+                ServerManager.ActionFollow(data_user, function (response, data) {
+                    ServerManager.GetFDJ();
+                    RefreshTL();
+                });
+
             } else {
-                if ($(".fdj_follow").hasClass("followed")) $(".fdj_follow").removeClass("followed");
-                $(".fdj_follow")[0].innerHTML = "S'ABONNER";
-            }
-
-            let data_user = {
-                PrivateId: block_user_fdj.PrivateId,
-                type: "block_user_follow",
-                block_user: block_user_fdj
-            };
-            ServerManager.ActionFollow(data_user, function (response, data) {
+                showingFDJ = true;
                 ServerManager.GetFDJ();
-                RefreshTL();
-            });
-
-        } else {
-            showingFDJ = true;
-            ServerManager.GetFDJ();
-        }
-    });
+            }
+        });
+        FDJ_setup = true;
+    } else {
+        showingFDJ = true;
+        ServerManager.GetFDJ();
+    }
 }
 
 function initFDJParticles() {
@@ -207,6 +199,7 @@ function showRandomFlow(data) {
             GetRandomFlow();
             return false
         }
+        stopAllBlocksAudio();
         let flow = data.Data;
         let container = $(".list-block-flowoftheday");
         container[0].innerHTML = "";
@@ -245,6 +238,7 @@ function showRandomFlow(data) {
                 $(".fdj_txt")[0].style.opacity = 1;
                 $(".fdj_txt")[0].innerHTML = "Flow aléatoire trouvé !";
                 var new_block = new block(block_params);
+                new_block.block_flow.style.marginTop = "1vw";
                 all_blocks.push(new_block);
             }
         }, getRandomInt(800, 2300));
@@ -271,6 +265,7 @@ function showFDJ(data) {
     block_user_fdj.LastOs = flow.LastOs;
     block_user_fdj.PrivateId = flow.PrivateId;
     if (flow.Background.PatternKey) pattern_key = flow.Background.PatternKey;
+    stopAllBlocksAudio();
     let block_params = {
         parent_element: container,
         afterblock: false,
@@ -296,9 +291,17 @@ function showFDJ(data) {
     };
 
     var new_block = new block(block_params);
+    new_block.block_flow.style.marginTop = "1vw";
     all_blocks.push(new_block);
 
     $(".fdj_pp")[0].style.backgroundImage = "url(" + flow.ProfilePicture + ")";
+    $(".fdj_pp").on("click", function () {
+        let data_go_to_account = {
+            private_Id: flow.PrivateId,
+            user_private_Id: window.localStorage.getItem("user_private_id"),
+        };
+        go_to_account(data_go_to_account);
+    })
     let pseudo = flow.FullName;
     if (flow.PrivateId == window.localStorage.getItem("user_private_id")) { // MODIFIE POUR TEST remettre "==" et pas "!="
         youAreFDJ = true;
@@ -400,6 +403,7 @@ function GetRandomFlow() {
         if (!tmp_random_excluded) randomExcluded = [];
         else randomExcluded = tmp_random_excluded.split(",");
         ServerManager.GetRandomFlow(randomExcluded);
+        stopAllBlocksAudio();
     }
 }
 
