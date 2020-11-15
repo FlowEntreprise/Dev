@@ -34,16 +34,23 @@ function ConnectUser() {
     //     private_id: window.localStorage.getItem("user_private_id")
     // });
     $(".faccount")[0].style.backgroundImage = "url('')";
+
     setTimeout(function () {
         let data = {
             RegisterId: registrationId,
-            LastOs: window.cordova.platformId
+            LastOs: window.cordova.platformId,
+            Private_id: window.localStorage.getItem("user_private_id"),
+            full_name: window.localStorage.getItem("user_name"),
+            profile_pic: window.localStorage.getItem("user_profile_pic"),
+            user_id: window.localStorage.getItem("firebase_token")
         };
         ServerManager.UpdateRegisterId(data);
+        ServerManager.AddUserToFirebase(data);
         $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
     }, 100);
     ServerManager.GetVersionProtocol();
     ServerManager.UpdateUserLastConnexion();
+
     //$( "#fswipe_area" ).css({"pointer-events": "all"});
 }
 
@@ -69,9 +76,9 @@ function DisconnectUser() {
     });
 
     facebookConnectPlugin.logEvent("user_disconnect", {}, null, function () {
-        console.log("fb event success")
+        console.log("fb event success");
     }, function () {
-        console.log("fb event error")
+        console.log("fb event error");
     });
 
     window.localStorage.clear();
@@ -84,9 +91,9 @@ function DisconnectUser() {
         );
     }
     facebookConnectPlugin.logout(function (success) {
-        console.log(success)
+        console.log(success);
     }, function (error) {
-        console.log(error);
+        console.log(error)
     })
 
     //$( "#fswipe_area" ).css({"pointer-events": "none"});
@@ -129,6 +136,7 @@ function storeVariables(data) {
     window.localStorage.setItem("user_bio", data.Bio);
     window.localStorage.setItem("user_private_id", data.PrivateId);
     window.localStorage.setItem("user_token", data.TokenId);
+    window.localStorage.setItem("firebase_token", data.FirebaseToken);
 
     const src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.ProfilePicture.name + '?';
     const param = `${data.LinkBuilder.Params.hash}=${data.ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.ProfilePicture.timestamp}`;

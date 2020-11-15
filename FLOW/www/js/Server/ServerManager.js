@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-	ServerURL: "https://api.flowappweb.com/",
+	ServerURL: "https://api-test.flowappweb.com/",
 	ConnexionURL: "ConnexionFromApi",
 	AddFlowURL: "AddFlow",
 	GetSingleFlowURL: "GetSingle",
@@ -56,7 +56,7 @@ const ServerParams = {
 	GetRandomFlow: "GetRandomFlow",
 	GetFlowOfTheDay: "GetFlowOfTheDay"
 };
-
+const FirebaseEnvironment = ServerParams.ServerURL == "https://api.flowappweb.com/" ? "prod" : "dev";
 const apiTypes = {
 	Twitter: "twitter",
 	Google: "google",
@@ -74,7 +74,6 @@ class ServerManagerClass {
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
 	 * et reprendre la syntaxe des fonctions existantes.
 	 */
-
 	Connect(api, data) {
 		let final_data;
 		let DataSend;
@@ -1141,8 +1140,8 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.UpdateRegisterId,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log('registerId update sucessfully: ');
-				//console.log(response);
+				// console.log('registerId update sucessfully: ');
+				// console.log(response);
 			},
 			error: function (response) {
 				//console.log("registerId update error : ");
@@ -1703,6 +1702,131 @@ class ServerManagerClass {
 			},
 		});
 	}
+
+	CheckFirstChat(data) // check si on doit crée une nouvelle conversation
+	{
+		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id).once('value').then(function (snapshot) {
+			/* permet de lire une valeur une seule fois là c'est pour voir si c'est le premier msg envoyé
+			pour creer une conversation plutot que just send un msg*/
+			console.log("valeur recuperé de la bdd firebase : ");
+			console.log(snapshot.val());
+			if (snapshot.val() == null) // si c'est le premier msg de la conversation
+			{
+				first_chat = true;
+			}
+			else {
+				// on crée juste un nouveau message
+				first_chat = false;
+			}
+			Popup("popup-message", true);
+		});
+	}
+
+	AddMessage(data) { // ajoute les msg à la bdd firebase
+		firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id).push({
+			"sender_id": window.localStorage.getItem("firebase_token"),
+			"sender_private_id": window.localStorage.getItem("user_private_id"),
+			"sender_full_name": window.localStorage.getItem("user_name"),
+			"message": data.message,
+			"time": Date.now()
+		});
+	}
+
+	AddChat(data, callback) { // ajoute les chats à la bdd firebase
+		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id).update({
+			"title": "titre du groupe si c'est un groupe",
+			"photo": "lien_photo",
+			"ceation_date": Date.now(),
+			"creator": "", // pour les groupes
+			"last_message": "dernier msg de la conv",
+			"is_groupe_chat": data.is_groupe_chat
+		}).then(function (dataSnapshot) {
+			firebase.database().ref(FirebaseEnvironment + '/members/' + data.chat_id).update({
+				[data.user_id]: true,
+				[window.localStorage.getItem("firebase_token")]: true
+			}).then(function () {
+				firebase.database().ref(FirebaseEnvironment + '/users/' + data.user_id).child('chats').update({
+					[data.chat_id]: true
+				});
+			}).then(function () {
+				firebase.database().ref(FirebaseEnvironment + '/users/' + window.localStorage.getItem("firebase_token")).child('chats').update({
+					[data.chat_id]: true
+				});
+			}).then(function () {
+				first_chat = false;
+				ServerManager.AddMessage(data);
+			});
+		});
+	}
+
+	GetFirebaseUserProfile(data, callback) {
+
+		data = Object.entries(data);
+		for (let i = 0; i < data.length; i++) {
+			for (let i_ of Object.keys(data[i][1])) {
+				if (i_ != window.localStorage.getItem("firebase_token")) {
+					let ref_members = firebase.database().ref(FirebaseEnvironment + "/users/" + i_);
+					ref_members.once('value').then(function (profile_snapshot) {
+						if (profile_snapshot.val() != null) {
+							ServerManager.GetChatData([data[i][0], { [profile_snapshot.key]: [profile_snapshot.val()] }], callback);
+						}
+					});
+				}
+			}
+		}
+
+	}
+
+
+
+	//ServerManager.GetChatData(data, callback);
+
+
+	GetChatData(data, callback) {
+		let ref_members = firebase.database().ref(FirebaseEnvironment + "/chats/" + data[0]);
+		ref_members.once('value').then(function (dataSnapshot) {
+			let data_block_chat = {
+				id: data[0],
+				member_data: data[1],
+				chat_data: dataSnapshot.val()
+			};
+			callback(data_block_chat);
+		});
+	}
+
+	GetChatList(data, callback) {
+		//startAt(3) index de depart avec inclusion 
+		//limitToLast(2) nombre d'enfants que l'on veut
+		let data_chat_list = [];
+		console.log(" Get chat list was called");
+		let ref_members = firebase.database().ref(FirebaseEnvironment + "/members");
+		ref_members.orderByChild(data.user_id).equalTo(true).limitToLast(20).once('value').then(function (member_snapshot) {
+			ServerManager.GetFirebaseUserProfile(member_snapshot.val(), callback);
+			ServerManager.NewChatListener();
+		});
+
+	}
+
+	NewChatListener() {
+		firebase.database().ref(FirebaseEnvironment + "/chats").on("child_added", function (snapshot) {
+		});
+	}
+
+
+	AddUserToFirebase(data) { // ajoute les utilisateurs bdd firebase
+		console.log("data add user to firebase : ");
+		console.log(data);
+		firebase.database().ref(FirebaseEnvironment + '/users/' + data.user_id).update({
+			"name": data.full_name,
+			"private_id": data.Private_id,
+			"profile_pic": data.profile_pic,
+			"registration_id": data.RegisterId,
+			"LastOs": data.LastOs,
+			"time": Date.now()
+		});
+		ServerManager.GetChatList(data, pop_block_chat);
+	}
+
 }
 
 var ServerManager = new ServerManagerClass();

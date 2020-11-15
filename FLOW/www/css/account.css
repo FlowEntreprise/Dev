@@ -131,10 +131,10 @@
 
 .rank_img {
 	position: absolute;
-	top: calc(3 * var(--custom-vh));
+	top: 3vh;
 	left: 12.5vw;
 	width: 10vw;
-	height: calc(3 * var(--custom-vh));
+	height: 3vh;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -142,10 +142,10 @@
 
 .rank_number {
 	position: absolute;
-	top: calc(6 * var(--custom-vh));
+	top: 6vh;
 	left: 12.5vw;
 	width: 10vw;
-	height: calc(3 * var(--custom-vh));
+	height: 3vh;
 	text-align: center;
 }
 

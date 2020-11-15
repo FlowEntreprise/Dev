@@ -1022,7 +1022,7 @@ function send_notif_to_user(block, type) {
                 data = {
                     "data": {
                         "title": sender_info.fullname,
-                        "body": "@" + sender_info.privateId + " a répondu : " + block.Notif_text,
+                        "body": "@" + sender_info.privateId + " a répondu : " + block.Comment,
                         "type": "send_response",
                         "sender_info": sender_info,
                         "force-start": 1,
@@ -1031,7 +1031,7 @@ function send_notif_to_user(block, type) {
                     },
                     "notification": {
                         "title": sender_info.fullname,
-                        "body": "@" + sender_info.privateId + " a répondu : " + block.Notif_text,
+                        "body": "@" + sender_info.privateId + " a répondu : " + block.Comment,
                         "type": "send_response",
                         "sender_info": sender_info,
                         "force-start": 1,
@@ -1045,7 +1045,7 @@ function send_notif_to_user(block, type) {
                 data = {
                     "data": {
                         "title": sender_info.fullname,
-                        "body": "@" + sender_info.privateId + " a répondu : " + block.Notif_text,
+                        "body": "@" + sender_info.privateId + " a répondu : " + block.Comment,
                         "type": "send_response",
                         "sender_info": sender_info,
                         "force-start": 1,
@@ -1110,7 +1110,7 @@ function send_notif_to_user(block, type) {
                 data = {
                     "data": {
                         "title": sender_info.fullname,
-                        "body": block.Comment_text,
+                        "body": block.Comment,
                         "type": "send_comment",
                         "sender_info": sender_info,
                         "force-start": 1,
@@ -1120,7 +1120,7 @@ function send_notif_to_user(block, type) {
                     },
                     "notification": {
                         "title": sender_info.fullname,
-                        "body": block.Comment_text,
+                        "body": block.Comment,
                         "type": "send_comment",
                         "sender_info": sender_info,
                         "force-start": 1,
@@ -1135,7 +1135,7 @@ function send_notif_to_user(block, type) {
                 data = {
                     "data": {
                         "title": sender_info.fullname,
-                        "body": block.Comment_text,
+                        "body": block.Comment,
                         "type": "send_comment",
                         "sender_info": sender_info,
                         "force-start": 1,

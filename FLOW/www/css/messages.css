@@ -1,3 +1,171 @@
+#conversation_contrainer
+{
+	margin-top: calc(2 * var(--custom-vh)) !important;
+	padding-bottom: 12vh;
+	overflow-y: scroll;
+}
+
+.fblock_chat
+{
+	position: relative;
+    width: 100vw;
+    height: calc(10 * var(--custom-vh));
+    margin-top: 0vw;
+    background-color: #fff;
+    transition-duration: 0.2s;
+}
+
+.fblock_chat:active {
+	background-color: #1A84EF6B;
+}
+
+.fphoto_block_chat
+{
+	position: absolute;
+    width: calc(7 * var(--custom-vh));
+    height: calc(7 * var(--custom-vh));
+    top: calc(1.5 * var(--custom-vh));
+    left: 2vw;
+    border-radius: calc(7 * var(--custom-vh));
+    border: 1.5px solid rgb(255, 255, 255);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+    background-size: cover;
+    background-position: center;
+}
+
+.fconversation_title
+{
+	position: absolute;
+	top: calc(2.5 * var(--custom-vh));
+	left: 20vw;
+	font-size: 14px;
+	color: #92abb2;
+	font-family: "Roboto-Bold";
+}
+
+.fblock_chat_text
+{
+	font-family: "Roboto-Light";
+	position: absolute;
+	top: calc(5 * var(--custom-vh));
+	left: 20vw;
+	color: #92abb2;
+	font-size: 13px;
+	width: 60vw;
+}
+
+.fblock_chat_record
+{
+	position: absolute;
+	right: 6vw;
+	width: 4vw;
+	height: calc(2.7 * var(--custom-vh));
+	top: calc(3.25 * var(--custom-vh));
+}
+
+.fblock_chat_time
+{
+	position: absolute;
+	top: calc(7 * var(--custom-vh));
+	right: 3.5vw;
+	color: #92abb2;
+	font-size: 13px;
+	font-family: "Roboto-Light";
+	padding-left: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+/*POPUP MESSAGE*/
+
+#message_back_button
+{
+
+}
+#chat_photo
+{
+    position: absolute;
+	border-radius: calc(6 * var(--custom-vh));
+	background-size: cover;
+	background-position: center;
+	width: calc(6 * var(--custom-vh));
+	height: calc(6 * var(--custom-vh));
+    left: 45vw;
+    top: calc(1 * var(--custom-vh));
+} 
+
+#chat_title
+{
+	position: absolute;
+    text-align: center;
+    top: 7vh;
+    width: 100vw;
+    font-size: 16px;
+}
+
+#fblock_message_content{
+	list-style: none;
+	margin-top: 6vh;
+	padding: 0;
+	padding-top: 1vh;
+	width: 100vw;
+	height: calc(93% - 10 * var(--custom-vh));
+	top: calc(10 * var(--custom-vh));
+	-webkit-overflow-scrolling: touch;
+	border-top: 1px solid;
+    overflow-y: scroll;
+  }
+  
+  #fblock_message_content li{
+	display: inline-block;
+    clear: both;
+    padding: 3vw;
+    border-radius: 2vw;
+    margin-bottom: 1vh;
+    margin-right: 3vw;
+    margin-left: 3vw;
+  }
+  
+  .block_message{
+	background: #fff;
+	float: left;
+	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .my_block_message{
+	float: right;
+	background: #0084ff;
+	color: #fff;
+	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .time_and_seen_container   {
+	  font-size: 11px;
+	  float: right;
+	}
+	  
+#div_send_message{
+    position: absolute;
+    width: 100vw;
+    bottom: 3vh; 
+    z-index: 9999;
+    /*display: none;*/
+    left: -100vw;
+}
+#input_send_message
+{
+    width: 80vw;
+}
+
+/*FIN POPUP MESSAGE*/
+
 .messages_title {
 	position: absolute;
 	top: 15vh;
@@ -55,7 +223,7 @@
 	/* #92abb2; */
 }
 
-.messages_txt>span {
+.messages_txt > span {
 	font-size: 15px;
 	color: #1a84ef;
 	display: inline;
@@ -63,7 +231,6 @@
 }
 
 @keyframes balance {
-
 	0%,
 	100% {
 		transform: rotate(-5deg);
@@ -83,7 +250,7 @@
 	font-size: 16px;
 }
 
-.mobile700 .messages_txt>span {
+.mobile700 .messages_txt > span {
 	font-size: 13px;
 	color: #1a84ef;
 	display: inline;
@@ -100,9 +267,12 @@
 	font-size: 16px;
 }
 
-.mobile600 .messages_txt>span {
+.mobile600 .messages_txt > span {
 	font-size: 13px;
 	color: #1a84ef;
 	display: inline;
 	text-decoration: underline;
 }
+
+
+

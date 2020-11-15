@@ -193,10 +193,8 @@ $(".finput_comment").focus(function () {
 	// DisableImmersiveMode();
 });
 
-$("#finput_comment").blur(function () {
+$(".finput_comment").blur(function () {
 	console.log("an input was out focused");
-	$(this).attr("placeholder", "Ajouter un commentaire...");
-
 	// EnableImmersiveMode();
 });
 

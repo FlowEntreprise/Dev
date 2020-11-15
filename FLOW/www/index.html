@@ -25,6 +25,7 @@
 <link rel="stylesheet" type="text/css" href="css/popup_comment.css" />
 <link rel="stylesheet" type="text/css" href="css/flow_specifique.css" />
 <link rel="stylesheet" type="text/css" href="css/flowoftheday.css" />
+<link rel="stylesheet" type="text/css" href="css/message.css" />
 <!-- <link rel="stylesheet" type="text/css" href="css/comment_specifique.css" /> -->
 <link rel="stylesheet" type="text/css" href="css/custom_popup.css" />
 <link rel="stylesheet" type="text/css" href="css/popup_follow.css" />
@@ -114,7 +115,7 @@
                     </div>
 
                     <div class="fexplore-bar">
-                        <a class="fred_dot_toolbar fred_dot_toolbar_fdj"></a>
+                        <a class="fred_dot_toolbar fred_dot_toolbar_recent"></a>
                         <div class="faccount"></div>
                         <input class="fsearch-bar" placeholder="Explorer" />
                         <div class="search_icon"></div>
@@ -194,13 +195,9 @@
             <div id="div_new_features_background">
             </div>
             <div id="div_new_features">
-                <label id="title_div_new_features">Découvre le FLOW du jour !</label>
-                <p id="paragraphe_div_new_feature">
-                    Chaque jour à 18h, le flow le plus populaire des dernières 24h est mis en avant.
-                    <br><img class="img1" src="./src/icons/new_features2.png"><br>
-                    Plus tu es élu, plus ton rang progresse.
-                    <br><img class="img2" src="./src/icons/new_features.png"><br>
-                    Retrouve ton rang et ceux de tes amis dans l'onglet profil.</p>
+                <label id="title_div_new_features">Nouveautés !</label>
+                <p id="paragraphe_div_new_feature">Tu peux maintenant decouvrir les flows les plus récents à coté des
+                    flows les plus tendances.<br><br>Tu peux également désormais voir le nombre d'écoutes des flows.</p>
                 <div id="close_div_new_features">
                     <div id="border_close_div_new_features">C'est parti </div>
                 </div>
@@ -660,7 +657,29 @@
         </div>
     </div>
 
+    <!-- TEST DM -->
 
+    <div class="custom_popup" id="popup-message">
+        <div class="popup_bg">
+            <div class="scroll_fix_ios"></div>
+        </div>
+        <div class="popup_content" animation-direction="left" id="popup_message_content">
+            <img src="../www/src/icons/Retour@3x.png" id="message_back_button" onclick="Popup('popup-message', false)">
+
+            <div id="chat_photo"></div>
+            <div id="chat_title">MESSAGE V1</div>
+            <ul id="fblock_message_content">
+            </ul>
+
+        </div>
+    </div>
+    <div id="div_send_message">
+        <input id="input_send_message" placeholder="Taper un message" autocomplete="off">
+
+        <input id="button_send_message" value="Envoyer" type="submit">
+    </div>
+
+    <!-- FIN TEST DM -->
 
     <div class="custom_popup" id="popup-option">
         <div class="popup_bg">
@@ -764,6 +783,38 @@
         <div class="floading-spinner loading-connect-spinner"></div>
     </div>
 
+
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyD8EDzl_rr-_HdGidHC6ev5ZS5UG3SjmNQ",
+            authDomain: "flow-85249.firebaseapp.com",
+            databaseURL: "https://flow-85249.firebaseio.com",
+            projectId: "flow-85249",
+            storageBucket: "flow-85249.appspot.com",
+            messagingSenderId: "320132615636",
+            appId: "1:320132615636:web:139ee7801f507db3661a41",
+            measurementId: "G-GP2RLG1N7T"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        var myName = window.localStorage.getItem("user_private_id");
+
+
+    </script>
+
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="Dependencies/WavEncoder/WavAudioEncoder.min.js"></script>
     <script src="js/Server/ServerManager.js"></script>
@@ -795,6 +846,7 @@
     <!-- <script type="text/javascript" src="js/comment_specifique.js"></script> -->
     <script type="text/javascript" src="js/popup_follow.js"></script>
     <script type="text/javascript" src="js/flowoftheday.js"></script>
+    <script type="text/javascript" src="js/message.js"></script>
     <script type="text/javascript" src="js/jquery.highlight-within-textarea.js"></script>
 </body>
 

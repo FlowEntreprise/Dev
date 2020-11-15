@@ -30,9 +30,9 @@ $$("#tab1").on("tab:show", function () {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -76,9 +76,9 @@ $$("#tab2").on("tab:show", function () {
 	let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -87,11 +87,9 @@ $$("#tab2").on("tab:show", function () {
 			console.log("fb current_page error");
 		}
 	);
-	$(".fred_dot_toolbar_explore").css("display", "none");
 	if (explore_categories) {
 		if (explore_categories.realIndex == 0) {
 			if (in_flowoftheday) $("#tab2").scrollTop(0);
-			$(".fred_dot_toolbar_fdj").css("display", "none");
 			in_top50 = false;
 			in_recents = false;
 			in_flowoftheday = true;
@@ -161,10 +159,12 @@ $$("#tab2").on("tab:show", function () {
 
 		$(".flowoftheday_btn")[0].addEventListener("click", function () {
 			explore_categories.slideTo(0);
+			// $(".fred_dot_toolbar_recent").css("display", "none");
 		})
 
 		$(".recents_btn")[0].addEventListener("click", function () {
 			explore_categories.slideTo(2);
+			$(".fred_dot_toolbar_recent").css("display", "none");
 		})
 
 		$(".top50_btn")[0].addEventListener("click", function () {
@@ -183,9 +183,9 @@ $$("#tab3").on("tab:show", function () {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -227,9 +227,9 @@ $$("#tab4").on("tab:show", function () {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -304,9 +304,9 @@ function onBackKeyDown() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");

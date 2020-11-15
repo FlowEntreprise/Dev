@@ -52,14 +52,6 @@ function block_response(response_data, response_is_specifique) {
     );
     $(this.fblock_response).append(this.f_response_img_user);
 
-    $(this.f_response_img_user).on("click", function () {
-        let data = {
-            private_Id: block_response.private_Id,
-            user_private_Id: window.localStorage.getItem("user_private_id"),
-        };
-        go_to_account(data);
-    });
-
     this.f_response_id_user = document.createElement("label");
     this.f_response_id_user.className = "f_response_id_user";
     // this.f_response_id_user.innerHTML = "@" + response_data.PrivateId + "";
@@ -93,7 +85,6 @@ function block_response(response_data, response_is_specifique) {
         it_is_a_response = true;
         it_is_a_response_to_a_response = true;
         $("#finput_comment").focus();
-        $("#finput_comment").attr("placeholder", "Ajouter une réponse...");
     });
 
     this.fresponse_like = document.createElement("img");
@@ -138,7 +129,6 @@ function block_response(response_data, response_is_specifique) {
         let delete_response = true;
         delete_comment_from_bdd(current_response_block, delete_response);
     });
-
 
     $(this.f_response_id_user).on("click", function () {
         let data = {
@@ -196,15 +186,6 @@ function block_comment(comment_data, comment_is_specifique) {
     this.fid_user.innerHTML = comment_data.FullName;
     $(this.fblock_comment).append(this.fid_user);
 
-    $(this.fid_user).on('click', function () {
-
-        let data = {
-            private_Id: block_comment.private_Id,
-            user_private_Id: window.localStorage.getItem("user_private_id")
-        };
-        go_to_account(data);
-    });
-
     this.fblock_comment_comment = document.createElement('p');
     this.fblock_comment_comment.className = 'fblock_comment_comment';
     this.fblock_comment_comment.innerHTML = this.fcomment_text.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>') + "<br>";
@@ -225,7 +206,6 @@ function block_comment(comment_data, comment_is_specifique) {
         current_response_block = undefined;
         it_is_a_response = true;
         $("#finput_comment").focus();
-        $("#finput_comment").attr("placeholder", "Ajouter une réponse...");
     });
 
     if (this.nombre_de_reponses > 0) {
@@ -627,12 +607,12 @@ function send_comment_to_server(data) {
 
     $(current_flow_block.ftxt_impression_comment).text(comment_number);
     if (
+        comment_data.Comment == comment_data.Comment_text &&
         registrationId != comment_data.current_flow_block.RegisterId
     ) {
         comment_data.RegisterId = current_flow_block.RegisterId;
         send_notif_to_user(comment_data, "send_comment");
-    }
-    if (comment_data.Comment != comment_data.Comment_text) {
+    } else {
         for (let i = 0; i < tableau_comment_to_tag_users.length; i++) {
             if (tableau_comment_to_tag_users[i].slice(0, 1) == "@") {
                 for (
@@ -645,7 +625,6 @@ function send_comment_to_server(data) {
                     ) {
                         comment_data.tag_user_RegisterId =
                             all_tagged_users[i_all_tag].RegisterId;
-                        comment_data.LastOs = all_tagged_users[i_all_tag].LastOs;
                         send_notif_to_user(comment_data, "tag_in_comment");
                     }
                 }
@@ -667,12 +646,8 @@ function send_response_to_server(data) {
     let response_data = {
         PrivateId: window.localStorage.getItem("user_private_id"),
         ProfilePicture: window.localStorage.getItem("user_profile_pic"),
-        Comment: data.Response.replace(
-            /@[^ ]+/gi,
-            '<span class="tagged_users">$&</span>'
-        ),
+        Comment: data.Response,
         Comment_text: data.Response,
-        Notif_text: data.Notif_text,
         Like_number: "0",
         Time: "0",
         IsLike: 0,
@@ -697,7 +672,6 @@ function send_response_to_server(data) {
     }*/
     let initial_response_number = current_comment_block.nombre_de_reponses;
     let tableau_response_to_tag_users = data.Response.split(" ");
-    tableau_response_to_tag_users.shift();
     current_comment_block.nombre_de_reponses =
         current_comment_block.nombre_de_reponses + 1;
     let nombre_de_reponses_apres_ajout = initial_response_number - (current_comment_block.response_current_index * 10) + 1
@@ -708,6 +682,7 @@ function send_response_to_server(data) {
         "Afficher les reponses (" + current_comment_block.nombre_de_reponses + ")"
     );
     if (
+        response_data.Comment == response_data.Comment_text &&
         registrationId != response_data.current_flow_block.RegisterId
     ) {
         /* registrationId != response_data.current_flow_block.RegisterId permet de tester le RegisterId
@@ -716,15 +691,13 @@ function send_response_to_server(data) {
         */
         response_data.RegisterId = current_comment_block.RegisterId;
         send_notif_to_user(response_data, "send_response");
-    }
-    if (response_data.Comment != response_data.Comment_text) {
+    } else {
         for (let i = 0; i < tableau_response_to_tag_users.length; i++) {
             if (tableau_response_to_tag_users[i].slice(0, 1) == "@") {
                 for (let i_all_tag = 0; i_all_tag < all_tagged_users.length; i_all_tag++) {
                     if (tableau_response_to_tag_users[i] == all_tagged_users[i_all_tag].private_Id &&
                         registrationId != all_tagged_users[i_all_tag].RegisterId) {
-                        response_data.tag_user_RegisterId = all_tagged_users[i_all_tag].RegisterId;
-                        response_data.LastOs = all_tagged_users[i_all_tag].LastOs;
+                        response_data.RegisterId = all_tagged_users[i_all_tag].RegisterId;
                         send_notif_to_user(response_data, "tag_in_comment");
                     }
                 }
@@ -771,8 +744,7 @@ $(".fsend_comment").on("click", function () {
         // envoi de reponses
         data = {
             ObjectId: current_comment_block.ObjectId,
-            Notif_text: text,
-            Response: text
+            Response: text,
         };
 
         if (it_is_a_response_to_a_response == true && current_response_block && current_response_block.private_Id != window.localStorage.getItem("user_private_id")) {
@@ -830,7 +802,7 @@ $(document).on("click", ".flow_tagged_users", function () {
     };
     go_to_account(data);
 });
-/* onclick tl_private_id_indicator
+
 $(document).on("click", ".tl_private_id_indicator", function () {
     let tagged_user_private_id = $(this).text();
     let data = {
@@ -838,7 +810,7 @@ $(document).on("click", ".tl_private_id_indicator", function () {
         user_private_Id: window.localStorage.getItem("user_private_id"),
     };
     go_to_account(data);
-});*/
+});
 
 var string_input_comment;
 var all_search_users_with_follow = [];

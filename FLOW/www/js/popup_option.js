@@ -25,14 +25,11 @@ function delete_flow_from_html(element) {
             element.block_flow.remove();
             Popup("popup-option", false);
             Popup("popup-specifique", false);
-            if (!showingFDJ && in_flowoftheday) {
-                GetRandomFlow();
-            }
         }
     }
 }
 
-function delete_comment_from_bdd(element, is_a_response) { //affiche la popup option delete les comments et les response
+function delete_comment_from_bdd(element, is_a_response) {//affiche la popup option delete les comments et les response
     element_to_copy = "comment";
     $("#label_copy_button").text("Copier le commentaire");
     $("#label_report_button").text("Signaler le commentaire");
@@ -45,7 +42,8 @@ function delete_comment_from_bdd(element, is_a_response) { //affiche la popup op
         if (is_a_response == true) {
             element_to_delete.type = "response";
             element_to_delete.element = element;
-        } else {
+        }
+        else {
             element_to_delete.type = "comment";
             element_to_delete.element = element;
         }
@@ -96,7 +94,8 @@ function delete_response_from_html(element) {
             }
             if (nb_response == 0) {
                 $(current_comment_block.fblock_comment_label_afficher_les_reponses).css({ "opacity": "0", "pointer-events": "none" });
-            } else {
+            }
+            else {
                 $(current_comment_block.fblock_comment_label_afficher_les_reponses).text("Afficher les reponses (" + nb_response + ")");
                 $(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + nombre_de_reponses_apres_ajout + ")");
             }

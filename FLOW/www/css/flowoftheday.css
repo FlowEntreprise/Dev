@@ -33,40 +33,35 @@
     background-position: center;
     background-repeat: no-repeat;
     transition-duration: 1s;
-    pointer-events: none;
 }
 
 .fdj_title {
     position: absolute;
-    top: calc(24 * var(--custom-vh));
-    left: 25vw;
-    width: 70vw;
+    top: 24vh;
+    left: 20vw;
+    width: 80vw;
     text-align: center;
     color: #CFA441;
     font-family: 'Roboto-Bold';
     font-size: 15px;
     transition-duration: 1s;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    pointer-events: none;
 }
 
 .fdj_title.reduced {
-    top: calc(23 * var(--custom-vh));
+    top: 23vh;
     font-family: 'Roboto-Regular';
     font-size: 12px;
     text-align: left;
     left: 19vw;
-    width: 49vw;
+    width: 77vw;
 }
 
 .fdj_follow {
     position: absolute;
-    top: calc(27.5 * var(--custom-vh));
+    top: 27.5vh;
     left: 45vw;
     width: 30vw;
-    height: calc(3.5 * var(--custom-vh));
+    height: 3.5vh;
     color: #CFA441;
     border: 2px solid #CFA441;
     text-align: center;
@@ -90,7 +85,7 @@
 }
 
 .fdj_follow.reduced {
-    top: calc(23 * var(--custom-vh));
+    top: 23vh;
     left: 68vw;
     width: 26vw;
     font-size: 11px;
@@ -98,9 +93,9 @@
 
 .fdj_rank_parent {
     display: flex;
-    margin-top: calc(0.4 * var(--custom-vh));
+    margin-top: 0.4vh;
     width: 100%;
-    height: calc(3 * var(--custom-vh));
+    height: 3vh;
     align-items: center;
     justify-content: center;
 }
@@ -110,8 +105,8 @@
 }
 
 .fdj_rank_parent>img {
-    width: calc(3.5 * var(--custom-vh));
-    height: calc(3 * var(--custom-vh));
+    width: 3.5vh;
+    height: 3vh;
     object-fit: contain;
     margin-top: -5px;
     margin-left: 2px;
@@ -119,7 +114,7 @@
 
 
 .fdj_timer.reduced {
-    top: calc(25 * var(--custom-vh));
+    top: 25vh;
     left: 19vw;
     width: 50vw;
     text-align: left;
@@ -128,7 +123,7 @@
 
 .fdj_timer {
     position: absolute;
-    top: calc(32.5 * var(--custom-vh));
+    top: 32.5vh;
     left: 30vw;
     width: 60vw;
     text-align: center;
@@ -136,12 +131,11 @@
     opacity: 0.5;
     font-size: 12px;
     transition-duration: 1s;
-    pointer-events: none;
 }
 
 .empty_flow {
     position: absolute;
-    top: calc(35 * var(--custom-vh));
+    top: 35vh;
     width: 90vw;
     margin-left: 5vw;
     margin-right: 5vw;
@@ -156,17 +150,17 @@
 }
 
 .loading_fdj {
-    top: calc(13 * var(--custom-vh));
+    top: 13vh;
     margin-left: -5vw;
 }
 
 .random_flow_btn {
     position: absolute;
-    bottom: calc(16 * var(--custom-vh));
+    bottom: 16vh;
     padding-left: 20px;
     left: 15vw;
     width: calc(70vw - 20px);
-    height: calc(6 * var(--custom-vh));
+    height: 6vh;
     background-color: #1a84ef;
     border-radius: 50px;
     color: white;
@@ -191,7 +185,7 @@
 .random_icon {
     position: relative;
     margin-left: -5px;
-    margin-top: calc(-6 * var(--custom-vh));
+    margin-top: -6vh;
     width: 40px;
     height: 95%;
     background-image: url("../src/icons/dices.png");
@@ -202,7 +196,7 @@
 
 .fdj_txt {
     position: absolute;
-    top: calc(33 * var(--custom-vh));
+    top: 33vh;
     left: 0;
     width: 100vw;
     text-align: center;
@@ -215,17 +209,14 @@
 }
 
 .list-block-flowoftheday {
-    position: absolute;
-    top: 37vh;
-    padding: 0;
-    /* padding-top: calc(12.5 * var(--custom-vh)); */
+    padding-top: 12.5vh;
 }
 
 .fdj_canvas {
     position: absolute;
     left: 0;
     top: 0;
-    height: calc(100 * var(--custom-vh));
+    height: 100vh;
     width: 100vw;
     pointer-events: none;
     z-index: 10;
