@@ -95,7 +95,7 @@ function delete_response_from_html(element) {
                 nombre_de_reponses_apres_ajout = current_comment_block.nombre_de_reponses;
             }
             if (nb_response == 0) {
-                $(current_comment_block.fblock_comment_label_afficher_les_reponses).css("opacity", "0");
+                $(current_comment_block.fblock_comment_label_afficher_les_reponses).css({ "opacity": "0", "pointer-events": "none" });
             } else {
                 $(current_comment_block.fblock_comment_label_afficher_les_reponses).text("Afficher les reponses (" + nb_response + ")");
                 $(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + nombre_de_reponses_apres_ajout + ")");
