@@ -5,6 +5,7 @@ var first_chat = false;
 var current_block_chat;
 var all_block_chat = [];
 var all_block_message = [];
+var previous_message = {};
 
 
 function block_chat(data) {
@@ -28,8 +29,10 @@ function block_chat(data) {
             fullname: current_block_chat.block_chat_title,
             chat_id: current_block_chat.chat_id,
             profile_picture: current_block_chat.block_chat_photo,
-            is_groupe_chat: current_block_chat.is_groupe_chat
+            is_groupe_chat: current_block_chat.is_groupe_chat,
+            message_id: current_block_chat.block_chat_last_message.message_id
         };
+        ServerManager.SetMessageToSeen(data_dm);
         setup_popup_message(data_dm);
         Popup("popup-message", true);
     });
@@ -73,6 +76,15 @@ function block_chat(data) {
 
 }
 
+// affichage de la date quand il s'est ecoulé plus de 2h entre 2 msg
+function block_message_date(time) {
+    var block_message_date = this;
+    this.label_block_message_date = document.createElement('li');
+    this.label_block_message_date.className = 'label_block_message_date';
+    this.label_block_message_date.innerText = set_timestamp(time, "label_block_message_date");
+    $("#fblock_message_content").append(this.label_block_message_date);
+}
+
 function block_message(data) {
     var block_message = this;
     this.message_id = data.id;
@@ -94,15 +106,16 @@ function block_message(data) {
         this.time_and_seen_container.innerText = "" + set_timestamp(this.block_message_time, true) + " " + this.seen_by;
     }
     else {
+        this.block_message_left_photo = document.createElement('div');
+        this.block_message_left_photo.className = 'block_message_left_photo';
+        this.block_message_left_photo.style.backgroundImage = "url(" + current_block_chat.block_chat_photo + "";
         this.block_message.className = 'block_message';
         this.time_and_seen_container.innerText = set_timestamp(this.block_message_time, true);
     }
+    $(this.block_message).text(this.block_message_text);
+    $(this.block_message).prepend(this.block_message_left_photo);
     this.block_message.id = this.message_id;
-    this.block_message.innerHTML = this.sender_full_name + ": " + this.block_message_text + "<br>";
-
-
-
-    $(this.block_message).append(this.time_and_seen_container);
+    //$(this.block_message).append(this.time_and_seen_container);
     $("#fblock_message_content").append(this.block_message);
 
 }
@@ -176,16 +189,25 @@ function pop_block_message(id, data) {
 }
 
 function live_chat(chat_id) {
-    // listen for incoming messages
+    previous_message = {};
     firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id).on("child_added", function (snapshot) {
         var html = "";
         // give each message a unique ID
 
         // show delete button if message is sent by me
-        pop_block_message(snapshot.key, snapshot.val());
 
+        let time = Math.floor((snapshot.val().time - previous_message.time) / 1000 / 60 / 60);
+        previous_message = snapshot.val();
+        if (time > 2) {
+
+            block_message_date(snapshot.val().time);
+        }
+
+        pop_block_message(snapshot.key, snapshot.val());
+        let data_last_message = snapshot.val();
+        data_last_message.message_id = snapshot.key;
         firebase.database().ref(FirebaseEnvironment + "/chats").child(chat_id).update({
-            last_message: snapshot.val()
+            last_message: data_last_message
         });
         /*setTimeout(function () {
             $("#fblock_message_content").animate({

@@ -1066,14 +1066,13 @@ function set_timestamp(timestamp, return_hours) {
 
 	if (return_hours) {
 		let date = new Date(timestamp);
-		let hour_past = Math.floor((Date.now() - timestamp) / 60 / 60);
-		if (hour_past >= 24) {
-			date = date.toLocaleDateString("fr") + " " + date.getHours() + ":" + date.getMinutes();
+		let hour_past = Math.floor((Date.now() - timestamp) / 1000 / 60 / 60);
+		let minutes;
+		date.getMinutes() < 10 ? minutes = "0" + date.getMinutes() : minutes = date.getMinutes();
+		date = date.toLocaleDateString("fr") + " " + date.getHours() + ":" + minutes;
+		if (hour_past < 24 && return_hours != "label_block_message_date") {
+			date = new Date(timestamp).getHours() + ":" + minutes;
 		}
-		else {
-			date = date.getHours() + ":" + date.getMinutes();
-		}
-
 		return date;
 	}
 

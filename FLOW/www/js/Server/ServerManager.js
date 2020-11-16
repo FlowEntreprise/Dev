@@ -1827,6 +1827,13 @@ class ServerManagerClass {
 		ServerManager.GetChatList(data, pop_block_chat);
 	}
 
+
+	SetMessageToSeen(data) {
+		firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id + '/' + data.message_id + '/see_by').update({
+			[window.localStorage.getItem("firebase_token")]: true
+		});
+	}
+
 }
 
 var ServerManager = new ServerManagerClass();
