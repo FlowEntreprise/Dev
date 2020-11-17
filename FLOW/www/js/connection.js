@@ -47,7 +47,7 @@ function ConnectUser() {
         ServerManager.UpdateRegisterId(data);
         ServerManager.AddUserToFirebase(data);
         $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
-    }, 100);
+    }, 200);
     ServerManager.GetVersionProtocol();
     ServerManager.UpdateUserLastConnexion();
 

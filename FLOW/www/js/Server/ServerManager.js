@@ -1802,14 +1802,20 @@ class ServerManagerClass {
 		let ref_members = firebase.database().ref(FirebaseEnvironment + "/members");
 		ref_members.orderByChild(data.user_id).equalTo(true).limitToLast(20).once('value').then(function (member_snapshot) {
 			ServerManager.GetFirebaseUserProfile(member_snapshot.val(), callback);
-			ServerManager.NewChatListener();
+			ServerManager.NewChatListener(data);
 		});
 
 	}
 
-	NewChatListener() {
-		firebase.database().ref(FirebaseEnvironment + "/chats").on("child_added", function (snapshot) {
-		});
+	NewChatListener(data) {
+		firebase.database().ref(FirebaseEnvironment + "/chats").orderByChild(data.user_id).equalTo(true).limitToLast(20)
+			.on("child_changed", function (snapshot) {
+				console.log("chat modofié : ");
+				console.log(snapshot.key);
+				console.log("valeur modofié : ");
+				console.log(snapshot.val());
+			});
+
 	}
 
 
@@ -1820,7 +1826,7 @@ class ServerManagerClass {
 			"name": data.full_name,
 			"private_id": data.Private_id,
 			"profile_pic": data.profile_pic,
-			"registration_id": data.RegisterId,
+			"registration_id": registrationId,
 			"LastOs": data.LastOs,
 			"time": Date.now()
 		});
@@ -1833,6 +1839,8 @@ class ServerManagerClass {
 			[window.localStorage.getItem("firebase_token")]: true
 		});
 	}
+
+
 
 }
 

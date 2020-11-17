@@ -6,6 +6,7 @@ var current_block_chat;
 var all_block_chat = [];
 var all_block_message = [];
 var previous_message = {};
+var current_block_message;
 
 
 function block_chat(data) {
@@ -83,6 +84,15 @@ function block_message_date(time) {
     this.label_block_message_date.className = 'label_block_message_date';
     this.label_block_message_date.innerText = set_timestamp(time, "label_block_message_date");
     $("#fblock_message_content").append(this.label_block_message_date);
+}
+
+// gestion de la vue des msg comme sur messenger
+function block_message_seen(data) {
+    var block_message_seen = this;
+    this.block_message_seen = document.createElement('li');
+    this.block_message_seen.className = 'block_message_seen';
+    this.block_message_seen.style.backgroundImage = "url(" + data + "";
+    $("#fblock_message_content").append(this.block_message_seen);
 }
 
 function block_message(data) {
@@ -171,6 +181,9 @@ function send_message(chat_id) {
     };
     ServerManager.AddMessage(data_message);
     $("#input_send_message").val(" ");
+    if ($(".block_message_seen")) {
+        $(".block_message_seen").remove();
+    }
     // Empecher l'utilisateur de pouvoir clicker si l'imput msg est vide
 }
 
@@ -226,7 +239,20 @@ function live_chat(chat_id) {
 
         document.getElementById("liste_message").innerHTML += html;*/
     });
+
+
+    firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id).on("child_changed", function (child_change_snapshot) {
+
+        console.log(" le message mis en lu est :");
+        child_change_snapshot.val();
+        console.log("l'id du msg est : " + child_change_snapshot.key);
+        block_message_seen(current_block_chat.block_chat_photo);
+    });
+
+
+
 }
+
 
 /*function get_chat(data) // fonction qui recupere les conversations
 {
@@ -251,11 +277,11 @@ function deleteMessage(self) {
     firebase.database().ref(FirebaseEnvironment + "/messages").child(messageId).remove();
 }
 
-// attach listener for delete message
+/* attach listener for delete message
 firebase.database().ref(FirebaseEnvironment + "/messages").on("child_removed", function (snapshot) {
     // remove message node
     document.getElementById("message-" + snapshot.key).innerHTML = "This message has been removed";
-});
+});*/
 
 document
     .getElementById("popup-message")
@@ -272,3 +298,10 @@ document
     });
 
 
+/*------------------------TO DO-----------------------
+
+-Gestion des vues
+-Gestion du Is typing
+-Fix le load des conversations
+
+*/

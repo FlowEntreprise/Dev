@@ -175,6 +175,7 @@ var app = {
 			$(".fred_dot_toolbar_explore").css("display", "none");
 		}
 
+		firebase.initializeApp(firebaseConfig);
 		this.receivedEvent("deviceready");
 	},
 	onPause: function () {
