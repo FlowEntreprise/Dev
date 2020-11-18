@@ -1723,12 +1723,24 @@ class ServerManagerClass {
 	}
 
 	AddMessage(data) { // ajoute les msg à la bdd firebase
-		firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id).push({
+		let data_message =
+		{
 			"sender_id": window.localStorage.getItem("firebase_token"),
 			"sender_private_id": window.localStorage.getItem("user_private_id"),
 			"sender_full_name": window.localStorage.getItem("user_name"),
 			"message": data.message,
 			"time": Date.now()
+		};
+		let db_message = firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id);
+		db_message.push().set(data_message).then(() => {
+			db_message.once('value').then((snapshot) => {
+				console.log(snapshot);
+				data_message.message_id = Object.keys(snapshot.val())[0];
+			}).then(() => {
+				firebase.database().ref(FirebaseEnvironment + "/chats").child(data.chat_id).update({
+					last_message: data_message
+				});
+			});
 		});
 	}
 
@@ -1763,15 +1775,13 @@ class ServerManagerClass {
 
 	GetFirebaseUserProfile(data, callback, chat_id) {
 
-		$("#block_chat_contrainer").html("");
+		let all_data_chat = [];
 		let all_chat_id = Object.keys(data);
 		data = Object.values(data);
 		for (let i_nb_chat = 0; i_nb_chat < Object.keys(data).length; i_nb_chat++) {
-
 			let data_chat = data[i_nb_chat];
 			let data_get_user_id = Object.keys(data_chat);
 			data_chat.chat_id = all_chat_id[i_nb_chat];
-
 			for (let i = data_get_user_id.length - 1; i >= 0; i--) {
 				if (data_get_user_id[i].length < 32 || data_get_user_id[i] == window.localStorage.getItem("firebase_token")) {
 					data_get_user_id.splice(i, 1);
@@ -1785,11 +1795,17 @@ class ServerManagerClass {
 						chat_data: data_chat,
 						members_data: profile_snapshot.val()
 					};
-					pop_block_chat(data_block_chat);
+					all_data_chat.push(data_block_chat);
+					if (all_data_chat.length == all_chat_id.length) {
+						$("#block_chat_contrainer").html("");
+						for (let i = 0; i < all_data_chat.length; i++) {
+							pop_block_chat(all_data_chat[i]);
+						}
+					}
 				}
 			});
-
 		}
+
 
 
 		/*

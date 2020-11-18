@@ -215,11 +215,6 @@ function live_chat(chat_id) {
         }
 
         pop_block_message(snapshot.key, snapshot.val());
-        let data_last_message = snapshot.val();
-        data_last_message.message_id = snapshot.key;
-        firebase.database().ref(FirebaseEnvironment + "/chats").child(chat_id).update({
-            last_message: data_last_message
-        });
         /*setTimeout(function () {
             $("#fblock_message_content").animate({
                 scrollTop: $("#fblock_message_content").height()
