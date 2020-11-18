@@ -11,14 +11,14 @@ var current_block_message;
 
 function block_chat(data) {
     var block_chat = this;
-    this.chat_id = data.id;
+    this.chat_id = data.chat_data.chat_id;
     this.block_chat_last_message = data.chat_data.last_message;
-    this.block_chat_title = data.member_data[0][1][0].name;
-    this.block_chat_photo = data.member_data[0][1][0].profile_pic;
-    this.members = data.member_data;
+    this.block_chat_title = data.members_data.name;
+    this.block_chat_photo = data.members_data.profile_pic;
+    this.members = data.members_data;
     this.creator = data.chat_data.creator;
-    this.creation_date = data.chat_data.creation_date;
-    this.is_groupe_chat = data.is_groupe_chat;
+    //this.creation_date = data.chat_data.creation_date;
+    this.is_groupe_chat = data.chat_data.is_groupe_chat;
     this.block_chat = document.createElement('div');
     this.block_chat.className = 'fblock_chat';
     $("#block_chat_contrainer").append(this.block_chat);
@@ -188,14 +188,12 @@ function send_message(chat_id) {
 }
 
 function pop_block_chat(data) {
-    data.member_data = Object.entries(data.member_data);
     let new_block_chat = new block_chat(data);
     all_block_chat.push(new_block_chat);
 
 }
 
 function pop_block_message(id, data) {
-
     data.id = id;
     let new_block_message = new block_message(data);
     all_block_message.push(new_block_message);
@@ -242,7 +240,6 @@ function live_chat(chat_id) {
 
 
     firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id).on("child_changed", function (child_change_snapshot) {
-
         console.log(" le message mis en lu est :");
         child_change_snapshot.val();
         console.log("l'id du msg est : " + child_change_snapshot.key);
@@ -250,9 +247,7 @@ function live_chat(chat_id) {
     });
 
 
-
 }
-
 
 /*function get_chat(data) // fonction qui recupere les conversations
 {

@@ -1736,10 +1736,12 @@ class ServerManagerClass {
 		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id).update({
 			"title": "titre du groupe si c'est un groupe",
 			"photo": "lien_photo",
-			"ceation_date": Date.now(),
+			"creation_date": Date.now(),
 			"creator": "", // pour les groupes
 			"last_message": "dernier msg de la conv",
-			"is_groupe_chat": data.is_groupe_chat
+			[data.user_id]: true,
+			"is_groupe_chat": data.is_groupe_chat,
+			[window.localStorage.getItem("firebase_token")]: true
 		}).then(function (dataSnapshot) {
 			firebase.database().ref(FirebaseEnvironment + '/members/' + data.chat_id).update({
 				[data.user_id]: true,
@@ -1759,10 +1761,45 @@ class ServerManagerClass {
 		});
 	}
 
-	GetFirebaseUserProfile(data, callback) {
+	GetFirebaseUserProfile(data, callback, chat_id) {
 
-		data = Object.entries(data);
-		for (let i = 0; i < data.length; i++) {
+		$("#block_chat_contrainer").html("");
+		let all_chat_id = Object.keys(data);
+		data = Object.values(data);
+		for (let i_nb_chat = 0; i_nb_chat < Object.keys(data).length; i_nb_chat++) {
+
+			let data_chat = data[i_nb_chat];
+			let data_get_user_id = Object.keys(data_chat);
+			data_chat.chat_id = all_chat_id[i_nb_chat];
+
+			for (let i = data_get_user_id.length - 1; i >= 0; i--) {
+				if (data_get_user_id[i].length < 32 || data_get_user_id[i] == window.localStorage.getItem("firebase_token")) {
+					data_get_user_id.splice(i, 1);
+				}
+			}
+			let ref_members = firebase.database().ref(FirebaseEnvironment + "/users/" + data_get_user_id[0]);
+			ref_members.once('value').then(function (profile_snapshot) {
+				if (profile_snapshot.val() != null) {
+					let data_block_chat =
+					{
+						chat_data: data_chat,
+						members_data: profile_snapshot.val()
+					};
+					pop_block_chat(data_block_chat);
+				}
+			});
+
+		}
+
+
+		/*
+		let data_chat = data;
+		data_chat.chat_id = chat_id;
+		data = Object.keys(data);
+
+		
+
+		/*for (let i = 0; i < data.length; i++) {
 			for (let i_ of Object.keys(data[i][1])) {
 				if (i_ != window.localStorage.getItem("firebase_token")) {
 					let ref_members = firebase.database().ref(FirebaseEnvironment + "/users/" + i_);
@@ -1773,14 +1810,12 @@ class ServerManagerClass {
 					});
 				}
 			}
-		}
+		}*/
+
 
 	}
 
-
-
 	//ServerManager.GetChatData(data, callback);
-
 
 	GetChatData(data, callback) {
 		let ref_members = firebase.database().ref(FirebaseEnvironment + "/chats/" + data[0]);
@@ -1807,17 +1842,16 @@ class ServerManagerClass {
 
 	}
 
-	NewChatListener(data) {
-		firebase.database().ref(FirebaseEnvironment + "/chats").orderByChild(data.user_id).equalTo(true).limitToLast(20)
-			.on("child_changed", function (snapshot) {
-				console.log("chat modofié : ");
+	NewChatListener(data, callback) {
+		firebase.database().ref(FirebaseEnvironment + "/chats").orderByChild(window.localStorage.getItem("firebase_token")).equalTo(true).limitToLast(20)
+			.on("value", function (snapshot) {
+				console.log("chat modifié : ");
 				console.log(snapshot.key);
-				console.log("valeur modofié : ");
+				console.log("valeur modifié : ");
 				console.log(snapshot.val());
+				ServerManager.GetFirebaseUserProfile(snapshot.val(), callback, snapshot.key);
 			});
-
 	}
-
 
 	AddUserToFirebase(data) { // ajoute les utilisateurs bdd firebase
 		console.log("data add user to firebase : ");
@@ -1830,17 +1864,14 @@ class ServerManagerClass {
 			"LastOs": data.LastOs,
 			"time": Date.now()
 		});
-		ServerManager.GetChatList(data, pop_block_chat);
+		ServerManager.NewChatListener(data, pop_block_chat);
 	}
-
 
 	SetMessageToSeen(data) {
 		firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id + '/' + data.message_id + '/see_by').update({
 			[window.localStorage.getItem("firebase_token")]: true
 		});
 	}
-
-
 
 }
 
