@@ -8,7 +8,6 @@ var all_block_message = [];
 var previous_message = {};
 var current_block_message;
 
-
 function block_chat(data) {
     var block_chat = this;
     this.chat_id = data.chat_data.chat_id;
@@ -104,7 +103,6 @@ function block_message(data) {
     this.block_message_time = data.time;
     this.block_message_text = data.message;
     this.seen_by = data.seen_by;
-    this.seen_by = "seen";
     this.block_message = document.createElement('li');
 
     this.time_and_seen_container = document.createElement('div');
@@ -122,11 +120,16 @@ function block_message(data) {
         this.block_message.className = 'block_message';
         this.time_and_seen_container.innerText = set_timestamp(this.block_message_time, true);
     }
+
+
     $(this.block_message).text(this.block_message_text);
     $(this.block_message).prepend(this.block_message_left_photo);
     this.block_message.id = this.message_id;
     //$(this.block_message).append(this.time_and_seen_container);
     $("#fblock_message_content").append(this.block_message);
+    if (this.seen_by) {
+        block_message_seen(current_block_chat.block_chat_photo);
+    }
 
 }
 
@@ -199,6 +202,11 @@ function pop_block_message(id, data) {
     all_block_message.push(new_block_message);
 }
 
+function pop_block_message_seen(data) {
+    $(".block_message_seen").remove();
+    let new_block_message_seen = new block_message_seen(data);
+}
+
 function live_chat(chat_id) {
     previous_message = {};
     firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id).on("child_added", function (snapshot) {
@@ -209,12 +217,17 @@ function live_chat(chat_id) {
 
         let time = Math.floor((snapshot.val().time - previous_message.time) / 1000 / 60 / 60);
         previous_message = snapshot.val();
+        previous_message.id = snapshot.key;
         if (time > 2) {
 
             block_message_date(snapshot.val().time);
         }
-
         pop_block_message(snapshot.key, snapshot.val());
+        let data_set_to_seen = {
+            chat_id: chat_id,
+            message_id: snapshot.key
+        };
+        ServerManager.SetMessageToSeen(data_set_to_seen);
         /*setTimeout(function () {
             $("#fblock_message_content").animate({
                 scrollTop: $("#fblock_message_content").height()
@@ -234,11 +247,11 @@ function live_chat(chat_id) {
     });
 
 
-    firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id).on("child_changed", function (child_change_snapshot) {
+    firebase.database().ref(FirebaseEnvironment + '/messages/' + chat_id).orderByChild('seen_by').on("value", function (child_change_snapshot) {
         console.log(" le message mis en lu est :");
-        child_change_snapshot.val();
+        console.log(child_change_snapshot.val());
         console.log("l'id du msg est : " + child_change_snapshot.key);
-        block_message_seen(current_block_chat.block_chat_photo);
+        pop_block_message_seen(current_block_chat.block_chat_photo);
     });
 
 
@@ -277,10 +290,17 @@ document
     .getElementById("popup-message")
     .addEventListener("opened", function () {
         $("#div_send_message").css("left", "0vw");
+        setTimeout(function () {
+            $("#fblock_message_content").animate({
+                scrollTop: $("#fblock_message_content").height()
+            }, 400, 'swing');
+        }, 350);
     });
 document
     .getElementById("popup-message")
     .addEventListener("closed", function () {
+        firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off();
+        firebase.database().ref(FirebaseEnvironment + '/chats/' + chat_id + '/last_message/see_by').off();
         $("#div_send_message").css("left", "-100vw");
         $("#fblock_message_content").html("");
         stopAllBlocksAudio();

@@ -143,7 +143,7 @@
 	float: left;
 	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
 	max-width: 60vw;
-	border-bottom-left-radius: 0vw !important;
+	border-bottom-left-radius: 1vw !important;
   }
   .block_message_left_photo /* petite photo à gauche du block chat*/
   {
@@ -161,7 +161,7 @@
 	color: #fff;
 	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
 	max-width: 60vw;
-	border-bottom-right-radius: 0vw !important;
+	border-bottom-right-radius: 1vw !important;
   }
 
   .block_message_seen
@@ -178,29 +178,29 @@
  
   /*---------------------Mettre des borders radius comme sur messenger-------------------------*/
   .block_message + .my_block_message{
-	border-bottom-right-radius: 0vw !important;
+	border-bottom-right-radius: 1vw !important;
   }
   
   .my_block_message + .block_message{
-	border-bottom-left-radius: 0vw !important;
+	border-bottom-left-radius: 1vw !important;
   }
 
   .block_message + .block_message{
-	border-bottom-left-radius: 0vw!important;
-	border-top-left-radius: 0vw!important;
+	border-bottom-left-radius: 1vw!important;
+	border-top-left-radius: 1vw!important;
   }
 
   .my_block_message + .my_block_message{
-	border-top-right-radius: 0vw!important;
-	border-bottom-right-radius: 0vw!important;
+	border-top-right-radius: 1vw!important;
+	border-bottom-right-radius: 1vw!important;
   }
   
   .block_message:last-of-type {
-	border-top-left-radius: 0vw!important;
+	border-top-left-radius: 1vw!important;
 	border-bottom-left-radius: 4vw!important;
   }
   .my_block_message:last-of-type {
-	border-top-right-radius: 0vw!important;
+	border-top-right-radius: 1vw!important;
 	border-bottom-right-radius: 4vw!important;
   }
 
