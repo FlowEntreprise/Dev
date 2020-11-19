@@ -174,7 +174,14 @@
     background-position: center;
     float: right;
   }
-
+.is_typing
+{	background-image: url("../src/icons/is_typing.png");
+	background-size: cover;
+    background-position: center;
+	width: 5vw;
+	height: 3vh;
+	float: right;
+}
  
   /*---------------------Mettre des borders radius comme sur messenger-------------------------*/
   .block_message + .my_block_message{
