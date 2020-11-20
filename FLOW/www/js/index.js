@@ -334,6 +334,16 @@ var app = {
 						data.additionalData.sender_info
 					);
 				}
+				if (data.additionalData.type == "send_message") {
+					let data_popup_msg =
+					{
+						profile_picture: data.additionalData.sender_info.profil_pic,
+						fullname: data.additionalData.sender_info.fullname,
+						chat_id: chat_id
+					};
+					setup_popup_message(data_popup_msg);
+					return;
+				}
 				if (data.additionalData.type == "story_comment") {
 					return;
 				}

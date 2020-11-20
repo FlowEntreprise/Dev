@@ -34,7 +34,6 @@ function block_chat(data) {
         };
         ServerManager.SetMessageToSeen(data_dm);
         setup_popup_message(data_dm);
-        Popup("popup-message", true);
     });
     /*if (this.is_groupe_chat == false) {
         for (let i = 0; i < this.members.length; i++) {
@@ -111,7 +110,7 @@ function block_message(data) {
     if (this.sender_private_id == window.localStorage.getItem("user_private_id")) // token id par la suite
     {
         this.block_message.className = 'my_block_message';
-        this.time_and_seen_container.innerText = "" + set_timestamp(this.block_message_time, true) + " " + this.seen_by;
+        this.time_and_seen_container.innerText = set_timestamp(this.block_message_time, true);
     }
     else {
         this.block_message_left_photo = document.createElement('div');
@@ -125,11 +124,24 @@ function block_message(data) {
     $(this.block_message).text(this.block_message_text);
     //$(this.block_message).prepend(this.block_message_left_photo);
     this.block_message.id = this.message_id;
-    //$(this.block_message).append(this.time_and_seen_container);
+    $(this.block_message).append(this.time_and_seen_container);
     $("#fblock_message_content").append(this.block_message);
     if (this.seen_by) {
         block_message_seen(current_block_chat.block_chat_photo);
     }
+
+    $(this.block_message).on("click", function () {
+        if ($(block_message.time_and_seen_container).css('display') == 'none') {
+            $(block_message.time_and_seen_container).css('display', 'block');
+        }
+        else {
+            $(block_message.time_and_seen_container).css('display', 'none');
+        }
+        {
+
+        }
+    });
+
 
 }
 
@@ -173,6 +185,7 @@ function setup_popup_message(data) {
     $("#chat_photo").css({ "background-image": "url('" + data.profile_picture + "')", });
     $("#chat_title").text(data.fullname);
     $("#fblock_message_content").html("");
+    Popup("popup-message", true);
     live_chat(data.chat_id);
 }
 
@@ -242,20 +255,24 @@ function live_chat(chat_id) {
         document.getElementById("liste_message").innerHTML += html;*/
     });
 
+    // Firebase listenener du seen_by
     firebase.database().ref(FirebaseEnvironment + '/messages/' + chat_id).orderByChild('seen_by').limitToLast(1).on("value", function (child_change_snapshot) {
         console.log(" le message mis en lu est :");
         console.log(child_change_snapshot.val());
         console.log("l'id du msg est : " + child_change_snapshot.key);
-        let user_who_seen = Object.entries(child_change_snapshot.val());
-        user_who_seen = Object.entries(user_who_seen[0][1].see_by);
-        for (let i = 0; i < user_who_seen.length; i++) {
-            if (user_who_seen[i][0] != window.localStorage.getItem("firebase_token") && user_who_seen[i][1] == true)
-                pop_block_message_seen(current_block_chat.block_chat_photo);
-            scroll_to_bottom($("#fblock_message_content"));
+        if (child_change_snapshot.val() != null) {
+            let user_who_seen = Object.entries(child_change_snapshot.val());
+            user_who_seen = Object.entries(user_who_seen[0][1].see_by);
+            for (let i = 0; i < user_who_seen.length; i++) {
+                if (user_who_seen[i][0] != window.localStorage.getItem("firebase_token") && user_who_seen[i][1] == true)
+                    pop_block_message_seen(current_block_chat.block_chat_photo);
+                scroll_to_bottom($("#fblock_message_content"));
+            }
         }
 
     });
 
+    // Firebase listenener du is_typing
     firebase.database().ref(FirebaseEnvironment + '/chats/' + chat_id).orderByChild('is_typing').on("value", function (is_typing_snapshot) {
         console.log(" is typing val");
         console.log(is_typing_snapshot.val());
@@ -341,6 +358,7 @@ document
     .getElementById("popup-message")
     .addEventListener("opened", function () {
         $("#div_send_message").css("left", "0vw");
+        current_page = "popup_message";
         scroll_to_bottom($("#fblock_message_content"));
     });
 document
@@ -358,11 +376,17 @@ document
 
 /*------------------------TO DO-----------------------
 
--Gestion des vues ----------DONE
--Gestion du Is typing ------DONE
--Scroll nvx msg
--Scroll is typing
--Fix le load des conversations
+- Gestion des vues ----------DONE
+- Gestion du Is typing ------DONE
+- Scroll nvx msg ------------DONE
+- Scroll is typing ----------DONE
+- Fix le load des conversations
 - Notifications
+- Possibilité de mute les conv
+- Scroll conv list
+- Scroll message list
+- Demandes de dm
+- Message limite nb de charactere
+- Sécuriser la conexion à la bdd
 
 */

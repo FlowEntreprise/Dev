@@ -216,7 +216,7 @@
 
   .time_and_seen_container   {
 	  font-size: 11px;
-	  float: right;
+	  display: none;
 	}
 	  
 #div_send_message{

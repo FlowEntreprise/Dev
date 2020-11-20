@@ -1740,6 +1740,13 @@ class ServerManagerClass {
 				firebase.database().ref(FirebaseEnvironment + "/chats").child(data.chat_id).update({
 					last_message: data_message
 				});
+			}).then(() => {
+				let data_notif_message = {
+					message: data.message,
+					chat_id: current_block_chat.chat_id,
+					recipient_info: current_block_chat.members
+				};
+				send_notif_to_user(data_notif_message, "send_message");
 			});
 		});
 	}
