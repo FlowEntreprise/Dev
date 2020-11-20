@@ -209,7 +209,7 @@ function pop_block_message_seen(data) {
 
 function live_chat(chat_id) {
     previous_message = {};
-    firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id).on("child_added", function (snapshot) {
+    firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id).limitToLast(20).on("child_added", function (snapshot) {
         var html = "";
         // give each message a unique ID
         // show delete button if message is sent by me
@@ -242,11 +242,18 @@ function live_chat(chat_id) {
         document.getElementById("liste_message").innerHTML += html;*/
     });
 
-    firebase.database().ref(FirebaseEnvironment + '/messages/' + chat_id).orderByChild('seen_by').on("value", function (child_change_snapshot) {
+    firebase.database().ref(FirebaseEnvironment + '/messages/' + chat_id).orderByChild('seen_by').limitToLast(1).on("value", function (child_change_snapshot) {
         console.log(" le message mis en lu est :");
         console.log(child_change_snapshot.val());
         console.log("l'id du msg est : " + child_change_snapshot.key);
-        pop_block_message_seen(current_block_chat.block_chat_photo);
+        let user_who_seen = Object.entries(child_change_snapshot.val());
+        user_who_seen = Object.entries(user_who_seen[0][1].see_by);
+        for (let i = 0; i < user_who_seen.length; i++) {
+            if (user_who_seen[i][0] != window.localStorage.getItem("firebase_token") && user_who_seen[i][1] == true)
+                pop_block_message_seen(current_block_chat.block_chat_photo);
+            scroll_to_bottom($("#fblock_message_content"));
+        }
+
     });
 
     firebase.database().ref(FirebaseEnvironment + '/chats/' + chat_id).orderByChild('is_typing').on("value", function (is_typing_snapshot) {
@@ -266,6 +273,7 @@ function live_chat(chat_id) {
                     let is_typing = document.createElement("li");
                     is_typing.className = "is_typing";
                     $("#fblock_message_content").append(is_typing);
+                    scroll_to_bottom($("#fblock_message_content"));
                 }
                 if (data_is_typing.user_id != window.localStorage.getItem("firebase_token") && data_is_typing.value == false) {
                     $(".is_typing").remove();
@@ -291,6 +299,13 @@ $("#input_send_message").focusout(function () {
 
 });
 
+function scroll_to_bottom(element) {
+    setTimeout(function () {
+        element.animate({
+            scrollTop: element[0].scrollHeight
+        }, 400, 'swing');
+    }, 350);
+}
 
 
 /*function get_chat(data) // fonction qui recupere les conversations
@@ -326,11 +341,7 @@ document
     .getElementById("popup-message")
     .addEventListener("opened", function () {
         $("#div_send_message").css("left", "0vw");
-        setTimeout(function () {
-            $("#fblock_message_content").animate({
-                scrollTop: $("#fblock_message_content").height()
-            }, 400, 'swing');
-        }, 350);
+        scroll_to_bottom($("#fblock_message_content"));
     });
 document
     .getElementById("popup-message")
@@ -347,8 +358,11 @@ document
 
 /*------------------------TO DO-----------------------
 
--Gestion des vues
--Gestion du Is typing
+-Gestion des vues ----------DONE
+-Gestion du Is typing ------DONE
+-Scroll nvx msg
+-Scroll is typing
 -Fix le load des conversations
+- Notifications
 
 */
