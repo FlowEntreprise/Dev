@@ -39,7 +39,7 @@
 	top: calc(2.5 * var(--custom-vh));
 	left: 20vw;
 	font-size: 14px;
-	color: #92abb2;
+	color: #1a84ef;
 	font-family: "Roboto-Bold";
 }
 
@@ -107,7 +107,9 @@
     text-align: center;
     top: 7vh;
     width: 100vw;
-    font-size: 16px;
+	font-size: 16px;
+	color: #1a84ef;
+	
 }
 
 #fblock_message_content{
@@ -119,7 +121,7 @@
 	height: calc(93% - 10 * var(--custom-vh));
 	top: calc(10 * var(--custom-vh));
 	-webkit-overflow-scrolling: touch;
-	border-top: 1px solid;
+	border-top: 1px solid #92abb2;;
     overflow-y: scroll;
   }
   
@@ -128,7 +130,7 @@
     padding: 3vw;
     margin-bottom: 1vh;
     margin-right: 5vw;
-	margin-left: 11vw;
+	margin-left: 5vw;
 	border-radius: 4vw;
   }
 
@@ -136,6 +138,7 @@
   {
 	text-align: center;
 	margin: 0;
+	color: #92abb2;
   }
   
   .block_message{

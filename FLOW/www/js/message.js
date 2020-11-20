@@ -123,7 +123,7 @@ function block_message(data) {
 
 
     $(this.block_message).text(this.block_message_text);
-    $(this.block_message).prepend(this.block_message_left_photo);
+    //$(this.block_message).prepend(this.block_message_left_photo);
     this.block_message.id = this.message_id;
     //$(this.block_message).append(this.time_and_seen_container);
     $("#fblock_message_content").append(this.block_message);
