@@ -2,11 +2,11 @@
 var chat_id;
 var data_dm = {};
 var first_chat = false;
-var current_block_chat;
+var current_block_chat = {};
 var all_block_chat = [];
 var all_block_message = [];
 var previous_message = {};
-var current_block_message;
+var current_block_message = {};
 
 function block_chat(data) {
     var block_chat = this;
@@ -14,6 +14,7 @@ function block_chat(data) {
     this.block_chat_last_message = data.chat_data.last_message;
     this.block_chat_title = data.members_data.name;
     this.block_chat_photo = data.members_data.profile_pic;
+    this.block_chat_member_private_id = data.members_data.private_id;
     this.members = data.members_data;
     this.creator = data.chat_data.creator;
     //this.creation_date = data.chat_data.creation_date;
@@ -22,8 +23,11 @@ function block_chat(data) {
     this.block_chat.className = 'fblock_chat';
     $("#block_chat_contrainer").append(this.block_chat);
 
+
+
     $(this.block_chat).on("click", function () {
         current_block_chat = block_chat;
+        $(current_block_chat.block_chat).css("background-color", "#fff");
         data_dm =
         {
             fullname: current_block_chat.block_chat_title,
@@ -53,6 +57,15 @@ function block_chat(data) {
     this.fphoto_block_chat.style.backgroundImage = "url(" + this.block_chat_photo + "";
     this.block_chat.appendChild(this.fphoto_block_chat);
 
+
+    $(this.fphoto_block_chat).on("click", function () {
+        let data = {
+            private_Id: current_block_chat.block_chat_member_private_id,
+            user_private_Id: window.localStorage.getItem("user_private_id"),
+        };
+        go_to_account(data);
+    });
+
     this.fconversation_title = document.createElement('label');
     this.fconversation_title.className = 'fconversation_title';
     this.fconversation_title.innerText = this.block_chat_title;
@@ -72,6 +85,18 @@ function block_chat(data) {
     this.fblock_chat_time.className = 'fblock_chat_time';
     this.fblock_chat_time.innerText = set_timestamp(this.block_chat_last_message.time, true);
     this.block_chat.appendChild(this.fblock_chat_time);
+
+    for (let i of Object.entries(this.block_chat_last_message.seen_by)) {
+        if (i[0] != window.localStorage.getItem("firebase_token")) {
+            $(block_chat.block_chat).css("background-color", "#fff");
+            $(".fred_dot_toolbar_new_message").css("display", "none");
+            break;
+        }
+        else {
+            $(block_chat.block_chat).css("background-color", "#1A84EF6B");
+            $(".fred_dot_toolbar_new_message").css("display", "block");
+        }
+    }
 
 }
 
@@ -262,7 +287,7 @@ function live_chat(chat_id) {
         console.log("l'id du msg est : " + child_change_snapshot.key);
         if (child_change_snapshot.val() != null) {
             let user_who_seen = Object.entries(child_change_snapshot.val());
-            user_who_seen = Object.entries(user_who_seen[0][1].see_by);
+            user_who_seen = Object.entries(user_who_seen[0][1].seen_by);
             for (let i = 0; i < user_who_seen.length; i++) {
                 if (user_who_seen[i][0] != window.localStorage.getItem("firebase_token") && user_who_seen[i][1] == true)
                     pop_block_message_seen(current_block_chat.block_chat_photo);
@@ -365,7 +390,7 @@ document
     .getElementById("popup-message")
     .addEventListener("closed", function () {
         firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off();
-        firebase.database().ref(FirebaseEnvironment + '/chats/' + chat_id + '/last_message/see_by').off();
+        firebase.database().ref(FirebaseEnvironment + '/chats/' + chat_id + '/last_message/seen_by').off();
         firebase.database().ref(FirebaseEnvironment + '/chats/' + chat_id).orderByChild('is_typing').off();
         $("#div_send_message").css("left", "-100vw");
         $("#fblock_message_content").html("");

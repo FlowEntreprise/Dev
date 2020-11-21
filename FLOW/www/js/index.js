@@ -339,8 +339,13 @@ var app = {
 					{
 						profile_picture: data.additionalData.sender_info.profil_pic,
 						fullname: data.additionalData.sender_info.fullname,
-						chat_id: chat_id
+						chat_id: data.additionalData.sender_info.chat_id
 					};
+					/*
+					-Pour generer le block_message_seen à l'ouverture d'une notif
+					- Pour generer les blocks message de l'epediteur à l'ouverture d'une notif
+					*/
+					current_block_chat.block_chat_photo = data_popup_msg.profile_picture;
 					setup_popup_message(data_popup_msg);
 					return;
 				}

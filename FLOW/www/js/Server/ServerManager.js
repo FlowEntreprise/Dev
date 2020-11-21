@@ -1322,7 +1322,10 @@ class ServerManagerClass {
 								RegisterIdOfUserToNotify : data.to
 								Content : data.data.message
 				*/
-				ServerManager.AddNotificationToUser(data_notif_to_bdd);
+				if (data.notification && data.notification.type != 'send_message' || data.data && data.data.type != 'send_message') {
+
+					ServerManager.AddNotificationToUser(data_notif_to_bdd);
+				}
 				console.log("Notif envoyé avec succes");
 			},
 			error: function (response) {
@@ -1729,6 +1732,7 @@ class ServerManagerClass {
 			"sender_private_id": window.localStorage.getItem("user_private_id"),
 			"sender_full_name": window.localStorage.getItem("user_name"),
 			"message": data.message,
+			"seen_by": { [window.localStorage.getItem("firebase_token")]: true },
 			"time": Date.now()
 		};
 		let db_message = firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id);
@@ -1891,7 +1895,10 @@ class ServerManagerClass {
 	}
 
 	SetMessageToSeen(data) {
-		firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id + '/' + data.message_id + '/see_by').update({
+		firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id + '/' + data.message_id + '/seen_by').update({
+			[window.localStorage.getItem("firebase_token")]: true
+		});
+		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + '/last_message/seen_by').update({
 			[window.localStorage.getItem("firebase_token")]: true
 		});
 	}

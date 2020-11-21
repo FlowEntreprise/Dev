@@ -835,6 +835,7 @@ function go_to_account(data) {
 			Popup("popup-followers", false);
 			Popup("popup-followings", false);
 			Popup("popup-identification", false);
+			Popup("popup-message", false);
 			Popup("popup-myaccount", true);
 			current_page = "my-account";
 		} else {
@@ -849,6 +850,7 @@ function go_to_account(data) {
 			Popup("popup-followings", false);
 			Popup("popup-identification", false);
 			Popup("popup-specifique", false);
+			Popup("popup-message", false);
 		} else {
 			Popup("popup-comment", false);
 			Popup("popup-followers", false);
@@ -856,6 +858,7 @@ function go_to_account(data) {
 			Popup("popup-identification", false);
 			Popup("popup-specifique", false);
 			Popup("popup-myaccount", false);
+			Popup("popup-message", false);
 			if (connected == true) {
 				ServerManager.GetBlockedUsers(data.private_Id, "go_to_acount"); // true si c'est une redirection vers un compte
 			} else {
