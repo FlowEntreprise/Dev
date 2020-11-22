@@ -7,6 +7,7 @@ var all_block_chat = [];
 var all_block_message = [];
 var previous_message = {};
 var current_block_message = {};
+var can_load_more_message = false;
 
 function block_chat(data) {
     var block_chat = this;
@@ -115,7 +116,7 @@ function block_message_seen(data) {
     $("#fblock_message_content").append(this.block_message_seen);
 }
 
-function block_message(data) {
+function block_message(data, previous_message) {
     var block_message = this;
     this.message_id = data.id;
     this.sender_id = data.sender_id;
@@ -147,7 +148,12 @@ function block_message(data) {
     //$(this.block_message).prepend(this.block_message_left_photo);
     this.block_message.id = this.message_id;
     $(this.block_message).append(this.time_and_seen_container);
-    $("#fblock_message_content").append(this.block_message);
+    if (previous_message) {
+        $("#fblock_message_content").prepend(this.block_message);
+    }
+    else {
+        $("#fblock_message_content").append(this.block_message);
+    }
     if (this.seen_by) {
         pop_block_message_seen(current_block_chat.block_chat_photo);
     }
@@ -238,9 +244,9 @@ function pop_block_chat(data) {
 
 }
 
-function pop_block_message(id, data) {
+function pop_block_message(id, data, previous_message) {
     data.id = id;
-    let new_block_message = new block_message(data);
+    let new_block_message = new block_message(data, previous_message);
     all_block_message.push(new_block_message);
 }
 
@@ -249,12 +255,61 @@ function pop_block_message_seen(data) {
     let new_block_message_seen = new block_message_seen(data);
 }
 
+
+$("#fblock_message_content").scroll(function () {
+    let limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+    if (can_load_more_message) {
+        if (Math.round($(this).scrollTop()) >= limit * 0.25) {
+            message_infinite_scroll(current_block_chat);
+        }
+    }
+});
+
+/* 
+Exclu la derniere clé de la requete
+Si je demande les 20 previous msg à partir d'une clé X
+la clé X ne sera pas retourné
+
+*/
+function exclude(key) {
+    return key.substring(0, key.length - 1) + String.fromCharCode(key.charCodeAt(key.length - 1) - 1);
+}
+
+// Affiche les msg precedent 20 par 20
+function message_infinite_scroll(data) {
+    firebase.database().ref(FirebaseEnvironment + "/messages/" + data.chat_id).orderByKey().endAt(exclude(data.first_messake_key)).limitToLast(20)
+        .once('value').then(function (dataSnapshot) {
+            console.log(" les 20 anciens msg sont : ");
+            console.log(dataSnapshot.val());
+            console.log(" les id des anciens msg sont : ");
+            console.log(dataSnapshot.key);
+            let tab_all_messages = Object.entries(dataSnapshot.val());
+            current_block_chat.first_messake_key = tab_all_messages[0][0];
+
+            for (let i = 0; i < tab_all_messages.length; i++) {
+                previous_message = tab_all_messages[i][1];
+                let time = Math.floor((tab_all_messages[i][1].time - previous_message.time) / 1000 / 60 / 60);
+                previous_message = tab_all_messages[i][1];
+                if (time > 2) {
+
+                    block_message_date(tab_all_messages[i][1].time);
+                }
+                pop_block_message(tab_all_messages[i][0], tab_all_messages[i][1], true);
+            }
+        });
+
+}
+
+// Messagerie instantanéé
 function live_chat(chat_id) {
     previous_message = {};
-    firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id).limitToLast(20).on("child_added", function (snapshot) {
+    firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id).limitToLast(20).on("child_added", function (snapshot, prevChildKey) {
         var html = "";
         // give each message a unique ID
         // show delete button if message is sent by me
+        if (!current_block_chat.first_messake_key) {
+            current_block_chat.first_messake_key = prevChildKey;
+        }
         let time = Math.floor((snapshot.val().time - previous_message.time) / 1000 / 60 / 60);
         previous_message = snapshot.val();
         previous_message.id = snapshot.key;
@@ -350,23 +405,16 @@ function scroll_to_bottom(element) {
         element.animate({
             scrollTop: element[0].scrollHeight
         }, 400, 'swing');
-    }, 350);
+
+    }, 350).then(function () {
+        can_load_more_message = true;
+    });
+
+
+
+
 }
 
-
-/*function get_chat(data) // fonction qui recupere les conversations
-{
-
-    //startAt(3) index de depart avec inclusion 
-    //limitToLast(2) nombre d'enfants que l'on veut
-    let ref = firebase.database().ref(FirebaseEnvironment + "/members");
-    ref.orderByChild(data[1].user_id).equalTo(true).limitToLast(20).on("child_added", function (snapshot) {
-
-        console.log("Data get chat");
-        console.log(snapshot.key);
-        console.log(snapshot.val());
-    });
-}*/
 
 
 function deleteMessage(self) {
@@ -399,6 +447,7 @@ document
         $("#div_send_message").css("left", "-100vw");
         $("#fblock_message_content").html("");
         stopAllBlocksAudio();
+        current_block_chat.first_messake_key = undefined;
         first_chat = false;
     });
 
@@ -409,13 +458,14 @@ document
 - Gestion du Is typing ------DONE
 - Scroll nvx msg ------------DONE
 - Scroll is typing ----------DONE
-- Fix le load des conversations
-- Notifications
-- Possibilité de mute les conv
+- Notifications -------------DONE
 - Scroll conv list
 - Scroll message list
-- Demandes de dm
-- Message limite nb de charactere
+- Fix le load des conversations
 - Sécuriser la conexion à la bdd
+---Pas Urgent------
+- Message limite nb de charactere
+- Demandes de dm
+- Possibilité de mute les conv
 
 */
