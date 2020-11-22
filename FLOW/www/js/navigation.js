@@ -220,6 +220,7 @@ $$("#tab3").on("tab:show", function () {
 	}
 
 	stopAllBlocksAudio();
+	$(".fred_dot_toolbar_new_message").css("display", "none");
 });
 
 $$("#tab4").on("tab:show", function () {

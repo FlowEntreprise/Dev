@@ -17,6 +17,7 @@ function block_chat(data) {
     this.block_chat_member_private_id = data.members_data.private_id;
     this.members = data.members_data;
     this.creator = data.chat_data.creator;
+    this.is_seen = false;
     //this.creation_date = data.chat_data.creation_date;
     this.is_groupe_chat = data.chat_data.is_groupe_chat;
     this.block_chat = document.createElement('div');
@@ -24,10 +25,10 @@ function block_chat(data) {
     $("#block_chat_contrainer").append(this.block_chat);
 
 
-
     $(this.block_chat).on("click", function () {
         current_block_chat = block_chat;
         $(current_block_chat.block_chat).css("background-color", "#fff");
+        $(".fred_dot_toolbar_new_message").css("display", "none");
         data_dm =
         {
             fullname: current_block_chat.block_chat_title,
@@ -87,16 +88,12 @@ function block_chat(data) {
     this.block_chat.appendChild(this.fblock_chat_time);
 
     for (let i of Object.entries(this.block_chat_last_message.seen_by)) {
-        if (i[0] != window.localStorage.getItem("firebase_token")) {
+        if (i[0] == window.localStorage.getItem("firebase_token")) {
             $(block_chat.block_chat).css("background-color", "#fff");
-            $(".fred_dot_toolbar_new_message").css("display", "none");
-            break;
-        }
-        else {
-            $(block_chat.block_chat).css("background-color", "#1A84EF6B");
-            $(".fred_dot_toolbar_new_message").css("display", "block");
+            block_chat.is_seen = true;
         }
     }
+    set_block_chat_seen();
 
 }
 
@@ -152,7 +149,7 @@ function block_message(data) {
     $(this.block_message).append(this.time_and_seen_container);
     $("#fblock_message_content").append(this.block_message);
     if (this.seen_by) {
-        block_message_seen(current_block_chat.block_chat_photo);
+        pop_block_message_seen(current_block_chat.block_chat_photo);
     }
 
     $(this.block_message).on("click", function () {
@@ -192,6 +189,13 @@ $("#fnameCompte").on("click", function () {
     ServerManager.CheckFirstChat(data_dm);
 });
 
+function set_block_chat_seen() {
+    for (let i = 0; i < all_block_chat.length; i++) {
+        if (all_block_chat[i].is_seen == false) {
+            $(".fred_dot_toolbar_new_message").css("display", "block");
+        }
+    }
+}
 
 $("#button_send_message").on("click", function () {
     if ($("#input_send_message").val().trim().length != 0) {

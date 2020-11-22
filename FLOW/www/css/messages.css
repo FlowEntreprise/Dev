@@ -11,7 +11,7 @@
     width: 100vw;
     height: calc(10 * var(--custom-vh));
     margin-top: 0vw;
-    background-color: #fff;
+    background-color: #1A84EF6B;
     transition-duration: 0.2s;
 }
 

@@ -1876,6 +1876,7 @@ class ServerManagerClass {
 				console.log(snapshot.key);
 				console.log("valeur modifié : ");
 				console.log(snapshot.val());
+				all_block_chat.length = 0;
 				ServerManager.GetFirebaseUserProfile(snapshot.val(), callback, snapshot.key);
 			});
 	}
