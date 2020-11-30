@@ -1708,18 +1708,18 @@ class ServerManagerClass {
 
 	CheckFirstChat(data) // check si on doit crée une nouvelle conversation
 	{
-		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id).once('value').then(function (snapshot) {
+		firebase.firestore().doc("environment/" + FirebaseEnvironment + '/chats/' + data.chat_id).get().then(function (snapshot) {
 			/* permet de lire une valeur une seule fois là c'est pour voir si c'est le premier msg envoyé
 			pour creer une conversation plutot que just send un msg*/
 			console.log("valeur recuperé de la bdd firebase : ");
-			console.log(snapshot.val());
-			if (snapshot.val() == null) // si c'est le premier msg de la conversation
+			console.log(snapshot.data());
+			if (snapshot.exists) // si c'est le premier msg de la conversation
 			{
-				first_chat = true;
+				first_chat = false;
 			}
 			else {
 				// on crée juste un nouveau message
-				first_chat = false;
+				first_chat = true;
 			}
 			Popup("popup-message", true);
 		});
@@ -1735,15 +1735,14 @@ class ServerManagerClass {
 			"seen_by": { [window.localStorage.getItem("firebase_token")]: true },
 			"time": Date.now()
 		};
-		let db_message = firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id);
-		db_message.push().set(data_message).then(() => {
-			db_message.once('value').then((snapshot) => {
-				console.log(snapshot);
-				data_message.message_id = Object.keys(snapshot.val())[0];
+		let db_message = firebase.firestore().collection("environment/" + FirebaseEnvironment + '/messages/' + data.chat_id + '/messages')
+			.add(data_message).then(function (docRef) {
+				console.log("Document written with ID: ", docRef.id);
+				data_message.message_id = docRef.id;
 			}).then(() => {
-				firebase.database().ref(FirebaseEnvironment + "/chats").child(data.chat_id).update({
+				firebase.firestore().doc("environment/" + FirebaseEnvironment + "/chats/" + data.chat_id).update({
 					last_message: data_message
-				});
+				}, console.log("chats last message updated"));
 			}).then(() => {
 				let data_notif_message = {
 					message: data.message,
@@ -1752,11 +1751,12 @@ class ServerManagerClass {
 				};
 				send_notif_to_user(data_notif_message, "send_message");
 			});
-		});
 	}
 
+
 	AddChat(data, callback) { // ajoute les chats à la bdd firebase
-		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id).update({
+
+		firebase.firestore().doc("environment/" + FirebaseEnvironment + '/chats/' + data.chat_id).set({
 			"title": "titre du groupe si c'est un groupe",
 			"photo": "lien_photo",
 			"creation_date": Date.now(),
@@ -1765,23 +1765,12 @@ class ServerManagerClass {
 			[data.user_id]: true,
 			"is_groupe_chat": data.is_groupe_chat,
 			[window.localStorage.getItem("firebase_token")]: true
-		}).then(function (dataSnapshot) {
-			firebase.database().ref(FirebaseEnvironment + '/members/' + data.chat_id).update({
-				[data.user_id]: true,
-				[window.localStorage.getItem("firebase_token")]: true
-			}).then(function () {
-				firebase.database().ref(FirebaseEnvironment + '/users/' + data.user_id).child('chats').update({
-					[data.chat_id]: true
-				});
-			}).then(function () {
-				firebase.database().ref(FirebaseEnvironment + '/users/' + window.localStorage.getItem("firebase_token")).child('chats').update({
-					[data.chat_id]: true
-				});
-			}).then(function () {
-				first_chat = false;
-				ServerManager.AddMessage(data);
-			});
+
+		}).then(function () {
+			first_chat = false;
+			ServerManager.AddMessage(data);
 		});
+
 	}
 
 	GetFirebaseUserProfile(data, callback, chat_id) {
@@ -1798,7 +1787,7 @@ class ServerManagerClass {
 					data_get_user_id.splice(i, 1);
 				}
 			}
-			let ref_members = firebase.database().ref(FirebaseEnvironment + "/users/" + data_get_user_id[0]);
+			let ref_members = firebase.firestore().doc("environment/" + FirebaseEnvironment + "/users/" + data_get_user_id[0]);
 			ref_members.once('value').then(function (profile_snapshot) {
 				if (profile_snapshot.val() != null) {
 					let data_block_chat =
@@ -1823,13 +1812,13 @@ class ServerManagerClass {
 		let data_chat = data;
 		data_chat.chat_id = chat_id;
 		data = Object.keys(data);
-
+	
 		
-
+	
 		/*for (let i = 0; i < data.length; i++) {
 			for (let i_ of Object.keys(data[i][1])) {
 				if (i_ != window.localStorage.getItem("firebase_token")) {
-					let ref_members = firebase.database().ref(FirebaseEnvironment + "/users/" + i_);
+					let ref_members = firebase.firestore().doc("environment/" +FirebaseEnvironment + "/users/" + i_);
 					ref_members.once('value').then(function (profile_snapshot) {
 						if (profile_snapshot.val() != null) {
 							ServerManager.GetChatData([data[i][0], { [profile_snapshot.key]: [profile_snapshot.val()] }], callback);
@@ -1842,10 +1831,10 @@ class ServerManagerClass {
 
 	}
 
-	//ServerManager.GetChatData(data, callback);
+	/*ServerManager.GetChatData(data, callback);
 
 	GetChatData(data, callback) {
-		let ref_members = firebase.database().ref(FirebaseEnvironment + "/chats/" + data[0]);
+		let ref_members = firebase.firestore().doc("environment/" + FirebaseEnvironment + "/chats/" + data[0]);
 		ref_members.once('value').then(function (dataSnapshot) {
 			let data_block_chat = {
 				id: data[0],
@@ -1861,30 +1850,41 @@ class ServerManagerClass {
 		//limitToLast(2) nombre d'enfants que l'on veut
 		let data_chat_list = [];
 		console.log(" Get chat list was called");
-		let ref_members = firebase.database().ref(FirebaseEnvironment + "/members");
+		let ref_members = firebase.firestore().doc("environment/" + FirebaseEnvironment + "/members");
 		ref_members.orderByChild(data.user_id).equalTo(true).limitToLast(20).once('value').then(function (member_snapshot) {
 			ServerManager.GetFirebaseUserProfile(member_snapshot.val(), callback);
 			ServerManager.NewChatListener(data);
 		});
 
-	}
+	}*/
 
 	NewChatListener(data, callback) {
-		firebase.database().ref(FirebaseEnvironment + "/chats").orderByChild(window.localStorage.getItem("firebase_token")).equalTo(true).limitToLast(20)
+		/*firebase.firestore().doc("environment/" + FirebaseEnvironment + "/chats").orderByChild(window.localStorage.getItem("firebase_token")).equalTo(true).limitToLast(20)
 			.on("value", function (snapshot) {
 				console.log("chat modifié : ");
 				console.log(snapshot.key);
 				console.log("valeur modifié : ");
 				console.log(snapshot.val());
 				all_block_chat.length = 0;
-				ServerManager.GetFirebaseUserProfile(snapshot.val(), callback, snapshot.key);
+				//ServerManager.GetFirebaseUserProfile(snapshot.val(), callback, snapshot.key);
+			});*/
+
+
+		firebase.firestore().collection("environment/" + FirebaseEnvironment + "/chats").where(window.localStorage.getItem("firebase_token"), "==", true)
+			.orderBy("last_message/time")
+			.onSnapshot(function (querySnapshot) {
+				var cities = [];
+				querySnapshot.forEach(function (doc) {
+					cities.push(doc.data().name);
+				});
+				console.log("Current cities in CA: ", cities.join(", "));
 			});
 	}
 
 	AddUserToFirebase(data) { // ajoute les utilisateurs bdd firebase
-		console.log("data add user to firebase : ");
+		/*console.log("data add user to firebase : ");
 		console.log(data);
-		firebase.database().ref(FirebaseEnvironment + '/users/' + data.user_id).update({
+		firebase.firestore().doc("environment/" +FirebaseEnvironment + '/users/' + data.user_id).update({
 			"name": data.full_name,
 			"private_id": data.Private_id,
 			"profile_pic": data.profile_pic,
@@ -1892,14 +1892,26 @@ class ServerManagerClass {
 			"LastOs": data.LastOs,
 			"time": Date.now()
 		});
-		ServerManager.NewChatListener(data, pop_block_chat);
+		ServerManager.NewChatListener(data, pop_block_chat);*/
+		//collection(FirebaseEnvironment).doc(users).collection(data.user_id)
+
+		firebase.firestore().doc("environment/" + FirebaseEnvironment + "/users/" + data.user_id).set({
+			"name": data.full_name,
+			"private_id": data.Private_id,
+			"profile_pic": data.profile_pic,
+			"registration_id": registrationId,
+			"LastOs": data.LastOs,
+			"time": Date.now()
+		}).then(function () {
+			console.log("user successfully updated in firestore!");
+		});
 	}
 
 	SetMessageToSeen(data) {
-		firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id + '/' + data.message_id + '/seen_by').update({
+		firebase.firestore().doc("environment/" + FirebaseEnvironment + '/messages/' + data.chat_id + '/messages/' + data.message_id + '/seen_by').update({
 			[window.localStorage.getItem("firebase_token")]: true
 		});
-		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + '/last_message/seen_by').update({
+		firebase.firestore().doc("environment/" + FirebaseEnvironment + '/chats/' + data.chat_id + '/last_message/seen_by').update({
 			[window.localStorage.getItem("firebase_token")]: true
 		});
 	}
