@@ -1741,7 +1741,8 @@ class ServerManagerClass {
 				data_message.message_id = docRef.id;
 			}).then(() => {
 				firebase.firestore().doc("environment/" + FirebaseEnvironment + "/chats/" + data.chat_id).update({
-					last_message: data_message
+					last_message: data_message,
+					time: data_message.time
 				}, console.log("chats last message updated"));
 			}).then(() => {
 				let data_notif_message = {
@@ -1764,7 +1765,8 @@ class ServerManagerClass {
 			"last_message": "dernier msg de la conv",
 			[data.user_id]: true,
 			"is_groupe_chat": data.is_groupe_chat,
-			[window.localStorage.getItem("firebase_token")]: true
+			[window.localStorage.getItem("firebase_token")]: true,
+			"time": Date.now()
 
 		}).then(function () {
 			first_chat = false;
@@ -1775,7 +1777,7 @@ class ServerManagerClass {
 
 	GetFirebaseUserProfile(data, callback, chat_id) {
 
-		let all_data_chat = [];
+		/*let all_data_chat = [];
 		let all_chat_id = Object.keys(data);
 		data = Object.values(data);
 		for (let i_nb_chat = 0; i_nb_chat < Object.keys(data).length; i_nb_chat++) {
@@ -1804,30 +1806,33 @@ class ServerManagerClass {
 					}
 				}
 			});
-		}
-
-
-
-		/*
-		let data_chat = data;
-		data_chat.chat_id = chat_id;
-		data = Object.keys(data);
-	
-		
-	
-		/*for (let i = 0; i < data.length; i++) {
-			for (let i_ of Object.keys(data[i][1])) {
-				if (i_ != window.localStorage.getItem("firebase_token")) {
-					let ref_members = firebase.firestore().doc("environment/" +FirebaseEnvironment + "/users/" + i_);
-					ref_members.once('value').then(function (profile_snapshot) {
-						if (profile_snapshot.val() != null) {
-							ServerManager.GetChatData([data[i][0], { [profile_snapshot.key]: [profile_snapshot.val()] }], callback);
-						}
-					});
-				}
-			}
 		}*/
 
+
+
+		delete data[window.localStorage.getItem("firebase_token")];
+		let data_chat = data;
+		data_chat.chat_id = chat_id;
+		Object.keys(data).forEach(item => {
+			if (item.length == 32) {
+
+				firebase.firestore().doc("environment/" + FirebaseEnvironment + "/users/" + item)
+					.get().then(function (doc) {
+						if (doc.exists) {
+							let data_block_chat =
+							{
+								chat_data: data_chat,
+								members_data: doc.data()
+							};
+							pop_block_chat(data_block_chat);
+						} else {
+							console.log("ce document n'existe pas");
+						}
+					}).catch(function (error) {
+						console.log("Error getting document:", error);
+					});
+			}
+		});
 
 	}
 
@@ -1870,14 +1875,16 @@ class ServerManagerClass {
 			});*/
 
 
-		firebase.firestore().collection("environment/" + FirebaseEnvironment + "/chats").where(window.localStorage.getItem("firebase_token"), "==", true)
-			.orderBy("last_message/time")
-			.onSnapshot(function (querySnapshot) {
-				var cities = [];
-				querySnapshot.forEach(function (doc) {
-					cities.push(doc.data().name);
+		firebase.firestore().collection("environment/" + FirebaseEnvironment + "/chats").where(window.localStorage.getItem("firebase_token"), "==", true).orderBy("time")
+			.onSnapshot(chatSnapshot => {
+				chatSnapshot.forEach(function (doc) {
+
+					console.log("chat listener id :");
+					console.log(doc.id);
+					console.log("chat listener data :");
+					console.log(doc.data());
+					ServerManager.GetFirebaseUserProfile(doc.data(), callback, doc.id);
 				});
-				console.log("Current cities in CA: ", cities.join(", "));
 			});
 	}
 
@@ -1904,6 +1911,7 @@ class ServerManagerClass {
 			"time": Date.now()
 		}).then(function () {
 			console.log("user successfully updated in firestore!");
+			ServerManager.NewChatListener(data, pop_block_chat);
 		});
 	}
 

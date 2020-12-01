@@ -23,6 +23,7 @@ function block_chat(data) {
     this.is_groupe_chat = data.chat_data.is_groupe_chat;
     this.block_chat = document.createElement('div');
     this.block_chat.className = 'fblock_chat';
+    this.block_chat.id = this.chat_id;
     $("#block_chat_contrainer").append(this.block_chat);
 
 
@@ -38,7 +39,7 @@ function block_chat(data) {
             is_groupe_chat: current_block_chat.is_groupe_chat,
             message_id: current_block_chat.block_chat_last_message.message_id
         };
-        ServerManager.SetMessageToSeen(data_dm);
+        // ServerManager.SetMessageToSeen(data_dm);
         setup_popup_message(data_dm);
     });
     /*if (this.is_groupe_chat == false) {
@@ -221,7 +222,7 @@ function setup_popup_message(data) {
     $("#chat_title").text(data.fullname);
     $("#fblock_message_content").html("");
     Popup("popup-message", true);
-    //live_chat(data.chat_id);
+    live_chat(data.chat_id);
 }
 
 function send_message(chat_id) {
@@ -301,112 +302,135 @@ function message_infinite_scroll(data) {
 }
 
 // Messagerie instantanéé
-/*function live_chat(chat_id) {
+function live_chat(chat_id) {
     previous_message = {};
-    firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id).limitToLast(20).on("child_added", function (snapshot, prevChildKey) {
-        var html = "";
-        // give each message a unique ID
-        // show delete button if message is sent by me
-        if (!current_block_chat.first_messake_key) {
-            current_block_chat.first_messake_key = prevChildKey;
-        }
-        let time = Math.floor((snapshot.val().time - previous_message.time) / 1000 / 60 / 60);
-        previous_message = snapshot.val();
-        previous_message.id = snapshot.key;
-        if (time > 2) {
+    firebase.firestore().collection("environment/" + FirebaseEnvironment + "/messages/" + chat_id + "/messages").orderBy("time").limitToLast(20)
+        .onSnapshot(messageSnapshot => {
+            messageSnapshot.forEach(function (doc) {
+                console.log("chat listener id :");
+                console.log(doc.id);
+                console.log("chat listener data :");
+                console.log(doc.data());
+                if (!current_block_chat.first_messake_key) {
+                    current_block_chat.first_messake_key = doc.id;
+                }
+                let time = Math.floor((doc.data().time - previous_message.time) / 1000 / 60 / 60);
+                previous_message = doc.data();
+                previous_message.id = doc.id;
+                if (time > 2) {
 
-            block_message_date(snapshot.val().time);
-        }
-        pop_block_message(snapshot.key, snapshot.val());
-        let data_set_to_seen = {
-            chat_id: chat_id,
-            message_id: snapshot.key
-        };
-        ServerManager.SetMessageToSeen(data_set_to_seen);
-        /*setTimeout(function () {
-            $("#fblock_message_content").animate({
-                scrollTop: $("#fblock_message_content").height()
-            }, 400, 'swing');
-        }, 350);*/
-/*if (snapshot.val().sender == window.localStorage.getItem("user_private_id")) {
-    html += "<li class='my_block_message' id='message-" + snapshot.key + "'>";    
-}
-else {
-    html += "<li class='block_message' id='message-" + snapshot.key + "'>";
-}
-html += snapshot.val().sender + ": " + snapshot.val().message;
-html += "</li>";
-document.getElementById("liste_message").innerHTML += html;
-});
+                    block_message_date(doc.data().time);
+                }
+                pop_block_message(doc.id, doc.data());
+                let data_set_to_seen = {
+                    chat_id: chat_id,
+                    message_id: doc.id
+                };
+                //ServerManager.SetMessageToSeen(data_set_to_seen);
+            });
+            /*var html = "";
+            // give each message a unique ID
+            // show delete button if message is sent by me
+            if (!current_block_chat.first_messake_key) {
+                current_block_chat.first_messake_key = prevChildKey;
+            }
+            let time = Math.floor((snapshot.val().time - previous_message.time) / 1000 / 60 / 60);
+            previous_message = snapshot.val();
+            previous_message.id = snapshot.key;
+            if (time > 2) {
 
-// Firebase listenener du seen_by
-firebase.database().ref(FirebaseEnvironment + '/messages/' + chat_id).orderByChild('seen_by').limitToLast(1).on("value", function (child_change_snapshot) {
-console.log(" le message mis en lu est :");
-console.log(child_change_snapshot.val());
-console.log("l'id du msg est : " + child_change_snapshot.key);
-if (child_change_snapshot.val() != null) {
-    let user_who_seen = Object.entries(child_change_snapshot.val());
-    user_who_seen = Object.entries(user_who_seen[0][1].seen_by);
-    for (let i = 0; i < user_who_seen.length; i++) {
-        if (user_who_seen[i][0] != window.localStorage.getItem("firebase_token") && user_who_seen[i][1] == true)
-            pop_block_message_seen(current_block_chat.block_chat_photo);
-        scroll_to_bottom($("#fblock_message_content"));
-    }
-}
+                block_message_date(snapshot.val().time);
+            }
+            pop_block_message(snapshot.key, snapshot.val());
+            let data_set_to_seen = {
+                chat_id: chat_id,
+                message_id: snapshot.key
+            };
+            ServerManager.SetMessageToSeen(data_set_to_seen);
+            setTimeout(function () {
+                $("#fblock_message_content").animate({
+                    scrollTop: $("#fblock_message_content").height()
+                }, 400, 'swing');
+            }, 350);
+            if (snapshot.val().sender == window.localStorage.getItem("user_private_id")) {
+                html += "<li class='my_block_message' id='message-" + snapshot.key + "'>";
+            }
+            else {
+                html += "<li class='block_message' id='message-" + snapshot.key + "'>";
+            }
+            html += snapshot.val().sender + ": " + snapshot.val().message;
+            html += "</li>";
+            document.getElementById("liste_message").innerHTML += html;*/
+        });
 
-});
+    /* Firebase listenener du seen_by
+    firebase.database().ref(FirebaseEnvironment + '/messages/' + chat_id).orderByChild('seen_by').limitToLast(1).on("value", function (child_change_snapshot) {
+        console.log(" le message mis en lu est :");
+        console.log(child_change_snapshot.val());
+        console.log("l'id du msg est : " + child_change_snapshot.key);
+        if (child_change_snapshot.val() != null) {
+            let user_who_seen = Object.entries(child_change_snapshot.val());
+            user_who_seen = Object.entries(user_who_seen[0][1].seen_by);
+            for (let i = 0; i < user_who_seen.length; i++) {
+                if (user_who_seen[i][0] != window.localStorage.getItem("firebase_token") && user_who_seen[i][1] == true)
+                    pop_block_message_seen(current_block_chat.block_chat_photo);
+                scroll_to_bottom($("#fblock_message_content"));
+            }
+        }
 
-// Firebase listenener du is_typing
-firebase.database().ref(FirebaseEnvironment + '/chats/' + chat_id).orderByChild('is_typing').on("value", function (is_typing_snapshot) {
-console.log(" is typing val");
-console.log(is_typing_snapshot.val());
-console.log(" is typing key");
-console.log(is_typing_snapshot.key);
-if (is_typing_snapshot.val()) {
-    for (let i = 0; i < Object.keys(is_typing_snapshot.val().is_typing).length; i++) {
-        let data_is_typing =
-        {
-            user_id: Object.entries(is_typing_snapshot.val().is_typing)[i][0],
-            value: Object.entries(is_typing_snapshot.val().is_typing)[i][1]
-        };
-        if (data_is_typing.user_id != window.localStorage.getItem("firebase_token") && data_is_typing.value == true) {
-            $(".is_typing").remove();
-            let is_typing = document.createElement("li");
-            is_typing.className = "is_typing";
-            $("#fblock_message_content").append(is_typing);
-            scroll_to_bottom($("#fblock_message_content"));
+    });
+
+    // Firebase listenener du is_typing
+    firebase.database().ref(FirebaseEnvironment + '/chats/' + chat_id).orderByChild('is_typing').on("value", function (is_typing_snapshot) {
+        console.log(" is typing val");
+        console.log(is_typing_snapshot.val());
+        console.log(" is typing key");
+        console.log(is_typing_snapshot.key);
+        if (is_typing_snapshot.val()) {
+            for (let i = 0; i < Object.keys(is_typing_snapshot.val().is_typing).length; i++) {
+                let data_is_typing =
+                {
+                    user_id: Object.entries(is_typing_snapshot.val().is_typing)[i][0],
+                    value: Object.entries(is_typing_snapshot.val().is_typing)[i][1]
+                };
+                if (data_is_typing.user_id != window.localStorage.getItem("firebase_token") && data_is_typing.value == true) {
+                    $(".is_typing").remove();
+                    let is_typing = document.createElement("li");
+                    is_typing.className = "is_typing";
+                    $("#fblock_message_content").append(is_typing);
+                    scroll_to_bottom($("#fblock_message_content"));
+                }
+                if (data_is_typing.user_id != window.localStorage.getItem("firebase_token") && data_is_typing.value == false) {
+                    $(".is_typing").remove();
+                }
+            }
         }
-        if (data_is_typing.user_id != window.localStorage.getItem("firebase_token") && data_is_typing.value == false) {
-            $(".is_typing").remove();
-        }
-    }
-}
-});
+    });*/
 }
 
 $("#input_send_message").focusin(function () {
 
-firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing').update({
-[window.localStorage.getItem("firebase_token")]: true
-});
+    firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing').update({
+        [window.localStorage.getItem("firebase_token")]: true
+    });
 
 });
 
 $("#input_send_message").focusout(function () {
 
-firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing').update({
-[window.localStorage.getItem("firebase_token")]: false
-});
+    firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing').update({
+        [window.localStorage.getItem("firebase_token")]: false
+    });
 
 });
-*/
+
 function scroll_to_bottom(element) {
     setTimeout(function () {
         element.animate({
             scrollTop: element[0].scrollHeight
         }, 400, 'swing');
 
-    }, 350)
+    }, 350);
 }
 
 
