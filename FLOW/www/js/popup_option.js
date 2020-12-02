@@ -52,6 +52,16 @@ function delete_comment_from_bdd(element, is_a_response) {//affiche la popup opt
     }
 }
 
+function delete_chat_from_html() {// ça delete directement de la bdd vu que c'est firebase
+
+    element_to_delete.type = "block_chat";
+    $("#label_delete_button").text("Supprimer la conversation");
+    $("#delete_button").css("display", "table");
+    $("#report_button").css("display", "none");
+    $("#copy_button").css("display", "none");
+    Popup("popup-option", true, 85.5);
+
+}
 
 function delete_comment_from_html(element) {
     let nb_comment_in_current_flow_block = 0;
@@ -155,6 +165,17 @@ $("#copy_button").on("touchend", function () {
 
 $("#delete_button").on("touchend", function () {
     if (element_to_delete) {
+
+        if (element_to_delete.type == "block_chat") {
+            navigator.notification.confirm("Veux-tu vraiment supprimer cette conversation ?", function (id) {
+                if (id == 1) {
+                    Popup("popup-option", false);
+
+                    ServerManager.DeleteChat(current_block_chat);
+                    //in_app_notif(data);
+                }
+            }, "Confirmation", ["Oui", "Annuler"]);
+        }
         if (element_to_delete.type == "flow") {
             navigator.notification.confirm("Veux-tu vraiment supprimer ce flow ?", function (id) {
                 if (id == 1) {

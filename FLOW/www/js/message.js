@@ -5,6 +5,7 @@ var first_chat = false;
 var current_block_chat = {};
 var all_block_chat = [];
 var all_block_message = [];
+var nb_block_chat_to_pop;
 var previous_message = {};
 var current_block_message = {};
 var can_load_more_message = false;
@@ -41,19 +42,13 @@ function block_chat(data) {
         ServerManager.SetMessageToSeen(data_dm);
         setup_popup_message(data_dm);
     });
-    /*if (this.is_groupe_chat == false) {
-        for (let i = 0; i < this.members.length; i++) {
-            if (i[0] == window.localStorage.getItem("firebase_token")) {
-                let index = this.members.indexOf(this.members[i]);
-                if (index > -1) {
-                    this.members.splice(index, 1);
-                }
-            }
-        }
-        if (this.is_groupe_chat.length < 1) {
-            this.block_chat_title = this.members[0];
-        }
-    }*/
+
+    $$(this.block_chat).on("taphold", function () {
+        current_block_chat = block_chat;
+        delete_chat_from_html();
+
+    });
+
     this.fphoto_block_chat = document.createElement('div');
     this.fphoto_block_chat.className = 'fphoto_block_chat';
     this.fphoto_block_chat.style.backgroundImage = "url(" + this.block_chat_photo + "";
@@ -324,20 +319,7 @@ function live_chat(chat_id) {
             message_id: snapshot.key
         };
         ServerManager.SetMessageToSeen(data_set_to_seen);
-        /*setTimeout(function () {
-            $("#fblock_message_content").animate({
-                scrollTop: $("#fblock_message_content").height()
-            }, 400, 'swing');
-        }, 350);*/
-        /*if (snapshot.val().sender == window.localStorage.getItem("user_private_id")) {
-            html += "<li class='my_block_message' id='message-" + snapshot.key + "'>";    
-        }
-        else {
-            html += "<li class='block_message' id='message-" + snapshot.key + "'>";
-        }
-        html += snapshot.val().sender + ": " + snapshot.val().message;
-        html += "</li>";
-        document.getElementById("liste_message").innerHTML += html;*/
+
     });
 
     // Firebase listenener du seen_by
@@ -425,11 +407,6 @@ function deleteMessage(self) {
     firebase.database().ref(FirebaseEnvironment + "/messages").child(messageId).remove();
 }
 
-/* attach listener for delete message
-firebase.database().ref(FirebaseEnvironment + "/messages").on("child_removed", function (snapshot) {
-    // remove message node
-    document.getElementById("message-" + snapshot.key).innerHTML = "This message has been removed";
-});*/
 
 document
     .getElementById("popup-message")
