@@ -150,9 +150,9 @@ function block_message(data, previous_message) {
     else {
         $("#fblock_message_content").append(this.block_message);
     }
-    if (this.seen_by) {
+    /*if (this.seen_by) {
         pop_block_message_seen(current_block_chat.block_chat_photo);
-    }
+    }*/
 
     $(this.block_message).on("click", function () {
         if ($(block_message.time_and_seen_container).css('display') == 'none') {

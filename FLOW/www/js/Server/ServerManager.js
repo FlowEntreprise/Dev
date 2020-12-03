@@ -1834,13 +1834,13 @@ class ServerManagerClass {
 				all_block_chat.length = 0;
 				nb_block_chat_to_pop = Object.keys(snapshot.val()).length;
 
-				let difference = Object.entries(snapshot.val()).filter(x => !Object.entries(previous_chat_list).includes(x))
+				/*let difference = Object.entries(snapshot.val()).filter(x => !Object.entries(previous_chat_list).includes(x))
 					.concat(Object.entries(previous_chat_list).filter(x => !Object.entries(snapshot.val()).includes(x)));
 
-				difference = Object.fromEntries(difference);
+				difference = Object.fromEntries(difference);*/
 
 				let ordered_chat = Object.fromEntries(
-					Object.entries(difference).sort(([, a], [, b]) => b - a)
+					Object.entries(snapshot.val()).sort(([, a], [, b]) => b - a)
 				);
 
 				console.log("valeur apres tri chronologique : ");
@@ -1857,7 +1857,6 @@ class ServerManagerClass {
 							ServerManager.GetFirebaseUserProfile(chat_snapshot.val(), callback, chat_id);
 						});
 				});
-
 
 			});
 	}
