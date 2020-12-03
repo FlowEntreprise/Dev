@@ -7,6 +7,7 @@ var all_block_chat = [];
 var all_block_message = [];
 var nb_block_chat_to_pop;
 var previous_message = {};
+var previous_chat_list = {};
 var current_block_message = {};
 var can_load_more_message = false;
 

@@ -1831,16 +1831,21 @@ class ServerManagerClass {
 	NewChatListener(data, callback) {
 		firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats")
 			.on("value", function (snapshot) {
-				console.log("chat key modifié : ");
-				console.log(snapshot.key);
-				console.log("valeur data  modifié : ");
-				console.log(snapshot.val());
 				all_block_chat.length = 0;
 				nb_block_chat_to_pop = Object.keys(snapshot.val()).length;
 
+				let difference = Object.entries(snapshot.val()).filter(x => !Object.entries(previous_chat_list).includes(x))
+					.concat(Object.entries(previous_chat_list).filter(x => !Object.entries(snapshot.val()).includes(x)));
+
+				difference = Object.fromEntries(difference);
+
 				let ordered_chat = Object.fromEntries(
-					Object.entries(snapshot.val()).sort(([, a], [, b]) => b - a)
+					Object.entries(difference).sort(([, a], [, b]) => b - a)
 				);
+
+				console.log("valeur apres tri chronologique : ");
+				console.log(ordered_chat);
+				previous_chat_list = ordered_chat;
 
 				Object.keys(ordered_chat).forEach(chat_id => {
 					firebase.database().ref(FirebaseEnvironment + "/chats/" + chat_id)
@@ -1852,6 +1857,7 @@ class ServerManagerClass {
 							ServerManager.GetFirebaseUserProfile(chat_snapshot.val(), callback, chat_id);
 						});
 				});
+
 
 			});
 	}
