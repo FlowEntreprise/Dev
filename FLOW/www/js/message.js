@@ -25,8 +25,8 @@ function block_chat(data) {
     this.is_groupe_chat = data.chat_data.is_groupe_chat;
     this.block_chat = document.createElement('div');
     this.block_chat.className = 'fblock_chat';
-    $("#block_chat_contrainer").append(this.block_chat);
-
+    this.block_chat.id = this.chat_id;
+    $("#block_chat_contrainer").prepend(this.block_chat);
 
     $(this.block_chat).on("click", function () {
         current_block_chat = block_chat;
@@ -47,7 +47,6 @@ function block_chat(data) {
     $$(this.block_chat).on("taphold", function () {
         current_block_chat = block_chat;
         delete_chat_from_html();
-
     });
 
     this.fphoto_block_chat = document.createElement('div');
@@ -398,7 +397,16 @@ function scroll_to_bottom(element) {
 
 }
 
-
+function difference(obj1, obj2) {
+    let keyFound = false;
+    Object.keys(obj1).forEach(key => {
+        if (obj1[key] !== obj2[key]) {
+            return keyFound = key;
+        }
+    });
+    console.log("key difference : ");
+    return keyFound || -1;
+}
 
 function deleteMessage(self) {
     // get message ID
@@ -447,3 +455,4 @@ document
 - Possibilité de mute les conv
 
 */
+

@@ -1757,8 +1757,6 @@ class ServerManagerClass {
 					}
 				});
 			}).then(() => {
-
-
 				let data_notif_message = {
 					message: data.message,
 					chat_id: current_block_chat.chat_id,
@@ -1796,8 +1794,6 @@ class ServerManagerClass {
 		data_chat.chat_id = chat_id;
 		data = Object.keys(data);
 
-
-
 		for (let i = 0; i < data.length; i++) {
 			if (data[i].length == 32 && data[i] != window.localStorage.getItem("firebase_token")) {
 				let ref_members = firebase.database().ref(FirebaseEnvironment + "/users/" + data[i]);
@@ -1809,15 +1805,12 @@ class ServerManagerClass {
 							members_data: profile_snapshot.val()
 						};
 						data_block_chat.members_data.id = profile_snapshot.key;
+						$("#" + chat_id + "").remove();
+						all_block_chat.push(pop_block_chat(data_block_chat));
 
-						all_block_chat.push(data_block_chat);
-						if (nb_block_chat_to_pop == all_block_chat.length) {
-							$("#block_chat_contrainer").html("");
-							all_block_chat.forEach(item => {
-								pop_block_chat(item);
-							});
-							all_block_chat.length = 0;
-						}
+						all_block_chat.forEach(function (item, index) {
+							all_block_chat.splice(index, 1);
+						});
 					}
 				});
 
@@ -1831,29 +1824,21 @@ class ServerManagerClass {
 	NewChatListener(data, callback) {
 		firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats")
 			.on("value", function (snapshot) {
-				all_block_chat.length = 0;
-				nb_block_chat_to_pop = Object.keys(snapshot.val()).length;
-
-				/*let difference = Object.entries(snapshot.val()).filter(x => !Object.entries(previous_chat_list).includes(x))
-					.concat(Object.entries(previous_chat_list).filter(x => !Object.entries(snapshot.val()).includes(x)));
-
-				difference = Object.fromEntries(difference);*/
 
 				let ordered_chat = Object.fromEntries(
-					Object.entries(snapshot.val()).sort(([, a], [, b]) => b - a)
+					Object.entries(snapshot.val()).sort(([, a], [, b]) => a - b)
 				);
 
-				console.log("valeur apres tri chronologique : ");
-				console.log(ordered_chat);
-				previous_chat_list = ordered_chat;
+				let different_chat = difference(previous_chat_list, snapshot.val());
+				if (different_chat != -1) {
+					ordered_chat = { [different_chat]: ordered_chat[different_chat] };
+				}
+				nb_block_chat_to_pop = Object.keys(ordered_chat).length;
+				previous_chat_list = snapshot.val();
 
 				Object.keys(ordered_chat).forEach(chat_id => {
 					firebase.database().ref(FirebaseEnvironment + "/chats/" + chat_id)
 						.once("value").then(chat_snapshot => {
-							console.log("chat key recuperé : ");
-							console.log(chat_snapshot.key);
-							console.log("data chat recupéré : ");
-							console.log(chat_snapshot.val());
 							ServerManager.GetFirebaseUserProfile(chat_snapshot.val(), callback, chat_id);
 						});
 				});
