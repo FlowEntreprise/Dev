@@ -181,6 +181,7 @@ $("#fnameCompte").on("click", function () {
     data_dm =
     {
         fullname: account_fullname,
+        private_id: privateIDAccount,
         user_id: FirebaseToken,
         chat_id: chat_id,
         profile_picture: profilePicLink,
