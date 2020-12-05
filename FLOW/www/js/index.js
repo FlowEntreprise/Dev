@@ -176,6 +176,7 @@ var app = {
 		}
 
 		firebase.initializeApp(firebaseConfig);
+		firebase.auth().signInAnonymously();
 		this.receivedEvent("deviceready");
 	},
 	onPause: function () {
