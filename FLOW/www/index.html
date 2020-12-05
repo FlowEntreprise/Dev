@@ -169,6 +169,7 @@
                     <div class="fmessages-bar">
                         <label class="title">MESSAGES</label>
                         <input class="fmessages-search-bar" placeholder="Chercher une conversation" />
+                        <img src="src/icons/plus.png" id="new_conversation">
                         <div class="faccount"></div>
                     </div>
 
@@ -683,6 +684,22 @@
         <input id="input_send_message" placeholder="Taper un message" autocomplete="off">
 
         <input id="button_send_message" value="Envoyer" type="submit">
+    </div>
+
+    <div class="custom_popup" id="popup-create-conversation">
+        <div class="popup_bg">
+            <div class="scroll_fix_ios"></div>
+        </div>
+        <div class="popup_content" animation-direction="left" id="popup_create-conversation_content">
+            <img src="../www/src/icons/Retour@3x.png" id="create-conversation_back_button"
+                onclick="Popup('popup-create-conversation', false)">
+
+            <div id="create-conversation_title">Nouvelle conversation</div>
+            <input class="create-conversation-search-bar" placeholder="Chercher une utilisateur" />
+            <div class="fconversation_block_utilisateur_list">
+            </div>
+
+        </div>
     </div>
 
     <!-- FIN TEST DM -->

@@ -308,7 +308,6 @@ var app = {
 			console.log(e.message);
 		});
 
-
 		firebase.initializeApp(firebaseConfig);
 		firebase.auth().signInAnonymously().then(() => {
 			let data = {

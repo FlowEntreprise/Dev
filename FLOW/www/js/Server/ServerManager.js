@@ -843,9 +843,14 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				//console.log(response);
+
+				if (data.follow_list == "CreateConversation") {
+					DisplayFollowingsPopupCreateConversation(response, data.follow_list)
+				}
 				if (data.follow_list == true) {
 					UpdateIdentificationList(response, data.follow_list);
-				} else {
+				}
+				if (data.follow_list == false) {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},

@@ -187,9 +187,20 @@ $("#fnameCompte").on("click", function () {
         profile_picture: profilePicLink,
         is_groupe_chat: false
     };
-    setup_popup_message(data_dm);
-    ServerManager.CheckFirstChat(data_dm);
+
+    CreateConversation(data_dm);
+
 });
+
+$("#new_conversation").on("click", function () {
+    Popup("popup-create-conversation", true);
+
+});
+
+function CreateConversation(data) {
+    setup_popup_message(data);
+    ServerManager.CheckFirstChat(data);
+}
 
 function set_block_chat_seen() {
     for (let i = 0; i < all_block_chat.length; i++) {
@@ -218,6 +229,7 @@ function setup_popup_message(data) {
     $("#chat_title").text(data.fullname);
     $("#fblock_message_content").html("");
     Popup("popup-message", true);
+    Popup("popup-create-conversation", false);
     live_chat(data.chat_id);
 }
 
@@ -417,6 +429,24 @@ function deleteMessage(self) {
     firebase.database().ref(FirebaseEnvironment + "/messages").child(messageId).remove();
 }
 
+function GetFollowingsPopupCreateConversation() {
+    let data_followings = {
+        PrivateId: window.localStorage.getItem("user_private_id"),
+        Index: 0,
+        follow_list: "CreateConversation",
+    };
+    ServerManager.GetFollowingOfUser(data_followings);
+
+}
+
+function DisplayFollowingsPopupCreateConversation(data, follow_list) {
+    if (Array.isArray(data)) {
+        $(".fconversation_block_utilisateur_list").html("");
+        data.forEach(item => { let user = new block_user(follow_list, "CreateConversation", item); all_users_block.push(user); });
+
+    }
+}
+
 
 document
     .getElementById("popup-message")
@@ -436,6 +466,17 @@ document
         stopAllBlocksAudio();
         current_block_chat.first_messake_key = undefined;
         first_chat = false;
+    });
+
+document
+    .getElementById("popup-create-conversation")
+    .addEventListener("opened", function () {
+        current_page = "popup_create_conversation";
+        GetFollowingsPopupCreateConversation();
+    });
+document
+    .getElementById("popup-create-conversation")
+    .addEventListener("closed", function () {
     });
 
 

@@ -851,6 +851,8 @@ function go_to_account(data) {
 			Popup("popup-identification", false);
 			Popup("popup-specifique", false);
 			Popup("popup-message", false);
+			Popup("popup-create-conversation", false);
+
 		} else {
 			Popup("popup-comment", false);
 			Popup("popup-followers", false);
@@ -859,6 +861,7 @@ function go_to_account(data) {
 			Popup("popup-specifique", false);
 			Popup("popup-myaccount", false);
 			Popup("popup-message", false);
+			Popup("popup-create-conversation", false);
 			if (connected == true) {
 				ServerManager.GetBlockedUsers(data.private_Id, "go_to_acount"); // true si c'est une redirection vers un compte
 			} else {
