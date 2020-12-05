@@ -175,113 +175,9 @@ var app = {
 			$(".fred_dot_toolbar_explore").css("display", "none");
 		}
 
-		firebase.initializeApp(firebaseConfig);
-		firebase.auth().signInAnonymously();
-		this.receivedEvent("deviceready");
-	},
-	onPause: function () {
-		console.log("pause");
-		stopAllStoriesAudio();
-		stopAllBlocksAudio();
-		let time_in_last_screen =
-			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-		facebookConnectPlugin.logEvent(
-			"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
-			null,
-			function () {
-				console.log("fb current_page event success");
-			},
-			function () {
-				console.log("fb current_page error");
-			}
-		);
-		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-		// if (appState.takingPicture || appState.imageUri) {
-		//     window.localStorage.setItem("app_state", JSON.stringify(appState));
-		//     console.log("app state saved");
-		// }
-	},
-	onResume: function (event) {
-		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-		stopAllStoriesAudio();
-		stopAllBlocksAudio();
-	},
 
-	// Update DOM on a Received Event
-	receivedEvent: function (id) {
-		document.addEventListener(
-			"offline",
-			function () {
-				offline();
-			},
-			false
-		);
-		document.addEventListener(
-			"online",
-			function () {
-				online();
-			},
-			false
-		);
 
-		if (window.cordova.platformId == "android") {
-			crashlytics = FirebaseCrashlytics.initialise();
-			crashlytics.logException("my caught exception");
 
-			// analytics = cordova.plugins.firebase.analytics;
-			// analytics.setCurrentScreen(current_page);
-		}
-
-		let time_in_last_screen =
-			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-		facebookConnectPlugin.logEvent(
-			"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
-			null,
-			function () {
-				console.log("fb current_page event success");
-			},
-			function () {
-				console.log("fb current_page error");
-			}
-		);
-		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-
-		httpd =
-			cordova && cordova.plugins && cordova.plugins.CorHttpd ?
-				cordova.plugins.CorHttpd :
-				null;
-
-		// No need since no using workers anymore
-		// httpd.startServer({
-		//     'www_root': 'js/worker/',
-		//     'port': 8080,
-		//     'localhost_only': true
-		// }, function (url) {
-		//     // if server is up, it will return the url of http://<server ip>:port/
-		//     // the ip is the active network connection
-		//     // if no wifi or no cell, "127.0.0.1" will be returned.
-		//     console.log("server is started: " + url);
-		//     // createWorker();
-		// }, function (error) {
-		//     console.log("failed to start server: " + error);
-		// });
-
-		if (window.cordova && window.audioinput) {
-			// Subscribe to audioinput events
-			//
-			window.addEventListener("audioinput", onAudioInputCapture, false);
-			window.addEventListener("audioinputerror", onAudioInputError, false);
-
-			console.log("cordova-plugin-audioinput successfully initialised");
-		} else {
-			console.log("cordova-plugin-audioinput not found!");
-		}
 
 		var push = PushNotification.init({
 			android: {
@@ -411,6 +307,136 @@ var app = {
 		push.on("error", function (e) {
 			console.log(e.message);
 		});
+
+
+		firebase.initializeApp(firebaseConfig);
+		firebase.auth().signInAnonymously().then(() => {
+			let data = {
+				RegisterId: registrationId,
+				LastOs: window.cordova.platformId,
+				Private_id: window.localStorage.getItem("user_private_id"),
+				full_name: window.localStorage.getItem("user_name"),
+				profile_pic: window.localStorage.getItem("user_profile_pic"),
+				user_id: window.localStorage.getItem("firebase_token")
+			};
+			ServerManager.AddUserToFirebase(data);
+		}).catch((error) => {
+			console.log(error.code);
+			console.log(error.message);
+		});
+		this.receivedEvent("deviceready");
+	},
+	onPause: function () {
+		firebase.auth().currentUser.delete().then(() => {
+			console.log("user correctement deconnecté de firebase");
+			firebase.auth().signOut();
+		}).catch((error) => {
+			console.log(error.code);
+			console.log(error.message);
+		});
+		console.log("pause");
+		stopAllStoriesAudio();
+		stopAllBlocksAudio();
+		let time_in_last_screen =
+			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+		facebookConnectPlugin.logEvent(
+			"current_page", {
+			page: current_page,
+			duration: time_in_last_screen,
+		},
+			null,
+			function () {
+				console.log("fb current_page event success");
+			},
+			function () {
+				console.log("fb current_page error");
+			}
+		);
+		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+		// if (appState.takingPicture || appState.imageUri) {
+		//     window.localStorage.setItem("app_state", JSON.stringify(appState));
+		//     console.log("app state saved");
+		// }
+	},
+	onResume: function (event) {
+		firebase.auth().signInAnonymously();
+		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+		stopAllStoriesAudio();
+		stopAllBlocksAudio();
+	},
+
+	// Update DOM on a Received Event
+	receivedEvent: function (id) {
+		document.addEventListener(
+			"offline",
+			function () {
+				offline();
+			},
+			false
+		);
+		document.addEventListener(
+			"online",
+			function () {
+				online();
+			},
+			false
+		);
+
+		if (window.cordova.platformId == "android") {
+			crashlytics = FirebaseCrashlytics.initialise();
+			crashlytics.logException("my caught exception");
+
+			// analytics = cordova.plugins.firebase.analytics;
+			// analytics.setCurrentScreen(current_page);
+		}
+
+		let time_in_last_screen =
+			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+		facebookConnectPlugin.logEvent(
+			"current_page", {
+			page: current_page,
+			duration: time_in_last_screen,
+		},
+			null,
+			function () {
+				console.log("fb current_page event success");
+			},
+			function () {
+				console.log("fb current_page error");
+			}
+		);
+		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+
+		httpd =
+			cordova && cordova.plugins && cordova.plugins.CorHttpd ?
+				cordova.plugins.CorHttpd :
+				null;
+
+		// No need since no using workers anymore
+		// httpd.startServer({
+		//     'www_root': 'js/worker/',
+		//     'port': 8080,
+		//     'localhost_only': true
+		// }, function (url) {
+		//     // if server is up, it will return the url of http://<server ip>:port/
+		//     // the ip is the active network connection
+		//     // if no wifi or no cell, "127.0.0.1" will be returned.
+		//     console.log("server is started: " + url);
+		//     // createWorker();
+		// }, function (error) {
+		//     console.log("failed to start server: " + error);
+		// });
+
+		if (window.cordova && window.audioinput) {
+			// Subscribe to audioinput events
+			//
+			window.addEventListener("audioinput", onAudioInputCapture, false);
+			window.addEventListener("audioinputerror", onAudioInputError, false);
+
+			console.log("cordova-plugin-audioinput successfully initialised");
+		} else {
+			console.log("cordova-plugin-audioinput not found!");
+		}
 
 		CheckIfConnected();
 		setTimeout(function () {

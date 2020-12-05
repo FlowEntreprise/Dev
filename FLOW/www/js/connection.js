@@ -45,7 +45,6 @@ function ConnectUser() {
             user_id: window.localStorage.getItem("firebase_token")
         };
         ServerManager.UpdateRegisterId(data);
-        ServerManager.AddUserToFirebase(data);
         $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
     }, 200);
     ServerManager.GetVersionProtocol();

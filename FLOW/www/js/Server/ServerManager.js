@@ -1783,11 +1783,11 @@ class ServerManagerClass {
 				['/users/' + data.user_id + '/chats/' + [data.chat_id]]:
 				{
 					time: time,
-					search_key: (window.localStorage.getItem("user_private_id") + "_" + window.localStorage.getItem("user_name")).toLowerCase()
+					search_key: (window.localStorage.getItem("user_name")).toLowerCase()
 				},
 				['/users/' + window.localStorage.getItem("firebase_token") + '/chats/' + [data.chat_id]]: {
 					time: time,
-					search_key: (data.private_id + "_" + data.fullname).toLowerCase()
+					search_key: (data.fullname).toLowerCase()
 				}
 			}).then(function () {
 				first_chat = false;
