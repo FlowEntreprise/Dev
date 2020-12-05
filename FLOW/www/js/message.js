@@ -224,6 +224,38 @@ $("#button_send_message").on("click", function () {
     }
 });
 
+$(document).on("keyup", ".fmessages-search-bar", function () {
+
+    let StringMessagesSearchBar = $(".fmessages-search-bar").val().trim();
+    if (StringMessagesSearchBar == "") {
+        firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").off();
+        ServerManager.NewChatListener(pop_block_chat);
+    }
+    else {
+        ServerManager.SearchChat(StringMessagesSearchBar);
+    }
+
+});
+
+$(document).on("keyup", ".create-conversation-search-bar", function () {
+
+    let StringConversationSearchBar = $(".create-conversation-search-bar").val().trim();
+    if (StringConversationSearchBar == "") {
+        GetFollowingsPopupCreateConversation();
+    }
+    else {
+        let data_user_search = {
+            Index: 0,
+            Search: StringConversationSearchBar,
+            Nb: 10,
+            CreateConversation: true
+        };
+        ServerManager.SearchUserForTabExplore(data_user_search);
+    }
+
+});
+
+
 function setup_popup_message(data) {
     $("#chat_photo").css({ "background-image": "url('" + data.profile_picture + "')", });
     $("#chat_title").text(data.fullname);

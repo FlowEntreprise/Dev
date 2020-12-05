@@ -47,11 +47,10 @@
 {
 position: absolute;
     width: 8vw;
-    right: 4vw;
-    top: 7vh;
+    right: calc(4* var(--custom-vh));
+	top: calc(7* var(--custom-vh));
+	
 }
-
-
 
 
 #block_chat_contrainer
@@ -133,25 +132,24 @@ position: absolute;
 
 
 
-
-
 /*------------------------------------------POPUP create-conversation-----------------------------*/
 
 #create-conversation_back_button
 {
 	position: absolute;
-    left: 5vw;
-    top: 1vh;
+    left: calc(1 * var(--custom-vh));
+    top: calc(1 * var(--custom-vh));
 }
 
 #create-conversation_title
 {
 	position: absolute;
     text-align: center;
-    top: 1vh;
+    top: calc(1 * var(--custom-vh));
     width: 100vw;
-	font-size: 16px;
+    font-size: 18px;
 	color: #1a84ef;
+	pointer-events: none;
 }
 
 
@@ -184,12 +182,10 @@ position: absolute;
 
 .fconversation_block_utilisateur_list
 {
-	margin-top: 10vh;
+	position: absolute;
 	padding: 0;
-	padding-top: 1vh;
 	width: 100vw;
-	height: calc(93% - 10 * var(--custom-vh));
-	top: calc(14 * var(--custom-vh));
+	top: calc(10 * var(--custom-vh));
 	-webkit-overflow-scrolling: touch;
 	border-top: 1px solid #92abb2;;
     overflow-y: scroll;

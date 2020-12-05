@@ -1194,6 +1194,9 @@ class ServerManagerClass {
 				console.log(response);
 				//console.log("recherche de users");
 				get_users_with_follow(response.Data);
+				if (data.CreateConversation == true) {
+					DisplayFollowingsPopupCreateConversation(response.Data, "CreateConversation");
+				}
 			},
 			error: function (response) {
 				//console.log(response);
@@ -1833,7 +1836,7 @@ class ServerManagerClass {
 
 	}
 
-	NewChatListener(data, callback) {
+	NewChatListener(callback) {
 		firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats")
 			.on("value", function (snapshot) {
 
@@ -1872,7 +1875,7 @@ class ServerManagerClass {
 			"LastOs": data.LastOs,
 			"time": Date.now()
 		});
-		ServerManager.NewChatListener(data, pop_block_chat);
+		ServerManager.NewChatListener(pop_block_chat);
 	}
 
 	SetMessageToSeen(data) {
@@ -1908,11 +1911,17 @@ class ServerManagerClass {
 				console.log(search_snapshot.key);
 				console.log("valeur chat recherché");
 				console.log(search_snapshot.val());
+				$("#block_chat_contrainer").html("");
+				Object.keys(search_snapshot.val()).forEach(chat_id => {
+					firebase.database().ref(FirebaseEnvironment + "/chats/" + chat_id)
+						.once("value").then(chat_snapshot => {
+							ServerManager.GetFirebaseUserProfile(chat_snapshot.val(), pop_block_chat, chat_id);
+						});
+				});
 
 			});
 	}
 }
-
 
 
 var ServerManager = new ServerManagerClass();
