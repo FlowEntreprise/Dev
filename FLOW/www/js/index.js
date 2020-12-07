@@ -312,14 +312,8 @@ var app = {
 		this.receivedEvent("deviceready");
 	},
 	onPause: function () {
-		firebase.auth().currentUser.delete().then(() => {
-			//console.log("user correctement deconnecté de firebase");
-			firebase.auth().signOut();
-		}).catch((error) => {
-			//console.log(error.code);
-			//console.log(error.message);
-		});
-		//console.log("pause");
+
+		console.log("En pause");
 		stopAllStoriesAudio();
 		stopAllBlocksAudio();
 		let time_in_last_screen =
@@ -342,8 +336,16 @@ var app = {
 		//     window.localStorage.setItem("app_state", JSON.stringify(appState));
 		//     //console.log("app state saved");
 		// }
+
+		firebase.auth().currentUser.delete().then(function () {
+		}).catch(function (error) {
+			// An error happened.
+		});
+
 	},
 	onResume: function (event) {
+		console.log("En resume");
+
 		firebase.auth().signInAnonymously();
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 		stopAllStoriesAudio();

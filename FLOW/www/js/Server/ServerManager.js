@@ -1828,10 +1828,7 @@ class ServerManagerClass {
 							all_block_chat.forEach(function (item, index) {
 
 								if (item && item.chat_id === chat_id) {
-									all_block_chat.splice(index, 1);
 									$("#" + chat_id + "").remove();
-
-
 								}
 
 							});
@@ -1887,7 +1884,7 @@ class ServerManagerClass {
 			"registration_id": registrationId,
 			"LastOs": data.LastOs,
 			"time": Date.now(),
-			["chats/" + window.localStorage.getItem("firebase_token")]: Date.now()
+			["chats/" + window.localStorage.getItem("firebase_token") + "/time"]: Date.now()
 		});
 		ServerManager.NewChatListener(pop_block_chat);
 	}

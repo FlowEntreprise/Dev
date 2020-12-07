@@ -45,11 +45,13 @@ function ConnectUser() {
             user_id: window.localStorage.getItem("firebase_token")
         };
         ServerManager.UpdateRegisterId(data);
-        firebase.auth().signInAnonymously().then(() => {
+
+        let Email = window.localStorage.getItem("user_private_id") + "@flow.fr";
+        firebase.auth().createUserWithEmailAndPassword(Email, window.localStorage.getItem("firebase_token")).then((user) => {
             ServerManager.AddUserToFirebase(data);
         }).catch((error) => {
-            //console.log(error.code);
-            //console.log(error.message);
+            console.log(error.code);
+            console.log(error.message);
         });
         $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
     }, 200);
