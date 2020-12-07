@@ -163,7 +163,7 @@ function block_user(follow_list, target, data) {
 		});
 
 	}
-	console.log(data.HeFollowYou, my_followers);
+	//console.log(data.HeFollowYou, my_followers);
 	if (data.HeFollowYou == "true" && my_followers == false) {
 		this.follow_you_button = document.createElement("div");
 		this.follow_you_button.className = "follow_you_button";
@@ -180,7 +180,7 @@ $(
 	"#ffollowersBandeau,#ffollowersmyBandeauChiffre,#ffollowersBandeauChiffre"
 ).on("click", function (event) {
 	let target = $(event.target);
-	console.log(target);
+	//console.log(target);
 	if (
 		target.is("#ffollowersmyBandeauChiffre") ||
 		target.is("#fMyfollowersBandeau")
@@ -189,7 +189,7 @@ $(
 	} else {
 		my_followers = false;
 	}
-	console.log(my_followers);
+	//console.log(my_followers);
 	let data_followers = {
 		PrivateId: privateIDAccount,
 		Index: 0,
@@ -203,8 +203,8 @@ $(
 
 	CanRefreshFollowersList = true;
 	FollowersListCurrentIndex = 0;
-	console.log("show folower of users");
-	console.log(data_followers);
+	//console.log("show folower of users");
+	//console.log(data_followers);
 	ServerManager.GetFollowerOfUser(data_followers);
 	Popup("popup-followers", true, 30);
 	in_followers = true;
@@ -224,8 +224,8 @@ $(".popup_followers_container").scroll(function () {
 	if (CanRefreshFollowersList == true) {
 		if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 			CanRefreshFollowersList = false;
-			console.log("Get followers on Server");
-			console.log("FollowersListCurrentIndex : " + FollowersListCurrentIndex);
+			//console.log("Get followers on Server");
+			//console.log("FollowersListCurrentIndex : " + FollowersListCurrentIndex);
 			let data_followers_scroll = {
 				PrivateId: privateIDAccount,
 				Index: FollowersListCurrentIndex,
@@ -244,8 +244,8 @@ $(".popup_followers_container").scroll(function () {
 });
 
 function UpdateFollowersList(data, follow_list) {
-	console.log("updating Followers list...");
-	// console.log(data.Data);
+	//console.log("updating Followers list...");
+	// //console.log(data.Data);
 	if (Array.isArray(data)) {
 		//$(".popup_followers_container").html("");
 		setTimeout(function () {
@@ -262,7 +262,7 @@ function UpdateFollowersList(data, follow_list) {
 			}
 			FollowersListCurrentIndex++;
 			if ($(".loading_tl")) $(".loading_tl").remove();
-			console.log("user updated !");
+			//console.log("user updated !");
 			pullToRefreshEnd();
 			if (data.length < 10) {
 				CanRefreshFollowersList = false;
@@ -286,7 +286,7 @@ $(
 	"#ffollowingBandeau,#ffollowingmyBandeauChiffre,#ffollowingBandeauChiffre"
 ).on("click", function (event) {
 	let target = $(event.target);
-	console.log("la target est :" + target);
+	//console.log("la target est :" + target);
 	if (
 		target.is("#ffollowingsmyBandeauChiffre") ||
 		target.is("#fMyfollowingsBandeau")
@@ -308,8 +308,8 @@ $(
 
 	CanRefreshfollowingsList = true;
 	followingsListCurrentIndex = 0;
-	console.log("show folower of users");
-	console.log(data_followings);
+	//console.log("show folower of users");
+	//console.log(data_followings);
 	ServerManager.GetFollowingOfUser(data_followings);
 	Popup("popup-followings", true, 30);
 	in_following = true;
@@ -329,8 +329,8 @@ $(".popup_followings_container").scroll(function () {
 	if (CanRefreshfollowingsList == true) {
 		if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 			CanRefreshfollowingsList = false;
-			console.log("Get followings on Server");
-			console.log("followingsListCurrentIndex : " + followingsListCurrentIndex);
+			//console.log("Get followings on Server");
+			//console.log("followingsListCurrentIndex : " + followingsListCurrentIndex);
 			let data_followings_scroll = {
 				PrivateId: privateIDAccount,
 				Index: followingsListCurrentIndex,
@@ -349,8 +349,8 @@ $(".popup_followings_container").scroll(function () {
 });
 
 function UpdatefollowingsList(data, follow_list) {
-	console.log("updating followings list...");
-	// console.log(data.Data);
+	//console.log("updating followings list...");
+	// //console.log(data.Data);
 	if (Array.isArray(data)) {
 		//$(".popup_followings_container").html("");
 		setTimeout(function () {
@@ -367,7 +367,7 @@ function UpdatefollowingsList(data, follow_list) {
 			}
 			followingsListCurrentIndex++;
 			if ($(".loading_tl")) $(".loading_tl").remove();
-			console.log("user updated !");
+			//console.log("user updated !");
 			pullToRefreshEnd();
 			if (data.length < 10) {
 				CanRefreshfollowingsList = false;
@@ -403,8 +403,8 @@ var IdentificationListCurrentIndex = 0;
 //   if (CanRefreshIdentificationList == true) {
 //     if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 //       CanRefreshIdentificationList = false;
-//       console.log("Get Identification on Server");
-//       console.log("IdentificationListCurrentIndex : " + IdentificationListCurrentIndex);
+//       //console.log("Get Identification on Server");
+//       //console.log("IdentificationListCurrentIndex : " + IdentificationListCurrentIndex);
 //       let data_Identification_scroll = {
 //         PrivateId: privateIDAccount,
 //         Index: IdentificationListCurrentIndex,
@@ -415,19 +415,19 @@ var IdentificationListCurrentIndex = 0;
 //       } else {
 //         data_Identification_scroll.PrivateId = privateIDAccount;
 //       }
-//       console.log("t'es dans le scroll des identification");
+//       //console.log("t'es dans le scroll des identification");
 //       ServerManager.GetFollowingOfUser(data_Identification_scroll);
 //     }
 //   }
 // });
 
 function UpdateIdentificationList(data, follow_list, search) {
-	console.log("updating Identification list...");
-	// console.log(data.Data);
+	//console.log("updating Identification list...");
+	// //console.log(data.Data);
 	if (Array.isArray(data)) {
 		//$(".popup_Identification_container").html("");
 		// setTimeout(function () {
-		console.log(IdentificationListCurrentIndex);
+		//console.log(IdentificationListCurrentIndex);
 		if ($(".loading_tl")) $(".loading_tl").remove();
 		$(".popup_identification_container")[0].innerHTML = "";
 		if (IdentificationListCurrentIndex == 0) {
@@ -443,7 +443,7 @@ function UpdateIdentificationList(data, follow_list, search) {
 			all_users_block.push(user);
 		}
 		if ($(".loading_tl")) $(".loading_tl").remove();
-		console.log("user updated !");
+		//console.log("user updated !");
 		pullToRefreshEnd();
 		let search_lenght;
 		if (search == "yes_search") {

@@ -1751,10 +1751,9 @@ class ServerManagerClass {
 			db_message.once('value').then((snapshot) => {
 				console.log(snapshot);
 				data_message.message_id = Object.keys(snapshot.val())[0];
+				firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + "/last_message/").update(data_message);
 			}).then(() => {
 				firebase.database().ref(FirebaseEnvironment).update({
-					//last_message: data_message
-					['/chats/' + data.chat_id + "/last_message/"]: data_message,
 					['/users/' + current_block_chat.members.id + '/chats/' + [data.chat_id] + "/time"]: data_message.time,
 					['/users/' + window.localStorage.getItem("firebase_token") + '/chats/' + [data.chat_id] + "/time"]: data_message.time
 				}, (error) => {
@@ -1782,24 +1781,26 @@ class ServerManagerClass {
 			"photo": "lien_photo",
 			"creation_date": time,
 			"creator": "", // pour les groupes
+			"last_message": "",
 			[data.user_id]: true,
 			"is_groupe_chat": data.is_groupe_chat,
 			[window.localStorage.getItem("firebase_token")]: true
 		}).then(function (dataSnapshot) {
 			firebase.database().ref(FirebaseEnvironment).update({
 				['/members/' + data.chat_id]: { [data.user_id]: true, [window.localStorage.getItem("firebase_token")]: true },
-				['/users/' + data.user_id + '/chats/' + [data.chat_id]]:
+				['/users/' + data.user_id + '/chats/' + data.chat_id]:
 				{
 					time: time,
 					search_key: (window.localStorage.getItem("user_name")).toLowerCase()
 				},
-				['/users/' + window.localStorage.getItem("firebase_token") + '/chats/' + [data.chat_id]]: {
+				['/users/' + window.localStorage.getItem("firebase_token") + '/chats/' + data.chat_id]: {
 					time: time,
 					search_key: (data.fullname).toLowerCase()
 				}
 			}).then(function () {
 				first_chat = false;
 				ServerManager.AddMessage(data);
+				live_chat(data.chat_id);
 			});
 		});
 	}
@@ -1814,18 +1815,29 @@ class ServerManagerClass {
 				let ref_members = firebase.database().ref(FirebaseEnvironment + "/users/" + data[i]);
 				ref_members.once('value').then(function (profile_snapshot) {
 					if (profile_snapshot.val() != null) {
+						$("#" + chat_id + "").remove();
 						let data_block_chat =
 						{
 							chat_data: data_chat,
 							members_data: profile_snapshot.val()
 						};
 						data_block_chat.members_data.id = profile_snapshot.key;
-						$("#" + chat_id + "").remove();
+
+						if (all_block_chat.length) {
+
+							all_block_chat.forEach(function (item, index) {
+
+								if (item && item.chat_id === chat_id) {
+									all_block_chat.splice(index, 1);
+									$("#" + chat_id + "").remove();
+
+
+								}
+
+							});
+						}
 						all_block_chat.push(pop_block_chat(data_block_chat));
 
-						all_block_chat.forEach(function (item, index) {
-							all_block_chat.splice(index, 1);
-						});
 					}
 				});
 
@@ -1839,8 +1851,9 @@ class ServerManagerClass {
 	NewChatListener(callback) {
 		firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats")
 			.on("value", function (snapshot) {
-
+				console.log(" NewChatListener was called");
 				let clean_chat_list = {};// object qui va etre rempli de façon {chat_id : time}
+				delete snapshot.val()[window.localStorage.getItem("firebase_token")];
 				Object.entries(snapshot.val()).forEach(item => { clean_chat_list[item[0]] = item[1].time });
 
 				let ordered_chat = Object.fromEntries(
@@ -1873,7 +1886,8 @@ class ServerManagerClass {
 			"profile_pic": data.profile_pic,
 			"registration_id": registrationId,
 			"LastOs": data.LastOs,
-			"time": Date.now()
+			"time": Date.now(),
+			["chats/" + window.localStorage.getItem("firebase_token")]: Date.now()
 		});
 		ServerManager.NewChatListener(pop_block_chat);
 	}

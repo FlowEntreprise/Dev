@@ -67,14 +67,14 @@ var app = {
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
 
 		function keyboardShowHandler(e) {
-			// console.log('Keyboard height is: ' + e.keyboardHeight);
+			// //console.log('Keyboard height is: ' + e.keyboardHeight);
 		}
 
 		// This event fires when the keyboard will hide
 		window.addEventListener("native.keyboardhide", keyboardHideHandler);
 
 		function keyboardHideHandler(e) {
-			// console.log('Keyboard hidden');
+			// //console.log('Keyboard hidden');
 			if (in_identification) {
 				$(".after-record-block-container").css("margin-top", "-30vh");
 			}
@@ -87,10 +87,10 @@ var app = {
 			},
 		},
 			function (match) {
-				console.log("deeplink match !", match);
+				//console.log("deeplink match !", match);
 			},
 			function (nomatch) {
-				console.log("deeplink didnt match :(", nomatch);
+				//console.log("deeplink didnt match :(", nomatch);
 				if (nomatch.$link.path) {
 					let FlowId = nomatch.$link.path.replace("/", "");
 					setTimeout(function () {
@@ -107,11 +107,11 @@ var app = {
 			LaunchReview.rating(
 				function (result) {
 					if (cordova.platformId === "android") {
-						console.log("Rating dialog displayed");
+						//console.log("Rating dialog displayed");
 						window.localStorage.setItem("last_ask_user_rating", Date.now());
 					} else if (cordova.platformId === "ios") {
 						if (result === "requested") {
-							console.log("Requested display of rating dialog");
+							//console.log("Requested display of rating dialog");
 
 							ratingTimerId = setTimeout(function () {
 								console.warn(
@@ -121,16 +121,16 @@ var app = {
 								);
 							}, MAX_DIALOG_WAIT_TIME);
 						} else if (result === "shown") {
-							console.log("Rating dialog displayed");
+							//console.log("Rating dialog displayed");
 							window.localStorage.setItem("last_ask_user_rating", Date.now());
 							clearTimeout(ratingTimerId);
 						} else if (result === "dismissed") {
-							console.log("Rating dialog dismissed");
+							//console.log("Rating dialog dismissed");
 						}
 					}
 				},
 				function (err) {
-					console.log("Error opening rating dialog: " + err);
+					//console.log("Error opening rating dialog: " + err);
 				}
 			);
 
@@ -193,7 +193,7 @@ var app = {
 
 		push.on("registration", function (data) {
 			// data.registrationId
-			console.log(data.registrationId);
+			//console.log(data.registrationId);
 			registrationId = data.registrationId;
 
 			if (window.cordova.platformId == "ios" && registrationId.length < 100) {
@@ -221,8 +221,8 @@ var app = {
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
 			pas dans l'application */
-			console.log("data notif firebase");
-			console.log(data);
+			//console.log("data notif firebase");
+			//console.log(data);
 			if (data.additionalData.foreground == false) {
 				Popup("popup-specifique", false);
 				Popup("popup-comment", false);
@@ -305,35 +305,21 @@ var app = {
 		});
 
 		push.on("error", function (e) {
-			console.log(e.message);
+			//console.log(e.message);
 		});
 
 		firebase.initializeApp(firebaseConfig);
-		firebase.auth().signInAnonymously().then(() => {
-			let data = {
-				RegisterId: registrationId,
-				LastOs: window.cordova.platformId,
-				Private_id: window.localStorage.getItem("user_private_id"),
-				full_name: window.localStorage.getItem("user_name"),
-				profile_pic: window.localStorage.getItem("user_profile_pic"),
-				user_id: window.localStorage.getItem("firebase_token")
-			};
-			ServerManager.AddUserToFirebase(data);
-		}).catch((error) => {
-			console.log(error.code);
-			console.log(error.message);
-		});
 		this.receivedEvent("deviceready");
 	},
 	onPause: function () {
 		firebase.auth().currentUser.delete().then(() => {
-			console.log("user correctement deconnecté de firebase");
+			//console.log("user correctement deconnecté de firebase");
 			firebase.auth().signOut();
 		}).catch((error) => {
-			console.log(error.code);
-			console.log(error.message);
+			//console.log(error.code);
+			//console.log(error.message);
 		});
-		console.log("pause");
+		//console.log("pause");
 		stopAllStoriesAudio();
 		stopAllBlocksAudio();
 		let time_in_last_screen =
@@ -345,16 +331,16 @@ var app = {
 		},
 			null,
 			function () {
-				console.log("fb current_page event success");
+				//console.log("fb current_page event success");
 			},
 			function () {
-				console.log("fb current_page error");
+				//console.log("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 		// if (appState.takingPicture || appState.imageUri) {
 		//     window.localStorage.setItem("app_state", JSON.stringify(appState));
-		//     console.log("app state saved");
+		//     //console.log("app state saved");
 		// }
 	},
 	onResume: function (event) {
@@ -398,10 +384,10 @@ var app = {
 		},
 			null,
 			function () {
-				console.log("fb current_page event success");
+				//console.log("fb current_page event success");
 			},
 			function () {
-				console.log("fb current_page error");
+				//console.log("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -420,10 +406,10 @@ var app = {
 		//     // if server is up, it will return the url of http://<server ip>:port/
 		//     // the ip is the active network connection
 		//     // if no wifi or no cell, "127.0.0.1" will be returned.
-		//     console.log("server is started: " + url);
+		//     //console.log("server is started: " + url);
 		//     // createWorker();
 		// }, function (error) {
-		//     console.log("failed to start server: " + error);
+		//     //console.log("failed to start server: " + error);
 		// });
 
 		if (window.cordova && window.audioinput) {
@@ -432,9 +418,9 @@ var app = {
 			window.addEventListener("audioinput", onAudioInputCapture, false);
 			window.addEventListener("audioinputerror", onAudioInputError, false);
 
-			console.log("cordova-plugin-audioinput successfully initialised");
+			//console.log("cordova-plugin-audioinput successfully initialised");
 		} else {
-			console.log("cordova-plugin-audioinput not found!");
+			//console.log("cordova-plugin-audioinput not found!");
 		}
 
 		CheckIfConnected();
@@ -539,18 +525,18 @@ function check_app_version(app_version) {
 }
 
 function offline() {
-	console.log("you are offline");
+	//console.log("you are offline");
 	pullToRefreshEnd();
 }
 
 function online() {
-	console.log("you are online");
+	//console.log("you are online");
 	ServerManager.GetStory();
 }
 
 window.handleOpenURL = function (url) {
 	setTimeout(function () {
-		console.log("received url: " + url);
+		//console.log("received url: " + url);
 		if (url.includes("flow")) {
 			let IdFlow = url.split("flow/")[1];
 			ServerManager.GetSingle({
