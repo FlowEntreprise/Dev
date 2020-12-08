@@ -243,7 +243,7 @@ var app = {
 					- Pour generer les blocks message de l'epediteur à l'ouverture d'une notif
 					*/
 					current_block_chat.block_chat_photo = data_popup_msg.profile_picture;
-					setup_popup_message(data_popup_msg);
+					setup_popup_message(data_popup_msg, true);
 					return;
 				}
 				if (data.additionalData.type == "story_comment") {
@@ -336,17 +336,9 @@ var app = {
 		//     window.localStorage.setItem("app_state", JSON.stringify(appState));
 		//     //console.log("app state saved");
 		// }
-
-		firebase.auth().currentUser.delete().then(function () {
-		}).catch(function (error) {
-			// An error happened.
-		});
-
 	},
 	onResume: function (event) {
 		console.log("En resume");
-
-		firebase.auth().signInAnonymously();
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 		stopAllStoriesAudio();
 		stopAllBlocksAudio();

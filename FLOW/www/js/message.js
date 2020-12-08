@@ -1,4 +1,3 @@
-// Test DM
 var chat_id;
 var data_dm = {};
 var first_chat = false;
@@ -158,13 +157,6 @@ function block_message(data, previous_message) {
             $(item.time_and_seen_container).css('display', 'none');
         });
         $(block_message.time_and_seen_container).css('display', 'block');
-        /*
-        if ($(block_message.time_and_seen_container).css('display') == 'none') {
-            $(block_message.time_and_seen_container).css('display', 'block');
-        }
-        else {
-            $(block_message.time_and_seen_container).css('display', 'none');
-        }*/
 
     });
 
@@ -258,10 +250,14 @@ $(document).on("keyup", ".create-conversation-search-bar", function () {
 
 });
 
-function setup_popup_message(data) {
+function setup_popup_message(data, LiveChat) { // si on doit debuter le live chat ou pas
     $("#chat_photo").css({ "background-image": "url('" + data.profile_picture + "')", });
     $("#chat_title").text(data.fullname);
     $("#fblock_message_content").html("");
+    let loading_msg = document.createElement("div");
+    loading_msg.className = "loading-spinner loading_message";
+    $("#fblock_message_content").append(loading_msg);
+    if (LiveChat == true) { live_chat(data.chat_id); }
     Popup("popup-message", true);
     Popup("popup-create-conversation", false);
 }
@@ -281,6 +277,7 @@ function send_message(chat_id) {
 }
 
 function pop_block_chat(data) {
+    $(".loading_chat_list").remove();
     let new_block_chat = new block_chat(data);
     all_block_chat.push(new_block_chat);
 
@@ -359,6 +356,7 @@ function live_chat(chat_id) {
 
             block_message_date(snapshot.val().time);
         }
+        $(".loading_message").remove();
         pop_block_message(snapshot.key, snapshot.val());
         let data_set_to_seen = {
             chat_id: chat_id,
@@ -388,10 +386,7 @@ function live_chat(chat_id) {
 
     // Firebase listenener du is_typing
     firebase.database().ref(FirebaseEnvironment + '/chats/' + chat_id).orderByChild('is_typing').on("value", function (is_typing_snapshot) {
-        //console.log(" is typing val");
-        //console.log(is_typing_snapshot.val());
-        //console.log(" is typing key");
-        //console.log(is_typing_snapshot.key);
+
         if (is_typing_snapshot.val()) {
             for (let i = 0; i < Object.keys(is_typing_snapshot.val().is_typing).length; i++) {
                 let data_is_typing =
@@ -460,13 +455,6 @@ function difference(obj1, obj2) {
     return keyFound || -1;
 }
 
-/*function deleteMessage(self) {
-    // get message ID
-    var messageId = self.getAttribute("data-id");
-
-    // delete message
-    firebase.database().ref(FirebaseEnvironment + "/messages").child(messageId).remove();
-}*/
 
 function GetFollowingsPopupCreateConversation() {
     let data_followings = {
@@ -479,10 +467,17 @@ function GetFollowingsPopupCreateConversation() {
 }
 
 function DisplayFollowingsPopupCreateConversation(data, follow_list) {
-    if (Array.isArray(data)) {
+    if (Array.isArray(data) && data.length != 0) {
         $(".fconversation_block_utilisateur_list").html("");
         data.forEach(item => { let user = new block_user(follow_list, "CreateConversation", item); all_users_block.push(user); });
 
+    }
+    else {
+        let no_users = document.createElement("div");
+        no_users.className = "no_results no_results_messages";
+        no_users.innerHTML = "Pas de résultat";
+        $(".fconversation_block_utilisateur_list").html("");
+        $(".fconversation_block_utilisateur_list")[0].appendChild(no_users);
     }
 }
 
@@ -492,7 +487,7 @@ document
     .addEventListener("opened", function () {
         $("#div_send_message").css("left", "0vw");
         current_page = "popup_message";
-        scroll_to_bottom($("#fblock_message_content"));
+        $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
     });
 document
     .getElementById("popup-message")

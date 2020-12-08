@@ -844,8 +844,8 @@ class ServerManagerClass {
 			success: function (response) {
 				//console.log(response);
 
-				if (data.follow_list == "CreateConversation") {
-					DisplayFollowingsPopupCreateConversation(response, data.follow_list)
+				if (data.follow_list == "CreateConversation" && response.length != 0) {
+					DisplayFollowingsPopupCreateConversation(response, data.follow_list);
 				}
 				if (data.follow_list == true) {
 					UpdateIdentificationList(response, data.follow_list);

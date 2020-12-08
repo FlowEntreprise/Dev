@@ -2,6 +2,21 @@
 	display: none;
 }
 
+.loading_chat_list
+{
+	top :calc(44 * var(--custom-vh));
+}
+
+.loading_message
+{
+	top :calc(44 * var(--custom-vh));
+}
+
+.no_results_messages
+{
+	margin-top: calc(40 * var(--custom-vh));
+}
+
 .fmessages-search-bar
 {
 	position: absolute;
@@ -196,7 +211,7 @@ position: absolute;
 
 
 
-/*------------------------------------------POPUP MESSAGE-----------------------------*/
+/*------------------------------------------POPUP MESSAGE--------------------------------------------*/
 
 #message_back_button
 {
