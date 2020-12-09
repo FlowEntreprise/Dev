@@ -243,7 +243,11 @@ var app = {
 					- Pour generer les blocks message de l'epediteur à l'ouverture d'une notif
 					*/
 					current_block_chat.block_chat_photo = data_popup_msg.profile_picture;
-					setup_popup_message(data_popup_msg, true);
+					firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/last_message/seen_by').off();
+					firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id).orderByChild('is_typing').off();
+					firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off().then(function () {
+						setup_popup_message(data_popup_msg, true);
+					});
 					return;
 				}
 				if (data.additionalData.type == "story_comment") {

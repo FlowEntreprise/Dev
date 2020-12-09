@@ -907,7 +907,7 @@ function pop_notif_block(data) { //bloc de notif de l'onglet notifications
 }
 
 function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois une notif et qu'on est dans l'app
-
+    let NotifDuration = 3000;
     if (window.cordova.platformId == "ios") {
         if (data.additionalData.sender_info) {
             data.additionalData.sender_info = JSON.parse(data.additionalData.sender_info);
@@ -1007,9 +1007,8 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
             $("#InAppNotifNewMessageIcone").css("display", "block");
             $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
             $(".f_in_app_notif").css("height", "calc(7 * var(--custom-vh))");
+            NotifDuration = 4000;
             break;
-
-
 
     }
     $(".f_in_app_notif").on("click", function () {
@@ -1033,7 +1032,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
         $("#InAppNotifNewMessageIcone").css("display", "none");
         $("#InAppNotifNewMessageUsername").css("display", "none");
         $(".f_in_app_notif").css("height", "auto");
-    }, 3000);
+    }, NotifDuration);
 }
 
 

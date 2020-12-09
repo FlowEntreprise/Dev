@@ -358,6 +358,7 @@ function live_chat(chat_id) {
             block_message_date(snapshot.val().time);
         }
         $(".loading_message").remove();
+        $("#" + snapshot.key + "").remove();
         pop_block_message(snapshot.key, snapshot.val());
         let data_set_to_seen = {
             chat_id: chat_id,
@@ -410,8 +411,8 @@ function live_chat(chat_id) {
     $("#input_send_message").focusin(function () {
 
         if (first_chat == false) {
-            firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing/' + window.localStorage.getItem("firebase_token"))
-                .update(true);
+            firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing/')
+                .update({ [window.localStorage.getItem("firebase_token")]: true });
         }
 
     });
@@ -419,8 +420,8 @@ function live_chat(chat_id) {
     $("#input_send_message").focusout(function () {
 
         if (first_chat == false) {
-            firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing' + window.localStorage.getItem("firebase_token"))
-                .update(false);
+            firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing/')
+                .update({ [window.localStorage.getItem("firebase_token")]: false });
         }
 
     });
