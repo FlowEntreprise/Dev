@@ -1890,19 +1890,10 @@ class ServerManagerClass {
 	}
 
 	SetMessageToSeen(data) {
-		/*firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id + '/' + data.message_id + '/seen_by').update({
-			[window.localStorage.getItem("firebase_token")]: true
-		});
-		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + '/last_message/seen_by').update({
-			[window.localStorage.getItem("firebase_token")]: true
-		});*/
-
 		firebase.database().ref(FirebaseEnvironment).update({
-			['/messages/' + data.chat_id + '/' + data.message_id + '/seen_by/']: { [window.localStorage.getItem("firebase_token")]: true },
-			['/chats/' + data.chat_id + '/last_message/seen_by/']: { [window.localStorage.getItem("firebase_token")]: true }
+			['/messages/' + data.chat_id + '/' + data.message_id + '/seen_by/' + window.localStorage.getItem("firebase_token")]: true,
+			['/chats/' + data.chat_id + '/last_message/seen_by/' + window.localStorage.getItem("firebase_token")]: true
 		});
-
-
 	}
 
 	DeleteChat(data) {

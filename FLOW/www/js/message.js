@@ -413,9 +413,8 @@ function live_chat(chat_id) {
     $("#input_send_message").focusin(function () {
 
         if (first_chat == false) {
-            firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing').update({
-                [window.localStorage.getItem("firebase_token")]: true
-            });
+            firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing/' + window.localStorage.getItem("firebase_token"))
+                .update(true);
         }
 
     });
@@ -423,9 +422,8 @@ function live_chat(chat_id) {
     $("#input_send_message").focusout(function () {
 
         if (first_chat == false) {
-            firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing').update({
-                [window.localStorage.getItem("firebase_token")]: false
-            });
+            firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing' + window.localStorage.getItem("firebase_token"))
+                .update(false);
         }
 
     });
