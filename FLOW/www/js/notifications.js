@@ -1022,7 +1022,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
     });
 
 
-    if (current_page == "messages" && data.additionalData.type == 'send_message') {
+    if (current_page == "messages" && data.additionalData.type == 'send_message' && InPopupMessage == true) {
         // Il est tard je suis fatigué et ne sais plus faire l'inverse d'un ou logique
     }
     else {

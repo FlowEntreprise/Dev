@@ -369,9 +369,6 @@ function live_chat(chat_id) {
 
     // Firebase listenener du seen_by
     firebase.database().ref(FirebaseEnvironment + '/messages/' + chat_id).orderByChild('seen_by').limitToLast(1).on("value", function (child_change_snapshot) {
-        //console.log(" le message mis en lu est :");
-        //console.log(child_change_snapshot.val());
-        //console.log("l'id du msg est : " + child_change_snapshot.key);
         if (child_change_snapshot.val() != null) {
             let user_who_seen = Object.entries(child_change_snapshot.val());
             user_who_seen = Object.entries(user_who_seen[0][1].seen_by);
