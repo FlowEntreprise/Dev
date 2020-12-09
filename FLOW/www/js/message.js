@@ -9,6 +9,7 @@ var previous_message = {};
 var previous_chat_list = {};
 var current_block_message = {};
 var can_load_more_message = false;
+var InPopupMessage = false;
 
 function block_chat(data) {
     var block_chat = this;
@@ -485,13 +486,14 @@ function DisplayFollowingsPopupCreateConversation(data, follow_list) {
 document
     .getElementById("popup-message")
     .addEventListener("opened", function () {
+        InPopupMessage = true;
         $("#div_send_message").css("left", "0vw");
-        current_page = "popup_message";
         $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
     });
 document
     .getElementById("popup-message")
     .addEventListener("closed", function () {
+        InPopupMessage = false;
         firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off();
         firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/last_message/seen_by').off();
         firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id).orderByChild('is_typing').off();
@@ -506,7 +508,6 @@ document
 document
     .getElementById("popup-create-conversation")
     .addEventListener("opened", function () {
-        current_page = "popup_create_conversation";
         GetFollowingsPopupCreateConversation();
     });
 document

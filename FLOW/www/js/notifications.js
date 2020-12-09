@@ -999,13 +999,40 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
             $(".flabel_in_app_notif").text("Ce commentaire a bien été supprimé");
             $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
             break;
+
+        case 'send_message':
+            $("#InAppNotifNewMessageUsername").text(data.additionalData.sender_info.fullname);
+            $("#InAppNotifNewMessage").text(data.message);// le message
+            $("#InAppNotifNewMessageUsername").css("display", "block");
+            $("#InAppNotifNewMessageIcone").css("display", "block");
+            $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
+            $(".f_in_app_notif").css("height", "calc(7 * var(--custom-vh))");
+            break;
+
+
+
     }
     $(".f_in_app_notif").on("click", function () {
-        app.showTab("#tab4");
+        if (data.additionalData.type == 'send_message') {
+            app.showTab("#tab3");
+        }
+        else {
+            app.showTab("#tab4");
+        }
     });
-    $(".f_in_app_notif").css("margin-top", "-40vw");
+
+
+    if (current_page == "messages" && data.additionalData.type == 'send_message') {
+        // Il est tard je suis fatigué et ne sais plus faire l'inverse d'un ou logique
+    }
+    else {
+        $(".f_in_app_notif").css("margin-top", "-40vw");
+    }
     setTimeout(function () {
         $(".f_in_app_notif").css("margin-top", "5vw");
+        $("#InAppNotifNewMessageIcone").css("display", "none");
+        $("#InAppNotifNewMessageUsername").css("display", "none");
+        $(".f_in_app_notif").css("height", "auto");
     }, 3000);
 }
 

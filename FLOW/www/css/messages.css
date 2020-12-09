@@ -17,6 +17,36 @@
 	margin-top: calc(40 * var(--custom-vh));
 }
 
+#InAppNotifNewMessageIcone
+{
+	position: absolute;
+	display: none;
+	width: calc(3 * var(--custom-vh));
+    left: 1vh;
+    top: calc(0.5 * var(--custom-vh));
+}
+
+#InAppNotifNewMessageUsername
+{
+	display: none;
+    position: absolute;
+    left: calc(5.5 * var(--custom-vh));
+    top: calc(-1.5 * var(--custom-vh));
+	font-size: 4.2vw;
+    color: #FFF;
+    font-family: 'Roboto-Bold';
+}
+
+#InAppNotifNewMessage
+{
+    position: absolute;
+    left: calc(5.5 * var(--custom-vh));
+	top: calc(1 * var(--custom-vh));
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
 .fmessages-search-bar
 {
 	position: absolute;
