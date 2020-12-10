@@ -310,7 +310,7 @@ scrollableElement.addEventListener("scroll", function () {
         console.log("scroll down");
     } else {
 
-        if (Math.round($(this).scrollTop()) >= limit * 0.50 && can_load_more_message == true) {
+        if (Math.round($(this).scrollTop()) >= limit * 0.05 && can_load_more_message == true) {
             can_load_more_message = false;
             let loading_message = document.createElement("div");
             loading_message.className = "loading-spinner loading_message";
