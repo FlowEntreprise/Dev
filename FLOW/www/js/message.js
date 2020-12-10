@@ -10,6 +10,9 @@ var previous_chat_list = {};
 var current_block_message = {};
 var can_load_more_message = true;
 var InPopupMessage = false;
+var lastScrollTop = 0;
+var scrollableElement = document.getElementById('fblock_message_content');
+
 
 function block_chat(data) {
     var block_chat = this;
@@ -125,6 +128,9 @@ function block_message(data, previous_message) {
 
     this.time_and_seen_container = document.createElement('div');
     this.time_and_seen_container.className = 'time_and_seen_container';
+
+    $(".loading_message").remove();
+    $("#" + this.message_id + "").remove();
 
     if (this.sender_private_id == window.localStorage.getItem("user_private_id")) // token id par la suite
     {
@@ -296,29 +302,24 @@ function pop_block_message_seen(data) {
 }
 
 
-var lastScrollTop = 0;
 
-var scrollableElement = document.getElementById('fblock_message_content');
-
-// element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element.
-scrollableElement.addEventListener("scroll", function () { // or window.addEventListener("scroll"....
-    var st = scrollableElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+scrollableElement.addEventListener("scroll", function () {
+    var st = scrollableElement.scrollTop;
     let limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
     if (st > lastScrollTop) {
-        console.log("scroll down")// downscroll code
-
+        console.log("scroll down");
     } else {
-        //console.log("scroll up")// upscroll code
-        if (Math.round($(this).scrollTop()) >= limit * 0.35 && can_load_more_message == true) {
+
+        if (Math.round($(this).scrollTop()) >= limit * 0.50 && can_load_more_message == true) {
+            can_load_more_message = false;
             let loading_message = document.createElement("div");
             loading_message.className = "loading-spinner loading_message";
             $("#fblock_message_content").append(loading_message);
             console.log("limite :" + limit + "; Current scroll : " + Math.round($(this).scrollTop()));
-            can_load_more_message = false;
             message_infinite_scroll(current_block_chat);
         }
     }
-    lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+    lastScrollTop = st <= 0 ? 0 : st;
 }, false);
 
 
@@ -335,7 +336,7 @@ function exclude(key) {
 // Affiche les msg precedent 20 par 20
 function message_infinite_scroll(data) {
     console.log("message_infinite_scroll was called");
-    firebase.database().ref(FirebaseEnvironment + "/messages/" + data.chat_id).orderByKey().endAt(exclude(data.first_messake_key)).limitToLast(20)
+    firebase.database().ref(FirebaseEnvironment + "/messages/" + data.chat_id).orderByKey().endAt(exclude(data.first_messake_key)).limitToLast(30)
         .once('value').then(function (dataSnapshot) {
             //console.log(" les 20 anciens msg sont : ");
             //console.log(dataSnapshot.val());
@@ -344,7 +345,7 @@ function message_infinite_scroll(data) {
             let tab_all_messages = Object.entries(dataSnapshot.val());
             current_block_chat.first_messake_key = tab_all_messages[0][0];
 
-            if (tab_all_messages.length < 20) { can_load_more_message = false; }
+            if (tab_all_messages.length < 30) { can_load_more_message = false; }
             for (let i = 0; i < tab_all_messages.length; i++) {
                 previous_message = tab_all_messages[i][1];
                 let time = Math.floor((tab_all_messages[i][1].time - previous_message.time) / 1000 / 60 / 60);
@@ -353,11 +354,11 @@ function message_infinite_scroll(data) {
 
                     block_message_date(tab_all_messages[i][1].time);
                 }
-                $(".loading_message").remove();
+
                 pop_block_message(tab_all_messages[i][0], tab_all_messages[i][1], true);
 
-                if (i == tab_all_messages.length && tab_all_messages.length < 20) { can_load_more_message = false; }
-                else { can_load_more_message = true; }
+                if (i == (tab_all_messages.length - 1) && tab_all_messages.length < 30) { can_load_more_message = false; }
+                if (i == (tab_all_messages.length - 1) && tab_all_messages.length == 30) { can_load_more_message = true; }
             }
 
 
@@ -368,7 +369,7 @@ function message_infinite_scroll(data) {
 // Messagerie instantanéé
 function live_chat(chat_id) {
     previous_message = {};
-    firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id).limitToLast(20).on("child_added", function (snapshot, prevChildKey) {
+    firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id).limitToLast(30).on("child_added", function (snapshot, prevChildKey) {
         var html = "";
         // give each message a unique ID
         // show delete button if message is sent by me
@@ -382,8 +383,6 @@ function live_chat(chat_id) {
 
             block_message_date(snapshot.val().time);
         }
-        $(".loading_message").remove();
-        $("#" + snapshot.key + "").remove();
         pop_block_message(snapshot.key, snapshot.val());
         let data_set_to_seen = {
             chat_id: chat_id,
