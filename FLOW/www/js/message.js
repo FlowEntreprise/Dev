@@ -8,7 +8,7 @@ var nb_block_chat_to_pop;
 var previous_message = {};
 var previous_chat_list = {};
 var current_block_message = {};
-var can_load_more_message = false;
+var can_load_more_message = true;
 var InPopupMessage = false;
 
 function block_chat(data) {
@@ -200,7 +200,7 @@ function CreateConversation(data) {
 
 function set_block_chat_seen() {
     for (let i = 0; i < all_block_chat.length; i++) {
-        if (all_block_chat[i].is_seen == false) {
+        if (all_block_chat[i] && all_block_chat[i].is_seen == false) {
             $(".fred_dot_toolbar_new_message").css("display", "block");
         }
     }
@@ -296,14 +296,31 @@ function pop_block_message_seen(data) {
 }
 
 
-$("#fblock_message_content").scroll(function () {
+var lastScrollTop = 0;
+
+var scrollableElement = document.getElementById('fblock_message_content');
+
+// element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element.
+scrollableElement.addEventListener("scroll", function () { // or window.addEventListener("scroll"....
+    var st = scrollableElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
     let limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-    if (can_load_more_message) {
-        if (Math.round($(this).scrollTop()) >= limit * 0.25) {
+    if (st > lastScrollTop) {
+        console.log("scroll down")// downscroll code
+
+    } else {
+        //console.log("scroll up")// upscroll code
+        if (Math.round($(this).scrollTop()) >= limit * 0.35 && can_load_more_message == true) {
+            let loading_message = document.createElement("div");
+            loading_message.className = "loading-spinner loading_message";
+            $("#fblock_message_content").append(loading_message);
+            console.log("limite :" + limit + "; Current scroll : " + Math.round($(this).scrollTop()));
+            can_load_more_message = false;
             message_infinite_scroll(current_block_chat);
         }
     }
-});
+    lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+}, false);
+
 
 /* 
 Exclu la derniere clé de la requete
@@ -317,6 +334,7 @@ function exclude(key) {
 
 // Affiche les msg precedent 20 par 20
 function message_infinite_scroll(data) {
+    console.log("message_infinite_scroll was called");
     firebase.database().ref(FirebaseEnvironment + "/messages/" + data.chat_id).orderByKey().endAt(exclude(data.first_messake_key)).limitToLast(20)
         .once('value').then(function (dataSnapshot) {
             //console.log(" les 20 anciens msg sont : ");
@@ -326,6 +344,7 @@ function message_infinite_scroll(data) {
             let tab_all_messages = Object.entries(dataSnapshot.val());
             current_block_chat.first_messake_key = tab_all_messages[0][0];
 
+            if (tab_all_messages.length < 20) { can_load_more_message = false; }
             for (let i = 0; i < tab_all_messages.length; i++) {
                 previous_message = tab_all_messages[i][1];
                 let time = Math.floor((tab_all_messages[i][1].time - previous_message.time) / 1000 / 60 / 60);
@@ -334,8 +353,14 @@ function message_infinite_scroll(data) {
 
                     block_message_date(tab_all_messages[i][1].time);
                 }
+                $(".loading_message").remove();
                 pop_block_message(tab_all_messages[i][0], tab_all_messages[i][1], true);
+
+                if (i == tab_all_messages.length && tab_all_messages.length < 20) { can_load_more_message = false; }
+                else { can_load_more_message = true; }
             }
+
+
         });
 
 }
@@ -479,10 +504,12 @@ function DisplayFollowingsPopupCreateConversation(data, follow_list) {
 }
 
 
+
 document
     .getElementById("popup-message")
     .addEventListener("opened", function () {
         InPopupMessage = true;
+        can_load_more_message = true;
         $("#div_send_message").css("left", "0vw");
         $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
     });
