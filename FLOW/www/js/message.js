@@ -283,6 +283,7 @@ function send_message(chat_id) {
     // Empecher l'utilisateur de pouvoir clicker si l'imput msg est vide
 }
 
+
 function pop_block_chat(data) {
     $(".loading_chat_list").remove();
     let new_block_chat = new block_chat(data);

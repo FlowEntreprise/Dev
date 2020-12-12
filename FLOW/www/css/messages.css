@@ -380,14 +380,37 @@ position: absolute;
 #div_send_message{
     position: absolute;
     width: 100vw;
-    bottom: 3vh; 
+    bottom: 6vh; 
     z-index: 9999;
     /*display: none;*/
     left: -100vw;
 }
+
+#SendPicture
+{
+	width: 8vw;
+    position: absolute;
+    left: 5vw;
+}
+
+#SendImage
+{
+	width: 8vw;
+    position: absolute;
+    left: 15vw;
+}
+
 #input_send_message
 {
-    width: 80vw;
+    position: absolute;
+	width: 50vw;
+    right: 22vw;
+}
+
+#button_send_message
+{
+	position: absolute;
+    right: 2vw;
 }
 
 /*FIN POPUP MESSAGE*/

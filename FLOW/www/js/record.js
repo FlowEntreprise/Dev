@@ -607,7 +607,7 @@ function Save(blob) {
 			blob64 = reader.result;
 			appState.blob64 = reader.result.replace("data:audio/wav;base64,", "");
 			// appState.blob64 = reader.result;
-			console.log(appState.blob64);
+			//console.log(appState.blob64);
 		};
 
 		setTimeout(() => {
@@ -917,6 +917,24 @@ function onPhotoDataSuccess(imageData) {
 	$(".ios_camera_auth")[0].style.display = "none";
 	window.localStorage.setItem("ios_photos_init", "true");
 
+	/*----------------------TEST CHRIS-------------------*/
+	let ImgRef = firebase.storage().ref(FirebaseEnvironment + "/" + chat_id)
+		.put(img)
+		.then(function (snapshot) {
+			console.log("image upload done : ");
+			console.log(snapshot);
+			ImgRef.child(snapshot.metadata.name).getDownloadURL().then(function (url) {
+				let DataMessage =
+				{
+					image: url,
+					chat_id: chat_id
+				};
+				ServerManager.AddMessage(DataMessage);
+			});
+		});
+
+
+	/*--------------------FIN TEST CHRIS----------------*/
 	var options = {
 		url: imageData, // required.
 		ratio: "6/4", // required. (here you can define your custom ration) "1/1" for square images
@@ -1249,21 +1267,21 @@ function createWorker() {
 
 /* not used
 function opus2wav() {
-    var opustowavWorker = new Worker('http://127.0.0.1:8080/Opus2Wav/opustowavworker.js');
-    opustowavWorker.onmessage = function (message) {
-        if (message.data.status === "done") {
-            console.log(message.data.result);
-            document.getElementById("player").src = message.data.result;
-            document.getElementById("player").style.display = "block";
-            killWorker();
-        } else if (message.data.status === "message") {
-            document.getElementById("message").innerHTML = message.data.result;
-            console.log(message.data.result);
-        }
-    };
+	var opustowavWorker = new Worker('http://127.0.0.1:8080/Opus2Wav/opustowavworker.js');
+	opustowavWorker.onmessage = function (message) {
+		if (message.data.status === "done") {
+			console.log(message.data.result);
+			document.getElementById("player").src = message.data.result;
+			document.getElementById("player").style.display = "block";
+			killWorker();
+		} else if (message.data.status === "message") {
+			document.getElementById("message").innerHTML = message.data.result;
+			console.log(message.data.result);
+		}
+	};
 }
 
 function killWorker() {
-    opustowavWorker.terminate();
+	opustowavWorker.terminate();
 }
 */
