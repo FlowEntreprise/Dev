@@ -176,6 +176,7 @@
     <splash density="port-xxhdpi" src="res/screen/android/drawable-xxhdpi/splash.png" />
     <splash density="port-xxxhdpi" src="res/screen/android/drawable-xxxhdpi/splash.png" />
     <preference name="loglevel" value="DEBUG" />
+    <preference name="DisallowOverscroll" value="true" />
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />
     <preference name="fullscreen" value="false" />

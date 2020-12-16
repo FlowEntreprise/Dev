@@ -1,3 +1,20 @@
+.home_parent {
+	height: calc(100 * var(--custom-vh));
+	width: 100vw;
+	overflow-x: hidden;
+}
+
+.ptr_loading {
+	margin-top: -100px;
+	width: 100vw;
+	height: 100px;
+	background-color: rgba(0, 119, 255, 0.5);
+	opacity: 0;
+	transition-duration: 0.3s;
+}
+
+
+
 .ftitle {
 	position: absolute;
 	top: calc(0 * var(--custom-vh) + 10px);
@@ -91,7 +108,8 @@
 	border-radius: 50%;
 	background-image: linear-gradient(#1a84ef, #ff0054);
 	filter: blur(10px);
-	/* transform: scale(1); */
+	margin-top: calc(1.75 * var(--custom-vh));
+	margin-left: calc(1 * var(--custom-vh));
 	opacity: 0;
 }
 
@@ -101,7 +119,8 @@
 
 .fstory_pic {
 	position: absolute;
-	margin-top: calc(0.25 * var(--custom-vh));
+	margin-top: calc(1.75 * var(--custom-vh)) !important;
+	margin-left: calc(1 * var(--custom-vh)) !important;
 	height: calc(6 * var(--custom-vh));
 	width: calc(6 * var(--custom-vh));
 	display: inline-block;
@@ -112,8 +131,10 @@
 }
 
 .mystory_pic {
-	margin-top: calc(1.75 * var(--custom-vh)) !important;
-	margin-left: auto !important;
+	margin-top: calc(3.25 * var(--custom-vh)) !important;
+	margin-left: calc(1 * var(--custom-vh)) !important;
+	/* margin-top: calc(1.75 * var(--custom-vh)) !important; */
+	/* margin-left: auto !important; */
 	height: calc(3 * var(--custom-vh)) !important;
 	width: calc(3 * var(--custom-vh)) !important;
 	object-fit: contain !important;
@@ -157,7 +178,7 @@
 .list-block {
 	overflow-x: hidden;
 	margin: 0 !important;
-	padding-bottom: calc(12 * var(--custom-vh));
+	padding-bottom: calc(32 * var(--custom-vh));
 }
 
 .preloader {

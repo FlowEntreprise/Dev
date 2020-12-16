@@ -1,65 +1,63 @@
 <!DOCTYPE html>
 <html>
-<!--
-        FLOW by Chris / Victor / Thomas
-        -->
-<meta name="format-detection" content="telephone=no" />
-<meta name="msapplication-tap-highlight" content="no" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport"
-    content="viewport-fit=cover, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
-<link rel="stylesheet" type="text/css" href="css/splashscreen.css" />
-<link rel="stylesheet" type="text/css" href="css/tuto.css" />
-<link rel="stylesheet" type="text/css" href="css/index.css" />
-<link rel="stylesheet" type="text/css" href="css/home.css" />
-<link rel="stylesheet" type="text/css" href="css/explore.css" />
-<link rel="stylesheet" type="text/css" href="css/messages.css" />
-<link rel="stylesheet" type="text/css" href="css/popup-connect.css" />
-<link rel="stylesheet" type="text/css" href="css/record.css" />
-<link rel="stylesheet" type="text/css" href="css/after-record.css" />
-<link rel="stylesheet" type="text/css" href="css/flow-block.css" />
-<link rel="stylesheet" type="text/css" href="css/notifications.css" />
-<link rel="stylesheet" type="text/css" href="css/myAccount.css" />
-<link rel="stylesheet" type="text/css" href="css/account.css" />
-<link rel="stylesheet" type="text/css" href="css/story.css" />
-<link rel="stylesheet" type="text/css" href="css/popup_comment.css" />
-<link rel="stylesheet" type="text/css" href="css/flow_specifique.css" />
-<link rel="stylesheet" type="text/css" href="css/flowoftheday.css" />
-<!-- <link rel="stylesheet" type="text/css" href="css/comment_specifique.css" /> -->
-<link rel="stylesheet" type="text/css" href="css/custom_popup.css" />
-<link rel="stylesheet" type="text/css" href="css/popup_follow.css" />
-<!-- <link rel="stylesheet" type="text/css" href="css/popup_follow_list.css" /> -->
-<link rel="stylesheet" type="text/css" href="css/popup_likes.css" />
-<link rel="stylesheet" type="text/css" href="css/popup_option.css" />
-<link rel="stylesheet" type="text/css" href="css/loading.css" />
-<link rel="stylesheet" type="text/css" href="css/jquery.highlight-within-textarea.css" />
+<!-- FLOW by Chris / Victor / Thomas -->
 
-<!-- <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.md.colors.min.css">
-    <link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.md.min.css"> -->
-<link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.ios.colors.min.css" />
-<link rel="stylesheet" type="text/css" href="Dependencies/Framework7/framework7.ios.min.css" />
+<head>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport"
+        content="viewport-fit=cover, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" type="text/css" href="css/splashscreen.css" />
+    <link rel="stylesheet" type="text/css" href="css/tuto.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/home.css" />
+    <link rel="stylesheet" type="text/css" href="css/explore.css" />
+    <link rel="stylesheet" type="text/css" href="css/messages.css" />
+    <link rel="stylesheet" type="text/css" href="css/popup-connect.css" />
+    <link rel="stylesheet" type="text/css" href="css/record.css" />
+    <link rel="stylesheet" type="text/css" href="css/after-record.css" />
+    <link rel="stylesheet" type="text/css" href="css/flow-block.css" />
+    <link rel="stylesheet" type="text/css" href="css/notifications.css" />
+    <link rel="stylesheet" type="text/css" href="css/myAccount.css" />
+    <link rel="stylesheet" type="text/css" href="css/account.css" />
+    <link rel="stylesheet" type="text/css" href="css/story.css" />
+    <link rel="stylesheet" type="text/css" href="css/popup_comment.css" />
+    <link rel="stylesheet" type="text/css" href="css/flow_specifique.css" />
+    <link rel="stylesheet" type="text/css" href="css/flowoftheday.css" />
+    <link rel="stylesheet" type="text/css" href="css/discover.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="css/comment_specifique.css" /> -->
+    <link rel="stylesheet" type="text/css" href="css/custom_popup.css" />
+    <link rel="stylesheet" type="text/css" href="css/popup_follow.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="css/popup_follow_list.css" /> -->
+    <link rel="stylesheet" type="text/css" href="css/popup_likes.css" />
+    <link rel="stylesheet" type="text/css" href="css/popup_option.css" />
+    <link rel="stylesheet" type="text/css" href="css/loading.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.highlight-within-textarea.css" />
 
-<script type="text/javascript" src="Dependencies/Jquery/jquery_v331.js"></script>
-<script type="text/javascript" src="Dependencies/Jquery/longpress.js"></script>
-<script type="text/javascript" src="Dependencies/Framework7/framework7_v171.js"></script>
-<script type="text/javascript" src="Dependencies/Siriwave/siriwave-block.js"></script>
-<script type="text/javascript" src="Dependencies/Siriwave/siriwave-record.js"></script>
-<script type="text/javascript" src="Dependencies/Geopattern/geopattern.min.js"></script>
-<script type="text/javascript" src="Dependencies/Vibrant/Vibrant.min.js"></script>
-<!--<script type="text/javascript" src="Dependencies/SweetAlert/sweetalert.min.js"></script>-->
-<script type="text/javascript" src="Dependencies/LameJS/Lamejs.all.js"></script>
-<script src="Dependencies/OAuth/hmac-sha1.js"></script>
-<script src="Dependencies/OAuth/hmac-sha256.js"></script>
-<script src="Dependencies/OAuth/enc-base64-min.js"></script>
-<script type="text/javascript" src="Dependencies/OAuth/oauth-1.0a.js"></script>
-<!-- <script type="text/javascript" src="Dependencies/PullToRefreshJS/pulltorefresh.js"></script> -->
-<script type="text/javascript" src="js/auth/cordova.oauth2.js"></script>
-<script type="text/javascript" src="js/auth/phonegap.facebook.inappbrowser.js"></script>
-
-<title>FLOW</title>
+    <script type="text/javascript" src="Dependencies/Jquery/jquery_v331.js"></script>
+    <script type="text/javascript" src="Dependencies/Jquery/longpress.js"></script>
+    <script type="text/javascript" src="Dependencies/Siriwave/siriwave-block.js"></script>
+    <script type="text/javascript" src="Dependencies/Siriwave/siriwave-record.js"></script>
+    <script type="text/javascript" src="Dependencies/Geopattern/geopattern.min.js"></script>
+    <script type="text/javascript" src="Dependencies/Vibrant/Vibrant.min.js"></script>
+    <!--<script type="text/javascript" src="Dependencies/SweetAlert/sweetalert.min.js"></script>-->
+    <script type="text/javascript" src="Dependencies/LameJS/Lamejs.all.js"></script>
+    <script src="Dependencies/OAuth/hmac-sha1.js"></script>
+    <script src="Dependencies/OAuth/hmac-sha256.js"></script>
+    <script src="Dependencies/OAuth/enc-base64-min.js"></script>
+    <script type="text/javascript" src="Dependencies/OAuth/oauth-1.0a.js"></script>
+    <!-- <script type="text/javascript" src="Dependencies/PullToRefreshJS/pulltorefresh.js"></script> -->
+    <script type="text/javascript" src="js/auth/cordova.oauth2.js"></script>
+    <script type="text/javascript" src="js/auth/phonegap.facebook.inappbrowser.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <!-- <script src="https://unpkg.com/pulltorefreshjs@0.1.21/dist/index.umd.js"></script> -->
+    <title>FLOW</title>
 </head>
 
 <body>
+    <!-- Loading fonts here -->
     <style>
         @font-face {
             font-family: "Roboto-Bold";
@@ -91,462 +89,400 @@
             src: url("src/fonts/Roboto-Lightitalic.ttf");
         }
     </style>
-    <!-- Views-->
-    <div class="views tabs" style="height: calc(100 * var(--custom-vh))">
-        <div id="menu1" class="view view-main tab active">
-            <div class="navbar no-border ftop_bar">
-                <div class="navbar-inner">
-                    <div class="fhome-bar">
-                        <div class="ftitle">FLOW</div>
-                        <div class="faccount"></div>
-                        <!-- <div class="fneed_connect" style="right: 0px; top: 0px; height: 10vh"></div> -->
-                        <!-- <a href="../www/pages/myAccount.html" class="faccount open-login-screen"></a> -->
-                        <!-- <div class="fstories_title">Stories</div> -->
-                        <ul class="fstory_list">
-                            <li>
-                                <div class="fstory_block" onclick="Popup('popup-connect', true, 60)">
-                                    <img src="src/icons/plus.png" class="fstory_pic mystory_pic fnoshadow" />
-                                    <div class="unread_shadow"></div>
-                                    <label class="fstory_user">Ta story</label>
-                                </div>
-                            </li>
-                        </ul>
+
+    <div class="app_parent">
+
+        <!-- Application Main TopBar (HideOnScroll) -->
+        <div class="main_topbar">
+            <!-- Content of TopBar in Home -->
+            <div class="fhome-bar">
+                <div class="ftitle">FLOW</div>
+                <div class="faccount"></div>
+                <ul class="fstory_list">
+                    <li>
+                        <div class="fstory_block" onclick="Popup('popup-connect', true, 60)">
+                            <img src="src/icons/plus.png" class="fstory_pic mystory_pic fnoshadow" />
+                            <div class="unread_shadow"></div>
+                            <label class="fstory_user">Ta story</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Content of TopBar in Explore -->
+            <div class="fexplore-bar">
+                <a class="fred_dot_toolbar fred_dot_toolbar_fdj"></a>
+                <div class="faccount"></div>
+                <input class="fsearch-bar" placeholder="Explorer" />
+                <div class="search_icon"></div>
+                <div class="search_back"></div>
+                <div class="swiper-container swiper-3 explore-swiper">
+
+                    <div class="swiper-pagination"></div>
+                    <div class="fexplore_bg_div"></div>
+                    <div class="swiper-wrapper fexplore_wrapper">
+                        <div class="swiper-slide fexplore_text" target="">
+                            <span></span>
+                        </div>
+                        <div class="swiper-slide fexplore_text flowoftheday_btn" target="flowoftheday">
+                            <span>Flow du jour</span>
+                        </div>
+                        <div class="swiper-slide fexplore_text top50_btn" target="top50">
+                            <span>Tendances</span>
+                        </div>
+                        <div class="swiper-slide fexplore_text recents_btn" target="recents">
+                            <span>Récents</span>
+                        </div>
+                        <div class="swiper-slide fexplore_text discover_btn" target="discover">
+                            <span>Découvrir</span>
+                        </div>
+                        <!-- <div class="swiper-slide fexplore_text" target="comingsoon">
+                        <span>Musique</span>
                     </div>
-
-                    <div class="fexplore-bar">
-                        <a class="fred_dot_toolbar fred_dot_toolbar_fdj"></a>
-                        <div class="faccount"></div>
-                        <input class="fsearch-bar" placeholder="Explorer" />
-                        <div class="search_icon"></div>
-                        <div class="search_back"></div>
-                        <div class="swiper-container swiper-3 explore-swiper">
-
-                            <div class="swiper-pagination"></div>
-                            <div class="fexplore_bg_div"></div>
-                            <div class="swiper-wrapper fexplore_wrapper">
-                                <div class="swiper-slide fexplore_text" target="">
-                                    <span></span>
-                                </div>
-                                <div class="swiper-slide fexplore_text flowoftheday_btn" target="flowoftheday">
-                                    <span>Flow du jour</span>
-                                </div>
-                                <div class="swiper-slide fexplore_text top50_btn" target="top50">
-                                    <span>Tendances</span>
-                                </div>
-                                <div class="swiper-slide fexplore_text recents_btn" target="recents">
-                                    <span>Récents</span>
-                                </div>
-                                <!-- <div class="swiper-slide fexplore_text" target="comingsoon">
-                                    <span>Musique</span>
-                                </div>
-                                <div class="swiper-slide fexplore_text" target="comingsoon">
-                                    <span>Sport</span>
-                                </div>
-                                <div class="swiper-slide fexplore_text" target="comingsoon">
-                                    <span>Humour</span>
-                                </div>
-                                <div class="swiper-slide fexplore_text" target="comingsoon">
-                                    <span>Politique</span>
-                                </div>
-                                <div class="swiper-slide fexplore_text" target="comingsoon">
-                                    <span>Cuisine</span>
-                                </div>
-                                <div class="swiper-slide fexplore_text" target="comingsoon">
-                                    <span>Gaming</span>
-                                </div>
-                                <div class="swiper-slide fexplore_text" target="comingsoon">
-                                    <span>ASMR</span>
-                                </div>
-                                -->
-                                <div class="swiper-slide fexplore_text" target="">
-                                    <span></span>
-                                </div>
-                            </div>
+                    <div class="swiper-slide fexplore_text" target="comingsoon">
+                        <span>Sport</span>
+                    </div>
+                    <div class="swiper-slide fexplore_text" target="comingsoon">
+                        <span>Humour</span>
+                    </div>
+                    <div class="swiper-slide fexplore_text" target="comingsoon">
+                        <span>Politique</span>
+                    </div>
+                    <div class="swiper-slide fexplore_text" target="comingsoon">
+                        <span>Cuisine</span>
+                    </div>
+                    <div class="swiper-slide fexplore_text" target="comingsoon">
+                        <span>Gaming</span>
+                    </div>
+                    <div class="swiper-slide fexplore_text" target="comingsoon">
+                        <span>ASMR</span>
+                    </div>
+                    -->
+                        <div class="swiper-slide fexplore_text" target="">
+                            <span></span>
                         </div>
                     </div>
-
-                    <div class="fnotifications-bar">
-                        <label class="title">NOTIFICATIONS</label>
-                        <div class="faccount"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="toolbar no-border">
-                <div class="toolbar-inner">
-                    <a href="#tab1" class="fnav-btn fhome-btn tab-link active"></a>
-                    <a href="#tab2" class="fnav-btn fexplore-btn tab-link"></a>
-                    <div class="flow-btn-shadow"></div>
-                    <a href="#" class="fnav-btn fflow-btn"></a>
-                    <a href="#tab3" class="fnav-btn fmessages-btn tab-link"></a>
-
-                    <a href="#tab4" class="fnav-btn fnotif-btn tab-link"></a>
-
-                    <!-- <div class="fneed_connect" style="left: 17vw;"></div> -->
-                    <div class="fneed_connect" style="left: 68vw;"></div>
-                    <div class="fneed_connect" style="left: 84vw;"></div>
-                </div>
-                <a class="fred_dot_toolbar fred_dot_toolbar_new_message"></a>
-                <a class="fred_dot_toolbar fred_dot_toolbar_new_notif"></a>
-                <a class="fred_dot_toolbar fred_dot_toolbar_explore"></a>
-
-            </div>
-
-            <div id="div_new_features_background">
-            </div>
-            <div id="div_new_features">
-                <label id="title_div_new_features">Découvre le FLOW du jour !</label>
-                <p id="paragraphe_div_new_feature">
-                    Chaque jour à 18h, le flow le plus populaire des dernières 24h est mis en avant.
-                    <br><img class="img1" src="./src/icons/new_features2.png"><br>
-                    Plus tu es élu, plus ton rang progresse.
-                    <br><img class="img2" src="./src/icons/new_features.png"><br>
-                    Retrouve ton rang et ceux de tes amis dans l'onglet profil.</p>
-                <div id="close_div_new_features">
-                    <div id="border_close_div_new_features">C'est parti </div>
                 </div>
             </div>
 
-
-
-            <div class="custom_popup" id="popup-record">
-                <div class="popup_bg">
-                    <div class="scroll_fix_ios"></div>
-                </div>
-                <div class="popup_content" animation-direction="up">
-                    <p id="flow_number_of_sec" class="fflow_duration">00</p>
-                    <p class="fflow_duration fsec">sec</p>
-                    <div class="fclose_record"></div>
-
-                    <div id="wave-container"></div>
-                    <div class="sounds-record"></div>
-                </div>
+            <!-- Content of TopBar in Notifications -->
+            <div class="fnotifications-bar">
+                <label class="title">NOTIFICATIONS</label>
+                <div class="faccount"></div>
             </div>
+        </div>
 
-            <div class="custom_popup" id="popup-after-record">
-                <div class="popup_bg">
-                    <div class="scroll_fix_ios"></div>
-                </div>
-                <div class="popup_content" animation-direction="up">
-                    <div class="after-record-block-container"></div>
-                    <label class="fbackground-after-txt">Image de fond</label>
-                    <div class="fcamera-after"></div>
-                    <div class="fgallery-after"></div>
-                    <label class="ffx-after-txt">Effets</label>
-                    <div class="swiper-container swiper-4">
-                        <div class="swiper-pagination"></div>
-                        <div class="ffxbg_div"></div>
-                        <div class="swiper-wrapper ffx_wrapper">
-                            <div class="swiper-slide ffx_text" target=""><span></span></div>
-                            <div class="swiper-slide ffx_text" target="top50">
-                                <div class="ffx_icon"></div>
-                                <span>Bientôt disponible</span>
-                            </div>
-                            <div class="swiper-slide ffx_text" target="music">
-                                <div class="ffx_icon"></div>
-                                <span>Bientôt disponible</span>
-                            </div>
-                            <div class="swiper-slide ffx_text" target="sport">
-                                <div class="ffx_icon"></div>
-                                <span>Bientôt disponible</span>
-                            </div>
-                            <div class="swiper-slide ffx_text" target="top50">
-                                <div class="ffx_icon"></div>
-                                <span>Bientôt disponible</span>
-                            </div>
-                            <div class="swiper-slide ffx_text" target="music">
-                                <div class="ffx_icon"></div>
-                                <span>Bientôt disponible</span>
-                            </div>
-                            <div class="swiper-slide ffx_text" target="sport">
-                                <div class="ffx_icon"></div>
-                                <span>Bientôt disponible</span>
-                            </div>
-                            <div class="swiper-slide ffx_text" target="top50">
-                                <div class="ffx_icon"></div>
-                                <span>Bientôt disponible</span>
-                            </div>
-                            <div class="swiper-slide ffx_text" target="music">
-                                <div class="ffx_icon"></div>
-                                <span>Bientôt disponible</span>
-                            </div>
-                            <div class="swiper-slide ffx_text" target=""><span></span></div>
+        <!-- Pages of the app (swipeable) -->
+        <div class="swiper-container main_pages">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide home_tab">Slide 1</div>
+                <div class="swiper-slide explore_tab">Slide 2</div>
+                <div class="swiper-slide messages_tab">Slide 3</div>
+                <div class="swiper-slide notifications_tab">Slide 4</div>
+            </div>
+        </div>
+
+        <!-- Navigation Bar at the bottom -->
+        <div class="main_navbar">
+            <div class="navbtn home_btn active" onclick="pages_swiper.slideTo(0)"></div>
+            <div class="navbtn explore_btn" onclick="pages_swiper.slideTo(1)"></div>
+            <div class="navbtn flow_btn" onclick="">
+                <div class="flow_btn_shadow"></div>
+                <div class="flow_btn_img"></div>
+            </div>
+            <div class="navbtn messages_btn" onclick="pages_swiper.slideTo(2)"></div>
+            <div class="navbtn notifications_btn" onclick="pages_swiper.slideTo(3)"></div>
+        </div>
+
+        <div id="div_new_features_background">
+        </div>
+        <div id="div_new_features">
+            <label id="title_div_new_features">Découvre le FLOW du jour !</label>
+            <p id="paragraphe_div_new_feature">
+                Chaque jour à 18h, le flow le plus populaire des dernières 24h est mis en avant.
+                <br><img class="img1" src="./src/icons/new_features2.png"><br>
+                Plus tu es élu, plus ton rang progresse.
+                <br><img class="img2" src="./src/icons/new_features.png"><br>
+                Retrouve ton rang et ceux de tes amis dans l'onglet profil.</p>
+            <div id="close_div_new_features">
+                <div id="border_close_div_new_features">C'est parti </div>
+            </div>
+        </div>
+
+
+
+        <div class="custom_popup" id="popup-record">
+            <div class="popup_bg">
+                <div class="scroll_fix_ios"></div>
+            </div>
+            <div class="popup_content" animation-direction="up">
+                <p id="flow_number_of_sec" class="fflow_duration">00</p>
+                <p class="fflow_duration fsec">sec</p>
+                <div class="fclose_record"></div>
+
+                <div id="wave-container"></div>
+                <div class="sounds-record"></div>
+            </div>
+        </div>
+
+        <div class="custom_popup" id="popup-after-record">
+            <div class="popup_bg">
+                <div class="scroll_fix_ios"></div>
+            </div>
+            <div class="popup_content" animation-direction="up">
+                <div class="after-record-block-container"></div>
+                <label class="fbackground-after-txt">Image de fond</label>
+                <div class="fcamera-after"></div>
+                <div class="fgallery-after"></div>
+                <label class="ffx-after-txt">Effets</label>
+                <!-- <div class="swiper-container swiper-4">
+                    <div class="swiper-pagination"></div>
+                    <div class="ffxbg_div"></div>
+                    <div class="swiper-wrapper ffx_wrapper">
+                        <div class="swiper-slide ffx_text" target=""><span></span></div>
+                        <div class="swiper-slide ffx_text" target="top50">
+                            <div class="ffx_icon"></div>
+                            <span>Bientôt disponible</span>
                         </div>
+                        <div class="swiper-slide ffx_text" target="music">
+                            <div class="ffx_icon"></div>
+                            <span>Bientôt disponible</span>
+                        </div>
+                        <div class="swiper-slide ffx_text" target="sport">
+                            <div class="ffx_icon"></div>
+                            <span>Bientôt disponible</span>
+                        </div>
+                        <div class="swiper-slide ffx_text" target="top50">
+                            <div class="ffx_icon"></div>
+                            <span>Bientôt disponible</span>
+                        </div>
+                        <div class="swiper-slide ffx_text" target="music">
+                            <div class="ffx_icon"></div>
+                            <span>Bientôt disponible</span>
+                        </div>
+                        <div class="swiper-slide ffx_text" target="sport">
+                            <div class="ffx_icon"></div>
+                            <span>Bientôt disponible</span>
+                        </div>
+                        <div class="swiper-slide ffx_text" target="top50">
+                            <div class="ffx_icon"></div>
+                            <span>Bientôt disponible</span>
+                        </div>
+                        <div class="swiper-slide ffx_text" target="music">
+                            <div class="ffx_icon"></div>
+                            <span>Bientôt disponible</span>
+                        </div>
+                        <div class="swiper-slide ffx_text" target=""><span></span></div>
                     </div>
-                    <div class="frestart-after_btn"></div>
-                    <div class="fvalidate-after_btn record"></div>
-                    <div class="fcancel-after_btn"></div>
-                    <div class="floading-spinner loading-record-flow"></div>
-                    <div class="ios_camera_auth">
-                        <label>Autorisation des médias en cours...<br><br>la première fois cette étape peut prendre
-                            jusqu'à 10 secondes</label>
-                        <div class="floading-spinner"></div>
-                    </div>
+                </div> -->
+                <div class="frestart-after_btn"></div>
+                <div class="fvalidate-after_btn record"></div>
+                <div class="fcancel-after_btn"></div>
+                <div class="floading-spinner loading-record-flow"></div>
+                <div class="ios_camera_auth">
+                    <label>Autorisation des médias en cours...<br><br>la première fois cette étape peut prendre
+                        jusqu'à 10 secondes</label>
+                    <div class="floading-spinner"></div>
                 </div>
             </div>
+        </div>
 
-            <!-- <div class="popup popup-connect">
+        <!-- <div class="popup popup-connect">
                 <div class="content-block">
                     
                 </div>
             </div> -->
 
 
-            <div class="custom_popup" id="popup-story-record">
-                <div class="popup_bg">
-                    <div class="scroll_fix_ios"></div>
-                </div>
-                <div class="popup_content" animation-direction="up">
-                    <p id="flow_story_number_of_sec" class="fflow_duration story_flow_duration">00</p>
-                    <p class="fflow_duration fsec">sec</p>
-                    <div class="fclose_story_record" onclick="Popup('popup-story-record', false)"></div>
-                    <div id="wave-container" class="story-record-wave"></div>
-                    <div class="sounds-record"></div>
-                </div>
+        <div class="custom_popup" id="popup-story-record">
+            <div class="popup_bg">
+                <div class="scroll_fix_ios"></div>
             </div>
-
-            <div class="custom_popup" id="popup-after-story-record">
-                <div class="popup_bg">
-                    <div class="scroll_fix_ios"></div>
-                </div>
-                <div class="popup_content" animation-direction="up">
-                    <div class="after-story-record-block-container"></div>
-                    <label class="fbackground-after-story-txt">Couleur de fond</label>
-                    <div class="frandom-color-btn" onclick="new_block.randomColorGradient()"><label
-                            class="frandom-color-txt">AUTRE COULEUR</label></div>
-                    <div class="frestart-after_btn"></div>
-                    <div class="fvalidate-after_btn story"></div>
-                    <div class="fcancel-after_btn"></div>
-                    <div class="floading-spinner loading-story"></div>
-                </div>
+            <div class="popup_content" animation-direction="up">
+                <p id="flow_story_number_of_sec" class="fflow_duration story_flow_duration">00</p>
+                <p class="fflow_duration fsec">sec</p>
+                <div class="fclose_story_record" onclick="Popup('popup-story-record', false)"></div>
+                <div id="wave-container" class="story-record-wave"></div>
+                <div class="sounds-record"></div>
             </div>
+        </div>
 
-            <div class="custom_popup" id="popup-myaccount">
-                <div class="popup_bg">
-                    <div class="scroll_fix_ios"></div>
-                </div>
-                <div class="popup_content" animation-direction="left">
-                    <div class="page no-navbar no-toolbar no-swipeback fbackgroundMonCompte">
-                        <div id="accountBannerScroll">
-                            <div id="freturnMonCompte">
-                                <img src="src/icons/Retour@3x.png" id="fgobackmonCompte">
-                            </div>
-                            <div id="fbandeauMonCompte">
-                                <div class="finfoBandeau" id="ffLowBandeau">Flows</div>
-                                <div class="finfoBandeau" id="ffollowersBandeau">Abonnés</div>
-                                <div class="finfoBandeau" id="ffollowingBandeau">Abonnem...</div>
-                                <div id="fflowmyBandeauChiffre"></div>
-                                <div id="ffollowersmyBandeauChiffre"></div>
-                                <div id="ffollowingmyBandeauChiffre"></div>
-                            </div>
-                            <div id="fmyprofilPicture"></div>
-                            <div id="fnameMonCompte">Chargement</div>
-                            <div id="myprivateID"></div>
-                            <div id="fbioMonCompte"></div>
-                            <div id="feditProfil">MODIFIER PROFIL</div>
-                            <div class="myrank_img"></div>
-                            <div class="myrank_number">0</div>
+        <div class="custom_popup" id="popup-after-story-record">
+            <div class="popup_bg">
+                <div class="scroll_fix_ios"></div>
+            </div>
+            <div class="popup_content" animation-direction="up">
+                <div class="after-story-record-block-container"></div>
+                <label class="fbackground-after-story-txt">Couleur de fond</label>
+                <div class="frandom-color-btn" onclick="new_block.randomColorGradient()"><label
+                        class="frandom-color-txt">AUTRE COULEUR</label></div>
+                <div class="frestart-after_btn"></div>
+                <div class="fvalidate-after_btn story"></div>
+                <div class="fcancel-after_btn"></div>
+                <div class="floading-spinner loading-story"></div>
+            </div>
+        </div>
+
+        <div class="custom_popup" id="popup-myaccount">
+            <div class="popup_bg">
+                <div class="scroll_fix_ios"></div>
+            </div>
+            <div class="popup_content" animation-direction="left">
+                <div class="page no-navbar no-toolbar no-swipeback fbackgroundMonCompte">
+                    <div id="accountBannerScroll">
+                        <div id="freturnMonCompte">
+                            <img src="src/icons/Retour@3x.png" id="fgobackmonCompte">
                         </div>
-                        <div class="toolbar no-border fnavMonCompte fnavMonCompteTransitionTop">
-                            <div class="toolbar-inner sizeTollBar">
-                                <a href="#tabMonCompte1" class="fnav-btn tab-link MonCompte active">Mon Activité</a>
-                                <a href="#tabMonCompte2" class="fnav-btn tab-link MonCompte">J'aime</a>
-                            </div>
+                        <div id="fbandeauMonCompte">
+                            <div class="finfoBandeau" id="ffLowBandeau">Flows</div>
+                            <div class="finfoBandeau" id="ffollowersBandeau">Abonnés</div>
+                            <div class="finfoBandeau" id="ffollowingBandeau">Abonnem...</div>
+                            <div id="fflowmyBandeauChiffre"></div>
+                            <div id="ffollowersmyBandeauChiffre"></div>
+                            <div id="ffollowingmyBandeauChiffre"></div>
                         </div>
-                        <div class="tabs-swipeable-wrap ftabsMonCompte" id="AccountTabSize">
-                            <div class="tabs scrollEvent swiper-wrapper">
-                                <div id="tabMonCompte1" class="page-content tab active scrollMyAccunt">
-                                    <div class="content-block fblockMonCompte fblockMonComptePadding" id="MyActivity">
-                                    </div>
+                        <div id="fmyprofilPicture"></div>
+                        <div id="fnameMonCompte">Chargement</div>
+                        <div id="myprivateID"></div>
+                        <div id="fbioMonCompte"></div>
+                        <div id="feditProfil">MODIFIER PROFIL</div>
+                        <div class="myrank_img"></div>
+                        <div class="myrank_number">0</div>
+                    </div>
+                    <div class="fnavMonCompte fnavMonCompteTransitionTop">
+                        <div id="myactivity" class="MonCompte active">Mon Activité</div>
+                        <div id="mylikes" class="MonCompte">J'aime</div>
+                    </div>
+
+                    <div class="swiper-container ftabsMonCompte">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide scrollMyAccount" id="tabMonCompte1">
+                                <div class="content-block fblockMonCompte fblockMonComptePadding" id="MyActivity">
                                 </div>
-                                <div id="tabMonCompte2" class="page-content tab scrollMyAccunt">
-                                    <div id="MyLikes" class="content-block fblockMonCompte fblockMonComptePadding">
-                                    </div>
+                            </div>
+                            <div class="swiper-slide scrollMyAccount" id="tabMonCompte2">
+                                <div id="MyLikes" class="content-block fblockMonCompte fblockMonComptePadding">
                                 </div>
-                                <!-- <div id="tabMonCompte3" class="page-content tab scrollMyAccunt">
-                                    <div class="content-block fblockMonCompte">Tous les flow Saved</div>
-                                </div> -->
                             </div>
                         </div>
-                        <div id="fmybigProfilPictureContainer">
-                            <img src="src/icons/cancel.png" alt="" id="returnmyProfilPicture">
-                            <div id="fmybigProfilPicture"></div>
-                        </div>
-                        <div id="feditProfilePopupContainer"> </div>
-                        <div id="editProfilePopup">
-                            <img src="src/icons/cancel.png" id="fcloseProfilPopup">
-                            <div id="fprofilPicturePopup"></div>
-                            <input type="text" id="editProfileName" maxlength="25">
-                            <textarea name="" id="feditBio" cols="25" rows="3" maxlength="100"></textarea>
-                            <div class="disconnect_btn">Se deconnecter</div>
-                        </div>
+                    </div>
+
+                    <div id="fmybigProfilPictureContainer">
+                        <img src="src/icons/cancel.png" alt="" id="returnmyProfilPicture">
+                        <div id="fmybigProfilPicture"></div>
+                    </div>
+                    <div id="feditProfilePopupContainer"> </div>
+                    <div id="editProfilePopup">
+                        <img src="src/icons/cancel.png" id="fcloseProfilPopup">
+                        <div id="fprofilPicturePopup"></div>
+                        <input type="text" id="editProfileName" maxlength="25">
+                        <textarea name="" id="feditBio" cols="25" rows="3" maxlength="100"></textarea>
+                        <div class="disconnect_btn">Se deconnecter</div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="custom_popup" id="popup-account">
-                <div class="popup_bg">
-                    <div class="scroll_fix_ios"></div>
-                </div>
-                <div class="popup_content" animation-direction="right">
-                    <div class="page no-navbar no-toolbar no-swipeback fbackgroundCompte">
-                        <div id="accountBannerScrollAccount">
-                            <div id="freturnCompte">
-                                <img src="../www/src/icons/Retour@3x.png" id="fgobackCompte">
-                            </div>
-                            <div id="fbandeauCompte">
-                                <div class="finfoBandeau" id="ffLowBandeau">Flows</div>
-                                <div class="finfoBandeau" id="ffollowersBandeau">Abonnés</div>
-                                <div class="finfoBandeau" id="ffollowingBandeau">Abonnem...</div>
-                                <div id="fflowBandeauChiffre"></div>
-                                <div id="ffollowersBandeauChiffre"></div>
-                                <div id="ffollowingBandeauChiffre"></div>
-                            </div>
-                            <div id="fprofilPicture"></div>
-                            <div id="fnameCompte"></div>
-                            <div id="privateID"></div>
-                            <div id="fbioCompte"></div>
-                            <div id="fFollowButtunAccount">S'ABONNER</div>
-                            <div id="fFollowYouButtunAccount"></div>
-                            <div id="block_button"></div>
-                            <div class="rank_img"></div>
-                            <div class="rank_number">0</div>
+        <div class="custom_popup" id="popup-account">
+            <div class="popup_bg">
+                <div class="scroll_fix_ios"></div>
+            </div>
+            <div class="popup_content" animation-direction="right">
+                <div class="page no-navbar no-toolbar no-swipeback fbackgroundCompte">
+                    <div id="accountBannerScrollAccount">
+                        <div id="freturnCompte">
+                            <img src="../www/src/icons/Retour@3x.png" id="fgobackCompte">
                         </div>
-                        <div class="toolbar no-border fnavAccount fnavAccountTransitionTop">
-                            <div class="toolbar-inner sizeTollBarAccount">
-                                <a href="#tabCompte1" class="fnav-btn tab-link Compte active">Activité</a>
-                                <a href="#tabCompte2" class="fnav-btn tab-link Compte">Aime</a>
-                            </div>
+                        <div id="fbandeauCompte">
+                            <div class="finfoBandeau" id="ffLowBandeau">Flows</div>
+                            <div class="finfoBandeau" id="ffollowersBandeau">Abonnés</div>
+                            <div class="finfoBandeau" id="ffollowingBandeau">Abonnem...</div>
+                            <div id="fflowBandeauChiffre"></div>
+                            <div id="ffollowersBandeauChiffre"></div>
+                            <div id="ffollowingBandeauChiffre"></div>
                         </div>
-                        <div class="tabs-swipeable-wrap ftabsAccount" id="AccountTabSize">
-                            <div class="tabs scrollEventAccount">
-                                <div id="tabCompte1" class="page-content tab active scrollAccunt">
-                                    <div class="content-block fblockCompte fblockAccountPadding" id="UserActivity">
+                        <div id="fprofilPicture"></div>
+                        <div id="fnameCompte"></div>
+                        <div id="privateID"></div>
+                        <div id="fbioCompte"></div>
+                        <div id="fFollowButtunAccount">S'ABONNER</div>
+                        <div id="fFollowYouButtunAccount"></div>
+                        <div id="block_button"></div>
+                        <div class="rank_img"></div>
+                        <div class="rank_number">0</div>
+                    </div>
+                    <!-- <div class="toolbar no-border fnavAccount fnavAccountTransitionTop">
+                                <div class="toolbar-inner sizeTollBarAccount">
+                                    <a href="#tabCompte1" class="fnav-btn tab-link Compte active">Activité</a>
+                                    <a href="#tabCompte2" class="fnav-btn tab-link Compte">Aime</a>
+                                </div>
+                            </div> -->
+                    <!-- <div class="tabs-swipeable-wrap ftabsAccount" id="AccountTabSize">
+                                <div class="tabs scrollEventAccount">
+                                    <div id="tabCompte1" class="page-content tab active scrollAccunt">
+                                        <div class="content-block fblockCompte fblockAccountPadding" id="UserActivity">
+                                        </div>
+                                    </div>
+                                    <div id="tabCompte2" class="page-content tab scrollAccunt">
+                                        <div id="UserLikes" class="content-block fblockCompte fblockAccountPadding">
+                                        </div>
                                     </div>
                                 </div>
-                                <div id="tabCompte2" class="page-content tab scrollAccunt">
-                                    <div id="UserLikes" class="content-block fblockCompte fblockAccountPadding"></div>
+                            </div> -->
+
+                    <div class="fnavAccount fnavAccountTransitionTop">
+                        <div id="activity" class="Compte active">Activité</div>
+                        <div id="likes" class="Compte">Aime</div>
+                    </div>
+
+                    <div class="swiper-container ftabsAccount">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide scrollMyAccount" id="tabCompte1">
+                                <div class="content-block fblockCompte fblockAccountPadding" id="UserActivity">
                                 </div>
-                                <!-- <div id="tabCompte3" class="page-content tab scrollAccunt">
-                                </div> -->
+                            </div>
+                            <div class="swiper-slide scrollAccunt" id="tabCompte2">
+                                <div id="UserLikes" class="content-block fblockCompte fblockAccountPadding">
+                                </div>
                             </div>
                         </div>
-                        <div id="fbigProfilPictureContainer">
-                            <img src="src/icons/cancel.png" alt="" id="returnProfilPicture">
-                            <div id="fbigProfilPicture"></div>
-                        </div>
+                    </div>
+
+
+                    <div id="fbigProfilPictureContainer">
+                        <img src="src/icons/cancel.png" alt="" id="returnProfilPicture">
+                        <div id="fbigProfilPicture"></div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="pages navbar-through toolbar-through">
+
+        <!--Framework7 -->
+
+        <!-- <div class="pages navbar-through toolbar-through">
                 <div class="page with-subnavbar">
                     <div class="tabs-swipeable-wrap">
                         <div class="tabs">
                             <div id="tab1" class="page-content pull-to-refresh-content tab active hide-navbar-on-scroll"
                                 data-ptr-distance="55">
-                                <!--  <div class="pull-to-refresh-layer">
-                                    <div class="preloader"></div>
-                                    <div class="pull-to-refresh-arrow" id="ptr_arrow"></div>
-                                </div>
-
-                                <!-- usual content below
-                                <div class="empty_tl">
-                                    <label class="title">Pas encore de Flows ici ?</label>
-                                    <label class="txt">Ton accueil se remplira dès que tu commenceras à suivre des personnes.</label>
-                                    <div class="btn" onclick="app.showTab('#tab2')">Trouver des personnes à suivre</div>
-                                </div>
-                                <div class="list-block">
-                                </div>-->
-
                             </div>
                             <div id="tab2" class="page-content pull-to-refresh-content tab hide-navbar-on-scroll"
                                 data-ptr-distance="55">
-                                <!-- Tabs wrapper, shoud have "tabs" class. Required element -->
-                                <!--  <div class="pull-to-refresh-layer">
-                                    <div class="preloader"></div>
-                                    <div class="pull-to-refresh-arrow" id="ptr_arrow_explore"></div>
-                                </div>
-
-                                <div class="search_results">
-                                    <label class="top_users_txt">Utilisateurs</label>
-                                    <div class="top_users"></div>
-                                    <div class="show_more_users">Afficher plus</div>
-                                    <label class="top_flows_txt">Flows</label>
-                                    <div class="top_flows">
-                                        <!-- <div class='show_more_flows'>Afficher plus</div>
-                                    </div>
-                                </div>
-                                <div class="tabs explore_tabs">
-                                    <div class="tab active" id="top50">
-                                        <div class="list-block list-block-top50"></div>
-                                    </div>
-                                    <div class="tab" id="comingsoon">
-                                        vide
-                                    </div>
-                                    <div class="tab" id="sport"></div>
-                                    <div class="tab" id="comedy"></div>
-                                    <div class="tab" id="politic"></div>
-                                    <div class="tab" id="cooking"></div>
-                                    <div class="tab" id="Gaming"></div>
-                                    <div class="tab" id="ASMR"></div>
-
-                                </div>-->
-
                             </div>
                             <div id="tab3" class="page-content tab">
-                                <!-- <label class="messages_title">Les messages privés<br />arrivent très prochainement</label>
-                                <div class="messages_icon"></div>
-                                <label class="messages_coming">COMING<br />SOON</label>
-                                <label class="messages_txt">FLOW est encore en BETA, de nouvelles fonctionnalités arriveront bientôt.<br />Un
-                                    peu de patience, restez à l'affut des mises à jour, nous faisons la chasse aux
-                                    bugs et avons hâte de vous proposer les futures améliorations de l'application
-                                    !</label>
-
-                                <label class="messages_title"
-                                    >Une question ? Une remarque ?<br />Contacte-nous !</label
-                                >
-                                <div class="messages_icon"></div>
-                                <label class="messages_coming">ASK<br />US</label>
-                                <label class="messages_txt">
-                                    Nous nous soucions des retours de chacun, et essayons d'améliorer FLOW chaque
-                                    jour.<br /><br />
-                                    N'hésite pas à nous envoyer tes questions et remarques par mail à
-                                    <span
-                                        onclick="window.open('mailto:support@flowappweb.com?subject=Questions%20et%20Remarques', '_system')"
-                                    >
-                                        support@flowappweb.com
-                                    </span>
-                                    ou par message sur Twitter
-                                    <br />
-                                    <span
-                                        onclick="window.open('https://twitter.com/messages/compose?recipient_id=1251642333126410241', '_system')"
-                                    >
-                                        @FlowEntreprise
-                                    </span>
-                                    <br />
-                                    <br />Nous ferons notre maximum pour y répondre au plus vite !
-                                </label>-->
-
                             </div>
                             <div id="tab4" class="page-content pull-to-refresh-content tab" data-ptr-distance="55">
-                                <!--  <div class="pull-to-refresh-layer layer_notif">
-                                    <div class="preloader"></div>
-                                    <div class="pull-to-refresh-arrow" id="ptr_arrow_notif"></div>
-                                </div>
-                                <label class="no_notif">Aucune notification</label>
-                                <div class="list-notif-block"></div>-->
-
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <!-- <div class="faccount"></div> -->
-        </div>
+        <!-- <div class="faccount"></div> -->
     </div>
-
-    <div class="fneed_connect" style="left: 37.5vw; width: 25vw; height: 15vh;"></div>
+    <!-- Framework7 -->
+    <!-- <div class="fneed_connect" style="left: 37.5vw; width: 25vw; height: 15vh;"></div> -->
 
     <svg viewBox="0 0 32 32">
         <circle class="frecord_indicator" r="16" cx="16" cy="16" />ZZZZ
@@ -555,23 +491,13 @@
     <div class="frecord-btn">
     </div>
 
-
-
-
-    <!-- <div class="popup popup-specifique" id="popup-specifique">  affiche un flow specifique à la reception d'une notif
-        <img src="src/icons/cancel.png"  class="fclose_specifique" onclick="Popup('popup-specifique', false)">
-        <div class="content-block flow_specifique_container">
-           <p><a href="#" class="close-popup"><img src="src/icons/cancel.png"></a></p>
-        </div>
-       </div> -->
-
-    <div class="popover" id="popover_flow">
-        <div class="popover-angle"></div>
-        <div class="popover-inner">
-            <label class="fpopover_button fpopover_delete_flow">Supprimer</label>
-            <label class="fpopover_button fpopover_report_flow">Signaler</label>
-        </div>
-    </div>
+    <!-- <div class="popover" id="popover_flow">
+            <div class="popover-angle"></div>
+            <div class="popover-inner">
+                <label class="fpopover_button fpopover_delete_flow">Supprimer</label>
+                <label class="fpopover_button fpopover_report_flow">Signaler</label>
+            </div>
+        </div> -->
 
     <div class="custom_popup" id="popup-specifique">
         <div class="popup_bg">
@@ -593,14 +519,14 @@
         <div class="popup_content" style="border-radius: 15px 15px 0px 0px" animation-direction="up">
             <label class="fcomment_number"></label>
             <img src="src/icons/cancel.png" class="fclose_comment" onclick="Popup('popup-comment', false)">
-            <div class="popover" id="popover_comment">
-                <div class="popover-angle"></div>
-                <div class="popover-inner">
-                    <label class="fpopover_button fpopover_copy_comment">COPY</label>
-                    <label class="fpopover_button fpopover_report_comment">REPORT</label>
-                    <label class="fpopover_button fpopover_delete_comment">DELETE</label>
-                </div>
-            </div>
+            <!-- <div class="popover" id="popover_comment">
+                    <div class="popover-angle"></div>
+                    <div class="popover-inner">
+                        <label class="fpopover_button fpopover_copy_comment">COPY</label>
+                        <label class="fpopover_button fpopover_report_comment">REPORT</label>
+                        <label class="fpopover_button fpopover_delete_comment">DELETE</label>
+                    </div>
+                </div> -->
             <div class="fblock_comment_content">
             </div>
         </div>
@@ -744,12 +670,14 @@
         <label class="tuto_txt _5">Nous <span>mettons à jour</span> l'application très régulièrement</label>
         <div class="tuto_next_btn_shadow"></div>
         <div class="tuto_next_btn" ontouchend="nextTutoFrame()">SUIVANT</div>
-        <label class="tuto_txt _6">Tu peux <span>écouter</span> et <span>publier</span> des <span>vocaux</span></label>
+        <label class="tuto_txt _6">Tu peux <span>écouter</span> et <span>publier</span> des
+            <span>vocaux</span></label>
         <label class="tuto_txt _7">Ces vocaux sont appelés des <span>flows</span></label>
         <label class="tuto_txt _8">Ils durent moins de <span>15 secondes</span></label>
         <label class="tuto_txt _9">Pour <span>enregistrer</span> ton premier flow</label>
         <label class="tuto_txt _10">Utilise le <span>bouton d'enregistrement</span></label>
-        <label class="tuto_txt _11">Tu peux également ajouter un flow temporaire<br>en faisant une <span>story</span>
+        <label class="tuto_txt _11">Tu peux également ajouter un flow temporaire<br>en faisant une
+            <span>story</span>
             pour tes <span>abonnés</span></label>
         <label class="tuto_txt _12"><span>Abonne toi</span> aux comptes qui te plaisent pour<br>toujours plus de
             contenu</label>
@@ -763,39 +691,45 @@
         <label class="loading_connect_txt">Connexion</label>
         <div class="floading-spinner loading-connect-spinner"></div>
     </div>
-
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="Dependencies/WavEncoder/WavAudioEncoder.min.js"></script>
-    <script src="js/Server/ServerManager.js"></script>
-
-    <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript" src="js/tuto.js"></script>
-    <script type="text/javascript" src="js/flow_loader.js"></script>
-    <script type="text/javascript" src="js/custom_popup.js"></script>
-    <script type="text/javascript" src="js/block.js"></script>
-    <script type="text/javascript" src="js/connection.js"></script>
-    <script type="text/javascript" src="js/story.js"></script>
-    <script type="text/javascript" src="js/home.js"></script>
-    <script type="text/javascript" src="js/explore.js"></script>
-    <script type="text/javascript" src="js/notifications.js"></script>
-    <script type="text/javascript" src="js/navigation.js"></script>
-    <script type="text/javascript" src="js/record.js"></script>
-    <script type="text/javascript" src="js/auth/Twitter.js"></script>
-    <script type="text/javascript" src="js/auth/insta.js"></script>
-    <script type="text/javascript" src="js/auth/Facebook.js"></script>
-    <script type="text/javascript" src="js/auth/google.js"></script>
-    <script type="text/javascript" src="js/auth/apple.js"></script>
-    <script type="text/javascript" src="js/auth/connexion.js"></script>
-    <script type="text/javascript" src="js/popup_comment.js"></script>
-    <script type="text/javascript" src="js/popup_likes.js"></script>
-    <script type="text/javascript" src="js/popup_option.js"></script>
-    <script type="text/javascript" src="js/myAccount.js"></script>
-    <script type="text/javascript" src="js/account.js"></script>
-    <script type="text/javascript" src="js/flow_specifique.js"></script>
-    <!-- <script type="text/javascript" src="js/comment_specifique.js"></script> -->
-    <script type="text/javascript" src="js/popup_follow.js"></script>
-    <script type="text/javascript" src="js/flowoftheday.js"></script>
-    <script type="text/javascript" src="js/jquery.highlight-within-textarea.js"></script>
+    </div>
 </body>
+
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="Dependencies/WavEncoder/WavAudioEncoder.min.js"></script>
+<script src="js/Server/ServerManager.js"></script>
+
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/tuto.js"></script>
+<script type="text/javascript" src="js/flow_loader.js"></script>
+<script type="text/javascript" src="js/custom_popup.js"></script>
+<script type="text/javascript" src="js/block.js"></script>
+<script type="text/javascript" src="js/connection.js"></script>
+<script type="text/javascript" src="js/story.js"></script>
+<script type="text/javascript" src="js/home.js"></script>
+<!-- Framework7 -->
+<script type="text/javascript" src="js/explore.js"></script>
+<script type="text/javascript" src="js/notifications.js"></script>
+<script type="text/javascript" src="js/navigation.js"></script>
+<script type="text/javascript" src="js/record.js"></script>
+<script type="text/javascript" src="js/auth/Twitter.js"></script>
+<script type="text/javascript" src="js/auth/insta.js"></script>
+<script type="text/javascript" src="js/auth/Facebook.js"></script>
+<script type="text/javascript" src="js/auth/google.js"></script>
+<script type="text/javascript" src="js/auth/apple.js"></script>
+<script type="text/javascript" src="js/auth/connexion.js"></script>
+<script type="text/javascript" src="js/popup_comment.js"></script>
+<script type="text/javascript" src="js/popup_likes.js"></script>
+<script type="text/javascript" src="js/popup_option.js"></script>
+<script type="text/javascript" src="js/myAccount.js"></script>
+<script type="text/javascript" src="js/account.js"></script>
+<script type="text/javascript" src="js/flow_specifique.js"></script>
+<!-- <script type="text/javascript" src="js/comment_specifique.js"></script> -->
+<script type="text/javascript" src="js/popup_follow.js"></script>
+<!-- Framework7 -->
+<script type="text/javascript" src="js/flowoftheday.js"></script>
+<script type="text/javascript" src="js/discover.js"></script>
+<script type="text/javascript" src="js/jquery.highlight-within-textarea.js"></script>
+<script type="text/javascript" src="Dependencies/CustomPTR/customPTR.js"></script>
 
 </html>

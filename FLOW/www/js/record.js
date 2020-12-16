@@ -23,22 +23,22 @@ let options = {
 	targetHeight: 600,
 };
 
-$$(".fflow-btn").on("click", function () {
+$(".flow_btn_img").on("click", function () {
 	if (connected) {
 		Popup("popup-record", true);
-		$$(".frecord-btn").css({
+		$(".frecord-btn").css({
 			display: "flex",
 		});
 	} else {
 		Popup("popup-connect", true, 60);
 	}
 });
-$$(".fflow-btn").on("taphold", function () {
+$(".flow_btn_img").longpress(function () {
 	if (connected) {
 		console.log("Hold Record !");
 		// app.popup('.popup-record');
 		Popup("popup-record", true);
-		$$(".frecord-btn").css({
+		$(".frecord-btn").css({
 			display: "flex",
 		});
 		$(".record-shadow")[0].style.display = "block";
@@ -48,7 +48,7 @@ $$(".fflow-btn").on("taphold", function () {
 		Popup("popup-connect", true, 60);
 	}
 });
-$$(".frecord-btn").on("taphold", function () {
+$(".frecord-btn").longpress(function () {
 	if (!recording && !record_was_hold) {
 		console.log("Hold Record !");
 		record_was_hold = true;
@@ -57,7 +57,7 @@ $$(".frecord-btn").on("taphold", function () {
 });
 document.getElementById("popup-record").addEventListener("opened", function () {
 	stopAllBlocksAudio();
-	$$("#flow_number_of_sec").text("00");
+	$("#flow_number_of_sec").text("00");
 	if (!debug_record) {
 		pictureSource = navigator.camera.PictureSourceType;
 		destinationType = navigator.camera.DestinationType;
@@ -65,8 +65,7 @@ document.getElementById("popup-record").addEventListener("opened", function () {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page",
-		{
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},
@@ -83,18 +82,17 @@ document.getElementById("popup-record").addEventListener("opened", function () {
 
 	// analytics.setCurrentScreen(current_page);
 
-	$$(".frecord-btn").css({
+	$(".frecord-btn").css({
 		display: "flex",
 	});
 	$(".record-shadow")[0].style.display = "block";
 	if (record_was_hold) {
-		// $$('.frecord-btn').addClass('frecord-btn-active');
+		// $('.frecord-btn').addClass('frecord-btn-active');
 	}
 
 	current_page = "record";
 	facebookConnectPlugin.logEvent(
-		"open_record",
-		{},
+		"open_record", {},
 		null,
 		function () {
 			console.log("fb event success");
@@ -105,7 +103,7 @@ document.getElementById("popup-record").addEventListener("opened", function () {
 	);
 });
 document.getElementById("popup-record").addEventListener("closed", function () {
-	$$(".frecord-btn").css({
+	$(".frecord-btn").css({
 		display: "none",
 	});
 	$(".record-shadow")[0].style.display = "none";
@@ -113,8 +111,7 @@ document.getElementById("popup-record").addEventListener("closed", function () {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page",
-		{
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},
@@ -146,8 +143,7 @@ document
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -193,20 +189,19 @@ document
 		$(".floading-spinner.loading-story")[0].style.display = "none";
 	});
 
-// $$('.popup-story-record').on('popup:open', function () {
-//     $$('.story_flow_duration').text("00");
+// $('.popup-story-record').on('popup:open', function () {
+//     $('.story_flow_duration').text("00");
 //     current_page = "record-story";
 // });
 document
 	.getElementById("popup-story-record")
 	.addEventListener("opened", function () {
 		stopAllBlocksAudio();
-		$$(".story_flow_duration").text("00");
+		$(".story_flow_duration").text("00");
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -242,7 +237,7 @@ $(".fclose_story_record")[0].addEventListener("touchend", function () {
 	$(".frecord-btn")[0].classList.remove("frecord_loading_btn");
 });
 
-$$(".frecord-btn").on("click", function () {
+$(".frecord-btn").on("click", function () {
 	if (recording) {
 		console.log("stop recording");
 		// if (record_time > 2) {
@@ -257,7 +252,7 @@ $$(".frecord-btn").on("click", function () {
 	}
 });
 
-$$("body").on("touchend", function () {
+$("body").on("touchend", function () {
 	if (recording && record_was_hold) {
 		// if (record_time > 2) {
 		//     stopCapture(true);
@@ -268,7 +263,7 @@ $$("body").on("touchend", function () {
 	}
 });
 
-$$(".frestart-after_btn").on("touchend", function () {
+$(".frestart-after_btn").on("touchend", function () {
 	console.log("restart record");
 	record_was_hold = false;
 	if (current_page == "after-record") {
@@ -278,8 +273,7 @@ $$(".frestart-after_btn").on("touchend", function () {
 		Popup("popup-record", true);
 
 		facebookConnectPlugin.logEvent(
-			"restart_record_flow",
-			{},
+			"restart_record_flow", {},
 			null,
 			function () {
 				console.log("fb event success");
@@ -294,8 +288,7 @@ $$(".frestart-after_btn").on("touchend", function () {
 		Popup("popup-story-record", true);
 
 		facebookConnectPlugin.logEvent(
-			"restart_record_story",
-			{},
+			"restart_record_story", {},
 			null,
 			function () {
 				console.log("fb event success");
@@ -307,14 +300,13 @@ $$(".frestart-after_btn").on("touchend", function () {
 	}
 });
 
-$$(".fcancel-after_btn").on("touchend", function () {
+$(".fcancel-after_btn").on("touchend", function () {
 	if (current_page == "after-record") {
 		Popup("popup-after-record", false);
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -335,8 +327,7 @@ $$(".fcancel-after_btn").on("touchend", function () {
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -355,7 +346,7 @@ $$(".fcancel-after_btn").on("touchend", function () {
 	}
 });
 
-$$(".fvalidate-after_btn").on("touchend", function () {
+$(".fvalidate-after_btn").on("touchend", function () {
 	if (current_page == "after-record") {
 		if ($(".finput_description").val().replace(/\s+/g, "").length > 0) {
 			var data = {
@@ -383,8 +374,7 @@ $$(".fvalidate-after_btn").on("touchend", function () {
 				ServerManager.AddFlow(data, all_tagged_users);
 
 				facebookConnectPlugin.logEvent(
-					"record_flow",
-					{
+					"record_flow", {
 						// private_id: data.PrivatedId,
 						// description: data.Description,
 						duration: data.Duration,
@@ -429,8 +419,7 @@ $$(".fvalidate-after_btn").on("touchend", function () {
 			ServerManager.AddStory(storydata);
 
 			facebookConnectPlugin.logEvent(
-				"upload_story",
-				{
+				"upload_story", {
 					duration: storydata.Duration,
 				},
 				null,
@@ -445,19 +434,19 @@ $$(".fvalidate-after_btn").on("touchend", function () {
 	}
 });
 
-$$(".fcamera-after").on("click", function () {
+$(".fcamera-after").on("click", function () {
 	TakePhoto();
 });
-$$(".fgallery-after").on("click", function () {
+$(".fgallery-after").on("click", function () {
 	GetPhotoFromGallery();
 });
 
 function UpdateRecordIndicator() {
 	record_time = (Date.now() - start_time) / 1000;
 	if (current_page == "record") {
-		$$("#flow_number_of_sec").text(format(Math.round(record_time)));
+		$("#flow_number_of_sec").text(format(Math.round(record_time)));
 	} else if (current_page == "record-story") {
-		$$("#flow_story_number_of_sec").text(format(Math.round(record_time)));
+		$("#flow_story_number_of_sec").text(format(Math.round(record_time)));
 	}
 
 	if (recording && record_time <= 15) {
@@ -465,7 +454,7 @@ function UpdateRecordIndicator() {
 			if (recording) {
 				let value = Math.round(6.73 * record_time);
 				if (current_page == "record" || current_page == "record-story") {
-					$$(".frecord_indicator").css({
+					$(".frecord_indicator").css({
 						"stroke-dasharray": value + " 100",
 					});
 				} else if (current_page == "story") {
@@ -492,8 +481,7 @@ function CloseAfterRecord() {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page",
-		{
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},
@@ -525,12 +513,12 @@ function format(number) {
 	return number < 10 ? "0" + number.toString() : number.toString();
 }
 
-$$(".frecord-btn").on("touchstart", function () {
-	PlayRipple($$(this), "fripple-record");
+$(".frecord-btn").on("touchstart", function () {
+	PlayRipple($(this), "fripple-record");
 });
 
-$$(".fflow-btn").on("touchstart", function () {
-	PlayRipple($$(this), "fripple-record");
+$(".flow_btn_img").on("touchstart", function () {
+	PlayRipple($(this), "fripple-record");
 });
 
 function Save(blob) {
@@ -546,22 +534,21 @@ function Save(blob) {
 		Popup("popup-after-record", true);
 
 		if (!after_record_initialised) {
-			var mySwiper4 = app.swiper(".swiper-4", {
-				pagination: ".swiper-4 .swiper-pagination",
-				spaceBetween: 0,
-				slidesPerView: 3,
-			});
+			// var mySwiper4 = app.swiper(".swiper-4", {
+			// 	pagination: ".swiper-4 .swiper-pagination",
+			// 	spaceBetween: 0,
+			// 	slidesPerView: 3,
+			// });
 
-			mySwiper4.on("slideChangeStart", function () {
-				var target = "#" + $(".swiper-slide-next").attr("target");
-				app.showTab(target);
-			});
+			// mySwiper4.on("slideChangeStart", function () {
+			// 	var target = "#" + $(".swiper-slide-next").attr("target");
+			// 	app.showTab(target);
+			// });
 			after_record_initialised = true;
 			let time_in_last_screen =
 				Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 			facebookConnectPlugin.logEvent(
-				"current_page",
-				{
+				"current_page", {
 					page: current_page,
 					duration: time_in_last_screen,
 				},
@@ -647,8 +634,7 @@ function Save(blob) {
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -707,8 +693,7 @@ function Save(blob) {
 			// });
 
 			facebookConnectPlugin.logEvent(
-				"upload_story_comment",
-				{
+				"upload_story_comment", {
 					duration: story_comment.Duration,
 				},
 				null,
@@ -795,7 +780,7 @@ function drawCurveAnim() {
 		}
 		smoothValue = Math.max(2, smoothValue);
 		smoothVolume = Lerp(smoothVolume, smoothValue, 0.25);
-		// $$('#flow_number_of_sec').text(Math.round(smoothVolume));
+		// $('#flow_number_of_sec').text(Math.round(smoothVolume));
 		if (current_page == "record") {
 			if (recording) {
 				if (window.cordova.platformId == "android") {
@@ -1004,8 +989,7 @@ function closeStoryRecord() {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page",
-		{
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},
@@ -1085,7 +1069,7 @@ var startCapture = function () {
 			recording = true;
 			audioDataBuffer = [];
 			start_time = Date.now();
-			$$(".frecord_indicator").css({
+			$(".frecord_indicator").css({
 				display: "block",
 			});
 			UpdateRecordIndicator();
@@ -1106,12 +1090,12 @@ var stopCapture = function (save) {
 	record_was_hold = false;
 	$(".frecord-btn")[0].style.background =
 		'url("src/icons/Record.png") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054)';
-	$$(".frecord_indicator").css({
+	$(".frecord_indicator").css({
 		display: "none",
 		"stroke-dasharray": "0 100",
 	});
-	$$("#flow_number_of_sec").text("00");
-	$$("#flow_story_number_of_sec").text("00");
+	$("#flow_number_of_sec").text("00");
+	$("#flow_story_number_of_sec").text("00");
 
 	if (current_page == "story") {
 		$(".fstory_addcomment_loading")[0].style.opacity = 0;

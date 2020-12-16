@@ -23,7 +23,9 @@ function ConnectUser() {
     ServerManager.GetStory();
     ServerManager.GetTimeline(0);
     check_seen();
+    // Framework7
     RefreshExplore();
+
     refresh_notif();
     let loading_tl = document.createElement("div");
     loading_tl.className = "loading-spinner loading_tl";
@@ -60,7 +62,7 @@ function DisconnectUser() {
     });
     Popup("popup-myaccount", false);
     $(".fred_dot_toolbar_new_notif").css('display', 'none');
-    app.showTab("#tab2");
+    pages_swiper.slideTo(1);
     $(".empty_tl")[0].style.display = "block";
     $(".list-block")[0].innerHTML = "";
     $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-connect', true, 60)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\" /><div class=\"unread_shadow\"></div><label class=\"fstory_user\">Ta story</label></div></li>";
@@ -92,7 +94,7 @@ function DisconnectUser() {
     //$( "#fswipe_area" ).css({"pointer-events": "none"});
 }
 
-$$('.fneed_connect').on('click', function () {
+$('.fneed_connect').on('click', function () {
     if (!connected) {
         // app.popup('.popup-connect');
         Popup("popup-connect", true, 60);

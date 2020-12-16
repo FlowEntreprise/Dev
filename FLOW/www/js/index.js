@@ -32,6 +32,7 @@ var app = {
 	onDeviceReady: function () {
 		Keyboard.hide();
 		document.addEventListener("backbutton", onBackKeyDown, false);
+		setupApp();
 		setTimeout(function () {
 			Keyboard.hide();
 		}, 500);
@@ -60,7 +61,8 @@ var app = {
 			$(".custom_popup").css({
 				"opacity": "1"
 			})
-			setupFDJ();
+			//Framework7
+			// setupFDJ(); definitvely moved to app.js
 			setTimeout(function () {
 				let custom_vh = window.innerHeight / 100;
 				document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
@@ -372,7 +374,6 @@ var app = {
 					return;
 				}
 				if (data.additionalData.type == "flow_du_jour") {
-					app.showTab("#tab2");
 					explore_categories.slideTo(0);
 					setupFDJ();
 					return;
@@ -385,7 +386,7 @@ var app = {
 					go_to_account(data_go_to_account);
 				} else {
 					$(".flow_specifique_container").html("");
-					let myApp = new Framework7();
+					// let myApp = new Framework7();
 
 					if (
 						data.additionalData.type == "like_comment" ||
@@ -431,7 +432,7 @@ var app = {
 			console.log(e.message);
 		});
 
-		CheckIfConnected();
+
 		setTimeout(function () {
 			let _root = document.documentElement;
 			let _myvar = window.innerHeight / 100;
@@ -442,18 +443,21 @@ var app = {
 
 app.initialize();
 
-var $$ = Dom7;
 
-var app = new Framework7({
-	showBarsOnPageScrollEnd: false,
-	material: false,
-	tapHold: true,
-	tapHoldDelay: 300,
-	input: {
-		scrollIntoViewOnFocus: true,
-		scrollIntoViewCentered: true,
-	}, //enable tap hold events
-});
+// app.initialize();
+
+// var $$ = Dom7;
+
+// var app = new Framework7({
+// 	showBarsOnPageScrollEnd: false,
+// 	material: false,
+// 	tapHold: true,
+// 	tapHoldDelay: 300,
+// 	input: {
+// 		scrollIntoViewOnFocus: true,
+// 		scrollIntoViewCentered: true,
+// 	}, //enable tap hold events
+// });
 
 var storage = window.localStorage;
 
@@ -532,6 +536,7 @@ function check_app_version(app_version) {
 	}, 1000);
 }
 
+
 function offline() {
 	console.log("you are offline");
 	pullToRefreshEnd();
@@ -558,13 +563,13 @@ var tab1_count = 0;
 var tab2_count = 0;
 var tab3_count = 0;
 var tab4_count = 0;
-$(".fhome-btn").on("click", function () {
+$(".home_btn").on("click", function () {
 	tab1_count++;
 	setTimeout(function () {
 		tab1_count = 0;
 	}, 1000);
 });
-$(".fexplore-btn").on("click", function () {
+$(".explore_btn").on("click", function () {
 	if (tab1_count == 2) {
 		tab2_count++;
 		setTimeout(function () {
@@ -572,7 +577,7 @@ $(".fexplore-btn").on("click", function () {
 		}, 1000);
 	}
 });
-$(".fmessages-btn").on("click", function () {
+$(".messages_btn").on("click", function () {
 	if (tab2_count == 1) {
 		tab3_count++;
 		setTimeout(function () {
@@ -580,7 +585,7 @@ $(".fmessages-btn").on("click", function () {
 		}, 1000);
 	}
 });
-$(".fnotif-btn").on("click", function () {
+$(".notifications_btn").on("click", function () {
 	if (tab3_count == 5) {
 		if (ServerParams.ServerURL == "https://api-test.flowappweb.com/") {
 			DisconnectUser();

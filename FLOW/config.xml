@@ -41,6 +41,7 @@
         <preference name="SplashMaintainAspectRatio" value="true" />
         <preference name="AutoHideSplashScreen" value="false" />
     </platform>
+    <preference name="DisallowOverscroll" value="true"/>
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />
     <preference name="fullscreen" value="false" />

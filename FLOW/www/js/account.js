@@ -3,7 +3,8 @@ var followYou;
 var privateIDAccount;
 var nameCompte;
 var bioCompte;
-var mainView = app.addView(".view-main");
+//Framework7
+var mainView = null; //app.addView(".view-main");
 var FlowBandeau;
 var Follower;
 var Following;
@@ -135,7 +136,8 @@ document
 	.addEventListener("opened", function () {
 		last_scroll = 0;
 		current_page = "account";
-		app.showTab("#tabCompte1");
+		// app.showTab("#tabCompte1");
+		account_swiper.slideTo(0);
 		$(".ftabsAccount")[0].style.display = "block";
 		$("#tabCompte2").css("display", "block");
 		// $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
@@ -160,6 +162,17 @@ document
 		boolScrollTop = true;
 		$("#UserActivity").addClass("fblockAccountPadding");
 
+		$("#activity").on("click", function () {
+			if (!$("#activity").hasClass("active")) $("#activity").addClass("active");
+			$("#likes").removeClass("active");
+			account_swiper.slideTo(0);
+		})
+		$("#likes").on("click", function () {
+			if (!$("#likes").hasClass("active")) $("#likes").addClass("active");
+			$("#activity").removeClass("active");
+			account_swiper.slideTo(1);
+		})
+
 		stopAllBlocksAudio();
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
@@ -181,8 +194,8 @@ document
 		// analytics.setCurrentScreen(current_page);
 
 		// $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
-		$(".fflow-btn").css("display", "none");
-		$(".flow-btn-shadow").css("display", "none");
+		$(".flow_btn_img").css("display", "none");
+		$(".flow_btn_shadow").css("display", "none");
 
 		if (connected == false) {
 			$("#block_button").css("display", "none");
@@ -207,12 +220,24 @@ document
 		var scroll_element = $("#tabCompte1");
 		scroll_element[0].scrollTop = 0;
 		checkScrollAccount();
-		$$("#tabCompte1").on("tab:show", function () {
+		account_swiper.on('slideChange', function () {
+			if (account_swiper.activeIndex == 0) {
+				scroll_element = $("#tabCompte1");
+				if (!$("#activity").hasClass("active")) $("#activity").addClass("active");
+				$("#likes").removeClass("active");
+			} else {
+				scroll_element = $("#tabCompte2");
+				if (!$("#likes").hasClass("active")) $("#likes").addClass("active");
+				$("#activity").removeClass("active");
+			}
+			checkScrollAccount();
+		});
+		$("#tabCompte1").on("tab:show", function () {
 			scroll_element = $("#tabCompte1");
 			checkScrollAccount();
 		});
 
-		$$("#tabCompte2").on("tab:show", function () {
+		$("#tabCompte2").on("tab:show", function () {
 			scroll_element = $("#tabCompte2");
 			checkScrollAccount();
 		});
@@ -339,17 +364,17 @@ document
 	});
 
 document.getElementById("popup-account").addEventListener("closed", function () {
-	//$(".flow-btn-shadow").css("display", "block");
+	//$(".flow_btn_shadow").css("display", "block");
 	privateIDAccount = "";
 	profilePicLink = "";
 	bioCompte = "";
 	nameCompte = "";
 	// follow = "";
 	// followYou = "";
-	$(".fflow-btn").css("display", "block");
-	$(".flow-btn-shadow").css("display", "block");
-	$(".fflow-btn").css("z-index", "1");
-	$(".flow-btn-shadow").css("z-index", "0");
+	$(".flow_btn_img").css("display", "block");
+	$(".flow_btn_shadow").css("display", "block");
+	$(".flow_btn_img").css("z-index", "1");
+	$(".flow_btn_shadow").css("z-index", "0");
 	//$("#tabCompte2").css("display", "none");
 	$(".ftabsAccount")[0].style.display = "none";
 	let time_in_last_screen =

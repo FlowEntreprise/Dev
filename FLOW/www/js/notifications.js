@@ -1,7 +1,58 @@
 var all_notifications_block = [];
 var loading_before_popup_specifique;
 var current_notification_block;
-function block_notification_like(data) {  //type permet de defini si c'est le like d'un flow ou le like d'un commentaire
+var CanRefreshNotificationList = true;
+var NotificationListCurrentIndex = 0;
+var notification_list_empty = true;
+
+function notifications_tab_loaded() {
+    $(".fnotif-btn").on("click", function () {
+        // var home_scrolling = false;
+        if (current_page == "notifications") {
+
+            set_all_notifs_to_seen();
+            let element = document.getElementById("tab4");
+            // element.onscroll = function() {
+            //     home_scrolling = true;
+            // };
+            let last_scrollTop = element.scrollTop;
+            const scrollToTop = () => {
+                const c = element.scrollTop;
+                if (c > 0 && c <= last_scrollTop) {
+                    window.requestAnimationFrame(scrollToTop);
+                    element.scrollTo(0, c - c / 8);
+                    last_scrollTop = c;
+                }
+            };
+            scrollToTop();
+        } else {
+            //all_notifications_block.length = [];
+        }
+    });
+
+    // Initialize notifs pull to refresh
+    notifs_ptr = setupPTR(document.querySelector(".notifications_parent"), function () {
+        refresh_notif(true);
+    });
+
+    // Scroll to load notifications
+    $(".notifications_parent").scroll(function () {
+        var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+        if (CanRefreshNotificationList == true) {
+            if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+                CanRefreshNotificationList = false;
+                var data_update_Notification_list = {
+                    PrivateId: window.localStorage.getItem("user_private_id"),
+                    Index: NotificationListCurrentIndex
+                };
+                ServerManager.GetNotificationOfUser(data_update_Notification_list);
+            }
+        }
+    });
+
+}
+
+function block_notification_like(data) { //type permet de defini si c'est le like d'un flow ou le like d'un commentaire
     this.seen = !!+data.IsView;
     var block_notification_like = this;
     if (data.additionalData) {
@@ -146,19 +197,16 @@ function block_notification_like(data) {  //type permet de defini si c'est le li
         set_seen(block_notification_like);
         check_seen();
         $(".flow_specifique_container").html("");
-        let myApp = new Framework7();
 
         // c'est like_comment partout mais ça devrait etre juste le type de like
         if (block_notification_like.like_comment == "like_comment" || block_notification_like.like_comment == "send_comment") {
-            let data_single_comment =
-            {
+            let data_single_comment = {
                 ObjectId: block_notification_like.Id_comment
             };
             ServerManager.GetSingleComment(data_single_comment);
         }
         if (block_notification_like.like_comment == "like_response" || block_notification_like.like_comment == "send_response") {
-            let data_single_response =
-            {
+            let data_single_response = {
                 ObjectId: block_notification_like.Id_response
             };
             ServerManager.GetSingleResponseExtended(data_single_response);
@@ -328,18 +376,15 @@ function block_notification_comment(data) {
         set_seen(block_notification_comment);
         check_seen();
         $(".flow_specifique_container").html("");
-        let myApp = new Framework7();
         if (block_notification_comment.Id_comment) {
-            let data_single_comment =
-            {
+            let data_single_comment = {
                 ObjectId: block_notification_comment.Id_comment
             };
             ServerManager.GetSingleComment(data_single_comment);
         }
 
         if (block_notification_comment.Id_response) {
-            let data_single_response =
-            {
+            let data_single_response = {
                 ObjectId: block_notification_comment.Id_response
             };
             ServerManager.GetSingleResponseExtended(data_single_response);
@@ -460,8 +505,6 @@ function block_notification_follow(data) {
 
 }
 
-
-
 function block_notification_story_comment(data) {
     this.seen = !!+data.IsView;
     var block_notification_story_comment = this;
@@ -542,7 +585,8 @@ function block_notification_story_comment(data) {
          ServerManager.GetSingle(data_flow);
          
          display_all_follows(data);*/
-        app.showTab("#tab1");
+        // app.showTab("#tab1");
+        pages_swiper.slideTo(0);
     });
 
 
@@ -557,56 +601,6 @@ function block_notification_story_comment(data) {
     });
 
 }
-
-/*
-$(".fnotif-btn").on("click",function(){
-    if(notification_list_empty == true)
-    {
-        $(".list-notif-block").html("");
-        let data_notification = 
-        {
-            PrivateId : window.localStorage.getItem("user_private_id"),
-            Index : 0
-        };
-        ServerManager.GetNotificationOfUser(data_notification);
-    } 
-});
-*/
-// cette fonction de fdp est copié collé 4 fois dans le code putin de merde
-
-
-$(".fnotif-btn").on("click", function () {
-    // var home_scrolling = false;
-    if (current_page == "notifications") {
-
-        set_all_notifs_to_seen();
-        let element = document.getElementById("tab4");
-        // element.onscroll = function() {
-        //     home_scrolling = true;
-        // };
-        let last_scrollTop = element.scrollTop;
-        const scrollToTop = () => {
-            const c = element.scrollTop;
-            if (c > 0 && c <= last_scrollTop) {
-                window.requestAnimationFrame(scrollToTop);
-                element.scrollTo(0, c - c / 8);
-                last_scrollTop = c;
-            }
-        };
-        scrollToTop();
-    } else {
-        //all_notifications_block.length = [];
-    }
-});
-
-
-var ptrNotif = $$('.pull-to-refresh-content');
-// Add 'refresh' listener on it
-ptrNotif.on('ptr:refresh', function (e) {
-    // Emulate 2s loading
-    console.log("refreshing...");
-    refresh_notif(true);
-});
 
 function refresh_notif(set_to_seen) {
     let data_notification = {
@@ -636,16 +630,14 @@ function set_all_notifs_to_seen() {
 
 function show_specifique_element_for_comment_button(notif_block) {
     if (notif_block.type == "like_comment" || notif_block.type == "send_comment") {
-        let data_single_comment =
-        {
+        let data_single_comment = {
             ObjectId: notif_block.Id_comment
         };
         ServerManager.GetSingleComment(data_single_comment);
         return;
     }
     if (notif_block.type == "like_response" || notif_block.type == "send_response") {
-        let data_single_response =
-        {
+        let data_single_response = {
             ObjectId: notif_block.Id_response
         };
         ServerManager.GetSingleResponseExtended(data_single_response);
@@ -659,50 +651,6 @@ function show_specifique_element_for_comment_button(notif_block) {
         return;
     }
 }
-
-
-
-ptrNotif.on('ptr:pullstart', function (e) {
-    console.log("pull start");
-    $("#ptr_arrow_notif").css("opacity", "1");
-
-});
-
-ptrNotif.on('ptr:pullend', function (e) {
-    console.log("pull end");
-    $("#ptr_arrow_notif").css("opacity", "0");
-});
-
-function pullToRefreshEnd() {
-    console.log("refreshed !");
-    $("#ptr_arrow_notif").css("opacity", "0");
-    app.pullToRefreshDone();
-}
-
-function StopRefreshTL() {
-    if ($(".loading_tl")) $(".loading_tl").remove();
-    CanRefreshTL = false;
-    CanRefreshFollowList = false;
-    pullToRefreshEnd();
-}
-
-
-var CanRefreshNotificationList = true;
-var NotificationListCurrentIndex = 0;
-var notification_list_empty = true;
-$("#tab4").scroll(function () {
-    var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-    if (CanRefreshNotificationList == true) {
-        if (Math.round($(this).scrollTop()) >= limit * 0.75) {
-            CanRefreshNotificationList = false;
-            var data_update_Notification_list = {
-                PrivateId: window.localStorage.getItem("user_private_id"),
-                Index: NotificationListCurrentIndex
-            };
-            ServerManager.GetNotificationOfUser(data_update_Notification_list);
-        }
-    }
-});
 
 function UpdateNotificationList(data, set_to_seen) {
     console.log("updating notification list...");
@@ -745,7 +693,7 @@ function UpdateNotificationList(data, set_to_seen) {
     } else {
         $(".no_notif")[0].style.display = "block";
     }
-
+    pullToRefreshEnd();
 }
 
 // fin du copié collé de la fonction de scroll de fdp
@@ -830,8 +778,8 @@ function send_notif_to_user(block, type) {
         comment_text: block.Comment_text, // texte commentaire genre le vrai commenaire t'a capté
         like_comment_text: block.fcomment_text, // texte lorsque l'on like un commentaire
         IdFlow: prepare_id_flow == undefined ? prepare_id_flow = "undefined" : prepare_id_flow,
-        Id_comment: block.IdComment /*? block.ObjectId : undefined*/,
-        Id_response: block.Idresponse /*? block.ObjectId : undefined*/,
+        Id_comment: block.IdComment /*? block.ObjectId : undefined*/ ,
+        Id_response: block.Idresponse /*? block.ObjectId : undefined*/ ,
         tag_in_flow: block.tag_in_flow
     };
     if (sender_info.comment_text == undefined) {
@@ -1319,8 +1267,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
 
             if (data.additionalData.tag_in_comment || data.additionalData.sender_info.tag_in_flow) {
                 $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " t'a identifié");
-            }
-            else {
+            } else {
 
                 $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a commenté ton flow");
             }
@@ -1341,8 +1288,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
 
             if (data.additionalData.tag_in_comment) {
                 $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " t'a identifié");
-            }
-            else {
+            } else {
 
                 $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a répondu");
             }
@@ -1449,12 +1395,11 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
             break;
     }
     $(".f_in_app_notif").on("click", function () {
-        app.showTab("#tab4");
+        // app.showTab("#tab4");
+        pages_swiper.slideTo(3);
     });
     $(".f_in_app_notif").css("margin-top", "-40vw");
     setTimeout(function () {
         $(".f_in_app_notif").css("margin-top", "5vw");
     }, 3000);
 }
-
-
