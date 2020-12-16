@@ -65,8 +65,7 @@ document.getElementById("popup-record").addEventListener("opened", function () {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page",
-		{
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},
@@ -93,8 +92,7 @@ document.getElementById("popup-record").addEventListener("opened", function () {
 
 	current_page = "record";
 	facebookConnectPlugin.logEvent(
-		"open_record",
-		{},
+		"open_record", {},
 		null,
 		function () {
 			console.log("fb event success");
@@ -113,8 +111,7 @@ document.getElementById("popup-record").addEventListener("closed", function () {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page",
-		{
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},
@@ -146,8 +143,7 @@ document
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -205,8 +201,7 @@ document
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -278,8 +273,7 @@ $$(".frestart-after_btn").on("touchend", function () {
 		Popup("popup-record", true);
 
 		facebookConnectPlugin.logEvent(
-			"restart_record_flow",
-			{},
+			"restart_record_flow", {},
 			null,
 			function () {
 				console.log("fb event success");
@@ -294,8 +288,7 @@ $$(".frestart-after_btn").on("touchend", function () {
 		Popup("popup-story-record", true);
 
 		facebookConnectPlugin.logEvent(
-			"restart_record_story",
-			{},
+			"restart_record_story", {},
 			null,
 			function () {
 				console.log("fb event success");
@@ -313,8 +306,7 @@ $$(".fcancel-after_btn").on("touchend", function () {
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -335,8 +327,7 @@ $$(".fcancel-after_btn").on("touchend", function () {
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -383,8 +374,7 @@ $$(".fvalidate-after_btn").on("touchend", function () {
 				ServerManager.AddFlow(data, all_tagged_users);
 
 				facebookConnectPlugin.logEvent(
-					"record_flow",
-					{
+					"record_flow", {
 						// private_id: data.PrivatedId,
 						// description: data.Description,
 						duration: data.Duration,
@@ -429,8 +419,7 @@ $$(".fvalidate-after_btn").on("touchend", function () {
 			ServerManager.AddStory(storydata);
 
 			facebookConnectPlugin.logEvent(
-				"upload_story",
-				{
+				"upload_story", {
 					duration: storydata.Duration,
 				},
 				null,
@@ -446,7 +435,7 @@ $$(".fvalidate-after_btn").on("touchend", function () {
 });
 
 $$(".fcamera-after").on("click", function () {
-	TakePhoto();
+	TakePhoto(onPhotoDataSuccess);
 });
 $$(".fgallery-after").on("click", function () {
 	GetPhotoFromGallery();
@@ -492,8 +481,7 @@ function CloseAfterRecord() {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page",
-		{
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},
@@ -560,8 +548,7 @@ function Save(blob) {
 			let time_in_last_screen =
 				Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 			facebookConnectPlugin.logEvent(
-				"current_page",
-				{
+				"current_page", {
 					page: current_page,
 					duration: time_in_last_screen,
 				},
@@ -647,8 +634,7 @@ function Save(blob) {
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page",
-			{
+			"current_page", {
 				page: current_page,
 				duration: time_in_last_screen,
 			},
@@ -707,8 +693,7 @@ function Save(blob) {
 			// });
 
 			facebookConnectPlugin.logEvent(
-				"upload_story_comment",
-				{
+				"upload_story_comment", {
 					duration: story_comment.Duration,
 				},
 				null,
@@ -830,7 +815,7 @@ function drawCurveAnim() {
 
 drawCurveAnim();
 
-function TakePhoto() {
+function TakePhoto(callback) {
 	console.log("take photo");
 	if (window.cordova.platformId == "android") {
 		var permissions = cordova.plugins.permissions;
@@ -852,20 +837,20 @@ function TakePhoto() {
 			if (!status.hasPermission) error();
 			else {
 				//alert("success");
-				capturePhoto();
+				capturePhoto(callback);
 			}
 		}
 
 		permissions.hasPermission(permissions.CAMERA, function (status) {
 			if (status.hasPermission) {
 				//alert("success");
-				capturePhoto();
+				capturePhoto(callback);
 			} else {
 				permissions.requestPermissions(list, success, error);
 			}
 		});
 	} else {
-		capturePhoto();
+		capturePhoto(callback);
 		if (window.localStorage.getItem("ios_photos_init") != "true") {
 			$(".ios_camera_auth")[0].style.display = "block";
 		}
@@ -917,24 +902,6 @@ function onPhotoDataSuccess(imageData) {
 	$(".ios_camera_auth")[0].style.display = "none";
 	window.localStorage.setItem("ios_photos_init", "true");
 
-	/*----------------------TEST CHRIS-------------------*/
-	let ImgRef = firebase.storage().ref(FirebaseEnvironment + "/" + chat_id)
-		.put(img)
-		.then(function (snapshot) {
-			console.log("image upload done : ");
-			console.log(snapshot);
-			ImgRef.child(snapshot.metadata.name).getDownloadURL().then(function (url) {
-				let DataMessage =
-				{
-					image: url,
-					chat_id: chat_id
-				};
-				ServerManager.AddMessage(DataMessage);
-			});
-		});
-
-
-	/*--------------------FIN TEST CHRIS----------------*/
 	var options = {
 		url: imageData, // required.
 		ratio: "6/4", // required. (here you can define your custom ration) "1/1" for square images
@@ -963,12 +930,12 @@ function onPhotoDataSuccess(imageData) {
 	//new_block.ftop_part.style.backgroundImage = "url('data:image/jpeg;base64," + imageData + "')";
 }
 
-function capturePhoto() {
+function capturePhoto(callback) {
 	console.log("take photo");
 	appState.takingPicture = true;
 
 	// Take picture using device camera, allow edit, and retrieve image as base64-encoded string
-	navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
+	navigator.camera.getPicture(callback, onFail, {
 		quality: 75,
 		allowEdit: false,
 		destinationType: Camera.DestinationType.FILE_URI,
@@ -1022,8 +989,7 @@ function closeStoryRecord() {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page",
-		{
+		"current_page", {
 			page: current_page,
 			duration: time_in_last_screen,
 		},

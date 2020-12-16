@@ -68,7 +68,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-	constructor() { }
+	constructor() {}
 
 	/* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -173,7 +173,7 @@ class ServerManagerClass {
 				};
 				break;
 			default:
-			////console.log("Error in parameters sent to Connect() in ServerManager.");
+				////console.log("Error in parameters sent to Connect() in ServerManager.");
 		}
 		$.ajax({
 			type: "POST",
@@ -306,7 +306,7 @@ class ServerManagerClass {
 			success: function (response) {
 				check_app_version(response.Data);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -323,7 +323,7 @@ class ServerManagerClass {
 			success: function (response) {
 				//console.log("User last connexion updated");
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -700,7 +700,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyFlow(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -724,7 +724,7 @@ class ServerManagerClass {
 					}
 				}
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -741,7 +741,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowUserFlow(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -756,7 +756,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyInfosUser(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -772,7 +772,7 @@ class ServerManagerClass {
 				////console.log("on recup le getInfosUserNumber");
 				ShowInfosUserNumber(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -800,7 +800,7 @@ class ServerManagerClass {
 					ShowUserProfile(response);
 				}
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -823,7 +823,7 @@ class ServerManagerClass {
 				////console.log(response);
 				UpdateFollowersList(response, data.follow_list);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -854,7 +854,7 @@ class ServerManagerClass {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -874,7 +874,7 @@ class ServerManagerClass {
 				// myApp.pullToRefreshTrigger(ptrContent);
 				callback(response, data);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -1266,7 +1266,7 @@ class ServerManagerClass {
 				ServerManager.UpdateRegisterId(data);*/
 				//console.log(registrationId);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -1727,8 +1727,7 @@ class ServerManagerClass {
 				current_block_chat.chat_id = data.chat_id;
 				current_block_chat.members = {};
 				current_block_chat.members.id = data.user_id;
-			}
-			else {
+			} else {
 				// on crée juste un nouveau message
 				first_chat = false;
 			}
@@ -1737,13 +1736,14 @@ class ServerManagerClass {
 	}
 
 	AddMessage(data) { // ajoute les msg à la bdd firebase
-		let data_message =
-		{
+		let data_message = {
 			"sender_id": window.localStorage.getItem("firebase_token"),
 			"sender_private_id": window.localStorage.getItem("user_private_id"),
 			"sender_full_name": window.localStorage.getItem("user_name"),
 			"message": data.message,
-			"seen_by": { [window.localStorage.getItem("firebase_token")]: true },
+			"seen_by": {
+				[window.localStorage.getItem("firebase_token")]: true
+			},
 			"image": data.image,
 			"audio": data.audio,
 			"time": Date.now()
@@ -1789,9 +1789,11 @@ class ServerManagerClass {
 			[window.localStorage.getItem("firebase_token")]: true
 		}).then(function (dataSnapshot) {
 			firebase.database().ref(FirebaseEnvironment).update({
-				['/members/' + data.chat_id]: { [data.user_id]: true, [window.localStorage.getItem("firebase_token")]: true },
-				['/users/' + data.user_id + '/chats/' + data.chat_id]:
-				{
+				['/members/' + data.chat_id]: {
+					[data.user_id]: true,
+					[window.localStorage.getItem("firebase_token")]: true
+				},
+				['/users/' + data.user_id + '/chats/' + data.chat_id]: {
 					time: time,
 					search_key: (window.localStorage.getItem("user_name")).toLowerCase()
 				},
@@ -1818,8 +1820,7 @@ class ServerManagerClass {
 				ref_members.once('value').then(function (profile_snapshot) {
 					if (profile_snapshot.val() != null) {
 						$("#" + chat_id + "").remove();
-						let data_block_chat =
-						{
+						let data_block_chat = {
 							chat_data: data_chat,
 							members_data: profile_snapshot.val()
 						};
@@ -1851,9 +1852,11 @@ class ServerManagerClass {
 		firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats")
 			.on("value", function (snapshot) {
 				//console.log(" NewChatListener was called");
-				let clean_chat_list = {};// object qui va etre rempli de façon {chat_id : time}
+				let clean_chat_list = {}; // object qui va etre rempli de façon {chat_id : time}
 				delete snapshot.val()[window.localStorage.getItem("firebase_token")];
-				Object.entries(snapshot.val()).forEach(item => { clean_chat_list[item[0]] = item[1].time });
+				Object.entries(snapshot.val()).forEach(item => {
+					clean_chat_list[item[0]] = item[1].time
+				});
 
 				let ordered_chat = Object.fromEntries(
 					Object.entries(clean_chat_list).sort(([, a], [, b]) => a - b)
@@ -1861,7 +1864,9 @@ class ServerManagerClass {
 
 				let different_chat = difference(previous_chat_list, clean_chat_list);
 				if (different_chat != -1) {
-					ordered_chat = { [different_chat]: ordered_chat[different_chat] };
+					ordered_chat = {
+						[different_chat]: ordered_chat[different_chat]
+					};
 				}
 				nb_block_chat_to_pop = Object.keys(ordered_chat).length;
 				previous_chat_list = clean_chat_list;
@@ -1920,20 +1925,22 @@ class ServerManagerClass {
 	}
 
 	UploadImageToFirebase(data) {
-		let ImgRef = firebase.storage().ref(FirebaseEnvironment + "/" + chat_id)
-			.put(img)
-			.then(function (snapshot) {
-				console.log("image upload done : ");
-				console.log(snapshot);
-				ImgRef.child(snapshot.metadata.name).getDownloadURL().then(function (url) {
-					let DataMessage =
-					{
-						image: url,
-						chat_id: chat_id
-					};
-					ServerManager.AddMessage(DataMessage);
-				});
+		let ImgRef = firebase.storage().ref(FirebaseEnvironment + "/" + data.chat_id + "/images/" + data.name.toString());
+
+		ImgRef.putString(data.content, 'data_url').then(function (snapshot) {
+			console.log('Uploaded a data_url string!');
+			console.log(snapshot);
+			ImgRef.getDownloadURL().then(function (url) {
+				console.log(url);
+				let DataMessage = {
+					image: url,
+					chat_id: data.chat_id,
+					message: "(photo)",
+					audio: ""
+				};
+				ServerManager.AddMessage(DataMessage);
 			});
+		});
 	}
 }
 
