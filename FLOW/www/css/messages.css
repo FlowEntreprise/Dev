@@ -368,6 +368,16 @@
 	left: -100vw;
 }
 
+#UploadProgressBar
+{
+	position: absolute;
+    background: #1a84ef;
+    height: 0.5vh;
+	top: -0.6vh;
+	display: none;
+	transition-duration: 0.2s;
+}
+
 #SendFromCamera {
 	width: 8vw;
 	position: absolute;

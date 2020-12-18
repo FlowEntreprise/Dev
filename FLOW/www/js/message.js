@@ -94,7 +94,6 @@ function block_chat(data) {
     set_block_chat_seen();
 
 }
-
 // affichage de la date quand il s'est ecoulé plus de 2h entre 2 msg
 function block_message_date(time) {
     var block_message_date = this;
@@ -103,7 +102,6 @@ function block_message_date(time) {
     this.label_block_message_date.innerText = set_timestamp(time, "label_block_message_date");
     $("#fblock_message_content").append(this.label_block_message_date);
 }
-
 // gestion de la vue des msg comme sur messenger
 function block_message_seen(data) {
     var block_message_seen = this;
@@ -179,7 +177,6 @@ function block_message(data, previous_message) {
     }
 
 }
-
 
 $("#fnameCompte").on("click", function () {
 
@@ -307,7 +304,6 @@ function send_message(chat_id) {
     // Empecher l'utilisateur de pouvoir clicker si l'imput msg est vide
 }
 
-
 function pop_block_chat(data) {
     $(".loading_chat_list").remove();
     let new_block_chat = new block_chat(data);
@@ -325,8 +321,6 @@ function pop_block_message_seen(data) {
     $(".block_message_seen").remove();
     let new_block_message_seen = new block_message_seen(data);
 }
-
-
 
 scrollableElement.addEventListener("scroll", function () {
     var st = scrollableElement.scrollTop;
@@ -346,7 +340,6 @@ scrollableElement.addEventListener("scroll", function () {
     }
     lastScrollTop = st <= 0 ? 0 : st;
 }, false);
-
 
 /* 
 Exclu la derniere clé de la requete
@@ -484,10 +477,7 @@ function live_chat(chat_id) {
 
     });
 
-
 }
-
-
 
 function scroll_to_bottom(element) {
     setTimeout(function () {
@@ -509,7 +499,6 @@ function difference(obj1, obj2) {
     //console.log("key difference : ");
     return keyFound || -1;
 }
-
 
 function GetFollowingsPopupCreateConversation() {
     let data_followings = {
@@ -537,8 +526,17 @@ function DisplayFollowingsPopupCreateConversation(data, follow_list) {
         $(".fconversation_block_utilisateur_list")[0].appendChild(no_users);
     }
 }
+function UpdateProgressBar(percent) {
+    $("#UploadProgressBar").css({ "display": "block", "width": percent + "vw" });
+    if (percent == 100) {
+        $("#UploadProgressBar").css("width", percent + "vw");
 
+        setTimeout(function () {
+            $("#UploadProgressBar").css({ "display": "none" });
+        }, 500);
 
+    }
+}
 
 document
     .getElementById("popup-message")
@@ -561,6 +559,7 @@ document
         current_block_chat.first_messake_key = undefined;
         first_chat = false;
         all_block_message.length = 0;
+        $("#UploadProgressBar").css({ "display": "none" });
     });
 
 document
@@ -570,7 +569,7 @@ document
     });
 document
     .getElementById("popup-create-conversation")
-    .addEventListener("closed", function () {});
+    .addEventListener("closed", function () { });
 
 
 /*------------------------TO DO-----------------------

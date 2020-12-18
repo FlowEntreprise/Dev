@@ -452,7 +452,6 @@ function manageFollow(type, element) {
 	}
 }
 //#fFollowButtunAccount
-
 function manageFollowYou() {
 	if (followYou) {
 		$("#fFollowYouButtunAccount").css("display", "block");
