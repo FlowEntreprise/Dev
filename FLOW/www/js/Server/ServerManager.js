@@ -68,7 +68,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-	constructor() {}
+	constructor() { }
 
 	/* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -173,7 +173,7 @@ class ServerManagerClass {
 				};
 				break;
 			default:
-				////console.log("Error in parameters sent to Connect() in ServerManager.");
+			////console.log("Error in parameters sent to Connect() in ServerManager.");
 		}
 		$.ajax({
 			type: "POST",
@@ -306,7 +306,7 @@ class ServerManagerClass {
 			success: function (response) {
 				check_app_version(response.Data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -323,7 +323,7 @@ class ServerManagerClass {
 			success: function (response) {
 				//console.log("User last connexion updated");
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -700,7 +700,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -724,7 +724,7 @@ class ServerManagerClass {
 					}
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -741,7 +741,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowUserFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -756,7 +756,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyInfosUser(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -772,7 +772,7 @@ class ServerManagerClass {
 				////console.log("on recup le getInfosUserNumber");
 				ShowInfosUserNumber(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -800,7 +800,7 @@ class ServerManagerClass {
 					ShowUserProfile(response);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -823,7 +823,7 @@ class ServerManagerClass {
 				////console.log(response);
 				UpdateFollowersList(response, data.follow_list);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -854,7 +854,7 @@ class ServerManagerClass {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -874,7 +874,7 @@ class ServerManagerClass {
 				// myApp.pullToRefreshTrigger(ptrContent);
 				callback(response, data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1266,7 +1266,7 @@ class ServerManagerClass {
 				ServerManager.UpdateRegisterId(data);*/
 				//console.log(registrationId);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1810,39 +1810,42 @@ class ServerManagerClass {
 	}
 
 	GetFirebaseUserProfile(data, callback, chat_id) {
-		let data_chat = data;
-		data_chat.chat_id = chat_id;
-		data = Object.keys(data);
 
-		for (let i = 0; i < data.length; i++) {
-			if (data[i].length == 32 && data[i] != window.localStorage.getItem("firebase_token")) {
-				let ref_members = firebase.database().ref(FirebaseEnvironment + "/users/" + data[i]);
-				ref_members.once('value').then(function (profile_snapshot) {
-					if (profile_snapshot.val() != null) {
-						$("#" + chat_id + "").remove();
-						let data_block_chat = {
-							chat_data: data_chat,
-							members_data: profile_snapshot.val()
-						};
-						data_block_chat.members_data.id = profile_snapshot.key;
+		if (data) {
+			let data_chat = data;
+			data_chat.chat_id = chat_id;
+			data = Object.keys(data);
 
-						if (all_block_chat.length) {
+			for (let i = 0; i < data.length; i++) {
+				if (data[i].length == 32 && data[i] != window.localStorage.getItem("firebase_token")) {
+					let ref_members = firebase.database().ref(FirebaseEnvironment + "/users/" + data[i]);
+					ref_members.once('value').then(function (profile_snapshot) {
+						if (profile_snapshot.val() != null) {
+							$("#" + chat_id + "").remove();
+							let data_block_chat = {
+								chat_data: data_chat,
+								members_data: profile_snapshot.val()
+							};
+							data_block_chat.members_data.id = profile_snapshot.key;
 
-							all_block_chat.forEach(function (item, index) {
+							if (all_block_chat.length) {
 
-								if (item && item.chat_id === chat_id) {
-									$("#" + chat_id + "").remove();
-								}
+								all_block_chat.forEach(function (item, index) {
 
-							});
+									if (item && item.chat_id === chat_id) {
+										$("#" + chat_id + "").remove();
+									}
+
+								});
+							}
+							all_block_chat.push(pop_block_chat(data_block_chat));
+
 						}
-						all_block_chat.push(pop_block_chat(data_block_chat));
+					});
 
-					}
-				});
+				}
 
 			}
-
 
 		}
 

@@ -560,9 +560,9 @@ document
         $("#div_send_message").css("left", "-100vw");
         $("#fblock_message_content").html("");
         stopAllBlocksAudio();
-        current_block_chat.first_messake_key = undefined;
         first_chat = false;
         all_block_message.length = 0;
+        current_block_chat.first_messake_key = undefined;
         $("#UploadProgressBar").css({ "display": "none" });
     });
 
