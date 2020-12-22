@@ -68,7 +68,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-	constructor() { }
+	constructor() {}
 
 	/* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -173,7 +173,7 @@ class ServerManagerClass {
 				};
 				break;
 			default:
-			////console.log("Error in parameters sent to Connect() in ServerManager.");
+				////console.log("Error in parameters sent to Connect() in ServerManager.");
 		}
 		$.ajax({
 			type: "POST",
@@ -306,7 +306,7 @@ class ServerManagerClass {
 			success: function (response) {
 				check_app_version(response.Data);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -323,7 +323,7 @@ class ServerManagerClass {
 			success: function (response) {
 				//console.log("User last connexion updated");
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -700,7 +700,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyFlow(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -724,7 +724,7 @@ class ServerManagerClass {
 					}
 				}
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -741,7 +741,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowUserFlow(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -756,7 +756,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyInfosUser(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -772,7 +772,7 @@ class ServerManagerClass {
 				////console.log("on recup le getInfosUserNumber");
 				ShowInfosUserNumber(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -800,7 +800,7 @@ class ServerManagerClass {
 					ShowUserProfile(response);
 				}
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -823,7 +823,7 @@ class ServerManagerClass {
 				////console.log(response);
 				UpdateFollowersList(response, data.follow_list);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -854,7 +854,7 @@ class ServerManagerClass {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -874,7 +874,7 @@ class ServerManagerClass {
 				// myApp.pullToRefreshTrigger(ptrContent);
 				callback(response, data);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -1266,7 +1266,7 @@ class ServerManagerClass {
 				ServerManager.UpdateRegisterId(data);*/
 				//console.log(registrationId);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -1740,12 +1740,12 @@ class ServerManagerClass {
 			"sender_id": window.localStorage.getItem("firebase_token"),
 			"sender_private_id": window.localStorage.getItem("user_private_id"),
 			"sender_full_name": window.localStorage.getItem("user_name"),
-			"message": data.message,
+			"message": data.message ? data.message : "",
 			"seen_by": {
 				[window.localStorage.getItem("firebase_token")]: true
 			},
-			"image": data.image,
-			"audio": data.audio,
+			"image": data.image ? data.image : "",
+			"audio": data.audio ? data.audio : "",
 			"time": Date.now()
 		};
 		let db_message = firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id);
@@ -1931,7 +1931,9 @@ class ServerManagerClass {
 
 		uploadTask.then(function (snapshot) {
 			console.log('Uploaded a data_url string!');
-			$("#UploadProgressBar").css({ "display": "none" });
+			$("#UploadProgressBar").css({
+				"display": "none"
+			});
 			console.log(snapshot);
 			ImgRef.getDownloadURL().then(function (url) {
 				console.log(url);
