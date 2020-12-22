@@ -306,7 +306,7 @@
 
 .offset_search {
 	width: 100vw;
-	height: 20vh;
+	height: calc(20 * var(--custom-vh));
 }
 
 .show_more_users {
@@ -333,7 +333,7 @@
 }
 
 .show_more_flows {
-	margin-top: 2vh;
+	margin-top: calc(2 * var(--custom-vh));
 	/* position: absolute; */
 	/* top: calc(245 * var(--custom-vh)); */
 	width: 26vw;
@@ -358,7 +358,7 @@
 }
 
 #comingsoon {
-	line-height: 65vh;
+	line-height: calc(65 * var(--custom-vh));
 	text-align: center;
 	font-family: "Roboto-Regular";
 	font-size: 16px;

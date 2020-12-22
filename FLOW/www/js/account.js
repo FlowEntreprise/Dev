@@ -19,10 +19,8 @@ var LastOs;
 var user_is_blocked;
 var blocked_by_user;
 var last_scroll = 0;
-var account_fullname;
-var FirebaseToken;
 
-function alertDismissed() { }
+function alertDismissed() {}
 
 function fInitialisationAccount(privateId) {
 	$("#UserActivity")[0].innerHTML = "";
@@ -180,9 +178,9 @@ document
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+				page: current_page,
+				duration: time_in_last_screen,
+			},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -383,9 +381,9 @@ document.getElementById("popup-account").addEventListener("closed", function () 
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-		page: current_page,
-		duration: time_in_last_screen,
-	},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -477,6 +475,7 @@ function manageFollow(type, element) {
 	}
 }
 //#fFollowButtunAccount
+
 function manageFollowYou() {
 	if (followYou) {
 		$("#fFollowYouButtunAccount").css("display", "block");
@@ -489,8 +488,6 @@ function ShowUserProfile(response) {
 	console.log(response);
 	let myrank_number;
 	let myrank_img;
-	account_fullname = response.Data.FullName;
-	FirebaseToken = response.Data.FirebaseToken;
 	if (response.Data.PrivateId == window.localStorage.getItem("user_private_id")) {
 		console.log("my profile infos received");
 		const src = "https://" + response.LinkBuilder.Hostname + ":" + response.LinkBuilder.Port + "/images/" + response.Data.ProfilePicture.name + "?";
@@ -756,7 +753,7 @@ function ShowLikedFlows(flow, data_block_user) {
 						all_blocks.push(new_block);
 						if (i == 0 && indexAccountLike == 0)
 							new_block.block_flow.style.marginTop =
-								"calc(37 * var(--custom-vh))";
+							"calc(37 * var(--custom-vh))";
 						if ($(".loading_account")) $(".loading_account").remove();
 					}
 				}
@@ -840,7 +837,7 @@ function FollowResponse(response, type, element) {
 		};
 		if (type == "block_user_follow") {
 			(data_notif_follow.RegisterId = element.RegisterId),
-				(data_notif_follow.LastOs = element.LastOs);
+			(data_notif_follow.LastOs = element.LastOs);
 		}
 		send_notif_to_user(data_notif_follow, "follow");
 	} else if (response.UnFollow !== undefined) {
@@ -849,7 +846,7 @@ function FollowResponse(response, type, element) {
 			Follower--;
 			$("#ffollowersBandeauChiffre").html(Follower);
 		}
-	} else { }
+	} else {}
 	$("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
 	manageFollow(type, element);
 }
@@ -864,7 +861,7 @@ $("#block_button").on("click", function () {
 			"Veux-tu vraiment bloquer cet utilisateur ?",
 			function (id) {
 				if (id == 1) {
-					function alertDismissed() { }
+					function alertDismissed() {}
 					// On me bloque pas moi.
 					if (
 						privateIDAccount.toUpperCase() == "KING.CHRIS" ||
@@ -933,4 +930,3 @@ $("#block_button").on("click", function () {
 		return;
 	}
 });
-
