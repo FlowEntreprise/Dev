@@ -34,15 +34,16 @@ var app = {
 		document.addEventListener("backbutton", onBackKeyDown, false);
 		setupApp();
 		setTimeout(function () {
-			Keyboard.hide();
-		}, 500);
-		setTimeout(function () {
 			if (!window.cordova.platformId == "android") {
 				StatusBar.overlaysWebView(false);
+				Keyboard.hide();
 			}
 			StatusBar.backgroundColorByHexString("#f7f7f8");
 			let custom_vh = window.innerHeight / 100;
-			document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
+			document.documentElement.style.setProperty(
+				"--custom-vh",
+				custom_vh + "px"
+			);
 
 			if (window.innerHeight <= 600) {
 				document.body.classList.add("mobile600");
@@ -101,21 +102,17 @@ var app = {
 
 		}, 1200);
 
-
-
-
-
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
 
 		function keyboardShowHandler(e) {
-			// console.log('Keyboard height is: ' + e.keyboardHeight);
+			// //console.log('Keyboard height is: ' + e.keyboardHeight);
 		}
 
 		// This event fires when the keyboard will hide
 		window.addEventListener("native.keyboardhide", keyboardHideHandler);
 
 		function keyboardHideHandler(e) {
-			// console.log('Keyboard hidden');
+			// //console.log('Keyboard hidden');
 			if (in_identification) {
 				$(".after-record-block-container").css("margin-top", "-30vh");
 			}
@@ -128,10 +125,10 @@ var app = {
 				},
 			},
 			function (match) {
-				console.log("deeplink match !", match);
+				//console.log("deeplink match !", match);
 			},
 			function (nomatch) {
-				console.log("deeplink didnt match 😞", nomatch);
+				//console.log("deeplink didnt match :(", nomatch);
 				if (nomatch.$link.path) {
 					let FlowId = nomatch.$link.path.replace("/", "");
 					setTimeout(function () {
@@ -148,11 +145,11 @@ var app = {
 			LaunchReview.rating(
 				function (result) {
 					if (cordova.platformId === "android") {
-						console.log("Rating dialog displayed");
+						//console.log("Rating dialog displayed");
 						window.localStorage.setItem("last_ask_user_rating", Date.now());
 					} else if (cordova.platformId === "ios") {
 						if (result === "requested") {
-							console.log("Requested display of rating dialog");
+							//console.log("Requested display of rating dialog");
 
 							ratingTimerId = setTimeout(function () {
 								console.warn(
@@ -162,20 +159,26 @@ var app = {
 								);
 							}, MAX_DIALOG_WAIT_TIME);
 						} else if (result === "shown") {
-							console.log("Rating dialog displayed");
+							//console.log("Rating dialog displayed");
 							window.localStorage.setItem("last_ask_user_rating", Date.now());
 							clearTimeout(ratingTimerId);
 						} else if (result === "dismissed") {
-							console.log("Rating dialog dismissed");
+							//console.log("Rating dialog dismissed");
 						}
 					}
 				},
 				function (err) {
-					console.log("Error opening rating dialog: " + err);
+					//console.log("Error opening rating dialog: " + err);
 				}
 			);
 
-			let last_review = Math.floor((Date.now() - window.localStorage.getItem("last_ask_user_rating")) / 1000 / 60 / 60 / 24);
+			let last_review = Math.floor(
+				(Date.now() - window.localStorage.getItem("last_ask_user_rating")) /
+				1000 /
+				60 /
+				60 /
+				24
+			);
 			if (last_review > 5) {
 				LaunchReview.rating();
 			}
@@ -183,145 +186,41 @@ var app = {
 
 		if (window.localStorage.getItem("new_features_version") != AppVersion.version) {
 
-			// Exception pour cette version : pas de popup nouveautés :
-			$(".fred_dot_toolbar_fdj").css("display", "none");
-			$(".fred_dot_toolbar_explore").css("display", "none");
-			// $("#div_new_features").css("display", "block");
-			// $("#div_new_features_background").css("display", "block");
-			// $("#border_close_div_new_features")[0].innerHTML = "5 secondes";
-			// setTimeout(function () {
-			// 	$("#border_close_div_new_features")[0].innerHTML = "4 secondes";
-			// }, 3000);
-			// setTimeout(function () {
-			// 	$("#border_close_div_new_features")[0].innerHTML = "3 secondes";
-			// }, 4000);
-			// setTimeout(function () {
-			// 	$("#border_close_div_new_features")[0].innerHTML = "2 secondes";
-			// }, 5000);
-			// setTimeout(function () {
-			// 	$("#border_close_div_new_features")[0].innerHTML = "1 seconde";
-			// }, 6000);
-			// setTimeout(function () {
-			// 	$("#border_close_div_new_features")[0].innerHTML = "C'est parti !";
-			// 	$("#close_div_new_features").css({
-			// 		"opacity": "1",
-			// 		"pointer-events": "auto"
-			// 	});
-			// }, 7000);
+			$("#div_new_features").css("display", "block");
+			$("#div_new_features_background").css("display", "block");
+			$("#border_close_div_new_features")[0].innerHTML = "5 secondes";
+			setTimeout(function () {
+				$("#border_close_div_new_features")[0].innerHTML = "4 secondes";
+			}, 3000);
+			setTimeout(function () {
+				$("#border_close_div_new_features")[0].innerHTML = "3 secondes";
+			}, 4000);
+			setTimeout(function () {
+				$("#border_close_div_new_features")[0].innerHTML = "2 secondes";
+			}, 5000);
+			setTimeout(function () {
+				$("#border_close_div_new_features")[0].innerHTML = "1 seconde";
+			}, 6000);
+			setTimeout(function () {
+				$("#border_close_div_new_features")[0].innerHTML = "C'est parti !";
+				$("#close_div_new_features").css({
+					"opacity": "1",
+					"pointer-events": "auto"
+				});
+			}, 7000);
 		} else {
-			$(".fred_dot_toolbar_fdj").css("display", "none");
+			$(".fred_dot_toolbar_recent").css("display", "none");
 			$(".fred_dot_toolbar_explore").css("display", "none");
 		}
 
-		this.receivedEvent("deviceready");
-	},
-	onPause: function () {
-		console.log("pause");
-		stopAllStoriesAudio();
-		stopAllBlocksAudio();
-		let time_in_last_screen =
-			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-		facebookConnectPlugin.logEvent(
-			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
-			null,
-			function () {
-				console.log("fb current_page event success");
-			},
-			function () {
-				console.log("fb current_page error");
-			}
-		);
-		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-		// if (appState.takingPicture || appState.imageUri) {
-		//     window.localStorage.setItem("app_state", JSON.stringify(appState));
-		//     console.log("app state saved");
-		// }
-	},
-	onResume: function (event) {
-		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-		stopAllStoriesAudio();
-		stopAllBlocksAudio();
-	},
 
-	// Update DOM on a Received Event
-	receivedEvent: function (id) {
-		document.addEventListener(
-			"offline",
-			function () {
-				offline();
-			},
-			false
-		);
-		document.addEventListener(
-			"online",
-			function () {
-				online();
-			},
-			false
-		);
 
-		if (window.cordova.platformId == "android") {
-			crashlytics = FirebaseCrashlytics.initialise();
-			crashlytics.logException("my caught exception");
 
-			// analytics = cordova.plugins.firebase.analytics;
-			// analytics.setCurrentScreen(current_page);
-		}
-
-		let time_in_last_screen =
-			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-		facebookConnectPlugin.logEvent(
-			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
-			null,
-			function () {
-				console.log("fb current_page event success");
-			},
-			function () {
-				console.log("fb current_page error");
-			}
-		);
-		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-
-		httpd =
-			cordova && cordova.plugins && cordova.plugins.CorHttpd ?
-			cordova.plugins.CorHttpd :
-			null;
-
-		// No need since no using workers anymore
-		// httpd.startServer({
-		//     'www_root': 'js/worker/',
-		//     'port': 8080,
-		//     'localhost_only': true
-		// }, function (url) {
-		//     // if server is up, it will return the url of http://<server ip>:port/
-		//     // the ip is the active network connection
-		//     // if no wifi or no cell, "127.0.0.1" will be returned.
-		//     console.log("server is started: " + url);
-		//     // createWorker();
-		// }, function (error) {
-		//     console.log("failed to start server: " + error);
-		// });
-
-		if (window.cordova && window.audioinput) {
-			// Subscribe to audioinput events
-			//
-			window.addEventListener("audioinput", onAudioInputCapture, false);
-			window.addEventListener("audioinputerror", onAudioInputError, false);
-
-			console.log("cordova-plugin-audioinput successfully initialised");
-		} else {
-			console.log("cordova-plugin-audioinput not found!");
-		}
 
 		var push = PushNotification.init({
 			android: {
-				icon: "flow_icone_one_plus",
+				icon: device.manufacturer == "OnePlus" ?
+					"flow_icone_one_plus" : "flow_icone",
 			},
 			ios: {
 				alert: "true",
@@ -330,17 +229,9 @@ var app = {
 			},
 		});
 
-		let topic = window.cordova.platformId == "ios" ? "all-ios" : "all-android";
-
-		push.subscribe(topic, function () {
-			console.log('subscribe success: ' + topic);
-		}, function (e) {
-			console.log()('subscribe error:');
-		});
-
 		push.on("registration", function (data) {
 			// data.registrationId
-			console.log(data.registrationId);
+			//console.log(data.registrationId);
 			registrationId = data.registrationId;
 
 			if (window.cordova.platformId == "ios" && registrationId.length < 100) {
@@ -356,26 +247,51 @@ var app = {
 			}
 		});
 
+		let topic = "all-android";
+
+		push.subscribe(topic, function () {
+			//alert('subscribe success: ' + topic);
+		}, function (e) {
+			//alert('subscribe error:');
+			//alert(e);
+		});
+
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
 			pas dans l'application */
-			console.log(data);
-			console.log("pluggin push chris");
-
+			//console.log("data notif firebase");
+			//console.log(data);
 			if (data.additionalData.foreground == false) {
 				Popup("popup-specifique", false);
 				Popup("popup-comment", false);
-				if (window.cordova.platformId == "ios" && data.additionalData.type != "flow_du_jour") {
+				if (window.cordova.platformId == "ios") {
 					data.additionalData.sender_info = JSON.parse(
 						data.additionalData.sender_info
 					);
+				}
+				if (data.additionalData.type == "send_message") {
+					let data_popup_msg = {
+						profile_picture: data.additionalData.sender_info.profil_pic,
+						fullname: data.additionalData.sender_info.fullname,
+						chat_id: data.additionalData.sender_info.chat_id
+					};
+					/*
+					-Pour generer le block_message_seen à l'ouverture d'une notif
+					- Pour generer les blocks message de l'epediteur à l'ouverture d'une notif
+					*/
+					current_block_chat.block_chat_photo = data_popup_msg.profile_picture;
+					firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/last_message/seen_by').off();
+					firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id).orderByChild('is_typing').off();
+					firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off().then(function () {
+						setup_popup_message(data_popup_msg, true);
+					});
+					return;
 				}
 				if (data.additionalData.type == "story_comment") {
 					return;
 				}
 				if (data.additionalData.type == "flow_du_jour") {
 					explore_categories.slideTo(0);
-					setupFDJ();
 					return;
 				}
 				if (data.additionalData.type == "follow") {
@@ -422,17 +338,126 @@ var app = {
 				}
 				refresh_notif(true);
 			}
-			if (data.additionalData.foreground == true && data.additionalData.type != "flow_du_jour") {
+			if (data.additionalData.foreground == true) {
 				in_app_notif(data);
 				refresh_notif();
 			}
 		});
 
 		push.on("error", function (e) {
-			console.log(e.message);
+			//console.log(e.message);
 		});
 
+		firebase.initializeApp(firebaseConfig);
+		this.receivedEvent("deviceready");
+	},
+	onPause: function () {
 
+		console.log("En pause");
+		stopAllStoriesAudio();
+		stopAllBlocksAudio();
+		let time_in_last_screen =
+			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+		facebookConnectPlugin.logEvent(
+			"current_page", {
+				page: current_page,
+				duration: time_in_last_screen,
+			},
+			null,
+			function () {
+				//console.log("fb current_page event success");
+			},
+			function () {
+				//console.log("fb current_page error");
+			}
+		);
+		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+		// if (appState.takingPicture || appState.imageUri) {
+		//     window.localStorage.setItem("app_state", JSON.stringify(appState));
+		//     //console.log("app state saved");
+		// }
+	},
+	onResume: function (event) {
+		console.log("En resume");
+		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+		stopAllStoriesAudio();
+		stopAllBlocksAudio();
+	},
+
+	// Update DOM on a Received Event
+	receivedEvent: function (id) {
+		document.addEventListener(
+			"offline",
+			function () {
+				offline();
+			},
+			false
+		);
+		document.addEventListener(
+			"online",
+			function () {
+				online();
+			},
+			false
+		);
+
+		if (window.cordova.platformId == "android") {
+			crashlytics = FirebaseCrashlytics.initialise();
+			crashlytics.logException("my caught exception");
+
+			// analytics = cordova.plugins.firebase.analytics;
+			// analytics.setCurrentScreen(current_page);
+		}
+
+		let time_in_last_screen =
+			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+		facebookConnectPlugin.logEvent(
+			"current_page", {
+				page: current_page,
+				duration: time_in_last_screen,
+			},
+			null,
+			function () {
+				//console.log("fb current_page event success");
+			},
+			function () {
+				//console.log("fb current_page error");
+			}
+		);
+		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+
+		httpd =
+			cordova && cordova.plugins && cordova.plugins.CorHttpd ?
+			cordova.plugins.CorHttpd :
+			null;
+
+		// No need since no using workers anymore
+		// httpd.startServer({
+		//     'www_root': 'js/worker/',
+		//     'port': 8080,
+		//     'localhost_only': true
+		// }, function (url) {
+		//     // if server is up, it will return the url of http://<server ip>:port/
+		//     // the ip is the active network connection
+		//     // if no wifi or no cell, "127.0.0.1" will be returned.
+		//     //console.log("server is started: " + url);
+		//     // createWorker();
+		// }, function (error) {
+		//     //console.log("failed to start server: " + error);
+		// });
+
+		if (window.cordova && window.audioinput) {
+			// Subscribe to audioinput events
+			//
+			window.addEventListener("audioinput", onAudioInputCapture, false);
+			window.addEventListener("audioinputerror", onAudioInputError, false);
+
+			//console.log("cordova-plugin-audioinput successfully initialised");
+		} else {
+			//console.log("cordova-plugin-audioinput not found!");
+		}
+
+		CheckIfConnected();
 		setTimeout(function () {
 			let _root = document.documentElement;
 			let _myvar = window.innerHeight / 100;
@@ -538,18 +563,18 @@ function check_app_version(app_version) {
 
 
 function offline() {
-	console.log("you are offline");
+	//console.log("you are offline");
 	pullToRefreshEnd();
 }
 
 function online() {
-	console.log("you are online");
+	//console.log("you are online");
 	ServerManager.GetStory();
 }
 
 window.handleOpenURL = function (url) {
 	setTimeout(function () {
-		console.log("received url: " + url);
+		//console.log("received url: " + url);
 		if (url.includes("flow")) {
 			let IdFlow = url.split("flow/")[1];
 			ServerManager.GetSingle({

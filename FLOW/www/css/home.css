@@ -218,6 +218,11 @@
 	left: 93vw;
 }
 
+.fred_dot_toolbar_new_message {
+	top: 3vw;
+	left: 76vw;
+}
+
 .fred_dot_toolbar_explore {
 	top: 3vw;
 	left: 28vw;
@@ -225,9 +230,9 @@
 	pointer-events: none;
 }
 
-.fred_dot_toolbar_fdj {
-	top: calc(13 * var(--custom-vh));
-	left: 15vw;
+.fred_dot_toolbar_recent {
+	top: 13vh;
+	right: 15vw;
 	display: block;
 	z-index: 2;
 	width: 1.5vw;
@@ -243,10 +248,10 @@
 
 .loading_circle {
 	position: absolute;
-	margin-top: calc(1.5 * var(--custom-vh));
-	left: calc(50vw - (2.5 * var(--custom-vh)));
-	height: calc(5 * var(--custom-vh));
-	width: calc(5 * var(--custom-vh));
+	margin-top: 1.5vh;
+	left: calc(50vw - 2.5vh);
+	height: 5vh;
+	width: 5vh;
 	background-image: url("../src/icons/loading_speed_clockwise.png");
 	background-size: contain;
 	background-position: center;
@@ -256,10 +261,10 @@
 
 .tick_icon {
 	position: absolute;
-	margin-top: calc(1.5 * var(--custom-vh));
-	left: calc(50vw - (2 * var(--custom-vh)));
-	height: calc(4 * var(--custom-vh));
-	width: calc(4 * var(--custom-vh));
+	margin-top: 1.5vh;
+	left: calc(50vw - 2vh);
+	height: 4vh;
+	width: 4vh;
 	background-image: url("../src/icons/tick.png");
 	background-size: contain;
 	background-position: center;
@@ -267,12 +272,12 @@
 }
 
 .preloader {
-	margin-top: calc(4 * var(--custom-vh)) !important;
+	margin-top: 4vh !important;
 	margin-left: 0px !important;
 	top: 0 !important;
 	left: 50vw !important;
-	height: calc(4 * var(--custom-vh)) !important;
-	width: calc(4 * var(--custom-vh)) !important;
+	height: 4vh !important;
+	width: 4vh !important;
 	border: 3px solid #1a84ef !important;
 	border-top-color: transparent !important;
 	border-radius: 50% !important;
@@ -294,16 +299,16 @@
 .empty_tl {
 	display: none;
 	position: absolute;
-	top: calc(20 * var(--custom-vh));
+	top: 20vh;
 	left: 0;
 	width: 100vw;
-	height: calc(80 * var(--custom-vh));
+	height: 80vh;
 	user-select: none;
 }
 
 .empty_tl>.title {
 	position: absolute;
-	top: calc(25 * var(--custom-vh));
+	top: 25vh;
 	left: 0;
 	width: 100vw;
 	font-family: "Roboto-Bold";
@@ -314,7 +319,7 @@
 
 .empty_tl>.txt {
 	position: absolute;
-	top: calc(30 * var(--custom-vh));
+	top: 30vh;
 	left: 10vw;
 	width: 80vw;
 	text-align: center;
@@ -324,12 +329,12 @@
 
 .empty_tl>.btn {
 	position: absolute;
-	top: calc(37 * var(--custom-vh));
+	top: 37vh;
 	left: 15vw;
 	width: 70vw;
-	height: calc(5 * var(--custom-vh));
+	height: 5vh;
 	background: #1a84ef;
-	line-height: calc(5 * var(--custom-vh));
+	line-height: 5vh;
 	text-align: center;
 	font-family: "Roboto-Regular";
 	color: white;
@@ -355,8 +360,8 @@
 		height: 3vw;
 	}
 
-	.fred_dot_toolbar_fdj {
-		top: calc(14 * var(--custom-vh));
+	.fred_dot_toolbar_recent {
+		top: 14vh;
 		right: 25vw;
 		display: block;
 		z-index: 2;

@@ -25,14 +25,11 @@ function delete_flow_from_html(element) {
             element.block_flow.remove();
             Popup("popup-option", false);
             Popup("popup-specifique", false);
-            if (!showingFDJ && in_flowoftheday) {
-                GetRandomFlow();
-            }
         }
     }
 }
 
-function delete_comment_from_bdd(element, is_a_response) { //affiche la popup option delete les comments et les response
+function delete_comment_from_bdd(element, is_a_response) {//affiche la popup option delete les comments et les response
     element_to_copy = "comment";
     $("#label_copy_button").text("Copier le commentaire");
     $("#label_report_button").text("Signaler le commentaire");
@@ -45,7 +42,8 @@ function delete_comment_from_bdd(element, is_a_response) { //affiche la popup op
         if (is_a_response == true) {
             element_to_delete.type = "response";
             element_to_delete.element = element;
-        } else {
+        }
+        else {
             element_to_delete.type = "comment";
             element_to_delete.element = element;
         }
@@ -54,6 +52,16 @@ function delete_comment_from_bdd(element, is_a_response) { //affiche la popup op
     }
 }
 
+function delete_chat_from_html() {// ça delete directement de la bdd vu que c'est firebase
+
+    element_to_delete.type = "block_chat";
+    $("#label_delete_button").text("Supprimer la conversation");
+    $("#delete_button").css("display", "table");
+    $("#report_button").css("display", "none");
+    $("#copy_button").css("display", "none");
+    Popup("popup-option", true, 85.5);
+
+}
 
 function delete_comment_from_html(element) {
     let nb_comment_in_current_flow_block = 0;
@@ -96,7 +104,8 @@ function delete_response_from_html(element) {
             }
             if (nb_response == 0) {
                 $(current_comment_block.fblock_comment_label_afficher_les_reponses).css({ "opacity": "0", "pointer-events": "none" });
-            } else {
+            }
+            else {
                 $(current_comment_block.fblock_comment_label_afficher_les_reponses).text("Afficher les reponses (" + nb_response + ")");
                 $(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + nombre_de_reponses_apres_ajout + ")");
             }
@@ -156,6 +165,17 @@ $("#copy_button").on("touchend", function () {
 
 $("#delete_button").on("touchend", function () {
     if (element_to_delete) {
+
+        if (element_to_delete.type == "block_chat") {
+            navigator.notification.confirm("Veux-tu vraiment supprimer cette conversation ?", function (id) {
+                if (id == 1) {
+                    Popup("popup-option", false);
+
+                    ServerManager.DeleteChat(current_block_chat);
+                    //in_app_notif(data);
+                }
+            }, "Confirmation", ["Oui", "Annuler"]);
+        }
         if (element_to_delete.type == "flow") {
             navigator.notification.confirm("Veux-tu vraiment supprimer ce flow ?", function (id) {
                 if (id == 1) {

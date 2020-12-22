@@ -9,7 +9,7 @@
 
 .no_notif {
 	position: absolute;
-	top: calc(45* var(--custom-vh));
+	top: 45vh;
 	left: 0;
 	width: 100vw;
 	text-align: center;

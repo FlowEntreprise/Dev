@@ -57,6 +57,9 @@ function inHome() {
 	$(".fhome-bar").css({
 		display: "block",
 	});
+	$(".fmessages-bar").css({
+		display: "none",
+	});
 	$(".fexplore-bar").css({
 		display: "none",
 	});
@@ -105,6 +108,9 @@ function inExplore() {
 	current_page = "explore";
 
 	$(".fhome-bar").css({
+		display: "none",
+	});
+	$(".fmessages-bar").css({
 		display: "none",
 	});
 	$(".fexplore-bar").css({
@@ -176,10 +182,12 @@ function inExplore() {
 
 		$(".flowoftheday_btn")[0].addEventListener("click", function () {
 			explore_categories.slideTo(0);
+			// $(".fred_dot_toolbar_recent").css("display", "none");
 		})
 
 		$(".recents_btn")[0].addEventListener("click", function () {
 			explore_categories.slideTo(2);
+			$(".fred_dot_toolbar_recent").css("display", "none");
 		})
 
 		$(".top50_btn")[0].addEventListener("click", function () {
@@ -218,14 +226,38 @@ function inMessages() {
 		$(".faccount").css({
 			top: "calc(0 * var(--custom-vh) + 47px)",
 		});
+		$(".navbar").css({
+			display: "block",
+			height: "calc(12 * var(--custom-vh) + 15px)",
+		});
 	} else {
 		$(".faccount").css({
 			top: "calc(0 * var(--custom-vh) + 17px)",
+		});
+		$(".navbar").css({
+			display: "block",
+			height: "calc(12 * var(--custom-vh))",
 		});
 	}
 	// app.hideNavbar($(".navbar"));
 	hideTopBar(main_topbar);
 	canShowNavbar = false;
+
+	// Chris F7 old fdp
+	// $(".fmessages-bar").css({
+	// 	display: "block",
+	// });
+	// $(".fhome-bar").css({
+	// 	display: "none",
+	// });
+	// $(".fexplore-bar").css({
+	// 	display: "none",
+	// });
+	// $(".fnotifications-bar").css({
+	// 	display: "none",
+	// });
+	// app.showNavbar($(".navbar"));
+	// canShowNavbar = true;
 	current_page = "messages";
 
 	if (!connected) {
@@ -237,7 +269,8 @@ function inMessages() {
 	}
 
 	stopAllBlocksAudio();
-};
+	$(".fred_dot_toolbar_new_message").css("display", "none");
+}
 
 function inNotifications() {
 	let time_in_last_screen =
@@ -274,6 +307,9 @@ function inNotifications() {
 	current_page = "home";
 
 	$(".fhome-bar").css({
+		display: "none",
+	});
+	$(".fmessages-bar").css({
 		display: "none",
 	});
 	$(".fexplore-bar").css({

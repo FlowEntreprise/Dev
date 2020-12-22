@@ -4,7 +4,7 @@ var user_token;
 // CheckIfConnected();
 
 function ConnectUser() {
-    console.log("user connected");
+    //console.log("user connected");
     connected = true;
     // $(".empty_tl")[0].style.display = "none";
     $(".fneed_connect").css({
@@ -36,21 +36,52 @@ function ConnectUser() {
     //     private_id: window.localStorage.getItem("user_private_id")
     // });
     $(".faccount")[0].style.backgroundImage = "url('')";
+
     setTimeout(function () {
         let data = {
             RegisterId: registrationId,
-            LastOs: window.cordova.platformId
+            LastOs: window.cordova.platformId,
+            Private_id: window.localStorage.getItem("user_private_id"),
+            full_name: window.localStorage.getItem("user_name"),
+            profile_pic: window.localStorage.getItem("user_profile_pic"),
+            user_id: window.localStorage.getItem("firebase_token")
         };
         ServerManager.UpdateRegisterId(data);
+        let Email = window.localStorage.getItem("user_private_id") + "@flow.fr";
+        /*firebase.auth().createUserWithEmailAndPassword(Email, window.localStorage.getItem("firebase_token")).then((user) => {
+            ServerManager.AddUserToFirebase(data);
+        }).catch((error) => {
+            console.log(error.code);
+            console.log(error.message);
+            if (error.code == "auth/email-already-in-use") {
+                firebase.auth().signInWithEmailAndPassword(Email, window.localStorage.getItem("firebase_token")).then(user => {
+                    ServerManager.AddUserToFirebase(data);
+                });
+            }
+        });*/
+        firebase.auth().signInWithEmailAndPassword(Email, window.localStorage.getItem("firebase_token")).then(user => {
+            ServerManager.AddUserToFirebase(data);
+        }).catch((error) => {
+            console.log(error.code);
+            console.log(error.message);
+            if (error.code == "auth/user-not-found") {
+                firebase.auth().createUserWithEmailAndPassword(Email, window.localStorage.getItem("firebase_token")).then(user => {
+                    ServerManager.AddUserToFirebase(data);
+                });
+            }
+        });
+
         $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
-    }, 100);
+    }, 200);
     ServerManager.GetVersionProtocol();
     ServerManager.UpdateUserLastConnexion();
+
     //$( "#fswipe_area" ).css({"pointer-events": "all"});
 }
 
 function DisconnectUser() {
-    console.log("user disconnected");
+    //console.log("user disconnected");
+    firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").off();
     let data = {
         RegisterId: null,
         LastOs: window.cordova.platformId
@@ -71,9 +102,9 @@ function DisconnectUser() {
     });
 
     facebookConnectPlugin.logEvent("user_disconnect", {}, null, function () {
-        console.log("fb event success")
+        //console.log("fb event success");
     }, function () {
-        console.log("fb event error")
+        //console.log("fb event error");
     });
 
     window.localStorage.clear();
@@ -81,14 +112,14 @@ function DisconnectUser() {
     if (window.cordova.platformId == "android") {
         window.plugins.googleplus.disconnect(
             function (info) {
-                console.log(info); // do something useful instead of alerting
+                //console.log(info); // do something useful instead of alerting
             }
         );
     }
     facebookConnectPlugin.logout(function (success) {
-        console.log(success)
+        //console.log(success);
     }, function (error) {
-        console.log(error);
+        //console.log(error)
     })
 
     //$( "#fswipe_area" ).css({"pointer-events": "none"});
@@ -103,9 +134,9 @@ $('.fneed_connect').on('click', function () {
             page: current_page,
             duration: time_in_last_screen
         }, null, function () {
-            console.log("fb current_page event success")
+            //console.log("fb current_page event success")
         }, function () {
-            console.log("fb current_page error")
+            //console.log("fb current_page error")
         });
         last_currentpage_timestamp = Math.floor(Date.now() / 1000);
         current_page = "connect-popup";
@@ -116,9 +147,9 @@ $('.fneed_connect').on('click', function () {
 });
 
 function CheckIfConnected() {
-    console.log("checking if connected");
+    //console.log("checking if connected");
     user_token = window.localStorage.getItem("user_token") || null;
-    console.log(window.localStorage.getItem("user_token"));
+    //console.log(window.localStorage.getItem("user_token"));
     if (user_token != null) {
         ConnectUser();
     } else {
@@ -131,10 +162,11 @@ function storeVariables(data) {
     window.localStorage.setItem("user_bio", data.Bio);
     window.localStorage.setItem("user_private_id", data.PrivateId);
     window.localStorage.setItem("user_token", data.TokenId);
+    window.localStorage.setItem("firebase_token", data.FirebaseToken);
 
     const src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.ProfilePicture.name + '?';
     const param = `${data.LinkBuilder.Params.hash}=${data.ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.ProfilePicture.timestamp}`;
-    console.log(src + param);
+    //console.log(src + param);
     let link_built = src + param;
     window.localStorage.setItem("user_profile_pic", link_built);
     $(".faccount").css({

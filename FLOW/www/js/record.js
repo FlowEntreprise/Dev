@@ -111,42 +111,53 @@ document.getElementById("popup-record").addEventListener("closed", function () {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page", {
+			"current_page", {
+				<<
+				<< << < HEAD
+				page: current_page,
+				duration: time_in_last_screen,
+			}, ===
+			=== =
 			page: current_page,
 			duration: time_in_last_screen,
-		},
-		null,
-		function () {
-			console.log("fb current_page event success");
-		},
-		function () {
-			console.log("fb current_page error");
-		}
-	);
-	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-	current_page = "home";
+		}, >>>
+		>>> > Flow - Dm
+	null,
+	function () {
+		console.log("fb current_page event success");
+	},
+	function () {
+		console.log("fb current_page error");
+	}
+); last_currentpage_timestamp = Math.floor(Date.now() / 1000); current_page = "home";
 
-	// analytics.setCurrentScreen(current_page);
+// analytics.setCurrentScreen(current_page);
 
-	record_was_hold = false;
-	$(".frecord-btn")[0].classList.remove("frecord_loading_btn");
+record_was_hold = false; $(".frecord-btn")[0].classList.remove("frecord_loading_btn");
 });
 
 document
 	.getElementById("popup-after-record")
 	.addEventListener("opened", function () {
-		image64 = null;
-		all_tagged_users.length = 0;
-		$(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
-		$(".fvalidate-after_btn.record")[0].setAttribute("style", "");
-		$(".floading-spinner.loading-record-flow")[0].style.display = "none";
-		let time_in_last_screen =
-			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-		facebookConnectPlugin.logEvent(
-			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			image64 = null;
+			all_tagged_users.length = 0;
+			$(".fvalidate-after_btn.record")[0].style.pointerEvents = "auto";
+			$(".fvalidate-after_btn.record")[0].setAttribute("style", "");
+			$(".floading-spinner.loading-record-flow")[0].style.display = "none";
+			let time_in_last_screen =
+				Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+			facebookConnectPlugin.logEvent(
+					"current_page", {
+						<<
+						<< << < HEAD
+						page: current_page,
+						duration: time_in_last_screen,
+					}, ===
+					=== =
+					page: current_page,
+					duration: time_in_last_screen,
+				}, >>>
+				>>> > Flow - Dm
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -154,9 +165,7 @@ document
 			function () {
 				console.log("fb current_page error");
 			}
-		);
-		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-		current_page = "after-record";
+		); last_currentpage_timestamp = Math.floor(Date.now() / 1000); current_page = "after-record";
 
 		// analytics.setCurrentScreen(current_page);
 	});
@@ -196,15 +205,22 @@ document
 document
 	.getElementById("popup-story-record")
 	.addEventListener("opened", function () {
-		stopAllBlocksAudio();
-		$(".story_flow_duration").text("00");
-		let time_in_last_screen =
-			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-		facebookConnectPlugin.logEvent(
-			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			stopAllBlocksAudio();
+			$(".story_flow_duration").text("00");
+			let time_in_last_screen =
+				Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+			facebookConnectPlugin.logEvent(
+					"current_page", {
+						<<
+						<< << < HEAD
+						page: current_page,
+						duration: time_in_last_screen,
+					}, ===
+					=== =
+					page: current_page,
+					duration: time_in_last_screen,
+				}, >>>
+				>>> > Flow - Dm
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -212,9 +228,7 @@ document
 			function () {
 				console.log("fb current_page error");
 			}
-		);
-		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-		current_page = "record-story";
+		); last_currentpage_timestamp = Math.floor(Date.now() / 1000); current_page = "record-story";
 
 		// analytics.setCurrentScreen(current_page);
 	});
@@ -306,44 +320,56 @@ $(".fcancel-after_btn").on("touchend", function () {
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page", {
+				"current_page", {
+					<<
+					<< << < HEAD
+					page: current_page,
+					duration: time_in_last_screen,
+				}, ===
+				=== =
 				page: current_page,
 				duration: time_in_last_screen,
-			},
-			null,
-			function () {
-				console.log("fb current_page event success");
-			},
-			function () {
-				console.log("fb current_page error");
-			}
-		);
-		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-		current_page = "home";
+			}, >>>
+			>>> > Flow - Dm
+		null,
+		function () {
+			console.log("fb current_page event success");
+		},
+		function () {
+			console.log("fb current_page error");
+		}
+	);
+	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+	current_page = "home";
 
-		// analytics.setCurrentScreen(current_page);
-	} else {
-		Popup("popup-after-story-record", false);
-		let time_in_last_screen =
-			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-		facebookConnectPlugin.logEvent(
+	// analytics.setCurrentScreen(current_page);
+} else {
+	Popup("popup-after-story-record", false);
+	let time_in_last_screen =
+		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+	facebookConnectPlugin.logEvent(
 			"current_page", {
+				<<
+				<< << < HEAD
 				page: current_page,
 				duration: time_in_last_screen,
-			},
-			null,
-			function () {
-				console.log("fb current_page event success");
-			},
-			function () {
-				console.log("fb current_page error");
-			}
-		);
-		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-		current_page = "home";
-
-		// analytics.setCurrentScreen(current_page);
+			}, ===
+			=== =
+			page: current_page,
+			duration: time_in_last_screen,
+		}, >>>
+		>>> > Flow - Dm
+	null,
+	function () {
+		console.log("fb current_page event success");
+	},
+	function () {
+		console.log("fb current_page error");
 	}
+); last_currentpage_timestamp = Math.floor(Date.now() / 1000); current_page = "home";
+
+// analytics.setCurrentScreen(current_page);
+}
 });
 
 $(".fvalidate-after_btn").on("touchend", function () {
@@ -369,16 +395,24 @@ $(".fvalidate-after_btn").on("touchend", function () {
 			);
 			$(".floading-spinner.loading-record-flow")[0].style.display = "block";
 			setTimeout(function () {
-				console.log("add flow");
-				console.log(data);
-				ServerManager.AddFlow(data, all_tagged_users);
+					console.log("add flow");
+					console.log(data);
+					ServerManager.AddFlow(data, all_tagged_users);
 
-				facebookConnectPlugin.logEvent(
-					"record_flow", {
-						// private_id: data.PrivatedId,
-						// description: data.Description,
-						duration: data.Duration,
-					},
+					facebookConnectPlugin.logEvent(
+							"record_flow", {
+								<<
+								<< << < HEAD
+								// private_id: data.PrivatedId,
+								// description: data.Description,
+								duration: data.Duration,
+							}, ===
+							=== =
+							// private_id: data.PrivatedId,
+							// description: data.Description,
+							duration: data.Duration,
+						}, >>>
+						>>> > Flow - Dm
 					null,
 					function () {
 						console.log("fb record flow event success");
@@ -388,170 +422,196 @@ $(".fvalidate-after_btn").on("touchend", function () {
 					}
 				);
 			}, 100);
-			image64 = null;
-			patternKey = null;
-		} else {
-			//alert("La description d'un Flow ne peut pas être vide");
-			navigator.notification.alert(
-				"La description d'un Flow ne peut pas être vide",
-				alertDismissed,
-				"Information"
-			);
-			$(".finput_description").focus();
-		}
+		image64 = null;
+		patternKey = null;
 	} else {
-		let storydata = {
-			PrivatedId: window.localStorage.getItem("user_private_id"),
-			Sound: appState.blob64,
-			Duration: record_time,
-			Color: last_story_color,
-			Time: "0",
-		};
-		console.log("Send story to server");
-		$(".fvalidate-after_btn.story")[0].style.pointerEvents = "none";
-		$(".fvalidate-after_btn.story")[0].setAttribute(
-			"style",
-			"background: linear-gradient(to bottom, #1A84EF, #FF0054)"
+		//alert("La description d'un Flow ne peut pas être vide");
+		navigator.notification.alert(
+			"La description d'un Flow ne peut pas être vide",
+			alertDismissed,
+			"Information"
 		);
-		$(".floading-spinner.loading-story")[0].style.display = "block";
+		$(".finput_description").focus();
+	}
+} else {
+	let storydata = {
+		PrivatedId: window.localStorage.getItem("user_private_id"),
+		Sound: appState.blob64,
+		Duration: record_time,
+		Color: last_story_color,
+		Time: "0",
+	};
+	console.log("Send story to server");
+	$(".fvalidate-after_btn.story")[0].style.pointerEvents = "none";
+	$(".fvalidate-after_btn.story")[0].setAttribute(
+		"style",
+		"background: linear-gradient(to bottom, #1A84EF, #FF0054)"
+	);
+	$(".floading-spinner.loading-story")[0].style.display = "block";
 
-		setTimeout(function () {
+	setTimeout(function () {
 			ServerManager.AddStory(storydata);
 
 			facebookConnectPlugin.logEvent(
-				"upload_story", {
+					"upload_story", {
+						<<
+						<< << < HEAD
+						duration: storydata.Duration,
+					}, ===
+					=== =
 					duration: storydata.Duration,
-				},
-				null,
-				function () {
-					console.log("fb event success");
-				},
-				function () {
-					console.log("fb event error");
-				}
-			);
-		}, 100);
-	}
-});
-
-$(".fcamera-after").on("click", function () {
-	TakePhoto();
-});
-$(".fgallery-after").on("click", function () {
-	GetPhotoFromGallery();
-});
-
-function UpdateRecordIndicator() {
-	record_time = (Date.now() - start_time) / 1000;
-	if (current_page == "record") {
-		$("#flow_number_of_sec").text(format(Math.round(record_time)));
-	} else if (current_page == "record-story") {
-		$("#flow_story_number_of_sec").text(format(Math.round(record_time)));
-	}
-
-	if (recording && record_time <= 15) {
-		setTimeout(function () {
-			if (recording) {
-				let value = Math.round(6.73 * record_time);
-				if (current_page == "record" || current_page == "record-story") {
-					$(".frecord_indicator").css({
-						"stroke-dasharray": value + " 100",
-					});
-				} else if (current_page == "story") {
-					let css =
-						"rgba(0, 0, 0, 0) conic-gradient(white 0deg, white " +
-						value +
-						"%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
-					$(".fstory_addcomment_loading").css({
-						opacity: 0.5,
-						background: css,
-					});
-				}
-				UpdateRecordIndicator();
+				}, >>>
+				>>> > Flow - Dm
+			null,
+			function () {
+				console.log("fb event success");
+			},
+			function () {
+				console.log("fb event error");
 			}
-		}, 100);
-	} else {
-		stopCapture(true);
-	}
+		);
+	}, 100);
 }
+});
 
-function CloseAfterRecord() {
-	// app.closeModal('.popup-after-record');
-	Popup("popup-after-record", false);
-	let time_in_last_screen =
-		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-	facebookConnectPlugin.logEvent(
-		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
-		null,
-		function () {
-			console.log("fb current_page event success");
-		},
-		function () {
-			console.log("fb current_page error");
+<<
+<< << < HEAD
+$(".fcamera-after").on("click", function () {
+		TakePhoto(); ===
+		=== =
+		$$(".fcamera-after").on("click", function () {
+			TakePhoto(onPhotoDataSuccess); >>>
+			>>> > Flow - Dm
+		});
+		$(".fgallery-after").on("click", function () {
+			GetPhotoFromGallery();
+		});
+
+		function UpdateRecordIndicator() {
+			record_time = (Date.now() - start_time) / 1000;
+			if (current_page == "record") {
+				$("#flow_number_of_sec").text(format(Math.round(record_time)));
+			} else if (current_page == "record-story") {
+				$("#flow_story_number_of_sec").text(format(Math.round(record_time)));
+			}
+
+			if (recording && record_time <= 15) {
+				setTimeout(function () {
+					if (recording) {
+						let value = Math.round(6.73 * record_time);
+						if (current_page == "record" || current_page == "record-story") {
+							$(".frecord_indicator").css({
+								"stroke-dasharray": value + " 100",
+							});
+						} else if (current_page == "story") {
+							let css =
+								"rgba(0, 0, 0, 0) conic-gradient(white 0deg, white " +
+								value +
+								"%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
+							$(".fstory_addcomment_loading").css({
+								opacity: 0.5,
+								background: css,
+							});
+						}
+						UpdateRecordIndicator();
+					}
+				}, 100);
+			} else {
+				stopCapture(true);
+			}
 		}
-	);
-	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-	current_page = "home";
 
-	// analytics.setCurrentScreen(current_page);
-
-	TLCurrentIndex = 0;
-	ServerManager.GetTimeline(0);
-}
-
-function PlayRipple(element, className) {
-	element.removeClass(className);
-	setTimeout(function () {
-		element.addClass(className);
-	}, 10);
-}
-
-function format(number) {
-	return number < 10 ? "0" + number.toString() : number.toString();
-}
-
-$(".frecord-btn").on("touchstart", function () {
-	PlayRipple($(this), "fripple-record");
-});
-
-$(".flow_btn_img").on("touchstart", function () {
-	PlayRipple($(this), "fripple-record");
-});
-
-function Save(blob) {
-	// blob = wavblob.slice(0, wavblob.size, "audio/opus; codecs=opus");
-	$(".frecord-btn")[0].classList.remove("frecord_loading_btn");
-	// worker.terminate();
-
-	// var audioURL = window.URL.createObjectURL(blob);
-
-	console.log("current page : " + current_page);
-	if (current_page == "record") {
-		Popup("popup-record", false);
-		Popup("popup-after-record", true);
-
-		if (!after_record_initialised) {
-			// var mySwiper4 = app.swiper(".swiper-4", {
-			// 	pagination: ".swiper-4 .swiper-pagination",
-			// 	spaceBetween: 0,
-			// 	slidesPerView: 3,
-			// });
-
-			// mySwiper4.on("slideChangeStart", function () {
-			// 	var target = "#" + $(".swiper-slide-next").attr("target");
-			// 	app.showTab(target);
-			// });
-			after_record_initialised = true;
+		function CloseAfterRecord() {
+			// app.closeModal('.popup-after-record');
+			Popup("popup-after-record", false);
 			let time_in_last_screen =
 				Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 			facebookConnectPlugin.logEvent(
-				"current_page", {
+					"current_page", {
+						<<
+						<< << < HEAD
+						page: current_page,
+						duration: time_in_last_screen,
+					}, ===
+					=== =
 					page: current_page,
 					duration: time_in_last_screen,
-				},
+				}, >>>
+				>>> > Flow - Dm
+			null,
+			function () {
+				console.log("fb current_page event success");
+			},
+			function () {
+				console.log("fb current_page error");
+			}
+		);
+		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+		current_page = "home";
+
+		// analytics.setCurrentScreen(current_page);
+
+		TLCurrentIndex = 0;
+		ServerManager.GetTimeline(0);
+	}
+
+	function PlayRipple(element, className) {
+		element.removeClass(className);
+		setTimeout(function () {
+			element.addClass(className);
+		}, 10);
+	}
+
+	function format(number) {
+		return number < 10 ? "0" + number.toString() : number.toString();
+	}
+
+	$(".frecord-btn").on("touchstart", function () {
+		PlayRipple($(this), "fripple-record");
+	});
+
+	$(".flow_btn_img").on("touchstart", function () {
+		PlayRipple($(this), "fripple-record");
+	});
+
+	function Save(blob) {
+		// blob = wavblob.slice(0, wavblob.size, "audio/opus; codecs=opus");
+		$(".frecord-btn")[0].classList.remove("frecord_loading_btn");
+		// worker.terminate();
+
+		// var audioURL = window.URL.createObjectURL(blob);
+
+		console.log("current page : " + current_page);
+		if (current_page == "record") {
+			Popup("popup-record", false);
+			Popup("popup-after-record", true);
+
+			if (!after_record_initialised) {
+				// var mySwiper4 = app.swiper(".swiper-4", {
+				// 	pagination: ".swiper-4 .swiper-pagination",
+				// 	spaceBetween: 0,
+				// 	slidesPerView: 3,
+				// });
+
+				// mySwiper4.on("slideChangeStart", function () {
+				// 	var target = "#" + $(".swiper-slide-next").attr("target");
+				// 	app.showTab(target);
+				// });
+				after_record_initialised = true;
+				let time_in_last_screen =
+					Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+				facebookConnectPlugin.logEvent(
+						"current_page", {
+							<<
+							<< << < HEAD
+							page: current_page,
+							duration: time_in_last_screen,
+						}, ===
+						=== =
+						page: current_page,
+						duration: time_in_last_screen,
+					}, >>>
+					>>> > Flow - Dm
 				null,
 				function () {
 					console.log("fb current_page event success");
@@ -594,7 +654,7 @@ function Save(blob) {
 			blob64 = reader.result;
 			appState.blob64 = reader.result.replace("data:audio/wav;base64,", "");
 			// appState.blob64 = reader.result;
-			console.log(appState.blob64);
+			//console.log(appState.blob64);
 		};
 
 		setTimeout(() => {
@@ -634,87 +694,97 @@ function Save(blob) {
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
-			"current_page", {
+				"current_page", {
+					<<
+					<< << < HEAD
+					page: current_page,
+					duration: time_in_last_screen,
+				}, ===
+				=== =
 				page: current_page,
 				duration: time_in_last_screen,
-			},
-			null,
-			function () {
-				console.log("fb current_page event success");
-			},
-			function () {
-				console.log("fb current_page error");
-			}
-		);
-		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-		current_page = "after-story-record";
+			}, >>>
+			>>> > Flow - Dm
+		null,
+		function () {
+			console.log("fb current_page event success");
+		},
+		function () {
+			console.log("fb current_page error");
+		}
+	); last_currentpage_timestamp = Math.floor(Date.now() / 1000); current_page = "after-story-record";
 
-		// analytics.setCurrentScreen(current_page);
+	// analytics.setCurrentScreen(current_page);
 
-		var reader = new FileReader();
-		reader.readAsDataURL(blob);
-		reader.onloadend = function () {
-			blob64 = reader.result;
-			appState.blob64 = reader.result.replace("data:audio/wav;base64,", "");
-			// appState.blob64 = reader.result;
-			console.log(appState.blob64);
+	var reader = new FileReader(); reader.readAsDataURL(blob); reader.onloadend = function () {
+		blob64 = reader.result;
+		appState.blob64 = reader.result.replace("data:audio/wav;base64,", "");
+		// appState.blob64 = reader.result;
+		console.log(appState.blob64);
+	};
+
+	setTimeout(() => {
+		new_block.finput_description.focus();
+	}, 500);
+}
+else if (current_page == "story") {
+	console.log("recorded story comment");
+	// $(".fstory_addcomment_confirmation")[0].style.opacity = 1;
+	// $(".fstory_addcomment_btn")[0].style.opacity = 0;
+	// $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";
+	var reader = new FileReader();
+	reader.readAsDataURL(blob);
+	reader.onloadend = function () {
+		blob64 = reader.result;
+		appState.blob64 = reader.result.replace("data:audio/wav;base64,", "");
+		console.log(appState.blob64);
+
+		let story_comment = {
+			ObjectId: story_data[story_index].data[storyFlow_index].id,
+			// PrivatedId: window.localStorage.getItem("user_private_id"),
+			Sound: appState.blob64,
+			Duration: record_time,
 		};
 
-		setTimeout(() => {
-			new_block.finput_description.focus();
-		}, 500);
-	} else if (current_page == "story") {
-		console.log("recorded story comment");
-		// $(".fstory_addcomment_confirmation")[0].style.opacity = 1;
-		// $(".fstory_addcomment_btn")[0].style.opacity = 0;
-		// $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";
-		var reader = new FileReader();
-		reader.readAsDataURL(blob);
-		reader.onloadend = function () {
-			blob64 = reader.result;
-			appState.blob64 = reader.result.replace("data:audio/wav;base64,", "");
-			console.log(appState.blob64);
+		console.log(story_comment);
+		console.log("Send story comment to server");
 
-			let story_comment = {
-				ObjectId: story_data[story_index].data[storyFlow_index].id,
-				// PrivatedId: window.localStorage.getItem("user_private_id"),
-				Sound: appState.blob64,
-				Duration: record_time,
-			};
+		ServerManager.AddStoryComment(story_comment);
 
-			console.log(story_comment);
-			console.log("Send story comment to server");
+		// analytics.logEvent("upload_story_comment", {
+		//     private_id: story_comment.PrivatedId,
+		//     duration: story_comment.Duration
+		// });
 
-			ServerManager.AddStoryComment(story_comment);
-
-			// analytics.logEvent("upload_story_comment", {
-			//     private_id: story_comment.PrivatedId,
-			//     duration: story_comment.Duration
-			// });
-
-			facebookConnectPlugin.logEvent(
+		facebookConnectPlugin.logEvent(
 				"upload_story_comment", {
+					<<
+					<< << < HEAD
 					duration: story_comment.Duration,
-				},
-				null,
-				function () {
-					console.log("fb record sotry comment event success");
-				},
-				function () {
-					console.log("fb record sotry comment error");
-				}
-			);
-		};
+				}, ===
+				=== =
+				duration: story_comment.Duration,
+			}, >>>
+			>>> > Flow - Dm
+		null,
+		function () {
+			console.log("fb record sotry comment event success");
+		},
+		function () {
+			console.log("fb record sotry comment error");
+		}
+	);
+};
 
-		// $(".fstory_addcomment_cancel")[0].style.opacity = 0.5;
-		// $(".fstory_addcomment_cancel")[0].style.pointerEvents = "none";
-		// $(".fstory_addcomment_confirm")[0].style.pointerEvents = "none";
-		$(".fstory_addcomment_btn")[0].style.backgroundImage =
-			'url("src/icons/loading_circle.gif")';
-		$(".fstory_addcomment_btn")[0].style.pointerEvents = "none";
-		// $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
-		// $(".fstory_addcomment_btn")[0].style.opacity = 1;
-	}
+// $(".fstory_addcomment_cancel")[0].style.opacity = 0.5;
+// $(".fstory_addcomment_cancel")[0].style.pointerEvents = "none";
+// $(".fstory_addcomment_confirm")[0].style.pointerEvents = "none";
+$(".fstory_addcomment_btn")[0].style.backgroundImage =
+	'url("src/icons/loading_circle.gif")';
+$(".fstory_addcomment_btn")[0].style.pointerEvents = "none";
+// $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
+// $(".fstory_addcomment_btn")[0].style.opacity = 1;
+}
 }
 
 function precisionRound(number, precision) {
@@ -815,7 +885,7 @@ function drawCurveAnim() {
 
 drawCurveAnim();
 
-function TakePhoto() {
+function TakePhoto(callback) {
 	console.log("take photo");
 	if (window.cordova.platformId == "android") {
 		var permissions = cordova.plugins.permissions;
@@ -837,20 +907,20 @@ function TakePhoto() {
 			if (!status.hasPermission) error();
 			else {
 				//alert("success");
-				capturePhoto();
+				capturePhoto(callback);
 			}
 		}
 
 		permissions.hasPermission(permissions.CAMERA, function (status) {
 			if (status.hasPermission) {
 				//alert("success");
-				capturePhoto();
+				capturePhoto(callback);
 			} else {
 				permissions.requestPermissions(list, success, error);
 			}
 		});
 	} else {
-		capturePhoto();
+		capturePhoto(callback);
 		if (window.localStorage.getItem("ios_photos_init") != "true") {
 			$(".ios_camera_auth")[0].style.display = "block";
 		}
@@ -930,12 +1000,12 @@ function onPhotoDataSuccess(imageData) {
 	//new_block.ftop_part.style.backgroundImage = "url('data:image/jpeg;base64," + imageData + "')";
 }
 
-function capturePhoto() {
+function capturePhoto(callback) {
 	console.log("take photo");
 	appState.takingPicture = true;
 
 	// Take picture using device camera, allow edit, and retrieve image as base64-encoded string
-	navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
+	navigator.camera.getPicture(callback, onFail, {
 		quality: 75,
 		allowEdit: false,
 		destinationType: Camera.DestinationType.FILE_URI,
@@ -989,25 +1059,32 @@ function closeStoryRecord() {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
-		"current_page", {
+			"current_page", {
+				<<
+				<< << < HEAD
+				page: current_page,
+				duration: time_in_last_screen,
+			}, ===
+			=== =
 			page: current_page,
 			duration: time_in_last_screen,
-		},
-		null,
-		function () {
-			console.log("fb current_page event success");
-		},
-		function () {
-			console.log("fb current_page error");
-		}
-	);
-	current_page = "home";
-	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+		}, >>>
+		>>> > Flow - Dm
+	null,
+	function () {
+		console.log("fb current_page event success");
+	},
+	function () {
+		console.log("fb current_page error");
+	}
+);
+current_page = "home";
+last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
-	// analytics.setCurrentScreen(current_page);
+// analytics.setCurrentScreen(current_page);
 
-	console.log("close story record");
-	$(".frecord-btn")[0].classList.remove("frecord_loading_btn");
+console.log("close story record");
+$(".frecord-btn")[0].classList.remove("frecord_loading_btn");
 }
 
 /*----------------------------------------------- */
@@ -1108,7 +1185,6 @@ var stopCapture = function (save) {
 		if (window.audioinput) {
 			// mediaRecorder.stop();
 			window.audioinput.stop();
-
 			recording = false;
 		}
 		if (save) {
@@ -1233,21 +1309,21 @@ function createWorker() {
 
 /* not used
 function opus2wav() {
-    var opustowavWorker = new Worker('http://127.0.0.1:8080/Opus2Wav/opustowavworker.js');
-    opustowavWorker.onmessage = function (message) {
-        if (message.data.status === "done") {
-            console.log(message.data.result);
-            document.getElementById("player").src = message.data.result;
-            document.getElementById("player").style.display = "block";
-            killWorker();
-        } else if (message.data.status === "message") {
-            document.getElementById("message").innerHTML = message.data.result;
-            console.log(message.data.result);
-        }
-    };
+	var opustowavWorker = new Worker('http://127.0.0.1:8080/Opus2Wav/opustowavworker.js');
+	opustowavWorker.onmessage = function (message) {
+		if (message.data.status === "done") {
+			console.log(message.data.result);
+			document.getElementById("player").src = message.data.result;
+			document.getElementById("player").style.display = "block";
+			killWorker();
+		} else if (message.data.status === "message") {
+			document.getElementById("message").innerHTML = message.data.result;
+			console.log(message.data.result);
+		}
+	};
 }
 
 function killWorker() {
-    opustowavWorker.terminate();
+	opustowavWorker.terminate();
 }
 */
