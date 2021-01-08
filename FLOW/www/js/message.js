@@ -201,10 +201,10 @@ $("#fnameCompte").on("click", function () {
 
 $("#new_conversation").on("click", function () {
     Popup("popup-create-conversation", true);
-    let sayHello = firebase.functions().httpsCallable('TestFirebaseStorage');
+    let sayHello = firebase.functions().httpsCallable('UploadVoiceNote');
     sayHello({
         FirebaseEnvironment: FirebaseEnvironment,
-        text: "text qui doit etre ajouté depuis firebase cloud functions "
+        sound: "../www/src/icons/sample1.opus"
     });
 });
 

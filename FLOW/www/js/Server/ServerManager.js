@@ -1959,6 +1959,27 @@ class ServerManagerClass {
 
 	}
 
+	UploadAudioToFirebase(data) {
+
+		let storageRef = firebase.storage().ref(FirebaseEnvironment + "/" + data.chat_id + "/audio/" + data.name.toString());
+		let metadata = {
+			contentType: 'audio/mp3',
+		};
+
+		let voiceRef = storageRef.putString(data.content, firebase.storage.StringFormat.DATA_URL);
+		voiceRef.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
+			console.log("uploading");
+		}, (e) => {
+			reject(e);
+			console.log(JSON.stringify(e, null, 2));
+		}, () => {
+			let downloadURL = voiceRef.snapshot.downloadURL;
+			console.log(downloadURL);
+		});
+
+	}
+
+
 }
 
 

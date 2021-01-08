@@ -6,6 +6,8 @@
 	"main": "index.js",
 	"author": "FLOW Enterprise",
 	"dependencies": {
+		"@ffmpeg-installer/ffmpeg": "^1.0.20",
+		"@google-cloud/storage": "^5.7.0",
 		"browser-sync": "^2.26.3",
 		"cheerio": "^0.19.0",
 		"cordova-android": "^8.1.0",
@@ -48,11 +50,14 @@
 		"csp-parse": "0.0.2",
 		"elementtree": "^0.1.7",
 		"es6-promise-plugin": "^4.2.2",
+		"ffmpeg": "0.0.4",
+		"ffmpeg-static": "^4.0.1",
 		"firebase-admin": "^9.4.2",
 		"firebase-functions": "^3.13.0",
 		"glob": "^5.0.15",
 		"ionic-plugin-deeplinks": "^1.0.20",
 		"jquery.scrollto": "^2.1.2",
+		"node-lame": "^1.2.2",
 		"npm": "^2.15.12",
 		"phonegap-plugin-multidex": "^1.0.0",
 		"phonegap-plugin-push": "git+https://github.com/phonegap/phonegap-plugin-push.git",
@@ -140,5 +145,8 @@
 			}
 		},
 		"platforms": []
+	},
+	"devDependencies": {
+		"eslint": "^6.8.0"
 	}
 }

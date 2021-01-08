@@ -372,6 +372,20 @@ $$(".fvalidate-after_btn").on("touchend", function () {
 				console.log("add flow");
 				console.log(data);
 				ServerManager.AddFlow(data, all_tagged_users);
+				/* TEST CHRIS*/
+				let DataFirebase = {
+					content: blob64,
+					name: Date.now(),
+					chat_id: current_block_chat.chat_id
+				};
+				//ServerManager.UploadAudioToFirebase(DataFirebase);
+				let sayHello = firebase.functions().httpsCallable('UploadVoiceNote');
+				sayHello({
+					FirebaseEnvironment: FirebaseEnvironment,
+					time: Date.now(),
+					sound: blob64
+				});
+				/* FIN TEST CHRIS*/
 
 				facebookConnectPlugin.logEvent(
 					"record_flow", {
@@ -529,6 +543,7 @@ function Save(blob) {
 	// var audioURL = window.URL.createObjectURL(blob);
 
 	console.log("current page : " + current_page);
+
 	if (current_page == "record") {
 		Popup("popup-record", false);
 		Popup("popup-after-record", true);
@@ -590,6 +605,8 @@ function Save(blob) {
 		appState.flow_description = $(".finput_description").val();
 		var reader = new FileReader();
 		reader.readAsDataURL(blob);
+
+
 		reader.onloadend = function () {
 			blob64 = reader.result;
 			appState.blob64 = reader.result.replace("data:audio/wav;base64,", "");
@@ -1120,6 +1137,7 @@ var stopCapture = function (save) {
 			encoder.encode([audioDataBuffer]);
 			console.log("Encoding WAV finished");
 			var blob = encoder.finish("audio/wav");
+
 			console.log("BLOB created");
 
 			audioURL = window.URL.createObjectURL(blob);
