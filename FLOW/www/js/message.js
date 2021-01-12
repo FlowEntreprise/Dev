@@ -204,7 +204,7 @@ $("#new_conversation").on("click", function () {
     let sayHello = firebase.functions().httpsCallable('UploadVoiceNote');
     sayHello({
         FirebaseEnvironment: FirebaseEnvironment,
-        sound: "../www/src/icons/sample1.opus"
+        sound: "../www/src/sound/son.mp3"
     });
 });
 

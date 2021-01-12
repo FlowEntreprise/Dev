@@ -378,11 +378,12 @@ $$(".fvalidate-after_btn").on("touchend", function () {
 					name: Date.now(),
 					chat_id: current_block_chat.chat_id
 				};
-				//ServerManager.UploadAudioToFirebase(DataFirebase);
-				let sayHello = firebase.functions().httpsCallable('UploadVoiceNote');
+				ServerManager.UploadAudioToFirebase(DataFirebase);
+				/*let sayHello = firebase.functions().httpsCallable('UploadVoiceNote');
 				sayHello({
 					FirebaseEnvironment: FirebaseEnvironment,
 					time: Date.now(),
+					sender_id: window.localStorage.getItem("firebase_token"),
 					sound: blob64
 				});
 				/* FIN TEST CHRIS*/
@@ -612,6 +613,8 @@ function Save(blob) {
 			appState.blob64 = reader.result.replace("data:audio/wav;base64,", "");
 			// appState.blob64 = reader.result;
 			//console.log(appState.blob64);
+
+
 		};
 
 		setTimeout(() => {

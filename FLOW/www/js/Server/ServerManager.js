@@ -1963,10 +1963,19 @@ class ServerManagerClass {
 
 		let storageRef = firebase.storage().ref(FirebaseEnvironment + "/" + data.chat_id + "/audio/" + data.name.toString());
 		let metadata = {
-			contentType: 'audio/mp3',
+			//contentType: 'audio/mp3',
+			customMetadata: {
+				"sender_id": window.localStorage.getItem("firebase_token"),
+				"sender_private_id": window.localStorage.getItem("user_private_id"),
+				"sender_full_name": window.localStorage.getItem("user_name"),
+				"message": data.message ? data.message : "",
+				"image": data.image ? data.image : "",
+				"audio": data.audio ? data.audio : "",
+				"time": Date.now()
+			}
 		};
 
-		let voiceRef = storageRef.putString(data.content, firebase.storage.StringFormat.DATA_URL);
+		let voiceRef = storageRef.putString(data.content, firebase.storage.StringFormat.DATA_URL, metadata);
 		voiceRef.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
 			console.log("uploading");
 		}, (e) => {
