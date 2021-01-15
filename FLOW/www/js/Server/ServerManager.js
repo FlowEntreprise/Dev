@@ -1966,11 +1966,16 @@ class ServerManagerClass {
 			//contentType: 'audio/mp3',
 			customMetadata: {
 				"sender_id": window.localStorage.getItem("firebase_token"),
+				"member_id": current_block_chat.members.id, // id de l'interlocuteur
 				"sender_private_id": window.localStorage.getItem("user_private_id"),
 				"sender_full_name": window.localStorage.getItem("user_name"),
+				"chat_id": data.chat_id,
 				"message": data.message ? data.message : "",
 				"image": data.image ? data.image : "",
 				"audio": data.audio ? data.audio : "",
+				"Environnement": FirebaseEnvironment,
+				"lastOs": data.lastOs,
+				"registrationId": data.registrationId,
 				"time": Date.now()
 			}
 		};

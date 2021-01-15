@@ -53,7 +53,7 @@
 		"ffmpeg": "0.0.4",
 		"ffmpeg-static": "^4.0.1",
 		"firebase-admin": "^9.4.2",
-		"firebase-functions": "^3.13.0",
+		"firebase-functions": "^3.13.1",
 		"glob": "^5.0.15",
 		"ionic-plugin-deeplinks": "^1.0.20",
 		"jquery.scrollto": "^2.1.2",
