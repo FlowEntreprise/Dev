@@ -376,7 +376,12 @@ $$(".fvalidate-after_btn").on("touchend", function () {
 				let DataFirebase = {
 					content: blob64,
 					name: Date.now(),
-					chat_id: current_block_chat.chat_id
+					chat_id: current_block_chat.chat_id,
+					LastOs: current_block_chat.members.LastOs,
+					registrationId: current_block_chat.members.registration_id,
+					memberId: current_block_chat.members.id,
+					profilePic: current_block_chat.members.profile_pic
+
 				};
 				ServerManager.UploadAudioToFirebase(DataFirebase);
 				/*let sayHello = firebase.functions().httpsCallable('UploadVoiceNote');

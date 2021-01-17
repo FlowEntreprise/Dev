@@ -32,7 +32,7 @@ function promisifyCommand(command) {
   var bucket = admin.storage().bucket('flow-85249.appspot.com');
   var uuid = uuidv1();
   let before_encode = `${data.time}.wav`;
-  let after_encode = `${data.time}${data.sender_id}.mp3`;
+  let after_encode = `${data.time}${data.senderId}.mp3`;
   const tempFilePath = path.join(os.tmpdir(), before_encode);
   const targetTempFilePath = path.join(os.tmpdir(), after_encode);
   const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
@@ -70,7 +70,7 @@ exports.EncodeMp3 = functions.storage.object().onFinalize(async (object) => {
   const filePath = object.name;
   const contentType = object.contentType;
   const fileName = path.basename(filePath);
-  console.log(`le sender_id est : ${object.metadata.sender_id}`);
+  console.log(`le senderId est : ${object.metadata.senderId}`);
 
   if (!contentType.startsWith('audio/')) {
     console.log('This is not an audio.');
@@ -87,7 +87,7 @@ exports.EncodeMp3 = functions.storage.object().onFinalize(async (object) => {
   const bucket = gcs.bucket(fileBucket);
   const tempFilePath = path.join(os.tmpdir(), fileName);
 
-  const targetTempFileName = fileName.replace(/\.[^/.]+$/, '') + object.metadata.sender_id + '.mp3';
+  const targetTempFileName = fileName.replace(/\.[^/.]+$/, '') + object.metadata.senderId + '.mp3';
   const targetTempFilePath = path.join(os.tmpdir(), targetTempFileName);
   const targetStorageFilePath = path.join(path.dirname(filePath), targetTempFileName);
 
@@ -124,14 +124,18 @@ exports.EncodeMp3 = functions.storage.object().onFinalize(async (object) => {
     console.log(`Audio url = ${url}`);
     // UPDATE REALTIME DATABASE ICI ET NE PAS OUBLIER DE SET LE SEEN
     let dataMessage = {
-      "sender_id": object.metadata.sender_id, //sender firebase token
-      "member_id": object.metadata.member_id, //reciever firebase token
-      "sender_private_id": object.metadata.sender_private_id,
-      "sender_full_name": object.metadata.sender_full_name,
+      "senderId": object.metadata.senderId, //sender firebase token
+      "memberId": object.metadata.memberId, //reciever firebase token
+      "memberLastOs": object.metadata.memberLastOs,
+      "memberRegistrationId": object.metadata.memberRegistrationId,
+      "memberprofilePic": object.metadata.memberprofilePic,
+      "senderPrivateId": object.metadata.senderPrivateId,
+      "senderFullName": object.metadata.senderFullName,
+      "chatId": object.metadata.chatId,
       "message": object.metadata.message,
       "Environnement": object.metadata.Environnement,
       "seen_by": {
-        [object.metadata.sender_id]: true
+        [object.metadata.senderId]: true
       },
       "image": object.metadata.image,
       "audio": url,
@@ -152,7 +156,7 @@ exports.EncodeMp3 = functions.storage.object().onFinalize(async (object) => {
 
 
 function AddMessageToFirebase(dataMessage) {
-  let ref = admin.database().ref(dataMessage.Environnement + '/messages/' + dataMessage.chat_id);
+  let ref = admin.database().ref(dataMessage.Environnement + '/messages/' + dataMessage.chatId);
   ref.push().set(dataMessage).then(() => {
     return GetMessageId(dataMessage);
   }).catch(err => {
@@ -161,7 +165,7 @@ function AddMessageToFirebase(dataMessage) {
 }
 
 function GetMessageId(dataMessage) {
-  let ref = admin.database().ref(dataMessage.Environnement + '/messages/' + dataMessage.chat_id);
+  let ref = admin.database().ref(dataMessage.Environnement + '/messages/' + dataMessage.chatId);
   ref.once('value').then((snapshot) => {
     //console.log(snapshot);
     dataMessage.message_id = Object.keys(snapshot.val())[0];
@@ -182,25 +186,54 @@ function updateMessage(dataMessage) {
 
 function UpdateLastMessage(dataMessage) {
   admin.database().ref(dataMessage.Environment).update({
-    ['/users/' + dataMessage.member_id + '/chats/' + [dataMessage.chat_id] + "/time"]: dataMessage.time,
-    ['/users/' + dataMessage.sender_id + '/chats/' + [dataMessage.chat_id] + "/time"]: dataMessage.time
+    ['/users/' + dataMessage.memberId + '/chats/' + [dataMessage.chatId] + "/time"]: dataMessage.time,
+    ['/users/' + dataMessage.senderId + '/chats/' + [dataMessage.chatId] + "/time"]: dataMessage.time
   }).then(() => {
     // Create a notification
-    const payload = {
-      notification: {
-        title: "NOTIF DEPUIS CLOUD FUNCTIONS",
-        body: "challa ça marche",
-        sound: "default"
-      }
+    let payload;
+    let sender_info = {
+      profil_pic: dataMessage.memberprofilePic,
+      fullname: dataMessage.senderFullName,
+      chatId: dataMessage.chatId
     };
+    if (dataMessage.memberLastOs === "ios") {
+      payload = {
+        notification: {
+          title: dataMessage.senderFullName,
+          body: "A envoyé un message vocal",
+          sound: "default"
+        }, data: {
+          "title": dataMessage.senderFullName,
+          "body": "message vocal",
+          "type": "send_message",
+          "sender_info": JSON.stringify(sender_info),
+          "force-start": "1",
+          "content_available": "true",
+          "priority": "high"
+        }
+      };
+    }
+    if (dataMessage.memberLastOs === "android") {
+      payload = {
+        data: {
+          "title": dataMessage.senderFullName,
+          "body": "A envoyé un message vocal",
+          "type": "send_message",
+          "sender_info": JSON.stringify(sender_info),
+          "force-start": "1",
+          "content_available": "true",
+          "priority": "high"
+        }
+      };
+    }
 
     //Create an options object that contains the time to live for the notification and the priority
     const options = {
       priority: "high",
       timeToLive: 60 * 60 * 24
     };
-    let instanceId = "fsvyLTIWBkw:APA91bGc1obfBYISqm7fiysz2Pyw3OEnpxb78JxwJW3AqIr7jVWv9nKUNWFOz2bynQ7RE5GfwCH7XRKQPlvdIjAigHirhg9wA6MmBSiYCTWhzdVXCiqXCkGBlRY8h3u6gWuYHjGXmOMR";
-    return admin.messaging().sendToDevice(instanceId, payload, options);
+
+    return admin.messaging().sendToDevice(dataMessage.memberRegistrationId, payload, options);
   }).catch(err => {
     console.log(`Unable get message id from Firebase ${err.message}`);
   });

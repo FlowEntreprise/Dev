@@ -245,9 +245,15 @@ var app = {
 					current_block_chat.block_chat_photo = data_popup_msg.profile_picture;
 					firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/last_message/seen_by').off();
 					firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id).orderByChild('is_typing').off();
-					firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off().then(function () {
+					if (current_block_chat.chat_id) {
+						firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off().then(function () {
+							setup_popup_message(data_popup_msg, true);
+						});
+					}
+					else {
 						setup_popup_message(data_popup_msg, true);
-					});
+					}
+
 					return;
 				}
 				if (data.additionalData.type == "story_comment") {
@@ -304,7 +310,12 @@ var app = {
 			}
 			if (data.additionalData.foreground == true) {
 				in_app_notif(data);
-				refresh_notif();
+				if (data.additionalData.type == "send_message" && current_page != "messages") {
+					$(".fred_dot_toolbar_new_message").css("display", "block");
+				}
+				if (data.additionalData.type != "send_message") {
+					refresh_notif();
+				}
 			}
 		});
 
@@ -568,6 +579,9 @@ $(".fmessages-btn").on("click", function () {
 		setTimeout(function () {
 			tab3_count = 0;
 		}, 1000);
+	}
+	if (current_page == "messages") {
+		$(".fred_dot_toolbar_new_message").css("display", "none");
 	}
 });
 $(".fnotif-btn").on("click", function () {
