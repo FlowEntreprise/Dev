@@ -60,6 +60,9 @@ function inHome() {
 	$(".fexplore-bar").css({
 		display: "none",
 	});
+	$(".fmessages-bar").css({
+		display: "none",
+	});
 	$(".fnotifications-bar").css({
 		display: "none",
 	});
@@ -109,6 +112,9 @@ function inExplore() {
 	});
 	$(".fexplore-bar").css({
 		display: "block",
+	});
+	$(".fmessages-bar").css({
+		display: "none",
 	});
 	$(".fnotifications-bar").css({
 		display: "none",
@@ -212,7 +218,8 @@ function inMessages() {
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
 	$(".main_topbar").css({
-		display: "none",
+		display: "block",
+		height: "calc(12 * var(--custom-vh))",
 	});
 	if (window.cordova.platformId == "ios") {
 		$(".faccount").css({
@@ -223,10 +230,25 @@ function inMessages() {
 			top: "calc(0 * var(--custom-vh) + 17px)",
 		});
 	}
-	// app.hideNavbar($(".navbar"));
-	hideTopBar(main_topbar);
-	canShowNavbar = false;
+
+	// app.showNavbar($(".navbar"));
+	showTopBar(main_topbar);
+	canShowNavbar = true;
 	current_page = "messages";
+
+	$(".fhome-bar").css({
+		display: "none",
+	});
+	$(".fexplore-bar").css({
+		display: "none",
+	});
+	$(".fmessages-bar").css({
+		display: "block",
+	});
+	$(".fnotifications-bar").css({
+		display: "none",
+	});
+	///////////
 
 	if (!connected) {
 		setTimeout(function () {
@@ -277,6 +299,9 @@ function inNotifications() {
 		display: "none",
 	});
 	$(".fexplore-bar").css({
+		display: "none",
+	});
+	$(".fmessages-bar").css({
 		display: "none",
 	});
 	$(".fnotifications-bar").css({

@@ -143,10 +143,6 @@
             {
               "xml": "<feature name=\"AppMinimize\"><param name=\"android-package\" value=\"tomloprod.AppMinimize\" /></feature>",
               "count": 1
-            },
-            {
-              "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.localnotification.LocalNotification\" /></feature>",
-              "count": 1
             }
           ],
           "widget": [
@@ -226,7 +222,7 @@
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />",
-              "count": 2
+              "count": 1
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
@@ -238,10 +234,6 @@
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\" />",
               "count": 1
             }
           ],
@@ -272,26 +264,6 @@
             },
             {
               "xml": "<provider android:authorities=\"${applicationId}.sharing.provider\" android:exported=\"false\" android:grantUriPermissions=\"true\" android:name=\"nl.xservices.plugins.FileProvider\"><meta-data android:name=\"android.support.FILE_PROVIDER_PATHS\" android:resource=\"@xml/sharing_paths\" /></provider>",
-              "count": 1
-            },
-            {
-              "xml": "<provider android:authorities=\"${applicationId}.localnotifications.provider\" android:exported=\"false\" android:grantUriPermissions=\"true\" android:name=\"de.appplant.cordova.plugin.notification.util.AssetProvider\"><meta-data android:name=\"android.support.FILE_PROVIDER_PATHS\" android:resource=\"@xml/localnotification_provider_paths\" /></provider>",
-              "count": 1
-            },
-            {
-              "xml": "<receiver android:exported=\"false\" android:name=\"de.appplant.cordova.plugin.localnotification.TriggerReceiver\" />",
-              "count": 1
-            },
-            {
-              "xml": "<receiver android:exported=\"false\" android:name=\"de.appplant.cordova.plugin.localnotification.ClearReceiver\" />",
-              "count": 1
-            },
-            {
-              "xml": "<service android:exported=\"false\" android:name=\"de.appplant.cordova.plugin.localnotification.ClickReceiver\" />",
-              "count": 1
-            },
-            {
-              "xml": "<receiver android:directBootAware=\"true\" android:exported=\"false\" android:name=\"de.appplant.cordova.plugin.localnotification.RestoreReceiver\"><intent-filter><action android:name=\"android.intent.action.LOCKED_BOOT_COMPLETED\" /><action android:name=\"android.intent.action.BOOT_COMPLETED\" /></intent-filter></receiver>",
               "count": 1
             }
           ],
@@ -424,10 +396,6 @@
             },
             {
               "xml": "<feature name=\"RareloopAppVersion\"><param name=\"android-package\" value=\"com.rareloop.cordova.appversion.RareloopAppVersion\" /></feature>",
-              "count": 1
-            },
-            {
-              "xml": "<feature name=\"Badge\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.badge.Badge\" /></feature>",
               "count": 1
             }
           ]
@@ -576,13 +544,6 @@
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-appminimize": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-badge": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-local-notification": {
-      "ANDROID_SUPPORT_V4_VERSION": "26.+",
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -1121,22 +1082,6 @@
       "clobbers": [
         "cordova.plugins.appMinimize"
       ]
-    },
-    {
-      "id": "cordova-plugin-badge.Badge",
-      "file": "plugins/cordova-plugin-badge/www/badge.js",
-      "pluginId": "cordova-plugin-badge",
-      "clobbers": [
-        "cordova.plugins.notification.badge"
-      ]
-    },
-    {
-      "id": "cordova-plugin-local-notification.LocalNotification",
-      "file": "plugins/cordova-plugin-local-notification/www/local-notification.js",
-      "pluginId": "cordova-plugin-local-notification",
-      "clobbers": [
-        "cordova.plugins.notification.local"
-      ]
     }
   ],
   "plugin_metadata": {
@@ -1175,8 +1120,6 @@
     "cordova-plugin-appversion": "1.0.0",
     "ionic-plugin-deeplinks": "1.0.20",
     "cordova-plugin-splashscreen": "5.0.3-dev",
-    "cordova-plugin-appminimize": "1.0.1",
-    "cordova-plugin-badge": "0.8.8",
-    "cordova-plugin-local-notification": "0.9.0-beta.3"
+    "cordova-plugin-appminimize": "1.0.1"
   }
 }
