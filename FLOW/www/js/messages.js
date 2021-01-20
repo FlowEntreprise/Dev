@@ -13,6 +13,142 @@ var InPopupMessage = false;
 var lastScrollTop = 0;
 var scrollableElement = document.getElementById('fblock_message_content');
 
+function messages_tab_loaded() {
+    $("#fnameCompte").on("click", function () {
+
+        if (FirebaseToken < window.localStorage.getItem("firebase_token")) {
+            chat_id = FirebaseToken + window.localStorage.getItem("firebase_token");
+        } else {
+            chat_id = window.localStorage.getItem("firebase_token") + FirebaseToken;
+        }
+
+        data_dm = {
+            fullname: account_fullname,
+            private_id: privateIDAccount,
+            user_id: FirebaseToken,
+            chat_id: chat_id,
+            profile_picture: profilePicLink,
+            is_groupe_chat: false
+        };
+
+        CreateConversation(data_dm);
+
+    });
+
+    $("#new_conversation").on("click", function () {
+        Popup("popup-create-conversation", true);
+        // let sayHello = firebase.functions().httpsCallable('TestFirebaseStorage');
+        // sayHello({
+        //     FirebaseEnvironment: FirebaseEnvironment,
+        //     text: "text qui doit etre ajouté depuis firebase cloud functions "
+        // });
+    });
+
+    $("#SendFromCamera").on("click", function () {
+        TakePhoto(function (imageData) {
+            console.log(imageData);
+            // Contenu de l'image : imageData
+            toDataUrl(imageData, function (b64) {
+                console.log(b64);
+                let data = {
+                    content: b64,
+                    name: Date.now(),
+                    chat_id: current_block_chat.chat_id
+                }
+                ServerManager.UploadImageToFirebase(data);
+            });
+        });
+    });
+
+    $("#button_send_message").on("click", function () {
+        if ($("#input_send_message").val().trim().length != 0) {
+            data_dm.message = $("#input_send_message").val();
+            if (first_chat == true) // premier msg
+            {
+                ServerManager.AddChat(data_dm, pop_block_chat);
+            } else {
+                send_message(data_dm.chat_id);
+            }
+            $("#input_send_message").val("");
+        }
+    });
+
+    $(document).on("keyup", ".fmessages-search-bar", function () {
+
+        let StringMessagesSearchBar = $(".fmessages-search-bar").val().trim();
+        if (StringMessagesSearchBar == "") {
+            firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").off();
+            ServerManager.NewChatListener(pop_block_chat);
+        } else {
+            ServerManager.SearchChat(StringMessagesSearchBar);
+        }
+
+    });
+
+    $(document).on("keyup", ".create-conversation-search-bar", function () {
+
+        let StringConversationSearchBar = $(".create-conversation-search-bar").val().trim();
+        if (StringConversationSearchBar == "") {
+            GetFollowingsPopupCreateConversation();
+        } else {
+            let data_user_search = {
+                Index: 0,
+                Search: StringConversationSearchBar,
+                Nb: 10,
+                CreateConversation: true
+            };
+            ServerManager.SearchUserForTabExplore(data_user_search);
+        }
+
+    });
+
+    scrollableElement.addEventListener("scroll", function () {
+        var st = scrollableElement.scrollTop;
+        let limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+        if (st > lastScrollTop) {
+            console.log("scroll down");
+        } else {
+
+            if (Math.round($(this).scrollTop()) >= limit * 0.05 && can_load_more_message == true) {
+                can_load_more_message = false;
+                let loading_message = document.createElement("div");
+                loading_message.className = "loading-spinner loading_message";
+                $("#fblock_message_content").append(loading_message);
+                console.log("limite :" + limit + "; Current scroll : " + Math.round($(this).scrollTop()));
+                message_infinite_scroll(current_block_chat);
+            }
+        }
+        lastScrollTop = st <= 0 ? 0 : st;
+    }, false);
+
+    document.getElementById("popup-message").addEventListener("opened", function () {
+        InPopupMessage = true;
+        can_load_more_message = true;
+        $("#div_send_message").css("left", "0vw");
+        $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
+    });
+    document.getElementById("popup-message").addEventListener("closed", function () {
+        InPopupMessage = false;
+        firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off();
+        firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/last_message/seen_by').off();
+        firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id).orderByChild('is_typing').off();
+        $("#div_send_message").css("left", "-100vw");
+        $("#fblock_message_content").html("");
+        stopAllBlocksAudio();
+        first_chat = false;
+        all_block_message.length = 0;
+        current_block_chat.first_messake_key = undefined;
+        $("#UploadProgressBar").css({
+            "display": "none"
+        });
+    });
+
+    document.getElementById("popup-create-conversation").addEventListener("opened", function () {
+        GetFollowingsPopupCreateConversation();
+    });
+    // document.getElementById("popup-create-conversation").addEventListener("closed", function () {});
+}
+
 function block_chat(data) {
     var block_chat = this;
     this.chat_id = data.chat_data.chat_id;
@@ -46,7 +182,7 @@ function block_chat(data) {
         setup_popup_message(data_dm);
     });
 
-    $$(this.block_chat).on("taphold", function () {
+    $(this.block_chat).on("taphold", function () {
         current_block_chat = block_chat;
         delete_chat_from_html();
     });
@@ -178,35 +314,6 @@ function block_message(data, previous_message) {
 
 }
 
-$("#fnameCompte").on("click", function () {
-
-    if (FirebaseToken < window.localStorage.getItem("firebase_token")) {
-        chat_id = FirebaseToken + window.localStorage.getItem("firebase_token");
-    } else {
-        chat_id = window.localStorage.getItem("firebase_token") + FirebaseToken;
-    }
-
-    data_dm = {
-        fullname: account_fullname,
-        private_id: privateIDAccount,
-        user_id: FirebaseToken,
-        chat_id: chat_id,
-        profile_picture: profilePicLink,
-        is_groupe_chat: false
-    };
-
-    CreateConversation(data_dm);
-
-});
-
-$("#new_conversation").on("click", function () {
-    Popup("popup-create-conversation", true);
-    // let sayHello = firebase.functions().httpsCallable('UploadVoiceNote');
-    // sayHello({
-    //     FirebaseEnvironment: FirebaseEnvironment,
-    //     sound: "../www/src/sound/son.mp3"
-    // });
-});
 
 function CreateConversation(data) {
     setup_popup_message(data);
@@ -221,63 +328,6 @@ function set_block_chat_seen() {
     }
 }
 
-$("#SendFromCamera").on("click", function () {
-    TakePhoto(function (imageData) {
-        console.log(imageData);
-        // Contenu de l'image : imageData
-        toDataUrl(imageData, function (b64) {
-            console.log(b64);
-            let data = {
-                content: b64,
-                name: Date.now(),
-                chat_id: current_block_chat.chat_id
-            }
-            ServerManager.UploadImageToFirebase(data);
-        });
-    });
-});
-
-$("#button_send_message").on("click", function () {
-    if ($("#input_send_message").val().trim().length != 0) {
-        data_dm.message = $("#input_send_message").val();
-        if (first_chat == true) // premier msg
-        {
-            ServerManager.AddChat(data_dm, pop_block_chat);
-        } else {
-            send_message(data_dm.chat_id);
-        }
-        $("#input_send_message").val("");
-    }
-});
-
-$(document).on("keyup", ".fmessages-search-bar", function () {
-
-    let StringMessagesSearchBar = $(".fmessages-search-bar").val().trim();
-    if (StringMessagesSearchBar == "") {
-        firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").off();
-        ServerManager.NewChatListener(pop_block_chat);
-    } else {
-        ServerManager.SearchChat(StringMessagesSearchBar);
-    }
-
-});
-
-$(document).on("keyup", ".create-conversation-search-bar", function () {
-
-    let StringConversationSearchBar = $(".create-conversation-search-bar").val().trim();
-    if (StringConversationSearchBar == "") {
-        GetFollowingsPopupCreateConversation();
-    } else {
-        let data_user_search = {
-            Index: 0,
-            Search: StringConversationSearchBar,
-            Nb: 10,
-            CreateConversation: true
-        };
-        ServerManager.SearchUserForTabExplore(data_user_search);
-    }
-
-});
 
 function setup_popup_message(data, LiveChat) { // si on doit debuter le live chat ou pas
     $("#chat_photo").css({
@@ -326,30 +376,10 @@ function pop_block_message_seen(data) {
     let new_block_message_seen = new block_message_seen(data);
 }
 
-scrollableElement.addEventListener("scroll", function () {
-    var st = scrollableElement.scrollTop;
-    let limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-    if (st > lastScrollTop) {
-        console.log("scroll down");
-    } else {
-
-        if (Math.round($(this).scrollTop()) >= limit * 0.05 && can_load_more_message == true) {
-            can_load_more_message = false;
-            let loading_message = document.createElement("div");
-            loading_message.className = "loading-spinner loading_message";
-            $("#fblock_message_content").append(loading_message);
-            console.log("limite :" + limit + "; Current scroll : " + Math.round($(this).scrollTop()));
-            message_infinite_scroll(current_block_chat);
-        }
-    }
-    lastScrollTop = st <= 0 ? 0 : st;
-}, false);
-
 /* 
 Exclu la derniere clé de la requete
 Si je demande les 20 previous msg à partir d'une clé X
 la clé X ne sera pas retourné
-
 */
 function exclude(key) {
     return key.substring(0, key.length - 1) + String.fromCharCode(key.charCodeAt(key.length - 1) - 1);
@@ -548,44 +578,9 @@ function UpdateProgressBar(percent) {
     }
 }
 
-document
-    .getElementById("popup-message")
-    .addEventListener("opened", function () {
-        InPopupMessage = true;
-        can_load_more_message = true;
-        $("#div_send_message").css("left", "0vw");
-        $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
-    });
-document
-    .getElementById("popup-message")
-    .addEventListener("closed", function () {
-        InPopupMessage = false;
-        firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off();
-        firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/last_message/seen_by').off();
-        firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id).orderByChild('is_typing').off();
-        $("#div_send_message").css("left", "-100vw");
-        $("#fblock_message_content").html("");
-        stopAllBlocksAudio();
-        first_chat = false;
-        all_block_message.length = 0;
-        current_block_chat.first_messake_key = undefined;
-        $("#UploadProgressBar").css({
-            "display": "none"
-        });
-    });
-
-document
-    .getElementById("popup-create-conversation")
-    .addEventListener("opened", function () {
-        GetFollowingsPopupCreateConversation();
-    });
-document
-    .getElementById("popup-create-conversation")
-    .addEventListener("closed", function () {});
 
 
 /*------------------------TO DO-----------------------
-
 - Gestion des vues ----------DONE
 - Gestion du Is typing ------DONE
 - Scroll nvx msg ------------DONE
@@ -599,5 +594,4 @@ document
 - Message limite nb de charactere
 - Demandes de dm
 - Possibilité de mute les conv
-
 */
