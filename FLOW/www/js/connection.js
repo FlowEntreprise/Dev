@@ -46,7 +46,7 @@ function ConnectUser() {
             user_id: window.localStorage.getItem("firebase_token")
         };
         ServerManager.UpdateRegisterId(data);
-        let Email = window.localStorage.getItem("user_privateid") + "" + FirebaseEnvironment + "@flow.fr";
+        let Email = window.localStorage.getItem("user_private_id") + "" + FirebaseEnvironment + "@flow.fr";
         /*firebase.auth().createUserWithEmailAndPassword(Email, window.localStorage.getItem("firebase_token")).then((user) => {
             ServerManager.AddUserToFirebase(data);
         }).catch((error) => {
