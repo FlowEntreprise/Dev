@@ -31,22 +31,32 @@ var app = {
 	},
 	onDeviceReady: function () {
 		Keyboard.hide();
+		let custom_vh = window.innerHeight / 100;
+		console.log(window.localStorage.getItem("custom_vh"), custom_vh);
+		if (window.localStorage.getItem("custom_vh")) {
+			custom_vh = window.localStorage.getItem("custom_vh");
+		} else {
+			window.localStorage.setItem("custom_vh", custom_vh);
+		}
+		document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
+
+		if (window.screen.height <= 600) {
+			document.body.classList.add("mobile600");
+		} else if (window.screen.height <= 700) {
+			document.body.classList.add("mobile700");
+		}
+
 		document.addEventListener("backbutton", onBackKeyDown, false);
 		setupApp();
-		setTimeout(function () {
-			Keyboard.hide();
-		}, 500);
 		setTimeout(function () {
 			if (!window.cordova.platformId == "android") {
 				StatusBar.overlaysWebView(false);
 			}
 			StatusBar.backgroundColorByHexString("#f7f7f8");
-			let custom_vh = window.innerHeight / 100;
-			document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
 
-			if (window.innerHeight <= 600) {
+			if (window.screen.height <= 600) {
 				document.body.classList.add("mobile600");
-			} else if (window.innerHeight <= 700) {
+			} else if (window.screen.height <= 700) {
 				document.body.classList.add("mobile700");
 			}
 			if (connected) {
@@ -63,16 +73,9 @@ var app = {
 			})
 			//Framework7
 			// setupFDJ(); definitvely moved to app.js
-			setTimeout(function () {
-				let custom_vh = window.innerHeight / 100;
-				document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
+			// setTimeout(function () {
 
-				if (window.innerHeight <= 600) {
-					document.body.classList.add("mobile600");
-				} else if (window.innerHeight <= 700) {
-					document.body.classList.add("mobile700");
-				}
-			}, 500);
+			// }, 500);
 			cordova.plugins.notification.local.clearAll();
 
 			// if (window.localStorage.getItem("fdj_notif_setup") != "ok") {
@@ -115,7 +118,7 @@ var app = {
 		window.addEventListener("native.keyboardhide", keyboardHideHandler);
 
 		function keyboardHideHandler(e) {
-			// console.log('Keyboard hidden');
+			console.log('Keyboard hidden');
 			if (in_identification) {
 				$(".after-record-block-container").css("margin-top", "-30vh");
 			}
@@ -452,13 +455,6 @@ var app = {
 		});
 
 		firebase.initializeApp(firebaseConfig);
-
-
-		setTimeout(function () {
-			let _root = document.documentElement;
-			let _myvar = window.innerHeight / 100;
-			_root.style.setProperty("--custom-vh", _myvar + "px");
-		}, 500);
 	},
 };
 

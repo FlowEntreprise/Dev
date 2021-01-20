@@ -43,26 +43,28 @@
 
 .fmessages-search-bar {
 	position: absolute;
-	top: calc(6.5 * var(--custom-vh));
-	left: 17vw;
-	width: 60vw;
-	height: auto;
+	top: calc(7 * var(--custom-vh));
+	left: 25px;
+	width: 68vw;
+	height: 30px;
 	line-height: 30px;
 	padding-top: 0;
 	padding-bottom: 0;
-	padding-left: 4vw;
-	padding-right: 2vw;
+	padding-left: 30px;
+	/* padding-right: 2vw; */
+	/* text-align: center; */
 	border-radius: 50px;
 	border: 1px solid #92abb2;
-	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1);
-	font-size: 21px;
+	box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
+	/* font-size: 15px; */
 	font-family: "Roboto-Light";
+	font-size: 15px !important;
 	color: #92abb2;
 	-webkit-appearance: none;
 }
 
 .fmessages-search-bar::placeholder {
-	font-size: 18px;
+	font-size: 15px;
 	font-family: "Roboto-Light";
 	color: #92abb2;
 }

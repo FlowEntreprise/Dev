@@ -69,10 +69,12 @@ function inHome() {
 	if (window.cordova.platformId == "ios") {
 		$(".faccount").css({
 			top: "calc(0 * var(--custom-vh) + 47px)",
+			display: "block",
 		});
 	} else {
 		$(".faccount").css({
 			top: "calc(0 * var(--custom-vh) + 17px)",
+			display: "block",
 		});
 	}
 	stopAllBlocksAudio();
@@ -122,10 +124,12 @@ function inExplore() {
 	if (window.cordova.platformId == "ios") {
 		$(".faccount").css({
 			top: "calc(0 * var(--custom-vh) + 47px)",
+			display: "block",
 		});
 	} else {
 		$(".faccount").css({
 			top: "calc(0 * var(--custom-vh) + 17px)",
+			display: "block",
 		});
 	}
 	if (!explore_tabs_initialised) {
@@ -221,15 +225,18 @@ function inMessages() {
 		display: "block",
 		height: "calc(12 * var(--custom-vh))",
 	});
-	if (window.cordova.platformId == "ios") {
-		$(".faccount").css({
-			top: "calc(0 * var(--custom-vh) + 47px)",
-		});
-	} else {
-		$(".faccount").css({
-			top: "calc(0 * var(--custom-vh) + 17px)",
-		});
-	}
+	$(".faccount").css({
+		display: "none",
+	});
+	// if (window.cordova.platformId == "ios") {
+	// 	$(".faccount").css({
+	// 		top: "calc(0 * var(--custom-vh) + 47px)",
+	// 	});
+	// } else {
+	// 	$(".faccount").css({
+	// 		top: "calc(0 * var(--custom-vh) + 17px)",
+	// 	});
+	// }
 
 	// app.showNavbar($(".navbar"));
 	showTopBar(main_topbar);
@@ -311,6 +318,7 @@ function inNotifications() {
 	current_page = "notifications";
 	$(".faccount").css({
 		top: "calc(1 * var(--custom-vh) + 7px)",
+		display: "block",
 	});
 	if (!connected) {
 		setTimeout(function () {

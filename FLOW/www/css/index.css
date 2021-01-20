@@ -486,6 +486,6 @@ ul {
 }
 
 .home_parent {
-	padding-top: calc(15 * var(--custom-vh));
+	padding-top: calc(19 * var(--custom-vh));
 	transition: transform 0.5s;
 }
