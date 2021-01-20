@@ -223,7 +223,7 @@ function inMessages() {
 
 	$(".main_topbar").css({
 		display: "block",
-		height: "calc(12 * var(--custom-vh))",
+		height: "calc(14 * var(--custom-vh))",
 	});
 	$(".faccount").css({
 		display: "none",

@@ -211,10 +211,10 @@ function block_chat(data) {
     this.fblock_chat_text.innerText = this.block_chat_last_message.message;
     this.block_chat.appendChild(this.fblock_chat_text);
 
-    this.fblock_chat_record = document.createElement("img");
-    this.fblock_chat_record.className = "fblock_chat_record";
-    this.fblock_chat_record.src = "../www/src/icons/microphone.png";
-    $(this.block_chat).append(this.fblock_chat_record);
+    this.fblock_chat_dots = document.createElement("img");
+    this.fblock_chat_dots.className = "fblock_chat_dots";
+    this.fblock_chat_dots.src = "../www/src/icons/3dots.png";
+    $(this.block_chat).append(this.fblock_chat_dots);
 
     this.fblock_chat_time = document.createElement('label');
     this.fblock_chat_time.className = 'fblock_chat_time';

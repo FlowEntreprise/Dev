@@ -43,14 +43,14 @@
 
 .fmessages-search-bar {
 	position: absolute;
-	top: calc(7 * var(--custom-vh));
+	top: calc(7.5 * var(--custom-vh));
 	left: 25px;
-	width: 68vw;
-	height: 30px;
-	line-height: 30px;
+	width: 64vw;
+	height: 40px;
+	line-height: 40px;
 	padding-top: 0;
 	padding-bottom: 0;
-	padding-left: 30px;
+	padding-left: 40px;
 	/* padding-right: 2vw; */
 	/* text-align: center; */
 	border-radius: 50px;
@@ -69,6 +69,15 @@
 	color: #92abb2;
 }
 
+.fmessages-bar>.search_icon {
+	opacity: 1;
+	top: calc(7.5 * var(--custom-vh));
+	left: 28px;
+	height: 40px;
+	width: 40px;
+	background-size: 50%;
+}
+
 .fmessages-bar>label {
 	position: absolute;
 	top: 0;
@@ -85,30 +94,40 @@
 
 #new_conversation {
 	position: absolute;
-	width: 8vw;
-	right: calc(4* var(--custom-vh));
-	top: calc(7* var(--custom-vh));
-
+	height: 44px;
+	width: 44px;
+	right: calc(2.5* var(--custom-vh));
+	top: calc(7.5* var(--custom-vh) - 2px);
+	background: #1A84EF;
+	border-radius: 22px;
+	box-shadow: 0px 3px 6px rgba(26, 132, 239, 0.4);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 25px;
 }
 
 
 #block_chat_contrainer {
-	margin-top: calc(12 * var(--custom-vh)) !important;
+	margin-top: calc(14 * var(--custom-vh)) !important;
 	padding-bottom: 12vh;
 	overflow-y: scroll;
 }
 
 .fblock_chat {
 	position: relative;
-	width: 100vw;
+	width: calc(100vw - 20px);
 	height: calc(10 * var(--custom-vh));
-	margin-top: 0vw;
-	background-color: #1A84EF6B;
+	background-color: rgba(26, 132, 239, 0.28);
 	transition-duration: 0.2s;
+	border-radius: 5px;
+	margin-top: 10px;
+	margin-left: 10px;
 }
 
 .fblock_chat:active {
-	background-color: #1A84EF6B;
+	background-color: rgba(26, 132, 239, 0.28);
 }
 
 .fphoto_block_chat {
@@ -118,8 +137,8 @@
 	top: calc(1.5 * var(--custom-vh));
 	left: 2vw;
 	border-radius: calc(7 * var(--custom-vh));
-	border: 1.5px solid rgb(255, 255, 255);
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+	/* border: 1.5px solid rgb(255, 255, 255); */
+	/* box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2); */
 	background-size: cover;
 	background-position: center;
 }
@@ -128,38 +147,86 @@
 	position: absolute;
 	top: calc(2.5 * var(--custom-vh));
 	left: 20vw;
-	font-size: 14px;
-	color: #1a84ef;
-	font-family: "Roboto-Bold";
+	font-size: 16px;
+	color: #495969;
+	font-family: "Roboto-Regular";
 }
 
 .fblock_chat_text {
-	font-family: "Roboto-Light";
+	font-family: "Roboto-Regular";
 	position: absolute;
-	top: calc(5 * var(--custom-vh));
+	top: calc(5.5 * var(--custom-vh));
 	left: 20vw;
-	color: #92abb2;
+	color: #9095A4;
 	font-size: 13px;
 	width: 60vw;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
-.fblock_chat_record {
+.fblock_chat_dots {
 	position: absolute;
-	right: 6vw;
-	width: 4vw;
-	height: calc(2.7 * var(--custom-vh));
-	top: calc(3.25 * var(--custom-vh));
+	right: 10px;
+	width: 20px;
+	height: 15px;
+	top: 5px;
+	display: block;
+	object-fit: contain;
 }
 
 .fblock_chat_time {
 	position: absolute;
-	top: calc(7 * var(--custom-vh));
-	right: 3.5vw;
-	color: #92abb2;
-	font-size: 13px;
-	font-family: "Roboto-Light";
+	top: calc(6.5 * var(--custom-vh));
+	right: 10px;
+	color: #9095A4;
+	font-size: 11px;
+	font-family: "Roboto-Regular";
 	padding-left: 10px;
 }
+
+.fconversation_title {
+	position: absolute;
+	top: calc(2.5 * var(--custom-vh));
+	left: 20vw;
+	font-size: 17px;
+	color: #495969;
+	font-family: "Roboto-Regular";
+}
+
+.fblock_chat_text {
+	font-family: "Roboto-Regular";
+	position: absolute;
+	top: calc(6 * var(--custom-vh));
+	left: 20vw;
+	color: #9095A4;
+	font-size: 13px;
+	width: 60vw;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.fblock_chat_dots {
+	position: absolute;
+	right: 10px;
+	width: 20px;
+	height: 15px;
+	top: 5px;
+	display: block;
+	object-fit: contain;
+}
+
+.fblock_chat_time {
+	position: absolute;
+	top: calc(6 * var(--custom-vh));
+	right: 10px;
+	color: #DBDBEF;
+	font-size: 13px;
+	font-family: "Roboto-Regular";
+	padding-left: 10px;
+}
+
 
 
 
