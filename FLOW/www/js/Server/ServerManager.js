@@ -56,7 +56,7 @@ const ServerParams = {
 	GetRandomFlow: "GetRandomFlow",
 	GetFlowOfTheDay: "GetFlowOfTheDay"
 };
-const FirebaseEnvironment = ServerParams.ServerURL == "https://api.flowappweb.com/" ? "prod" : "dev";
+var FirebaseEnvironment = ServerParams.ServerURL == "https://api.flowappweb.com/" ? "prod" : "dev";
 const apiTypes = {
 	Twitter: "twitter",
 	Google: "google",

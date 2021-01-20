@@ -589,9 +589,11 @@ $(".fnotif-btn").on("click", function () {
 		if (ServerParams.ServerURL == "https://api-test.flowappweb.com/") {
 			DisconnectUser();
 			ServerParams.ServerURL = "https://api.flowappweb.com/";
+			FirebaseEnvironment = "prod";
 		} else if (ServerParams.ServerURL == "https://api.flowappweb.com/") {
 			DisconnectUser();
 			ServerParams.ServerURL = "https://api-test.flowappweb.com/";
+			FirebaseEnvironment = "dev";
 		}
 		setTimeout(function () {
 			tab4_count = 0;
