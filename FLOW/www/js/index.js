@@ -321,7 +321,8 @@ var app = {
 
 		var push = PushNotification.init({
 			android: {
-				icon: "flow_icone_one_plus",
+				icon: device.manufacturer == "OnePlus" ?
+					"flow_icone_one_plus" : "flow_icone",
 			},
 			ios: {
 				alert: "true",
@@ -330,17 +331,9 @@ var app = {
 			},
 		});
 
-		let topic = window.cordova.platformId == "ios" ? "all-ios" : "all-android";
-
-		push.subscribe(topic, function () {
-			console.log('subscribe success: ' + topic);
-		}, function (e) {
-			console.log()('subscribe error:');
-		});
-
 		push.on("registration", function (data) {
 			// data.registrationId
-			console.log(data.registrationId);
+			//console.log(data.registrationId);
 			registrationId = data.registrationId;
 
 			if (window.cordova.platformId == "ios" && registrationId.length < 100) {
@@ -356,26 +349,52 @@ var app = {
 			}
 		});
 
+		let topic = "all-android";
+
+		push.subscribe(topic, function () {
+			//alert('subscribe success: ' + topic);
+		}, function (e) {
+			//alert('subscribe error:');
+			//alert(e);
+		});
+
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
 			pas dans l'application */
-			console.log(data);
-			console.log("pluggin push chris");
-
+			//console.log("data notif firebase");
+			//console.log(data);
 			if (data.additionalData.foreground == false) {
 				Popup("popup-specifique", false);
 				Popup("popup-comment", false);
-				if (window.cordova.platformId == "ios" && data.additionalData.type != "flow_du_jour") {
+				if (window.cordova.platformId == "ios") {
 					data.additionalData.sender_info = JSON.parse(
 						data.additionalData.sender_info
 					);
+				}
+				if (data.additionalData.type == "send_message") {
+					let data_popup_msg = {
+						profile_picture: data.additionalData.sender_info.profil_pic,
+						fullname: data.additionalData.sender_info.fullname,
+						chat_id: data.additionalData.sender_info.chat_id
+					};
+					/*
+					-Pour generer le block_message_seen à l'ouverture d'une notif
+					- Pour generer les blocks message de l'epediteur à l'ouverture d'une notif
+					*/
+					current_block_chat.block_chat_photo = data_popup_msg.profile_picture;
+					firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/last_message/seen_by').off();
+					firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id).orderByChild('is_typing').off();
+					firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off().then(function () {
+						setup_popup_message(data_popup_msg, true);
+					});
+					return;
 				}
 				if (data.additionalData.type == "story_comment") {
 					return;
 				}
 				if (data.additionalData.type == "flow_du_jour") {
+					app.showTab("#tab2");
 					explore_categories.slideTo(0);
-					setupFDJ();
 					return;
 				}
 				if (data.additionalData.type == "follow") {
@@ -386,7 +405,7 @@ var app = {
 					go_to_account(data_go_to_account);
 				} else {
 					$(".flow_specifique_container").html("");
-					// let myApp = new Framework7();
+					let myApp = new Framework7();
 
 					if (
 						data.additionalData.type == "like_comment" ||
@@ -422,15 +441,17 @@ var app = {
 				}
 				refresh_notif(true);
 			}
-			if (data.additionalData.foreground == true && data.additionalData.type != "flow_du_jour") {
+			if (data.additionalData.foreground == true) {
 				in_app_notif(data);
 				refresh_notif();
 			}
 		});
 
 		push.on("error", function (e) {
-			console.log(e.message);
+			//console.log(e.message);
 		});
+
+		firebase.initializeApp(firebaseConfig);
 
 
 		setTimeout(function () {

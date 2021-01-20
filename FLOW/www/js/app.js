@@ -27,7 +27,9 @@ function setupApp() {
         // explore_swiper = new Swiper('.explore_tabs');
     });
 
-    $(".messages_tab").load("pages/messages.html");
+    $(".messages_tab").load("pages/messages.html", function () {
+        messages_tab_loaded();
+    });
 
     $(".notifications_tab").load("pages/notifications.html", function () {
         notifications_tab_loaded();
@@ -73,12 +75,12 @@ function initMainTopbar(scroll_parent) {
 }
 
 function showTopBar(element) {
-    element.style.transform = "translate3d(0, 0, 0)"
+    if (element) element.style.transform = "translate3d(0, 0, 0)"
 }
 
 function hideTopBar(element) {
     let pos_y = "-" + element.clientHeight + "px";
-    element.style.transform = "translate3d(0, " + pos_y + ", 0)"
+    if (element) element.style.transform = "translate3d(0, " + pos_y + ", 0)"
 }
 
 // when pages_swiper changed

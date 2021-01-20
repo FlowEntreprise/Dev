@@ -56,7 +56,7 @@ const ServerParams = {
 	GetRandomFlow: "GetRandomFlow",
 	GetFlowOfTheDay: "GetFlowOfTheDay"
 };
-
+const FirebaseEnvironment = ServerParams.ServerURL == "https://api.flowappweb.com/" ? "prod" : "dev";
 const apiTypes = {
 	Twitter: "twitter",
 	Google: "google",
@@ -74,7 +74,6 @@ class ServerManagerClass {
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
 	 * et reprendre la syntaxe des fonctions existantes.
 	 */
-
 	Connect(api, data) {
 		let final_data;
 		let DataSend;
@@ -174,21 +173,21 @@ class ServerManagerClass {
 				};
 				break;
 			default:
-				//console.log("Error in parameters sent to Connect() in ServerManager.");
+				////console.log("Error in parameters sent to Connect() in ServerManager.");
 		}
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.ConnexionURL,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//// console.log("Connection success : ");
-				//// console.log(response);
+				//// //console.log("Connection success : ");
+				//// //console.log(response);
 				storeVariables(response);
 				ConnectUser();
 			},
 			error: function (response) {
-				//// console.log("Connection error : ");
-				//// console.log(response);
+				//// //console.log("Connection error : ");
+				//// //console.log(response);
 			},
 		});
 	}
@@ -224,7 +223,7 @@ class ServerManagerClass {
 			// data: request_data.data,
 			headers: oauth.toHeader(oauth.authorize(request_data, token)),
 		}).done(function (response) {
-			console.log(response);
+			//console.log(response);
 			let txt =
 				response.name +
 				" --- " +
@@ -235,7 +234,7 @@ class ServerManagerClass {
 				response.description +
 				"---" +
 				response.id;
-			console.log(txt);
+			//console.log(txt);
 			response.profile_image_url = response.profile_image_url.replace(
 				"_normal",
 				""
@@ -254,9 +253,9 @@ class ServerManagerClass {
 		// };
 
 		// $.ajax(settings).done(function (response) {
-		//     console.log(response);
+		//     //console.log(response);
 		//     let txt = response.name + " --- " + response.screen_name + " --- " + response.profile_image_url + " --- " + response.description + "---" + response.id;
-		//     console.log(txt);
+		//     //console.log(txt);
 		//     response.profile_image_url = response.profile_image_url.replace("_normal", "");
 		//     ServerManager.Connect(apiTypes.Twitter, response);
 		// });
@@ -268,14 +267,13 @@ class ServerManagerClass {
 			Action: "AddFlow",
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.AddFlowURL,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				console.log("Flow added sucessfully : ");
-				console.log(response);
+				//console.log("Flow added sucessfully : ");
+				//console.log(response);
 				// ServerManager.GetFlowById(response.ObjectId);
 				clean_all_tagged_users(
 					all_tagged_users,
@@ -287,8 +285,8 @@ class ServerManagerClass {
 				CloseAfterRecord();
 			},
 			error: function (response) {
-				console.log("Flow adding error : ");
-				console.log(response);
+				//console.log("Flow adding error : ");
+				//console.log(response);
 				CloseAfterRecord();
 			},
 		});
@@ -322,7 +320,7 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.UpdateUserLastConnexion,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				console.log("User last connexion updated");
+				//console.log("User last connexion updated");
 			},
 			error: function (response) {},
 		});
@@ -337,19 +335,19 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 		};
 
-		//// console.log(final_data);
+		//// //console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetSingleFlowURL,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//// console.log("Flow sucessfully recovered from database :");
-				//// console.log(response);
+				//// //console.log("Flow sucessfully recovered from database :");
+				//// //console.log(response);
 				PopFlow(response.Data, response.LinkBuilder);
 			},
 			error: function (response) {
-				//// console.log("Flow recovering from database error : ");
-				//// console.log(response);
+				//// //console.log("Flow recovering from database error : ");
+				//// //console.log(response);
 				pullToRefreshEnd();
 			},
 		});
@@ -367,15 +365,15 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.AddStoryURL,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//// console.log('Story added sucessfully : ');
-				//// console.log(response);
+				//// //console.log('Story added sucessfully : ');
+				//// //console.log(response);
 				closeStoryRecord();
 				ServerManager.GetStory();
 				//ServerManager.GetFlowById(response.ObjectId);
 			},
 			error: function (response) {
-				//// console.log("Story adding error : ");
-				//// console.log(response);
+				//// //console.log("Story adding error : ");
+				//// //console.log(response);
 				closeStoryRecord();
 			},
 		});
@@ -388,20 +386,20 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 		};
 
-		//// console.log(final_data);
+		//// //console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetStoryURL,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log("Story sucessfully recovered from database :");
-				//console.log(response);
+				////console.log("Story sucessfully recovered from database :");
+				////console.log(response);
 				UpdateStoryDataFromServer(response);
 				//PopFlow(response);
 			},
 			error: function (response) {
-				//console.log("Story recovering from database error : ");
-				//console.log(response);
+				////console.log("Story recovering from database error : ");
+				////console.log(response);
 			},
 		});
 	}
@@ -415,20 +413,20 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 		};
 
-		//// console.log(final_data);
+		//// //console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetUserStoryURL,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log("User story sucessfully recovered from database :");
-				//console.log(response);
+				////console.log("User story sucessfully recovered from database :");
+				////console.log(response);
 				GetStoryForUserFromServer(response);
 				//PopFlow(response);
 			},
 			error: function (response) {
-				//console.log("User story recovering from database error : ");
-				//console.log(response);
+				////console.log("User story recovering from database error : ");
+				////console.log(response);
 				CloseStory();
 			},
 		});
@@ -441,20 +439,20 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 		};
 
-		//// console.log(final_data);
+		//// //console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.AddFlowComment,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log("response tu connais : " + response + "");
+				////console.log("response tu connais : " + response + "");
 				var obj = final_data.Data;
 				obj.IdComment = response.IdComment;
 				send_comment_to_server(obj);
 			},
 			error: function (response) {
-				//// console.log("comment adding from database error : ");
-				//// console.log(response);
+				//// //console.log("comment adding from database error : ");
+				//// //console.log(response);
 			},
 		});
 	}
@@ -466,21 +464,21 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 		};
 
-		//// console.log(final_data);
+		//// //console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.AddCommentResponse,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log("response tu connais : " + response + "");
+				////console.log("response tu connais : " + response + "");
 				var obj = final_data.Data;
 				obj.IdResponse = response.IdResponse;
 				send_response_to_server(obj);
 				it_is_a_response = false;
 			},
 			error: function (response) {
-				//// console.log("comment adding from database error : ");
-				//// console.log(response);
+				//// //console.log("comment adding from database error : ");
+				//// //console.log(response);
 			},
 		});
 	}
@@ -492,7 +490,7 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 		};
 
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetFlowComment,
@@ -500,12 +498,12 @@ class ServerManagerClass {
 			success: function (response) {
 				//get_all_comment(response, final_data.Data);
 				UpdateCommentList(response, final_data.Data);
-				//// console.log("Comment sucessfully added to database :");
-				//// console.log(response);
+				//// //console.log("Comment sucessfully added to database :");
+				//// //console.log(response);
 			},
 			error: function (response) {
-				//// console.log("comment adding from database error : ");
-				//// console.log(response);
+				//// //console.log("comment adding from database error : ");
+				//// //console.log(response);
 			},
 		});
 	}
@@ -517,7 +515,7 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 		};
 
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetCommentResponse,
@@ -525,11 +523,11 @@ class ServerManagerClass {
 			success: function (response) {
 				//get_all_comment(response, final_data.Data);
 				display_response(response, data_response_unique);
-				console.log("Les reponses de commentaires sont :");
+				//console.log("Les reponses de commentaires sont :");
 			},
 			error: function (response) {
-				console.log("Impossible de recuperer les reponses de commentaires");
-				//// console.log(response);
+				//console.log("Impossible de recuperer les reponses de commentaires");
+				//// //console.log(response);
 			},
 		});
 	}
@@ -541,19 +539,19 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 		};
 
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetFlowLikes,
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				get_all_likes(response, final_data.Data);
-				//// console.log("Comment sucessfully added to database :");
-				//console.log(response);
+				//// //console.log("Comment sucessfully added to database :");
+				////console.log(response);
 			},
 			error: function (response) {
-				//// console.log("comment adding from database error : ");
-				//console.log(response);
+				//// //console.log("comment adding from database error : ");
+				////console.log(response);
 			},
 		});
 	}
@@ -565,17 +563,17 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 		};
 
-		console.log(final_data);
+		//console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetCommentLikes,
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				get_all_likes(response, final_data.Data);
-				console.log(response);
+				//console.log(response);
 			},
 			error: function (response) {
-				console.log(response);
+				//console.log(response);
 			},
 		});
 	}
@@ -587,17 +585,17 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 		};
 
-		console.log(final_data);
+		//console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetResponseLikes,
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				get_all_likes(response, final_data.Data);
-				console.log(response);
+				//console.log(response);
 			},
 			error: function (response) {
-				console.log(response);
+				//console.log(response);
 			},
 		});
 	}
@@ -613,7 +611,7 @@ class ServerManagerClass {
 		current_block.IdComment = block.ObjectId;
 		/*la ligne du dessus pour simplifier l'envoi des notifs sans trop redev
 	meme si ça parrait pas super coherant*/
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.LikeFlowComment,
@@ -621,12 +619,12 @@ class ServerManagerClass {
 			success: function (response) {
 				//impression_coloring(this, 'like', block.fcomment_like, "comment");
 				color_like(current_block, response.like === undefined ? false : true);
-				//console.log("Comment sucessfully liked to database :");
-				//console.log(response);
+				////console.log("Comment sucessfully liked to database :");
+				////console.log(response);
 			},
 			error: function (response) {
-				//console.log("comment liked database error : ");
-				//console.log(response);
+				////console.log("comment liked database error : ");
+				////console.log(response);
 			},
 		});
 	}
@@ -642,7 +640,7 @@ class ServerManagerClass {
 		current_block.Idresponse = block.ObjectId;
 		/*la ligne du dessus pour simplifier l'envoi des notifs sans trop redev
 	meme si ça parrait pas super coherant*/
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.LikeResponse,
@@ -653,12 +651,12 @@ class ServerManagerClass {
 					current_response_block,
 					response.like === undefined ? false : true
 				);
-				//console.log("Comment sucessfully liked to database :");
-				//console.log(response);
+				////console.log("Comment sucessfully liked to database :");
+				////console.log(response);
 			},
 			error: function (response) {
-				//console.log("comment liked database error : ");
-				//console.log(response);
+				////console.log("comment liked database error : ");
+				////console.log(response);
 			},
 		});
 	}
@@ -670,7 +668,7 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 		};
 		var current_block = block;
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.LikeFlow,
@@ -678,12 +676,12 @@ class ServerManagerClass {
 			success: function (response) {
 				//impression_coloring(this, 'like', block.fcomment_like, "comment");
 				//color_like(current_block, response.like === undefined ? false : true);
-				console.log("Flow sucessfully liked");
-				//console.log(response);
+				//console.log("Flow sucessfully liked");
+				////console.log(response);
 			},
 			error: function (response) {
-				//console.log("Flow liked database error : ");
-				//console.log(response);
+				////console.log("Flow liked database error : ");
+				////console.log(response);
 			},
 		});
 	}
@@ -693,7 +691,7 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 			Data: data,
 		};
-		//// console.log(final_data);
+		//// //console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetMultipleFlowURL,
@@ -734,7 +732,7 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 			Data: data,
 		};
-		//// console.log(final_data);
+		//// //console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetMultipleFlowURL,
@@ -770,7 +768,7 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.GetMyUserInfosURL,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log("on recup le getInfosUserNumber");
+				////console.log("on recup le getInfosUserNumber");
 				ShowInfosUserNumber(response);
 			},
 			error: function (response) {},
@@ -782,14 +780,14 @@ class ServerManagerClass {
 			Data: data,
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log("final data = ");
-		//console.log(final_data);
+		////console.log("final data = ");
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetUserProfil,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log("on recup le profil");
+				////console.log("on recup le profil");
 				if (typeof response == "string") {
 					// alert("Utilisateur introuvable");
 					navigator.notification.alert(
@@ -813,15 +811,15 @@ class ServerManagerClass {
 				PrivateId: data.PrivateId,
 			},
 		};
-		//console.log("final data = ");
-		//console.log(final_data);
+		////console.log("final data = ");
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetFollowerOfUser,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log("nombre de follower thomas ");
-				//console.log(response);
+				////console.log("nombre de follower thomas ");
+				////console.log(response);
 				UpdateFollowersList(response, data.follow_list);
 			},
 			error: function (response) {},
@@ -836,17 +834,22 @@ class ServerManagerClass {
 				PrivateId: data.PrivateId,
 			},
 		};
-		//console.log("final data = ");
-		//console.log(final_data);
+		////console.log("final data = ");
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetFollowingOfUser,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
+				////console.log(response);
+
+				if (data.follow_list == "CreateConversation" && response.length != 0) {
+					DisplayFollowingsPopupCreateConversation(response, data.follow_list);
+				}
 				if (data.follow_list == true) {
 					UpdateIdentificationList(response, data.follow_list);
-				} else {
+				}
+				if (data.follow_list == false) {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},
@@ -859,13 +862,13 @@ class ServerManagerClass {
 			Data: data,
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.ActionFollowProfil,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
+				////console.log(response);
 				// let myApp = new Framework7();
 				// myApp.pullToRefreshTrigger(ptrContent);
 				callback(response, data);
@@ -880,16 +883,16 @@ class ServerManagerClass {
 			Action: "UpdateProfile",
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		console.log(final_data);
-		//// console.log(final_data.Data);
+		//console.log(final_data);
+		//// //console.log(final_data.Data);
 
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.UpdateProfileURL,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//// console.log('Flow update sucessfully: ');
-				console.log(response);
+				//// //console.log('Flow update sucessfully: ');
+				//console.log(response);
 				UpdateProfile(
 					final_data.Data.FullName,
 					final_data.Data.Biography,
@@ -897,9 +900,9 @@ class ServerManagerClass {
 				);
 			},
 			error: function (response) {
-				//// console.log("Flow update error : ");
-				console.log(response);
-				//// console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
+				//// //console.log("Flow update error : ");
+				//console.log(response);
+				//// //console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
 			},
 		});
 	}
@@ -911,20 +914,24 @@ class ServerManagerClass {
 				Index: data,
 			},
 		};
-		console.log(final_data);
-		console.log("Get timeline index : " + data);
+		//console.log(final_data);
+		//console.log("Get timeline index : " + data);
+		let start = Date.now();
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetTimeline,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log("success");
-				console.log(response);
+				let end = Date.now();
+				let elapsed_time = end - start;
+				console.log("elapsed time : " + elapsed_time);
+				////console.log("success");
+				//console.log(response);
 				timeline_get_block_and_blocked_users(response);
 			},
 			error: function (response) {
-				//console.log("error");
-				//console.log(response);
+				////console.log("error");
+				////console.log(response);
 				StopRefreshTL();
 			},
 		});
@@ -936,14 +943,14 @@ class ServerManagerClass {
 			Data: data,
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetSingle,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
-				//console.log("success dans la recuperation de flow unique");
+				////console.log(response);
+				////console.log("success dans la recuperation de flow unique");
 				if (typeof response == "string") {
 					navigator.notification.alert(
 						"Ce flow n'est plus disponible",
@@ -961,8 +968,8 @@ class ServerManagerClass {
 				);
 			},
 			error: function (response) {
-				//console.log(response);
-				//console.log("error dans la recuperation de flow unique");
+				////console.log(response);
+				////console.log("error dans la recuperation de flow unique");
 			},
 		});
 	}
@@ -972,14 +979,14 @@ class ServerManagerClass {
 			Data: data,
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetSingleComment,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
-				//console.log("success dans la recuperation de flow unique");
+				////console.log(response);
+				////console.log("success dans la recuperation de flow unique");
 				if (typeof response == "string") {
 					navigator.notification.alert(
 						"Ce commentaire n'est plus disponible",
@@ -995,8 +1002,8 @@ class ServerManagerClass {
 				}
 			},
 			error: function (response) {
-				//console.log(response);
-				//console.log("error dans la recuperation de flow unique");
+				////console.log(response);
+				////console.log("error dans la recuperation de flow unique");
 			},
 		});
 	}
@@ -1006,14 +1013,14 @@ class ServerManagerClass {
 			Data: data,
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetSingleResponse,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
-				//console.log("success dans la recuperation de flow unique");
+				////console.log(response);
+				////console.log("success dans la recuperation de flow unique");
 				if (typeof response == "string") {
 					navigator.notification.alert(
 						"Cette réponse n'est plus disponible",
@@ -1026,8 +1033,8 @@ class ServerManagerClass {
 				}
 			},
 			error: function (response) {
-				//console.log(response);
-				//console.log("error dans la recuperation de flow unique");
+				////console.log(response);
+				////console.log("error dans la recuperation de flow unique");
 			},
 		});
 	}
@@ -1037,14 +1044,14 @@ class ServerManagerClass {
 			Data: data,
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetSingleResponseExtended,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
-				//console.log("success dans la recuperation de flow unique");
+				////console.log(response);
+				////console.log("success dans la recuperation de flow unique");
 				if (typeof response == "string") {
 					navigator.notification.alert(
 						"Cette réponse n'est plus disponible",
@@ -1057,8 +1064,8 @@ class ServerManagerClass {
 				}
 			},
 			error: function (response) {
-				//console.log(response);
-				//console.log("error dans la recuperation de flow unique");
+				////console.log(response);
+				////console.log("error dans la recuperation de flow unique");
 			},
 		});
 	}
@@ -1068,19 +1075,19 @@ class ServerManagerClass {
 			Data: data,
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.DeleteFlow,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
+				////console.log(response);
 				delete_flow_from_html(element);
-				//console.log("Flow supprimé avec succes");
+				////console.log("Flow supprimé avec succes");
 			},
 			error: function (response) {
-				//console.log(response);
-				//console.log("error dans la supression de flow ");
+				////console.log(response);
+				////console.log("error dans la supression de flow ");
 			},
 		});
 	}
@@ -1090,19 +1097,19 @@ class ServerManagerClass {
 			Data: data,
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.DeleteComment,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
+				////console.log(response);
 				delete_comment_from_html(element);
-				console.log("Commentaire supprimé avec succes");
+				//console.log("Commentaire supprimé avec succes");
 			},
 			error: function (response) {
-				//console.log(response);
-				//console.log("error dans la supression de commentaire");
+				////console.log(response);
+				////console.log("error dans la supression de commentaire");
 			},
 		});
 	}
@@ -1112,18 +1119,18 @@ class ServerManagerClass {
 			Data: data,
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.DeleteResponse,
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				delete_response_from_html(element);
-				console.log("reponse supprimé avec succes");
+				//console.log("reponse supprimé avec succes");
 			},
 			error: function (response) {
-				//console.log(response);
-				console.log("error dans la supression de la reponse");
+				////console.log(response);
+				//console.log("error dans la supression de la reponse");
 			},
 		});
 	}
@@ -1134,20 +1141,20 @@ class ServerManagerClass {
 			Action: "RegisterId",
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//// console.log(final_data.Data);
+		//// //console.log(final_data.Data);
 
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.UpdateRegisterId,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log('registerId update sucessfully: ');
-				//console.log(response);
+				// //console.log('registerId update sucessfully: ');
+				// //console.log(response);
 			},
 			error: function (response) {
-				//console.log("registerId update error : ");
-				//console.log(response);
-				//// console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
+				////console.log("registerId update error : ");
+				////console.log(response);
+				//// //console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
 			},
 		});
 	}
@@ -1157,17 +1164,17 @@ class ServerManagerClass {
 			Data: data,
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.AddNotificationToUser,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
-				console.log("notif added to bdd");
+				////console.log(response);
+				//console.log("notif added to bdd");
 			},
 			error: function (response) {
-				//console.log(response);
+				////console.log(response);
 			},
 		});
 	}
@@ -1181,18 +1188,21 @@ class ServerManagerClass {
 			},
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.SearchUserForTabExplore,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				console.log(response);
-				//console.log("recherche de users");
+				//console.log(response);
+				////console.log("recherche de users");
 				get_users_with_follow(response.Data);
+				if (data.CreateConversation == true) {
+					DisplayFollowingsPopupCreateConversation(response.Data, "CreateConversation");
+				}
 			},
 			error: function (response) {
-				//console.log(response);
+				////console.log(response);
 			},
 		});
 	}
@@ -1202,17 +1212,17 @@ class ServerManagerClass {
 			Data: data,
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.UpdateNotificationToView,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
-				//console.log("notif set to seen");
+				////console.log(response);
+				////console.log("notif set to seen");
 			},
 			error: function (response) {
-				//console.log(response);
+				////console.log(response);
 			},
 		});
 	}
@@ -1222,7 +1232,7 @@ class ServerManagerClass {
 			Data: data,
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetNotificationOfUser,
@@ -1231,7 +1241,7 @@ class ServerManagerClass {
 				UpdateNotificationList(response, set_to_seen);
 			},
 			error: function (response) {
-				//console.log(response);
+				////console.log(response);
 			},
 		});
 	}
@@ -1257,7 +1267,7 @@ class ServerManagerClass {
 					LastOs: window.cordova.platformId
 				};
 				ServerManager.UpdateRegisterId(data);*/
-				console.log(registrationId);
+				//console.log(registrationId);
 			},
 			error: function (response) {},
 		});
@@ -1323,11 +1333,14 @@ class ServerManagerClass {
 								RegisterIdOfUserToNotify : data.to
 								Content : data.data.message
 				*/
-				ServerManager.AddNotificationToUser(data_notif_to_bdd);
-				console.log("Notif envoyé avec succes");
+				if (data.notification && data.notification.type != 'send_message' || data.data && data.data.type != 'send_message') {
+
+					ServerManager.AddNotificationToUser(data_notif_to_bdd);
+				}
+				//console.log("Notif envoyé avec succes");
 			},
 			error: function (response) {
-				//console.log("La notif n'a pas été envoyé");
+				////console.log("La notif n'a pas été envoyé");
 			},
 		});
 	}
@@ -1338,17 +1351,17 @@ class ServerManagerClass {
 			Action: "AddStoryComment",
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.AddStoryComment,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
+				////console.log(response);
 				story_comment_uploaded();
 			},
 			error: function (response) {
-				//console.log(response);
+				////console.log(response);
 			},
 		});
 	}
@@ -1361,19 +1374,19 @@ class ServerManagerClass {
 				ObjectId: data.objectId,
 			},
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetStoryComments,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
+				////console.log(response);
 				if (response.Data) {
 					loadStoryComments(response);
 				}
 			},
 			error: function (response) {
-				//console.log(response);
+				////console.log(response);
 			},
 		});
 	}
@@ -1389,11 +1402,11 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.AddStoryView,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
+				////console.log(response);
 				// story_comment_uploaded();
 			},
 			error: function (response) {
-				//console.log(response);
+				////console.log(response);
 			},
 		});
 	}
@@ -1411,14 +1424,14 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.GetStoryView,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
+				////console.log(response);
 				if (response.Data) {
 					loadStorySeen(response);
 				}
 				// loadStoryComments(response);
 			},
 			error: function (response) {
-				//console.log(response);
+				////console.log(response);
 			},
 		});
 	}
@@ -1430,7 +1443,7 @@ class ServerManagerClass {
 			},
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.BlockUser,
@@ -1441,7 +1454,7 @@ class ServerManagerClass {
 				in_app_notif(data);
 			},
 			error: function (response) {
-				//console.log(response);
+				////console.log(response);
 			},
 		});
 	}
@@ -1453,7 +1466,7 @@ class ServerManagerClass {
 			},
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.UnBlockUser,
@@ -1464,7 +1477,7 @@ class ServerManagerClass {
 				in_app_notif(data);
 			},
 			error: function (response) {
-				//console.log(response);
+				////console.log(response);
 			},
 		});
 	}
@@ -1474,14 +1487,14 @@ class ServerManagerClass {
 			Data: {},
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetBlockedUsers,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log("liste des utilisateurs bloqués");
-				//console.log(response);
+				////console.log("liste des utilisateurs bloqués");
+				////console.log(response);
 				if (action == "go_to_acount") {
 					user_block_management(response.Data, data);
 				}
@@ -1503,7 +1516,7 @@ class ServerManagerClass {
 				}
 			},
 			error: function (response) {
-				//console.log(response);
+				////console.log(response);
 			},
 		});
 	}
@@ -1515,17 +1528,17 @@ class ServerManagerClass {
 			},
 			TokenId: window.localStorage.getItem("user_token"),
 		};
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.AddReportFlow,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log("le flow a bien été report");
+				////console.log("le flow a bien été report");
 				in_app_notif(data);
 			},
 			error: function (response) {
-				//console.log(response);
+				////console.log(response);
 			},
 		});
 	}
@@ -1542,17 +1555,17 @@ class ServerManagerClass {
 		if (tokken && tokken.length > 0) {
 			final_data.TokenId = tokken;
 		}
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.SearchUser,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
+				////console.log(response);
 				SpawnUserSearch(response);
 			},
 			error: function (response) {
-				//console.log(response);
+				////console.log(response);
 			},
 		});
 	}
@@ -1569,17 +1582,17 @@ class ServerManagerClass {
 		if (tokken && tokken.length > 0) {
 			final_data.TokenId = tokken;
 		}
-		//console.log(final_data);
+		////console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.SearchFlow,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//console.log(response);
+				////console.log(response);
 				SpawnFlowSearch(response);
 			},
 			error: function (response) {
-				//console.log(response);
+				////console.log(response);
 			},
 		});
 	}
@@ -1596,16 +1609,16 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.GetTop50,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				console.log(response);
+				//console.log(response);
 				if (connected) {
 					explore_get_block_and_blocked_users(response);
 				} else {
-					//console.log("faut afficher le top50 maintenant");
+					////console.log("faut afficher le top50 maintenant");
 					UpdateTop50(response);
 				}
 			},
 			error: function (response) {
-				//console.log(response);
+				////console.log(response);
 			},
 		});
 	}
@@ -1622,10 +1635,10 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.AddViewFlow,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				console.log(response);
+				//console.log(response);
 			},
 			error: function (response) {
-				console.log(response);
+				//console.log(response);
 			},
 		});
 	}
@@ -1642,16 +1655,16 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.GetNewFlows,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				console.log(response);
+				//console.log(response);
 				if (connected) {
 					recents_get_block_and_blocked_users(response.Data);
 				} else {
-					//console.log("faut afficher le top50 maintenant");
+					////console.log("faut afficher le top50 maintenant");
 					UpdateRecents(response.Data);
 				}
 			},
 			error: function (response) {
-				console.log(response);
+				//console.log(response);
 			},
 		});
 	}
@@ -1664,17 +1677,17 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 		};
 
-		//// console.log(final_data);
+		//// //console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetRandomFlow,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				console.log(response);
+				//console.log(response);
 				showRandomFlow(response);
 			},
 			error: function (response) {
-				console.log(response);
+				//console.log(response);
 				pullToRefreshEnd();
 			},
 		});
@@ -1688,21 +1701,268 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 		};
 
-		//// console.log(final_data);
+		//// //console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetFlowOfTheDay,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				console.log(response);
+				//console.log(response);
 				showFDJ(response);
 			},
 			error: function (response) {
-				console.log(response);
+				//console.log(response);
 				pullToRefreshEnd();
 			},
 		});
 	}
+
+	CheckFirstChat(data) // check si on doit crée une nouvelle conversation
+	{
+		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + '/' + window.localStorage.getItem("firebase_token")).once('value').then(function (snapshot) {
+			/* permet de lire une valeur une seule fois là c'est pour voir si c'est le premier msg envoyé
+			pour creer une conversation plutot que just send un msg*/
+			//console.log("valeur recuperé de la bdd firebase : ");
+			//console.log(snapshot.val());
+			if (snapshot.val() == null) // si c'est le premier msg de la conversation
+			{
+				first_chat = true;
+				current_block_chat.chat_id = data.chat_id;
+				current_block_chat.members = {};
+				current_block_chat.members.id = data.user_id;
+			} else {
+				// on crée juste un nouveau message
+				first_chat = false;
+			}
+			Popup("popup-message", true);
+		});
+	}
+
+	AddMessage(data) { // ajoute les msg à la bdd firebase
+		let data_message = {
+			"sender_id": window.localStorage.getItem("firebase_token"),
+			"sender_private_id": window.localStorage.getItem("user_private_id"),
+			"sender_full_name": window.localStorage.getItem("user_name"),
+			"message": data.message ? data.message : "",
+			"seen_by": {
+				[window.localStorage.getItem("firebase_token")]: true
+			},
+			"image": data.image ? data.image : "",
+			"audio": data.audio ? data.audio : "",
+			"time": Date.now()
+		};
+		let db_message = firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id);
+		db_message.push().set(data_message).then(() => {
+			db_message.once('value').then((snapshot) => {
+				//console.log(snapshot);
+				data_message.message_id = Object.keys(snapshot.val())[0];
+				firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + "/last_message/").update(data_message);
+			}).then(() => {
+				firebase.database().ref(FirebaseEnvironment).update({
+					['/users/' + current_block_chat.members.id + '/chats/' + [data.chat_id] + "/time"]: data_message.time,
+					['/users/' + window.localStorage.getItem("firebase_token") + '/chats/' + [data.chat_id] + "/time"]: data_message.time
+				}, (error) => {
+					if (error) {
+						// The write failed...
+					} else {
+						// Data saved successfully!
+					}
+				});
+			}).then(() => {
+				let data_notif_message = {
+					message: data.message,
+					chat_id: current_block_chat.chat_id,
+					recipient_info: current_block_chat.members
+				};
+				send_notif_to_user(data_notif_message, "send_message");
+			});
+		});
+	}
+
+	AddChat(data, callback) {
+		let time = Date.now();
+		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id).update({
+			"title": "titre du groupe si c'est un groupe",
+			"photo": "lien_photo",
+			"creation_date": time,
+			"creator": "",
+			"last_message": "",
+			[data.user_id]: true,
+			"is_groupe_chat": data.is_groupe_chat,
+			[window.localStorage.getItem("firebase_token")]: true
+		}).then(function (dataSnapshot) {
+			firebase.database().ref(FirebaseEnvironment).update({
+				['/members/' + data.chat_id]: {
+					[data.user_id]: true,
+					[window.localStorage.getItem("firebase_token")]: true
+				},
+				['/users/' + data.user_id + '/chats/' + data.chat_id]: {
+					time: time,
+					search_key: (window.localStorage.getItem("user_name")).toLowerCase()
+				},
+				['/users/' + window.localStorage.getItem("firebase_token") + '/chats/' + data.chat_id]: {
+					time: time,
+					search_key: (data.fullname).toLowerCase()
+				}
+			}).then(function () {
+				first_chat = false;
+				ServerManager.AddMessage(data);
+				live_chat(data.chat_id);
+			});
+		});
+	}
+
+	GetFirebaseUserProfile(data, callback, chat_id) {
+
+		if (data) {
+			let data_chat = data;
+			data_chat.chat_id = chat_id;
+			data = Object.keys(data);
+
+			for (let i = 0; i < data.length; i++) {
+				if (data[i].length == 32 && data[i] != window.localStorage.getItem("firebase_token")) {
+					let ref_members = firebase.database().ref(FirebaseEnvironment + "/users/" + data[i]);
+					ref_members.once('value').then(function (profile_snapshot) {
+						if (profile_snapshot.val() != null) {
+							$("#" + chat_id + "").remove();
+							let data_block_chat = {
+								chat_data: data_chat,
+								members_data: profile_snapshot.val()
+							};
+							data_block_chat.members_data.id = profile_snapshot.key;
+
+							if (all_block_chat.length) {
+
+								all_block_chat.forEach(function (item, index) {
+
+									if (item && item.chat_id === chat_id) {
+										$("#" + chat_id + "").remove();
+									}
+
+								});
+							}
+							all_block_chat.push(pop_block_chat(data_block_chat));
+
+						}
+					});
+
+				}
+
+			}
+
+		}
+
+	}
+
+	NewChatListener(callback) {
+		firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats")
+			.on("value", function (snapshot) {
+				//console.log(" NewChatListener was called");
+				let clean_chat_list = {}; // object qui va etre rempli de façon {chat_id : time}
+				delete snapshot.val()[window.localStorage.getItem("firebase_token")];
+				Object.entries(snapshot.val()).forEach(item => {
+					clean_chat_list[item[0]] = item[1].time
+				});
+
+				let ordered_chat = Object.fromEntries(
+					Object.entries(clean_chat_list).sort(([, a], [, b]) => a - b)
+				);
+
+				let different_chat = difference(previous_chat_list, clean_chat_list);
+				if (different_chat != -1) {
+					ordered_chat = {
+						[different_chat]: ordered_chat[different_chat]
+					};
+				}
+				nb_block_chat_to_pop = Object.keys(ordered_chat).length;
+				previous_chat_list = clean_chat_list;
+
+				Object.keys(ordered_chat).forEach(chat_id => {
+					firebase.database().ref(FirebaseEnvironment + "/chats/" + chat_id)
+						.once("value").then(chat_snapshot => {
+							ServerManager.GetFirebaseUserProfile(chat_snapshot.val(), callback, chat_id);
+						});
+				});
+
+			});
+	}
+
+	AddUserToFirebase(data) {
+		firebase.database().ref(FirebaseEnvironment + '/users/' + data.user_id).update({
+			"name": data.full_name,
+			"private_id": data.Private_id,
+			"profile_pic": data.profile_pic,
+			"registration_id": registrationId,
+			"LastOs": data.LastOs,
+			"time": Date.now(),
+			["chats/" + window.localStorage.getItem("firebase_token") + "/time"]: Date.now()
+		});
+		ServerManager.NewChatListener(pop_block_chat);
+	}
+
+	SetMessageToSeen(data) {
+		firebase.database().ref(FirebaseEnvironment).update({
+			['/messages/' + data.chat_id + '/' + data.message_id + '/seen_by/' + window.localStorage.getItem("firebase_token")]: true,
+			['/chats/' + data.chat_id + '/last_message/seen_by/' + window.localStorage.getItem("firebase_token")]: true
+		});
+	}
+
+	DeleteChat(data) {
+		firebase.database().ref(FirebaseEnvironment + "/chats/" + data.chat_id).child(window.localStorage.getItem("firebase_token")).remove();
+		firebase.database().ref(FirebaseEnvironment + "/members/" + data.chat_id).child(window.localStorage.getItem("firebase_token")).remove();
+		firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").child(data.chat_id).remove();
+		$("#" + data.chat_id + "").remove();
+	}
+
+	SearchChat(data) {
+		data = data.toLowerCase();
+		firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats")
+			.orderByChild('search_key').startAt(data).endAt(data + "\uf8ff")
+			.once("value").then(search_snapshot => {
+				$("#block_chat_contrainer").html("");
+				Object.keys(search_snapshot.val()).forEach(chat_id => {
+					firebase.database().ref(FirebaseEnvironment + "/chats/" + chat_id)
+						.once("value").then(chat_snapshot => {
+							ServerManager.GetFirebaseUserProfile(chat_snapshot.val(), pop_block_chat, chat_id);
+						});
+				});
+
+			});
+	}
+
+	UploadImageToFirebase(data) {
+		let ImgRef = firebase.storage().ref(FirebaseEnvironment + "/" + data.chat_id + "/images/" + data.name.toString());
+
+		let uploadTask = ImgRef.putString(data.content, 'data_url');
+
+		uploadTask.then(function (snapshot) {
+			console.log('Uploaded a data_url string!');
+			$("#UploadProgressBar").css({
+				"display": "none"
+			});
+			console.log(snapshot);
+			ImgRef.getDownloadURL().then(function (url) {
+				console.log(url);
+				let DataMessage = {
+					image: url,
+					chat_id: data.chat_id,
+					message: "(photo)",
+					audio: ""
+				};
+				ServerManager.AddMessage(DataMessage);
+			});
+		});
+
+		uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+			function (snapshot) {
+				let progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+				console.log('Upload is ' + progress + '% done');
+				UpdateProgressBar(progress);
+			});
+
+	}
+
 }
+
 
 var ServerManager = new ServerManagerClass();

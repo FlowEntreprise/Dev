@@ -1200,3 +1200,80 @@ function iosPolyfill(e, slider) {
 
 	slider.value = segCopy.indexOf(ind) + 1;
 }
+
+function set_timestamp(timestamp, return_hours) {
+	// fonction qui permet d'afficher le temp ecoulé depuis un post (posté il y a 2h par exemple)
+
+	var time_str = "";
+	var time = Math.floor(timestamp);
+	var now = Math.floor(Date.now() / 1000);
+
+	var second_past = now - time;
+
+	var minute_past = Math.floor(second_past / 60);
+
+	var hour_past = Math.floor(minute_past / 60);
+
+	var day_past = Math.floor(hour_past / 24);
+
+	var week_past = Math.floor(day_past / 7);
+
+	var month_past = Math.floor(day_past / 28);
+
+	var year_past = Math.floor(month_past / 12);
+
+
+	if (return_hours) {
+		let date = new Date(timestamp);
+		let hour_past = Math.floor((Date.now() - timestamp) / 1000 / 60 / 60);
+		let minutes;
+		date.getMinutes() < 10 ? minutes = "0" + date.getMinutes() : minutes = date.getMinutes();
+		date = date.toLocaleDateString("fr") + " " + date.getHours() + ":" + minutes;
+		if (hour_past < 24 && return_hours != "label_block_message_date") {
+			date = new Date(timestamp).getHours() + ":" + minutes;
+		}
+		return date;
+	}
+
+
+
+	if (minute_past <= 59 && hour_past <= 0) {
+		minute_past > -2 && minute_past < 2 ?
+			(time_str = "1 min") :
+			(time_str = minute_past + " min");
+		return time_str;
+	}
+
+	if (hour_past > 0 && hour_past <= 23) {
+		hour_past > 1 ?
+			(time_str = hour_past + " h") :
+			(time_str = hour_past + " h");
+		return time_str;
+	}
+
+	if (day_past > 0 && day_past < 7) {
+		day_past > 1 ? (time_str = day_past + " j") : (time_str = day_past + " j");
+		return time_str;
+	}
+
+	if (week_past >= 1 && week_past <= 5) {
+		week_past == 1 ?
+			(time_str = week_past + " sem") :
+			(time_str = week_past + " sem");
+		return time_str;
+	}
+
+	if (month_past > 0 && month_past <= 12) {
+		month_past < 2 ?
+			(time_str = month_past + " mois") :
+			(time_str = month_past + " mois");
+		return time_str;
+	}
+
+	if (year_past > 0) {
+		year_past < 2 ?
+			(time_str = year_past + " an") :
+			(time_str = year_past + " ans");
+		return time_str;
+	}
+}

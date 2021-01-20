@@ -165,6 +165,14 @@
                 </div>
             </div>
 
+            <!-- Content of TopBar in Messages -->
+            <div class="fmessages-bar">
+                <label class="title">MESSAGES</label>
+                <input class="fmessages-search-bar" placeholder="Chercher une conversation" />
+                <img src="src/icons/plus.png" id="new_conversation">
+                <div class="faccount"></div>
+            </div>
+
             <!-- Content of TopBar in Notifications -->
             <div class="fnotifications-bar">
                 <label class="title">NOTIFICATIONS</label>
@@ -586,6 +594,44 @@
         </div>
     </div>
 
+    <div class="custom_popup" id="popup-message">
+        <div class="popup_bg">
+            <div class="scroll_fix_ios"></div>
+        </div>
+        <div class="popup_content" animation-direction="left" id="popup_message_content">
+            <img src="../www/src/icons/Retour@3x.png" id="message_back_button" onclick="Popup('popup-message', false)">
+
+            <div id="chat_photo"></div>
+            <div id="chat_title">MESSAGE V1</div>
+            <ul id="fblock_message_content">
+            </ul>
+
+        </div>
+    </div>
+    <div id="div_send_message">
+        <li id="UploadProgressBar"></li>
+        <img src="../www/src/icons/camera.png" id="SendFromCamera">
+        <img src="../www/src/icons/gallery.png" id="SendFromGallery">
+        <input id="input_send_message" placeholder="Taper un message" autocomplete="off">
+        <input id="button_send_message" value="Envoyer" type="submit">
+    </div>
+
+    <div class="custom_popup" id="popup-create-conversation">
+        <div class="popup_bg">
+            <div class="scroll_fix_ios"></div>
+        </div>
+        <div class="popup_content" animation-direction="left" id="popup_create-conversation_content">
+            <img src="../www/src/icons/Retour@3x.png" id="create-conversation_back_button"
+                onclick="Popup('popup-create-conversation', false)">
+
+            <div id="create-conversation_title">Nouvelle conversation</div>
+            <input class="create-conversation-search-bar" placeholder="Chercher une utilisateur" />
+            <div class="fconversation_block_utilisateur_list">
+            </div>
+
+        </div>
+    </div>
+
 
 
     <div class="custom_popup" id="popup-option">
@@ -694,6 +740,29 @@
     </div>
 </body>
 
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-functions.js"></script>
+
+
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+
+<script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+        apiKey: "AIzaSyD8EDzl_rr-_HdGidHC6ev5ZS5UG3SjmNQ",
+        authDomain: "flow-85249.firebaseapp.com",
+        databaseURL: "https://flow-85249.firebaseio.com",
+        projectId: "flow-85249",
+        storageBucket: "flow-85249.appspot.com",
+        messagingSenderId: "320132615636",
+        appId: "1:320132615636:web:139ee7801f507db3661a41",
+        measurementId: "G-GP2RLG1N7T"
+    };
+</script>
+
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="Dependencies/WavEncoder/WavAudioEncoder.min.js"></script>
 <script src="js/Server/ServerManager.js"></script>
@@ -728,6 +797,7 @@
 <script type="text/javascript" src="js/popup_follow.js"></script>
 <!-- Framework7 -->
 <script type="text/javascript" src="js/flowoftheday.js"></script>
+<script type="text/javascript" src="js/messages.js"></script>
 <script type="text/javascript" src="js/discover.js"></script>
 <script type="text/javascript" src="js/jquery.highlight-within-textarea.js"></script>
 <script type="text/javascript" src="Dependencies/CustomPTR/customPTR.js"></script>
