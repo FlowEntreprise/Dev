@@ -1962,6 +1962,43 @@ class ServerManagerClass {
 
 	}
 
+	UploadAudioToFirebase(data) {
+
+		let storageRef = firebase.storage().ref(FirebaseEnvironment + "/" + data.chat_id + "/audio/" + data.name.toString());
+		let metadata = {
+			//contentType: 'audio/mp3',
+			customMetadata: {
+				"senderId": window.localStorage.getItem("firebase_token"),
+				"memberId": data.memberId, // id de l'interlocuteur
+				"memberLastOs": data.LastOs,
+				"memberRegistrationId": data.registrationId,
+				"memberprofilePic": data.profilePic,
+				"senderPrivateId": window.localStorage.getItem("user_private_id"),
+				"senderFullName": window.localStorage.getItem("user_name"),
+				"chatId": data.chat_id,
+				"message": data.message ? data.message : "",
+				"image": data.image ? data.image : "",
+				"audio": data.audio ? data.audio : "",
+				"Environnement": FirebaseEnvironment,
+				"lastOs": data.lastOs,
+				"registrationId": data.registrationId,
+				"time": Date.now()
+			}
+		};
+
+		let voiceRef = storageRef.putString(data.content, firebase.storage.StringFormat.DATA_URL, metadata);
+		voiceRef.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
+			console.log("uploading");
+		}, (e) => {
+			reject(e);
+			console.log(JSON.stringify(e, null, 2));
+		}, () => {
+			let downloadURL = voiceRef.snapshot.downloadURL;
+			console.log(downloadURL);
+		});
+
+	}
+
 }
 
 
