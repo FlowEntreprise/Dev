@@ -47,6 +47,9 @@ function ConnectUser() {
         };
         ServerManager.UpdateRegisterId(data);
         let Email = window.localStorage.getItem("user_private_id") + "_" + FirebaseEnvironment + "@flow.fr";
+        let password = window.localStorage.getItem("firebase_token");
+        Email = Email.toString();
+        password = password.toString();
         /*firebase.auth().createUserWithEmailAndPassword(Email, window.localStorage.getItem("firebase_token")).then((user) => {
             ServerManager.AddUserToFirebase(data);
         }).catch((error) => {
@@ -58,13 +61,13 @@ function ConnectUser() {
                 });
             }
         });*/
-        firebase.auth().signInWithEmailAndPassword(Email, window.localStorage.getItem("firebase_token")).then(user => {
+        firebase.auth().signInWithEmailAndPassword(Email, password).then(user => {
             ServerManager.AddUserToFirebase(data);
         }).catch((error) => {
             console.log(error.code);
             console.log(error.message);
             if (error.code == "auth/user-not-found") {
-                firebase.auth().createUserWithEmailAndPassword(Email, window.localStorage.getItem("firebase_token")).then(user => {
+                firebase.auth().createUserWithEmailAndPassword(Email, password).then(user => {
                     ServerManager.AddUserToFirebase(data);
                 });
             }

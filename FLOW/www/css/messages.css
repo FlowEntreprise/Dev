@@ -14,6 +14,18 @@
 	margin-top: calc(40 * var(--custom-vh));
 }
 
+.noMessageInConv
+{
+	position: absolute;
+    top: calc(45 * var(--custom-vh));
+    text-align: center;
+    width: 90vw;
+    left: 5vw;
+    font-family: "Roboto-Regular";
+    color: #92abb2;
+    opacity: 0.5;
+}
+
 #InAppNotifNewMessageIcone {
 	position: absolute;
 	display: none;
