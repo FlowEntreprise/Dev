@@ -71,50 +71,14 @@ var app = {
 			$(".custom_popup").css({
 				"opacity": "1"
 			})
-			//Framework7
-			// setupFDJ(); definitvely moved to app.js
-			// setTimeout(function () {
-
-			// }, 500);
 			cordova.plugins.notification.local.clearAll();
-
-			// if (window.localStorage.getItem("fdj_notif_setup") != "ok") {
-			// 	cordova.plugins.notification.local.clearAll();
-			// 	cordova.plugins.notification.local.schedule({
-			// 		title: 'Découvre le flow du jour !',
-			// 		text: "Seras-tu l'heureux élu 👑 ?",
-			// 		smallIcon: 'res://flow_icone_one_plus',
-			// 		color: '#1a84ef',
-			// 		type: "flow_du_jour",
-			// 		trigger: {
-			// 			every: {
-			// 				hour: 18,
-			// 				minute: 0,
-			// 			},
-			// 		}
-			// 	});
-			// 	window.localStorage.setItem("fdj_notif_setup", "ok");
-			// }
-			// cordova.plugins.notification.local.on('click', function () {
-			// 	console.log(" show flow du jour");
-			// 	app.showTab("#tab2");
-			// 	explore_categories.slideTo(0);
-			// });
-
-
 		}, 1200);
-
-
-
-
-
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
 
 		function keyboardShowHandler(e) {
 			// console.log('Keyboard height is: ' + e.keyboardHeight);
 		}
 
-		// This event fires when the keyboard will hide
 		window.addEventListener("native.keyboardhide", keyboardHideHandler);
 
 		function keyboardHideHandler(e) {
@@ -291,25 +255,7 @@ var app = {
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
-		httpd =
-			cordova && cordova.plugins && cordova.plugins.CorHttpd ?
-			cordova.plugins.CorHttpd :
-			null;
-
-		// No need since no using workers anymore
-		// httpd.startServer({
-		//     'www_root': 'js/worker/',
-		//     'port': 8080,
-		//     'localhost_only': true
-		// }, function (url) {
-		//     // if server is up, it will return the url of http://<server ip>:port/
-		//     // the ip is the active network connection
-		//     // if no wifi or no cell, "127.0.0.1" will be returned.
-		//     console.log("server is started: " + url);
-		//     // createWorker();
-		// }, function (error) {
-		//     console.log("failed to start server: " + error);
-		// });
+		httpd = cordova && cordova.plugins && cordova.plugins.CorHttpd ? cordova.plugins.CorHttpd : null;
 
 		if (window.cordova && window.audioinput) {
 			// Subscribe to audioinput events
@@ -387,9 +333,14 @@ var app = {
 					current_block_chat.block_chat_photo = data_popup_msg.profile_picture;
 					firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/last_message/seen_by').off();
 					firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id).orderByChild('is_typing').off();
-					firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off().then(function () {
+					if (current_block_chat.chat_id) {
+						firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off().then(function () {
+							setup_popup_message(data_popup_msg, true);
+						});
+					} else {
 						setup_popup_message(data_popup_msg, true);
-					});
+					}
+
 					return;
 				}
 				if (data.additionalData.type == "story_comment") {
