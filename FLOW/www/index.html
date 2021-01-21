@@ -600,13 +600,15 @@
             <div class="scroll_fix_ios"></div>
         </div>
         <div class="popup_content" animation-direction="left" id="popup_message_content">
-            <img src="../www/src/icons/Retour@3x.png" id="message_back_button" onclick="Popup('popup-message', false)">
+            <div class="top_chat_header">
+                <img src="../www/src/icons/back.png" id="message_back_button" onclick="Popup('popup-message', false)">
 
-            <div id="chat_photo"></div>
-            <div id="chat_title">MESSAGE V1</div>
+                <div id="chat_photo"></div>
+                <div id="chat_title">MESSAGE V1</div>
+                <img src="../www/src/icons/3dots.png" class="dots_msg_header">
+            </div>
             <ul id="fblock_message_content">
             </ul>
-
         </div>
     </div>
     <div id="div_send_message">

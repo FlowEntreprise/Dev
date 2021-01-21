@@ -294,8 +294,8 @@
 	top: calc(10 * var(--custom-vh));
 	-webkit-overflow-scrolling: touch;
 	border-top: 1px solid #92abb2;
-	;
 	overflow-y: scroll;
+	height: calc(90*var(--custom-vh));
 }
 
 
@@ -305,41 +305,74 @@
 
 /*------------------------------------------POPUP MESSAGE--------------------------------------------*/
 
-#message_back_button {}
+#message_back_button {
+	position: absolute;
+	object-fit: contain;
+	height: 30px;
+	width: 30px;
+	top: calc(5.5 * var(--custom-vh) - 15px);
+	left: 20px;
+	opacity: 0.3;
+}
+
+.top_chat_header {
+	position: absolute;
+	top: calc(0 * var(--custom-vh));
+	background: #f7f7f8;
+	height: calc(11 * var(--custom-vh));
+	width: 100vw;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
+	z-index: 2;
+}
 
 #chat_photo {
 	position: absolute;
-	border-radius: calc(6 * var(--custom-vh));
+	border-radius: 25px;
 	background-size: cover;
 	background-position: center;
-	width: calc(6 * var(--custom-vh));
-	height: calc(6 * var(--custom-vh));
-	left: 45vw;
+	width: 50px;
+	height: 50px;
+	left: calc(50vw - 25px);
 	top: calc(1 * var(--custom-vh));
+	display: flex;
 }
 
 #chat_title {
 	position: absolute;
 	text-align: center;
-	top: 7vh;
+	top: calc(7.5 * var(--custom-vh));
 	width: 100vw;
 	font-size: 16px;
-	color: #1a84ef;
+	color: #495969;
+	font-family: "Roboto-Regular";
 
 }
 
+.dots_msg_header {
+	position: absolute;
+	right: 15px;
+	width: 20px;
+	height: 10px;
+	top: calc(5.5 * var(--custom-vh) - 5px);
+	display: block;
+	object-fit: contain;
+	filter: invert(32%) sepia(24%) saturate(433%) hue-rotate(169deg) brightness(65%) contrast(89%);
+}
+
 #fblock_message_content {
+	position: absolute;
 	list-style: none;
-	margin-top: 6vh;
 	padding: 0;
-	padding-top: 1vh;
+	padding-top: calc(1 * var(--custom-vh));
 	width: 100vw;
-	height: calc(93% - 10 * var(--custom-vh));
-	top: calc(10 * var(--custom-vh));
+	height: calc(80 * var(--custom-vh));
+	top: calc(11 * var(--custom-vh));
 	-webkit-overflow-scrolling: touch;
-	border-top: 1px solid #92abb2;
-	;
 	overflow-y: scroll;
+	background: #F0EFF3;
+	margin: 0;
+	font-size: 13px;
+	font-family: "Roboto-Regular"
 }
 
 #fblock_message_content li {
@@ -348,7 +381,7 @@
 	margin-bottom: 1vh;
 	margin-right: 3vw;
 	margin-left: 3vw;
-	border-radius: 4vw;
+	border-radius: 25px;
 }
 
 .label_block_message_date {
@@ -362,12 +395,12 @@
 	float: left;
 	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
 	max-width: 60vw;
-	border-bottom-left-radius: 1vw !important;
+	/* border-bottom-left-radius: 1vw !important; */
 }
 
 .block_message_left_photo
 
-/* petite photo à gauche du block chat*/
+/* petite photo ÃƒÂ  gauche du block chat*/
 	{
 	width: calc(4.5 * var(--custom-vh));
 	height: calc(4.5 * var(--custom-vh));
@@ -383,7 +416,7 @@
 	color: #fff;
 	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
 	max-width: 60vw;
-	border-bottom-right-radius: 1vw !important;
+	/* border-bottom-right-radius: 1vw !important; */
 }
 
 .block_message_seen {
@@ -406,7 +439,7 @@
 }
 
 /*---------------------Mettre des borders radius comme sur messenger-------------------------*/
-.block_message+.my_block_message {
+/* .block_message+.my_block_message {
 	border-bottom-right-radius: 1vw !important;
 }
 
@@ -432,7 +465,7 @@
 .my_block_message:last-of-type {
 	border-top-right-radius: 1vw !important;
 	border-bottom-right-radius: 4vw !important;
-}
+} */
 
 .time_and_seen_container {
 	font-size: 11px;
