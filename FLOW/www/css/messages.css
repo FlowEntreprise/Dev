@@ -82,7 +82,7 @@
 
 .fmessages-bar>.search_icon {
 	opacity: 1;
-	top: calc(7.5 * var(--custom-vh));
+	top: calc(7.5 * var(--custom-vh) + 2px);
 	left: 28px;
 	height: 40px;
 	width: 40px;
@@ -122,8 +122,8 @@
 
 #block_chat_contrainer {
 	margin-top: calc(14 * var(--custom-vh)) !important;
-	padding-bottom: 12vh;
 	overflow-y: scroll;
+	height: calc(79*var(--custom-vh));
 }
 
 .fblock_chat {
