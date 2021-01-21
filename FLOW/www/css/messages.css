@@ -56,11 +56,10 @@
 	position: absolute;
 	top: calc(7.5 * var(--custom-vh));
 	left: 25px;
-	width: 64vw;
+	width: calc(100vw - (44px + 50px + 40px + 25px));
 	height: 40px;
 	line-height: 40px;
-	padding-top: 0;
-	padding-bottom: 0;
+	padding: 0;
 	padding-left: 40px;
 	/* padding-right: 2vw; */
 	/* text-align: center; */
@@ -107,7 +106,7 @@
 	position: absolute;
 	height: 44px;
 	width: 44px;
-	right: calc(2.5* var(--custom-vh));
+	right: 25px;
 	top: calc(7.5* var(--custom-vh) - 2px);
 	background: #1A84EF;
 	border-radius: 22px;
@@ -388,6 +387,8 @@
 	text-align: center;
 	margin: 0;
 	color: #92abb2;
+	opacity: 0.5;
+	font-size: 12px;
 }
 
 .block_message {
@@ -400,7 +401,7 @@
 
 .block_message_left_photo
 
-/* petite photo ÃƒÂ  gauche du block chat*/
+/* petite photo ÃƒÆ’Ã‚Â  gauche du block chat*/
 	{
 	width: calc(4.5 * var(--custom-vh));
 	height: calc(4.5 * var(--custom-vh));
