@@ -14,16 +14,15 @@
 	margin-top: calc(40 * var(--custom-vh));
 }
 
-.noMessageInConv
-{
+.noMessageInConv {
 	position: absolute;
-    top: calc(45 * var(--custom-vh));
-    text-align: center;
-    width: 90vw;
-    left: 5vw;
-    font-family: "Roboto-Regular";
-    color: #92abb2;
-    opacity: 0.5;
+	top: calc(45 * var(--custom-vh));
+	text-align: center;
+	width: 90vw;
+	left: 5vw;
+	font-family: "Roboto-Regular";
+	color: #92abb2;
+	opacity: 0.5;
 }
 
 #InAppNotifNewMessageIcone {
@@ -372,8 +371,8 @@
 	{
 	width: calc(4.5 * var(--custom-vh));
 	height: calc(4.5 * var(--custom-vh));
-	border-radius: calc(4.5 * var(--custom-vh));
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+	/* border-radius: calc(4.5 * var(--custom-vh)); */
+	/* box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2); */
 	background-size: cover;
 	background-position: center;
 }
