@@ -124,6 +124,7 @@
 	margin-top: calc(14 * var(--custom-vh)) !important;
 	overflow-y: scroll;
 	height: calc(79*var(--custom-vh));
+	background: #F0EFF3;
 }
 
 .fblock_chat {
@@ -245,10 +246,25 @@
 
 /*------------------------------------------POPUP create-conversation-----------------------------*/
 
+.create_conversation_header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #f7f7f8;
+	height: calc(11 * var(--custom-vh));
+	width: 100vw;
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.05);
+	z-index: 2;
+}
+
 #create-conversation_back_button {
 	position: absolute;
-	left: calc(1 * var(--custom-vh));
-	top: calc(1 * var(--custom-vh));
+	left: 5vw;
+	top: calc(2* var(--custom-vh));
+	width: 30px;
+	height: 30px;
+	object-fit: contain;
+	opacity: 0.5;
 }
 
 #create-conversation_title {
@@ -267,17 +283,17 @@
 	top: calc(4.5 * var(--custom-vh));
 	left: 17vw;
 	width: 60vw;
-	height: 30px;
-	line-height: 30px;
+	height: 40px;
+	line-height: 40px;
 	padding-top: 0;
 	padding-bottom: 0;
 	padding-left: 4vw;
 	padding-right: 2vw;
 	border-radius: 50px;
 	border: 1px solid #92abb2;
-	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1);
+	box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
 	font-size: 15px;
-	font-family: "Roboto-Regular";
+	font-family: "Roboto-Light";
 	color: #92abb2;
 	-webkit-appearance: none;
 	text-align: center;
@@ -285,7 +301,7 @@
 
 .create-conversation-search-bar::placeholder {
 	font-size: 15px;
-	font-family: "Roboto-Regular";
+	font-family: "Roboto-Light";
 	color: #92abb2;
 }
 
@@ -293,24 +309,38 @@
 	position: absolute;
 	padding: 0;
 	width: 100vw;
-	top: calc(10 * var(--custom-vh));
+	top: calc(11 * var(--custom-vh));
 	-webkit-overflow-scrolling: touch;
-	border-top: 1px solid #92abb2;
 	overflow-y: scroll;
-	height: calc(90*var(--custom-vh));
+	height: calc(89*var(--custom-vh));
+	background: #F0EFF3;
+}
+
+.fconversation_block_utilisateur_list .f_block_user_tag {
+	margin-top: 5px !important;
+	height: calc(9.5 * var(--custom-vh)) !important;
+	width: calc(100vw - 20px) !important;
+	margin-left: 10px !important;
+	border-radius: 5px !important;
 }
 
 .fconversation_block_utilisateur_list .f_user_photo {
 	border: none !important;
+	box-shadow: none !important;
 	pointer-events: none;
 }
 
 .fconversation_block_utilisateur_list .f_user_fullname {
 	color: #495969 !important;
+	font-family: "Roboto-Regular" !important;
+	font-weight: normal !important;
+	font-size: 16px !important;
 }
 
 .fconversation_block_utilisateur_list .f_user_private_id {
 	color: #9095A4 !important;
+	font-family: "Roboto-Regular" !important;
+	font-size: 13px !important;
 	opacity: 1 !important;
 }
 

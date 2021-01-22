@@ -626,11 +626,13 @@
                 <div class="scroll_fix_ios"></div>
             </div>
             <div class="popup_content" animation-direction="left" id="popup_create-conversation_content">
-                <img src="../www/src/icons/Retour@3x.png" id="create-conversation_back_button"
-                    onclick="Popup('popup-create-conversation', false)">
+                <div class="create_conversation_header">
+                    <img src="../www/src/icons/back.png" id="create-conversation_back_button"
+                        onclick="Popup('popup-create-conversation', false)">
 
-                <div id="create-conversation_title">Nouvelle conversation</div>
-                <input class="create-conversation-search-bar" placeholder="Chercher un utilisateur" />
+                    <div id="create-conversation_title">Nouvelle conversation</div>
+                    <input class="create-conversation-search-bar" placeholder="Chercher un utilisateur" />
+                </div>
                 <div class="fconversation_block_utilisateur_list">
                 </div>
 
