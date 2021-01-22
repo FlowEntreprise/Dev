@@ -519,6 +519,7 @@ function live_chat(chat_id) {
                 });
         }
 
+        scroll_to_bottom($("#fblock_message_content"), 100);
     });
 
     $("#input_send_message").focusout(function () {
@@ -530,16 +531,22 @@ function live_chat(chat_id) {
                 });
         }
 
+        scroll_to_bottom($("#fblock_message_content"), 300, true);
+
     });
 
 }
 
-function scroll_to_bottom(element) {
+function scroll_to_bottom(element, delay, noanim) {
+    if (!delay) delay = 350;
     setTimeout(function () {
-        element.animate({
-            scrollTop: element[0].scrollHeight
-        }, 400, 'swing');
-
+        if (noanim) {
+            element.scrollTop(element[0].scrollHeight);
+        } else {
+            element.animate({
+                scrollTop: element[0].scrollHeight
+            }, 200, 'swing');
+        }
     }, 350);
 
 }

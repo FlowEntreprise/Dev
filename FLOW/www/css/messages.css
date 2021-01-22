@@ -152,6 +152,7 @@
 	/* box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2); */
 	background-size: cover;
 	background-position: center;
+	pointer-events: none;
 }
 
 .fconversation_title {
@@ -266,7 +267,7 @@
 	top: calc(4.5 * var(--custom-vh));
 	left: 17vw;
 	width: 60vw;
-	height: auto;
+	height: 30px;
 	line-height: 30px;
 	padding-top: 0;
 	padding-bottom: 0;
@@ -275,15 +276,16 @@
 	border-radius: 50px;
 	border: 1px solid #92abb2;
 	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1);
-	font-size: 21px;
-	font-family: "Roboto-Light";
+	font-size: 15px;
+	font-family: "Roboto-Regular";
 	color: #92abb2;
 	-webkit-appearance: none;
+	text-align: center;
 }
 
 .create-conversation-search-bar::placeholder {
-	font-size: 18px;
-	font-family: "Roboto-Light";
+	font-size: 15px;
+	font-family: "Roboto-Regular";
 	color: #92abb2;
 }
 
@@ -298,6 +300,19 @@
 	height: calc(90*var(--custom-vh));
 }
 
+.fconversation_block_utilisateur_list .f_user_photo {
+	border: none !important;
+	pointer-events: none;
+}
+
+.fconversation_block_utilisateur_list .f_user_fullname {
+	color: #495969 !important;
+}
+
+.fconversation_block_utilisateur_list .f_user_private_id {
+	color: #9095A4 !important;
+	opacity: 1 !important;
+}
 
 /*------------------------------------------FIN POPUP create-conversation-----------------------------*/
 
@@ -363,10 +378,13 @@
 	position: absolute;
 	list-style: none;
 	padding: 0;
-	padding-top: calc(1 * var(--custom-vh));
+	padding-top: calc(12 * var(--custom-vh));
+	padding-bottom: calc(10 * var(--custom-vh));
 	width: 100vw;
-	height: calc(80 * var(--custom-vh));
-	top: calc(11 * var(--custom-vh));
+	height: calc(100vh - (22 * var(--custom-vh)));
+	/* height: calc(80 * var(--custom-vh)); */
+	/* top: calc(11 * var(--custom-vh)); */
+	top: 0;
 	-webkit-overflow-scrolling: touch;
 	overflow-y: scroll;
 	background: #F0EFF3;
@@ -424,13 +442,14 @@
 }
 
 .block_message_seen {
-	width: calc(0.5 * var(--custom-vh));
-	height: calc(0.5 * var(--custom-vh));
-	border-radius: calc(2 * var(--custom-vh)) !important;
+	width: 20px;
+	height: 20px;
+	border-radius: 10px !important;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 	background-size: cover;
 	background-position: center;
 	float: right;
+	padding: 0 !important;
 }
 
 .is_typing {
