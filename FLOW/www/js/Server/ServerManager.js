@@ -1734,13 +1734,16 @@ class ServerManagerClass {
 				$(".loading_message").removeClass("loading-spinner");
 				$(".loading_message").text("Oups il n'y a aucun message dans cette conversation");
 				$(".loading_message").addClass("noMessageInConv");
+				setup_popup_message(data);
 
 			} else {
 				// on crée juste un nouveau message
-				setup_popup_message(data, true);
+
 				first_chat = false;
+				setup_popup_message(data, true);
 			}
-			Popup("popup-message", true);
+
+			//Popup("popup-message", true);
 		});
 	}
 

@@ -458,8 +458,7 @@ function live_chat(chat_id) {
         let time = Math.floor((snapshot.val().time - previous_message.time) / 1000 / 60 / 60);
         previous_message = snapshot.val();
         previous_message.id = snapshot.key;
-        if (time > 2) {
-
+        if (time > 0.5) {
             block_message_date(snapshot.val().time);
         }
         pop_block_message(snapshot.key, snapshot.val());
