@@ -278,7 +278,7 @@ function block_message(data, previous_message) {
     }
 
     $(this.block_message).text(this.block_message_text);
-    //$(this.block_message).prepend(this.block_message_left_photo);
+    $(this.block_message).prepend(this.block_message_left_photo);
     this.block_message.id = this.message_id;
     $(this.block_message).append(this.time_and_seen_container);
     if (previous_message) {
@@ -286,6 +286,27 @@ function block_message(data, previous_message) {
     } else {
         $("#fblock_message_content").append(this.block_message);
     }
+
+    let current = $(this.block_message);
+    setTimeout(function () {
+        let prev = current.prev();
+        let next = current.next();
+        if (prev && current.hasClass("block_message") && prev.hasClass("block_message")) {
+            // prev.css({
+            //     "background": "white"
+            // });
+            prev.find(".block_message_left_photo").css({
+                "display": "none"
+            });
+        }
+
+        if (next && current.hasClass("block_message") && next.hasClass("block_message")) {
+            current.find(".block_message_left_photo").css({
+                "display": "none"
+            });
+        }
+    }, 50);
+
     /*if (this.seen_by) {
         pop_block_message_seen(current_block_chat.block_chat_photo);
     }*/
@@ -353,7 +374,7 @@ function send_message(chat_id) {
     ServerManager.AddMessage(data_message);
     $("#input_send_message").val(" ");
     if ($(".block_message_seen")) {
-        $(".block_message_seen").remove();
+        // $(".block_message_seen").remove();
     }
     // Empecher l'utilisateur de pouvoir clicker si l'imput msg est vide
 }

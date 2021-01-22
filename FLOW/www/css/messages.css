@@ -15,14 +15,15 @@
 }
 
 .noMessageInConv {
-	position: absolute;
-	top: calc(45 * var(--custom-vh));
-	text-align: center;
-	width: 90vw;
+	width: 100%;
+	height: 100%;
 	left: 5vw;
 	font-family: "Roboto-Regular";
 	color: #92abb2;
 	opacity: 0.5;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 #InAppNotifNewMessageIcone {
@@ -376,10 +377,10 @@
 
 #fblock_message_content li {
 	clear: both;
-	padding: 3vw;
-	margin-bottom: 1vh;
+	padding: 12px;
+	margin-bottom: 2px;
 	margin-right: 3vw;
-	margin-left: 3vw;
+	margin-left: 50px;
 	border-radius: 25px;
 }
 
@@ -392,19 +393,21 @@
 }
 
 .block_message {
+	position: relative;
 	background: #fff;
 	float: left;
-	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+	box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.05);
 	max-width: 60vw;
 	/* border-bottom-left-radius: 1vw !important; */
 }
 
-.block_message_left_photo
-
-/* petite photo ÃƒÆ’Ã‚Â  gauche du block chat*/
-	{
-	width: calc(4.5 * var(--custom-vh));
-	height: calc(4.5 * var(--custom-vh));
+.block_message_left_photo {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	border-radius: 20px;
+	margin-left: -52px;
+	bottom: 5px;
 	/* border-radius: calc(4.5 * var(--custom-vh)); */
 	/* box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2); */
 	background-size: cover;
@@ -415,7 +418,7 @@
 	float: right;
 	background: #0084ff;
 	color: #fff;
-	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+	box-shadow: 0 3px 8px 0 rgb(0 127 255 / 32%);
 	max-width: 60vw;
 	/* border-bottom-right-radius: 1vw !important; */
 }
@@ -440,15 +443,17 @@
 }
 
 /*---------------------Mettre des borders radius comme sur messenger-------------------------*/
-/* .block_message+.my_block_message {
-	border-bottom-right-radius: 1vw !important;
+.block_message+.my_block_message {
+	margin-top: 15px !important;
+	/* background: red; */
 }
 
 .my_block_message+.block_message {
-	border-bottom-left-radius: 1vw !important;
+	margin-top: 15px !important;
+	/* background: green; */
 }
 
-.block_message+.block_message {
+/* .block_message+.block_message {
 	border-bottom-left-radius: 1vw !important;
 	border-top-left-radius: 1vw !important;
 }
@@ -456,9 +461,9 @@
 .my_block_message+.my_block_message {
 	border-top-right-radius: 1vw !important;
 	border-bottom-right-radius: 1vw !important;
-}
+} */
 
-.block_message:last-of-type {
+/* .block_message:last-of-type {
 	border-top-left-radius: 1vw !important;
 	border-bottom-left-radius: 4vw !important;
 }
