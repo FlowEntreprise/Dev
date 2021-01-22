@@ -193,12 +193,13 @@ function block_chat(data) {
     this.block_chat.appendChild(this.fphoto_block_chat);
 
 
-    $(this.fphoto_block_chat).on("click", function () {
+    $(this.fphoto_block_chat).on("click", function (e) {
         let data = {
-            private_Id: current_block_chat.block_chat_member_private_id,
+            private_Id: block_chat.block_chat_member_private_id,
             user_private_Id: window.localStorage.getItem("user_private_id"),
         };
         go_to_account(data);
+        e.stopPropagation();
     });
 
     this.fconversation_title = document.createElement('label');
@@ -230,7 +231,7 @@ function block_chat(data) {
     set_block_chat_seen();
 
 }
-// affichage de la date quand il s'est ecoulé plus de 2h entre 2 msg
+// affichage de la date complete quand il s'est ecoulé plus de 2h entre 2 msg
 function block_message_date(time) {
     var block_message_date = this;
     this.label_block_message_date = document.createElement('li');
@@ -337,7 +338,6 @@ function block_message(data, previous_message) {
 
 
 function CreateConversation(data) {
-    setup_popup_message(data);
     ServerManager.CheckFirstChat(data);
 }
 
@@ -489,7 +489,7 @@ function live_chat(chat_id) {
     // Firebase listenener du is_typing
     firebase.database().ref(FirebaseEnvironment + '/chats/' + chat_id).orderByChild('is_typing').on("value", function (is_typing_snapshot) {
 
-        if (is_typing_snapshot.val()) {
+        if (is_typing_snapshot.val() && is_typing_snapshot.val().is_typing) {
             for (let i = 0; i < Object.keys(is_typing_snapshot.val().is_typing).length; i++) {
                 let data_is_typing = {
                     user_id: Object.entries(is_typing_snapshot.val().is_typing)[i][0],
@@ -576,8 +576,11 @@ function DisplayFollowingsPopupCreateConversation(data, follow_list) {
     if (Array.isArray(data) && data.length != 0) {
         $(".fconversation_block_utilisateur_list").html("");
         data.forEach(item => {
-            let user = new block_user(follow_list, "CreateConversation", item);
-            all_users_block.push(user);
+            if (item.FirebaseToken != window.localStorage.getItem("firebase_token")) {
+                let user = new block_user(follow_list, "CreateConversation", item);
+                all_users_block.push(user);
+            }
+
         });
 
     } else {
