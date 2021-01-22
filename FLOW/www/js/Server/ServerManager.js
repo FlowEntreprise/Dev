@@ -1727,6 +1727,7 @@ class ServerManagerClass {
 			if (snapshot.val() == null) // si c'est le premier msg de la conversation
 			{
 				first_chat = true;
+				current_block_chat = {};
 				current_block_chat.chat_id = data.chat_id;
 				current_block_chat.members = {};
 				current_block_chat.members.id = data.user_id;
@@ -1736,6 +1737,7 @@ class ServerManagerClass {
 
 			} else {
 				// on crée juste un nouveau message
+				setup_popup_message(data, true);
 				first_chat = false;
 			}
 			Popup("popup-message", true);
