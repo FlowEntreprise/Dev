@@ -500,42 +500,94 @@
 #div_send_message {
 	position: absolute;
 	width: 100vw;
-	bottom: 6vh;
+	bottom: 0vh;
+	left: 0vw;
 	z-index: 9999;
-	/*display: none;*/
-	left: -100vw;
+	transform: translate3d(100vw, 0, 0);
+	transition-duration: 0.5s;
+	background: white;
+	height: calc(9 * var(--custom-vh));
+	box-shadow: 0px -3px 5px rgba(0, 0, 0, 0.05);
 }
 
 #UploadProgressBar {
 	position: absolute;
 	background: #1a84ef;
 	height: 0.5vh;
-	top: -0.6vh;
+	/* top: -0.6vh; */
 	display: none;
 	transition-duration: 0.2s;
 }
 
 #SendFromCamera {
-	width: 8vw;
 	position: absolute;
-	left: 5vw;
+	left: 3vw;
+	width: 30px;
+	height: 100%;
+	object-fit: contain;
+	opacity: 0.5;
+	top: 1px;
+	/* 	background: red; */
 }
 
 #SendFromGallery {
-	width: 8vw;
 	position: absolute;
-	left: 15vw;
+	left: calc(3vw + 30px + 3vw);
+	width: 30px;
+	height: 100%;
+	object-fit: contain;
+	opacity: 0.5;
+	top: 1px;
 }
 
 #input_send_message {
 	position: absolute;
-	width: 50vw;
-	right: 22vw;
+	width: calc(57vw - 38px);
+	top: calc(4.5 * var(--custom-vh) - 20px);
+	left: calc(6vw + 60px + 3vw);
+	height: 40px;
+	padding-left: 15px;
+	padding-right: 38px;
+	border-radius: 30px;
+	border: none;
+	background: rgba(146, 171, 178, 0.16);
+	font-family: "Roboto-Regular";
+	font-size: 15px;
+	color: #92ABB2;
+}
+
+#input_send_message::placeholder {
+	font-family: "Roboto-Regular";
+	font-size: 15px;
+	color: rgba(146, 171, 178, 0.75);
 }
 
 #button_send_message {
 	position: absolute;
-	right: 2vw;
+	top: calc(4.5 * var(--custom-vh) - 23px);
+	right: calc((100vw - (66vw + 75px)) / 2 - 23px);
+	width: 46px;
+	height: 46px;
+	background: #1A84EF url("../src/icons/send2.png");
+	background-size: 40%;
+	background-repeat: no-repeat;
+	background-position: center;
+	box-shadow: 0px 3px 5px rgba(26, 132, 239, 0.34);
+	border-radius: 40px;
+}
+
+#button_send_vocal {
+	position: absolute;
+	top: calc(4.5 * var(--custom-vh) - 16px);
+	left: calc((66vw + 37px));
+	width: 32px;
+	height: 32px;
+	background: #DE0F69 url("../src/icons/record2.png");
+	background-size: 35%;
+	background-repeat: no-repeat;
+	background-position: center;
+	box-shadow: 0px 2px 5px rgba(222, 15, 105, 0.34);
+	border-radius: 40px;
 }
 
 /*FIN POPUP MESSAGE*/
