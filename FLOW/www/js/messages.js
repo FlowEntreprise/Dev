@@ -124,7 +124,7 @@ function messages_tab_loaded() {
     document.getElementById("popup-message").addEventListener("opened", function () {
         InPopupMessage = true;
         can_load_more_message = true;
-        $("#div_send_message").css("left", "0vw");
+        $("#div_send_message").css("transform", "translate3d(0vw, 0, 0)");
         $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
     });
     document.getElementById("popup-message").addEventListener("closed", function () {
@@ -132,7 +132,7 @@ function messages_tab_loaded() {
         firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off();
         firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/last_message/seen_by').off();
         firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id).orderByChild('is_typing').off();
-        $("#div_send_message").css("left", "-100vw");
+        $("#div_send_message").css("transform", "translate3d(100vw, 0, 0)");
         $("#fblock_message_content").html("");
         stopAllBlocksAudio();
         first_chat = false;
@@ -530,7 +530,7 @@ function live_chat(chat_id) {
                 });
         }
 
-        scroll_to_bottom($("#fblock_message_content"), 300, true);
+        scroll_to_bottom($("#fblock_message_content"), 350, true);
 
     });
 
