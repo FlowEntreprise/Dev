@@ -88,6 +88,11 @@ function DisconnectUser() {
         LastOs: window.cordova.platformId
     };
     ServerManager.UpdateRegisterId(data);
+    previous_chat_list = {};
+    $("#block_chat_contrainer").html("");
+    let loading_message = document.createElement("div");
+    loading_message.className = "loading-spinner loading_chat_list";
+    $("#block_chat_contrainer").append(loading_message);
     connected = false;
     $(".fneed_connect").css({
         "display": "block"
