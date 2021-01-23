@@ -575,7 +575,7 @@
 	width: calc(57vw - 38px);
 	top: calc(4.5 * var(--custom-vh) - 20px);
 	left: calc(6vw + 60px + 3vw);
-	height: 40px;
+	height: 39px;
 	padding-left: 15px;
 	padding-right: 38px;
 	border-radius: 30px;
@@ -586,11 +586,68 @@
 	color: #92ABB2;
 }
 
+#input_send_message.vocal::placeholder,
+#input_send_message.delete::placeholder {
+	color: transparent;
+}
+
+#input_send_message.vocal {
+	color: transparent;
+	background: #DE0F69 url("../src/icons/vocal_bars_pink.png");
+	background-size: 20%;
+	background-repeat: repeat-x;
+	background-position: center;
+	animation: slide 0.5s infinite linear;
+}
+
+@-webkit-keyframes slide {
+	from {
+		background-position: 0 center;
+	}
+
+	to {
+		background-position: 12vw center;
+	}
+}
+
+#input_send_message.delete {
+	color: transparent;
+	background: #FF5D5D url("../src/icons/vocal_bars_red.png");
+	background-size: 20%;
+	background-repeat: repeat-x;
+	background-position: center;
+	animation: slide 0.5s infinite linear;
+}
+
 #input_send_message::placeholder {
 	font-family: "Roboto-Regular";
 	font-size: 15px;
 	color: rgba(146, 171, 178, 0.75);
 }
+
+.delete_vocal {
+	position: absolute;
+	top: calc(4.5 * var(--custom-vh) - 20px);
+	left: calc(6vw + 60px + 3vw);
+	width: 45px;
+	height: 40px;
+	background: #DE0F69 url("../src/icons/delete_vocal.png");
+	background-size: 70%;
+	background-repeat: no-repeat;
+	background-position: center;
+	pointer-events: none;
+	border-top-left-radius: 40px;
+	border-bottom-left-radius: 40px;
+	display: none;
+}
+
+.delete_vocal.red {
+	background: #FF5D5D url("../src/icons/delete_vocal.png");
+	background-size: 70%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
 
 #button_send_message {
 	position: absolute;
@@ -618,6 +675,46 @@
 	background-position: center;
 	box-shadow: 0px 2px 5px rgba(222, 15, 105, 0.34);
 	border-radius: 40px;
+}
+
+#button_send_vocal.pressed {
+	top: calc(4.5 * var(--custom-vh) - 25px);
+	left: calc((66vw + 28px));
+	width: 50px;
+	height: 50px;
+	background: white url("../src/icons/record_pink.png");
+	background-size: 35%;
+	background-repeat: no-repeat;
+	background-position: center;
+	transform: translate3d(0, 0, 0);
+	/* transition-duration: 0.1s; */
+}
+
+#button_send_vocal.delete {
+	top: calc(4.5 * var(--custom-vh) - 25px);
+	left: calc((66vw + 28px));
+	width: 50px;
+	height: 50px;
+	background: #FF5D5D url("../src/icons/delete.png");
+	background-size: 35%;
+	background-repeat: no-repeat;
+	background-position: center;
+	transform: translate3d(0, 0, 0);
+	transition-duration: 0.1s;
+}
+
+.wave_vocal {
+	position: absolute;
+	width: 100px;
+	height: calc(4 * var(--custom-vh));
+	background: url("../src/icons/wave.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	margin-top: calc(-4 * var(--custom-vh) + 1px);
+	right: calc((100vw - (66vw + 75px)) / 2);
+	transform: translate3d(0, 0, 0);
+	display: none;
 }
 
 /*FIN POPUP MESSAGE*/

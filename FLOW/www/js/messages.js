@@ -12,6 +12,8 @@ var can_load_more_message = true;
 var InPopupMessage = false;
 var lastScrollTop = 0;
 var scrollableElement = document.getElementById('fblock_message_content');
+let touch_startx;
+let delete_vocal = false;
 
 function messages_tab_loaded() {
     $("#fnameCompte").on("click", function () {
@@ -58,6 +60,56 @@ function messages_tab_loaded() {
                 ServerManager.UploadImageToFirebase(data);
             });
         });
+    });
+
+    $("#button_send_vocal").on("touchstart", function (e) {
+        touch_startx = e.touches[0].clientX;
+        // touch_position.y = e.touches[0].clientY;
+        $(this).addClass("pressed");
+        $("#input_send_message").addClass("vocal");
+        $("#button_send_message")[0].style.display = "none";
+        $(".delete_vocal")[0].style.display = "block";
+        $(".wave_vocal").css("display", "block");
+        $("#SendFromGallery")[0].style.opacity = "0.2";
+        $("#SendFromCamera")[0].style.opacity = "0.2";
+        delete_vocal = false;
+    });
+
+    $("#button_send_vocal").on("touchmove", function (e) {
+        let offset = 0;
+        let left_border = ((window.innerWidth) / 100) * 57 - 28;
+        offset = touch_startx - e.touches[0].clientX;
+        let true_offset = offset;
+        if (offset < 0) offset = 0;
+        if (offset > left_border - 20) {
+            offset = left_border;
+            delete_vocal = true;
+            $("#input_send_message").addClass("delete");
+            $(".delete_vocal").addClass("red");
+            $(this).addClass("delete");
+        } else {
+            delete_vocal = false;
+            $("#input_send_message").removeClass("delete");
+            $(".delete_vocal").removeClass("red");
+            $(this).removeClass("delete");
+        }
+        $(".wave_vocal").css("transform", "translate3d(" + -true_offset + "px, 0, 0)");
+        $(this).css("transform", "translate3d(" + -offset + "px, 0, 0)");
+    });
+
+    $("#button_send_vocal").on("touchend", function () {
+        $(this).removeClass("pressed");
+        $(this).removeClass("delete");
+        $(this).css("transform", "translate3d(0, 0, 0)");
+        $(".wave_vocal").css("transform", "translate3d(0, 0, 0)");
+        $(".wave_vocal").css("display", "none");
+        $("#input_send_message").removeClass("vocal");
+        $("#input_send_message").removeClass("delete");
+        $("#button_send_message")[0].style.display = "block";
+        $(".delete_vocal")[0].style.display = "none";
+        $("#SendFromGallery")[0].style.opacity = "0.5";
+        $("#SendFromCamera")[0].style.opacity = "0.5";
+        delete_vocal = false;
     });
 
     $("#button_send_message").on("click", function () {
@@ -607,8 +659,6 @@ function UpdateProgressBar(percent) {
 
     }
 }
-
-
 
 /*------------------------TO DO-----------------------
 - Gestion des vues ----------DONE
