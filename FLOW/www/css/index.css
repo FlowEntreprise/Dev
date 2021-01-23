@@ -409,6 +409,7 @@ ul {
 	box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
 	background-color: #f7f7f8;
 	z-index: 2;
+	transform: translate3d(0, 0, 0);
 }
 
 .navbtn {
