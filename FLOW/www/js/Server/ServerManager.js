@@ -1731,11 +1731,7 @@ class ServerManagerClass {
 				current_block_chat.chat_id = data.chat_id;
 				current_block_chat.members = {};
 				current_block_chat.members.id = data.user_id;
-				$(".loading_message").removeClass("loading-spinner");
-				$(".loading_message").text("Oups il n'y a aucun message dans cette conversation");
-				$(".loading_message").addClass("noMessageInConv");
 				setup_popup_message(data);
-
 			} else {
 				// on crée juste un nouveau message
 
@@ -1743,7 +1739,7 @@ class ServerManagerClass {
 				setup_popup_message(data, true);
 			}
 
-			//Popup("popup-message", true);
+
 		});
 	}
 

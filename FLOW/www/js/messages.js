@@ -193,6 +193,7 @@ function messages_tab_loaded() {
     });
     document.getElementById("popup-message").addEventListener("closed", function () {
         InPopupMessage = false;
+        $(".loading_message").remove();
         firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off();
         firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/last_message/seen_by').off();
         firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id).orderByChild('is_typing').off();
@@ -205,6 +206,7 @@ function messages_tab_loaded() {
         $("#UploadProgressBar").css({
             "display": "none"
         });
+
     });
 
     document.getElementById("popup-create-conversation").addEventListener("opened", function () {
@@ -242,8 +244,8 @@ function block_chat(data) {
             message_id: current_block_chat.block_chat_last_message.message_id
         };
         ServerManager.SetMessageToSeen(data_dm);
-        live_chat(data_dm.chat_id);
-        setup_popup_message(data_dm);
+        //live_chat(data_dm.chat_id);
+        setup_popup_message(data_dm, true);
     });
 
     $(this.block_chat).on("taphold", function () {
@@ -423,9 +425,16 @@ function setup_popup_message(data, LiveChat) { // si on doit debuter le live cha
     let loading_msg = document.createElement("div");
     loading_msg.className = "loading-spinner loading_message";
     $("#fblock_message_content").append(loading_msg);
+
     if (LiveChat == true) {
         live_chat(data.chat_id);
     }
+    else {
+        $(loading_msg).removeClass("loading-spinner");
+        $(loading_msg).text("Oups il n'y a aucun message dans cette conversation");
+        $(loading_msg).addClass("noMessageInConv");
+    }
+
     Popup("popup-message", true);
     Popup("popup-create-conversation", false);
 }
@@ -522,10 +531,11 @@ function live_chat(chat_id) {
         if (!current_block_chat.first_messake_key) {
             current_block_chat.first_messake_key = prevChildKey;
         }
+
         let time = Math.floor((snapshot.val().time - previous_message.time) / 1000 / 60 / 60);
         previous_message = snapshot.val();
         previous_message.id = snapshot.key;
-        if (time > 0.5) {
+        if (time >= 0.5) {
             block_message_date(snapshot.val().time);
         }
         pop_block_message(snapshot.key, snapshot.val());
