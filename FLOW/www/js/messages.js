@@ -66,7 +66,7 @@ function messages_tab_loaded() {
     });
 
     $("#button_send_vocal").on("touchstart", function (e) {
-        recording = true;
+        recording_vocal = true;
         touch_startx = e.touches[0].clientX;
         // touch_position.y = e.touches[0].clientY;
         $(this).addClass("pressed");
@@ -577,15 +577,16 @@ function live_chat(chat_id) {
 
 
     $("#input_send_message").focusin(function () {
-
-        if (first_chat == false) {
-            firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing/')
-                .update({
-                    [window.localStorage.getItem("firebase_token")]: true
-                });
+        if (!recording_vocal) {
+            if (first_chat == false) {
+                firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing/')
+                    .update({
+                        [window.localStorage.getItem("firebase_token")]: true
+                    });
+            }
+            scroll_to_bottom($("#fblock_message_content"), 100);
         }
 
-        scroll_to_bottom($("#fblock_message_content"), 100);
     });
 
     $("#input_send_message").focusout(function () {
