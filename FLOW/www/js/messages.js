@@ -14,6 +14,8 @@ var lastScrollTop = 0;
 var scrollableElement = document.getElementById('fblock_message_content');
 let touch_startx;
 let delete_vocal = false;
+let timer;
+let record_duration = 0;
 
 function messages_tab_loaded() {
     $("#fnameCompte").on("click", function () {
@@ -73,6 +75,12 @@ function messages_tab_loaded() {
         $("#SendFromGallery")[0].style.opacity = "0.2";
         $("#SendFromCamera")[0].style.opacity = "0.2";
         delete_vocal = false;
+        record_duration = 0;
+        $(".wave_vocal")[0].innerHTML = record_duration + "s";
+        timer = setInterval(function () {
+            record_duration += 1;
+            if (!delete_vocal) $(".wave_vocal")[0].innerHTML = record_duration + "s";
+        }, 1000);
     });
 
     $("#button_send_vocal").on("touchmove", function (e) {
@@ -87,11 +95,15 @@ function messages_tab_loaded() {
             $("#input_send_message").addClass("delete");
             $(".delete_vocal").addClass("red");
             $(this).addClass("delete");
+            $(".wave_vocal")[0].innerHTML = "annuler";
+            $(".wave_vocal").css("color", "#FF5D5D");
         } else {
             delete_vocal = false;
             $("#input_send_message").removeClass("delete");
             $(".delete_vocal").removeClass("red");
             $(this).removeClass("delete");
+            $(".wave_vocal")[0].innerHTML = record_duration + "s";
+            $(".wave_vocal").css("color", "#DE0F69");
         }
         $(".wave_vocal").css("transform", "translate3d(" + -true_offset + "px, 0, 0)");
         $(this).css("transform", "translate3d(" + -offset + "px, 0, 0)");
@@ -106,10 +118,12 @@ function messages_tab_loaded() {
         $("#input_send_message").removeClass("vocal");
         $("#input_send_message").removeClass("delete");
         $("#button_send_message")[0].style.display = "block";
+        $(".delete_vocal").removeClass("red");
         $(".delete_vocal")[0].style.display = "none";
         $("#SendFromGallery")[0].style.opacity = "0.5";
         $("#SendFromCamera")[0].style.opacity = "0.5";
         delete_vocal = false;
+        clearInterval(timer);
     });
 
     $("#button_send_message").on("click", function () {
@@ -155,23 +169,18 @@ function messages_tab_loaded() {
     });
 
     scrollableElement.addEventListener("scroll", function () {
-        var st = scrollableElement.scrollTop;
-        let limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-        if (st > lastScrollTop) {
-            console.log("scroll down");
-        } else {
-
-            if (Math.round($(this).scrollTop()) >= limit * 0.05 && can_load_more_message == true) {
-                can_load_more_message = false;
-                let loading_message = document.createElement("div");
-                loading_message.className = "loading-spinner loading_message";
-                $("#fblock_message_content").append(loading_message);
-                console.log("limite :" + limit + "; Current scroll : " + Math.round($(this).scrollTop()));
-                message_infinite_scroll(current_block_chat);
-            }
+        let content = $(this);
+        if (content.scrollTop() == 0 && can_load_more_message == true) {
+            can_load_more_message = false;
+            let loading_message = document.createElement("div");
+            loading_message.className = "loading-spinner loading_message";
+            // $("#fblock_message_content").append(loading_message); // cause flickering
+            // console.log("limite :" + limit + "; Current scroll : " + Math.round($(this).scrollTop()));
+            console.log("load old messages");
+            let old_diff = content[0].scrollHeight - content[0].clientHeight;
+            message_infinite_scroll(current_block_chat, old_diff);
         }
-        lastScrollTop = st <= 0 ? 0 : st;
-    }, false);
+    });
 
     document.getElementById("popup-message").addEventListener("opened", function () {
         InPopupMessage = true;
@@ -459,7 +468,7 @@ function exclude(key) {
 }
 
 // Affiche les msg precedent 20 par 20
-function message_infinite_scroll(data) {
+function message_infinite_scroll(data, old_diff) {
     console.log("message_infinite_scroll was called");
     firebase.database().ref(FirebaseEnvironment + "/messages/" + data.chat_id).orderByKey().endAt(exclude(data.first_messake_key)).limitToLast(30)
         .once('value').then(function (dataSnapshot) {
@@ -491,6 +500,9 @@ function message_infinite_scroll(data) {
                     can_load_more_message = true;
                 }
             }
+            let new_diff = scrollableElement.scrollHeight - scrollableElement.clientHeight;
+            $(scrollableElement).scrollTop(new_diff - old_diff);
+            console.log(new_diff, old_diff);
 
 
         });

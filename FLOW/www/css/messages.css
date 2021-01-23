@@ -705,17 +705,24 @@
 
 .wave_vocal {
 	position: absolute;
-	width: 100px;
-	height: calc(4 * var(--custom-vh));
+	width: 150px;
+	height: calc(6 * var(--custom-vh));
 	background: url("../src/icons/wave.png");
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center bottom;
-	margin-top: calc(-4 * var(--custom-vh) + 1px);
-	right: calc((100vw - (66vw + 75px)) / 2);
+	margin-top: calc(-6 * var(--custom-vh) + 1px);
+	right: calc((100vw - (66vw + 115px)) / 2);
 	transform: translate3d(0, 0, 0);
 	display: none;
+	text-align: center;
+	line-height: calc(8 * var(--custom-vh));
+	font-size: 13px;
+	font-family: "Roboto-Regular";
+	color: #DE0F69;
 }
+
+
 
 /*FIN POPUP MESSAGE*/
 
