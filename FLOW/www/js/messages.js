@@ -13,6 +13,7 @@ var InPopupMessage = false;
 var lastScrollTop = 0;
 var scrollableElement = document.getElementById('fblock_message_content');
 let touch_startx;
+let recording_vocal = false;
 let delete_vocal = false;
 let timer;
 let record_duration = 0;
@@ -65,6 +66,7 @@ function messages_tab_loaded() {
     });
 
     $("#button_send_vocal").on("touchstart", function (e) {
+        recording = true;
         touch_startx = e.touches[0].clientX;
         // touch_position.y = e.touches[0].clientY;
         $(this).addClass("pressed");
@@ -110,6 +112,7 @@ function messages_tab_loaded() {
     });
 
     $("#button_send_vocal").on("touchend", function () {
+        recording_vocal = false;
         $(this).removeClass("pressed");
         $(this).removeClass("delete");
         $(this).css("transform", "translate3d(0, 0, 0)");
@@ -586,16 +589,18 @@ function live_chat(chat_id) {
     });
 
     $("#input_send_message").focusout(function () {
+        if (recording_vocal) {
+            $("#input_send_message").focus();
+        } else {
+            if (first_chat == false) {
+                firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing/')
+                    .update({
+                        [window.localStorage.getItem("firebase_token")]: false
+                    });
+            }
 
-        if (first_chat == false) {
-            firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing/')
-                .update({
-                    [window.localStorage.getItem("firebase_token")]: false
-                });
+            scroll_to_bottom($("#fblock_message_content"), 350, true);
         }
-
-        scroll_to_bottom($("#fblock_message_content"), 350, true);
-
     });
 
 }
