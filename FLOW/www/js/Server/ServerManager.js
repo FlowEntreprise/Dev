@@ -1774,12 +1774,18 @@ class ServerManagerClass {
 					}
 				});
 			}).then(() => {
-				let data_notif_message = {
-					message: data.message,
-					chat_id: current_block_chat.chat_id,
-					recipient_info: current_block_chat.members
-				};
-				send_notif_to_user(data_notif_message, "send_message");
+				let userRef = firebase.database().ref(FirebaseEnvironment + '/users/' + current_block_chat.members.id + '/registration_id');
+				userRef.once('value').then((snapshot) => {
+					if (snapshot.val() != null) {
+						current_block_chat.members.registration_id = snapshot.val();
+						let data_notif_message = {
+							message: data.message,
+							chat_id: current_block_chat.chat_id,
+							recipient_info: current_block_chat.members
+						};
+						send_notif_to_user(data_notif_message, "send_message");
+					}
+				});
 			});
 		});
 	}

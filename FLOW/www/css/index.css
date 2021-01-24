@@ -105,12 +105,12 @@ textarea {
 	margin-left: 7.5vw;
 	height: auto;
 	line-height: calc(7 * var(--custom-vh));
-	margin-top: 5vw;
 	background-color: #fff;
 	border-radius: 2vw;
 	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
 	text-align: center;
 	transition-duration: 0.4s;
+	bottom: -20vh;
 	z-index: 9999;
 }
 

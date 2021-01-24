@@ -83,6 +83,8 @@ function ConnectUser() {
 function DisconnectUser() {
     // console.log("user disconnected");
     firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").off();
+    firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token"))
+        .update({ "registration_id": null });
     let data = {
         RegisterId: null,
         LastOs: window.cordova.platformId
