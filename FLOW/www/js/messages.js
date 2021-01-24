@@ -49,6 +49,8 @@ function messages_tab_loaded() {
         // });
     });
 
+    autosize($("#input_send_message"));
+
     $("#SendFromCamera").on("click", function () {
         TakePhoto(function (imageData) {
             console.log(imageData);
@@ -578,6 +580,13 @@ function live_chat(chat_id) {
 
     $("#input_send_message").focusin(function () {
         if (!recording_vocal) {
+            $("#input_send_message").css("white-space", "normal");
+            $("#button_send_vocal")[0].style.display = "none";
+            $("#SendFromGallery")[0].style.display = "none";
+            $("#SendFromCamera")[0].style.display = "none";
+            $("#input_send_message").css("width", "calc(57vw - 38px + 60px + 6vw)");
+            $("#input_send_message").css("left", "3vw");
+            autosize($("#input_send_message"));
             if (first_chat == false) {
                 firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing/')
                     .update({
@@ -593,6 +602,13 @@ function live_chat(chat_id) {
         if (recording_vocal) {
             $("#input_send_message").focus();
         } else {
+            autosize.destroy($("#input_send_message"));
+            $("#input_send_message").css("white-space", "nowrap");
+            $("#button_send_vocal")[0].style.display = "block";
+            $("#SendFromGallery")[0].style.display = "block";
+            $("#SendFromCamera")[0].style.display = "block";
+            $("#input_send_message").css("width", "calc(57vw - 38px)");
+            $("#input_send_message").css("left", "calc(3vw + 60px + 6vw)");
             if (first_chat == false) {
                 firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing/')
                     .update({
