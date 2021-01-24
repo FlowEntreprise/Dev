@@ -117,7 +117,7 @@ function messages_tab_loaded() {
         recording_vocal = false;
         $(this).removeClass("pressed");
         $(this).removeClass("delete");
-        $(this).css("transform", "translate3d(0, 0, 0)");
+        $(this).css("transform", "translate3d(0, 0, 0) scale(0.7)");
         $(".wave_vocal").css("transform", "translate3d(0, 0, 0)");
         $(".wave_vocal").css("display", "none");
         $("#input_send_message").removeClass("vocal");
@@ -430,8 +430,7 @@ function setup_popup_message(data, LiveChat) { // si on doit debuter le live cha
 
     if (LiveChat == true) {
         live_chat(data.chat_id);
-    }
-    else {
+    } else {
         $(loading_msg).removeClass("loading-spinner");
         $(loading_msg).text("Oups il n'y a aucun message dans cette conversation");
         $(loading_msg).addClass("noMessageInConv");

@@ -670,16 +670,17 @@
 
 #button_send_vocal {
 	position: absolute;
-	bottom: calc(4.5 * var(--custom-vh) - 12px);
-	left: calc((66vw + 37px));
-	width: 32px;
-	height: 32px;
+	bottom: calc(4.5 * var(--custom-vh) - 18px);
+	left: calc((66vw + 30px));
+	width: 46px;
+	height: 46px;
 	background: #DE0F69 url("../src/icons/record2.png");
 	background-size: 35%;
 	background-repeat: no-repeat;
 	background-position: center;
 	box-shadow: 0px 2px 5px rgba(222, 15, 105, 0.34);
 	border-radius: 40px;
+	transform: scale(0.7);
 }
 
 #button_send_vocal.pressed {
