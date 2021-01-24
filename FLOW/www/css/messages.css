@@ -670,7 +670,7 @@
 
 #button_send_vocal {
 	position: absolute;
-	top: calc(4.5 * var(--custom-vh) - 16px);
+	bottom: calc(4.5 * var(--custom-vh) - 12px);
 	left: calc((66vw + 37px));
 	width: 32px;
 	height: 32px;
