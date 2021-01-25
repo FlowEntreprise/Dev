@@ -144,6 +144,16 @@ function messages_tab_loaded() {
         }
     });
 
+    $("#chat_photo").on("click", function () {
+        let data = {
+            private_Id: current_block_chat.block_chat_member_private_id,
+            user_private_Id: window.localStorage.getItem("user_private_id"),
+        };
+        go_to_account(data);
+    });
+
+
+
     $(document).on("keyup", ".fmessages-search-bar", function () {
 
         let StringMessagesSearchBar = $(".fmessages-search-bar").val().trim();
@@ -259,16 +269,6 @@ function block_chat(data) {
     this.fphoto_block_chat.className = 'fphoto_block_chat';
     this.fphoto_block_chat.style.backgroundImage = "url(" + this.block_chat_photo + "";
     this.block_chat.appendChild(this.fphoto_block_chat);
-
-
-    $(this.fphoto_block_chat).on("click", function (e) {
-        let data = {
-            private_Id: block_chat.block_chat_member_private_id,
-            user_private_Id: window.localStorage.getItem("user_private_id"),
-        };
-        go_to_account(data);
-        e.stopPropagation();
-    });
 
     this.fconversation_title = document.createElement('label');
     this.fconversation_title.className = 'fconversation_title';

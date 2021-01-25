@@ -835,6 +835,8 @@ function go_to_account(data) {
 			Popup("popup-followers", false);
 			Popup("popup-followings", false);
 			Popup("popup-identification", false);
+			Popup("popup-message", false);
+			Popup("popup-create-conversation", false);
 			Popup("popup-myaccount", true);
 			current_page = "my-account";
 		} else {
@@ -848,12 +850,16 @@ function go_to_account(data) {
 			Popup("popup-followers", false);
 			Popup("popup-followings", false);
 			Popup("popup-identification", false);
+			Popup("popup-message", false);
+			Popup("popup-create-conversation", false);
 			Popup("popup-specifique", false);
 		} else {
 			Popup("popup-comment", false);
 			Popup("popup-followers", false);
 			Popup("popup-followings", false);
 			Popup("popup-identification", false);
+			Popup("popup-message", false);
+			Popup("popup-create-conversation", false);
 			Popup("popup-specifique", false);
 			Popup("popup-myaccount", false);
 			if (connected == true) {
