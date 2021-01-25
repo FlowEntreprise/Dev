@@ -89,11 +89,11 @@ var app = {
 		}
 
 		IonicDeeplink.route({
-				"/flow/:FlowId": {
-					target: "flow",
-					parent: "flow",
-				},
+			"/flow/:FlowId": {
+				target: "flow",
+				parent: "flow",
 			},
+		},
 			function (match) {
 				console.log("deeplink match !", match);
 			},
@@ -190,9 +190,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -242,9 +242,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -321,6 +321,7 @@ var app = {
 					);
 				}
 				if (data.additionalData.type == "send_message") {
+					Popup("popup-message", false);
 					let data_popup_msg = {
 						profile_picture: data.additionalData.sender_info.profil_pic,
 						fullname: data.additionalData.sender_info.fullname,
@@ -330,17 +331,7 @@ var app = {
 					-Pour generer le block_message_seen à l'ouverture d'une notif
 					- Pour generer les blocks message de l'epediteur à l'ouverture d'une notif
 					*/
-					current_block_chat.block_chat_photo = data_popup_msg.profile_picture;
-					firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/last_message/seen_by').off();
-					firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id).orderByChild('is_typing').off();
-					if (current_block_chat.chat_id) {
-						firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off().then(function () {
-							setup_popup_message(data_popup_msg, true);
-						});
-					} else {
-						setup_popup_message(data_popup_msg, true);
-					}
-
+					setup_popup_message(data_popup_msg, true);
 					return;
 				}
 				if (data.additionalData.type == "story_comment") {
