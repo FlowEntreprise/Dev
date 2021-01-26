@@ -434,7 +434,8 @@
 
 .label_block_message_date {
 	text-align: center;
-	margin: 0;
+	margin-left: 0 !important;
+    margin-right: 0 !important;
 	color: #92abb2;
 	opacity: 0.5;
 	font-size: 12px;
