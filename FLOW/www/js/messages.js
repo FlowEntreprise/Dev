@@ -62,7 +62,7 @@ function messages_tab_loaded() {
                     content: b64,
                     name: Date.now(),
                     chat_id: current_block_chat.chat_id
-                }
+                };
                 ServerManager.UploadImageToFirebase(data);
             });
         });
@@ -294,7 +294,9 @@ function block_chat(data) {
     this.block_chat.appendChild(this.fblock_chat_time);
 
     for (let i of Object.entries(this.block_chat_last_message.seen_by)) {
-        if (i[0] == window.localStorage.getItem("firebase_token")) {
+        if (i[0] == window.localStorage.getItem("firebase_token") ||
+            current_block_chat && current_block_chat.chat_id == block_chat.chat_id &&
+            InPopupMessage == true) {
             $(block_chat.block_chat).css("background-color", "#fff");
             block_chat.is_seen = true;
         }
@@ -488,7 +490,7 @@ function exclude(key) {
     return key.substring(0, key.length - 1) + String.fromCharCode(key.charCodeAt(key.length - 1) - 1);
 }
 
-// Affiche les msg precedent 20 par 20
+// Affiche les msg precedent 30 par 30
 function message_infinite_scroll(data, old_diff) {
     console.log("message_infinite_scroll was called");
     firebase.database().ref(FirebaseEnvironment + "/messages/" + data.chat_id).orderByKey().endAt(exclude(data.first_messake_key)).limitToLast(30)
@@ -515,6 +517,7 @@ function message_infinite_scroll(data, old_diff) {
 
                 if (i == (tab_all_messages.length - 1) && tab_all_messages.length < 30) {
                     can_load_more_message = false;
+                    block_message_date(tab_all_messages[i][1].time, true);
                 }
                 if (i == (tab_all_messages.length - 1) && tab_all_messages.length == 30) {
                     can_load_more_message = true;
@@ -537,6 +540,7 @@ function live_chat(chat_id) {
 
         if (prevChildKey == null) {
             first_message = snapshot.val();
+            block_message_date(snapshot.val().time);
         }
         if (!current_block_chat.first_messake_key) {
             current_block_chat.first_messake_key = prevChildKey;
