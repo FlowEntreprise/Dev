@@ -1758,7 +1758,7 @@ class ServerManagerClass {
 		};
 		let db_message = firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id);
 		db_message.push().set(data_message).then(() => {
-			db_message.once('value').then((snapshot) => {
+			db_message.limitToLast(1).once('value').then((snapshot) => {
 				//console.log(snapshot);
 				data_message.message_id = Object.keys(snapshot.val())[0];
 				firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + "/last_message/").update(data_message);
