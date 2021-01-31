@@ -284,7 +284,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 			"background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')",
 		});
 		$("#fprofilPicturePopup")[0].onclick = function () {
-			GetPhotoFromGallery(true);
+			GetPhotoFromGallery(onProfilePhotoDataSuccess);
 		};
 		$("#editProfileName").val(nameMonCompte);
 		$("#feditBio").val(bioMonCompte);

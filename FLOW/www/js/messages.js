@@ -69,6 +69,22 @@ function messages_tab_loaded() {
         });
     });
 
+    $("#SendFromGallery").on("click", function () {
+        GetPhotoFromGallery(function (imageData) {
+            console.log(imageData);
+            // Contenu de l'image : imageData
+            toDataUrl(imageData, function (b64) {
+                console.log(b64);
+                let data = {
+                    content: b64,
+                    name: Date.now(),
+                    chat_id: current_block_chat.chat_id
+                };
+                ServerManager.UploadImageToFirebase(data);
+            });
+        });
+    });
+
     $("#button_send_vocal").on("touchstart", function (e) {
         recording_vocal = true;
         touch_startx = e.touches[0].clientX;
@@ -314,8 +330,7 @@ function block_message_date(time, prepend) {
     this.label_block_message_date.innerText = set_timestamp(time, "label_block_message_date");
     if (prepend) {
         $("#fblock_message_content").prepend(this.label_block_message_date);
-    }
-    else {
+    } else {
         $("#fblock_message_content").append(this.label_block_message_date);
     }
 }

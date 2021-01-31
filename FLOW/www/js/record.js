@@ -438,7 +438,7 @@ $(".fcamera-after").on("click", function () {
 	TakePhoto(onPhotoDataSuccess);
 });
 $(".fgallery-after").on("click", function () {
-	GetPhotoFromGallery();
+	GetPhotoFromGallery(onPhotoDataSuccess);
 });
 
 function UpdateRecordIndicator() {
@@ -857,7 +857,7 @@ function TakePhoto(callback) {
 	}
 }
 
-function GetPhotoFromGallery(is_profile_picture) {
+function GetPhotoFromGallery(callback) {
 	console.log("get photo from gallery");
 	if (window.cordova.platformId == "android") {
 		var permissions = cordova.plugins.permissions;
@@ -876,7 +876,7 @@ function GetPhotoFromGallery(is_profile_picture) {
 			if (!status.hasPermission) error();
 			else {
 				//alert("success");
-				getPhoto(is_profile_picture);
+				getPhoto(callback);
 			}
 		}
 
@@ -885,13 +885,13 @@ function GetPhotoFromGallery(is_profile_picture) {
 		) {
 			if (status.hasPermission) {
 				//alert("success");
-				getPhoto(is_profile_picture);
+				getPhoto(callback);
 			} else {
 				permissions.requestPermissions(list, success, error);
 			}
 		});
 	} else {
-		getPhoto(is_profile_picture);
+		getPhoto(callback);
 		if (window.localStorage.getItem("ios_photos_init") != "true") {
 			$(".ios_camera_auth")[0].style.display = "block";
 		}
@@ -943,23 +943,13 @@ function capturePhoto(callback) {
 	});
 }
 
-function getPhoto(is_profile_picture) {
-	if (is_profile_picture) {
-		navigator.camera.getPicture(onProfilePhotoDataSuccess, onFail, {
-			quality: 75,
-			allowEdit: false,
-			destinationType: Camera.DestinationType.FILE_URI,
-			sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
-		});
-	} else {
-		// Take picture using device camera, allow edit, and retrieve image as base64-encoded string
-		navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
-			quality: 75,
-			allowEdit: false,
-			destinationType: Camera.DestinationType.FILE_URI,
-			sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
-		});
-	}
+function getPhoto(callback) {
+	navigator.camera.getPicture(callback, onFail, {
+		quality: 75,
+		allowEdit: false,
+		destinationType: Camera.DestinationType.FILE_URI,
+		sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+	});
 }
 
 function onFail(message) {
