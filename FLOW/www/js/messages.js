@@ -17,6 +17,7 @@ let recording_vocal = false;
 let delete_vocal = false;
 let timer;
 let record_duration = 0;
+let block_photo_url;
 
 function messages_tab_loaded() {
     $("#fnameCompte").on("click", function () {
@@ -72,6 +73,7 @@ function messages_tab_loaded() {
         touch_startx = e.touches[0].clientX;
         // touch_position.y = e.touches[0].clientY;
         $(this).addClass("pressed");
+        $(this).css("transform", "translate3d(0, 0, 0) scale(1.2)");
         $("#input_send_message").addClass("vocal");
         $("#button_send_message")[0].style.display = "none";
         $(".delete_vocal")[0].style.display = "block";
@@ -110,7 +112,7 @@ function messages_tab_loaded() {
             $(".wave_vocal").css("color", "#DE0F69");
         }
         $(".wave_vocal").css("transform", "translate3d(" + -true_offset + "px, 0, 0)");
-        $(this).css("transform", "translate3d(" + -offset + "px, 0, 0)");
+        $(this).css("transform", "translate3d(" + -offset + "px, 0, 0) scale(1.2)");
     });
 
     $("#button_send_vocal").on("touchend", function () {
@@ -419,6 +421,7 @@ function set_block_chat_seen() {
 
 
 function setup_popup_message(data, LiveChat) { // si on doit debuter le live chat ou pas
+    block_photo_url = data.profile_picture;
     $("#chat_photo").css({
         "background-image": "url('" + data.profile_picture + "')",
     });
@@ -576,7 +579,15 @@ function live_chat(chat_id) {
                     $(".is_typing").remove();
                     let is_typing = document.createElement("li");
                     is_typing.className = "is_typing";
+                    for (let i = 0; i < 4; i++) {
+                        let span = document.createElement("span");
+                        is_typing.appendChild(span);
+                    }
+                    let chat_photo = document.createElement("div");
+                    chat_photo.style.background = "url('" + block_photo_url + "')";
+                    is_typing.appendChild(chat_photo);
                     $("#fblock_message_content").append(is_typing);
+
                     scroll_to_bottom($("#fblock_message_content"));
                 }
                 if (data_is_typing.user_id != window.localStorage.getItem("firebase_token") && data_is_typing.value == false) {

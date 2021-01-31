@@ -435,7 +435,7 @@ $(".fvalidate-after_btn").on("touchend", function () {
 });
 
 $(".fcamera-after").on("click", function () {
-	TakePhoto();
+	TakePhoto(onPhotoDataSuccess);
 });
 $(".fgallery-after").on("click", function () {
 	GetPhotoFromGallery();
@@ -815,7 +815,7 @@ function drawCurveAnim() {
 
 drawCurveAnim();
 
-function TakePhoto() {
+function TakePhoto(callback) {
 	console.log("take photo");
 	if (window.cordova.platformId == "android") {
 		var permissions = cordova.plugins.permissions;
@@ -837,20 +837,20 @@ function TakePhoto() {
 			if (!status.hasPermission) error();
 			else {
 				//alert("success");
-				capturePhoto();
+				capturePhoto(callback);
 			}
 		}
 
 		permissions.hasPermission(permissions.CAMERA, function (status) {
 			if (status.hasPermission) {
 				//alert("success");
-				capturePhoto();
+				capturePhoto(callback);
 			} else {
 				permissions.requestPermissions(list, success, error);
 			}
 		});
 	} else {
-		capturePhoto();
+		capturePhoto(callback);
 		if (window.localStorage.getItem("ios_photos_init") != "true") {
 			$(".ios_camera_auth")[0].style.display = "block";
 		}
@@ -930,12 +930,12 @@ function onPhotoDataSuccess(imageData) {
 	//new_block.ftop_part.style.backgroundImage = "url('data:image/jpeg;base64," + imageData + "')";
 }
 
-function capturePhoto() {
+function capturePhoto(callback) {
 	console.log("take photo");
 	appState.takingPicture = true;
 
 	// Take picture using device camera, allow edit, and retrieve image as base64-encoded string
-	navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
+	navigator.camera.getPicture(callback, onFail, {
 		quality: 75,
 		allowEdit: false,
 		destinationType: Camera.DestinationType.FILE_URI,

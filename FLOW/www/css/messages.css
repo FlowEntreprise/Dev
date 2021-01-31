@@ -483,12 +483,93 @@
 }
 
 .is_typing {
-	background-image: url("../src/icons/is_typing.png");
-	background-size: cover;
-	background-position: center;
-	width: 5vw;
-	height: 3vh;
-	float: right;
+	/* background-image: url("../src/icons/is_typing.png"); */
+	/* background-size: cover; */
+	/* background-position: center; */
+	position: relative;
+	/* 	background-color: red; */
+	width: 50px;
+	height: 20px;
+	left: 12px;
+	/* 	float: left; */
+}
+
+.is_typing div {
+	position: absolute;
+	left: -50px;
+	top: 10px;
+	width: 30px;
+	height: 30px;
+	border-radius: 15px;
+	background-size: contain !important;
+	background-position: center !important;
+}
+
+.is_typing span {
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	background: #ffffff;
+	border-radius: 50%;
+	animation: is_typing 1s infinite ease-in-out;
+}
+
+.is_typing span:nth-child(1) {
+	left: 0px;
+	-webkit-animation-delay: 0.2s;
+	animation-delay: 0.2s;
+}
+
+.is_typing span:nth-child(2) {
+	left: 12px;
+	-webkit-animation-delay: 0.3s;
+	animation-delay: 0.3s;
+}
+
+.is_typing span:nth-child(3) {
+	left: 24px;
+	-webkit-animation-delay: 0.4s;
+	animation-delay: 0.4s;
+}
+
+.is_typing span:nth-child(4) {
+	left: 36px;
+	-webkit-animation-delay: 0.5s;
+	animation-delay: 0.5s;
+}
+
+@keyframes is_typing {
+	0% {
+		-webkit-transform: translateY(0px);
+		transform: translateY(0px);
+		-webkit-transform: translateY(0px);
+		transform: translateY(0px);
+		opacity: 0.25;
+	}
+
+	25% {
+		-webkit-transform: translateY(10px);
+		transform: translateY(10px);
+		-webkit-transform: translateY(10px);
+		transform: translateY(10px);
+		opacity: 1;
+	}
+
+	50% {
+		-webkit-transform: translateY(10px);
+		transform: translateY(10px);
+		-webkit-transform: translateY(10px);
+		transform: translateY(10px);
+		opacity: 1;
+	}
+
+	100% {
+		-webkit-transform: translateY(0px);
+		transform: translateY(0px);
+		-webkit-transform: translateY(0px);
+		transform: translateY(0px);
+		opacity: 0.25;
+	}
 }
 
 /*---------------------Mettre des borders radius comme sur messenger-------------------------*/
@@ -632,10 +713,14 @@
 
 .delete_vocal {
 	position: absolute;
-	top: calc(4.5 * var(--custom-vh) - 19px);
-	left: calc(6vw + 60px + 3vw);
-	width: 45px;
+	bottom: calc(4.5 * var(--custom-vh) - 16px);
+	width: 46px;
 	height: 40px;
+	/* position: absolute; */
+	/* top: calc(4.5 * var(--custom-vh) - 19px); */
+	left: calc(6vw + 60px + 3vw);
+	/* width: 45px; */
+	/* height: 40px; */
 	background: #DE0F69 url("../src/icons/delete_vocal.png");
 	background-size: 70%;
 	background-repeat: no-repeat;
@@ -684,28 +769,20 @@
 }
 
 #button_send_vocal.pressed {
-	top: calc(4.5 * var(--custom-vh) - 25px);
-	left: calc((66vw + 28px));
-	width: 50px;
-	height: 50px;
 	background: white url("../src/icons/record_pink.png");
 	background-size: 35%;
 	background-repeat: no-repeat;
 	background-position: center;
-	transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0) scale(1.2);
 	/* transition-duration: 0.1s; */
 }
 
 #button_send_vocal.delete {
-	top: calc(4.5 * var(--custom-vh) - 25px);
-	left: calc((66vw + 28px));
-	width: 50px;
-	height: 50px;
 	background: #FF5D5D url("../src/icons/delete.png");
 	background-size: 35%;
 	background-repeat: no-repeat;
 	background-position: center;
-	transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0) scale(1.2);
 	transition-duration: 0.1s;
 }
 
