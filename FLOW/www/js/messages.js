@@ -416,6 +416,7 @@ function block_message(data, previous_message) {
     });
 
     if (this.image) {
+        let self = this;
         $(this.block_message).text("");
         let image = document.createElement("img");
         image.src = this.image;
@@ -427,6 +428,30 @@ function block_message(data, previous_message) {
         this.block_message.style.background = "transparent";
         this.block_message.style.padding = "0px";
         this.block_message.style.boxShadow = "none";
+
+        image.onclick = function () {
+            let popup_img = document.createElement("div");
+            popup_img.className = "dm_popup_img";
+            popup_img.style.backgroundImage = "url('" + self.image + "')";
+
+            let close = document.createElement("div");
+            close.className = "dm_close_popup_img";
+            close.onclick = function () {
+                let self2 = this;
+                this.parentNode.style.opacity = 0;
+                this.parentNode.style.transform = "translate3d(0, 0, 0) scale(0.5)";
+                setTimeout(function () {
+                    self2.parentNode.parentNode.removeChild(self2.parentNode);
+                }, 500);
+            }
+            popup_img.appendChild(close);
+            $(".app_parent")[0].appendChild(popup_img);
+            setTimeout(function () {
+                popup_img.style.transform = "translate3d(0, 0, 0) scale(1)";
+                popup_img.style.opacity = 1;
+            }, 50);
+
+        }
     }
 
 }

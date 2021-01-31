@@ -36,21 +36,21 @@
 
 #InAppNotifNewMessageUsername {
 	display: none;
-    position: absolute;
-    left: calc(5.5 * var(--custom-vh));
-    top: calc(0.75 * var(--custom-vh));
-    font-size: 13px;
-    color: #FFF;
-    font-family: 'Roboto-Bold';
+	position: absolute;
+	left: calc(5.5 * var(--custom-vh));
+	top: calc(0.75 * var(--custom-vh));
+	font-size: 13px;
+	color: #FFF;
+	font-family: 'Roboto-Bold';
 }
 
 #InAppNotifNewMessage {
 	position: absolute;
-    left: calc(5.5 * var(--custom-vh));
-    top: calc(1.5 * var(--custom-vh));
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+	left: calc(5.5 * var(--custom-vh));
+	top: calc(1.5 * var(--custom-vh));
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .fmessages-search-bar {
@@ -435,7 +435,7 @@
 .label_block_message_date {
 	text-align: center;
 	margin-left: 0 !important;
-    margin-right: 0 !important;
+	margin-right: 0 !important;
 	color: #92abb2;
 	opacity: 0.5;
 	font-size: 12px;
@@ -873,6 +873,35 @@
 	color: #1a84ef;
 	display: inline;
 	text-decoration: underline;
+}
+
+.dm_popup_img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 9999;
+	background-color: black;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	transform: translate3d(0, 0, 0) scale(0.5);
+	opacity: 0;
+	transition-duration: 0.5s;
+}
+
+.dm_close_popup_img {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	height: 40px;
+	width: 40px;
+	background-image: url("../src/icons/back.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	opacity: 0.5;
 }
 
 @keyframes balance {
