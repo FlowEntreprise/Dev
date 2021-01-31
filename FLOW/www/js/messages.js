@@ -6,6 +6,7 @@ var all_block_chat = [];
 var all_block_message = [];
 var nb_block_chat_to_pop;
 var previous_message = {};
+var first_message = {}; // coresspond au premier des 20 msg recuperé donc le plus anciens des 20 premiers msg
 var previous_chat_list = {};
 var current_block_message = {};
 var can_load_more_message = true;
@@ -62,7 +63,7 @@ function messages_tab_loaded() {
                     content: b64,
                     name: Date.now(),
                     chat_id: current_block_chat.chat_id
-                }
+                };
                 ServerManager.UploadImageToFirebase(data);
             });
         });
@@ -146,6 +147,16 @@ function messages_tab_loaded() {
         }
     });
 
+    $("#chat_photo").on("click", function () {
+        let data = {
+            private_Id: current_block_chat.block_chat_member_private_id,
+            user_private_Id: window.localStorage.getItem("user_private_id"),
+        };
+        go_to_account(data);
+    });
+
+
+
     $(document).on("keyup", ".fmessages-search-bar", function () {
 
         let StringMessagesSearchBar = $(".fmessages-search-bar").val().trim();
@@ -197,6 +208,8 @@ function messages_tab_loaded() {
     });
     document.getElementById("popup-message").addEventListener("closed", function () {
         InPopupMessage = false;
+        previous_message = {};
+        first_message = {};
         $(".loading_message").remove();
         firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off();
         firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/last_message/seen_by').off();
@@ -262,16 +275,6 @@ function block_chat(data) {
     this.fphoto_block_chat.style.backgroundImage = "url(" + this.block_chat_photo + "";
     this.block_chat.appendChild(this.fphoto_block_chat);
 
-
-    $(this.fphoto_block_chat).on("click", function (e) {
-        let data = {
-            private_Id: block_chat.block_chat_member_private_id,
-            user_private_Id: window.localStorage.getItem("user_private_id"),
-        };
-        go_to_account(data);
-        e.stopPropagation();
-    });
-
     this.fconversation_title = document.createElement('label');
     this.fconversation_title.className = 'fconversation_title';
     this.fconversation_title.innerText = this.block_chat_title;
@@ -293,7 +296,9 @@ function block_chat(data) {
     this.block_chat.appendChild(this.fblock_chat_time);
 
     for (let i of Object.entries(this.block_chat_last_message.seen_by)) {
-        if (i[0] == window.localStorage.getItem("firebase_token")) {
+        if (i[0] == window.localStorage.getItem("firebase_token") ||
+            current_block_chat && current_block_chat.chat_id == block_chat.chat_id &&
+            InPopupMessage == true) {
             $(block_chat.block_chat).css("background-color", "#fff");
             block_chat.is_seen = true;
         }
@@ -302,12 +307,17 @@ function block_chat(data) {
 
 }
 // affichage de la date complete quand il s'est ecoulé plus de 2h entre 2 msg
-function block_message_date(time) {
+function block_message_date(time, prepend) {
     var block_message_date = this;
     this.label_block_message_date = document.createElement('li');
     this.label_block_message_date.className = 'label_block_message_date';
     this.label_block_message_date.innerText = set_timestamp(time, "label_block_message_date");
-    $("#fblock_message_content").append(this.label_block_message_date);
+    if (prepend) {
+        $("#fblock_message_content").prepend(this.label_block_message_date);
+    }
+    else {
+        $("#fblock_message_content").append(this.label_block_message_date);
+    }
 }
 // gestion de la vue des msg comme sur messenger
 function block_message_seen(data) {
@@ -483,7 +493,7 @@ function exclude(key) {
     return key.substring(0, key.length - 1) + String.fromCharCode(key.charCodeAt(key.length - 1) - 1);
 }
 
-// Affiche les msg precedent 20 par 20
+// Affiche les msg precedent 30 par 30
 function message_infinite_scroll(data, old_diff) {
     console.log("message_infinite_scroll was called");
     firebase.database().ref(FirebaseEnvironment + "/messages/" + data.chat_id).orderByKey().endAt(exclude(data.first_messake_key)).limitToLast(30)
@@ -499,18 +509,18 @@ function message_infinite_scroll(data, old_diff) {
                 can_load_more_message = false;
             }
             for (let i = 0; i < tab_all_messages.length; i++) {
-                previous_message = tab_all_messages[i][1];
-                let time = Math.floor((tab_all_messages[i][1].time - previous_message.time) / 1000 / 60 / 60);
-                previous_message = tab_all_messages[i][1];
-                if (time > 2) {
+                let time = Math.floor((first_message.time - tab_all_messages[i][1].time) / 1000 / 60);
+                first_message = tab_all_messages[i][1];
+                if (time >= 5) {
 
-                    block_message_date(tab_all_messages[i][1].time);
+                    block_message_date(tab_all_messages[i][1].time, true);
                 }
 
                 pop_block_message(tab_all_messages[i][0], tab_all_messages[i][1], true);
 
                 if (i == (tab_all_messages.length - 1) && tab_all_messages.length < 30) {
                     can_load_more_message = false;
+                    block_message_date(tab_all_messages[i][1].time, true);
                 }
                 if (i == (tab_all_messages.length - 1) && tab_all_messages.length == 30) {
                     can_load_more_message = true;
@@ -530,16 +540,19 @@ function live_chat(chat_id) {
     previous_message = {};
     firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id).limitToLast(30).on("child_added", function (snapshot, prevChildKey) {
         var html = "";
-        // give each message a unique ID
-        // show delete button if message is sent by me
+
+        if (prevChildKey == null) {
+            first_message = snapshot.val();
+            block_message_date(snapshot.val().time);
+        }
         if (!current_block_chat.first_messake_key) {
             current_block_chat.first_messake_key = prevChildKey;
         }
 
-        let time = Math.floor((snapshot.val().time - previous_message.time) / 1000 / 60 / 60);
+        let time = Math.floor((snapshot.val().time - previous_message.time) / 1000 / 60);
         previous_message = snapshot.val();
         previous_message.id = snapshot.key;
-        if (time >= 0.5) {
+        if (time >= 5) {
             block_message_date(snapshot.val().time);
         }
         pop_block_message(snapshot.key, snapshot.val());

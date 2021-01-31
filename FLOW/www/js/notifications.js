@@ -1039,8 +1039,8 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
             $("#InAppNotifNewMessage").text(data.message); // le message
             $("#InAppNotifNewMessageUsername").css("display", "block");
             $("#InAppNotifNewMessageIcone").css("display", "block");
+            $("#InAppNotifNewMessage").css("top", "calc(2.5 * var(--custom-vh))");
             $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
-            $(".f_in_app_notif").css("height", "calc(7 * var(--custom-vh))");
             NotifDuration = 4000;
             break;
 
@@ -1063,7 +1063,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
     setTimeout(function () {
         $(".f_in_app_notif").css("bottom", "-20vh");
         $("#InAppNotifNewMessageIcone").css("display", "none");
+        $("#InAppNotifNewMessage").css("top", "calc(1.5 * var(--custom-vh))");
         $("#InAppNotifNewMessageUsername").css("display", "none");
-        $(".f_in_app_notif").css("height", "auto");
     }, NotifDuration);
 }
