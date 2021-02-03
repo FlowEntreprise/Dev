@@ -89,6 +89,7 @@ exports.ProdEncodeMp3 = functions.storage.object().onFinalize(async (object) => 
             "chatId": object.metadata.chatId,
             "message": object.metadata.message,
             "Environnement": object.metadata.Environnement,
+            "audio_duration": object.metadata.audio_duration,
             "seen_by": {
               [object.metadata.senderId]: true
             },
@@ -186,6 +187,7 @@ exports.DevEncodeMp3 = functions.storage.object().onFinalize(async (object) => {
             "chatId": object.metadata.chatId,
             "message": object.metadata.message,
             "Environnement": object.metadata.Environnement,
+            "audio_duration": object.metadata.audio_duration,
             "seen_by": {
               [object.metadata.senderId]: true
             },
