@@ -19,6 +19,7 @@ let delete_vocal = false;
 let timer;
 let record_duration = 0;
 let block_photo_url;
+let dm_vocal_playing = false;
 
 function messages_tab_loaded() {
     $("#fnameCompte").on("click", function () {
@@ -104,6 +105,7 @@ function messages_tab_loaded() {
             record_duration += 1;
             if (!delete_vocal) $(".wave_vocal")[0].innerHTML = record_duration + "s";
         }, 1000);
+        startCapture(true);
     });
 
     $("#button_send_vocal").on("touchmove", function (e) {
@@ -133,6 +135,7 @@ function messages_tab_loaded() {
     });
 
     $("#button_send_vocal").on("touchend", function () {
+        stopCapture(!delete_vocal);
         recording_vocal = false;
         $(this).removeClass("pressed");
         $(this).removeClass("delete");
@@ -221,6 +224,7 @@ function messages_tab_loaded() {
         can_load_more_message = true;
         $("#div_send_message").css("transform", "translate3d(0vw, 0, 0)");
         $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
+        current_page = "dm_messages";
     });
     document.getElementById("popup-message").addEventListener("closed", function () {
         InPopupMessage = false;
@@ -239,7 +243,7 @@ function messages_tab_loaded() {
         $("#UploadProgressBar").css({
             "display": "none"
         });
-
+        current_page = "messages";
     });
 
     document.getElementById("popup-create-conversation").addEventListener("opened", function () {
@@ -344,6 +348,7 @@ function block_message_seen(data) {
 }
 
 function block_message(data, previous_message) {
+    let self = this;
     var block_message = this;
     this.message_id = data.id;
     this.sender_id = data.sender_id;
@@ -354,6 +359,7 @@ function block_message(data, previous_message) {
     this.seen_by = data.seen_by;
     this.block_message = document.createElement('li');
     this.image = data.image;
+    self.audio_url = data.audio;
 
     this.time_and_seen_container = document.createElement('div');
     this.time_and_seen_container.className = 'time_and_seen_container';
@@ -407,27 +413,27 @@ function block_message(data, previous_message) {
         pop_block_message_seen(current_block_chat.block_chat_photo);
     }*/
 
-    $(this.block_message).on("click", function () {
-        all_block_message.forEach(item => {
-            $(item.time_and_seen_container).css('display', 'none');
-        });
-        $(block_message.time_and_seen_container).css('display', 'block');
+    // tmp remove tap to show time on message
+    // $(this.block_message).on("click", function () {
+    //     all_block_message.forEach(item => {
+    //         $(item.time_and_seen_container).css('display', 'none');
+    //     });
+    //     $(block_message.time_and_seen_container).css('display', 'block');
 
-    });
+    // });
 
-    if (this.image) {
-        let self = this;
-        $(this.block_message).text("");
+    if (self.image) {
+        $(self.block_message).text("");
         let image = document.createElement("img");
-        image.src = this.image;
+        image.src = self.image;
         image.style.maxWidth = "54vw";
         image.style.maxHeight = "300px";
         image.style.objectFit = "contain";
         image.style.borderRadius = "4vw";
-        this.block_message.appendChild(image);
-        this.block_message.style.background = "transparent";
-        this.block_message.style.padding = "0px";
-        this.block_message.style.boxShadow = "none";
+        self.block_message.appendChild(image);
+        self.block_message.style.background = "transparent";
+        self.block_message.style.padding = "0px";
+        self.block_message.style.boxShadow = "none";
 
         image.onclick = function () {
             let popup_img = document.createElement("div");
@@ -438,8 +444,8 @@ function block_message(data, previous_message) {
             close.className = "dm_close_popup_img";
             close.onclick = function () {
                 let self2 = this;
-                this.parentNode.style.opacity = 0;
-                this.parentNode.style.transform = "translate3d(0, 0, 0) scale(0.5)";
+                self2.parentNode.style.opacity = 0;
+                self2.parentNode.style.transform = "translate3d(0, 0, 0) scale(0.5)";
                 setTimeout(function () {
                     self2.parentNode.parentNode.removeChild(self2.parentNode);
                 }, 500);
@@ -452,7 +458,140 @@ function block_message(data, previous_message) {
             }, 50);
 
         }
+    } else if (self.audio_url) {
+        console.log(this.sender_private_id, window.localStorage.getItem("user_private_id"));
+        console.log(self.audio_url);
+        self.audio_duration = data.audio_duration;
+        self.currentTime = 0;
+        self.offset_indicator = 0;
+        let local_flow = FlowLoader.DownloadFlow(self.audio_url);
+        console.log(local_flow);
+        local_flow.OnReady(function (url) {
+            self.audio = new Media(url, mediaSuccess, mediaFailure, mediaStatus);
+            console.log(self.audio);
+            // Solution HESS :
+            // let bs = new Audio(self.audio_url);
+            // bs.oncanplay = function () {
+            //     // self.setup(this.duration);
+            //     console.log(this.duration);
+            //     bs = undefined;
+            // };
+
+            function mediaSuccess(succ) {
+                console.log(succ);
+            }
+
+            function mediaFailure(err) {
+                console.log(err);
+            }
+
+            function mediaStatus(status) {
+                if (status == 4) {
+                    self.end();
+                } else {
+                    console.log(status)
+                }
+            }
+        });
+
+
+        // Set bubble width en fonction de la durée avec min et max pour que ça soit bg
+        let duration_width = Lerp(40, 60, self.audio_duration / 60);
+        self.block_message.style.width = parseInt(duration_width) + "vw";
+        // Line of bars expandable
+        let bars = document.createElement("div");
+        bars.className = "dm_vocal_bars";
+        self.block_message.appendChild(bars);
+        // Overlay indicator opacity 0.5 black
+        self.overlay_indicator = document.createElement("div");
+        self.overlay_indicator.className = "dm_vocal_overlay";
+        self.block_message.appendChild(self.overlay_indicator);
+        // Invisible range for media control
+        self.myRange = document.createElement("input");
+        self.myRange.type = "range";
+        self.myRange.className = "dm_vocal_slider";
+        self.myRange.min = "1";
+        self.myRange.max = "100";
+        self.myRange.value = "1";
+        self.block_message.appendChild(self.myRange);
+        // Play / Pause btn img + background color (nsm le blur I think)
+        self.play_btn = document.createElement("div");
+        self.play_btn.className = "dm_vocal_play_btn";
+        self.block_message.appendChild(self.play_btn);
+        self.play_btn.onclick = function () {
+            if (dm_vocal_playing) self.pause();
+            else self.play();
+        }
+
+        self.block_message.style.padding = "0";
+        self.block_message.classList.add("message_vocal_background");
+        // Right duration + background color (nsm le blur bis)
+        let duration_txt = document.createElement("div");
+        duration_txt.innerHTML = Math.round(self.audio_duration) + "s";
+        duration_txt.className = "dm_vocal_duration_txt";
+        self.block_message.appendChild(duration_txt);
+
+        self.play = function () {
+            // current_block_playing = block;
+            self.play_btn.classList.add("pause");
+            self.audio.play();
+            console.log(self.audio);
+            dm_vocal_playing = true;
+            // console.log(params.duration);
+            // console.log("play : " + block.currentTime);
+            self.overlay_indicator.style.transitionDuration = self.audio_duration - self.currentTime + "s";
+            self.overlay_indicator.style.display = "block";
+            // block.progress_div.style.borderTopRightRadius = '0vw';
+            self.overlay_indicator.style.width = "100%";
+            // block.isPlaying = true;
+            self.myRange.style.pointerEvents = "all";
+        }
+
+        self.pause = function () {
+            self.play_btn.classList.remove("pause");
+            dm_vocal_playing = false;
+            self.myRange.style.pointerEvents = "none";
+            self.overlay_indicator.style.transitionDuration = "0s";
+            self.audio.getCurrentPosition(
+                function (position) {
+                    console.log("actual pause");
+                    self.audio.pause();
+                    if (position == -1) position = 0;
+                    if (self.currentTime == -1) self.currentTime = 0;
+                    console.log("pause : " + position);
+                    console.log(self.currentTime);
+                    console.log("-->" + (position - self.currentTime));
+                    let width = ((position + self.offset_indicator) * 100) / self.audio_duration;
+                    self.overlay_indicator.style.width = width + "%";
+                    self.currentTime = position;
+                    // Reuse this code later for "listened" indicator in the future
+                    // if ((width >= 33 || self.currentTime <= 0) && canAddView && !stop) {
+                    //     console.log("listened !");
+                    // }
+                    // if (typeof callback === "function") callback();
+                },
+                function (err) {
+                    console.log(err);
+                }
+            );
+        }
+        self.end = function () {
+            dm_vocal_playing = false;
+            self.overlay_indicator.style.transitionDuration = "0s";
+            // self.overlay_indicator.style.borderTopRightRadius = '2vw';
+            self.overlay_indicator.style.opacity = "0";
+            self.pause();
+            setTimeout(function () {
+                self.overlay_indicator.style.opacity = "1";
+                self.overlay_indicator.style.width = "0%";
+                block.offset_indicator = 0.25;
+            }, 100);
+            self.currentTime = 0;
+        }
+
     }
+
+
 
 }
 

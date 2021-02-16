@@ -665,9 +665,6 @@ function Save(blob) {
 		}, 500);
 	} else if (current_page == "story") {
 		console.log("recorded story comment");
-		// $(".fstory_addcomment_confirmation")[0].style.opacity = 1;
-		// $(".fstory_addcomment_btn")[0].style.opacity = 0;
-		// $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";
 		var reader = new FileReader();
 		reader.readAsDataURL(blob);
 		reader.onloadend = function () {
@@ -677,7 +674,6 @@ function Save(blob) {
 
 			let story_comment = {
 				ObjectId: story_data[story_index].data[storyFlow_index].id,
-				// PrivatedId: window.localStorage.getItem("user_private_id"),
 				Sound: appState.blob64,
 				Duration: record_time,
 			};
@@ -686,11 +682,6 @@ function Save(blob) {
 			console.log("Send story comment to server");
 
 			ServerManager.AddStoryComment(story_comment);
-
-			// analytics.logEvent("upload_story_comment", {
-			//     private_id: story_comment.PrivatedId,
-			//     duration: story_comment.Duration
-			// });
 
 			facebookConnectPlugin.logEvent(
 				"upload_story_comment", {
@@ -706,14 +697,30 @@ function Save(blob) {
 			);
 		};
 
-		// $(".fstory_addcomment_cancel")[0].style.opacity = 0.5;
-		// $(".fstory_addcomment_cancel")[0].style.pointerEvents = "none";
-		// $(".fstory_addcomment_confirm")[0].style.pointerEvents = "none";
 		$(".fstory_addcomment_btn")[0].style.backgroundImage =
 			'url("src/icons/loading_circle.gif")';
 		$(".fstory_addcomment_btn")[0].style.pointerEvents = "none";
-		// $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
-		// $(".fstory_addcomment_btn")[0].style.opacity = 1;
+	} else if (current_page == "dm_messages") {
+		console.log("recorded dm vocal");
+		var reader = new FileReader();
+		reader.readAsDataURL(blob);
+		reader.onloadend = function () {
+			blob64 = reader.result;
+
+			let duration = audioDataBuffer.length / 16000;
+
+			let DataFirebase = {
+				content: blob64,
+				name: Date.now(),
+				chat_id: current_block_chat.chat_id,
+				LastOs: current_block_chat.members.LastOs,
+				registrationId: current_block_chat.members.registration_id,
+				memberId: current_block_chat.members.id,
+				profilePic: current_block_chat.members.profile_pic,
+				audio_duration: duration
+			};
+			ServerManager.UploadAudioToFirebase(DataFirebase);
+		};
 	}
 }
 
@@ -1041,7 +1048,7 @@ var mediaRecorder;
 /**
  * Start capturing audio.
  */
-var startCapture = function () {
+var startCapture = function (no_indicator) {
 	// siriWave.amplitude = (20 * 0.02) + 0.1;
 	// siriWave.speed = 0.2;
 	try {
@@ -1062,7 +1069,7 @@ var startCapture = function () {
 			$(".frecord_indicator").css({
 				display: "block",
 			});
-			UpdateRecordIndicator();
+			if (!no_indicator) UpdateRecordIndicator();
 			window.audioinput.start(captureCfg);
 			$(".frecord-btn")[0].style.background =
 				'url("src/icons/stop_icon.png") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054)';
@@ -1108,6 +1115,8 @@ var stopCapture = function (save) {
 				window.audioinput.getCfg().sampleRate,
 				window.audioinput.getCfg().channels
 			);
+			console.log(audioDataBuffer);
+			console.log(audioDataBuffer.duration);
 			encoder.encode([audioDataBuffer]);
 			console.log("Encoding WAV finished");
 			var blob = encoder.finish("audio/wav");

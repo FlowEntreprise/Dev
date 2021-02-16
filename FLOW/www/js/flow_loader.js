@@ -5,7 +5,7 @@ class FlowLoaderClass {
 
     DownloadFlow(url) {
         let returned_flow = this.flows.filter(flow => (flow.online_url == url));
-        // console.log(returned_flow);
+        console.log(returned_flow);
         if (returned_flow.length == 0) {
             let new_flow = new FlowObj(url);
             this.flows.push(new_flow);
@@ -23,7 +23,7 @@ class FlowObj {
         if (url.includes("blob")) {
             this.fileName = url.replace("blob:file:///", "");
         } else {
-            this.fileName = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+            this.fileName = url.substring(url.lastIndexOf('/') + 1, (url.lastIndexOf('/') + 1 + url.substring(url.lastIndexOf('/') + 1).indexOf('.')));
         }
         this.local_url = "";
         this.ready = false;
@@ -43,16 +43,16 @@ class FlowObj {
     }
 
     LoadFromUrl(url) {
-        // console.log(url);
+        console.log(url);
         let self = this;
         var xhr = new XMLHttpRequest();
-        // console.log("downloading flow from online url...");
+        console.log("downloading flow from online url...");
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
 
         xhr.onload = function () {
             if (this.status == 200) {
-                // console.log("flow successfully downloaded !");
+                console.log("flow successfully downloaded !");
                 var blob = new Blob([this.response], {
                     type: 'audio/mpeg'
                 });
@@ -67,7 +67,7 @@ class FlowObj {
                 // self.ready = true;
                 window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function (dirEntry) {
                     var isAppend = true;
-                    // console.log(blob, self.fileName);
+                    console.log(blob, self.fileName);
                     self.saveFile(dirEntry, blob, self.fileName);
                 }, function (err) {
                     console.error(err);
@@ -97,7 +97,7 @@ class FlowObj {
         fileEntry.createWriter(function (fileWriter) {
 
             fileWriter.onwriteend = function () {
-                // console.log("Successful file writed : " + fileWriter.localURL);
+                console.log("Successful file writed : " + fileWriter.localURL);
                 self.local_url = fileWriter.localURL;
                 self.ready = true;
             };
