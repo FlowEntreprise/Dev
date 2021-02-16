@@ -79,21 +79,21 @@ exports.ProdEncodeMp3 = functions.storage.object().onFinalize(async (object) => 
           console.log(`Audio url = ${url}`);
           // UPDATE REALTIME DATABASE ICI ET NE PAS OUBLIER DE SET LE SEEN
           let dataMessage = {
-            "sender_id": object.metadata.senderId, //sender firebase token
-            "member_id": object.metadata.memberId, //reciever firebase token
-            "member_LastOs": object.metadata.memberLastOs,
-            "member_registration_id": object.metadata.memberRegistrationId,
-            "member_profile_pic": object.metadata.memberprofilePic,
-            "sender_private_id": object.metadata.senderPrivateId,
-            "sender_fullname": object.metadata.senderFullName,
-            "chat_id": object.metadata.chatId,
-            "message": object.metadata.message,
-            "Environnement": object.metadata.Environnement,
-            "audio_duration": object.metadata.audio_duration,
+            "sender_id": object.metadata.senderId ? object.metadata.senderId : "", //sender firebase token
+            "member_id": object.metadata.memberId ? object.metadata.memberId : "", //reciever firebase token
+            "member_LastOs": object.metadata.memberLastOs ? object.metadata.memberLastOs : "",
+            "member_registration_id": object.metadata.memberRegistrationId ? object.metadata.memberRegistrationId : "",
+            "member_profile_pic": object.metadata.memberprofilePic ? object.metadata.memberprofilePic : "",
+            "sender_private_id": object.metadata.senderPrivateId ? object.metadata.senderPrivateId : "",
+            "sender_fullname": object.metadata.senderFullName ? object.metadata.senderFullName : "",
+            "chat_id": object.metadata.chatId ? object.metadata.chatId : "",
+            "message": object.metadata.message ? object.metadata.message : "",
+            "Environnement": object.metadata.Environnement ? object.metadata.Environnement : "",
+            "audio_duration": object.metadata.audio_duration ? object.metadata.audio_duration : "",
             "seen_by": {
               [object.metadata.senderId]: true
             },
-            "image": object.metadata.image,
+            "image": object.metadata.image ? object.metadata.image : "",
             "audio": url,
             "time": Date.now()
           };
@@ -159,9 +159,6 @@ exports.DevEncodeMp3 = functions.storage.object().onFinalize(async (object) => {
         await promisifyCommand(command);
         console.log('Output audio created at', targetTempFilePath);
 
-
-
-        console.log("delete wave file");
         await bucket.file(filePath).delete();
         // Uploading the audio.
         await bucket.upload(targetTempFilePath, { destination: targetStorageFilePath }).then(stuff => {
@@ -177,21 +174,21 @@ exports.DevEncodeMp3 = functions.storage.object().onFinalize(async (object) => {
           console.log(`Audio url = ${url}`);
           // UPDATE REALTIME DATABASE ICI ET NE PAS OUBLIER DE SET LE SEEN
           let dataMessage = {
-            "sender_id": object.metadata.senderId, //sender firebase token
-            "member_id": object.metadata.memberId, //reciever firebase token
-            "member_LastOs": object.metadata.memberLastOs,
-            "member_registration_id": object.metadata.memberRegistrationId,
-            "member_profile_pic": object.metadata.memberprofilePic,
-            "sender_private_id": object.metadata.senderPrivateId,
-            "sender_fullname": object.metadata.senderFullName,
-            "chat_id": object.metadata.chatId,
-            "message": object.metadata.message,
-            "Environnement": object.metadata.Environnement,
-            "audio_duration": object.metadata.audio_duration,
+            "sender_id": object.metadata.senderId ? object.metadata.senderId : "", //sender firebase token
+            "member_id": object.metadata.memberId ? object.metadata.memberId : "", //reciever firebase token
+            "member_LastOs": object.metadata.memberLastOs ? object.metadata.memberLastOs : "",
+            "member_registration_id": object.metadata.memberRegistrationId ? object.metadata.memberRegistrationId : "",
+            "member_profile_pic": object.metadata.memberprofilePic ? object.metadata.memberprofilePic : "",
+            "sender_private_id": object.metadata.senderPrivateId ? object.metadata.senderPrivateId : "",
+            "sender_fullname": object.metadata.senderFullName ? object.metadata.senderFullName : "",
+            "chat_id": object.metadata.chatId ? object.metadata.chatId : "",
+            "message": object.metadata.message ? object.metadata.message : "",
+            "Environnement": object.metadata.Environnement ? object.metadata.Environnement : "",
+            "audio_duration": object.metadata.audio_duration ? object.metadata.audio_duration : "",
             "seen_by": {
               [object.metadata.senderId]: true
             },
-            "image": object.metadata.image,
+            "image": object.metadata.image ? object.metadata.image : "",
             "audio": url,
             "time": Date.now()
           };
@@ -243,7 +240,7 @@ function updateMessage(dataMessage) {
 }
 
 function UpdateLastMessage(dataMessage) {
-  admin.database().ref(dataMessage.Environment + "/users/").update({
+  admin.database().ref(dataMessage.Environnement + "/users/").update({
     [dataMessage.member_id + '/chats/' + [dataMessage.chat_id] + "/time"]: dataMessage.time,
     [dataMessage.sender_id + '/chats/' + [dataMessage.chat_id] + "/time"]: dataMessage.time
   }).then(() => {
@@ -254,7 +251,7 @@ function UpdateLastMessage(dataMessage) {
       fullname: dataMessage.sender_fullname,
       chatId: dataMessage.chat_id
     };
-    if (dataMessage.memberLastOs === "ios") {
+    if (dataMessage.member_LastOs === "ios") {
       payload = {
         notification: {
           title: dataMessage.sender_fullname,
@@ -271,7 +268,7 @@ function UpdateLastMessage(dataMessage) {
         }
       };
     }
-    if (dataMessage.memberLastOs === "android") {
+    if (dataMessage.member_LastOs === "android") {
       payload = {
         data: {
           "title": dataMessage.sender_fullname,
@@ -293,7 +290,7 @@ function UpdateLastMessage(dataMessage) {
 
     return admin.messaging().sendToDevice(dataMessage.member_registration_id, payload, options);
   }).catch(err => {
-    console.log(`Unable get message id from Firebase ${err.message}`);
+    console.log(`Unable send notif from cloud functions ${err.message}`);
   });
 }
 
