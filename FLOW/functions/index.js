@@ -79,14 +79,14 @@ exports.ProdEncodeMp3 = functions.storage.object().onFinalize(async (object) => 
           console.log(`Audio url = ${url}`);
           // UPDATE REALTIME DATABASE ICI ET NE PAS OUBLIER DE SET LE SEEN
           let dataMessage = {
-            "senderId": object.metadata.senderId, //sender firebase token
-            "memberId": object.metadata.memberId, //reciever firebase token
-            "memberLastOs": object.metadata.memberLastOs,
-            "memberRegistrationId": object.metadata.memberRegistrationId,
-            "memberprofilePic": object.metadata.memberprofilePic,
-            "senderPrivateId": object.metadata.senderPrivateId,
-            "senderFullName": object.metadata.senderFullName,
-            "chatId": object.metadata.chatId,
+            "sender_id": object.metadata.senderId, //sender firebase token
+            "member_id": object.metadata.memberId, //reciever firebase token
+            "member_LastOs": object.metadata.memberLastOs,
+            "member_registration_id": object.metadata.memberRegistrationId,
+            "member_profile_pic": object.metadata.memberprofilePic,
+            "sender_private_id": object.metadata.senderPrivateId,
+            "sender_fullname": object.metadata.senderFullName,
+            "chat_id": object.metadata.chatId,
             "message": object.metadata.message,
             "Environnement": object.metadata.Environnement,
             "audio_duration": object.metadata.audio_duration,
@@ -177,14 +177,14 @@ exports.DevEncodeMp3 = functions.storage.object().onFinalize(async (object) => {
           console.log(`Audio url = ${url}`);
           // UPDATE REALTIME DATABASE ICI ET NE PAS OUBLIER DE SET LE SEEN
           let dataMessage = {
-            "senderId": object.metadata.senderId, //sender firebase token
-            "memberId": object.metadata.memberId, //reciever firebase token
-            "memberLastOs": object.metadata.memberLastOs,
-            "memberRegistrationId": object.metadata.memberRegistrationId,
-            "memberprofilePic": object.metadata.memberprofilePic,
-            "senderPrivateId": object.metadata.senderPrivateId,
-            "senderFullName": object.metadata.senderFullName,
-            "chatId": object.metadata.chatId,
+            "sender_id": object.metadata.senderId, //sender firebase token
+            "member_id": object.metadata.memberId, //reciever firebase token
+            "member_LastOs": object.metadata.memberLastOs,
+            "member_registration_id": object.metadata.memberRegistrationId,
+            "member_profile_pic": object.metadata.memberprofilePic,
+            "sender_private_id": object.metadata.senderPrivateId,
+            "sender_fullname": object.metadata.senderFullName,
+            "chat_id": object.metadata.chatId,
             "message": object.metadata.message,
             "Environnement": object.metadata.Environnement,
             "audio_duration": object.metadata.audio_duration,
@@ -214,7 +214,7 @@ exports.DevEncodeMp3 = functions.storage.object().onFinalize(async (object) => {
 
 
 function AddMessageToFirebase(dataMessage) {
-  let ref = admin.database().ref(dataMessage.Environnement + '/messages/' + dataMessage.chatId);
+  let ref = admin.database().ref(dataMessage.Environnement + '/messages/' + dataMessage.chat_id);
   ref.push().set(dataMessage).then(() => {
     return GetMessageId(dataMessage);
   }).catch(err => {
@@ -223,7 +223,7 @@ function AddMessageToFirebase(dataMessage) {
 }
 
 function GetMessageId(dataMessage) {
-  let ref = admin.database().ref(dataMessage.Environnement + '/messages/' + dataMessage.chatId);
+  let ref = admin.database().ref(dataMessage.Environnement + '/messages/' + dataMessage.chat_id);
   ref.once('value').then((snapshot) => {
     //console.log(snapshot);
     dataMessage.message_id = Object.keys(snapshot.val())[0];
@@ -235,7 +235,7 @@ function GetMessageId(dataMessage) {
 }
 
 function updateMessage(dataMessage) {
-  admin.database().ref(dataMessage.Environnement + '/chats/' + dataMessage.message_id + "/last_message/").update(dataMessage).then(() => {
+  admin.database().ref(dataMessage.Environnement + '/chats/' + dataMessage.chat_id + '/last_message/').update(dataMessage).then(() => {
     return UpdateLastMessage(dataMessage);
   }).catch(err => {
     console.log(`Unable to update message in Firebase ${err.message}`);
@@ -243,25 +243,25 @@ function updateMessage(dataMessage) {
 }
 
 function UpdateLastMessage(dataMessage) {
-  admin.database().ref(dataMessage.Environment).update({
-    ['/users/' + dataMessage.memberId + '/chats/' + [dataMessage.chatId] + "/time"]: dataMessage.time,
-    ['/users/' + dataMessage.senderId + '/chats/' + [dataMessage.chatId] + "/time"]: dataMessage.time
+  admin.database().ref(dataMessage.Environment + "/users/").update({
+    [dataMessage.member_id + '/chats/' + [dataMessage.chat_id] + "/time"]: dataMessage.time,
+    [dataMessage.sender_id + '/chats/' + [dataMessage.chat_id] + "/time"]: dataMessage.time
   }).then(() => {
     // Create a notification
     let payload;
     let sender_info = {
-      profil_pic: dataMessage.memberprofilePic,
-      fullname: dataMessage.senderFullName,
-      chatId: dataMessage.chatId
+      profil_pic: dataMessage.member_profile_pic,
+      fullname: dataMessage.sender_fullname,
+      chatId: dataMessage.chat_id
     };
     if (dataMessage.memberLastOs === "ios") {
       payload = {
         notification: {
-          title: dataMessage.senderFullName,
+          title: dataMessage.sender_fullname,
           body: "A envoyé un message vocal",
           sound: "default"
         }, data: {
-          "title": dataMessage.senderFullName,
+          "title": dataMessage.sender_fullname,
           "body": "message vocal",
           "type": "send_message",
           "sender_info": JSON.stringify(sender_info),
@@ -274,7 +274,7 @@ function UpdateLastMessage(dataMessage) {
     if (dataMessage.memberLastOs === "android") {
       payload = {
         data: {
-          "title": dataMessage.senderFullName,
+          "title": dataMessage.sender_fullname,
           "body": "A envoyé un message vocal",
           "type": "send_message",
           "sender_info": JSON.stringify(sender_info),
@@ -291,7 +291,7 @@ function UpdateLastMessage(dataMessage) {
       timeToLive: 60 * 60 * 24
     };
 
-    return admin.messaging().sendToDevice(dataMessage.memberRegistrationId, payload, options);
+    return admin.messaging().sendToDevice(dataMessage.member_registration_id, payload, options);
   }).catch(err => {
     console.log(`Unable get message id from Firebase ${err.message}`);
   });
