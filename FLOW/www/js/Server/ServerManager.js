@@ -56,7 +56,7 @@ const ServerParams = {
 	GetRandomFlow: "GetRandomFlow",
 	GetFlowOfTheDay: "GetFlowOfTheDay"
 };
-const FirebaseEnvironment = ServerParams.ServerURL == "https://api.flowappweb.com/" ? "prod" : "dev";
+var FirebaseEnvironment = ServerParams.ServerURL == "https://api.flowappweb.com/" ? "prod" : "dev";
 const apiTypes = {
 	Twitter: "twitter",
 	Google: "google",
@@ -68,7 +68,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-	constructor() {}
+	constructor() { }
 
 	/* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -173,7 +173,7 @@ class ServerManagerClass {
 				};
 				break;
 			default:
-				////console.log("Error in parameters sent to Connect() in ServerManager.");
+			////console.log("Error in parameters sent to Connect() in ServerManager.");
 		}
 		$.ajax({
 			type: "POST",
@@ -305,7 +305,7 @@ class ServerManagerClass {
 			success: function (response) {
 				check_app_version(response.Data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -322,7 +322,7 @@ class ServerManagerClass {
 			success: function (response) {
 				//console.log("User last connexion updated");
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -699,7 +699,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -723,7 +723,7 @@ class ServerManagerClass {
 					}
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -740,7 +740,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowUserFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -755,7 +755,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyInfosUser(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -771,7 +771,7 @@ class ServerManagerClass {
 				////console.log("on recup le getInfosUserNumber");
 				ShowInfosUserNumber(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -799,7 +799,7 @@ class ServerManagerClass {
 					ShowUserProfile(response);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -822,7 +822,7 @@ class ServerManagerClass {
 				////console.log(response);
 				UpdateFollowersList(response, data.follow_list);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -853,7 +853,7 @@ class ServerManagerClass {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -873,7 +873,7 @@ class ServerManagerClass {
 				// myApp.pullToRefreshTrigger(ptrContent);
 				callback(response, data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1269,7 +1269,7 @@ class ServerManagerClass {
 				ServerManager.UpdateRegisterId(data);*/
 				//console.log(registrationId);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1912,6 +1912,7 @@ class ServerManagerClass {
 	}
 
 	SetMessageToSeen(data) {
+		var FirebaseEnvironment = ServerParams.ServerURL == "https://api.flowappweb.com/" ? "prod" : "dev";
 		firebase.database().ref(FirebaseEnvironment).update({
 			['/messages/' + data.chat_id + '/' + data.message_id + '/seen_by/' + window.localStorage.getItem("firebase_token")]: true,
 			['/chats/' + data.chat_id + '/last_message/seen_by/' + window.localStorage.getItem("firebase_token")]: true
