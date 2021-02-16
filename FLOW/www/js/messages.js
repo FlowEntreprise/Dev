@@ -589,6 +589,38 @@ function block_message(data, previous_message) {
             self.currentTime = 0;
         }
 
+        self.myRange.addEventListener("input", function () {
+            // console.log("change");
+            // block.seek();
+            let progress = self.myRange.value;
+            self.overlay_indicator.style.transitionDuration = "0s";
+            if (progress > 99) progress = 99;
+            self.currentTime = (progress * self.audio_duration) / 100;
+            self.overlay_indicator.style.width = (self.currentTime * 100) / self.audio_duration + "%";
+        });
+
+        self.myRange.addEventListener("touchend", function () {
+            console.log("seek to : " + self.currentTime);
+            self.audio.seekTo(self.currentTime * 1000);
+            self.offset_indicator = 0;
+            self.play();
+            console.log("flow play");
+        });
+
+        self.myRange.addEventListener("touchstart", function (e) {
+            iosPolyfill(e, this);
+            this.focus();
+            self.pause();
+            let progress = self.myRange.value;
+            self.overlay_indicator.style.transitionDuration = self.audio_duration / 100 + "s";
+            if (progress > 99) progress = 99;
+            self.currentTime = (progress * self.audio_duration) / 100;
+            self.overlay_indicator.style.width = (self.currentTime * 100) / self.audio_duration + "%";
+        }, {
+            passive: true,
+        });
+
+
     }
 
 
