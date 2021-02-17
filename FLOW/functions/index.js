@@ -95,7 +95,8 @@ exports.ProdEncodeMp3 = functions.storage.object().onFinalize(async (object) => 
             },
             "image": object.metadata.image ? object.metadata.image : "",
             "audio": url,
-            "time": Date.now()
+            "time": Date.now(),
+            "progress_key": object.metadata.progress_key ? object.metadata.progress_key : ""
           };
           return AddMessageToFirebase(dataMessage);
         }).catch(err => {
@@ -190,7 +191,8 @@ exports.DevEncodeMp3 = functions.storage.object().onFinalize(async (object) => {
             },
             "image": object.metadata.image ? object.metadata.image : "",
             "audio": url,
-            "time": Date.now()
+            "time": Date.now(),
+            "progress_key": object.metadata.progress_key ? object.metadata.progress_key : ""
           };
           return AddMessageToFirebase(dataMessage);
         }).catch(err => {
