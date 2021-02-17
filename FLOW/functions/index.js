@@ -251,7 +251,7 @@ function UpdateLastMessage(dataMessage) {
     let sender_info = {
       profil_pic: dataMessage.member_profile_pic,
       fullname: dataMessage.sender_fullname,
-      chatId: dataMessage.chat_id
+      chat_id: dataMessage.chat_id
     };
     if (dataMessage.member_LastOs === "ios") {
       payload = {
