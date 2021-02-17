@@ -1978,6 +1978,7 @@ class ServerManagerClass {
 
 		console.log(data);
 		let storageRef = firebase.storage().ref(FirebaseEnvironment + "/" + data.chat_id + "/audio/" + data.name.toString());
+		let time = Date.now();
 		let metadata = {
 			//contentType: 'audio/mp3',
 			customMetadata: {
@@ -1989,14 +1990,14 @@ class ServerManagerClass {
 				"senderPrivateId": window.localStorage.getItem("user_private_id"),
 				"senderFullName": window.localStorage.getItem("user_name"),
 				"chatId": data.chat_id,
-				"message": data.message ? data.message : "",
+				"message": data.message ? data.message : "(Message vocal)",
 				"image": data.image ? data.image : "",
 				"audio": data.audio ? data.audio : "",
 				"Environnement": FirebaseEnvironment,
 				"lastOs": data.lastOs,
 				"registrationId": data.registrationId,
 				"audio_duration": data.audio_duration,
-				"time": Date.now()
+				"progress_key": time
 			}
 		};
 
@@ -2004,7 +2005,7 @@ class ServerManagerClass {
 		voiceRef.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
 			let progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
 			console.log('AUDIO Upload is ' + progress + '% done');
-			let vocal_id = metadata.customMetadata.time + metadata.customMetadata.chatId;
+			let vocal_id = metadata.customMetadata.progress_key + metadata.customMetadata.chatId;
 			UpdateProgressBar(progress - 5, vocal_id);
 		}, (e) => {
 			reject(e);
