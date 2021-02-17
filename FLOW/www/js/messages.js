@@ -20,6 +20,7 @@ let timer;
 let record_duration = 0;
 let block_photo_url;
 let dm_vocal_playing = false;
+let current_dm_audio;
 
 function messages_tab_loaded() {
     $("#fnameCompte").on("click", function () {
@@ -86,12 +87,12 @@ function messages_tab_loaded() {
         });
     });
 
-    $("#button_send_vocal").on("touchstart", function (e) {
+    $("#button_send_vocal>.handle").on("touchstart", function (e) {
         recording_vocal = true;
         touch_startx = e.touches[0].clientX;
         // touch_position.y = e.touches[0].clientY;
-        $(this).addClass("pressed");
-        $(this).css("transform", "translate3d(0, 0, 0) scale(1.2)");
+        $("#button_send_vocal").addClass("pressed");
+        $("#button_send_vocal").css("transform", "translate3d(0, 0, 0) scale(1.2)");
         $("#input_send_message").addClass("vocal");
         $("#button_send_message")[0].style.display = "none";
         $(".delete_vocal")[0].style.display = "block";
@@ -108,7 +109,7 @@ function messages_tab_loaded() {
         startCapture(true);
     });
 
-    $("#button_send_vocal").on("touchmove", function (e) {
+    $("#button_send_vocal>.handle").on("touchmove", function (e) {
         let offset = 0;
         let left_border = ((window.innerWidth) / 100) * 57 - 28;
         offset = touch_startx - e.touches[0].clientX;
@@ -119,27 +120,27 @@ function messages_tab_loaded() {
             delete_vocal = true;
             $("#input_send_message").addClass("delete");
             $(".delete_vocal").addClass("red");
-            $(this).addClass("delete");
+            $("#button_send_vocal").addClass("delete");
             $(".wave_vocal")[0].innerHTML = "annuler";
             $(".wave_vocal").css("color", "#FF5D5D");
         } else {
             delete_vocal = false;
             $("#input_send_message").removeClass("delete");
             $(".delete_vocal").removeClass("red");
-            $(this).removeClass("delete");
+            $("#button_send_vocal").removeClass("delete");
             $(".wave_vocal")[0].innerHTML = record_duration + "s";
             $(".wave_vocal").css("color", "#DE0F69");
         }
         $(".wave_vocal").css("transform", "translate3d(" + -true_offset + "px, 0, 0)");
-        $(this).css("transform", "translate3d(" + -offset + "px, 0, 0) scale(1.2)");
+        $("#button_send_vocal").css("transform", "translate3d(" + -offset + "px, 0, 0) scale(1.2)");
     });
 
-    $("#button_send_vocal").on("touchend", function () {
+    $("#button_send_vocal>.handle").on("touchend", function () {
         stopCapture(!delete_vocal);
         recording_vocal = false;
-        $(this).removeClass("pressed");
-        $(this).removeClass("delete");
-        $(this).css("transform", "translate3d(0, 0, 0) scale(0.7)");
+        $("#button_send_vocal").removeClass("pressed");
+        $("#button_send_vocal").removeClass("delete");
+        $("#button_send_vocal").css("transform", "translate3d(0, 0, 0) scale(0.7)");
         $(".wave_vocal").css("transform", "translate3d(0, 0, 0)");
         $(".wave_vocal").css("display", "none");
         $("#input_send_message").removeClass("vocal");
@@ -493,7 +494,7 @@ function block_message(data, previous_message) {
                 }
             }
         });
-
+        // Add "dm_blue_filter" if not my message !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         // Set bubble width en fonction de la durée avec min et max pour que ça soit bg
         let duration_width = Lerp(40, 60, self.audio_duration / 60);
@@ -501,10 +502,13 @@ function block_message(data, previous_message) {
         // Line of bars expandable
         let bars = document.createElement("div");
         bars.className = "dm_vocal_bars";
+        if ($(self.block_message).hasClass("block_message")) bars.classList.add("dm_blue_filter");
+
         self.block_message.appendChild(bars);
         // Overlay indicator opacity 0.5 black
         self.overlay_indicator = document.createElement("div");
         self.overlay_indicator.className = "dm_vocal_overlay";
+        if ($(self.block_message).hasClass("block_message")) self.overlay_indicator.classList.add("dm_blue_filter");
         self.block_message.appendChild(self.overlay_indicator);
         // Invisible range for media control
         self.myRange = document.createElement("input");
@@ -517,8 +521,11 @@ function block_message(data, previous_message) {
         // Play / Pause btn img + background color (nsm le blur I think)
         self.play_btn = document.createElement("div");
         self.play_btn.className = "dm_vocal_play_btn";
+        if ($(self.block_message).hasClass("block_message")) self.play_btn.classList.add("dm_blue_filter");
         self.block_message.appendChild(self.play_btn);
         self.play_btn.onclick = function () {
+            if (current_dm_audio && current_dm_audio != self) current_dm_audio.pause();
+
             if (dm_vocal_playing) self.pause();
             else self.play();
         }
@@ -529,10 +536,12 @@ function block_message(data, previous_message) {
         let duration_txt = document.createElement("div");
         duration_txt.innerHTML = Math.round(self.audio_duration) + "s";
         duration_txt.className = "dm_vocal_duration_txt";
+        if ($(self.block_message).hasClass("block_message")) duration_txt.classList.add("dm_blue_filter");
         self.block_message.appendChild(duration_txt);
 
         self.play = function () {
             // current_block_playing = block;
+            current_dm_audio = self;
             self.play_btn.classList.add("pause");
             self.audio.play();
             console.log(self.audio);

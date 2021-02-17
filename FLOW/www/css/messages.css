@@ -790,6 +790,14 @@
 	transition-duration: 0.1s;
 }
 
+#button_send_vocal>.handle {
+	width: 100%;
+	height: 100%;
+	background-color: red;
+	transform: scale(2);
+	opacity: 0;
+}
+
 .wave_vocal {
 	position: absolute;
 	width: 150px;
@@ -922,6 +930,10 @@
 	background-image: url("../src/icons/pause.png");
 }
 
+.dm_blue_filter {
+	filter: invert(61%) sepia(91%) saturate(2791%) hue-rotate(195deg) brightness(100%) contrast(98%);
+}
+
 .dm_vocal_bars {
 	position: absolute;
 	top: 0;
@@ -975,7 +987,7 @@
 	left: 0;
 	opacity: 0;
 	margin: 0;
-	/* pointer-events: none; */
+	pointer-events: none;
 }
 
 .dm_vocal_slider::-webkit-slider-thumb {
