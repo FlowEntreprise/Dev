@@ -226,6 +226,7 @@ function messages_tab_loaded() {
         $("#div_send_message").css("transform", "translate3d(0vw, 0, 0)");
         $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
         current_page = "dm_messages";
+        if (current_dm_audio) { current_dm_audio.pause(); }
     });
     document.getElementById("popup-message").addEventListener("closed", function () {
         InPopupMessage = false;
@@ -238,6 +239,7 @@ function messages_tab_loaded() {
         $("#div_send_message").css("transform", "translate3d(100vw, 0, 0)");
         $("#fblock_message_content").html("");
         stopAllBlocksAudio();
+        if (current_dm_audio) { current_dm_audio.pause(); }
         first_chat = false;
         all_block_message.length = 0;
         current_block_chat.first_messake_key = undefined;
@@ -460,6 +462,9 @@ function block_message(data, previous_message) {
 
         }
     } else if (self.audio_url) {
+        let upload_custom_key = data.time + current_block_chat.chat_id;
+        $("." + upload_custom_key + "").css("display", "none");
+        $("#UpdateProgressBar").removeClass(upload_custom_key);
         console.log(this.sender_private_id, window.localStorage.getItem("user_private_id"));
         console.log(self.audio_url);
         self.audio_duration = data.audio_duration;
@@ -631,8 +636,6 @@ function block_message(data, previous_message) {
 
 
     }
-
-
 
 }
 
@@ -930,11 +933,15 @@ function DisplayFollowingsPopupCreateConversation(data, follow_list) {
     }
 }
 
-function UpdateProgressBar(percent) {
+function UpdateProgressBar(percent, vocal_id) {
     $("#UploadProgressBar").css({
         "display": "block",
         "width": percent + "vw"
     });
+    if (vocal_id) {
+
+        $("#UploadProgressBar").addClass(vocal_id);
+    }
     if (percent == 100) {
         $("#UploadProgressBar").css("width", percent + "vw");
 
