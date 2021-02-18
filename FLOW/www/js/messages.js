@@ -137,6 +137,7 @@ function messages_tab_loaded() {
 
     $("#button_send_vocal>.handle").on("touchend", function () {
         stopCapture(!delete_vocal);
+        UpdateProgressBar(5);
         recording_vocal = false;
         $("#button_send_vocal").removeClass("pressed");
         $("#button_send_vocal").removeClass("delete");
