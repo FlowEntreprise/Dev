@@ -331,7 +331,14 @@ var app = {
 					-Pour generer le block_message_seen à l'ouverture d'une notif
 					- Pour generer les blocks message de l'epediteur à l'ouverture d'une notif
 					*/
-					setup_popup_message(data_popup_msg, true);
+					//setup_popup_message(data_popup_msg, true);
+					//app.showTab("#tab2");
+
+					if ($("#" + data_popup_msg.chat_id + "").length) {
+						$("#" + data_popup_msg.chat_id + "").trigger("click");
+					} else {
+						notif_chat_id = data_popup_msg.chat_id;
+					}
 					return;
 				}
 				if (data.additionalData.type == "story_comment") {
