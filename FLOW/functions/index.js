@@ -222,7 +222,7 @@ function AddMessageToFirebase(dataMessage) {
 }
 
 function GetMessageId(dataMessage) {
-  let ref = admin.database().ref(dataMessage.Environnement + '/messages/' + dataMessage.chat_id);
+  let ref = admin.database().ref(dataMessage.Environnement + '/messages/' + dataMessage.chat_id).limitToLast(1);
   ref.once('value').then((snapshot) => {
     //console.log(snapshot);
     dataMessage.message_id = Object.keys(snapshot.val())[0];
