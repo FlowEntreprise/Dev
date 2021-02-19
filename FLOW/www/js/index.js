@@ -333,6 +333,9 @@ var app = {
 					*/
 					//setup_popup_message(data_popup_msg, true);
 					//app.showTab("#tab2");
+					let loading_popup_message = document.createElement("div");
+					loading_popup_message.className = "loading-spinner loading_chat_list";
+					$(".home_parent").append(loading_popup_message);
 
 					if ($("#" + data_popup_msg.chat_id + "").length) {
 						$("#" + data_popup_msg.chat_id + "").trigger("click");
