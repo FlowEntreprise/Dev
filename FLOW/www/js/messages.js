@@ -320,9 +320,7 @@ function block_chat(data) {
     this.block_chat.appendChild(this.fblock_chat_time);
 
     for (let i of Object.entries(this.block_chat_last_message.seen_by)) {
-        if (i[0] == window.localStorage.getItem("firebase_token") ||
-            current_block_chat && current_block_chat.chat_id == block_chat.chat_id &&
-            InPopupMessage == true) {
+        if (i[0] == window.localStorage.getItem("firebase_token")) {
             $(block_chat.block_chat).css("background-color", "#fff");
             block_chat.is_seen = true;
         }

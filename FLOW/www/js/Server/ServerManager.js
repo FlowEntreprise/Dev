@@ -1891,7 +1891,18 @@ class ServerManagerClass {
 				Object.keys(ordered_chat).forEach(chat_id => {
 					firebase.database().ref(FirebaseEnvironment + "/chats/" + chat_id)
 						.once("value").then(chat_snapshot => {
-							ServerManager.GetFirebaseUserProfile(chat_snapshot.val(), callback, chat_id);
+							console.log("Data du chat");
+							console.log(chat_snapshot.val());
+							let chat_data = chat_snapshot.val();
+							firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id + "/" + chat_data.last_message.message_id)
+								.once("value").then(message_snapshot => {
+									console.log("Data du msg avant de recup la conv");
+									console.log(message_snapshot.val());
+									let data_message = message_snapshot.val();
+									chat_data.last_message.seen_by = data_message.seen_by;
+								}).then(function () {
+									ServerManager.GetFirebaseUserProfile(chat_data, callback, chat_id);
+								});
 						});
 				});
 
@@ -1905,14 +1916,13 @@ class ServerManagerClass {
 			"profile_pic": data.profile_pic,
 			"registration_id": registrationId,
 			"LastOs": data.LastOs,
-			"time": Date.now(),
-			["chats/" + window.localStorage.getItem("firebase_token") + "/time"]: Date.now()
+			"time": Date.now()
+			//["chats/" + window.localStorage.getItem("firebase_token") + "/time"]: Date.now()
 		});
 		ServerManager.NewChatListener(pop_block_chat);
 	}
 
 	SetMessageToSeen(data) {
-		var FirebaseEnvironment = ServerParams.ServerURL == "https://api.flowappweb.com/" ? "prod" : "dev";
 		firebase.database().ref(FirebaseEnvironment).update({
 			['/messages/' + data.chat_id + '/' + data.message_id + '/seen_by/' + window.localStorage.getItem("firebase_token")]: true,
 			['/chats/' + data.chat_id + '/last_message/seen_by/' + window.localStorage.getItem("firebase_token")]: true
