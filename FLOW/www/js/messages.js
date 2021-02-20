@@ -388,9 +388,7 @@ function block_message(data, previous_message) {
         this.time_and_seen_container.innerText = set_timestamp(this.block_message_time, true);
     }
 
-    if (!self.audio_url) {
-        $(this.block_message).text(this.block_message_text);
-    }
+    $(this.block_message).text(this.block_message_text);
     $(this.block_message).prepend(this.block_message_left_photo);
     this.block_message.id = this.message_id;
     $(this.block_message).append(this.time_and_seen_container);
@@ -470,7 +468,7 @@ function block_message(data, previous_message) {
 
         }
     } else if (self.audio_url) {
-        let upload_custom_key = data.progress_key + current_block_chat.chat_id;
+        let upload_custom_key = data.time + current_block_chat.chat_id;
         $("." + upload_custom_key + "").css("display", "none");
         $("#UpdateProgressBar").removeClass(upload_custom_key);
         console.log(this.sender_private_id, window.localStorage.getItem("user_private_id"));
