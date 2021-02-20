@@ -230,6 +230,7 @@ function messages_tab_loaded() {
         $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
         current_page = "dm_messages";
         if (current_dm_audio) { current_dm_audio.pause(); }
+notif_chat_id = undefined;
         console.log(" dm popup finish open");
     });
     document.getElementById("popup-message").addEventListener("closed", function () {
