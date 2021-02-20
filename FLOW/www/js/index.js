@@ -336,7 +336,7 @@ var app = {
 					let loading_popup_message = document.createElement("div");
 					loading_popup_message.className = "loading-spinner loading_chat_list";
 					$(".home_parent").append(loading_popup_message);
-					console.log("change for comit");
+
 					if ($("#" + data_popup_msg.chat_id + "").length) {
 						$("#" + data_popup_msg.chat_id + "").trigger("click");
 					} else {
