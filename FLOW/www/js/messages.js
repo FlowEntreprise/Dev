@@ -1,9 +1,11 @@
+/*use 'esversion: 8'*/
 var chat_id;
 var data_dm = {};
 var first_chat = false;
 var current_block_chat = {};
 var all_block_chat = [];
 var all_block_message = [];
+var notif_chat_id;
 var nb_block_chat_to_pop;
 var previous_message = {};
 var first_message = {}; // coresspond au premier des 20 msg recuperé donc le plus anciens des 20 premiers msg
@@ -137,6 +139,7 @@ function messages_tab_loaded() {
 
     $("#button_send_vocal>.handle").on("touchend", function () {
         stopCapture(!delete_vocal);
+        if (!delete_vocal) { UpdateProgressBar(5); }
         recording_vocal = false;
         $("#button_send_vocal").removeClass("pressed");
         $("#button_send_vocal").removeClass("delete");
@@ -226,6 +229,9 @@ function messages_tab_loaded() {
         $("#div_send_message").css("transform", "translate3d(0vw, 0, 0)");
         $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
         current_page = "dm_messages";
+        if (current_dm_audio) { current_dm_audio.pause(); }
+notif_chat_id = undefined;
+        console.log(" dm popup finish open");
     });
     document.getElementById("popup-message").addEventListener("closed", function () {
         InPopupMessage = false;
@@ -238,6 +244,7 @@ function messages_tab_loaded() {
         $("#div_send_message").css("transform", "translate3d(100vw, 0, 0)");
         $("#fblock_message_content").html("");
         stopAllBlocksAudio();
+        if (current_dm_audio) { current_dm_audio.pause(); }
         first_chat = false;
         all_block_message.length = 0;
         current_block_chat.first_messake_key = undefined;
@@ -317,14 +324,15 @@ function block_chat(data) {
     this.block_chat.appendChild(this.fblock_chat_time);
 
     for (let i of Object.entries(this.block_chat_last_message.seen_by)) {
-        if (i[0] == window.localStorage.getItem("firebase_token") ||
-            current_block_chat && current_block_chat.chat_id == block_chat.chat_id &&
-            InPopupMessage == true) {
+        if (i[0] == window.localStorage.getItem("firebase_token")) {
             $(block_chat.block_chat).css("background-color", "#fff");
             block_chat.is_seen = true;
         }
     }
     set_block_chat_seen();
+    if (notif_chat_id && notif_chat_id == this.chat_id) {
+        $(block_chat.block_chat).trigger("click");
+    }
 
 }
 // affichage de la date complete quand il s'est ecoulé plus de 2h entre 2 msg
@@ -460,6 +468,9 @@ function block_message(data, previous_message) {
 
         }
     } else if (self.audio_url) {
+        let upload_custom_key = data.time + current_block_chat.chat_id;
+        $("." + upload_custom_key + "").css("display", "none");
+        $("#UpdateProgressBar").removeClass(upload_custom_key);
         console.log(this.sender_private_id, window.localStorage.getItem("user_private_id"));
         console.log(self.audio_url);
         self.audio_duration = data.audio_duration;
@@ -632,8 +643,6 @@ function block_message(data, previous_message) {
 
     }
 
-
-
 }
 
 
@@ -662,7 +671,7 @@ function setup_popup_message(data, LiveChat) { // si on doit debuter le live cha
     $("#fblock_message_content").append(loading_msg);
 
     if (LiveChat == true) {
-        live_chat(data.chat_id);
+        live_chat(data);
     } else {
         $(loading_msg).removeClass("loading-spinner");
         $(loading_msg).text("Oups il n'y a aucun message dans cette conversation");
@@ -756,9 +765,9 @@ function message_infinite_scroll(data, old_diff) {
 }
 
 // Messagerie instantanéé
-function live_chat(chat_id) {
+function live_chat(data) {
     previous_message = {};
-    firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id).limitToLast(30).on("child_added", function (snapshot, prevChildKey) {
+    firebase.database().ref(FirebaseEnvironment + "/messages/" + data.chat_id).limitToLast(30).on("child_added", function (snapshot, prevChildKey) {
         var html = "";
 
         if (prevChildKey == null) {
@@ -777,7 +786,7 @@ function live_chat(chat_id) {
         }
         pop_block_message(snapshot.key, snapshot.val());
         let data_set_to_seen = {
-            chat_id: chat_id,
+            chat_id: data.chat_id,
             message_id: snapshot.key
         };
         ServerManager.SetMessageToSeen(data_set_to_seen);
@@ -785,13 +794,13 @@ function live_chat(chat_id) {
     });
 
     // Firebase listenener du seen_by
-    firebase.database().ref(FirebaseEnvironment + '/messages/' + chat_id).orderByChild('seen_by').limitToLast(1).on("value", function (child_change_snapshot) {
+    firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id).orderByChild('seen_by').limitToLast(1).on("value", function (child_change_snapshot) {
         if (child_change_snapshot.val() != null) {
             let user_who_seen = Object.entries(child_change_snapshot.val());
             user_who_seen = Object.entries(user_who_seen[0][1].seen_by);
             for (let i = 0; i < user_who_seen.length; i++) {
                 if (user_who_seen[i][0] != window.localStorage.getItem("firebase_token") && user_who_seen[i][1] == true)
-                    pop_block_message_seen(current_block_chat.block_chat_photo);
+                    pop_block_message_seen(data.profile_picture);
                 scroll_to_bottom($("#fblock_message_content"));
             }
         }
@@ -800,7 +809,7 @@ function live_chat(chat_id) {
 
 
     // Firebase listenener du is_typing
-    firebase.database().ref(FirebaseEnvironment + '/chats/' + chat_id).orderByChild('is_typing').on("value", function (is_typing_snapshot) {
+    firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id).orderByChild('is_typing').on("value", function (is_typing_snapshot) {
 
         if (is_typing_snapshot.val() && is_typing_snapshot.val().is_typing) {
             for (let i = 0; i < Object.keys(is_typing_snapshot.val().is_typing).length; i++) {
@@ -817,7 +826,7 @@ function live_chat(chat_id) {
                         is_typing.appendChild(span);
                     }
                     let chat_photo = document.createElement("div");
-                    chat_photo.style.background = "url('" + block_photo_url + "')";
+                    chat_photo.style.background = "url('" + data.profile_picture + "')";
                     is_typing.appendChild(chat_photo);
                     $("#fblock_message_content").append(is_typing);
 
@@ -841,7 +850,7 @@ function live_chat(chat_id) {
             $("#input_send_message").css("left", "3vw");
             autosize($("#input_send_message"));
             if (first_chat == false) {
-                firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing/')
+                firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + '/is_typing/')
                     .update({
                         [window.localStorage.getItem("firebase_token")]: true
                     });
@@ -863,7 +872,7 @@ function live_chat(chat_id) {
             $("#input_send_message").css("width", "calc(57vw - 38px)");
             $("#input_send_message").css("left", "calc(3vw + 60px + 6vw)");
             if (first_chat == false) {
-                firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/is_typing/')
+                firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + '/is_typing/')
                     .update({
                         [window.localStorage.getItem("firebase_token")]: false
                     });
@@ -930,11 +939,15 @@ function DisplayFollowingsPopupCreateConversation(data, follow_list) {
     }
 }
 
-function UpdateProgressBar(percent) {
+function UpdateProgressBar(percent, vocal_id) {
     $("#UploadProgressBar").css({
         "display": "block",
         "width": percent + "vw"
     });
+    if (vocal_id) {
+
+        $("#UploadProgressBar").addClass(vocal_id);
+    }
     if (percent == 100) {
         $("#UploadProgressBar").css("width", percent + "vw");
 
@@ -946,6 +959,8 @@ function UpdateProgressBar(percent) {
 
     }
 }
+
+
 
 /*------------------------TO DO-----------------------
 - Gestion des vues ----------DONE

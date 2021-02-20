@@ -1891,7 +1891,18 @@ class ServerManagerClass {
 				Object.keys(ordered_chat).forEach(chat_id => {
 					firebase.database().ref(FirebaseEnvironment + "/chats/" + chat_id)
 						.once("value").then(chat_snapshot => {
-							ServerManager.GetFirebaseUserProfile(chat_snapshot.val(), callback, chat_id);
+							console.log("Data du chat");
+							console.log(chat_snapshot.val());
+							let chat_data = chat_snapshot.val();
+							firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id + "/" + chat_data.last_message.message_id)
+								.once("value").then(message_snapshot => {
+									console.log("Data du msg avant de recup la conv");
+									console.log(message_snapshot.val());
+									let data_message = message_snapshot.val();
+									chat_data.last_message.seen_by = data_message.seen_by;
+								}).then(function () {
+									ServerManager.GetFirebaseUserProfile(chat_data, callback, chat_id);
+								});
 						});
 				});
 
@@ -1905,14 +1916,13 @@ class ServerManagerClass {
 			"profile_pic": data.profile_pic,
 			"registration_id": registrationId,
 			"LastOs": data.LastOs,
-			"time": Date.now(),
-			["chats/" + window.localStorage.getItem("firebase_token") + "/time"]: Date.now()
+			"time": Date.now()
+			//["chats/" + window.localStorage.getItem("firebase_token") + "/time"]: Date.now()
 		});
 		ServerManager.NewChatListener(pop_block_chat);
 	}
 
 	SetMessageToSeen(data) {
-		var FirebaseEnvironment = ServerParams.ServerURL == "https://api.flowappweb.com/" ? "prod" : "dev";
 		firebase.database().ref(FirebaseEnvironment).update({
 			['/messages/' + data.chat_id + '/' + data.message_id + '/seen_by/' + window.localStorage.getItem("firebase_token")]: true,
 			['/chats/' + data.chat_id + '/last_message/seen_by/' + window.localStorage.getItem("firebase_token")]: true
@@ -1968,7 +1978,7 @@ class ServerManagerClass {
 		uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
 			function (snapshot) {
 				let progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-				console.log('Upload is ' + progress + '% done');
+				console.log('IMG Upload is ' + progress + '% done');
 				UpdateProgressBar(progress);
 			});
 
@@ -2002,7 +2012,17 @@ class ServerManagerClass {
 
 		let voiceRef = storageRef.putString(data.content, firebase.storage.StringFormat.DATA_URL, metadata);
 		voiceRef.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
-			console.log("uploading");
+			let progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+			console.log('AUDIO Upload is ' + progress + '% done');
+<<<<<<< HEAD
+			let vocal_id = metadata.customMetadata.progress_key + metadata.customMetadata.chatId;
+			if (progress > 5) {
+				UpdateProgressBar(progress - 5, vocal_id);
+			}
+=======
+			let vocal_id = metadata.customMetadata.time + metadata.customMetadata.chatId;
+			UpdateProgressBar(progress - 5, vocal_id);
+>>>>>>> parent of 7258c83ab (update progress bar pour les vocaux)
 		}, (e) => {
 			reject(e);
 			console.log(JSON.stringify(e, null, 2));
