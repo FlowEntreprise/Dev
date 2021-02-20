@@ -1,8 +1,8 @@
 <!-- Tabs wrapper, shoud have "tabs" class. Required element -->
-<div class="pull-to-refresh-layer">
+<!-- <div class="pull-to-refresh-layer">
 	<div class="preloader"></div>
 	<div class="pull-to-refresh-arrow" id="ptr_arrow_explore"></div>
-</div>
+</div> -->
 
 <div class="search_results">
 	<label class="top_users_txt">Utilisateurs</label>
@@ -13,14 +13,22 @@
 		<!-- <div class='show_more_flows'>Afficher plus</div> -->
 	</div>
 </div>
-<div class="tabs explore_tabs">
-	<div class="tab active" id="top50">
+
+
+<div class="explore_tabs">
+	<div class="explore_view top50 active">
+		<div class="ptr_loading">
+			<div class="loading-spinner"></div>
+		</div>
 		<div class="list-block list-block-top50"></div>
 	</div>
-	<div class="tab" id="recents">
+	<div class="explore_view recents">
+		<div class="ptr_loading">
+			<div class="loading-spinner"></div>
+		</div>
 		<div class="list-block list-block-recents"></div>
 	</div>
-	<div class="tab" id="flowoftheday">
+	<div class="explore_view flowoftheday">
 		<div class="fdj_parent">
 			<canvas class="fdj_canvas"></canvas>
 			<div class="fdj_pp"></div>
@@ -39,11 +47,4 @@
 			</div>
 		</div>
 	</div>
-	<div class="tab" id="comingsoon">vide</div>
-	<div class="tab" id="sport"></div>
-	<div class="tab" id="comedy"></div>
-	<div class="tab" id="politic"></div>
-	<div class="tab" id="cooking"></div>
-	<div class="tab" id="Gaming"></div>
-	<div class="tab" id="ASMR"></div>
 </div>

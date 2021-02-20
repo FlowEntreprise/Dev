@@ -31,21 +31,32 @@ var app = {
 	},
 	onDeviceReady: function () {
 		Keyboard.hide();
+		let custom_vh = window.innerHeight / 100;
+		console.log(window.localStorage.getItem("custom_vh"), custom_vh);
+		if (window.localStorage.getItem("custom_vh")) {
+			custom_vh = window.localStorage.getItem("custom_vh");
+		} else {
+			window.localStorage.setItem("custom_vh", custom_vh);
+		}
+		document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
+
+		if (window.screen.height <= 600) {
+			document.body.classList.add("mobile600");
+		} else if (window.screen.height <= 700) {
+			document.body.classList.add("mobile700");
+		}
+
 		document.addEventListener("backbutton", onBackKeyDown, false);
-		setTimeout(function () {
-			Keyboard.hide();
-		}, 500);
+		setupApp();
 		setTimeout(function () {
 			if (!window.cordova.platformId == "android") {
 				StatusBar.overlaysWebView(false);
 			}
 			StatusBar.backgroundColorByHexString("#f7f7f8");
-			let custom_vh = window.innerHeight / 100;
-			document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
 
-			if (window.innerHeight <= 600) {
+			if (window.screen.height <= 600) {
 				document.body.classList.add("mobile600");
-			} else if (window.innerHeight <= 700) {
+			} else if (window.screen.height <= 700) {
 				document.body.classList.add("mobile700");
 			}
 			if (connected) {
@@ -60,71 +71,29 @@ var app = {
 			$(".custom_popup").css({
 				"opacity": "1"
 			})
-			setupFDJ();
-			setTimeout(function () {
-				let custom_vh = window.innerHeight / 100;
-				document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
-
-				if (window.innerHeight <= 600) {
-					document.body.classList.add("mobile600");
-				} else if (window.innerHeight <= 700) {
-					document.body.classList.add("mobile700");
-				}
-			}, 500);
 			cordova.plugins.notification.local.clearAll();
-
-			// if (window.localStorage.getItem("fdj_notif_setup") != "ok") {
-			// 	cordova.plugins.notification.local.clearAll();
-			// 	cordova.plugins.notification.local.schedule({
-			// 		title: 'Découvre le flow du jour !',
-			// 		text: "Seras-tu l'heureux élu 👑 ?",
-			// 		smallIcon: 'res://flow_icone_one_plus',
-			// 		color: '#1a84ef',
-			// 		type: "flow_du_jour",
-			// 		trigger: {
-			// 			every: {
-			// 				hour: 18,
-			// 				minute: 0,
-			// 			},
-			// 		}
-			// 	});
-			// 	window.localStorage.setItem("fdj_notif_setup", "ok");
-			// }
-			// cordova.plugins.notification.local.on('click', function () {
-			// 	console.log(" show flow du jour");
-			// 	app.showTab("#tab2");
-			// 	explore_categories.slideTo(0);
-			// });
-
-
 		}, 1200);
-
-
-
-
-
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
 
 		function keyboardShowHandler(e) {
 			// console.log('Keyboard height is: ' + e.keyboardHeight);
 		}
 
-		// This event fires when the keyboard will hide
 		window.addEventListener("native.keyboardhide", keyboardHideHandler);
 
 		function keyboardHideHandler(e) {
-			// console.log('Keyboard hidden');
+			console.log('Keyboard hidden');
 			if (in_identification) {
 				$(".after-record-block-container").css("margin-top", "-30vh");
 			}
 		}
 
 		IonicDeeplink.route({
-				"/flow/:FlowId": {
-					target: "flow",
-					parent: "flow",
-				},
+			"/flow/:FlowId": {
+				target: "flow",
+				parent: "flow",
 			},
+		},
 			function (match) {
 				console.log("deeplink match !", match);
 			},
@@ -221,9 +190,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -273,9 +242,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -286,25 +255,7 @@ var app = {
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
-		httpd =
-			cordova && cordova.plugins && cordova.plugins.CorHttpd ?
-			cordova.plugins.CorHttpd :
-			null;
-
-		// No need since no using workers anymore
-		// httpd.startServer({
-		//     'www_root': 'js/worker/',
-		//     'port': 8080,
-		//     'localhost_only': true
-		// }, function (url) {
-		//     // if server is up, it will return the url of http://<server ip>:port/
-		//     // the ip is the active network connection
-		//     // if no wifi or no cell, "127.0.0.1" will be returned.
-		//     console.log("server is started: " + url);
-		//     // createWorker();
-		// }, function (error) {
-		//     console.log("failed to start server: " + error);
-		// });
+		httpd = cordova && cordova.plugins && cordova.plugins.CorHttpd ? cordova.plugins.CorHttpd : null;
 
 		if (window.cordova && window.audioinput) {
 			// Subscribe to audioinput events
@@ -319,7 +270,8 @@ var app = {
 
 		var push = PushNotification.init({
 			android: {
-				icon: "flow_icone_one_plus",
+				icon: device.manufacturer == "OnePlus" ?
+					"flow_icone_one_plus" : "flow_icone",
 			},
 			ios: {
 				alert: "true",
@@ -328,17 +280,9 @@ var app = {
 			},
 		});
 
-		let topic = window.cordova.platformId == "ios" ? "all-ios" : "all-android";
-
-		push.subscribe(topic, function () {
-			console.log('subscribe success: ' + topic);
-		}, function (e) {
-			console.log()('subscribe error:');
-		});
-
 		push.on("registration", function (data) {
 			// data.registrationId
-			console.log(data.registrationId);
+			//console.log(data.registrationId);
 			registrationId = data.registrationId;
 
 			if (window.cordova.platformId == "ios" && registrationId.length < 100) {
@@ -354,19 +298,51 @@ var app = {
 			}
 		});
 
+		let topic = "all-android";
+
+		push.subscribe(topic, function () {
+			//alert('subscribe success: ' + topic);
+		}, function (e) {
+			//alert('subscribe error:');
+			//alert(e);
+		});
+
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
 			pas dans l'application */
-			console.log(data);
-			console.log("pluggin push chris");
-
+			//console.log("data notif firebase");
+			//console.log(data);
 			if (data.additionalData.foreground == false) {
 				Popup("popup-specifique", false);
 				Popup("popup-comment", false);
-				if (window.cordova.platformId == "ios" && data.additionalData.type != "flow_du_jour") {
+				if (window.cordova.platformId == "ios") {
 					data.additionalData.sender_info = JSON.parse(
 						data.additionalData.sender_info
 					);
+				}
+				if (data.additionalData.type == "send_message") {
+					Popup("popup-message", false);
+					let data_popup_msg = {
+						profile_picture: data.additionalData.sender_info.profil_pic,
+						fullname: data.additionalData.sender_info.fullname,
+						chat_id: data.additionalData.sender_info.chat_id
+					};
+					/*
+					-Pour generer le block_message_seen à l'ouverture d'une notif
+					- Pour generer les blocks message de l'epediteur à l'ouverture d'une notif
+					*/
+					//setup_popup_message(data_popup_msg, true);
+					//app.showTab("#tab2");
+					let loading_popup_message = document.createElement("div");
+					loading_popup_message.className = "loading-spinner loading_chat_list";
+					$(".home_parent").append(loading_popup_message);
+
+					if ($("#" + data_popup_msg.chat_id + "").length) {
+						$("#" + data_popup_msg.chat_id + "").trigger("click");
+					} else {
+						notif_chat_id = data_popup_msg.chat_id;
+					}
+					return;
 				}
 				if (data.additionalData.type == "story_comment") {
 					return;
@@ -374,7 +350,6 @@ var app = {
 				if (data.additionalData.type == "flow_du_jour") {
 					app.showTab("#tab2");
 					explore_categories.slideTo(0);
-					setupFDJ();
 					return;
 				}
 				if (data.additionalData.type == "follow") {
@@ -421,39 +396,37 @@ var app = {
 				}
 				refresh_notif(true);
 			}
-			if (data.additionalData.foreground == true && data.additionalData.type != "flow_du_jour") {
+			if (data.additionalData.foreground == true) {
 				in_app_notif(data);
 				refresh_notif();
 			}
 		});
 
 		push.on("error", function (e) {
-			console.log(e.message);
+			//console.log(e.message);
 		});
 
-		CheckIfConnected();
-		setTimeout(function () {
-			let _root = document.documentElement;
-			let _myvar = window.innerHeight / 100;
-			_root.style.setProperty("--custom-vh", _myvar + "px");
-		}, 500);
+		firebase.initializeApp(firebaseConfig);
 	},
 };
 
 app.initialize();
 
-var $$ = Dom7;
 
-var app = new Framework7({
-	showBarsOnPageScrollEnd: false,
-	material: false,
-	tapHold: true,
-	tapHoldDelay: 300,
-	input: {
-		scrollIntoViewOnFocus: true,
-		scrollIntoViewCentered: true,
-	}, //enable tap hold events
-});
+// app.initialize();
+
+// var $$ = Dom7;
+
+// var app = new Framework7({
+// 	showBarsOnPageScrollEnd: false,
+// 	material: false,
+// 	tapHold: true,
+// 	tapHoldDelay: 300,
+// 	input: {
+// 		scrollIntoViewOnFocus: true,
+// 		scrollIntoViewCentered: true,
+// 	}, //enable tap hold events
+// });
 
 var storage = window.localStorage;
 
@@ -532,6 +505,7 @@ function check_app_version(app_version) {
 	}, 1000);
 }
 
+
 function offline() {
 	console.log("you are offline");
 	pullToRefreshEnd();
@@ -558,13 +532,13 @@ var tab1_count = 0;
 var tab2_count = 0;
 var tab3_count = 0;
 var tab4_count = 0;
-$(".fhome-btn").on("click", function () {
+$(".home_btn").on("click", function () {
 	tab1_count++;
 	setTimeout(function () {
 		tab1_count = 0;
 	}, 1000);
 });
-$(".fexplore-btn").on("click", function () {
+$(".explore_btn").on("click", function () {
 	if (tab1_count == 2) {
 		tab2_count++;
 		setTimeout(function () {
@@ -572,7 +546,7 @@ $(".fexplore-btn").on("click", function () {
 		}, 1000);
 	}
 });
-$(".fmessages-btn").on("click", function () {
+$(".messages_btn").on("click", function () {
 	if (tab2_count == 1) {
 		tab3_count++;
 		setTimeout(function () {
@@ -580,14 +554,16 @@ $(".fmessages-btn").on("click", function () {
 		}, 1000);
 	}
 });
-$(".fnotif-btn").on("click", function () {
+$(".notifications_btn").on("click", function () {
 	if (tab3_count == 5) {
 		if (ServerParams.ServerURL == "https://api-test.flowappweb.com/") {
 			DisconnectUser();
 			ServerParams.ServerURL = "https://api.flowappweb.com/";
+			FirebaseEnvironment = "prod";
 		} else if (ServerParams.ServerURL == "https://api.flowappweb.com/") {
 			DisconnectUser();
 			ServerParams.ServerURL = "https://api-test.flowappweb.com/";
+			FirebaseEnvironment = "dev";
 		}
 		setTimeout(function () {
 			tab4_count = 0;

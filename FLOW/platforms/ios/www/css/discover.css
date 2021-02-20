@@ -1,0 +1,10 @@
+#discover_container {
+    margin-top: 5vh;
+    width: 100%;
+    height: 50vh;
+    background-color: red;
+}
+
+#discover_slide {
+    border: 1px solid blue;
+}

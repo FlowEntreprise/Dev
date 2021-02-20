@@ -1,5 +1,6 @@
 var canShowNavbar = true;
 var explore_tabs_initialised = false;
+var discover_swiper_initialised = false;
 var in_comments = false;
 var in_likes = false;
 var in_specifique = false;
@@ -14,18 +15,19 @@ var explore_categories = null;
 var in_top50 = true;
 var in_recents = false;
 var in_flowoftheday = false;
-$("#tab1").load("pages/home.html");
-$("#tab2").load("pages/explore.html");
-$("#tab3").load("pages/messages.html");
-$("#tab4").load("pages/notifications.html");
+//Framework7
+// $("#tab1").load("pages/home.html");
+// $("#tab2").load("pages/explore.html");
+// $("#tab3").load("pages/messages.html");
+// $("#tab4").load("pages/notifications.html");
 
-$(".navbar").css({
+$(".main_topbar").css({
 	display: "block",
 	height: "calc(19 * var(--custom-vh))",
 });
 // $("#popup-myaccount").find(".popup_content").load("pages/myAccount.html");
 
-$$("#tab1").on("tab:show", function () {
+function inHome() {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
@@ -43,11 +45,12 @@ $$("#tab1").on("tab:show", function () {
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
-	$(".navbar").css({
+	$(".main_topbar").css({
 		display: "block",
 		height: "calc(19 * var(--custom-vh))",
 	});
-	app.showNavbar($(".navbar"));
+	// app.showNavbar($(".navbar"));
+	showTopBar(main_topbar);
 	canShowNavbar = true;
 	current_page = "home";
 
@@ -57,22 +60,27 @@ $$("#tab1").on("tab:show", function () {
 	$(".fexplore-bar").css({
 		display: "none",
 	});
+	$(".fmessages-bar").css({
+		display: "none",
+	});
 	$(".fnotifications-bar").css({
 		display: "none",
 	});
 	if (window.cordova.platformId == "ios") {
 		$(".faccount").css({
 			top: "calc(0 * var(--custom-vh) + 47px)",
+			display: "block",
 		});
 	} else {
 		$(".faccount").css({
 			top: "calc(0 * var(--custom-vh) + 17px)",
+			display: "block",
 		});
 	}
 	stopAllBlocksAudio();
-});
+}
 
-$$("#tab2").on("tab:show", function () {
+function inExplore() {
 	let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
@@ -88,40 +96,16 @@ $$("#tab2").on("tab:show", function () {
 		}
 	);
 	$(".fred_dot_toolbar_explore").css("display", "none");
-	if (explore_categories) {
-		if (explore_categories.realIndex == 0) {
-			if (in_flowoftheday) $("#tab2").scrollTop(0);
-			$(".fred_dot_toolbar_fdj").css("display", "none");
-			in_top50 = false;
-			in_recents = false;
-			in_flowoftheday = true;
-			if (showingFDJ && youAreFDJ) {
-				startFDJParticles();
-				setTimeout(function () {
-					stopFDJParticles();
-				}, 5000);
-			}
-		}
-		if (explore_categories.realIndex == 1) {
-			if (in_recents) $("#tab2").scrollTop(0);
-			in_top50 = true;
-			in_recents = false;
-			in_flowoftheday = false;
-		} else if (explore_categories.realIndex == 2) {
-			if (in_top50) $("#tab2").scrollTop(0);
-			in_top50 = false;
-			in_recents = true;
-			in_flowoftheday = false;
-		}
-	}
+
 
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
-	$(".navbar").css({
+	$(".main_topbar").css({
 		display: "block",
 		height: "calc(19 * var(--custom-vh))",
 	});
-	app.showNavbar($(".navbar"));
+	// app.showNavbar($(".navbar"));
+	showTopBar(main_topbar);
 	canShowNavbar = true;
 	current_page = "explore";
 
@@ -131,33 +115,74 @@ $$("#tab2").on("tab:show", function () {
 	$(".fexplore-bar").css({
 		display: "block",
 	});
+	$(".fmessages-bar").css({
+		display: "none",
+	});
 	$(".fnotifications-bar").css({
 		display: "none",
 	});
 	if (window.cordova.platformId == "ios") {
 		$(".faccount").css({
 			top: "calc(0 * var(--custom-vh) + 47px)",
+			display: "block",
 		});
 	} else {
 		$(".faccount").css({
 			top: "calc(0 * var(--custom-vh) + 17px)",
+			display: "block",
 		});
 	}
 	if (!explore_tabs_initialised) {
-		let mySwiper = app.swiper(".swiper-3", {
-			pagination: ".swiper-3 .swiper-pagination",
-			spaceBetween: 0,
-			slidesPerView: 3,
+		// Framework7
+		// let mySwiper = app.swiper(".swiper-3", {
+		// 	pagination: ".swiper-3 .swiper-pagination",
+		// 	spaceBetween: 0,
+		// 	slidesPerView: 3,
+		// });
+
+		explore_categories = new Swiper(".explore-swiper", {
+			slidesPerView: 3
 		});
 
-		explore_categories = mySwiper;
-
-		mySwiper.on("slideChangeStart", function () {
-			var target = "#" + $(".swiper-slide-next").attr("target");
-			app.showTab(target);
+		explore_categories.on("slideChange", function () {
+			$(".explore_view").removeClass("active");
+			if (explore_categories.activeIndex == 0) {
+				$(".flowoftheday").addClass("active");
+				if (in_flowoftheday) $(".explore_view.active").scrollTop(0);
+				$(".fred_dot_toolbar_fdj").css("display", "none");
+				in_top50 = false;
+				in_recents = false;
+				in_flowoftheday = true;
+				if (showingFDJ && youAreFDJ) {
+					startFDJParticles();
+					setTimeout(function () {
+						stopFDJParticles();
+					}, 5000);
+				}
+			}
+			if (explore_categories.activeIndex == 1) {
+				$(".top50").addClass("active");
+				if (in_recents) $(".explore_view.active").scrollTop(0);
+				in_top50 = true;
+				in_recents = false;
+				in_flowoftheday = false;
+			} else if (explore_categories.activeIndex == 2) {
+				$(".recents").addClass("active");
+				if (in_top50) $(".explore_view.active").scrollTop(0);
+				in_top50 = false;
+				in_recents = true;
+				in_flowoftheday = false;
+			} else if (explore_categories.activeIndex == 3) {
+				$(".discover").addClass("active");
+				if (!discover_swiper_initialised) {}
+			}
 		});
 
-		explore_categories = mySwiper;
+		// Framework7
+		// mySwiper.on("slideChangeStart", function () {
+		// var target = "#" + $(".swiper-slide-next").attr("target");
+		// app.showTab(target);
+		// });
 
 		$(".flowoftheday_btn")[0].addEventListener("click", function () {
 			explore_categories.slideTo(0);
@@ -176,9 +201,9 @@ $$("#tab2").on("tab:show", function () {
 		explore_tabs_initialised = true;
 	}
 	stopAllBlocksAudio();
-});
+}
 
-$$("#tab3").on("tab:show", function () {
+function inMessages() {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
@@ -196,33 +221,54 @@ $$("#tab3").on("tab:show", function () {
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
-	$(".navbar").css({
+	$(".main_topbar").css({
+		display: "block",
+		height: "calc(14 * var(--custom-vh))",
+	});
+	$(".faccount").css({
 		display: "none",
 	});
-	if (window.cordova.platformId == "ios") {
-		$(".faccount").css({
-			top: "calc(0 * var(--custom-vh) + 47px)",
-		});
-	} else {
-		$(".faccount").css({
-			top: "calc(0 * var(--custom-vh) + 17px)",
-		});
-	}
-	app.hideNavbar($(".navbar"));
-	canShowNavbar = false;
+	// if (window.cordova.platformId == "ios") {
+	// 	$(".faccount").css({
+	// 		top: "calc(0 * var(--custom-vh) + 47px)",
+	// 	});
+	// } else {
+	// 	$(".faccount").css({
+	// 		top: "calc(0 * var(--custom-vh) + 17px)",
+	// 	});
+	// }
+
+	// app.showNavbar($(".navbar"));
+	showTopBar(main_topbar);
+	canShowNavbar = true;
 	current_page = "messages";
+
+	$(".fhome-bar").css({
+		display: "none",
+	});
+	$(".fexplore-bar").css({
+		display: "none",
+	});
+	$(".fmessages-bar").css({
+		display: "block",
+	});
+	$(".fnotifications-bar").css({
+		display: "none",
+	});
+	///////////
 
 	if (!connected) {
 		setTimeout(function () {
-			app.showTab("#tab1");
+			// app.showTab("#tab1");
+			pages_swiper.slideTo(0);
 			Popup("popup-connect", true, 60);
 		}, 100);
 	}
 
 	stopAllBlocksAudio();
-});
+};
 
-$$("#tab4").on("tab:show", function () {
+function inNotifications() {
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
@@ -241,17 +287,18 @@ $$("#tab4").on("tab:show", function () {
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
 	if (window.cordova.platformId == "android") {
-		$(".navbar").css({
+		$(".main_topbar").css({
 			display: "block",
 			height: "calc(8 * var(--custom-vh))",
 		});
 	} else {
-		$(".navbar").css({
+		$(".main_topbar").css({
 			display: "block",
 			height: "calc(8 * var(--custom-vh) + 15px)",
 		});
 	}
-	app.showNavbar($(".navbar"));
+	// app.showNavbar($(".navbar"));
+	showTopBar(main_topbar);
 	canShowNavbar = true;
 	current_page = "home";
 
@@ -261,6 +308,9 @@ $$("#tab4").on("tab:show", function () {
 	$(".fexplore-bar").css({
 		display: "none",
 	});
+	$(".fmessages-bar").css({
+		display: "none",
+	});
 	$(".fnotifications-bar").css({
 		display: "block",
 	});
@@ -268,28 +318,17 @@ $$("#tab4").on("tab:show", function () {
 	current_page = "notifications";
 	$(".faccount").css({
 		top: "calc(1 * var(--custom-vh) + 7px)",
+		display: "block",
 	});
 	if (!connected) {
 		setTimeout(function () {
-			app.showTab("#tab1");
+			// app.showTab("#tab1");
+			pages_swiper.slideTo(0);
 			Popup("popup-connect", true, 60);
 		}, 100);
 	}
 
 	stopAllBlocksAudio();
-});
-
-$$(".fnav-btn").on("touchstart", function () {
-	if (!$$(this).hasClass("fflow-btn")) {
-		PlayNavRipple($$(this));
-	}
-});
-
-function PlayNavRipple(element) {
-	// element.removeClass('fripple');
-	// setTimeout(function () {
-	//     element.addClass('fripple');
-	// }, 10);
 }
 
 var current_page = "home";
@@ -394,18 +433,18 @@ function onBackKeyDown() {
 		Popup("popup-myaccount", false);
 		current_page = "home";
 		stopAllBlocksAudio();
-		$(".fflow-btn").css("display", "block");
-		$(".flow-btn-shadow").css("display", "block");
-		$(".fflow-btn").css("z-index", "1");
-		$(".flow-btn-shadow").css("z-index", "0");
+		$(".flow_btn_img").css("display", "block");
+		$(".flow_btn_shadow").css("display", "block");
+		$(".flow_btn_img").css("z-index", "1");
+		$(".flow_btn_shadow").css("z-index", "0");
 	} else if (current_page == "account") {
 		Popup("popup-account", false);
 		current_page = "home";
 		stopAllBlocksAudio();
-		$(".fflow-btn").css("display", "block");
-		$(".flow-btn-shadow").css("display", "block");
-		$(".fflow-btn").css("z-index", "1");
-		$(".flow-btn-shadow").css("z-index", "0");
+		$(".flow_btn_img").css("display", "block");
+		$(".flow_btn_shadow").css("display", "block");
+		$(".flow_btn_img").css("z-index", "1");
+		$(".flow_btn_shadow").css("z-index", "0");
 	} else if (current_page == "home") {
 		// navigator.app.exitApp();
 		stopAllBlocksAudio();

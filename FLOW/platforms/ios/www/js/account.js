@@ -3,7 +3,8 @@ var followYou;
 var privateIDAccount;
 var nameCompte;
 var bioCompte;
-var mainView = app.addView(".view-main");
+//Framework7
+var mainView = null; //app.addView(".view-main");
 var FlowBandeau;
 var Follower;
 var Following;
@@ -18,8 +19,10 @@ var LastOs;
 var user_is_blocked;
 var blocked_by_user;
 var last_scroll = 0;
+var account_fullname;
+var FirebaseToken;
 
-function alertDismissed() {}
+function alertDismissed() { }
 
 function fInitialisationAccount(privateId) {
 	$("#UserActivity")[0].innerHTML = "";
@@ -135,7 +138,8 @@ document
 	.addEventListener("opened", function () {
 		last_scroll = 0;
 		current_page = "account";
-		app.showTab("#tabCompte1");
+		// app.showTab("#tabCompte1");
+		account_swiper.slideTo(0);
 		$(".ftabsAccount")[0].style.display = "block";
 		$("#tabCompte2").css("display", "block");
 		// $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
@@ -160,14 +164,25 @@ document
 		boolScrollTop = true;
 		$("#UserActivity").addClass("fblockAccountPadding");
 
+		$("#activity").on("click", function () {
+			if (!$("#activity").hasClass("active")) $("#activity").addClass("active");
+			$("#likes").removeClass("active");
+			account_swiper.slideTo(0);
+		})
+		$("#likes").on("click", function () {
+			if (!$("#likes").hasClass("active")) $("#likes").addClass("active");
+			$("#activity").removeClass("active");
+			account_swiper.slideTo(1);
+		})
+
 		stopAllBlocksAudio();
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -181,8 +196,8 @@ document
 		// analytics.setCurrentScreen(current_page);
 
 		// $(".ftabsAccount")[0].setAttribute("style", "height:68% !important");
-		$(".fflow-btn").css("display", "none");
-		$(".flow-btn-shadow").css("display", "none");
+		$(".flow_btn_img").css("display", "none");
+		$(".flow_btn_shadow").css("display", "none");
 
 		if (connected == false) {
 			$("#block_button").css("display", "none");
@@ -207,12 +222,24 @@ document
 		var scroll_element = $("#tabCompte1");
 		scroll_element[0].scrollTop = 0;
 		checkScrollAccount();
-		$$("#tabCompte1").on("tab:show", function () {
+		account_swiper.on('slideChange', function () {
+			if (account_swiper.activeIndex == 0) {
+				scroll_element = $("#tabCompte1");
+				if (!$("#activity").hasClass("active")) $("#activity").addClass("active");
+				$("#likes").removeClass("active");
+			} else {
+				scroll_element = $("#tabCompte2");
+				if (!$("#likes").hasClass("active")) $("#likes").addClass("active");
+				$("#activity").removeClass("active");
+			}
+			checkScrollAccount();
+		});
+		$("#tabCompte1").on("tab:show", function () {
 			scroll_element = $("#tabCompte1");
 			checkScrollAccount();
 		});
 
-		$$("#tabCompte2").on("tab:show", function () {
+		$("#tabCompte2").on("tab:show", function () {
 			scroll_element = $("#tabCompte2");
 			checkScrollAccount();
 		});
@@ -339,26 +366,26 @@ document
 	});
 
 document.getElementById("popup-account").addEventListener("closed", function () {
-	//$(".flow-btn-shadow").css("display", "block");
+	//$(".flow_btn_shadow").css("display", "block");
 	privateIDAccount = "";
 	profilePicLink = "";
 	bioCompte = "";
 	nameCompte = "";
 	// follow = "";
 	// followYou = "";
-	$(".fflow-btn").css("display", "block");
-	$(".flow-btn-shadow").css("display", "block");
-	$(".fflow-btn").css("z-index", "1");
-	$(".flow-btn-shadow").css("z-index", "0");
+	$(".flow_btn_img").css("display", "block");
+	$(".flow_btn_shadow").css("display", "block");
+	$(".flow_btn_img").css("z-index", "1");
+	$(".flow_btn_shadow").css("z-index", "0");
 	//$("#tabCompte2").css("display", "none");
 	$(".ftabsAccount")[0].style.display = "none";
 	let time_in_last_screen =
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -463,6 +490,8 @@ function ShowUserProfile(response) {
 	console.log(response);
 	let myrank_number;
 	let myrank_img;
+	account_fullname = response.Data.FullName;
+	FirebaseToken = response.Data.FirebaseToken;
 	if (response.Data.PrivateId == window.localStorage.getItem("user_private_id")) {
 		console.log("my profile infos received");
 		const src = "https://" + response.LinkBuilder.Hostname + ":" + response.LinkBuilder.Port + "/images/" + response.Data.ProfilePicture.name + "?";
@@ -728,7 +757,7 @@ function ShowLikedFlows(flow, data_block_user) {
 						all_blocks.push(new_block);
 						if (i == 0 && indexAccountLike == 0)
 							new_block.block_flow.style.marginTop =
-							"calc(37 * var(--custom-vh))";
+								"calc(37 * var(--custom-vh))";
 						if ($(".loading_account")) $(".loading_account").remove();
 					}
 				}
@@ -812,7 +841,7 @@ function FollowResponse(response, type, element) {
 		};
 		if (type == "block_user_follow") {
 			(data_notif_follow.RegisterId = element.RegisterId),
-			(data_notif_follow.LastOs = element.LastOs);
+				(data_notif_follow.LastOs = element.LastOs);
 		}
 		send_notif_to_user(data_notif_follow, "follow");
 	} else if (response.UnFollow !== undefined) {
@@ -821,7 +850,7 @@ function FollowResponse(response, type, element) {
 			Follower--;
 			$("#ffollowersBandeauChiffre").html(Follower);
 		}
-	} else {}
+	} else { }
 	$("#fFollowButtunAccount")[0].style.pointerEvents = "auto";
 	manageFollow(type, element);
 }
@@ -836,7 +865,7 @@ $("#block_button").on("click", function () {
 			"Veux-tu vraiment bloquer cet utilisateur ?",
 			function (id) {
 				if (id == 1) {
-					function alertDismissed() {}
+					function alertDismissed() { }
 					// On me bloque pas moi.
 					if (
 						privateIDAccount.toUpperCase() == "KING.CHRIS" ||

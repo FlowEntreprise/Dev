@@ -133,7 +133,7 @@ function block_response(response_data, response_is_specifique) {
     this.fbr_1 = document.createElement("br");
     $(this.fblock_response).append(this.fbr_1);
 
-    $$(this.fblock_response_response).on("taphold", function () {
+    $(this.fblock_response_response).longpress(function () {
         current_response_block = block_response;
         let delete_response = true;
         delete_comment_from_bdd(current_response_block, delete_response);
@@ -257,7 +257,10 @@ function block_comment(comment_data, comment_is_specifique) {
                 };
                 ServerManager.GetCommentResponse(data);
             }
-            $(current_comment_block.fblock_comment_label_afficher_les_reponses).css("opacity", "0");
+            $(current_comment_block.fblock_comment_label_afficher_les_reponses).css({
+                "opacity": "0",
+                "pointer-events": "none"
+            });
         });
 
     }
@@ -352,7 +355,10 @@ function block_comment(comment_data, comment_is_specifique) {
         scroll_to = $('.fblock_comment_content').scrollTop() + scroll_to - current_comment_block.response_container_previous_height / 2;
         $(current_comment_block.fblock_response_container).css("height", "0px");
         $(current_comment_block.afficher_plus_de_reponses_container).css("display", "none");
-        $(current_comment_block.fblock_comment_label_afficher_les_reponses).css("opacity", "1");
+        $(current_comment_block.fblock_comment_label_afficher_les_reponses).css({
+            "opacity": "1",
+            "pointer-events": "auto"
+        });
         //$(".fblock_comment_content").scrollTop(scroll_to.top);
         setTimeout(function () {
             $(".fblock_comment_content").animate({
@@ -388,14 +394,14 @@ function block_comment(comment_data, comment_is_specifique) {
         }
     });
 
-    $$(this.fid_user).on('taphold', function () {
+    $(this.fid_user).longpress(function () {
         var clickedLink = this;
         // app.popover('#popover_comment', clickedLink);
 
     });
 
 
-    $$(this.fblock_comment_comment).on('taphold', function () {
+    $(this.fblock_comment_comment).longpress(function () {
         var clickedLink = this;
         current_comment_block = block_comment;
         delete_comment_from_bdd(current_comment_block);
@@ -746,7 +752,10 @@ function send_response_to_server(data) {
     console.log("response sucessfully added to database :");
     console.log("data du send response to server" + data + "");
     $(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + nombre_de_reponses_apres_ajout + ")");
-    $(current_comment_block.fblock_comment_label_afficher_les_reponses).css("opacity", "0");
+    $(current_comment_block.fblock_comment_label_afficher_les_reponses).css({
+        "opacity": "0",
+        "pointer-events": "none"
+    });
     $(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
     /*if (current_comment_block.response_current_index == 0 && current_comment_block.label_afficher_plus_de_reponses) {
         $(current_comment_block.label_afficher_plus_de_reponses).click();

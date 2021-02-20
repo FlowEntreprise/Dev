@@ -173,6 +173,10 @@ function nextTutoFrame() {
                 $(".tuto_app")[0].style.transform = "translate3d(0, calc(100 * var(--custom-vh)), 0)";
                 $(".tuto_app")[0].style.pointerEvents = "none";
                 window.localStorage.setItem("first_open", "false");
+                let custom_vh = window.innerHeight / 100;
+                window.localStorage.setItem("custom_vh", custom_vh);
+                document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
+
                 setTimeout(function () {
                     $(".tuto_app")[0].style.display = "none";
                 }, 1000);

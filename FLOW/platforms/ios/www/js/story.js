@@ -52,11 +52,11 @@ const pSBC = (p, c0, c1, l) => {
         b: 0,
         a: -1
     } : {
-            r: 255,
-            g: 255,
-            b: 255,
-            a: -1
-        }, p = P ? p * -1 : p, P = 1 - p;
+        r: 255,
+        g: 255,
+        b: 255,
+        a: -1
+    }, p = P ? p * -1 : p, P = 1 - p;
     if (!f || !t) return null;
     if (l) r = m(P * f.r + p * t.r), g = m(P * f.g + p * t.g), b = m(P * f.b + p * t.b);
     else r = m((P * f.r ** 2 + p * t.r ** 2) ** 0.5), g = m((P * f.g ** 2 + p * t.g ** 2) ** 0.5), b = m((P * f.b ** 2 + p * t.b ** 2) ** 0.5);
@@ -316,7 +316,7 @@ function SpawnStoryWindow(story_block) {
             tryLoadStory(story_index, storyFlow_index);
             showStoryMain(false);
 
-            $$('.fstory_addcomment_btn').on('taphold', function () {
+            $('.fstory_addcomment_btn').longpress(function () {
                 if (connected) {
                     record_was_hold = true;
                     stop_comments();
@@ -326,7 +326,7 @@ function SpawnStoryWindow(story_block) {
                     Popup("popup-connect", true, 60);
                 }
             });
-            $$('.fstory_addcomment_btn').on('click', function () {
+            $('.fstory_addcomment_btn').on('click', function () {
                 if (recording) {
                     console.log("stop recording");
                     if (record_time > 2) {
@@ -341,7 +341,7 @@ function SpawnStoryWindow(story_block) {
                     $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")"
                 }
             });
-            $$('.fstory_addcomment_confirm').on('touchend', function () {
+            $('.fstory_addcomment_confirm').on('touchend', function () {
                 let story_comment = {
                     ObjectId: story_data[story_index].data[storyFlow_index].id,
                     // PrivatedId: window.localStorage.getItem("user_private_id"),
@@ -371,7 +371,7 @@ function SpawnStoryWindow(story_block) {
 
                 }, 100);
             });
-            $$('.fstory_addcomment_cancel').on('touchend', function () {
+            $('.fstory_addcomment_cancel').on('touchend', function () {
                 $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
                 $(".fstory_addcomment_btn")[0].style.opacity = 1;
 
@@ -678,7 +678,7 @@ function loadStory(story_index, storyFlow_index) {
     let local_story = FlowLoader.DownloadFlow(story_data[story_index].data[storyFlow_index].audio_src);
     local_story.OnReady(function (url) {
         console.log("local url : " + url);
-        current_story_audio = new Media(url, function () { }, function () { }, storyAudioStatus);
+        current_story_audio = new Media(url, function () {}, function () {}, storyAudioStatus);
 
         function storyAudioStatus(status) {
             console.log("A status change occurred: " + status);
@@ -1221,7 +1221,7 @@ function closeRecordComment() {
         "opacity": "0",
         "pointer-events": "none"
     });
-    $$('.fstory_addcomment_btn')[0].style.display = "block";
+    $('.fstory_addcomment_btn')[0].style.display = "block";
     $(".validate_record_comment")[0].style.display = "none";
     $(".listen_record_comment")[0].style.display = "none";
     recorded_com.pause();
@@ -1272,7 +1272,7 @@ document.getElementById("popup-story-record").addEventListener("opened", functio
 });
 
 document.getElementById("popup-story-record").addEventListener("closed", function () {
-    $$('.frecord-btn').css({
+    $('.frecord-btn').css({
         "display": "none"
     });
     $(".record-shadow")[0].style.display = "none";

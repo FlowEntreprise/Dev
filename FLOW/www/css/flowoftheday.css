@@ -162,7 +162,7 @@
 
 .random_flow_btn {
     position: absolute;
-    bottom: calc(16 * var(--custom-vh));
+    bottom: calc(8 * var(--custom-vh));
     padding-left: 20px;
     left: 15vw;
     width: calc(70vw - 20px);

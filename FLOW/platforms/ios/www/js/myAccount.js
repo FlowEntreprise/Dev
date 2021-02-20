@@ -36,7 +36,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 	$(".fnavMonCompte").removeClass("fnavMonCompteTransitionTop");
 	$(".fnavMonCompte").addClass("fnavMonCompteTransitionDown");
 	$(".ftabsMonCompte").css("transition-duration", "0.2s");
-	var scrollTest = $(".scrollMyAccunt").scrollTop();
+	var scrollTest = $(".scrollMyAccount").scrollTop();
 	$(".fnavMonCompte").css(
 		"transform",
 		"translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)"
@@ -47,6 +47,17 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 	);
 	boolScrollTop = true;
 	$("#MyActivity").addClass("fblockMonComptePadding");
+
+	$("#myactivity").on("click", function () {
+		if (!$("#myactivity").hasClass("active")) $("#myactivity").addClass("active");
+		$("#mylikes").removeClass("active");
+		myaccount_swiper.slideTo(0);
+	})
+	$("#mylikes").on("click", function () {
+		if (!$("#mylikes").hasClass("active")) $("#mylikes").addClass("active");
+		$("#myactivity").removeClass("active");
+		myaccount_swiper.slideTo(1);
+	})
 
 	stopAllBlocksAudio();
 	let time_in_last_screen =
@@ -106,8 +117,8 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 	bioMonCompte = window.localStorage.getItem("user_bio") || "";
 	if (bioMonCompte.length > 57)
 		bioMonCompte = bioMonCompte.substring(0, 57) + "...";
-	$(".fflow-btn").css("display", "none");
-	$(".flow-btn-shadow").css("display", "none");
+	$(".flow_btn_img").css("display", "none");
+	$(".flow_btn_shadow").css("display", "none");
 	$("#fmyprofilPicture").css({
 		"background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')",
 	});
@@ -122,18 +133,30 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 	$("#fbioMonCompte").html(bioMonCompte);
 	$("#fgobackmonCompte").click(function () {
 		Popup("popup-myaccount", false);
-		//$(".flow-btn-shadow").css("display", "block");
+		//$(".flow_btn_shadow").css("display", "block");
 	});
 
 	var scroll_element = $("#tabMonCompte1");
 	scroll_element[0].scrollTop = 0;
 	checkScroll();
-	$$("#tabMonCompte1").on("tab:show", function () {
+	myaccount_swiper.on('slideChange', function () {
+		if (myaccount_swiper.activeIndex == 0) {
+			scroll_element = $("#tabMonCompte1");
+			if (!$("#myactivity").hasClass("active")) $("#myactivity").addClass("active");
+			$("#mylikes").removeClass("active");
+		} else {
+			scroll_element = $("#tabMonCompte2");
+			if (!$("#mylikes").hasClass("active")) $("#mylikes").addClass("active");
+			$("#myactivity").removeClass("active");
+		}
+		checkScroll();
+	});
+	$("#tabMonCompte1").on("tab:show", function () {
 		scroll_element = $("#tabMonCompte1");
 		checkScroll();
 	});
 
-	$$("#tabMonCompte2").on("tab:show", function () {
+	$("#tabMonCompte2").on("tab:show", function () {
 		scroll_element = $("#tabMonCompte2");
 		checkScroll();
 	});
@@ -145,7 +168,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 
 	var boolScrollTop = true;
 
-	$(".scrollMyAccunt").scroll(function () {
+	$(".scrollMyAccount").scroll(function () {
 		checkScroll();
 	});
 
@@ -196,7 +219,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 					$(".fnavMonCompte").removeClass("fnavMonCompteTransitionTop");
 					$(".fnavMonCompte").addClass("fnavMonCompteTransitionDown");
 					// $(".ftabsMonCompte").css("transition-duration", "0.2s");
-					var scrollTest = $(".scrollMyAccunt").scrollTop();
+					var scrollTest = $(".scrollMyAccount").scrollTop();
 					$(".fnavMonCompte").css(
 						"transform",
 						"translate3d(0vw, calc(7 * var(--custom-vh)), 0vh)"
@@ -261,7 +284,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 			"background-image": "url('" + window.localStorage.getItem("user_profile_pic") + "')",
 		});
 		$("#fprofilPicturePopup")[0].onclick = function () {
-			GetPhotoFromGallery(true);
+			GetPhotoFromGallery(onProfilePhotoDataSuccess);
 		};
 		$("#editProfileName").val(nameMonCompte);
 		$("#feditBio").val(bioMonCompte);
@@ -491,10 +514,10 @@ document
 	.getElementById("popup-myaccount")
 	.addEventListener("closed", function () {
 		$(".ftabsMonCompte")[0].style.display = "none";
-		$(".fflow-btn").css("display", "block");
-		$(".flow-btn-shadow").css("display", "block");
-		$(".fflow-btn").css("z-index", "1");
-		$(".flow-btn-shadow").css("z-index", "0");
+		$(".flow_btn_img").css("display", "block");
+		$(".flow_btn_shadow").css("display", "block");
+		$(".flow_btn_img").css("z-index", "1");
+		$(".flow_btn_shadow").css("z-index", "0");
 		let time_in_last_screen =
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
