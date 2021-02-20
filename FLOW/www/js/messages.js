@@ -230,7 +230,7 @@ function messages_tab_loaded() {
         $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
         current_page = "dm_messages";
         if (current_dm_audio) { current_dm_audio.pause(); }
-notif_chat_id = undefined;
+        notif_chat_id = undefined;
         console.log(" dm popup finish open");
     });
     document.getElementById("popup-message").addEventListener("closed", function () {
@@ -420,9 +420,14 @@ function block_message(data, previous_message) {
         }
     }, 50);
 
-    /*if (this.seen_by) {
-        pop_block_message_seen(current_block_chat.block_chat_photo);
-    }*/
+    if (this.seen_by) {
+        let user_who_seen = Object.entries(this.seen_by);
+        user_who_seen.forEach(user => {
+            if (user[0] != window.localStorage.getItem("firebase_token") && user[1] == true) {
+                pop_block_message_seen(current_block_chat.block_chat_photo);
+            }
+        });
+    }
 
     // tmp remove tap to show time on message
     // $(this.block_message).on("click", function () {
