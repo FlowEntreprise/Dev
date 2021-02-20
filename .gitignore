@@ -5,4 +5,3 @@ FLOW/platforms/android/app/src/main/assets/www
 FLOW/platforms/android/app/.gradle/
 FLOW/platforms/android/.gradle/
 FLOW/platforms/browser/www/
-FLOW/node_modules/cordova-plugin-camera
