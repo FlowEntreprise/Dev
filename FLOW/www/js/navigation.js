@@ -15,6 +15,8 @@ var explore_categories = null;
 var in_top50 = true;
 var in_recents = false;
 var in_flowoftheday = false;
+var in_dm_image_fullscreen = false;
+
 //Framework7
 // $("#tab1").load("pages/home.html");
 // $("#tab2").load("pages/explore.html");
@@ -388,6 +390,16 @@ function onBackKeyDown() {
 		in_followers = false;
 	} else if (searching) {
 		back_search();
+	} else if (in_dm_image_fullscreen) {
+		$(".dm_close_popup_img").click();
+	} else if (current_page == "dm_messages") {
+		// app.closeModal('.popup-record');
+		Popup("popup-message", false);
+		if (recording) {
+			console.log("stop recording");
+			stopCapture(false);
+		}
+		current_page = "messages";
 	} else if (current_page == "record") {
 		// app.closeModal('.popup-record');
 		Popup("popup-record", false);

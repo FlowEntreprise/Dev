@@ -109,6 +109,7 @@ function messages_tab_loaded() {
             if (!delete_vocal) $(".wave_vocal")[0].innerHTML = record_duration + "s";
         }, 1000);
         startCapture(true);
+        recording = true;
     });
 
     $("#button_send_vocal>.handle").on("touchmove", function (e) {
@@ -139,7 +140,9 @@ function messages_tab_loaded() {
 
     $("#button_send_vocal>.handle").on("touchend", function () {
         stopCapture(!delete_vocal);
-        if (!delete_vocal) { UpdateProgressBar(5); }
+        if (!delete_vocal) {
+            UpdateProgressBar(5);
+        }
         recording_vocal = false;
         $("#button_send_vocal").removeClass("pressed");
         $("#button_send_vocal").removeClass("delete");
@@ -229,7 +232,9 @@ function messages_tab_loaded() {
         $("#div_send_message").css("transform", "translate3d(0vw, 0, 0)");
         $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
         current_page = "dm_messages";
-        if (current_dm_audio) { current_dm_audio.pause(); }
+        if (current_dm_audio) {
+            current_dm_audio.pause();
+        }
         notif_chat_id = undefined;
         console.log(" dm popup finish open");
     });
@@ -244,7 +249,9 @@ function messages_tab_loaded() {
         $("#div_send_message").css("transform", "translate3d(100vw, 0, 0)");
         $("#fblock_message_content").html("");
         stopAllBlocksAudio();
-        if (current_dm_audio) { current_dm_audio.pause(); }
+        if (current_dm_audio) {
+            current_dm_audio.pause();
+        }
         first_chat = false;
         all_block_message.length = 0;
         current_block_chat.first_messake_key = undefined;
@@ -452,6 +459,7 @@ function block_message(data, previous_message) {
         self.block_message.style.boxShadow = "none";
 
         image.onclick = function () {
+            in_dm_image_fullscreen = true;
             let popup_img = document.createElement("div");
             popup_img.className = "dm_popup_img";
             popup_img.style.backgroundImage = "url('" + self.image + "')";
@@ -462,6 +470,7 @@ function block_message(data, previous_message) {
                 let self2 = this;
                 self2.parentNode.style.opacity = 0;
                 self2.parentNode.style.transform = "translate3d(0, 0, 0) scale(0.5)";
+                in_dm_image_fullscreen = false;
                 setTimeout(function () {
                     self2.parentNode.parentNode.removeChild(self2.parentNode);
                 }, 500);
