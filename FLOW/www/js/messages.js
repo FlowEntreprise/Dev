@@ -107,38 +107,45 @@ function messages_tab_loaded() {
         timer = setInterval(function () {
             record_duration += 1;
             if (!delete_vocal) $(".wave_vocal")[0].innerHTML = record_duration + "s";
+            if (record_duration >= 30) StopRecordDMVocal();
         }, 1000);
         startCapture(true);
         recording = true;
     });
 
     $("#button_send_vocal>.handle").on("touchmove", function (e) {
-        let offset = 0;
-        let left_border = ((window.innerWidth) / 100) * 57 - 28;
-        offset = touch_startx - e.touches[0].clientX;
-        let true_offset = offset;
-        if (offset < 0) offset = 0;
-        if (offset > left_border - 20) {
-            offset = left_border;
-            delete_vocal = true;
-            $("#input_send_message").addClass("delete");
-            $(".delete_vocal").addClass("red");
-            $("#button_send_vocal").addClass("delete");
-            $(".wave_vocal")[0].innerHTML = "annuler";
-            $(".wave_vocal").css("color", "#FF5D5D");
-        } else {
-            delete_vocal = false;
-            $("#input_send_message").removeClass("delete");
-            $(".delete_vocal").removeClass("red");
-            $("#button_send_vocal").removeClass("delete");
-            $(".wave_vocal")[0].innerHTML = record_duration + "s";
-            $(".wave_vocal").css("color", "#DE0F69");
+        if (recording) {
+            let offset = 0;
+            let left_border = ((window.innerWidth) / 100) * 57 - 28;
+            offset = touch_startx - e.touches[0].clientX;
+            let true_offset = offset;
+            if (offset < 0) offset = 0;
+            if (offset > left_border - 20) {
+                offset = left_border;
+                delete_vocal = true;
+                $("#input_send_message").addClass("delete");
+                $(".delete_vocal").addClass("red");
+                $("#button_send_vocal").addClass("delete");
+                $(".wave_vocal")[0].innerHTML = "annuler";
+                $(".wave_vocal").css("color", "#FF5D5D");
+            } else {
+                delete_vocal = false;
+                $("#input_send_message").removeClass("delete");
+                $(".delete_vocal").removeClass("red");
+                $("#button_send_vocal").removeClass("delete");
+                $(".wave_vocal")[0].innerHTML = record_duration + "s";
+                $(".wave_vocal").css("color", "#DE0F69");
+            }
+            $(".wave_vocal").css("transform", "translate3d(" + -true_offset + "px, 0, 0)");
+            $("#button_send_vocal").css("transform", "translate3d(" + -offset + "px, 0, 0) scale(1.2)");
         }
-        $(".wave_vocal").css("transform", "translate3d(" + -true_offset + "px, 0, 0)");
-        $("#button_send_vocal").css("transform", "translate3d(" + -offset + "px, 0, 0) scale(1.2)");
     });
 
     $("#button_send_vocal>.handle").on("touchend", function () {
+        if (recording) StopRecordDMVocal();
+    });
+
+    function StopRecordDMVocal() {
         stopCapture(!delete_vocal);
         if (!delete_vocal) {
             UpdateProgressBar(5);
@@ -158,7 +165,7 @@ function messages_tab_loaded() {
         $("#SendFromCamera")[0].style.opacity = "0.5";
         delete_vocal = false;
         clearInterval(timer);
-    });
+    }
 
     $("#button_send_message").on("click", function () {
         if ($("#input_send_message").val().trim().length != 0) {
@@ -524,7 +531,7 @@ function block_message(data, previous_message) {
         // Add "dm_blue_filter" if not my message !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         // Set bubble width en fonction de la durée avec min et max pour que ça soit bg
-        let duration_width = Lerp(40, 60, self.audio_duration / 60);
+        let duration_width = Lerp(40, 60, self.audio_duration / 30);
         self.block_message.style.width = parseInt(duration_width) + "vw";
         // Line of bars expandable
         let bars = document.createElement("div");
