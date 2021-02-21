@@ -55,6 +55,10 @@ svg {
     pointer-events: none;
 }
 
+.frecord_indicator_parent {
+    display: none;
+}
+
 .frecord_indicator {
     display: none;
     fill: transparent;
