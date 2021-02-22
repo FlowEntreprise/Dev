@@ -25,7 +25,7 @@ let dm_vocal_playing = false;
 let current_dm_audio;
 
 function messages_tab_loaded() {
-    $("#fnameCompte").on("click", function () {
+    $("#fnameCompte, #GoDMBtn").on("click", function () {
 
         if (FirebaseToken < window.localStorage.getItem("firebase_token")) {
             chat_id = FirebaseToken + window.localStorage.getItem("firebase_token");

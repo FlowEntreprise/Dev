@@ -339,7 +339,21 @@ ul {
 		height: 20px;
 		background: #f7f7f8;
 	}
+
+	.main_navbar {
+		top: calc(93*var(--custom-vh) - 20px) !important;
+	}
+
+	.ios_whitebg {
+		position: absolute;
+		bottom: -20px;
+		width: 100vw;
+		height: 20px;
+		background: #f7f7f8;
+	}
 }
+
+
 
 /* @media (max-height: 700px) { */
 .mobile700 .fflow-btn {

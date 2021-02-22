@@ -59,6 +59,21 @@
 	border-radius: 25px;
 }
 
+#GoDMBtn {
+	position: absolute;
+	top: calc(25.1 * var(--custom-vh));
+	right: 30vw;
+	width: 25px;
+	height: 25px;
+	background-image: url("../src/icons/Messages_filled.png");
+	background-position: center;
+	background-size: 65%;
+	background-repeat: no-repeat;
+	border: solid 1.5px #92abb2;
+	border-radius: 25px;
+}
+
+
 #label_i_am_blocked {
 	position: absolute;
 	top: calc(25 * var(--custom-vh));
@@ -71,7 +86,7 @@
 #block_button {
 	position: absolute;
 	top: calc(24.6 * var(--custom-vh));
-	right: 7vw;
+	right: 9vw;
 	width: 35px;
 	height: 35px;
 	background-image: url("../src/icons/block.png");
