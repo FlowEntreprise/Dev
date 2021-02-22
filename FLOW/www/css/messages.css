@@ -1035,23 +1035,23 @@
 	}
 
 	#chat_photo {
-		top: calc(1 * var(--custom-vh) + 20px);
+		top: calc(1 * var(--custom-vh) + 30px);
 	}
 
 	.top_chat_header {
-		height: calc(11 * var(--custom-vh) + 20px);
+		height: calc(11 * var(--custom-vh) + 30px);
 	}
 
 	#chat_title {
-		top: calc(7.5 * var(--custom-vh) + 20px);
+		top: calc(7.5 * var(--custom-vh) + 30px);
 	}
 
 	#message_back_button {
-		top: calc(5.5 * var(--custom-vh) + 5px);
+		top: calc(5.5 * var(--custom-vh) + 15px);
 	}
 
 	.dots_msg_header {
-		top: calc(5.5 * var(--custom-vh) + 15px);
+		top: calc(5.5 * var(--custom-vh) + 25px);
 	}
 
 	#fblock_message_content {
