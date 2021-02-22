@@ -25,7 +25,7 @@ let dm_vocal_playing = false;
 let current_dm_audio;
 
 function messages_tab_loaded() {
-    $("#fnameCompte").on("click", function () {
+    $("#fnameCompte, #GoDMBtn").on("click", function () {
 
         if (FirebaseToken < window.localStorage.getItem("firebase_token")) {
             chat_id = FirebaseToken + window.localStorage.getItem("firebase_token");
@@ -107,39 +107,49 @@ function messages_tab_loaded() {
         timer = setInterval(function () {
             record_duration += 1;
             if (!delete_vocal) $(".wave_vocal")[0].innerHTML = record_duration + "s";
+            if (record_duration >= 30) StopRecordDMVocal();
         }, 1000);
         startCapture(true);
+        recording = true;
     });
 
     $("#button_send_vocal>.handle").on("touchmove", function (e) {
-        let offset = 0;
-        let left_border = ((window.innerWidth) / 100) * 57 - 28;
-        offset = touch_startx - e.touches[0].clientX;
-        let true_offset = offset;
-        if (offset < 0) offset = 0;
-        if (offset > left_border - 20) {
-            offset = left_border;
-            delete_vocal = true;
-            $("#input_send_message").addClass("delete");
-            $(".delete_vocal").addClass("red");
-            $("#button_send_vocal").addClass("delete");
-            $(".wave_vocal")[0].innerHTML = "annuler";
-            $(".wave_vocal").css("color", "#FF5D5D");
-        } else {
-            delete_vocal = false;
-            $("#input_send_message").removeClass("delete");
-            $(".delete_vocal").removeClass("red");
-            $("#button_send_vocal").removeClass("delete");
-            $(".wave_vocal")[0].innerHTML = record_duration + "s";
-            $(".wave_vocal").css("color", "#DE0F69");
+        if (recording) {
+            let offset = 0;
+            let left_border = ((window.innerWidth) / 100) * 57 - 28;
+            offset = touch_startx - e.touches[0].clientX;
+            let true_offset = offset;
+            if (offset < 0) offset = 0;
+            if (offset > left_border - 20) {
+                offset = left_border;
+                delete_vocal = true;
+                $("#input_send_message").addClass("delete");
+                $(".delete_vocal").addClass("red");
+                $("#button_send_vocal").addClass("delete");
+                $(".wave_vocal")[0].innerHTML = "annuler";
+                $(".wave_vocal").css("color", "#FF5D5D");
+            } else {
+                delete_vocal = false;
+                $("#input_send_message").removeClass("delete");
+                $(".delete_vocal").removeClass("red");
+                $("#button_send_vocal").removeClass("delete");
+                $(".wave_vocal")[0].innerHTML = record_duration + "s";
+                $(".wave_vocal").css("color", "#DE0F69");
+            }
+            $(".wave_vocal").css("transform", "translate3d(" + -true_offset + "px, 0, 0)");
+            $("#button_send_vocal").css("transform", "translate3d(" + -offset + "px, 0, 0) scale(1.2)");
         }
-        $(".wave_vocal").css("transform", "translate3d(" + -true_offset + "px, 0, 0)");
-        $("#button_send_vocal").css("transform", "translate3d(" + -offset + "px, 0, 0) scale(1.2)");
     });
 
     $("#button_send_vocal>.handle").on("touchend", function () {
+        if (recording) StopRecordDMVocal();
+    });
+
+    function StopRecordDMVocal() {
         stopCapture(!delete_vocal);
-        if (!delete_vocal) { UpdateProgressBar(5); }
+        if (!delete_vocal) {
+            UpdateProgressBar(5);
+        }
         recording_vocal = false;
         $("#button_send_vocal").removeClass("pressed");
         $("#button_send_vocal").removeClass("delete");
@@ -155,7 +165,7 @@ function messages_tab_loaded() {
         $("#SendFromCamera")[0].style.opacity = "0.5";
         delete_vocal = false;
         clearInterval(timer);
-    });
+    }
 
     $("#button_send_message").on("click", function () {
         if ($("#input_send_message").val().trim().length != 0) {
@@ -229,7 +239,9 @@ function messages_tab_loaded() {
         $("#div_send_message").css("transform", "translate3d(0vw, 0, 0)");
         $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
         current_page = "dm_messages";
-        if (current_dm_audio) { current_dm_audio.pause(); }
+        if (current_dm_audio) {
+            current_dm_audio.pause();
+        }
         notif_chat_id = undefined;
         console.log(" dm popup finish open");
     });
@@ -244,7 +256,9 @@ function messages_tab_loaded() {
         $("#div_send_message").css("transform", "translate3d(100vw, 0, 0)");
         $("#fblock_message_content").html("");
         stopAllBlocksAudio();
-        if (current_dm_audio) { current_dm_audio.pause(); }
+        if (current_dm_audio) {
+            current_dm_audio.pause();
+        }
         first_chat = false;
         all_block_message.length = 0;
         current_block_chat.first_messake_key = undefined;
@@ -452,6 +466,7 @@ function block_message(data, previous_message) {
         self.block_message.style.boxShadow = "none";
 
         image.onclick = function () {
+            in_dm_image_fullscreen = true;
             let popup_img = document.createElement("div");
             popup_img.className = "dm_popup_img";
             popup_img.style.backgroundImage = "url('" + self.image + "')";
@@ -462,6 +477,7 @@ function block_message(data, previous_message) {
                 let self2 = this;
                 self2.parentNode.style.opacity = 0;
                 self2.parentNode.style.transform = "translate3d(0, 0, 0) scale(0.5)";
+                in_dm_image_fullscreen = false;
                 setTimeout(function () {
                     self2.parentNode.parentNode.removeChild(self2.parentNode);
                 }, 500);
@@ -515,7 +531,7 @@ function block_message(data, previous_message) {
         // Add "dm_blue_filter" if not my message !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         // Set bubble width en fonction de la durée avec min et max pour que ça soit bg
-        let duration_width = Lerp(40, 60, self.audio_duration / 60);
+        let duration_width = Lerp(40, 60, self.audio_duration / 30);
         self.block_message.style.width = parseInt(duration_width) + "vw";
         // Line of bars expandable
         let bars = document.createElement("div");

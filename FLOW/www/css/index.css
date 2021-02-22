@@ -101,16 +101,16 @@ textarea {
 } */
 .f_in_app_notif {
 	position: absolute;
-    width: 85vw;
-    margin-left: 7.5vw;
-    height: calc(5 * var(--custom-vh));
-    background-color: #fff;
-    border-radius: 30px;
-    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition-duration: 0.4s;
-    bottom: -20vh;
-    z-index: 9999;
+	width: 85vw;
+	margin-left: 7.5vw;
+	height: calc(5 * var(--custom-vh));
+	background-color: #fff;
+	border-radius: 30px;
+	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+	text-align: center;
+	transition-duration: 0.4s;
+	bottom: -20vh;
+	z-index: 9999;
 }
 
 .flabel_in_app_notif {
@@ -327,7 +327,33 @@ ul {
 	#close_div_new_features {
 		bottom: calc(3 * var(--custom-vh));
 	}
+
+	.main_navbar {
+		top: calc(93*var(--custom-vh) - 20px);
+	}
+
+	.ios_whitebg {
+		position: absolute;
+		bottom: -20px;
+		width: 100vw;
+		height: 20px;
+		background: #f7f7f8;
+	}
+
+	.main_navbar {
+		top: calc(93*var(--custom-vh) - 20px) !important;
+	}
+
+	.ios_whitebg {
+		position: absolute;
+		bottom: -20px;
+		width: 100vw;
+		height: 20px;
+		background: #f7f7f8;
+	}
 }
+
+
 
 /* @media (max-height: 700px) { */
 .mobile700 .fflow-btn {

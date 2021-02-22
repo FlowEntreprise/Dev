@@ -1017,6 +1017,53 @@
 	}
 }
 
+@supports (-webkit-touch-callout: none) {
+	.fmessages-bar>label {
+		opacity: 0;
+	}
+
+	.fmessages-search-bar {
+		top: calc(7.5 * var(--custom-vh) - 10px);
+	}
+
+	.fmessages-bar>.search_icon {
+		top: calc(7.5 * var(--custom-vh) - 8px);
+	}
+
+	#new_conversation {
+		top: calc(7.5 * var(--custom-vh) - 12px);
+	}
+
+	#chat_photo {
+		top: calc(1 * var(--custom-vh) + 30px);
+	}
+
+	.top_chat_header {
+		height: calc(11 * var(--custom-vh) + 30px);
+	}
+
+	#chat_title {
+		top: calc(7.5 * var(--custom-vh) + 30px);
+	}
+
+	#message_back_button {
+		top: calc(5.5 * var(--custom-vh) + 15px);
+	}
+
+	.dots_msg_header {
+		top: calc(5.5 * var(--custom-vh) + 25px);
+	}
+
+	#fblock_message_content {
+		height: calc(100vh - (22 * var(--custom-vh)) - 20px);
+	}
+
+	#div_send_message {
+		bottom: 20px;
+	}
+
+}
+
 /* @media (max-height: 700px) { */
 .mobile700 .messages_title {
 	font-size: 18px;

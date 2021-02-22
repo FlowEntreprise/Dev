@@ -1069,6 +1069,7 @@ var startCapture = function (no_indicator) {
 			$(".frecord_indicator").css({
 				display: "block",
 			});
+			$(".frecord_indicator_parent")[0].style.display = "block";
 			if (!no_indicator) UpdateRecordIndicator();
 			window.audioinput.start(captureCfg);
 			$(".frecord-btn")[0].style.background =
@@ -1091,6 +1092,7 @@ var stopCapture = function (save) {
 		display: "none",
 		"stroke-dasharray": "0 100",
 	});
+	$(".frecord_indicator_parent")[0].style.display = "none";
 	$("#flow_number_of_sec").text("00");
 	$("#flow_story_number_of_sec").text("00");
 
