@@ -56,7 +56,7 @@ svg {
 }
 
 .frecord_indicator_parent {
-    display: none;
+    display: none !important;
 }
 
 .frecord_indicator {
