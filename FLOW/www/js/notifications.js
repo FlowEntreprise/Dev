@@ -958,16 +958,16 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
 
         case 'send_comment':
 
-            if (data.additionalData.tag_in_comment || data.additionalData.sender_info.tag_in_flow) {
-                $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " t'a identifié");
-            } else {
-
-                $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a commenté ton flow");
-            }
-
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a commenté ton flow");
             $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
-
             break;
+
+        case 'tag_in_comment':
+
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " t'a identifié");
+            $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
+            break;
+
 
         case 'send_response':
 
