@@ -29,26 +29,27 @@
 
 #InAppNotifNewMessageIcone {
 	position: absolute;
-	display: none;
-	width: calc(2 * var(--custom-vh));
-	left: 1.5vh;
-	top: calc(0.75 * var(--custom-vh));
+    display: none;
+    width: calc(1.75 * var(--custom-vh));
+    left: 2vh;
+    top: calc(1 * var(--custom-vh));
 }
 
 #InAppNotifNewMessageUsername {
 	display: none;
-	position: absolute;
-	left: calc(5.5 * var(--custom-vh));
-	top: calc(0.75 * var(--custom-vh));
-	font-size: 13px;
-	color: #FFF;
-	font-family: 'Roboto-Bold';
+    position: absolute;
+    top: calc(0.75 * var(--custom-vh));
+    font-size: 13px;
+    color: #FFF;
+    font-family: 'Roboto-Bold';
+    width: 85vw;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 #InAppNotifNewMessage {
 	position: absolute;
-	left: calc(5.5 * var(--custom-vh));
-	top: calc(1.5 * var(--custom-vh));
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;

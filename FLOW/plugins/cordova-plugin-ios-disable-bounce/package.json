@@ -1,0 +1,70 @@
+{
+  "_from": "cordova-plugin-ios-disable-bounce",
+  "_id": "cordova-plugin-ios-disable-bounce@0.0.1",
+  "_inBundle": false,
+  "_integrity": "sha512-dhQtGgb1q0gX5JQMuYNGm+6I4f40s5U9yrmiS5oVrF+lejHxpQ+MebQFRIIIJX4AGhGvROsxWf0p3bXqRqNKpA==",
+  "_location": "/cordova-plugin-ios-disable-bounce",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-ios-disable-bounce",
+    "name": "cordova-plugin-ios-disable-bounce",
+    "escapedName": "cordova-plugin-ios-disable-bounce",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-ios-disable-bounce/-/cordova-plugin-ios-disable-bounce-0.0.1.tgz",
+  "_shasum": "60ecb7686910108aa1cc047d38b3fdb463177849",
+  "_spec": "cordova-plugin-ios-disable-bounce",
+  "_where": "/Users/TR-Events/Documents/GitHub/Dev/FLOW",
+  "author": {
+    "name": "Apache Software Foundation"
+  },
+  "bugs": {
+    "url": "https://github.com/clemdesign/cordova-plugin-ios-disable-bounce/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-ios-disable-bounce",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova Plugin to disable UIScrollView bounce on ios",
+  "devDependencies": {
+    "@cordova/eslint-config": "^3.0.0"
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "3.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "homepage": "https://github.com/clemdesign/cordova-plugin-ios-disable-bounce#readme",
+  "keywords": [
+    "cordova",
+    "device",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "capacitor"
+  ],
+  "license": "Apache-2.0",
+  "name": "cordova-plugin-ios-disable-bounce",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clemdesign/cordova-plugin-ios-disable-bounce.git"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "npm run lint"
+  },
+  "version": "0.0.1"
+}

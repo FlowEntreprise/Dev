@@ -202,4 +202,7 @@
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
     <preference name="deployment-target" value="11.0" />
     <preference name="KeyboardShrinksView" value="true" />
+    <feature name="IosDisableBounce">
+        <param name="ios-package" value="CDVIosDisableBounce" />
+    </feature>
 </widget>

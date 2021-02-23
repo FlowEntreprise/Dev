@@ -187,6 +187,10 @@
             {
               "xml": "<feature name=\"LocalNotification\"><param name=\"ios-package\" onload=\"true\" value=\"APPLocalNotification\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"IosDisableBounce\"><param name=\"ios-package\" value=\"CDVIosDisableBounce\" /></feature>",
+              "count": 1
             }
           ],
           "widget": [
@@ -435,6 +439,9 @@
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-ios-disable-bounce": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -923,6 +930,7 @@
     "cordova-launch-review": "4.0.0",
     "cordova-plugin-appversion": "1.0.0",
     "cordova-plugin-badge": "0.8.8",
-    "cordova-plugin-local-notification": "0.9.0-beta.3"
+    "cordova-plugin-local-notification": "0.9.0-beta.3",
+    "cordova-plugin-ios-disable-bounce": "0.0.1"
   }
 }

@@ -48,7 +48,7 @@
 #fFollowYouButtunAccount {
 	position: absolute;
 	top: calc(25.1 * var(--custom-vh));
-	right: 20vw;
+	left: calc(35vw + 105px + 13vw);
 	width: 25px;
 	height: 25px;
 	background-image: url("../src/icons/follow_you.png");
@@ -62,7 +62,7 @@
 #GoDMBtn {
 	position: absolute;
 	top: calc(25.1 * var(--custom-vh));
-	right: 30vw;
+	left: calc(35vw + 105px + 3vw);
 	width: 25px;
 	height: 25px;
 	background-image: url("../src/icons/Messages_filled.png");
@@ -86,7 +86,7 @@
 #block_button {
 	position: absolute;
 	top: calc(24.6 * var(--custom-vh));
-	right: 9vw;
+	left: calc(35vw + 105px + 22vw);
 	width: 35px;
 	height: 35px;
 	background-image: url("../src/icons/block.png");

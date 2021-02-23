@@ -115,8 +115,10 @@ textarea {
 
 .flabel_in_app_notif {
 	font-size: 13px;
-	color: #FFF;
-	font-family: 'Roboto-Regular';
+    color: #FFF;
+    width: 80vw;
+    font-family: 'Roboto-Regular';
+    left: 2.5vw;
 }
 
 .fflow-btn {

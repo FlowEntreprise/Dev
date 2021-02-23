@@ -105,6 +105,9 @@
     },
     "cordova-plugin-local-notification": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-ios-disable-bounce": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {

@@ -328,5 +328,13 @@
     },
     "is_top_level": false,
     "variables": {}
+  },
+  "cordova-plugin-ios-disable-bounce": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-ios-disable-bounce"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

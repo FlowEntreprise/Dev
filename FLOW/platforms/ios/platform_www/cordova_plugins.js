@@ -483,6 +483,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-launch-review": "4.0.0",
     "cordova-plugin-appversion": "1.0.0",
     "cordova-plugin-badge": "0.8.8",
-    "cordova-plugin-local-notification": "0.9.0-beta.3"
+    "cordova-plugin-local-notification": "0.9.0-beta.3",
+    "cordova-plugin-ios-disable-bounce": "0.0.1"
   };
 });
