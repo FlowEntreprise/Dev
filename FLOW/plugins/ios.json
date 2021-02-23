@@ -103,9 +103,6 @@
     "cordova-plugin-appversion": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova-plugin-local-notification": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
     "cordova-plugin-ios-disable-bounce": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
@@ -115,9 +112,6 @@
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "es6-promise-plugin": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
-    "cordova-plugin-badge": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   }

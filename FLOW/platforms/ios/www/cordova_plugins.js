@@ -429,22 +429,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "AppVersion"
       ]
-    },
-    {
-      "id": "cordova-plugin-badge.Badge",
-      "file": "plugins/cordova-plugin-badge/www/badge.js",
-      "pluginId": "cordova-plugin-badge",
-      "clobbers": [
-        "cordova.plugins.notification.badge"
-      ]
-    },
-    {
-      "id": "cordova-plugin-local-notification.LocalNotification",
-      "file": "plugins/cordova-plugin-local-notification/www/local-notification.js",
-      "pluginId": "cordova-plugin-local-notification",
-      "clobbers": [
-        "cordova.plugins.notification.local"
-      ]
     }
   ];
   module.exports.metadata = {
@@ -482,8 +466,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "ionic-plugin-deeplinks": "1.0.20",
     "cordova-launch-review": "4.0.0",
     "cordova-plugin-appversion": "1.0.0",
-    "cordova-plugin-badge": "0.8.8",
-    "cordova-plugin-local-notification": "0.9.0-beta.3",
     "cordova-plugin-ios-disable-bounce": "0.0.1"
   };
 });
