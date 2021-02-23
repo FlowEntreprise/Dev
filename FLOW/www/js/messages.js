@@ -720,6 +720,7 @@ function send_message(chat_id) {
 
 function pop_block_chat(data) {
     $(".loading_chat_list").remove();
+    $(".no_conversation_yet").remove();
     let new_block_chat = new block_chat(data);
     all_block_chat.push(new_block_chat);
 

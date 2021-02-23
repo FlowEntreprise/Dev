@@ -68,7 +68,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-	constructor() {}
+	constructor() { }
 
 	/* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -173,7 +173,7 @@ class ServerManagerClass {
 				};
 				break;
 			default:
-				////console.log("Error in parameters sent to Connect() in ServerManager.");
+			////console.log("Error in parameters sent to Connect() in ServerManager.");
 		}
 		$.ajax({
 			type: "POST",
@@ -305,7 +305,7 @@ class ServerManagerClass {
 			success: function (response) {
 				check_app_version(response.Data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -322,7 +322,7 @@ class ServerManagerClass {
 			success: function (response) {
 				//console.log("User last connexion updated");
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -699,7 +699,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -723,7 +723,7 @@ class ServerManagerClass {
 					}
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -740,7 +740,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowUserFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -755,7 +755,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyInfosUser(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -771,7 +771,7 @@ class ServerManagerClass {
 				////console.log("on recup le getInfosUserNumber");
 				ShowInfosUserNumber(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -799,7 +799,7 @@ class ServerManagerClass {
 					ShowUserProfile(response);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -822,7 +822,7 @@ class ServerManagerClass {
 				////console.log(response);
 				UpdateFollowersList(response, data.follow_list);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -853,7 +853,7 @@ class ServerManagerClass {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -873,7 +873,7 @@ class ServerManagerClass {
 				// myApp.pullToRefreshTrigger(ptrContent);
 				callback(response, data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1269,7 +1269,7 @@ class ServerManagerClass {
 				ServerManager.UpdateRegisterId(data);*/
 				//console.log(registrationId);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1818,7 +1818,7 @@ class ServerManagerClass {
 			}).then(function () {
 				first_chat = false;
 				ServerManager.AddMessage(data);
-				live_chat(data.chat_id);
+				live_chat(data);
 			});
 		});
 	}
@@ -1870,41 +1870,46 @@ class ServerManagerClass {
 			.on("value", function (snapshot) {
 				//console.log(" NewChatListener was called");
 				let clean_chat_list = {}; // object qui va etre rempli de façon {chat_id : time}
-				delete snapshot.val()[window.localStorage.getItem("firebase_token")];
-				Object.entries(snapshot.val()).forEach(item => {
-					clean_chat_list[item[0]] = item[1].time
-				});
+				if (snapshot.val() == null) {
+					$(".loading_chat_list").remove();
+				} else {
+					delete snapshot.val()[window.localStorage.getItem("firebase_token")];
+					Object.entries(snapshot.val()).forEach(item => {
+						clean_chat_list[item[0]] = item[1].time
+					});
 
-				let ordered_chat = Object.fromEntries(
-					Object.entries(clean_chat_list).sort(([, a], [, b]) => a - b)
-				);
+					let ordered_chat = Object.fromEntries(
+						Object.entries(clean_chat_list).sort(([, a], [, b]) => a - b)
+					);
 
-				let different_chat = difference(previous_chat_list, clean_chat_list);
-				if (different_chat != -1) {
-					ordered_chat = {
-						[different_chat]: ordered_chat[different_chat]
-					};
+					let different_chat = difference(previous_chat_list, clean_chat_list);
+					if (different_chat != -1) {
+						ordered_chat = {
+							[different_chat]: ordered_chat[different_chat]
+						};
+					}
+					nb_block_chat_to_pop = Object.keys(ordered_chat).length;
+					previous_chat_list = clean_chat_list;
+
+					Object.keys(ordered_chat).forEach(chat_id => {
+						firebase.database().ref(FirebaseEnvironment + "/chats/" + chat_id)
+							.once("value").then(chat_snapshot => {
+								console.log("Data du chat");
+								console.log(chat_snapshot.val());
+								let chat_data = chat_snapshot.val();
+								firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id + "/" + chat_data.last_message.message_id)
+									.once("value").then(message_snapshot => {
+										console.log("Data du msg avant de recup la conv");
+										console.log(message_snapshot.val());
+										let data_message = message_snapshot.val();
+										chat_data.last_message.seen_by = data_message.seen_by;
+									}).then(function () {
+										ServerManager.GetFirebaseUserProfile(chat_data, callback, chat_id);
+									});
+							});
+					});
+
 				}
-				nb_block_chat_to_pop = Object.keys(ordered_chat).length;
-				previous_chat_list = clean_chat_list;
-
-				Object.keys(ordered_chat).forEach(chat_id => {
-					firebase.database().ref(FirebaseEnvironment + "/chats/" + chat_id)
-						.once("value").then(chat_snapshot => {
-							console.log("Data du chat");
-							console.log(chat_snapshot.val());
-							let chat_data = chat_snapshot.val();
-							firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id + "/" + chat_data.last_message.message_id)
-								.once("value").then(message_snapshot => {
-									console.log("Data du msg avant de recup la conv");
-									console.log(message_snapshot.val());
-									let data_message = message_snapshot.val();
-									chat_data.last_message.seen_by = data_message.seen_by;
-								}).then(function () {
-									ServerManager.GetFirebaseUserProfile(chat_data, callback, chat_id);
-								});
-						});
-				});
 
 			});
 	}
