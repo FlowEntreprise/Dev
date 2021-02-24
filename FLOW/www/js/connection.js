@@ -61,6 +61,8 @@ function ConnectUser() {
                 });
             }
         });*/
+        console.log("le mail pour firebase est :" + Email);
+        console.log("le password pour firebase est :" + password);
         firebase.auth().signInWithEmailAndPassword(Email, password).then(user => {
             ServerManager.AddUserToFirebase(data);
         }).catch((error) => {

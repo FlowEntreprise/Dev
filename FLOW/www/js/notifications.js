@@ -1043,7 +1043,6 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
             $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
             NotifDuration = 4000;
             break;
-
     }
     $(".f_in_app_notif").on("click", function () {
         if (data.additionalData.type == 'send_message') {
@@ -1061,9 +1060,9 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
         $(".f_in_app_notif").css("bottom", "12.5vh");
     }
     setTimeout(function () {
+        $("#InAppNotifNewMessage").css("top", "calc(1.5 * var(--custom-vh))");
         $(".f_in_app_notif").css("bottom", "-20vh");
         $("#InAppNotifNewMessageIcone").css("display", "none");
-        $("#InAppNotifNewMessage").css("top", "calc(1.5 * var(--custom-vh))");
         $("#InAppNotifNewMessageUsername").css("display", "none");
     }, NotifDuration);
 }

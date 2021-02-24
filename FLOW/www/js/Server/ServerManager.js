@@ -1871,8 +1871,10 @@ class ServerManagerClass {
 				//console.log(" NewChatListener was called");
 				let clean_chat_list = {}; // object qui va etre rempli de façon {chat_id : time}
 				if (snapshot.val() == null) {
+					console.log(" IL N Y A AUCUNE CONVERSATION");
 					$(".loading_chat_list").remove();
 				} else {
+
 					delete snapshot.val()[window.localStorage.getItem("firebase_token")];
 					Object.entries(snapshot.val()).forEach(item => {
 						clean_chat_list[item[0]] = item[1].time
