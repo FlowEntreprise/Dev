@@ -14,7 +14,7 @@ function google_conn() {
       // Socket.client.send('Inscription','Google',obj); -- OLD
       let img_big = obj.imageUrl.split("cp=s")[0] + "cp=s500";
       console.log(obj);
-      onsubmit.imageUrl = img.big;
+      obj.imageUrl = img_big;
       ServerManager.Connect(apiTypes.Google, obj);
       //document.getElementById('infos').innerHTML = txt;
       //Transport(socket,obj,'google');

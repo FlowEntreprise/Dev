@@ -697,7 +697,7 @@ function setup_popup_message(data, LiveChat) { // si on doit debuter le live cha
         live_chat(data);
     } else {
         $(loading_msg).removeClass("loading-spinner");
-        $(loading_msg).text("Oups il n'y a aucun message dans cette conversation");
+        $(loading_msg).text("Il n'y a aucun message dans cette conversation");
         $(loading_msg).addClass("noMessageInConv");
     }
 
@@ -720,6 +720,7 @@ function send_message(chat_id) {
 
 function pop_block_chat(data) {
     $(".loading_chat_list").remove();
+    $(".no_conversation_yet").remove();
     let new_block_chat = new block_chat(data);
     all_block_chat.push(new_block_chat);
 

@@ -7,6 +7,17 @@
 	z-index: 1;
 }
 
+.no_conversation_yet
+{
+	width: 100vw;
+    font-family: "Roboto-Regular";
+    color: #92abb2;
+    opacity: 0.5;
+    top: calc(50 * var(--custom-vh));
+    text-align: center;
+    position: absolute;
+}
+
 .loading_message {
 	top: calc(44 * var(--custom-vh));
 }
@@ -35,6 +46,7 @@
     top: calc(1 * var(--custom-vh));
 }
 
+
 #InAppNotifNewMessageUsername {
 	display: none;
     position: absolute;
@@ -53,6 +65,7 @@
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	top: calc(1.5 * var(--custom-vh))
 }
 
 .fmessages-search-bar {
@@ -447,7 +460,8 @@
 	float: left;
 	box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.05);
 	max-width: 60vw;
-	overflow: hidden;
+	/* overflow: hidden; */
+		overflow: visible;
 	/* border-bottom-left-radius: 1vw !important; */
 }
 

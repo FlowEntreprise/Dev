@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-	ServerURL: "https://api-test.flowappweb.com/",
+	ServerURL: "https://api.flowappweb.com/",
 	ConnexionURL: "ConnexionFromApi",
 	AddFlowURL: "AddFlow",
 	GetSingleFlowURL: "GetSingle",
@@ -1818,7 +1818,7 @@ class ServerManagerClass {
 			}).then(function () {
 				first_chat = false;
 				ServerManager.AddMessage(data);
-				live_chat(data.chat_id);
+				live_chat(data);
 			});
 		});
 	}
@@ -1870,41 +1870,48 @@ class ServerManagerClass {
 			.on("value", function (snapshot) {
 				//console.log(" NewChatListener was called");
 				let clean_chat_list = {}; // object qui va etre rempli de façon {chat_id : time}
-				delete snapshot.val()[window.localStorage.getItem("firebase_token")];
-				Object.entries(snapshot.val()).forEach(item => {
-					clean_chat_list[item[0]] = item[1].time
-				});
+				if (snapshot.val() == null) {
+					console.log(" IL N Y A AUCUNE CONVERSATION");
+					$(".loading_chat_list").remove();
+				} else {
 
-				let ordered_chat = Object.fromEntries(
-					Object.entries(clean_chat_list).sort(([, a], [, b]) => a - b)
-				);
+					delete snapshot.val()[window.localStorage.getItem("firebase_token")];
+					Object.entries(snapshot.val()).forEach(item => {
+						clean_chat_list[item[0]] = item[1].time
+					});
 
-				let different_chat = difference(previous_chat_list, clean_chat_list);
-				if (different_chat != -1) {
-					ordered_chat = {
-						[different_chat]: ordered_chat[different_chat]
-					};
+					let ordered_chat = Object.fromEntries(
+						Object.entries(clean_chat_list).sort(([, a], [, b]) => a - b)
+					);
+
+					let different_chat = difference(previous_chat_list, clean_chat_list);
+					if (different_chat != -1) {
+						ordered_chat = {
+							[different_chat]: ordered_chat[different_chat]
+						};
+					}
+					nb_block_chat_to_pop = Object.keys(ordered_chat).length;
+					previous_chat_list = clean_chat_list;
+
+					Object.keys(ordered_chat).forEach(chat_id => {
+						firebase.database().ref(FirebaseEnvironment + "/chats/" + chat_id)
+							.once("value").then(chat_snapshot => {
+								console.log("Data du chat");
+								console.log(chat_snapshot.val());
+								let chat_data = chat_snapshot.val();
+								firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id + "/" + chat_data.last_message.message_id)
+									.once("value").then(message_snapshot => {
+										console.log("Data du msg avant de recup la conv");
+										console.log(message_snapshot.val());
+										let data_message = message_snapshot.val();
+										chat_data.last_message.seen_by = data_message.seen_by;
+									}).then(function () {
+										ServerManager.GetFirebaseUserProfile(chat_data, callback, chat_id);
+									});
+							});
+					});
+
 				}
-				nb_block_chat_to_pop = Object.keys(ordered_chat).length;
-				previous_chat_list = clean_chat_list;
-
-				Object.keys(ordered_chat).forEach(chat_id => {
-					firebase.database().ref(FirebaseEnvironment + "/chats/" + chat_id)
-						.once("value").then(chat_snapshot => {
-							console.log("Data du chat");
-							console.log(chat_snapshot.val());
-							let chat_data = chat_snapshot.val();
-							firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id + "/" + chat_data.last_message.message_id)
-								.once("value").then(message_snapshot => {
-									console.log("Data du msg avant de recup la conv");
-									console.log(message_snapshot.val());
-									let data_message = message_snapshot.val();
-									chat_data.last_message.seen_by = data_message.seen_by;
-								}).then(function () {
-									ServerManager.GetFirebaseUserProfile(chat_data, callback, chat_id);
-								});
-						});
-				});
 
 			});
 	}

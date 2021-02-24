@@ -14,7 +14,6 @@ const pCurrent = {
 let isLoading = false;
 
 function loading(ptr_options) {
-    console.log("loading from PTR");
     ptr_options.ptr_parent.style.transition = "transform 0.5s";
     isLoading = true;
     ptr_options.ptr_parent.style.transform = "translate3d(0, 100px, 0)";
@@ -56,7 +55,6 @@ function swipeEnd(e, ptr_options) {
 }
 
 function swipe(e, ptr_options) {
-    e.stopPropagation();
     if (typeof e["changedTouches"] !== "undefined") {
         let touch = e.changedTouches[0];
         pCurrent.x = touch.screenX;
@@ -67,28 +65,19 @@ function swipe(e, ptr_options) {
     }
     let changeY = pStart.y < pCurrent.y ? Math.abs(pStart.y - pCurrent.y) : 0;
     // const rotation = changeY < 100 ? changeY * 30 / 100 : 30;
-    if (window.cordova.platformId == "ios") {
-        if (ptr_options.ptr_parent.scrollTop < 0) ptr_options.ptr_parent.scrollTop = 0;
-    }
     if (ptr_options.ptr_parent.scrollTop <= 0 && !isLoading && canRegisterPTR) {
-        console.log("a");
         ptr_options.ptr_parent.style.transition = "none";
-        if (changeY >= 100) {
-            console.log("b");
-            loading(ptr_options);
-        } else {
-            console.log("c");
+        if (changeY >= 100) loading(ptr_options);
+        else {
             ptr_options.ptr_loading.classList.remove("active");
             ptr_options.ptr_loading.style.opacity = 1;
             ptr_options.ptr_parent.style.transform = "translate3d(0, " + changeY + "px, 0)";
         }
     } else if (!isLoading) {
-        console.log("d");
         ptr_options.ptr_loading.classList.remove("active");
         ptr_options.ptr_loading.style.opacity = 0;
         ptr_options.ptr_parent.style.transform = "translate3d(0, 0, 0)";
     }
-    console.log(changeY, ptr_options.ptr_parent.scrollTop, isLoading, canRegisterPTR);
 }
 
 // document.addEventListener("touchstart", e => swipeStart(e), false);

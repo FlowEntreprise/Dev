@@ -958,16 +958,16 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
 
         case 'send_comment':
 
-            if (data.additionalData.tag_in_comment || data.additionalData.sender_info.tag_in_flow) {
-                $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " t'a identifié");
-            } else {
-
-                $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a commenté ton flow");
-            }
-
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a commenté ton flow");
             $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
-
             break;
+
+        case 'tag_in_comment':
+
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " t'a identifié");
+            $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
+            break;
+
 
         case 'send_response':
 
@@ -1043,7 +1043,6 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
             $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
             NotifDuration = 4000;
             break;
-
     }
     $(".f_in_app_notif").on("click", function () {
         if (data.additionalData.type == 'send_message') {
@@ -1061,9 +1060,9 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
         $(".f_in_app_notif").css("bottom", "12.5vh");
     }
     setTimeout(function () {
+        $("#InAppNotifNewMessage").css("top", "calc(1.5 * var(--custom-vh))");
         $(".f_in_app_notif").css("bottom", "-20vh");
         $("#InAppNotifNewMessageIcone").css("display", "none");
-        $("#InAppNotifNewMessage").css("top", "calc(1.5 * var(--custom-vh))");
         $("#InAppNotifNewMessageUsername").css("display", "none");
     }, NotifDuration);
 }

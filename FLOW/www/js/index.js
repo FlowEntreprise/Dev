@@ -153,28 +153,28 @@ var app = {
 			// Exception pour cette version : pas de popup nouveautés :
 			$(".fred_dot_toolbar_fdj").css("display", "none");
 			$(".fred_dot_toolbar_explore").css("display", "none");
-			// $("#div_new_features").css("display", "block");
-			// $("#div_new_features_background").css("display", "block");
-			// $("#border_close_div_new_features")[0].innerHTML = "5 secondes";
-			// setTimeout(function () {
-			// 	$("#border_close_div_new_features")[0].innerHTML = "4 secondes";
-			// }, 3000);
-			// setTimeout(function () {
-			// 	$("#border_close_div_new_features")[0].innerHTML = "3 secondes";
-			// }, 4000);
-			// setTimeout(function () {
-			// 	$("#border_close_div_new_features")[0].innerHTML = "2 secondes";
-			// }, 5000);
-			// setTimeout(function () {
-			// 	$("#border_close_div_new_features")[0].innerHTML = "1 seconde";
-			// }, 6000);
-			// setTimeout(function () {
-			// 	$("#border_close_div_new_features")[0].innerHTML = "C'est parti !";
-			// 	$("#close_div_new_features").css({
-			// 		"opacity": "1",
-			// 		"pointer-events": "auto"
-			// 	});
-			// }, 7000);
+			$("#div_new_features").css("display", "block");
+			$("#div_new_features_background").css("display", "block");
+			$("#border_close_div_new_features")[0].innerHTML = "5 secondes";
+			setTimeout(function () {
+				$("#border_close_div_new_features")[0].innerHTML = "4 secondes";
+			}, 3000);
+			setTimeout(function () {
+				$("#border_close_div_new_features")[0].innerHTML = "3 secondes";
+			}, 4000);
+			setTimeout(function () {
+				$("#border_close_div_new_features")[0].innerHTML = "2 secondes";
+			}, 5000);
+			setTimeout(function () {
+				$("#border_close_div_new_features")[0].innerHTML = "1 seconde";
+			}, 6000);
+			setTimeout(function () {
+				$("#border_close_div_new_features")[0].innerHTML = "C'est parti !";
+				$("#close_div_new_features").css({
+					"opacity": "1",
+					"pointer-events": "auto"
+				});
+			}, 7000);
 		} else {
 			$(".fred_dot_toolbar_fdj").css("display", "none");
 			$(".fred_dot_toolbar_explore").css("display", "none");
@@ -360,8 +360,6 @@ var app = {
 					go_to_account(data_go_to_account);
 				} else {
 					$(".flow_specifique_container").html("");
-					let myApp = new Framework7();
-
 					if (
 						data.additionalData.type == "like_comment" ||
 						data.additionalData.type == "send_comment" ||

@@ -115,10 +115,10 @@ textarea {
 
 .flabel_in_app_notif {
 	font-size: 13px;
-    color: #FFF;
-    width: 80vw;
-    font-family: 'Roboto-Regular';
-    left: 2.5vw;
+	color: #FFF;
+	width: 80vw;
+	font-family: 'Roboto-Regular';
+	left: 2.5vw;
 }
 
 .fflow-btn {
@@ -212,7 +212,7 @@ ul {
 	left: 5vw;
 	vertical-align: middle;
 	display: table-cell;
-	height: calc(40 * var(--custom-vh));
+	height: calc(35 * var(--custom-vh));
 	width: 70vw;
 	font-size: 13px;
 	margin: 0;
@@ -221,7 +221,7 @@ ul {
 #paragraphe_div_new_feature>.img1 {
 	padding-top: 5px;
 	padding-bottom: 10px;
-	height: 9vh;
+	height: 16vh;
 	width: 100%;
 	object-fit: contain;
 }

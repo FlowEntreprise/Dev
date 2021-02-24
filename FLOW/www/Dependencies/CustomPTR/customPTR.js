@@ -65,7 +65,7 @@ function swipe(e, ptr_options) {
     }
     let changeY = pStart.y < pCurrent.y ? Math.abs(pStart.y - pCurrent.y) : 0;
     // const rotation = changeY < 100 ? changeY * 30 / 100 : 30;
-    if (ptr_options.ptr_parent.scrollTop == 0 && !isLoading && canRegisterPTR) {
+    if (ptr_options.ptr_parent.scrollTop <= 0 && !isLoading && canRegisterPTR) {
         ptr_options.ptr_parent.style.transition = "none";
         if (changeY >= 100) loading(ptr_options);
         else {
