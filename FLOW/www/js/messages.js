@@ -697,7 +697,7 @@ function setup_popup_message(data, LiveChat) { // si on doit debuter le live cha
         live_chat(data);
     } else {
         $(loading_msg).removeClass("loading-spinner");
-        $(loading_msg).text("Oups il n'y a aucun message dans cette conversation");
+        $(loading_msg).text("Il n'y a aucun message dans cette conversation");
         $(loading_msg).addClass("noMessageInConv");
     }
 
