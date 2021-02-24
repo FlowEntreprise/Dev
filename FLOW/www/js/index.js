@@ -89,11 +89,11 @@ var app = {
 		}
 
 		IonicDeeplink.route({
-				"/flow/:FlowId": {
-					target: "flow",
-					parent: "flow",
-				},
+			"/flow/:FlowId": {
+				target: "flow",
+				parent: "flow",
 			},
+		},
 			function (match) {
 				console.log("deeplink match !", match);
 			},
@@ -190,9 +190,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -242,9 +242,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -360,8 +360,6 @@ var app = {
 					go_to_account(data_go_to_account);
 				} else {
 					$(".flow_specifique_container").html("");
-					let myApp = new Framework7();
-
 					if (
 						data.additionalData.type == "like_comment" ||
 						data.additionalData.type == "send_comment" ||
