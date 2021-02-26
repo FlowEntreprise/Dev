@@ -298,13 +298,37 @@ var app = {
 			}
 		});
 
-		let topic = window.cordova.platformId == "ios" ? "all-ios" : "all-android";
+		if (window.cordova.platformId == "ios") {
+			let topic = "all-ios";
+			let unsubscribe = "all-android";
+			push.unsubscribe(unsubscribe, function () {
+				console.log('unsubscribe success: ' + unsubscribe);
+			}, function (e) {
+				console.log()('unsubscribe error:');
+			});
 
-		push.subscribe(topic, function () {
-			console.log('subscribe success: ' + topic);
-		}, function (e) {
-			console.log()('subscribe error:');
-		});
+			push.subscribe(topic, function () {
+				console.log('subscribe success: ' + topic);
+			}, function (e) {
+				console.log()('subscribe error:');
+			});
+		}
+
+		if (window.cordova.platformId == "android") {
+			let topic = "all-android";
+			let unsubscribe = "all-ios";
+			push.unsubscribe(unsubscribe, function () {
+				console.log('unsubscribe success: ' + unsubscribe);
+			}, function (e) {
+				console.log()('unsubscribe error:');
+			});
+
+			push.subscribe(topic, function () {
+				console.log('subscribe success: ' + topic);
+			}, function (e) {
+				console.log()('subscribe error:');
+			});
+		}
 
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
