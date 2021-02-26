@@ -298,13 +298,12 @@ var app = {
 			}
 		});
 
-		let topic = "all-android";
+		let topic = window.cordova.platformId == "ios" ? "all-ios" : "all-android";
 
 		push.subscribe(topic, function () {
-			//alert('subscribe success: ' + topic);
+			console.log('subscribe success: ' + topic);
 		}, function (e) {
-			//alert('subscribe error:');
-			//alert(e);
+			console.log()('subscribe error:');
 		});
 
 		push.on("notification", function (data) {
