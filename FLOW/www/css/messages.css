@@ -39,25 +39,23 @@
 }
 
 #InAppNotifNewMessageIcone {
-	position: absolute;
     display: none;
     width: calc(1.75 * var(--custom-vh));
-    left: 2vh;
-    top: calc(1 * var(--custom-vh));
+    margin-top: calc(1 * var(--custom-vh));
+    margin-right: 1vw;
 }
 
 
 #InAppNotifNewMessageUsername {
 	display: none;
-    position: absolute;
     top: calc(0.75 * var(--custom-vh));
     font-size: 13px;
     color: #FFF;
     font-family: 'Roboto-Bold';
-    width: 85vw;
-	overflow: hidden;
+    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+   
 }
 
 #InAppNotifNewMessage {
