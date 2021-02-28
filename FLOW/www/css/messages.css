@@ -273,7 +273,7 @@
 #create-conversation_back_button {
 	position: absolute;
 	left: 5vw;
-	top: calc(2* var(--custom-vh));
+	top: calc(5.5* var(--custom-vh));
 	width: 30px;
 	height: 30px;
 	object-fit: contain;
