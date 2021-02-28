@@ -66,9 +66,18 @@ function messages_tab_loaded() {
                 let data = {
                     content: b64,
                     name: Date.now(),
-                    chat_id: current_block_chat.chat_id
+                    chat_id: current_block_chat.chat_id,
+                    user_id: current_block_chat.members.id,
+                    is_groupe_chat: false
                 };
-                ServerManager.UploadImageToFirebase(data);
+                if (first_chat == true) {
+                    ServerManager.AddChat(data_dm, true);
+                    ServerManager.UploadImageToFirebase(data);
+                }
+                else {
+
+                    ServerManager.UploadImageToFirebase(data);
+                }
             });
         });
     });
@@ -82,9 +91,19 @@ function messages_tab_loaded() {
                 let data = {
                     content: b64,
                     name: Date.now(),
-                    chat_id: current_block_chat.chat_id
+                    chat_id: current_block_chat.chat_id,
+                    user_id: current_block_chat.members.id,
+                    is_groupe_chat: false
                 };
-                ServerManager.UploadImageToFirebase(data);
+                if (first_chat == true) {
+                    ServerManager.AddChat(data_dm, true);
+                    ServerManager.UploadImageToFirebase(data);
+
+                }
+                else {
+
+                    ServerManager.UploadImageToFirebase(data);
+                }
             });
         });
     });
