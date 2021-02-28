@@ -861,7 +861,6 @@ function send_notif_to_user(block, type) {
                 "body": notif_body,
                 "type": type,
                 "sender_info": sender_info,
-                "force-start": 1,
                 "content_available": true,
                 "priority": "high"
             },
@@ -870,7 +869,6 @@ function send_notif_to_user(block, type) {
                 "body": notif_body,
                 "type": type,
                 "sender_info": sender_info,
-                "force-start": 1,
                 "content_available": true,
                 "priority": "high"
             },
@@ -884,7 +882,6 @@ function send_notif_to_user(block, type) {
                 "body": notif_body,
                 "type": type,
                 "sender_info": sender_info,
-                "force-start": 1,
                 "notId": noteId,
                 "content_available": true,
                 "priority": "high"
@@ -1046,9 +1043,9 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
     }
     $(".f_in_app_notif").on("click", function () {
         if (data.additionalData.type == 'send_message') {
-            app.showTab("#tab3");
+            pages_swiper.slideTo(2);
         } else {
-            app.showTab("#tab4");
+            pages_swiper.slideTo(3);
         }
     });
 

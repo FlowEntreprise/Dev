@@ -371,7 +371,7 @@ var app = {
 					return;
 				}
 				if (data.additionalData.type == "flow_du_jour") {
-					app.showTab("#tab2");
+					pages_swiper.slideTo(1);
 					explore_categories.slideTo(0);
 					return;
 				}
