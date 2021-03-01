@@ -7,15 +7,14 @@
 	z-index: 1;
 }
 
-.no_conversation_yet
-{
+.no_conversation_yet {
 	width: 100vw;
-    font-family: "Roboto-Regular";
-    color: #92abb2;
-    opacity: 0.5;
-    top: calc(50 * var(--custom-vh));
-    text-align: center;
-    position: absolute;
+	font-family: "Roboto-Regular";
+	color: #92abb2;
+	opacity: 0.5;
+	top: calc(50 * var(--custom-vh));
+	text-align: center;
+	position: absolute;
 }
 
 .loading_message {
@@ -39,23 +38,23 @@
 }
 
 #InAppNotifNewMessageIcone {
-    display: none;
-    width: calc(1.75 * var(--custom-vh));
-    margin-top: calc(1 * var(--custom-vh));
-    margin-right: 1vw;
+	display: none;
+	width: calc(1.75 * var(--custom-vh));
+	margin-top: calc(1 * var(--custom-vh));
+	margin-right: 1vw;
 }
 
 
 #InAppNotifNewMessageUsername {
 	display: none;
-    top: calc(0.75 * var(--custom-vh));
-    font-size: 13px;
-    color: #FFF;
-    font-family: 'Roboto-Bold';
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-   
+	top: calc(0.75 * var(--custom-vh));
+	font-size: 13px;
+	color: #FFF;
+	font-family: 'Roboto-Bold';
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+
 }
 
 #InAppNotifNewMessage {
@@ -454,13 +453,36 @@
 
 .block_message {
 	position: relative;
+	/* background: red; */
+	float: left;
+	/* box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.05); */
+	/* max-width: 60vw; */
+	/* overflow: hidden; */
+	overflow: visible;
+	/* border-bottom-left-radius: 1vw !important; */
+}
+
+.block_message>.block_message_child {
+	position: relative;
 	background: #fff;
 	float: left;
 	box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.05);
 	max-width: 60vw;
-	/* overflow: hidden; */
-		overflow: visible;
+	overflow: hidden;
+	border-radius: 25px;
+	padding: 12px;
 	/* border-bottom-left-radius: 1vw !important; */
+}
+
+.my_block_message>.block_message_child {
+	position: relative;
+	border-radius: 25px;
+	background: #0084ff;
+	color: #fff;
+	box-shadow: 0 3px 8px 0 rgb(0 127 255 / 32%);
+	max-width: 60vw;
+	overflow: hidden;
+	padding: 12px;
 }
 
 .block_message_left_photo {
@@ -468,7 +490,7 @@
 	width: 30px;
 	height: 30px;
 	border-radius: 20px;
-	margin-left: -52px;
+	margin-left: -40px;
 	bottom: 5px;
 	/* border-radius: calc(4.5 * var(--custom-vh)); */
 	/* box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2); */
@@ -478,14 +500,23 @@
 
 .my_block_message {
 	float: right;
-	background: #0084ff;
-	color: #fff;
-	box-shadow: 0 3px 8px 0 rgb(0 127 255 / 32%);
-	max-width: 60vw;
-	overflow: hidden;
+
 	position: relative;
 	/* border-bottom-right-radius: 1vw !important; */
 }
+
+.block_message {
+	position: relative;
+	/* background: red; */
+	float: left;
+	/* box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.05); */
+	/* max-width: 60vw; */
+	/* overflow: hidden; */
+	overflow: visible;
+	/* border-bottom-left-radius: 1vw !important; */
+}
+
+
 
 .block_message_seen {
 	width: 20px;
