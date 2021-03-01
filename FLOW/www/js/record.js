@@ -66,9 +66,9 @@ document.getElementById("popup-record").addEventListener("opened", function () {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -112,9 +112,9 @@ document.getElementById("popup-record").addEventListener("closed", function () {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -144,9 +144,9 @@ document
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -202,9 +202,9 @@ document
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -307,9 +307,9 @@ $(".fcancel-after_btn").on("touchend", function () {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -328,9 +328,9 @@ $(".fcancel-after_btn").on("touchend", function () {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -375,10 +375,10 @@ $(".fvalidate-after_btn").on("touchend", function () {
 
 				facebookConnectPlugin.logEvent(
 					"record_flow", {
-						// private_id: data.PrivatedId,
-						// description: data.Description,
-						duration: data.Duration,
-					},
+					// private_id: data.PrivatedId,
+					// description: data.Description,
+					duration: data.Duration,
+				},
 					null,
 					function () {
 						console.log("fb record flow event success");
@@ -420,8 +420,8 @@ $(".fvalidate-after_btn").on("touchend", function () {
 
 			facebookConnectPlugin.logEvent(
 				"upload_story", {
-					duration: storydata.Duration,
-				},
+				duration: storydata.Duration,
+			},
 				null,
 				function () {
 					console.log("fb event success");
@@ -482,9 +482,9 @@ function CloseAfterRecord() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -549,9 +549,9 @@ function Save(blob) {
 				Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 			facebookConnectPlugin.logEvent(
 				"current_page", {
-					page: current_page,
-					duration: time_in_last_screen,
-				},
+				page: current_page,
+				duration: time_in_last_screen,
+			},
 				null,
 				function () {
 					console.log("fb current_page event success");
@@ -635,9 +635,9 @@ function Save(blob) {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -685,8 +685,8 @@ function Save(blob) {
 
 			facebookConnectPlugin.logEvent(
 				"upload_story_comment", {
-					duration: story_comment.Duration,
-				},
+				duration: story_comment.Duration,
+			},
 				null,
 				function () {
 					console.log("fb record sotry comment event success");
@@ -715,11 +715,19 @@ function Save(blob) {
 				chat_id: current_block_chat.chat_id,
 				LastOs: current_block_chat.members.LastOs,
 				registrationId: current_block_chat.members.registration_id,
-				memberId: current_block_chat.members.id,
+				user_id: current_block_chat.members.id,
 				profilePic: current_block_chat.members.profile_pic,
-				audio_duration: duration
+				audio_duration: duration,
+				is_groupe_chat: false
 			};
-			ServerManager.UploadAudioToFirebase(DataFirebase);
+			if (first_chat == true) {
+				ServerManager.AddChat(data_dm, true);
+				ServerManager.UploadAudioToFirebase(DataFirebase);
+			}
+			else {
+
+				ServerManager.UploadAudioToFirebase(DataFirebase);
+			}
 		};
 	}
 }
@@ -987,9 +995,9 @@ function closeStoryRecord() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -1234,21 +1242,21 @@ function createWorker() {
 
 /* not used
 function opus2wav() {
-    var opustowavWorker = new Worker('http://127.0.0.1:8080/Opus2Wav/opustowavworker.js');
-    opustowavWorker.onmessage = function (message) {
-        if (message.data.status === "done") {
-            console.log(message.data.result);
-            document.getElementById("player").src = message.data.result;
-            document.getElementById("player").style.display = "block";
-            killWorker();
-        } else if (message.data.status === "message") {
-            document.getElementById("message").innerHTML = message.data.result;
-            console.log(message.data.result);
-        }
-    };
+	var opustowavWorker = new Worker('http://127.0.0.1:8080/Opus2Wav/opustowavworker.js');
+	opustowavWorker.onmessage = function (message) {
+		if (message.data.status === "done") {
+			console.log(message.data.result);
+			document.getElementById("player").src = message.data.result;
+			document.getElementById("player").style.display = "block";
+			killWorker();
+		} else if (message.data.status === "message") {
+			document.getElementById("message").innerHTML = message.data.result;
+			console.log(message.data.result);
+		}
+	};
 }
 
 function killWorker() {
-    opustowavWorker.terminate();
+	opustowavWorker.terminate();
 }
 */

@@ -861,7 +861,6 @@ function send_notif_to_user(block, type) {
                 "body": notif_body,
                 "type": type,
                 "sender_info": sender_info,
-                "force-start": 1,
                 "content_available": true,
                 "priority": "high"
             },
@@ -870,7 +869,6 @@ function send_notif_to_user(block, type) {
                 "body": notif_body,
                 "type": type,
                 "sender_info": sender_info,
-                "force-start": 1,
                 "content_available": true,
                 "priority": "high"
             },
@@ -884,7 +882,6 @@ function send_notif_to_user(block, type) {
                 "body": notif_body,
                 "type": type,
                 "sender_info": sender_info,
-                "force-start": 1,
                 "notId": noteId,
                 "content_available": true,
                 "priority": "high"
@@ -1037,8 +1034,8 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
         case 'send_message':
             $("#InAppNotifNewMessageUsername").text(data.additionalData.sender_info.fullname);
             $("#InAppNotifNewMessage").text(data.message); // le message
-            $("#InAppNotifNewMessageUsername").css("display", "block");
-            $("#InAppNotifNewMessageIcone").css("display", "block");
+            $("#InAppNotifNewMessageUsername").css("display", "inline-block");
+            $("#InAppNotifNewMessageIcone").css("display", "inline-block");
             $("#InAppNotifNewMessage").css("top", "calc(2.5 * var(--custom-vh))");
             $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
             NotifDuration = 4000;
@@ -1046,9 +1043,9 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
     }
     $(".f_in_app_notif").on("click", function () {
         if (data.additionalData.type == 'send_message') {
-            app.showTab("#tab3");
+            pages_swiper.slideTo(2);
         } else {
-            app.showTab("#tab4");
+            pages_swiper.slideTo(3);
         }
     });
 

@@ -66,9 +66,17 @@ function messages_tab_loaded() {
                 let data = {
                     content: b64,
                     name: Date.now(),
-                    chat_id: current_block_chat.chat_id
+                    chat_id: current_block_chat.chat_id,
+                    user_id: current_block_chat.members.id,
+                    is_groupe_chat: false
                 };
-                ServerManager.UploadImageToFirebase(data);
+                if (first_chat == true) {
+                    ServerManager.AddChat(data_dm, true);
+                    ServerManager.UploadImageToFirebase(data);
+                } else {
+
+                    ServerManager.UploadImageToFirebase(data);
+                }
             });
         });
     });
@@ -82,9 +90,18 @@ function messages_tab_loaded() {
                 let data = {
                     content: b64,
                     name: Date.now(),
-                    chat_id: current_block_chat.chat_id
+                    chat_id: current_block_chat.chat_id,
+                    user_id: current_block_chat.members.id,
+                    is_groupe_chat: false
                 };
-                ServerManager.UploadImageToFirebase(data);
+                if (first_chat == true) {
+                    ServerManager.AddChat(data_dm, true);
+                    ServerManager.UploadImageToFirebase(data);
+
+                } else {
+
+                    ServerManager.UploadImageToFirebase(data);
+                }
             });
         });
     });
@@ -390,6 +407,10 @@ function block_message(data, previous_message) {
     $(".loading_message").remove();
     $("#" + this.message_id + "").remove();
 
+    this.block_message_child = document.createElement("div");
+    this.block_message_child.className = "block_message_child";
+    this.block_message.appendChild(this.block_message_child);
+
     if (this.sender_private_id == window.localStorage.getItem("user_private_id")) // token id par la suite
     {
         this.block_message.className = 'my_block_message';
@@ -403,8 +424,9 @@ function block_message(data, previous_message) {
     }
 
     if (!self.audio_url) {
-        $(this.block_message).text(this.block_message_text);
+        $(this.block_message_child).text(this.block_message_text);
     }
+
     $(this.block_message).prepend(this.block_message_left_photo);
     this.block_message.id = this.message_id;
     $(this.block_message).append(this.time_and_seen_container);
@@ -453,17 +475,18 @@ function block_message(data, previous_message) {
     // });
 
     if (self.image) {
-        $(self.block_message).text("");
+        $(self.block_message_child).text("");
         let image = document.createElement("img");
         image.src = self.image;
         image.style.maxWidth = "54vw";
         image.style.maxHeight = "300px";
         image.style.objectFit = "contain";
         image.style.borderRadius = "4vw";
-        self.block_message.appendChild(image);
-        self.block_message.style.background = "transparent";
-        self.block_message.style.padding = "0px";
-        self.block_message.style.boxShadow = "none";
+        self.block_message_child.appendChild(image);
+        self.block_message_child.style.background = "transparent";
+        self.block_message_child.style.padding = "0px";
+        self.block_message_child.style.boxShadow = "none";
+        self.block_message_child.style.overflow = "visible";
 
         image.onclick = function () {
             in_dm_image_fullscreen = true;
@@ -528,22 +551,25 @@ function block_message(data, previous_message) {
                 }
             }
         });
-        // Add "dm_blue_filter" if not my message !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // Set html parent for player, if block message use block_child to prevent overflow problems
+        let player_parent = self.block_message_child;
+        player_parent.style.padding = 0;
+        // if ($(self.block_message).hasClass("block_message")) player_parent = self.block_message_child;
 
         // Set bubble width en fonction de la durée avec min et max pour que ça soit bg
         let duration_width = Lerp(40, 60, self.audio_duration / 30);
-        self.block_message.style.width = parseInt(duration_width) + "vw";
+        player_parent.style.width = parseInt(duration_width) + "vw";
         // Line of bars expandable
         let bars = document.createElement("div");
         bars.className = "dm_vocal_bars";
         if ($(self.block_message).hasClass("block_message")) bars.classList.add("dm_blue_filter");
 
-        self.block_message.appendChild(bars);
+        player_parent.appendChild(bars);
         // Overlay indicator opacity 0.5 black
         self.overlay_indicator = document.createElement("div");
         self.overlay_indicator.className = "dm_vocal_overlay";
         if ($(self.block_message).hasClass("block_message")) self.overlay_indicator.classList.add("dm_blue_filter");
-        self.block_message.appendChild(self.overlay_indicator);
+        player_parent.appendChild(self.overlay_indicator);
         // Invisible range for media control
         self.myRange = document.createElement("input");
         self.myRange.type = "range";
@@ -551,12 +577,12 @@ function block_message(data, previous_message) {
         self.myRange.min = "1";
         self.myRange.max = "100";
         self.myRange.value = "1";
-        self.block_message.appendChild(self.myRange);
+        player_parent.appendChild(self.myRange);
         // Play / Pause btn img + background color (nsm le blur I think)
         self.play_btn = document.createElement("div");
         self.play_btn.className = "dm_vocal_play_btn";
         if ($(self.block_message).hasClass("block_message")) self.play_btn.classList.add("dm_blue_filter");
-        self.block_message.appendChild(self.play_btn);
+        player_parent.appendChild(self.play_btn);
         self.play_btn.onclick = function () {
             if (current_dm_audio && current_dm_audio != self) current_dm_audio.pause();
 
@@ -571,7 +597,7 @@ function block_message(data, previous_message) {
         duration_txt.innerHTML = Math.round(self.audio_duration) + "s";
         duration_txt.className = "dm_vocal_duration_txt";
         if ($(self.block_message).hasClass("block_message")) duration_txt.classList.add("dm_blue_filter");
-        self.block_message.appendChild(duration_txt);
+        player_parent.appendChild(duration_txt);
 
         self.play = function () {
             // current_block_playing = block;

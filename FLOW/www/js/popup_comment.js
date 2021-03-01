@@ -871,7 +871,7 @@ $("input").focus(function () {
 if (window.cordova.platformId == "ios") {
     $("#finput_comment").focus(function () {
         setTimeout(function () {
-            Popup("popup-comment", true, 55);
+            Popup("popup-comment", true, 35);
         }, 200);
     });
 
@@ -928,11 +928,9 @@ $("#finput_comment").keyup(function () {
             }
             $(".popup_identification_container")[0].innerHTML = "";
         }
-        if (window.cordova.platformId == "ios") {
-            Popup("popup-identification", true, 55);
-        } else {
-            Popup("popup-identification", true, 5);
-        }
+
+        Popup("popup-identification", true, 5);
+
     } else {
         Popup("popup-identification", false);
         IdentificationListCurrentIndex = 0;

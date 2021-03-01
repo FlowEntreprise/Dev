@@ -1717,8 +1717,8 @@ class ServerManagerClass {
 		});
 	}
 
-	CheckFirstChat(data) // check si on doit crée une nouvelle conversation
-	{
+	CheckFirstChat(data, no_text) // check si on doit crée une nouvelle conversation
+	{// no_text si le premier message n'est pas un text
 		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + '/' + window.localStorage.getItem("firebase_token")).once('value').then(function (snapshot) {
 			/* permet de lire une valeur une seule fois là c'est pour voir si c'est le premier msg envoyé
 			pour creer une conversation plutot que just send un msg*/
@@ -1790,7 +1790,8 @@ class ServerManagerClass {
 		});
 	}
 
-	AddChat(data, callback) {
+	AddChat(data, no_text) {
+		// no_text si le premier message n'est pas un text
 		let time = Date.now();
 		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id).update({
 			"title": "titre du groupe si c'est un groupe",
@@ -1817,7 +1818,9 @@ class ServerManagerClass {
 				}
 			}).then(function () {
 				first_chat = false;
-				ServerManager.AddMessage(data);
+				if (!no_text) {
+					ServerManager.AddMessage(data);
+				}
 				live_chat(data);
 			});
 		});
@@ -2000,7 +2003,7 @@ class ServerManagerClass {
 			//contentType: 'audio/mp3',
 			customMetadata: {
 				"senderId": window.localStorage.getItem("firebase_token"),
-				"memberId": data.memberId, // id de l'interlocuteur
+				"memberId": data.user_id, // id de l'interlocuteur
 				"memberLastOs": data.LastOs,
 				"memberRegistrationId": data.registrationId,
 				"memberprofilePic": data.profilePic,

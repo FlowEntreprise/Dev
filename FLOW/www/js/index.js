@@ -298,14 +298,37 @@ var app = {
 			}
 		});
 
-		let topic = "all-android";
+		if (window.cordova.platformId == "ios") {
+			let topic = "all-ios";
+			let unsubscribe = "all-android";
+			push.unsubscribe(unsubscribe, function () {
+				console.log('unsubscribe success: ' + unsubscribe);
+			}, function (e) {
+				console.log()('unsubscribe error:');
+			});
 
-		push.subscribe(topic, function () {
-			//alert('subscribe success: ' + topic);
-		}, function (e) {
-			//alert('subscribe error:');
-			//alert(e);
-		});
+			push.subscribe(topic, function () {
+				console.log('subscribe success: ' + topic);
+			}, function (e) {
+				console.log()('subscribe error:');
+			});
+		}
+
+		if (window.cordova.platformId == "android") {
+			let topic = "all-android";
+			let unsubscribe = "all-ios";
+			push.unsubscribe(unsubscribe, function () {
+				console.log('unsubscribe success: ' + unsubscribe);
+			}, function (e) {
+				console.log()('unsubscribe error:');
+			});
+
+			push.subscribe(topic, function () {
+				console.log('subscribe success: ' + topic);
+			}, function (e) {
+				console.log()('subscribe error:');
+			});
+		}
 
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
@@ -348,7 +371,7 @@ var app = {
 					return;
 				}
 				if (data.additionalData.type == "flow_du_jour") {
-					app.showTab("#tab2");
+					pages_swiper.slideTo(1);
 					explore_categories.slideTo(0);
 					return;
 				}
