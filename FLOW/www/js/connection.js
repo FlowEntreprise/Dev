@@ -4,7 +4,8 @@ var user_token;
 var my_firebase_token;
 // CheckIfConnected();
 
-function ConnectUser() {
+function ConnectUser(data) {
+    my_firebase_token = data.FirebaseToken;
     console.log("user connected");
     connected = true;
     // $(".empty_tl")[0].style.display = "none";

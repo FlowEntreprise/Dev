@@ -184,8 +184,7 @@ class ServerManagerClass {
 				//// //console.log("Connection success : ");
 				console.log(response);
 				storeVariables(response);
-				my_firebase_token = response.FirebaseToken;
-				ConnectUser();
+				ConnectUser(response);
 			},
 			error: function (response) {
 				//// //console.log("Connection error : ");
