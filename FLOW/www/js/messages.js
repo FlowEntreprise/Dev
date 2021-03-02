@@ -492,6 +492,8 @@ function block_message(data, previous_message) {
         self.block_message_child.appendChild(image);
         self.block_message_child.style.background = "transparent";
         self.block_message_child.style.padding = "0px";
+        self.block_message_child.style.paddingTop = "5px";
+        self.block_message_child.style.paddingBottom = "5px";
         self.block_message_child.style.boxShadow = "none";
         self.block_message_child.style.overflow = "visible";
 
