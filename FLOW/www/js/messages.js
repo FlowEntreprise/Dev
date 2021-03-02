@@ -163,6 +163,7 @@ function messages_tab_loaded() {
     });
 
     function StopRecordDMVocal() {
+        if (record_duration < 1) delete_vocal = true; //prevent empty vocal
         stopCapture(!delete_vocal);
         if (!delete_vocal) {
             UpdateProgressBar(5);
@@ -391,6 +392,7 @@ function block_message_seen(data) {
 }
 
 function block_message(data, previous_message) {
+    console.log(data);
     let self = this;
     var block_message = this;
     this.message_id = data.id;
