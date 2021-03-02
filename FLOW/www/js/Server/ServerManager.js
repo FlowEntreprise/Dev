@@ -1906,8 +1906,11 @@ class ServerManagerClass {
 									.once("value").then(message_snapshot => {
 										console.log("Data du msg avant de recup la conv");
 										console.log(message_snapshot.val());
-										let data_message = message_snapshot.val();
-										chat_data.last_message.seen_by = data_message.seen_by;
+										if (message_snapshot.val() != null) {
+											let data_message = message_snapshot.val();
+											chat_data.last_message.seen_by = data_message.seen_by;
+										}
+
 									}).then(function () {
 										ServerManager.GetFirebaseUserProfile(chat_data, callback, chat_id);
 									});

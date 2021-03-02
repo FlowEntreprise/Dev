@@ -50,30 +50,45 @@ function ConnectUser() {
         let password = window.localStorage.getItem("firebase_token");
         Email = Email.toString();
         password = password.toString();
-        /*firebase.auth().createUserWithEmailAndPassword(Email, window.localStorage.getItem("firebase_token")).then((user) => {
+
+        firebase.auth().signInAnonymously().then((user) => {
             ServerManager.AddUserToFirebase(data);
-        }).catch((error) => {
-            console.log(error.code);
-            console.log(error.message);
-            if (error.code == "auth/email-already-in-use") {
-                firebase.auth().signInWithEmailAndPassword(Email, window.localStorage.getItem("firebase_token")).then(user => {
-                    ServerManager.AddUserToFirebase(data);
-                });
-            }
+        });
+
+        /*firebase.auth().signOut().then((user) => {
+            firebase.auth().signInAnonymously().then((user) => {
+                ServerManager.AddUserToFirebase(data);
+            });
         });*/
-        console.log("le mail pour firebase est :" + Email);
+
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                console.log("user is in firebase");
+            } else {
+                firebase.auth().signOut();
+                console.log("user is delete from");
+            }
+        });
+
+        /*console.log("le mail pour firebase est :" + Email);
         console.log("le password pour firebase est :" + password);
         firebase.auth().signInWithEmailAndPassword(Email, password).then(user => {
             ServerManager.AddUserToFirebase(data);
         }).catch((error) => {
+            console.log("Error sign in firebase :");
             console.log(error.code);
             console.log(error.message);
-            if (error.code == "auth/user-not-found") {
+            if (error.code) {
                 firebase.auth().createUserWithEmailAndPassword(Email, password).then(user => {
                     ServerManager.AddUserToFirebase(data);
+                }).catch((error) => {
+                    console.log("Error create in firebase :");
+                    console.log(error.code);
+                    console.log(error.message);
                 });
             }
-        });
+        });*/
 
         $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
     }, 200);
