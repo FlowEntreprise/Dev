@@ -15,6 +15,7 @@
 	top: calc(50 * var(--custom-vh));
 	text-align: center;
 	position: absolute;
+	display: none;
 }
 
 .loading_message {
@@ -435,7 +436,7 @@
 
 #fblock_message_content li {
 	clear: both;
-	padding: 12px;
+	/* padding: 12px; */
 	margin-bottom: 2px;
 	margin-right: 3vw;
 	margin-left: 50px;
@@ -449,6 +450,8 @@
 	color: #92abb2;
 	opacity: 0.5;
 	font-size: 12px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .block_message {
@@ -544,7 +547,7 @@
 .is_typing div {
 	position: absolute;
 	left: -50px;
-	top: 10px;
+	top: 0px;
 	width: 30px;
 	height: 30px;
 	border-radius: 15px;

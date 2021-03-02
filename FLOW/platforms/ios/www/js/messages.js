@@ -23,8 +23,10 @@ let record_duration = 0;
 let block_photo_url;
 let dm_vocal_playing = false;
 let current_dm_audio;
+let no_conv = false;
 
 function messages_tab_loaded() {
+
     $("#fnameCompte, #GoDMBtn").on("click", function () {
 
         if (FirebaseToken < window.localStorage.getItem("firebase_token")) {
@@ -71,7 +73,7 @@ function messages_tab_loaded() {
                     is_groupe_chat: false
                 };
                 if (first_chat == true) {
-                    ServerManager.AddChat(data_dm, true);
+                    ServerManager.AddChat(data_dm, false);
                     ServerManager.UploadImageToFirebase(data);
                 } else {
 
@@ -95,7 +97,7 @@ function messages_tab_loaded() {
                     is_groupe_chat: false
                 };
                 if (first_chat == true) {
-                    ServerManager.AddChat(data_dm, true);
+                    ServerManager.AddChat(data_dm, false);
                     ServerManager.UploadImageToFirebase(data);
 
                 } else {
@@ -163,6 +165,7 @@ function messages_tab_loaded() {
     });
 
     function StopRecordDMVocal() {
+        if (record_duration < 1) delete_vocal = true; //prevent empty vocal
         stopCapture(!delete_vocal);
         if (!delete_vocal) {
             UpdateProgressBar(5);
@@ -189,7 +192,7 @@ function messages_tab_loaded() {
             data_dm.message = $("#input_send_message").val();
             if (first_chat == true) // premier msg
             {
-                ServerManager.AddChat(data_dm, pop_block_chat);
+                ServerManager.AddChat(data_dm, true);
             } else {
                 send_message(data_dm.chat_id);
             }
@@ -319,6 +322,8 @@ function block_chat(data) {
             is_groupe_chat: current_block_chat.is_groupe_chat,
             message_id: current_block_chat.block_chat_last_message.message_id
         };
+        console.log(" Data DM :");
+        console.log(data_dm);
         ServerManager.SetMessageToSeen(data_dm);
         //live_chat(data_dm.chat_id);
         setup_popup_message(data_dm, true);
@@ -354,12 +359,15 @@ function block_chat(data) {
     this.fblock_chat_time.innerText = set_timestamp(this.block_chat_last_message.time, true);
     this.block_chat.appendChild(this.fblock_chat_time);
 
-    for (let i of Object.entries(this.block_chat_last_message.seen_by)) {
-        if (i[0] == window.localStorage.getItem("firebase_token")) {
-            $(block_chat.block_chat).css("background-color", "#fff");
-            block_chat.is_seen = true;
+    if (this.block_chat_last_message && this.block_chat_last_message.seen_by) {
+        for (let i of Object.entries(this.block_chat_last_message.seen_by)) {
+            if (i[0] == window.localStorage.getItem("firebase_token")) {
+                $(block_chat.block_chat).css("background-color", "#fff");
+                block_chat.is_seen = true;
+            }
         }
     }
+
     set_block_chat_seen();
     if (notif_chat_id && notif_chat_id == this.chat_id) {
         $(block_chat.block_chat).trigger("click");
@@ -388,6 +396,7 @@ function block_message_seen(data) {
 }
 
 function block_message(data, previous_message) {
+    console.log(data);
     let self = this;
     var block_message = this;
     this.message_id = data.id;
@@ -485,6 +494,8 @@ function block_message(data, previous_message) {
         self.block_message_child.appendChild(image);
         self.block_message_child.style.background = "transparent";
         self.block_message_child.style.padding = "0px";
+        self.block_message_child.style.paddingTop = "5px";
+        self.block_message_child.style.paddingBottom = "5px";
         self.block_message_child.style.boxShadow = "none";
         self.block_message_child.style.overflow = "visible";
 
@@ -746,7 +757,7 @@ function send_message(chat_id) {
 
 function pop_block_chat(data) {
     $(".loading_chat_list").remove();
-    $(".no_conversation_yet").remove();
+    // $(".no_conversation_yet").remove();
     let new_block_chat = new block_chat(data);
     all_block_chat.push(new_block_chat);
 

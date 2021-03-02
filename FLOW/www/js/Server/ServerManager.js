@@ -68,7 +68,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-	constructor() { }
+	constructor() {}
 
 	/* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -173,17 +173,18 @@ class ServerManagerClass {
 				};
 				break;
 			default:
-			////console.log("Error in parameters sent to Connect() in ServerManager.");
+				////console.log("Error in parameters sent to Connect() in ServerManager.");
 		}
+		console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.ConnexionURL,
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				//// //console.log("Connection success : ");
-				//// //console.log(response);
+				console.log(response);
 				storeVariables(response);
-				ConnectUser();
+				ConnectUser(response);
 			},
 			error: function (response) {
 				//// //console.log("Connection error : ");
@@ -305,7 +306,7 @@ class ServerManagerClass {
 			success: function (response) {
 				check_app_version(response.Data);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -322,7 +323,7 @@ class ServerManagerClass {
 			success: function (response) {
 				//console.log("User last connexion updated");
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -699,7 +700,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyFlow(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -723,7 +724,7 @@ class ServerManagerClass {
 					}
 				}
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -740,7 +741,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowUserFlow(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -755,7 +756,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyInfosUser(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -771,7 +772,7 @@ class ServerManagerClass {
 				////console.log("on recup le getInfosUserNumber");
 				ShowInfosUserNumber(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -799,7 +800,7 @@ class ServerManagerClass {
 					ShowUserProfile(response);
 				}
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -822,7 +823,7 @@ class ServerManagerClass {
 				////console.log(response);
 				UpdateFollowersList(response, data.follow_list);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -853,7 +854,7 @@ class ServerManagerClass {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -873,7 +874,7 @@ class ServerManagerClass {
 				// myApp.pullToRefreshTrigger(ptrContent);
 				callback(response, data);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -1269,7 +1270,7 @@ class ServerManagerClass {
 				ServerManager.UpdateRegisterId(data);*/
 				//console.log(registrationId);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -1718,7 +1719,7 @@ class ServerManagerClass {
 	}
 
 	CheckFirstChat(data, no_text) // check si on doit crée une nouvelle conversation
-	{// no_text si le premier message n'est pas un text
+	{ // no_text si le premier message n'est pas un text
 		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + '/' + window.localStorage.getItem("firebase_token")).once('value').then(function (snapshot) {
 			/* permet de lire une valeur une seule fois là c'est pour voir si c'est le premier msg envoyé
 			pour creer une conversation plutot que just send un msg*/
@@ -1744,6 +1745,7 @@ class ServerManagerClass {
 	}
 
 	AddMessage(data) { // ajoute les msg à la bdd firebase
+		console.log(data);
 		let data_message = {
 			"sender_id": window.localStorage.getItem("firebase_token"),
 			"sender_private_id": window.localStorage.getItem("user_private_id"),
@@ -1759,38 +1761,40 @@ class ServerManagerClass {
 		let db_message = firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id);
 		db_message.push().set(data_message).then(() => {
 			db_message.limitToLast(1).once('value').then((snapshot) => {
-				//console.log(snapshot);
+				console.log(snapshot.val());
 				data_message.message_id = Object.keys(snapshot.val())[0];
-				firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + "/last_message/").update(data_message);
+
 			}).then(() => {
-				firebase.database().ref(FirebaseEnvironment).update({
-					['/users/' + current_block_chat.members.id + '/chats/' + [data.chat_id] + "/time"]: data_message.time,
-					['/users/' + window.localStorage.getItem("firebase_token") + '/chats/' + [data.chat_id] + "/time"]: data_message.time
-				}, (error) => {
-					if (error) {
-						// The write failed...
-					} else {
-						// Data saved successfully!
-					}
-				});
-			}).then(() => {
-				let userRef = firebase.database().ref(FirebaseEnvironment + '/users/' + current_block_chat.members.id + '/registration_id');
-				userRef.once('value').then((snapshot) => {
-					if (snapshot.val() != null) {
-						current_block_chat.members.registration_id = snapshot.val();
-						let data_notif_message = {
-							message: data.message,
-							chat_id: current_block_chat.chat_id,
-							recipient_info: current_block_chat.members
-						};
-						send_notif_to_user(data_notif_message, "send_message");
-					}
+				firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + "/last_message/").update(data_message).then(() => {
+					firebase.database().ref(FirebaseEnvironment).update({
+						['/users/' + current_block_chat.members.id + '/chats/' + [data.chat_id] + "/time"]: data_message.time,
+						['/users/' + window.localStorage.getItem("firebase_token") + '/chats/' + [data.chat_id] + "/time"]: data_message.time
+					}, (error) => {
+						if (error) {
+							// The write failed...
+						} else {
+							// Data saved successfully!
+						}
+					});
+				}).then(() => {
+					let userRef = firebase.database().ref(FirebaseEnvironment + '/users/' + current_block_chat.members.id + '/registration_id');
+					userRef.once('value').then((snapshot) => {
+						if (snapshot.val() != null) {
+							current_block_chat.members.registration_id = snapshot.val();
+							let data_notif_message = {
+								message: data.message,
+								chat_id: current_block_chat.chat_id,
+								recipient_info: current_block_chat.members
+							};
+							send_notif_to_user(data_notif_message, "send_message");
+						}
+					});
 				});
 			});
 		});
 	}
 
-	AddChat(data, no_text) {
+	AddChat(data, is_text) {
 		// no_text si le premier message n'est pas un text
 		let time = Date.now();
 		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id).update({
@@ -1818,7 +1822,7 @@ class ServerManagerClass {
 				}
 			}).then(function () {
 				first_chat = false;
-				if (!no_text) {
+				if (is_text == true) {
 					ServerManager.AddMessage(data);
 				}
 				live_chat(data);
@@ -1873,10 +1877,14 @@ class ServerManagerClass {
 			.on("value", function (snapshot) {
 				//console.log(" NewChatListener was called");
 				let clean_chat_list = {}; // object qui va etre rempli de façon {chat_id : time}
+				$(".loading_chat_list").remove();
 				if (snapshot.val() == null) {
 					console.log(" IL N Y A AUCUNE CONVERSATION");
-					$(".loading_chat_list").remove();
+					// $(".no_conversation_yet")[0].style.display = "block";
+					no_conv = true;
 				} else {
+					no_conv = false;
+					// $(".no_conversation_yet")[0].style.display = "none";
 
 					delete snapshot.val()[window.localStorage.getItem("firebase_token")];
 					Object.entries(snapshot.val()).forEach(item => {
@@ -1895,7 +1903,8 @@ class ServerManagerClass {
 					}
 					nb_block_chat_to_pop = Object.keys(ordered_chat).length;
 					previous_chat_list = clean_chat_list;
-
+					console.log("ordered_chat : ");
+					console.log(ordered_chat);
 					Object.keys(ordered_chat).forEach(chat_id => {
 						firebase.database().ref(FirebaseEnvironment + "/chats/" + chat_id)
 							.once("value").then(chat_snapshot => {
@@ -1906,8 +1915,10 @@ class ServerManagerClass {
 									.once("value").then(message_snapshot => {
 										console.log("Data du msg avant de recup la conv");
 										console.log(message_snapshot.val());
-										let data_message = message_snapshot.val();
-										chat_data.last_message.seen_by = data_message.seen_by;
+										if (message_snapshot.val() != null) {
+											let data_message = message_snapshot.val();
+											chat_data.last_message.seen_by = data_message.seen_by;
+										}
 									}).then(function () {
 										ServerManager.GetFirebaseUserProfile(chat_data, callback, chat_id);
 									});
@@ -1933,10 +1944,16 @@ class ServerManagerClass {
 	}
 
 	SetMessageToSeen(data) {
-		firebase.database().ref(FirebaseEnvironment).update({
-			['/messages/' + data.chat_id + '/' + data.message_id + '/seen_by/' + window.localStorage.getItem("firebase_token")]: true,
-			['/chats/' + data.chat_id + '/last_message/seen_by/' + window.localStorage.getItem("firebase_token")]: true
-		});
+		console.log("data message seen");
+		console.log(data);
+
+		if (data.message_id) {
+			firebase.database().ref(FirebaseEnvironment).update({
+				['/messages/' + data.chat_id + '/' + data.message_id + '/seen_by/' + window.localStorage.getItem("firebase_token")]: true,
+				['/chats/' + data.chat_id + '/last_message/seen_by/' + window.localStorage.getItem("firebase_token")]: true
+			});
+		}
+
 	}
 
 	DeleteChat(data) {

@@ -12,10 +12,12 @@ function google_conn() {
       // var txt = obj.displayName + " --- " + obj.email + " --- " + obj.imageUrl + " --- " + obj.userId;
 
       // Socket.client.send('Inscription','Google',obj); -- OLD
-      let img_big = obj.imageUrl.split("cp=s")[0] + "cp=s500";
+      console.log(obj.imageUrl);
+      let img_big = obj.imageUrl.replace("s96-", "s500-");
       console.log(obj);
       obj.imageUrl = img_big;
       ServerManager.Connect(apiTypes.Google, obj);
+
       //document.getElementById('infos').innerHTML = txt;
       //Transport(socket,obj,'google');
       //alert(txt);

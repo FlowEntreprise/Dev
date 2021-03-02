@@ -1,9 +1,10 @@
 //DisconnectUser();
 var connected = false;
 var user_token;
+
 // CheckIfConnected();
 
-function ConnectUser() {
+function ConnectUser(data) {
     console.log("user connected");
     connected = true;
     // $(".empty_tl")[0].style.display = "none";
@@ -46,34 +47,45 @@ function ConnectUser() {
             user_id: window.localStorage.getItem("firebase_token")
         };
         ServerManager.UpdateRegisterId(data);
-        let Email = window.localStorage.getItem("user_private_id") + "_" + FirebaseEnvironment + "@flow.fr";
-        let password = window.localStorage.getItem("firebase_token");
-        Email = Email.toString();
-        password = password.toString();
-        /*firebase.auth().createUserWithEmailAndPassword(Email, window.localStorage.getItem("firebase_token")).then((user) => {
+
+        firebase.auth().signInAnonymously().then((user) => {
             ServerManager.AddUserToFirebase(data);
-        }).catch((error) => {
-            console.log(error.code);
-            console.log(error.message);
-            if (error.code == "auth/email-already-in-use") {
-                firebase.auth().signInWithEmailAndPassword(Email, window.localStorage.getItem("firebase_token")).then(user => {
-                    ServerManager.AddUserToFirebase(data);
-                });
-            }
+        });
+
+        /*firebase.auth().signOut().then((user) => {
+            firebase.auth().signInAnonymously().then((user) => {
+                ServerManager.AddUserToFirebase(data);
+            });
         });*/
-        console.log("le mail pour firebase est :" + Email);
+
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                console.log("user is in firebase");
+            } else {
+                firebase.auth().signOut();
+                console.log("user is delete from");
+            }
+        });
+
+        /*console.log("le mail pour firebase est :" + Email);
         console.log("le password pour firebase est :" + password);
         firebase.auth().signInWithEmailAndPassword(Email, password).then(user => {
             ServerManager.AddUserToFirebase(data);
         }).catch((error) => {
+            console.log("Error sign in firebase :");
             console.log(error.code);
             console.log(error.message);
-            if (error.code == "auth/user-not-found") {
+            if (error.code) {
                 firebase.auth().createUserWithEmailAndPassword(Email, password).then(user => {
                     ServerManager.AddUserToFirebase(data);
+                }).catch((error) => {
+                    console.log("Error create in firebase :");
+                    console.log(error.code);
+                    console.log(error.message);
                 });
             }
-        });
+        });*/
 
         $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
     }, 200);
@@ -84,9 +96,13 @@ function ConnectUser() {
 
 function DisconnectUser() {
     // console.log("user disconnected");
-    firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").off();
-    firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token"))
-        .update({ "registration_id": null });
+    if (window.localStorage.getItem("firebase_token")) {
+        firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").off();
+        firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token"))
+            .update({
+                "registration_id": null
+            });
+    }
     let data = {
         RegisterId: null,
         LastOs: window.cordova.platformId
@@ -119,6 +135,7 @@ function DisconnectUser() {
 
     let custom_vh_saved = window.localStorage.getItem("custom_vh");
     window.localStorage.clear();
+    window.localStorage.setItem("new_features_version", AppVersion.version);
     if (custom_vh_saved) window.localStorage.setItem("custom_vh", custom_vh_saved);
     window.localStorage.setItem("first_open", "false");
     if (window.cordova.platformId == "android") {
@@ -132,7 +149,7 @@ function DisconnectUser() {
         // console.log(success)
     }, function (error) {
         // console.log(error);
-    })
+    });
 
     //$( "#fswipe_area" ).css({"pointer-events": "none"});
 }

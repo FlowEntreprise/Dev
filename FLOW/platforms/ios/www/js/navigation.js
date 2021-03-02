@@ -267,6 +267,15 @@ function inMessages() {
 		}, 100);
 	}
 
+	if (no_conv) {
+		console.log(" IL N Y A AUCUNE CONVERSATION");
+		$(".no_conversation_yet")[0].style.display = "block";
+	} else {
+		$(".no_conversation_yet")[0].style.display = "none";
+	}
+
+	console.log(no_conv);
+
 	stopAllBlocksAudio();
 };
 

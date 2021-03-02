@@ -49,6 +49,45 @@ function setupApp() {
     myaccount_swiper = new Swiper('.ftabsMonCompte');
     // initialize account_swiper
     account_swiper = new Swiper('.ftabsAccount');
+
+    // initialize new features popup
+    console.log
+    if (window.localStorage.getItem("new_features_version") != AppVersion.version) {
+
+        // Exception pour cette version : pas de popup nouveautés :
+        $(".fred_dot_toolbar_fdj").css("display", "none");
+        $(".fred_dot_toolbar_explore").css("display", "none");
+        $("#div_new_features").css("display", "block");
+        $("#div_new_features_background").css("display", "block");
+        $("#border_close_div_new_features")[0].innerHTML = "5 secondes";
+        setTimeout(function () {
+            $("#border_close_div_new_features")[0].innerHTML = "4 secondes";
+        }, 3000);
+        setTimeout(function () {
+            $("#border_close_div_new_features")[0].innerHTML = "3 secondes";
+        }, 4000);
+        setTimeout(function () {
+            $("#border_close_div_new_features")[0].innerHTML = "2 secondes";
+        }, 5000);
+        setTimeout(function () {
+            $("#border_close_div_new_features")[0].innerHTML = "1 seconde";
+        }, 6000);
+        setTimeout(function () {
+            $("#border_close_div_new_features")[0].innerHTML = "C'est parti !";
+            $("#close_div_new_features").css({
+                "opacity": "1",
+                "pointer-events": "auto"
+            });
+        }, 7000);
+
+        // Discornect user if needed 
+        setTimeout(function () {
+            DisconnectUser();
+        }, 500);
+    } else {
+        $(".fred_dot_toolbar_fdj").css("display", "none");
+        $(".fred_dot_toolbar_explore").css("display", "none");
+    }
 }
 //initialize hide on scroll main_topbar
 function initMainTopbar(scroll_parent) {
