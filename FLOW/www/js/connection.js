@@ -1,9 +1,11 @@
 //DisconnectUser();
 var connected = false;
 var user_token;
+var my_firebase_token;
 // CheckIfConnected();
 
-function ConnectUser() {
+function ConnectUser(data) {
+    my_firebase_token = data.FirebaseToken;
     console.log("user connected");
     connected = true;
     // $(".empty_tl")[0].style.display = "none";
@@ -43,11 +45,11 @@ function ConnectUser() {
             Private_id: window.localStorage.getItem("user_private_id"),
             full_name: window.localStorage.getItem("user_name"),
             profile_pic: window.localStorage.getItem("user_profile_pic"),
-            user_id: window.localStorage.getItem("firebase_token")
+            user_id: my_firebase_token
         };
         ServerManager.UpdateRegisterId(data);
         let Email = window.localStorage.getItem("user_private_id") + "_" + FirebaseEnvironment + "@flow.fr";
-        let password = window.localStorage.getItem("firebase_token");
+        let password = my_firebase_token;
         console.log("le firebase token est : " + password);
         Email = Email.toString();
         password = password.toString();
@@ -100,8 +102,8 @@ function ConnectUser() {
 
 function DisconnectUser() {
     // console.log("user disconnected");
-    firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").off();
-    firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token"))
+    firebase.database().ref(FirebaseEnvironment + "/users/" + my_firebase_token + "/chats").off();
+    firebase.database().ref(FirebaseEnvironment + "/users/" + my_firebase_token)
         .update({ "registration_id": null });
     let data = {
         RegisterId: null,
@@ -148,7 +150,7 @@ function DisconnectUser() {
         // console.log(success)
     }, function (error) {
         // console.log(error);
-    })
+    });
 
     //$( "#fswipe_area" ).css({"pointer-events": "none"});
 }
@@ -191,7 +193,6 @@ function storeVariables(data) {
     window.localStorage.setItem("user_bio", data.Bio);
     window.localStorage.setItem("user_private_id", data.PrivateId);
     window.localStorage.setItem("user_token", data.TokenId);
-    window.localStorage.setItem("firebase_token", data.FirebaseToken);
 
     const src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.ProfilePicture.name + '?';
     const param = `${data.LinkBuilder.Params.hash}=${data.ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.ProfilePicture.timestamp}`;

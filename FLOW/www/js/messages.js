@@ -27,10 +27,10 @@ let current_dm_audio;
 function messages_tab_loaded() {
     $("#fnameCompte, #GoDMBtn").on("click", function () {
 
-        if (FirebaseToken < window.localStorage.getItem("firebase_token")) {
-            chat_id = FirebaseToken + window.localStorage.getItem("firebase_token");
+        if (FirebaseToken < my_firebase_token) {
+            chat_id = FirebaseToken + my_firebase_token;
         } else {
-            chat_id = window.localStorage.getItem("firebase_token") + FirebaseToken;
+            chat_id = my_firebase_token + FirebaseToken;
         }
 
         data_dm = {
@@ -212,7 +212,7 @@ function messages_tab_loaded() {
 
         let StringMessagesSearchBar = $(".fmessages-search-bar").val().trim();
         if (StringMessagesSearchBar == "") {
-            firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").off();
+            firebase.database().ref(FirebaseEnvironment + "/users/" + my_firebase_token + "/chats").off();
             ServerManager.NewChatListener(pop_block_chat);
         } else {
             ServerManager.SearchChat(StringMessagesSearchBar);
@@ -322,7 +322,7 @@ function block_chat(data) {
         };
         console.log(" Data DM :");
         console.log(data_dm);
-        //ServerManager.SetMessageToSeen(data_dm);
+        ServerManager.SetMessageToSeen(data_dm);
         //live_chat(data_dm.chat_id);
         setup_popup_message(data_dm, true);
     });
@@ -359,7 +359,7 @@ function block_chat(data) {
 
     if (this.block_chat_last_message && this.block_chat_last_message.seen_by) {
         for (let i of Object.entries(this.block_chat_last_message.seen_by)) {
-            if (i[0] == window.localStorage.getItem("firebase_token")) {
+            if (i[0] == my_firebase_token) {
                 $(block_chat.block_chat).css("background-color", "#fff");
                 block_chat.is_seen = true;
             }
@@ -466,7 +466,7 @@ function block_message(data, previous_message) {
     if (this.seen_by) {
         let user_who_seen = Object.entries(this.seen_by);
         user_who_seen.forEach(user => {
-            if (user[0] != window.localStorage.getItem("firebase_token") && user[1] == true) {
+            if (user[0] != my_firebase_token && user[1] == true) {
                 pop_block_message_seen(current_block_chat.block_chat_photo);
             }
         });
@@ -856,7 +856,7 @@ function live_chat(data) {
             let user_who_seen = Object.entries(child_change_snapshot.val());
             user_who_seen = Object.entries(user_who_seen[0][1].seen_by);
             for (let i = 0; i < user_who_seen.length; i++) {
-                if (user_who_seen[i][0] != window.localStorage.getItem("firebase_token") && user_who_seen[i][1] == true)
+                if (user_who_seen[i][0] != my_firebase_token && user_who_seen[i][1] == true)
                     pop_block_message_seen(data.profile_picture);
                 scroll_to_bottom($("#fblock_message_content"));
             }
@@ -874,7 +874,7 @@ function live_chat(data) {
                     user_id: Object.entries(is_typing_snapshot.val().is_typing)[i][0],
                     value: Object.entries(is_typing_snapshot.val().is_typing)[i][1]
                 };
-                if (data_is_typing.user_id != window.localStorage.getItem("firebase_token") && data_is_typing.value == true) {
+                if (data_is_typing.user_id != my_firebase_token && data_is_typing.value == true) {
                     $(".is_typing").remove();
                     let is_typing = document.createElement("li");
                     is_typing.className = "is_typing";
@@ -889,7 +889,7 @@ function live_chat(data) {
 
                     scroll_to_bottom($("#fblock_message_content"));
                 }
-                if (data_is_typing.user_id != window.localStorage.getItem("firebase_token") && data_is_typing.value == false) {
+                if (data_is_typing.user_id != my_firebase_token && data_is_typing.value == false) {
                     $(".is_typing").remove();
                 }
             }
@@ -909,7 +909,7 @@ function live_chat(data) {
             if (first_chat == false) {
                 firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + '/is_typing/')
                     .update({
-                        [window.localStorage.getItem("firebase_token")]: true
+                        [my_firebase_token]: true
                     });
             }
             scroll_to_bottom($("#fblock_message_content"), 100);
@@ -931,7 +931,7 @@ function live_chat(data) {
             if (first_chat == false) {
                 firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + '/is_typing/')
                     .update({
-                        [window.localStorage.getItem("firebase_token")]: false
+                        [my_firebase_token]: false
                     });
             }
 
@@ -980,7 +980,7 @@ function DisplayFollowingsPopupCreateConversation(data, follow_list) {
     if (Array.isArray(data) && data.length != 0) {
         $(".fconversation_block_utilisateur_list").html("");
         data.forEach(item => {
-            if (item.FirebaseToken != window.localStorage.getItem("firebase_token")) {
+            if (item.FirebaseToken != my_firebase_token) {
                 let user = new block_user(follow_list, "CreateConversation", item);
                 all_users_block.push(user);
             }
