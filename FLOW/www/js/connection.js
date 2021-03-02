@@ -48,6 +48,7 @@ function ConnectUser() {
         ServerManager.UpdateRegisterId(data);
         let Email = window.localStorage.getItem("user_private_id") + "_" + FirebaseEnvironment + "@flow.fr";
         let password = window.localStorage.getItem("firebase_token");
+        console.log("le firebase token est : " + password);
         Email = Email.toString();
         password = password.toString();
 

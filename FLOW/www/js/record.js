@@ -721,7 +721,7 @@ function Save(blob) {
 				is_groupe_chat: false
 			};
 			if (first_chat == true) {
-				ServerManager.AddChat(data_dm, true);
+				ServerManager.AddChat(data_dm, false);
 				ServerManager.UploadAudioToFirebase(DataFirebase);
 			}
 			else {
