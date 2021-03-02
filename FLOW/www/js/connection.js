@@ -1,11 +1,10 @@
 //DisconnectUser();
 var connected = false;
 var user_token;
-var my_firebase_token;
+
 // CheckIfConnected();
 
 function ConnectUser(data) {
-    my_firebase_token = data.FirebaseToken;
     console.log("user connected");
     connected = true;
     // $(".empty_tl")[0].style.display = "none";
@@ -45,11 +44,11 @@ function ConnectUser(data) {
             Private_id: window.localStorage.getItem("user_private_id"),
             full_name: window.localStorage.getItem("user_name"),
             profile_pic: window.localStorage.getItem("user_profile_pic"),
-            user_id: my_firebase_token
+            user_id: window.localStorage.getItem("firebase_token")
         };
         ServerManager.UpdateRegisterId(data);
         let Email = window.localStorage.getItem("user_private_id") + "_" + FirebaseEnvironment + "@flow.fr";
-        let password = my_firebase_token;
+        let password = window.localStorage.getItem("firebase_token");
         console.log("le firebase token est : " + password);
         Email = Email.toString();
         password = password.toString();
@@ -102,8 +101,8 @@ function ConnectUser(data) {
 
 function DisconnectUser() {
     // console.log("user disconnected");
-    firebase.database().ref(FirebaseEnvironment + "/users/" + my_firebase_token + "/chats").off();
-    firebase.database().ref(FirebaseEnvironment + "/users/" + my_firebase_token)
+    firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").off();
+    firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token"))
         .update({ "registration_id": null });
     let data = {
         RegisterId: null,
