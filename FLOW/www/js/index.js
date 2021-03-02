@@ -89,11 +89,11 @@ var app = {
 		}
 
 		IonicDeeplink.route({
-			"/flow/:FlowId": {
-				target: "flow",
-				parent: "flow",
+				"/flow/:FlowId": {
+					target: "flow",
+					parent: "flow",
+				},
 			},
-		},
 			function (match) {
 				console.log("deeplink match !", match);
 			},
@@ -148,38 +148,6 @@ var app = {
 			}
 		}, 270000);
 
-		if (window.localStorage.getItem("new_features_version") != AppVersion.version) {
-
-			// Exception pour cette version : pas de popup nouveautés :
-			$(".fred_dot_toolbar_fdj").css("display", "none");
-			$(".fred_dot_toolbar_explore").css("display", "none");
-			$("#div_new_features").css("display", "block");
-			$("#div_new_features_background").css("display", "block");
-			$("#border_close_div_new_features")[0].innerHTML = "5 secondes";
-			setTimeout(function () {
-				$("#border_close_div_new_features")[0].innerHTML = "4 secondes";
-			}, 3000);
-			setTimeout(function () {
-				$("#border_close_div_new_features")[0].innerHTML = "3 secondes";
-			}, 4000);
-			setTimeout(function () {
-				$("#border_close_div_new_features")[0].innerHTML = "2 secondes";
-			}, 5000);
-			setTimeout(function () {
-				$("#border_close_div_new_features")[0].innerHTML = "1 seconde";
-			}, 6000);
-			setTimeout(function () {
-				$("#border_close_div_new_features")[0].innerHTML = "C'est parti !";
-				$("#close_div_new_features").css({
-					"opacity": "1",
-					"pointer-events": "auto"
-				});
-			}, 7000);
-		} else {
-			$(".fred_dot_toolbar_fdj").css("display", "none");
-			$(".fred_dot_toolbar_explore").css("display", "none");
-		}
-
 		this.receivedEvent("deviceready");
 	},
 	onPause: function () {
@@ -190,9 +158,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+				page: current_page,
+				duration: time_in_last_screen,
+			},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -242,9 +210,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+				page: current_page,
+				duration: time_in_last_screen,
+			},
 			null,
 			function () {
 				console.log("fb current_page event success");

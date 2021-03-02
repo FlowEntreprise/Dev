@@ -47,11 +47,6 @@ function ConnectUser(data) {
             user_id: window.localStorage.getItem("firebase_token")
         };
         ServerManager.UpdateRegisterId(data);
-        let Email = window.localStorage.getItem("user_private_id") + "_" + FirebaseEnvironment + "@flow.fr";
-        let password = window.localStorage.getItem("firebase_token");
-        console.log("le firebase token est : " + password);
-        Email = Email.toString();
-        password = password.toString();
 
         firebase.auth().signInAnonymously().then((user) => {
             ServerManager.AddUserToFirebase(data);
@@ -101,9 +96,13 @@ function ConnectUser(data) {
 
 function DisconnectUser() {
     // console.log("user disconnected");
-    firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").off();
-    firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token"))
-        .update({ "registration_id": null });
+    if (window.localStorage.getItem("firebase_token")) {
+        firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").off();
+        firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token"))
+            .update({
+                "registration_id": null
+            });
+    }
     let data = {
         RegisterId: null,
         LastOs: window.cordova.platformId
