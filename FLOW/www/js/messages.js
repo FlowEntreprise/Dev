@@ -320,7 +320,9 @@ function block_chat(data) {
             is_groupe_chat: current_block_chat.is_groupe_chat,
             message_id: current_block_chat.block_chat_last_message.message_id
         };
-        ServerManager.SetMessageToSeen(data_dm);
+        console.log(" Data DM :");
+        console.log(data_dm);
+        //ServerManager.SetMessageToSeen(data_dm);
         //live_chat(data_dm.chat_id);
         setup_popup_message(data_dm, true);
     });

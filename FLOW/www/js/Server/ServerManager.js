@@ -1745,6 +1745,7 @@ class ServerManagerClass {
 	}
 
 	AddMessage(data) { // ajoute les msg à la bdd firebase
+		console.log(data);
 		let data_message = {
 			"sender_id": window.localStorage.getItem("firebase_token"),
 			"sender_private_id": window.localStorage.getItem("user_private_id"),
@@ -1760,8 +1761,10 @@ class ServerManagerClass {
 		let db_message = firebase.database().ref(FirebaseEnvironment + '/messages/' + data.chat_id);
 		db_message.push().set(data_message).then(() => {
 			db_message.limitToLast(1).once('value').then((snapshot) => {
-				//console.log(snapshot);
+				console.log(snapshot.val());
 				data_message.message_id = Object.keys(snapshot.val())[0];
+
+			}).then(() => {
 				firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + "/last_message/").update(data_message);
 			}).then(() => {
 				firebase.database().ref(FirebaseEnvironment).update({
@@ -1896,7 +1899,8 @@ class ServerManagerClass {
 					}
 					nb_block_chat_to_pop = Object.keys(ordered_chat).length;
 					previous_chat_list = clean_chat_list;
-
+					console.log("ordered_chat : ");
+					console.log(ordered_chat);
 					Object.keys(ordered_chat).forEach(chat_id => {
 						firebase.database().ref(FirebaseEnvironment + "/chats/" + chat_id)
 							.once("value").then(chat_snapshot => {
@@ -1936,10 +1940,16 @@ class ServerManagerClass {
 	}
 
 	SetMessageToSeen(data) {
-		firebase.database().ref(FirebaseEnvironment).update({
-			['/messages/' + data.chat_id + '/' + data.message_id + '/seen_by/' + window.localStorage.getItem("firebase_token")]: true,
-			['/chats/' + data.chat_id + '/last_message/seen_by/' + window.localStorage.getItem("firebase_token")]: true
-		});
+		console.log("data message seen");
+		console.log(data);
+
+		if (data.message_id) {
+			firebase.database().ref(FirebaseEnvironment).update({
+				['/messages/' + data.chat_id + '/' + data.message_id + '/seen_by/' + window.localStorage.getItem("firebase_token")]: true,
+				['/chats/' + data.chat_id + '/last_message/seen_by/' + window.localStorage.getItem("firebase_token")]: true
+			});
+		}
+
 	}
 
 	DeleteChat(data) {
