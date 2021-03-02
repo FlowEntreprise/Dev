@@ -146,10 +146,10 @@ function block_user(follow_list, target, data) {
 
 		$(this.block_user).on("click", function () {
 
-			if (block_user.FirebaseToken < window.localStorage.getItem("firebase_token")) {
-				chat_id = block_user.FirebaseToken + window.localStorage.getItem("firebase_token");
+			if (block_user.FirebaseToken < my_firebase_token) {
+				chat_id = block_user.FirebaseToken + my_firebase_token;
 			} else {
-				chat_id = window.localStorage.getItem("firebase_token") + block_user.FirebaseToken;
+				chat_id = my_firebase_token + block_user.FirebaseToken;
 			}
 
 			data_dm = {

@@ -68,7 +68,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-	constructor() {}
+	constructor() { }
 
 	/* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -173,7 +173,7 @@ class ServerManagerClass {
 				};
 				break;
 			default:
-				////console.log("Error in parameters sent to Connect() in ServerManager.");
+			////console.log("Error in parameters sent to Connect() in ServerManager.");
 		}
 		console.log(final_data);
 		$.ajax({
@@ -184,7 +184,7 @@ class ServerManagerClass {
 				//// //console.log("Connection success : ");
 				console.log(response);
 				storeVariables(response);
-				ConnectUser();
+				ConnectUser(response);
 			},
 			error: function (response) {
 				//// //console.log("Connection error : ");
@@ -306,7 +306,7 @@ class ServerManagerClass {
 			success: function (response) {
 				check_app_version(response.Data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -323,7 +323,7 @@ class ServerManagerClass {
 			success: function (response) {
 				//console.log("User last connexion updated");
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -700,7 +700,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -724,7 +724,7 @@ class ServerManagerClass {
 					}
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -741,7 +741,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowUserFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -756,7 +756,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyInfosUser(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -772,7 +772,7 @@ class ServerManagerClass {
 				////console.log("on recup le getInfosUserNumber");
 				ShowInfosUserNumber(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -800,7 +800,7 @@ class ServerManagerClass {
 					ShowUserProfile(response);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -823,7 +823,7 @@ class ServerManagerClass {
 				////console.log(response);
 				UpdateFollowersList(response, data.follow_list);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -854,7 +854,7 @@ class ServerManagerClass {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -874,7 +874,7 @@ class ServerManagerClass {
 				// myApp.pullToRefreshTrigger(ptrContent);
 				callback(response, data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1270,7 +1270,7 @@ class ServerManagerClass {
 				ServerManager.UpdateRegisterId(data);*/
 				//console.log(registrationId);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1720,7 +1720,7 @@ class ServerManagerClass {
 
 	CheckFirstChat(data, no_text) // check si on doit crée une nouvelle conversation
 	{ // no_text si le premier message n'est pas un text
-		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + '/' + window.localStorage.getItem("firebase_token")).once('value').then(function (snapshot) {
+		firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + '/' + my_firebase_token).once('value').then(function (snapshot) {
 			/* permet de lire une valeur une seule fois là c'est pour voir si c'est le premier msg envoyé
 			pour creer une conversation plutot que just send un msg*/
 			//console.log("valeur recuperé de la bdd firebase : ");
@@ -1747,12 +1747,12 @@ class ServerManagerClass {
 	AddMessage(data) { // ajoute les msg à la bdd firebase
 		console.log(data);
 		let data_message = {
-			"sender_id": window.localStorage.getItem("firebase_token"),
+			"sender_id": my_firebase_token,
 			"sender_private_id": window.localStorage.getItem("user_private_id"),
 			"sender_full_name": window.localStorage.getItem("user_name"),
 			"message": data.message ? data.message : "",
 			"seen_by": {
-				[window.localStorage.getItem("firebase_token")]: true
+				[my_firebase_token]: true
 			},
 			"image": data.image ? data.image : "",
 			"audio": data.audio ? data.audio : "",
@@ -1768,7 +1768,7 @@ class ServerManagerClass {
 				firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + "/last_message/").update(data_message).then(() => {
 					firebase.database().ref(FirebaseEnvironment).update({
 						['/users/' + current_block_chat.members.id + '/chats/' + [data.chat_id] + "/time"]: data_message.time,
-						['/users/' + window.localStorage.getItem("firebase_token") + '/chats/' + [data.chat_id] + "/time"]: data_message.time
+						['/users/' + my_firebase_token + '/chats/' + [data.chat_id] + "/time"]: data_message.time
 					}, (error) => {
 						if (error) {
 							// The write failed...
@@ -1794,7 +1794,6 @@ class ServerManagerClass {
 		});
 	}
 
-
 	AddChat(data, is_text) {
 		// no_text si le premier message n'est pas un text
 		let time = Date.now();
@@ -1806,18 +1805,18 @@ class ServerManagerClass {
 			"last_message": "",
 			[data.user_id]: true,
 			"is_groupe_chat": data.is_groupe_chat,
-			[window.localStorage.getItem("firebase_token")]: true
+			[my_firebase_token]: true
 		}).then(function (dataSnapshot) {
 			firebase.database().ref(FirebaseEnvironment).update({
 				['/members/' + data.chat_id]: {
 					[data.user_id]: true,
-					[window.localStorage.getItem("firebase_token")]: true
+					[my_firebase_token]: true
 				},
 				['/users/' + data.user_id + '/chats/' + data.chat_id]: {
 					time: time,
 					search_key: (window.localStorage.getItem("user_name")).toLowerCase()
 				},
-				['/users/' + window.localStorage.getItem("firebase_token") + '/chats/' + data.chat_id]: {
+				['/users/' + my_firebase_token + '/chats/' + data.chat_id]: {
 					time: time,
 					search_key: (data.fullname).toLowerCase()
 				}
@@ -1839,7 +1838,7 @@ class ServerManagerClass {
 			data = Object.keys(data);
 
 			for (let i = 0; i < data.length; i++) {
-				if (data[i].length == 32 && data[i] != window.localStorage.getItem("firebase_token")) {
+				if (data[i].length == 32 && data[i] != my_firebase_token) {
 					let ref_members = firebase.database().ref(FirebaseEnvironment + "/users/" + data[i]);
 					ref_members.once('value').then(function (profile_snapshot) {
 						if (profile_snapshot.val() != null) {
@@ -1874,7 +1873,7 @@ class ServerManagerClass {
 	}
 
 	NewChatListener(callback) {
-		firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats")
+		firebase.database().ref(FirebaseEnvironment + "/users/" + my_firebase_token + "/chats")
 			.on("value", function (snapshot) {
 				//console.log(" NewChatListener was called");
 				let clean_chat_list = {}; // object qui va etre rempli de façon {chat_id : time}
@@ -1883,7 +1882,7 @@ class ServerManagerClass {
 					$(".loading_chat_list").remove();
 				} else {
 
-					delete snapshot.val()[window.localStorage.getItem("firebase_token")];
+					delete snapshot.val()[my_firebase_token];
 					Object.entries(snapshot.val()).forEach(item => {
 						clean_chat_list[item[0]] = item[1].time
 					});
@@ -1935,7 +1934,7 @@ class ServerManagerClass {
 			"registration_id": registrationId,
 			"LastOs": data.LastOs,
 			"time": Date.now()
-			//["chats/" + window.localStorage.getItem("firebase_token") + "/time"]: Date.now()
+			//["chats/" + my_firebase_token + "/time"]: Date.now()
 		});
 		ServerManager.NewChatListener(pop_block_chat);
 	}
@@ -1946,23 +1945,23 @@ class ServerManagerClass {
 
 		if (data.message_id) {
 			firebase.database().ref(FirebaseEnvironment).update({
-				['/messages/' + data.chat_id + '/' + data.message_id + '/seen_by/' + window.localStorage.getItem("firebase_token")]: true,
-				['/chats/' + data.chat_id + '/last_message/seen_by/' + window.localStorage.getItem("firebase_token")]: true
+				['/messages/' + data.chat_id + '/' + data.message_id + '/seen_by/' + my_firebase_token]: true,
+				['/chats/' + data.chat_id + '/last_message/seen_by/' + my_firebase_token]: true
 			});
 		}
 
 	}
 
 	DeleteChat(data) {
-		firebase.database().ref(FirebaseEnvironment + "/chats/" + data.chat_id).child(window.localStorage.getItem("firebase_token")).remove();
-		firebase.database().ref(FirebaseEnvironment + "/members/" + data.chat_id).child(window.localStorage.getItem("firebase_token")).remove();
-		firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").child(data.chat_id).remove();
+		firebase.database().ref(FirebaseEnvironment + "/chats/" + data.chat_id).child(my_firebase_token).remove();
+		firebase.database().ref(FirebaseEnvironment + "/members/" + data.chat_id).child(my_firebase_token).remove();
+		firebase.database().ref(FirebaseEnvironment + "/users/" + my_firebase_token + "/chats").child(data.chat_id).remove();
 		$("#" + data.chat_id + "").remove();
 	}
 
 	SearchChat(data) {
 		data = data.toLowerCase();
-		firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats")
+		firebase.database().ref(FirebaseEnvironment + "/users/" + my_firebase_token + "/chats")
 			.orderByChild('search_key').startAt(data).endAt(data + "\uf8ff")
 			.once("value").then(search_snapshot => {
 				$("#block_chat_contrainer").html("");
@@ -2016,7 +2015,7 @@ class ServerManagerClass {
 		let metadata = {
 			//contentType: 'audio/mp3',
 			customMetadata: {
-				"senderId": window.localStorage.getItem("firebase_token"),
+				"senderId": my_firebase_token,
 				"memberId": data.user_id, // id de l'interlocuteur
 				"memberLastOs": data.LastOs,
 				"memberRegistrationId": data.registrationId,
