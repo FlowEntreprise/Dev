@@ -51,6 +51,7 @@ function setupApp() {
     account_swiper = new Swiper('.ftabsAccount');
 
     // initialize new features popup
+    console.log
     if (window.localStorage.getItem("new_features_version") != AppVersion.version) {
 
         // Exception pour cette version : pas de popup nouveautés :

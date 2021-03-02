@@ -135,6 +135,7 @@ function DisconnectUser() {
 
     let custom_vh_saved = window.localStorage.getItem("custom_vh");
     window.localStorage.clear();
+    window.localStorage.setItem("new_features_version", AppVersion.version);
     if (custom_vh_saved) window.localStorage.setItem("custom_vh", custom_vh_saved);
     window.localStorage.setItem("first_open", "false");
     if (window.cordova.platformId == "android") {
