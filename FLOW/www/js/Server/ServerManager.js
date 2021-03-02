@@ -1880,9 +1880,11 @@ class ServerManagerClass {
 				$(".loading_chat_list").remove();
 				if (snapshot.val() == null) {
 					console.log(" IL N Y A AUCUNE CONVERSATION");
-					$(".no_conversation_yet")[0].style.display = "block";
+					// $(".no_conversation_yet")[0].style.display = "block";
+					no_conv = true;
 				} else {
-					$(".no_conversation_yet")[0].style.display = "none";
+					no_conv = false;
+					// $(".no_conversation_yet")[0].style.display = "none";
 
 					delete snapshot.val()[window.localStorage.getItem("firebase_token")];
 					Object.entries(snapshot.val()).forEach(item => {
