@@ -18,7 +18,6 @@
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
-    
     <platform name="ios">
         <resource-file src="GoogleService-Info.plist" />
         <allow-intent href="itms:*" />
@@ -41,19 +40,16 @@
                 <string>location</string>
             </array>
         </gap:config-file>
-        <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+        <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
             <string>need camera access to take pictures</string>
         </edit-config>
-        <edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
+        <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
             <string>need photo library access to get pictures from there</string>
         </edit-config>
-
-        <edit-config target="NSPhotoLibraryAddUsageDescription" file="*-Info.plist" mode="merge">
+        <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
             <string>need photo library access to save pictures there</string>
         </edit-config>
-        
     </platform>
-    
     <preference name="Orientation" value="portrait" />
     <preference name="StatusBarStyle" value="default" />
     <preference name="fullscreen" value="false" />
@@ -81,7 +77,6 @@
     <plugin name="cordova-plugin-httpd" spec="~0.9.3" />
     <plugin name="cordova-plugin-media" spec="^5.0.3" />
     <plugin name="cordova-plugin-background-mode" spec="~0.7.3" />
-    <plugin name="cordova-plugin-apple-login" spec="~1.0.0" />
     <plugin name="cordova-plugin-splashscreen" spec="~5.0.3" />
     <plugin name="cordova-plugin-wkkeyboardfix" spec="~1.1.0" />
     <plugin name="cordova-plugin-dialogs" spec="~2.0.2" />

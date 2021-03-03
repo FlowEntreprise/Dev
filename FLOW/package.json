@@ -15,7 +15,6 @@
     "cordova-labs-local-webserver": "git+https://github.com/apache/cordova-plugins.git#local-webserver",
     "cordova-launch-review": "^4.0.0",
     "cordova-plugin-android-permissions": "^1.0.0",
-    "cordova-plugin-apple-login": "^1.0.0",
     "cordova-plugin-appversion": "^1.0.0",
     "cordova-plugin-audioinput": "^1.0.2",
     "cordova-plugin-background-mode": "^0.7.3",
@@ -34,6 +33,7 @@
     "cordova-plugin-k-imagecropper": "^1.2.0",
     "cordova-plugin-media": "^5.0.3",
     "cordova-plugin-network-information": "^2.0.1",
+    "cordova-plugin-sign-in-with-apple": "^0.1.2",
     "cordova-plugin-splashscreen": "^5.0.3",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-twitter-connect-wkwebview": "^1.0.1",
@@ -82,7 +82,6 @@
       "cordova-plugin-httpd": {},
       "cordova-plugin-media": {},
       "cordova-plugin-background-mode": {},
-      "cordova-plugin-apple-login": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-wkkeyboardfix": {},
       "cordova-plugin-dialogs": {},
@@ -102,7 +101,8 @@
       },
       "cordova-launch-review": {},
       "cordova-plugin-appversion": {},
-      "cordova-plugin-ios-disable-bounce": {}
+      "cordova-plugin-ios-disable-bounce": {},
+      "cordova-plugin-sign-in-with-apple": {}
     },
     "platforms": []
   },

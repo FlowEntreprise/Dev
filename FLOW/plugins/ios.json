@@ -16,9 +16,6 @@
     "cordova-plugin-android-permissions": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "cordova-plugin-apple-login": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
     "cordova-plugin-audioinput": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
@@ -104,6 +101,9 @@
       "PACKAGE_NAME": "com.flowapp.flow"
     },
     "cordova-plugin-ios-disable-bounce": {
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-sign-in-with-apple": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },

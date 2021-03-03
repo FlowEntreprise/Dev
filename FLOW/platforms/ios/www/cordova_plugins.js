@@ -25,14 +25,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-apple-login.SignInWithApple",
-      "file": "plugins/cordova-plugin-apple-login/www/sign-in-with-apple.js",
-      "pluginId": "cordova-plugin-apple-login",
-      "clobbers": [
-        "SignInWithApple"
-      ]
-    },
-    {
       "id": "cordova-plugin-audioinput.AudioInput",
       "file": "plugins/cordova-plugin-audioinput/www/audioInputCapture.js",
       "pluginId": "cordova-plugin-audioinput",
@@ -429,13 +421,20 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "AppVersion"
       ]
+    },
+    {
+      "id": "cordova-plugin-sign-in-with-apple.SignInWithApple",
+      "file": "plugins/cordova-plugin-sign-in-with-apple/www/sign-in-with-apple.js",
+      "pluginId": "cordova-plugin-sign-in-with-apple",
+      "clobbers": [
+        "cordova.plugins.SignInWithApple"
+      ]
     }
   ];
   module.exports.metadata = {
     "com.rjfun.cordova.httpd": "0.9.2",
     "cordova-clipboard": "1.3.0",
     "cordova-plugin-android-permissions": "1.0.0",
-    "cordova-plugin-apple-login": "1.0.0",
     "cordova-plugin-audioinput": "1.0.2",
     "cordova-plugin-background-mode": "0.7.3",
     "cordova-plugin-compat": "1.2.0",
@@ -466,6 +465,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "ionic-plugin-deeplinks": "1.0.20",
     "cordova-launch-review": "4.0.0",
     "cordova-plugin-appversion": "1.0.0",
-    "cordova-plugin-ios-disable-bounce": "0.0.1"
+    "cordova-plugin-ios-disable-bounce": "0.0.1",
+    "cordova-plugin-sign-in-with-apple": "0.1.2"
   };
 });

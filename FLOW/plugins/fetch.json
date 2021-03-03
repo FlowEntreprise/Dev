@@ -171,14 +171,6 @@
     "is_top_level": false,
     "variables": {}
   },
-  "cordova-plugin-apple-login": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-apple-login"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-splashscreen": {
     "source": {
       "type": "registry",
@@ -325,6 +317,14 @@
     "source": {
       "type": "registry",
       "id": "cordova-plugin-ios-disable-bounce"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-sign-in-with-apple": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-sign-in-with-apple"
     },
     "is_top_level": true,
     "variables": {}

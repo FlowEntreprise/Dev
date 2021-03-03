@@ -28,9 +28,6 @@
     <feature name="Clipboard">
         <param name="ios-package" value="CDVClipboard" />
     </feature>
-    <feature name="SignInWithApple">
-        <param name="ios-package" value="SignInWithApple" />
-    </feature>
     <feature name="AudioInputCapture">
         <param name="ios-package" value="CDVAudioInputCapture" />
     </feature>
@@ -123,6 +120,10 @@
     </feature>
     <feature name="IosDisableBounce">
         <param name="ios-package" value="CDVIosDisableBounce" />
+    </feature>
+    <feature name="SignInWithApple">
+        <param name="ios-package" value="SignInWithApple" />
+        <param name="onload" value="true" />
     </feature>
     <widget>
         <preference name="TwitterConsumerKey" value="JwyvPlw7GcOvE8pXmRvqTyZL3" />
