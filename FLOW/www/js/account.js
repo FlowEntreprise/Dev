@@ -98,7 +98,7 @@ function user_block_management(data, privateId) {
 		for (let i in data.BlockedByUser) {
 			if (data.BlockedByUser[i] == privateId) {
 				$("#GoDMBtn").css(
-					"display", "block"
+					"display", "none"
 				);
 				blocked_by_user = true;
 				break;
