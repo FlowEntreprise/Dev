@@ -68,7 +68,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-	constructor() {}
+	constructor() { }
 
 	/* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -173,7 +173,7 @@ class ServerManagerClass {
 				};
 				break;
 			default:
-				////console.log("Error in parameters sent to Connect() in ServerManager.");
+			////console.log("Error in parameters sent to Connect() in ServerManager.");
 		}
 		console.log(final_data);
 		$.ajax({
@@ -306,7 +306,7 @@ class ServerManagerClass {
 			success: function (response) {
 				check_app_version(response.Data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -323,7 +323,7 @@ class ServerManagerClass {
 			success: function (response) {
 				//console.log("User last connexion updated");
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -700,7 +700,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -724,7 +724,7 @@ class ServerManagerClass {
 					}
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -741,7 +741,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowUserFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -756,7 +756,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyInfosUser(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -772,7 +772,7 @@ class ServerManagerClass {
 				////console.log("on recup le getInfosUserNumber");
 				ShowInfosUserNumber(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -800,7 +800,7 @@ class ServerManagerClass {
 					ShowUserProfile(response);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -823,7 +823,7 @@ class ServerManagerClass {
 				////console.log(response);
 				UpdateFollowersList(response, data.follow_list);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -854,7 +854,7 @@ class ServerManagerClass {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -874,7 +874,7 @@ class ServerManagerClass {
 				// myApp.pullToRefreshTrigger(ptrContent);
 				callback(response, data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1270,7 +1270,7 @@ class ServerManagerClass {
 				ServerManager.UpdateRegisterId(data);*/
 				//console.log(registrationId);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1515,6 +1515,9 @@ class ServerManagerClass {
 						ShowLikedFlows(data, response);
 					}
 				}
+				if (action == "dm") {
+					check_if_user_is_blocked(response.Data);
+				}
 			},
 			error: function (response) {
 				////console.log(response);
@@ -1732,6 +1735,7 @@ class ServerManagerClass {
 				current_block_chat.chat_id = data.chat_id;
 				current_block_chat.members = {};
 				current_block_chat.members.id = data.user_id;
+				current_block_chat.block_chat_member_private_id = data.private_id;
 				setup_popup_message(data);
 			} else {
 				// on crée juste un nouveau message
@@ -1888,7 +1892,7 @@ class ServerManagerClass {
 
 					delete snapshot.val()[window.localStorage.getItem("firebase_token")];
 					Object.entries(snapshot.val()).forEach(item => {
-						clean_chat_list[item[0]] = item[1].time
+						clean_chat_list[item[0]] = item[1].time;
 					});
 
 					let ordered_chat = Object.fromEntries(
@@ -1903,18 +1907,12 @@ class ServerManagerClass {
 					}
 					nb_block_chat_to_pop = Object.keys(ordered_chat).length;
 					previous_chat_list = clean_chat_list;
-					console.log("ordered_chat : ");
-					console.log(ordered_chat);
 					Object.keys(ordered_chat).forEach(chat_id => {
 						firebase.database().ref(FirebaseEnvironment + "/chats/" + chat_id)
 							.once("value").then(chat_snapshot => {
-								console.log("Data du chat");
-								console.log(chat_snapshot.val());
 								let chat_data = chat_snapshot.val();
 								firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id + "/" + chat_data.last_message.message_id)
 									.once("value").then(message_snapshot => {
-										console.log("Data du msg avant de recup la conv");
-										console.log(message_snapshot.val());
 										if (message_snapshot.val() != null) {
 											let data_message = message_snapshot.val();
 											chat_data.last_message.seen_by = data_message.seen_by;
@@ -1944,8 +1942,6 @@ class ServerManagerClass {
 	}
 
 	SetMessageToSeen(data) {
-		console.log("data message seen");
-		console.log(data);
 
 		if (data.message_id) {
 			firebase.database().ref(FirebaseEnvironment).update({

@@ -1,6 +1,16 @@
 var element_to_copy;
 var element_to_delete = {};
 
+
+function delete_block_conversation(data) // affiche la popup option pour supprime une conversation
+{
+    element_to_copy = "block_conversation";
+    $("#label_delete_button").text("Supprimer la conversation");
+    $("#report_button").css("display", "none");
+    $("#delete_button").css("display", "table");
+    Popup("popup-option", true, 85.5);
+}
+
 function delete_flow_from_bdd(element) { // affiche la popup option
     element_to_copy = "flow_tittle";
     $("#label_copy_button").text("Copier le titre du flow");

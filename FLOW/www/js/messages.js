@@ -256,6 +256,7 @@ function messages_tab_loaded() {
     document.getElementById("popup-message").addEventListener("opened", function () {
         InPopupMessage = true;
         can_load_more_message = true;
+        ServerManager.GetBlockedUsers(data = {}, 'dm');
         $("#div_send_message").css("transform", "translate3d(0vw, 0, 0)");
         $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
         current_page = "dm_messages";
@@ -270,6 +271,7 @@ function messages_tab_loaded() {
         previous_message = {};
         first_message = {};
         $(".loading_message").remove();
+        $("#div_user_blocked_message").css("display", "none");
         firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off();
         firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/last_message/seen_by').off();
         firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id).orderByChild('is_typing').off();
@@ -323,15 +325,13 @@ function block_chat(data) {
             message_id: current_block_chat.block_chat_last_message.message_id
         };
         console.log(" Data DM :");
-        console.log(data_dm);
         ServerManager.SetMessageToSeen(data_dm);
         //live_chat(data_dm.chat_id);
         setup_popup_message(data_dm, true);
     });
 
     $(this.block_chat).on("taphold", function () {
-        current_block_chat = block_chat;
-        delete_chat_from_html();
+        delete_block_conversation(block_chat);
     });
 
     this.fphoto_block_chat = document.createElement('div');
@@ -396,7 +396,6 @@ function block_message_seen(data) {
 }
 
 function block_message(data, previous_message) {
-    console.log(data);
     let self = this;
     var block_message = this;
     this.message_id = data.id;
@@ -1021,6 +1020,26 @@ function UpdateProgressBar(percent, vocal_id) {
     }
 }
 
+function check_if_user_is_blocked(data) {
+    console.log(" user blocked dm : ");
+    console.log(data);
+
+    (data.BlockedByUser).forEach(user => {
+        if (user == current_block_chat.block_chat_member_private_id) {
+            $("#div_user_blocked_message").css("display", "flex");
+            $("#label_user_blocked_message").text("Cet utilisateur vous a bloqué");
+        }
+    });
+
+    (data.UserBlocked).forEach(user => {
+        if (user == current_block_chat.block_chat_member_private_id) {
+            $("#div_user_blocked_message").css("display", "flex");
+            $("#label_user_blocked_message").text("Vous avez bloqué cet utilsateur");
+        }
+    });
+
+
+}
 
 
 /*------------------------TO DO-----------------------

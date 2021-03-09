@@ -259,6 +259,28 @@
 
 /*------------------------------------------POPUP create-conversation-----------------------------*/
 
+#div_user_blocked_message
+{
+	display: none;
+    background-color: white;
+    position: absolute;
+    z-index: 99991;
+    width: 100vw;
+    height: 12vh;
+    bottom: 0vh;
+	text-align: center;
+	align-items: center;
+    justify-content: center;
+}
+
+#label_user_blocked_message
+{
+	font-family: "Roboto-Regular";
+    color: #92abb2;
+    opacity: 0.8;
+
+}
+
 .create_conversation_header {
 	position: absolute;
 	top: 0;

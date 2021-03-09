@@ -77,6 +77,9 @@ function user_block_management(data, privateId) {
 					"background-image",
 					'url("src/icons/block_filled.png")'
 				);
+				$("#GoDMBtn").css(
+					"display", "none"
+				);
 				break;
 			} else {
 				user_is_blocked = false;
@@ -94,6 +97,9 @@ function user_block_management(data, privateId) {
 	} else {
 		for (let i in data.BlockedByUser) {
 			if (data.BlockedByUser[i] == privateId) {
+				$("#GoDMBtn").css(
+					"display", "block"
+				);
 				blocked_by_user = true;
 				break;
 			} else {
@@ -139,6 +145,9 @@ document
 		last_scroll = 0;
 		current_page = "account";
 		// app.showTab("#tabCompte1");
+		$("#GoDMBtn").css(
+			"display", "block"
+		);
 		account_swiper.slideTo(0);
 		$(".ftabsAccount")[0].style.display = "block";
 		$("#tabCompte2").css("display", "block");
@@ -890,6 +899,9 @@ $("#block_button").on("click", function () {
 							"background-image",
 							'url("src/icons/block_filled.png")'
 						);
+						$("#GoDMBtn").css(
+							"display", "none"
+						);
 						$("#fFollowYouButtunAccount").css("display", "none");
 						$("#fFollowButtunAccount").removeClass("activeButtunFollow");
 						$("#fFollowButtunAccount").text("S'ABONNER");
@@ -924,6 +936,9 @@ $("#block_button").on("click", function () {
 					$("#block_button").css(
 						"background-image",
 						'url("src/icons/block.png")'
+					);
+					$("#GoDMBtn").css(
+						"display", "block"
 					);
 					user_is_blocked = false;
 				}
