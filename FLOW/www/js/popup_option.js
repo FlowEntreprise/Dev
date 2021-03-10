@@ -11,6 +11,24 @@ function delete_block_conversation(data) // affiche la popup option pour supprim
     Popup("popup-option", true, 85.5);
 }
 
+function display_option_for_message(data) { // affiche la popup option pour supprime un message
+    element_to_copy = "dm";
+    $("#label_copy_button").text("Copier le message");
+    $("#label_report_button").text("Signaler le message");
+    $("#label_delete_button").text("Supprimer le message");
+    $("#delete_button").css("display", "none");
+    $("#report_button").css("display", "table");
+    Popup("popup-option", true, 85.5);
+
+    if (data.block_message.className == "my_block_message") {
+        element_to_delete.type = "dm";
+        element_to_delete.element = data;
+        $("#delete_button").css("display", "table");
+        $("#report_button").css("display", "none");
+    }
+
+}
+
 function delete_flow_from_bdd(element) { // affiche la popup option
     element_to_copy = "flow_tittle";
     $("#label_copy_button").text("Copier le titre du flow");
@@ -147,6 +165,22 @@ $("#report_button").on("touchend", function () {
             }
         }, "Confirmation", ["Oui", "Annuler"]);
     }
+
+    if (element_to_copy == "dm") { // element_to_copy c'est juste l'elem selectionné
+        navigator.notification.confirm("Veux-tu vraiment signaler ce message ?", function (id) {
+            console.log(id);
+            if (id == 1) {
+                Popup("popup-option", false);
+                let data = {
+                    additionalData: {
+                        type: "report_dm"
+                    }
+                };
+                in_app_notif(data);
+            }
+        }, "Confirmation", ["Oui", "Annuler"]);
+    }
+
 });
 
 $("#copy_button").on("touchend", function () {
@@ -162,6 +196,9 @@ $("#copy_button").on("touchend", function () {
         cordova.plugins.clipboard.copy(current_response_block.response_text);
         Popup("popup-option", false);
     }
+    if (element_to_copy == "dm")
+        cordova.plugins.clipboard.copy(current_block_message.block_message_text);
+    Popup("popup-option", false);
 });
 
 $("#delete_button").on("touchend", function () {
@@ -222,6 +259,7 @@ $("#delete_button").on("touchend", function () {
                 }
             }, "Confirmation", ["Oui", "Annuler"]);
         }
+
 
 
 

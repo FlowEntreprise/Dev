@@ -1021,6 +1021,11 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
             $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
             break;
 
+        case 'report_dm':
+            $(".flabel_in_app_notif").text("Ce message a bien été signalé");
+            $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
+            break;
+
         case 'delete_flow':
             $(".flabel_in_app_notif").text("Ce flow a bien été supprimé");
             $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");

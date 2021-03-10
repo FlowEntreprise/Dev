@@ -431,6 +431,17 @@ function block_message(data, previous_message) {
         this.time_and_seen_container.innerText = set_timestamp(this.block_message_time, true);
     }
 
+    $(this.block_message).on("click", function () {
+        console.log("was clicked");
+        current_block_message = block_message;
+        if (self.audio_url.length == 0 && self.image == 0) // supression de MON msg text
+        {
+            display_option_for_message(block_message);
+        }
+    });
+
+
+
     if (!self.audio_url) {
         $(this.block_message_child).text(this.block_message_text);
     }
