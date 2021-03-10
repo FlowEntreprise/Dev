@@ -407,6 +407,7 @@ function block_message(data, previous_message) {
     this.seen_by = data.seen_by;
     this.block_message = document.createElement('li');
     this.image = data.image;
+    this.deleted = data.deleted;
     self.audio_url = data.audio;
 
     this.time_and_seen_container = document.createElement('div');
@@ -431,10 +432,10 @@ function block_message(data, previous_message) {
         this.time_and_seen_container.innerText = set_timestamp(this.block_message_time, true);
     }
 
-    $(this.block_message).on("click", function () {
+    $(this.block_message).on("taphold", function () {
         console.log("was clicked");
         current_block_message = block_message;
-        if (self.audio_url.length == 0 && self.image == 0) // supression de MON msg text
+        if (self.audio_url.length == 0 && self.image == 0 && block_message.deleted != true) // supression de MON msg text
         {
             display_option_for_message(block_message);
         }
@@ -711,6 +712,11 @@ function block_message(data, previous_message) {
         });
 
 
+    }
+
+    if (this.deleted == true) {
+        $(this.block_message_child).addClass("deleted_block_message");
+        $(this.block_message_child).text("Ce message a été supprimé");
     }
 
 }

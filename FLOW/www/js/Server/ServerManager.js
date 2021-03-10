@@ -1959,6 +1959,24 @@ class ServerManagerClass {
 		$("#" + data.chat_id + "").remove();
 	}
 
+	Delete_text_message(data) // En vrai c'est un update vu qu'on le supprime jamais vraiment le msg
+	{
+		firebase.database().ref(FirebaseEnvironment + "/messages/" + data.chat_id + "/" + data.message_id).update(
+			{
+				["deleted"]: true
+			}
+		).then(function () {
+			$("#" + data.message_id + ">.block_message_child").text("Ce message a été supprimé");
+			$("#" + data.message_id + ">.block_message_child").css(
+				{
+					"background-color": "white",
+					"color": "#80808059",
+					"box-shadow": "none"
+				}
+			);
+		});
+	}
+
 	SearchChat(data) {
 		data = data.toLowerCase();
 		firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats")

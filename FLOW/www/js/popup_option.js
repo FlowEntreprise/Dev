@@ -263,6 +263,25 @@ $("#delete_button").on("touchend", function () {
 
 
 
+        if (element_to_delete.type == "dm") {
+            navigator.notification.confirm("Veux-tu vraiment supprimer ce message ?", function (id) {
+                if (id == 1) {
+                    Popup("popup-option", false);
+                    current_block_message.chat_id = current_block_chat.chat_id;
+                    ServerManager.Delete_text_message(current_block_message);
+                }
+            }, "Confirmation", ["Oui", "Annuler"]);
+        }
+
+
+
+
+
+
+
+
+
+
     } else {
         //alert("Une erreur est survenue lors de la suppression de cet élément");
         navigator.notification.alert("Une erreur est survenue lors de la suppression de cet élément", alertDismissed, "Information");
