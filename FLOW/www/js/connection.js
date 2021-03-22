@@ -23,7 +23,7 @@ function ConnectUser(data) {
     });
     ServerManager.GetStory();
     ServerManager.GetTimeline(0);
-    check_seen();
+    notification_check_seen();
     // Framework7
     RefreshExplore();
 

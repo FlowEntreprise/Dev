@@ -730,13 +730,17 @@ function check_block_chat_seen() {
     let tab_length = all_block_chat.length - 1;
     console.log("la taille est :" + tab_length);
     all_block_chat.forEach(function (elem, index) {
-
         if (elem.is_seen == false) {
             number_of_message_unseen++;
         }
         if (index == tab_length) {
             if (number_of_message_unseen > 0) {
-                $("#navbar_red_dot_message").text(number_of_message_unseen);
+                if (number_of_message_unseen > 99) {
+                    $("#navbar_red_dot_message").text("+99");
+                }
+                else {
+                    $("#navbar_red_dot_message").text(number_of_message_unseen);
+                }
                 $("#navbar_red_dot_message").css("display", "flex");
             }
             if (number_of_message_unseen < 1) {
@@ -745,22 +749,6 @@ function check_block_chat_seen() {
         }
 
     });
-    /*for (let i = 0; i < tab_length; i++) {
-        if (all_block_chat[i] && all_block_chat[i].is_seen == false) {
-            number_of_message_unseen++;
-        }
-        if (i === tab_length) {
-            if (number_of_message_unseen > 0) {
-                $("#navbar_red_dot_message").text(number_of_message_unseen);
-                $("#navbar_red_dot_message").css("display", "flex");
-            }
-            if (number_of_message_unseen < 1) {
-                $("#navbar_red_dot_message").css("display", "none");
-            }
-        }
-
-    }*/
-
 }
 
 
