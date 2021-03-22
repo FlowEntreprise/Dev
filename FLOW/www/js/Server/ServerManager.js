@@ -1859,11 +1859,13 @@ class ServerManagerClass {
 
 									if (item && item.chat_id === chat_id) {
 										$("#" + chat_id + "").remove();
+										all_block_chat.splice(index, 1);
 									}
 
 								});
 							}
 							all_block_chat.push(pop_block_chat(data_block_chat));
+							check_block_chat_seen();
 
 						}
 					});

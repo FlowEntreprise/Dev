@@ -701,7 +701,6 @@ function UpdateNotificationList(data, set_to_seen) {
 //fonction qui permet de faire disparaitre le point rouge de l'iconne de notifications
 //quand toute les notifications on été consulté
 function check_seen() {
-
     let all_notifications_block_without_doublon;
     var cache = {};
     all_notifications_block_without_doublon = all_notifications_block.filter(function (elem, index, array) {
@@ -710,11 +709,24 @@ function check_seen() {
 
     $(".fred_dot_toolbar_new_notif").css('display', 'none');
 
-    for (var i = 0; i < all_notifications_block_without_doublon.length; i++) {
+    let number_of_notif_unseen = 0;
+    for (let i = 0; i < all_notifications_block_without_doublon.length; i++) {
         if (all_notifications_block_without_doublon[i].seen == false) {
-            $(".fred_dot_toolbar_new_notif").css('display', 'block');
+            number_of_notif_unseen++;
         }
+
+        if (i == all_notifications_block_without_doublon.length - 1) {
+            if (number_of_notif_unseen > 0) {
+                $("#navbar_red_dot_notification").text(number_of_notif_unseen);
+                $("#navbar_red_dot_notification").css("display", "flex");
+            }
+            if (number_of_notif_unseen < 1) {
+                $("#navbar_red_dot_notification").css("display", "none");
+            }
+        }
+
     }
+
 
 }
 

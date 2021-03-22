@@ -315,6 +315,7 @@ function block_chat(data) {
 
     $(this.block_chat).on("click", function () {
         current_block_chat = block_chat;
+        block_chat.is_seen = true;
         $(current_block_chat.block_chat).css("background-color", "#fff");
         $(".fred_dot_toolbar_new_message").css("display", "none");
         data_dm = {
@@ -326,6 +327,7 @@ function block_chat(data) {
         };
         console.log(" Data DM :");
         ServerManager.SetMessageToSeen(data_dm);
+        check_block_chat_seen();
         //live_chat(data_dm.chat_id);
         setup_popup_message(data_dm, true);
     });
@@ -367,12 +369,9 @@ function block_chat(data) {
             }
         }
     }
-
-    set_block_chat_seen();
     if (notif_chat_id && notif_chat_id == this.chat_id) {
         $(block_chat.block_chat).trigger("click");
     }
-
 }
 // affichage de la date complete quand il s'est ecoulé plus de 2h entre 2 msg
 function block_message_date(time, prepend) {
@@ -726,12 +725,42 @@ function CreateConversation(data) {
     ServerManager.CheckFirstChat(data);
 }
 
-function set_block_chat_seen() {
-    for (let i = 0; i < all_block_chat.length; i++) {
-        if (all_block_chat[i] && all_block_chat[i].is_seen == false) {
-            $(".fred_dot_toolbar_new_message").css("display", "block");
+function check_block_chat_seen() {
+    let number_of_message_unseen = 0;
+    let tab_length = all_block_chat.length - 1;
+    console.log("la taille est :" + tab_length);
+    all_block_chat.forEach(function (elem, index) {
+
+        if (elem.is_seen == false) {
+            number_of_message_unseen++;
         }
-    }
+        if (index == tab_length) {
+            if (number_of_message_unseen > 0) {
+                $("#navbar_red_dot_message").text(number_of_message_unseen);
+                $("#navbar_red_dot_message").css("display", "flex");
+            }
+            if (number_of_message_unseen < 1) {
+                $("#navbar_red_dot_message").css("display", "none");
+            }
+        }
+
+    });
+    /*for (let i = 0; i < tab_length; i++) {
+        if (all_block_chat[i] && all_block_chat[i].is_seen == false) {
+            number_of_message_unseen++;
+        }
+        if (i === tab_length) {
+            if (number_of_message_unseen > 0) {
+                $("#navbar_red_dot_message").text(number_of_message_unseen);
+                $("#navbar_red_dot_message").css("display", "flex");
+            }
+            if (number_of_message_unseen < 1) {
+                $("#navbar_red_dot_message").css("display", "none");
+            }
+        }
+
+    }*/
+
 }
 
 
@@ -775,7 +804,8 @@ function pop_block_chat(data) {
     $(".loading_chat_list").remove();
     // $(".no_conversation_yet").remove();
     let new_block_chat = new block_chat(data);
-    all_block_chat.push(new_block_chat);
+    return new_block_chat;
+    //all_block_chat.push(new_block_chat);
 
 }
 
