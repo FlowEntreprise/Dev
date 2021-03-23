@@ -34,9 +34,9 @@ function inHome() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -86,9 +86,9 @@ function inExplore() {
 	let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -176,7 +176,7 @@ function inExplore() {
 				in_flowoftheday = false;
 			} else if (explore_categories.activeIndex == 3) {
 				$(".discover").addClass("active");
-				if (!discover_swiper_initialised) {}
+				if (!discover_swiper_initialised) { }
 			}
 		});
 
@@ -210,9 +210,9 @@ function inMessages() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -284,9 +284,9 @@ function inNotifications() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -326,7 +326,9 @@ function inNotifications() {
 		display: "block",
 	});
 	canShowNavbar = true;
-	current_page = "notifications";
+	setTimeout(() => {
+		current_page = "notifications";
+	}, 100);
 	$(".faccount").css({
 		top: "calc(1 * var(--custom-vh) + 7px)",
 		display: "block",
@@ -354,9 +356,9 @@ function onBackKeyDown() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
