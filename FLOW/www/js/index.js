@@ -70,8 +70,7 @@ var app = {
 			navigator.splashscreen.hide();
 			$(".custom_popup").css({
 				"opacity": "1"
-			})
-			cordova.plugins.notification.local.clearAll();
+			});
 		}, 1200);
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
 

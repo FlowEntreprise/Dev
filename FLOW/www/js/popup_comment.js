@@ -133,7 +133,7 @@ function block_response(response_data, response_is_specifique) {
     this.fbr_1 = document.createElement("br");
     $(this.fblock_response).append(this.fbr_1);
 
-    $(this.fblock_response_response).longpress(function () {
+    this.fblock_response_response.addEventListener('long-press', function (e) {
         current_response_block = block_response;
         let delete_response = true;
         delete_comment_from_bdd(current_response_block, delete_response);
@@ -394,15 +394,8 @@ function block_comment(comment_data, comment_is_specifique) {
         }
     });
 
-    $(this.fid_user).longpress(function () {
-        var clickedLink = this;
-        // app.popover('#popover_comment', clickedLink);
 
-    });
-
-
-    $(this.fblock_comment_comment).longpress(function () {
-        var clickedLink = this;
+    this.fblock_comment_comment.addEventListener('long-press', function (e) {
         current_comment_block = block_comment;
         delete_comment_from_bdd(current_comment_block);
     });

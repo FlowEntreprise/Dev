@@ -332,9 +332,13 @@ function block_chat(data) {
         setup_popup_message(data_dm, true);
     });
 
-    $(this.block_chat).on("taphold", function () {
+    /*$(this.block_chat).on("taphold", function () {
         delete_block_conversation(block_chat);
-    });
+    });*/
+
+    /*this.block_chat.addEventListener('long-press', function (e) {
+        delete_block_conversation(block_chat);
+    });*/
 
     this.fphoto_block_chat = document.createElement('div');
     this.fphoto_block_chat.className = 'fphoto_block_chat';
@@ -431,8 +435,17 @@ function block_message(data, previous_message) {
         this.time_and_seen_container.innerText = set_timestamp(this.block_message_time, true);
     }
 
-    $(this.block_message).on("taphold", function () {
+    /*$(this.block_message).on("taphold", function () {
         console.log("was clicked");
+        current_block_message = block_message;
+        if (self.audio_url.length == 0 && self.image == 0 && block_message.deleted != true) // supression de MON msg text
+        {
+            display_option_for_message(block_message);
+        }
+    });*/
+
+    this.block_message.addEventListener('long-press', function (e) {
+        console.log("was long pressed");
         current_block_message = block_message;
         if (self.audio_url.length == 0 && self.image == 0 && block_message.deleted != true) // supression de MON msg text
         {

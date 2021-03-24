@@ -315,979 +315,982 @@ function SpawnStoryWindow(story_block) {
             // OR
             tryLoadStory(story_index, storyFlow_index);
             showStoryMain(false);
-
-            $('.fstory_addcomment_btn').longpress(function () {
-                if (connected) {
-                    record_was_hold = true;
-                    stop_comments();
-                    startCapture();
-                    $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")"
-                } else {
-                    Popup("popup-connect", true, 60);
-                }
-            });
-            $('.fstory_addcomment_btn').on('click', function () {
-                if (recording) {
-                    console.log("stop recording");
-                    if (record_time > 2) {
-                        stopCapture(true);
+            var fstory_addcomment_btn = document.getElementsByClassName("fstory_addcomment_btn")[0];
+            fstory_addcomment_btn.addEventListener('long-press', function (e) {
+                $('.fstory_addcomment_btn').longpress(function () {
+                    if (connected) {
+                        record_was_hold = true;
+                        stop_comments();
+                        startCapture();
+                        $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")"
                     } else {
-                        stopCapture(false);
+                        Popup("popup-connect", true, 60);
                     }
-                } else if (!record_was_hold) {
-                    console.log("start recording");
-                    stop_comments();
-                    startCapture();
-                    $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")"
-                }
-            });
-            $('.fstory_addcomment_confirm').on('touchend', function () {
-                let story_comment = {
-                    ObjectId: story_data[story_index].data[storyFlow_index].id,
-                    // PrivatedId: window.localStorage.getItem("user_private_id"),
-                    Sound: appState.blob64,
-                    Duration: record_time,
-                };
+                });
 
-                console.log(story_comment);
-                console.log("Send story comment to server");
-                $(".fstory_addcomment_cancel")[0].style.opacity = 0.5;
-                $(".fstory_addcomment_cancel")[0].style.pointerEvents = "none";
-                $(".fstory_addcomment_confirm")[0].style.pointerEvents = "none";
-                $(".fstory_addcomment_confirm")[0].style.backgroundImage = "url(\"src/icons/loading_circle.gif\")";
-                // $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
-                // $(".fstory_addcomment_btn")[0].style.opacity = 1;
 
-                setTimeout(function () {
-                    ServerManager.AddStoryComment(story_comment);
-
-                    facebookConnectPlugin.logEvent("upload_story_comment", {
-                        duration: story_comment.Duration
-                    }, null, function () {
-                        console.log("fb record sotry comment event success")
-                    }, function () {
-                        console.log("fb record sotry comment error")
-                    });
-
-                }, 100);
-            });
-            $('.fstory_addcomment_cancel').on('touchend', function () {
-                $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
-                $(".fstory_addcomment_btn")[0].style.opacity = 1;
-
-                // setTimeout(function () {
-                //     ServerManager.AddStory(storydata);
-                //     //analytics.logEvent("upload_story_comment", {
-                //         private_id: story_comment.PrivatedId,
-                //         duration: story_comment.Duration
-                //     });
-                // }, 100);
-            });
-
-            $(".seen_ul").scroll(function () {
-                var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-                if (Math.round($(this).scrollTop()) >= limit * 0.75 && can_get_seen) {
-                    story_seen_index += 1;
-                    console.log("seen_index : " + story_seen_index);
-                    let data = {
-                        Index: story_seen_index,
-                        ObjectId: story_data[story_index].data[storyFlow_index].id
+                $('.fstory_addcomment_btn').on('click', function () {
+                    if (recording) {
+                        console.log("stop recording");
+                        if (record_time > 2) {
+                            stopCapture(true);
+                        } else {
+                            stopCapture(false);
+                        }
+                    } else if (!record_was_hold) {
+                        console.log("start recording");
+                        stop_comments();
+                        startCapture();
+                        $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")"
                     }
-                    ServerManager.GetStoryView(data);
-                    can_get_seen = false;
-                }
-            });
+                });
+                $('.fstory_addcomment_confirm').on('touchend', function () {
+                    let story_comment = {
+                        ObjectId: story_data[story_index].data[storyFlow_index].id,
+                        // PrivatedId: window.localStorage.getItem("user_private_id"),
+                        Sound: appState.blob64,
+                        Duration: record_time,
+                    };
 
-        }, 50);
-    });
-}
+                    console.log(story_comment);
+                    console.log("Send story comment to server");
+                    $(".fstory_addcomment_cancel")[0].style.opacity = 0.5;
+                    $(".fstory_addcomment_cancel")[0].style.pointerEvents = "none";
+                    $(".fstory_addcomment_confirm")[0].style.pointerEvents = "none";
+                    $(".fstory_addcomment_confirm")[0].style.backgroundImage = "url(\"src/icons/loading_circle.gif\")";
+                    // $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
+                    // $(".fstory_addcomment_btn")[0].style.opacity = 1;
+
+                    setTimeout(function () {
+                        ServerManager.AddStoryComment(story_comment);
+
+                        facebookConnectPlugin.logEvent("upload_story_comment", {
+                            duration: story_comment.Duration
+                        }, null, function () {
+                            console.log("fb record sotry comment event success")
+                        }, function () {
+                            console.log("fb record sotry comment error")
+                        });
+
+                    }, 100);
+                });
+                $('.fstory_addcomment_cancel').on('touchend', function () {
+                    $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
+                    $(".fstory_addcomment_btn")[0].style.opacity = 1;
+
+                    // setTimeout(function () {
+                    //     ServerManager.AddStory(storydata);
+                    //     //analytics.logEvent("upload_story_comment", {
+                    //         private_id: story_comment.PrivatedId,
+                    //         duration: story_comment.Duration
+                    //     });
+                    // }, 100);
+                });
+
+                $(".seen_ul").scroll(function () {
+                    var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+                    if (Math.round($(this).scrollTop()) >= limit * 0.75 && can_get_seen) {
+                        story_seen_index += 1;
+                        console.log("seen_index : " + story_seen_index);
+                        let data = {
+                            Index: story_seen_index,
+                            ObjectId: story_data[story_index].data[storyFlow_index].id
+                        }
+                        ServerManager.GetStoryView(data);
+                        can_get_seen = false;
+                    }
+                });
+
+            }, 50);
+        });
+    }
 
 function story_comment_uploaded() {
-    // $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
-    // $(".fstory_addcomment_btn")[0].style.opacity = 1;
-    let story_comment_data = {
-        sender_private_id: window.localStorage.getItem("user_private_id"),
-        RegisterId: story_data[story_index].register_id,
-        LastOs: story_data[story_index].LastOs
-    }
-    if (registrationId != story_comment_data.RegisterId) {
-        send_notif_to_user(story_comment_data, "story_comment");
-    }
-    $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";
-    $(".fstory_addcomment_btn")[0].style.pointerEvents = "auto";
+            // $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
+            // $(".fstory_addcomment_btn")[0].style.opacity = 1;
+            let story_comment_data = {
+                sender_private_id: window.localStorage.getItem("user_private_id"),
+                RegisterId: story_data[story_index].register_id,
+                LastOs: story_data[story_index].LastOs
+            }
+            if (registrationId != story_comment_data.RegisterId) {
+                send_notif_to_user(story_comment_data, "story_comment");
+            }
+            $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/Record.png\")";
+            $(".fstory_addcomment_btn")[0].style.pointerEvents = "auto";
 
-    // $(".fstory_addcomment_cancel")[0].style.opacity = 1;
-    // $(".fstory_addcomment_cancel")[0].style.pointerEvents = "auto";
-    // $(".fstory_addcomment_confirm")[0].style.pointerEvents = "auto";
-    // $(".fstory_addcomment_confirm")[0].style.backgroundImage = "url(\"src/icons/validate.png\")";
+            // $(".fstory_addcomment_cancel")[0].style.opacity = 1;
+            // $(".fstory_addcomment_cancel")[0].style.pointerEvents = "auto";
+            // $(".fstory_addcomment_confirm")[0].style.pointerEvents = "auto";
+            // $(".fstory_addcomment_confirm")[0].style.backgroundImage = "url(\"src/icons/validate.png\")";
 
-    refresh_story_comments();
-}
+            refresh_story_comments();
+        }
 
 
 
 /* ------------------------- */
 
 var xDown = null;
-var yDown = null;
-var direction;
+    var yDown = null;
+    var direction;
 
-function getTouches(evt) {
-    return evt.touches || // browser API
-        evt.originalEvent.touches; // jQuery
-}
-
-function handleTouchStart(evt) {
-    const firstTouch = getTouches(evt)[0];
-    xDown = firstTouch.clientX;
-    yDown = firstTouch.clientY;
-    direction = null;
-};
-
-function handleTouchMove(evt) {
-    if (!xDown || !yDown) {
-        return;
+    function getTouches(evt) {
+        return evt.touches || // browser API
+            evt.originalEvent.touches; // jQuery
     }
 
-    var xUp = evt.touches[0].clientX;
-    var yUp = evt.touches[0].clientY;
+    function handleTouchStart(evt) {
+        const firstTouch = getTouches(evt)[0];
+        xDown = firstTouch.clientX;
+        yDown = firstTouch.clientY;
+        direction = null;
+    };
 
-    var xDiff = xDown - xUp;
-    var yDiff = yDown - yUp;
-
-    if (Math.abs(xDiff) > Math.abs(yDiff)) {
-        /*most significant*/
-        if (xDiff > 0) {
-            /* left swipe */
-            direction = "left";
-        } else {
-            /* right swipe */
-            direction = "right";
+    function handleTouchMove(evt) {
+        if (!xDown || !yDown) {
+            return;
         }
-    } else {
-        if (yDiff > 0) {
-            /* up swipe */
-            direction = "up";
-        } else {
-            /* down swipe */
-            direction = "down";
-        }
-    }
-    /* reset values */
-    xDown = null;
-    yDown = null;
-};
 
-function handleTouchEnd(evt) {
-    if (direction != null && $(".fstory_comment_list").scrollTop() < 5 && !inSeenPopup) {
-        console.log("swipe " + direction);
-        if (direction == "up") {
-            if (current_story_audio) {
-                current_story_audio.pause();
-                audio_playing = false;
-            }
-            showStoryComments();
-        } else if (direction == "down") {
-            if (currentSection == "comments") {
-                showStoryMain(true);
-                // stopAllStoriesAudio();
+        var xUp = evt.touches[0].clientX;
+        var yUp = evt.touches[0].clientY;
+
+        var xDiff = xDown - xUp;
+        var yDiff = yDown - yUp;
+
+        if (Math.abs(xDiff) > Math.abs(yDiff)) {
+            /*most significant*/
+            if (xDiff > 0) {
+                /* left swipe */
+                direction = "left";
             } else {
-                CloseStory();
+                /* right swipe */
+                direction = "right";
             }
-        }
-    }
-}
-
-function CloseStory() {
-    stopAllStoriesAudio();
-    CloseSeenPopup();
-    clearTimeout(tryLoadTimeout);
-    if (StorySiriWave) {
-        StorySiriWave.speed = 0;
-        StorySiriWave.amplitude = 0;
-    }
-    story_window.style.transform = "scale3d(0.1, 0.1, 0.1)";
-    // story_window.style.top = story_pos.top + (window.innerHeight / 100) * 6 + "px";
-    // story_window.style.left = story_pos.left + (window.innerHeight / 100) * 2 + "px";
-    story_window.style.transform = "scale3d(0.1, 0.1, 0.1) translate3d(" + (story_pos.left + (window.innerHeight / 100) * 2) * 10 + "px, " + (story_pos.top + (window.innerHeight / 100) * 6) * 10 + "px , 0px)";
-    story_window.style.opacity = "0";
-    setTimeout(function () {
-        document.body.removeChild(story_window);
-        story_window = null;
-        InStory = false;
-        // analytics.setCurrentScreen(current_page);
-
-        StorySiriWave.stop();
-    }, 400);
-
-    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-    facebookConnectPlugin.logEvent("current_page", {
-        page: current_page,
-        duration: time_in_last_screen
-    }, null, function () {
-        console.log("fb current_page event success")
-    }, function () {
-        console.log("fb current_page error")
-    });
-    current_page = "home";
-    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-
-    RefreshStories();
-    StatusBar.backgroundColorByHexString('#f7f7f8');
-    StatusBar.styleDefault();
-    // window.plugins.insomnia.allowSleepAgain();
-}
-
-
-function showStoryComments() {
-    clearTimeout(tryLoadTimeout);
-    current_story_audio.pause();
-    story_data[story_index].data[storyFlow_index].audio.pause();
-    audio_playing = false;
-    currentSection = "comments";
-    story_view.style.transform = "translateY(-100vh)";
-    comment_view.style.transform = "translateY(-100vh)";
-    refresh_story_comments();
-}
-
-function refresh_story_comments() {
-    story_comment_index = 0;
-    let data = {
-        index: 0,
-        objectId: story_data[story_index].data[storyFlow_index].id
-    }
-    ServerManager.GetStoryComments(data);
-}
-
-function showStoryMain(play_story) {
-    stop_comments();
-
-    currentSection = "main";
-    story_view.style.transform = "translateY(0vh)";
-    // story_view.style.opacity = "1";
-    comment_view.style.transform = "translateY(0vh)";
-    // comment_view.style.opacity = "0";
-    // story_view.css({
-    //     "transform": "translate3d(0px, 0vh, 0px)",
-    //     "opacity": "1"
-    // });
-    // comment_view.css({
-    //     "transform": "translate3d(0px, 0vh, 0px)",
-    //     "opacity": "0"
-    // });
-
-    if (play_story) {
-        tryLoadStory(story_index, storyFlow_index);
-        // current_story_audio.audio.play(); commented by Thomas with Media but not sure why (fixing an error in console)
-        audio_playing = true;
-    }
-}
-
-function tryLoadStory(story_index, storyFlow_index) {
-    if (!story_data[story_index].data[storyFlow_index]) {
-        can_next_prev = false;
-        // LOAD STORY FROM SERVER
-        $(".fstory_pseudo").text("Loading");
-        $(".fstory_time").text("");
-        story_pos = $($(".fstory_block")[parseInt(story_index) + 1]).position();
-        $(".fstory_indicator_list")[0].innerHTML = "";
-        $(".fstory_pp")[0].style.backgroundImage = "white";
-        // $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].darkColor + ");";
-        let color_gradient = "linear-gradient(black, black)";
-        StatusBar.backgroundColorByHexString("#000000");
-        StatusBar.styleDefault();
-        $(".fstory_window")[0].style.backgroundImage = color_gradient;
-
-        setTimeout(function () {
-            ServerManager.GetUserStory(story_data[story_index].private_id);
-        }, 10);
-    } else {
-        loadStory(story_index, storyFlow_index);
-    }
-}
-
-function GetStoryForUserFromServer(data) {
-    story_data[story_index].data = [];
-    for (let i = 0; i < data.Data.length; i++) {
-        let story_flow = new StoryFlow();
-        story_flow.time = data.Data[i].Time;
-        story_flow.duration = parseFloat(data.Data[i].Duration);
-        story_flow.id = data.Data[i].ObjectId;
-        story_flow.color = data.Data[i].Color;
-        story_flow.darkColor = pSBC(-0.8, story_flow.color);
-        let src_flow = 'https://' + data.LinkBuilder.Hostname + '/stories/' + data.Data[i].Audio.name + '?';
-        let param_flow = `${data.LinkBuilder.Params.hash}=${data.Data[i].Audio.hash}&${data.LinkBuilder.Params.time}=${data.Data[i].Audio.timestamp}`;
-        let audio_link = src_flow + param_flow;
-        story_flow.audio_src = audio_link;
-        // story_flow.audio = new Media(audio_link);
-        story_flow.seen_number = data.Data[i].NbView;
-        story_data[story_index].data.push(story_flow);
-    }
-
-    loadStory(story_index, 0);
-}
-
-function loadStory(story_index, storyFlow_index) {
-    console.log("LOAD STORY");
-    $(".fstory_comment_list")[0].innerHTML = "";
-    can_next_prev = true;
-    $(".fstory_pseudo").text(story_data[story_index].private_id);
-    $(".fstory_time").text(set_timestamp(story_data[story_index].data[storyFlow_index].time));
-    story_pos = $($(".fstory_block")[parseInt(story_index) + 1]).position();
-    if ($(".fstory_indicator_list")[0]) $(".fstory_indicator_list")[0].innerHTML = "";
-    $(".fstory_pp")[0].style.backgroundImage = "url(" + story_data[story_index].user_picture + ")";
-    $(".fstory_pp").on("click", function () { // chris
-        console.log("on a bien clique sur la photo de la story");
-        let data = {
-            private_Id: story_data[story_index].private_id,
-            user_private_Id: window.localStorage.getItem("user_private_id")
-        };
-        CloseStory();
-        go_to_account(data);
-    });
-    // $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].darkColor + ");";
-    let color_gradient = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].data[storyFlow_index].darkColor + ")";
-    StatusBar.backgroundColorByHexString(story_data[story_index].data[storyFlow_index].color);
-    StatusBar.styleLightContent();
-
-    $(".fstory_window")[0].style.backgroundImage = color_gradient;
-    // story_data[storyFlow_index].data =/= story_data.data[storyFlow_index] à check
-    for (var i = 0; i < story_data[story_index].data.length; i++) {
-        let story_indicator_li = document.createElement("li");
-        let story_indicator = document.createElement("div");
-        story_indicator.className = "fstory_indicator";
-        if (i < storyFlow_index) {
-            story_indicator.className += " active";
-        } else if (i == storyFlow_index) {
-            var story_completion = document.createElement("div");
-            story_completion.className = "fstory_completion";
-            story_indicator.appendChild(story_completion);
-        }
-        //story_indicator.innerHTML += ".";
-        story_indicator_li.appendChild(story_indicator);
-        $(".fstory_indicator_list")[0].appendChild(story_indicator_li);
-    }
-    if (current_story_audio) {
-        current_story_audio.pause();
-        audio_playing = false;
-    }
-    // current_story_audio = new Audio(story_data[story_index].data[storyFlow_index].audio.src);
-    $(".loading_story")[0].style.opacity = "1";
-    document.getElementById("fstory_wave").style.opacity = "0";
-    // current_story_audio = new Audio();
-    let local_story = FlowLoader.DownloadFlow(story_data[story_index].data[storyFlow_index].audio_src);
-    local_story.OnReady(function (url) {
-        console.log("local url : " + url);
-        current_story_audio = new Media(url, function () {}, function () {}, storyAudioStatus);
-
-        function storyAudioStatus(status) {
-            console.log("A status change occurred: " + status);
-            if (status == 4) {
-                story_completion.style.width = "100%";
-                story_data[story_index].data[storyFlow_index].audio.pause();
-                audio_playing = false;
-                // setTimeout(function () {
-                nextStory();
-            } else if (status == 2) {
-                story_timeupdate();
-            }
-        }
-
-        function story_timeupdate() {
-            let tmp_currentstory = current_story_audio;
-            setTimeout(function () {
-                if (current_story_audio) {
-                    current_story_audio.getCurrentPosition(function (position) {
-                        let progress = Math.floor(position * 100 / story_data[story_index].data[storyFlow_index].duration);
-                        story_completion.style.width = progress + "%";
-                        if (tmp_currentstory == current_story_audio && audio_playing) {
-                            story_timeupdate();
-                        }
-                    }, function (err) {
-                        console.log(err)
-                    });
-                }
-
-            }, 250);
-        }
-        // current_story_audio.src = url;
-        // current_story_audio.volume = 1.0;
-        $(".loading_story")[0].style.opacity = "0";
-        document.getElementById("fstory_wave").style.opacity = "1";
-        current_story_audio.play();
-        audio_playing = true;
-        StorySiriWave.speed = 0.2;
-        StorySiriWave.amplitude = 1;
-        if (story_data[story_index].private_id != window.localStorage.getItem("user_private_id")) {
-            $(".fstory_seen_icon")[0].style.display = "none";
-            $(".fstory_seen_txt")[0].style.display = "none";
-
-            let data = {
-                ObjectId: story_data[story_index].data[storyFlow_index].id
-            }
-            ServerManager.AddStoryView(data);
         } else {
-            $(".fstory_seen_icon")[0].style.display = "block";
-            $(".fstory_seen_txt")[0].style.display = "block";
+            if (yDiff > 0) {
+                /* up swipe */
+                direction = "up";
+            } else {
+                /* down swipe */
+                direction = "down";
+            }
         }
-        // UNIQUEMENT SI C'EST MA STORY :
-        // let data = {
-        //     Index: 0,
-        //     ObjectId: story_data[story_index].data[storyFlow_index].id
-        // }
-        // ServerManager.GetStoryView(data);
+        /* reset values */
+        xDown = null;
+        yDown = null;
+    };
 
-        // block.ready = true;
-        // block.floading_flow.style.display = "none";
-        // block.fplay_button.style.display = "block";
-        // block.fpause_button.style.display = "none";
-    });
-    // current_story_audio.oncanplaythrough = function () {
-    //     if (current_story_audio) {
-    //         console.log("can play story");
-    //         current_story_audio.play();
-    //         StorySiriWave.speed = 0.2;
-    //         StorySiriWave.amplitude = 1;
-    //     }
-    // }
-    // current_story_audio.ontimeupdate = function () {
-    //     if (current_story_audio) {
-    //         let progress = Math.floor(current_story_audio.currentTime * 100 / story_data[story_index].data[storyFlow_index].duration);
-    //         story_completion.style.width = progress + "%";
-    //         // console.log(progress);
-    //     }
-    // };
-
-    // current_story_audio.onended = function () {
-    //     story_completion.style.width = "100%";
-    //     story_data[story_index].data[storyFlow_index].audio.pause();
-    //     audio_playing = false;
-    //     // setTimeout(function () {
-    //     nextStory();
-    //     // }, 500);
-    // }
-    // REPLACE EVERYTING WITH current_story_audio !!!!!!!!!!!!!!!!!!!!
-
-    // setTimeout(function () {
-    //     story_data[story_index].data[storyFlow_index].audio.play();
-    //     story_data[story_index].data[storyFlow_index].audio.ontimeupdate = function () {
-    //         let progress = Math.floor(story_data[story_index].data[storyFlow_index].audio.currentTime * 100 / story_data[story_index].data[storyFlow_index].duration);
-    //         story_completion.style.width = progress + "%";
-    //         console.log(progress);
-    //         // if (progress == 100) {
-    //         //     story_data[story_index].data[storyFlow_index].audio.pause();
-    //         //     nextStory();
-    //         // }
-    //     };
-    //     story_data[story_index].data[storyFlow_index].audio.onended = function () {
-    //         story_completion.style.width = "100%";
-    //         story_data[story_index].data[storyFlow_index].audio.pause();
-    //         setTimeout(function () {
-    //             nextStory();
-    //         }, 500);
-    //     }
-    //     story_completion.style.transitionDuration = (story_data[story_index].data[storyFlow_index].duration / 10) + "s";
-    //     StorySiriWave.speed = 0.2;
-    //     StorySiriWave.amplitude = 1;
-    // }, 100);
-
-    // -- story_read_ids.push(story_data[story_index].id);
-    // -- window.localStorage.setObj("story_read", story_read_ids);
-    let found = story_read.filter(x => x.private_id == story_data[story_index].private_id);
-    if (found.length > 0) {
-        if (story_data[story_index].data[storyFlow_index].time > found[0].lastStoryTime) {
-            story_read[story_read.indexOf(found[0])].lastStoryTime = story_data[story_index].data[storyFlow_index].time;
-            console.log("update story read : " + story_data[story_index].data[storyFlow_index].time);
-        }
-    } else {
-        story_read.push({
-            private_id: story_data[story_index].private_id,
-            lastStoryTime: story_data[story_index].data[storyFlow_index].time
-        })
-        console.log(story_data);
-        console.log(story_index);
-        console.log(storyFlow_index);
-        console.log("add story read : " + story_data[story_index].data[storyFlow_index].time);
-    }
-
-    window.localStorage.setObj("story_read", story_read);
-
-    $(".fstory_seen_txt")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
-    $(".seen_number")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
-}
-
-
-function previousStory() {
-    if (can_next_prev) {
-        current_story_audio.pause();
-        audio_playing = false;
-        current_story_audio.getCurrentPosition(function (position) {
-            if (position < 1) {
-                stopAllStoriesAudio();
-                if (storyFlow_index > 0) {
-                    storyFlow_index--;
-                    tryLoadStory(story_index, storyFlow_index);
-                } else if (story_index > 0) {
-                    story_index--;
-                    storyFlow_index = story_data[story_index].data.length - 1;
-                    tryLoadStory(story_index, storyFlow_index);
+    function handleTouchEnd(evt) {
+        if (direction != null && $(".fstory_comment_list").scrollTop() < 5 && !inSeenPopup) {
+            console.log("swipe " + direction);
+            if (direction == "up") {
+                if (current_story_audio) {
+                    current_story_audio.pause();
+                    audio_playing = false;
+                }
+                showStoryComments();
+            } else if (direction == "down") {
+                if (currentSection == "comments") {
+                    showStoryMain(true);
+                    // stopAllStoriesAudio();
                 } else {
                     CloseStory();
                 }
-            } else {
-                $(".fstory_completion")[0].style.transitionDuration = "0s";
-                current_story_audio.seekTo(0.0);
-                StorySiriWave.speed = 0;
-                StorySiriWave.amplitude = 0;
+            }
+        }
+    }
+
+    function CloseStory() {
+        stopAllStoriesAudio();
+        CloseSeenPopup();
+        clearTimeout(tryLoadTimeout);
+        if (StorySiriWave) {
+            StorySiriWave.speed = 0;
+            StorySiriWave.amplitude = 0;
+        }
+        story_window.style.transform = "scale3d(0.1, 0.1, 0.1)";
+        // story_window.style.top = story_pos.top + (window.innerHeight / 100) * 6 + "px";
+        // story_window.style.left = story_pos.left + (window.innerHeight / 100) * 2 + "px";
+        story_window.style.transform = "scale3d(0.1, 0.1, 0.1) translate3d(" + (story_pos.left + (window.innerHeight / 100) * 2) * 10 + "px, " + (story_pos.top + (window.innerHeight / 100) * 6) * 10 + "px , 0px)";
+        story_window.style.opacity = "0";
+        setTimeout(function () {
+            document.body.removeChild(story_window);
+            story_window = null;
+            InStory = false;
+            // analytics.setCurrentScreen(current_page);
+
+            StorySiriWave.stop();
+        }, 400);
+
+        let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+        facebookConnectPlugin.logEvent("current_page", {
+            page: current_page,
+            duration: time_in_last_screen
+        }, null, function () {
+            console.log("fb current_page event success")
+        }, function () {
+            console.log("fb current_page error")
+        });
+        current_page = "home";
+        last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+
+        RefreshStories();
+        StatusBar.backgroundColorByHexString('#f7f7f8');
+        StatusBar.styleDefault();
+        // window.plugins.insomnia.allowSleepAgain();
+    }
+
+
+    function showStoryComments() {
+        clearTimeout(tryLoadTimeout);
+        current_story_audio.pause();
+        story_data[story_index].data[storyFlow_index].audio.pause();
+        audio_playing = false;
+        currentSection = "comments";
+        story_view.style.transform = "translateY(-100vh)";
+        comment_view.style.transform = "translateY(-100vh)";
+        refresh_story_comments();
+    }
+
+    function refresh_story_comments() {
+        story_comment_index = 0;
+        let data = {
+            index: 0,
+            objectId: story_data[story_index].data[storyFlow_index].id
+        }
+        ServerManager.GetStoryComments(data);
+    }
+
+    function showStoryMain(play_story) {
+        stop_comments();
+
+        currentSection = "main";
+        story_view.style.transform = "translateY(0vh)";
+        // story_view.style.opacity = "1";
+        comment_view.style.transform = "translateY(0vh)";
+        // comment_view.style.opacity = "0";
+        // story_view.css({
+        //     "transform": "translate3d(0px, 0vh, 0px)",
+        //     "opacity": "1"
+        // });
+        // comment_view.css({
+        //     "transform": "translate3d(0px, 0vh, 0px)",
+        //     "opacity": "0"
+        // });
+
+        if (play_story) {
+            tryLoadStory(story_index, storyFlow_index);
+            // current_story_audio.audio.play(); commented by Thomas with Media but not sure why (fixing an error in console)
+            audio_playing = true;
+        }
+    }
+
+    function tryLoadStory(story_index, storyFlow_index) {
+        if (!story_data[story_index].data[storyFlow_index]) {
+            can_next_prev = false;
+            // LOAD STORY FROM SERVER
+            $(".fstory_pseudo").text("Loading");
+            $(".fstory_time").text("");
+            story_pos = $($(".fstory_block")[parseInt(story_index) + 1]).position();
+            $(".fstory_indicator_list")[0].innerHTML = "";
+            $(".fstory_pp")[0].style.backgroundImage = "white";
+            // $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].darkColor + ");";
+            let color_gradient = "linear-gradient(black, black)";
+            StatusBar.backgroundColorByHexString("#000000");
+            StatusBar.styleDefault();
+            $(".fstory_window")[0].style.backgroundImage = color_gradient;
+
+            setTimeout(function () {
+                ServerManager.GetUserStory(story_data[story_index].private_id);
+            }, 10);
+        } else {
+            loadStory(story_index, storyFlow_index);
+        }
+    }
+
+    function GetStoryForUserFromServer(data) {
+        story_data[story_index].data = [];
+        for (let i = 0; i < data.Data.length; i++) {
+            let story_flow = new StoryFlow();
+            story_flow.time = data.Data[i].Time;
+            story_flow.duration = parseFloat(data.Data[i].Duration);
+            story_flow.id = data.Data[i].ObjectId;
+            story_flow.color = data.Data[i].Color;
+            story_flow.darkColor = pSBC(-0.8, story_flow.color);
+            let src_flow = 'https://' + data.LinkBuilder.Hostname + '/stories/' + data.Data[i].Audio.name + '?';
+            let param_flow = `${data.LinkBuilder.Params.hash}=${data.Data[i].Audio.hash}&${data.LinkBuilder.Params.time}=${data.Data[i].Audio.timestamp}`;
+            let audio_link = src_flow + param_flow;
+            story_flow.audio_src = audio_link;
+            // story_flow.audio = new Media(audio_link);
+            story_flow.seen_number = data.Data[i].NbView;
+            story_data[story_index].data.push(story_flow);
+        }
+
+        loadStory(story_index, 0);
+    }
+
+    function loadStory(story_index, storyFlow_index) {
+        console.log("LOAD STORY");
+        $(".fstory_comment_list")[0].innerHTML = "";
+        can_next_prev = true;
+        $(".fstory_pseudo").text(story_data[story_index].private_id);
+        $(".fstory_time").text(set_timestamp(story_data[story_index].data[storyFlow_index].time));
+        story_pos = $($(".fstory_block")[parseInt(story_index) + 1]).position();
+        if ($(".fstory_indicator_list")[0]) $(".fstory_indicator_list")[0].innerHTML = "";
+        $(".fstory_pp")[0].style.backgroundImage = "url(" + story_data[story_index].user_picture + ")";
+        $(".fstory_pp").on("click", function () { // chris
+            console.log("on a bien clique sur la photo de la story");
+            let data = {
+                private_Id: story_data[story_index].private_id,
+                user_private_Id: window.localStorage.getItem("user_private_id")
+            };
+            CloseStory();
+            go_to_account(data);
+        });
+        // $(".fstory_window")[0].style.backgroundImage = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].darkColor + ");";
+        let color_gradient = "linear-gradient(" + story_data[story_index].data[storyFlow_index].color + ", " + story_data[story_index].data[storyFlow_index].darkColor + ")";
+        StatusBar.backgroundColorByHexString(story_data[story_index].data[storyFlow_index].color);
+        StatusBar.styleLightContent();
+
+        $(".fstory_window")[0].style.backgroundImage = color_gradient;
+        // story_data[storyFlow_index].data =/= story_data.data[storyFlow_index] à check
+        for (var i = 0; i < story_data[story_index].data.length; i++) {
+            let story_indicator_li = document.createElement("li");
+            let story_indicator = document.createElement("div");
+            story_indicator.className = "fstory_indicator";
+            if (i < storyFlow_index) {
+                story_indicator.className += " active";
+            } else if (i == storyFlow_index) {
+                var story_completion = document.createElement("div");
+                story_completion.className = "fstory_completion";
+                story_indicator.appendChild(story_completion);
+            }
+            //story_indicator.innerHTML += ".";
+            story_indicator_li.appendChild(story_indicator);
+            $(".fstory_indicator_list")[0].appendChild(story_indicator_li);
+        }
+        if (current_story_audio) {
+            current_story_audio.pause();
+            audio_playing = false;
+        }
+        // current_story_audio = new Audio(story_data[story_index].data[storyFlow_index].audio.src);
+        $(".loading_story")[0].style.opacity = "1";
+        document.getElementById("fstory_wave").style.opacity = "0";
+        // current_story_audio = new Audio();
+        let local_story = FlowLoader.DownloadFlow(story_data[story_index].data[storyFlow_index].audio_src);
+        local_story.OnReady(function (url) {
+            console.log("local url : " + url);
+            current_story_audio = new Media(url, function () { }, function () { }, storyAudioStatus);
+
+            function storyAudioStatus(status) {
+                console.log("A status change occurred: " + status);
+                if (status == 4) {
+                    story_completion.style.width = "100%";
+                    story_data[story_index].data[storyFlow_index].audio.pause();
+                    audio_playing = false;
+                    // setTimeout(function () {
+                    nextStory();
+                } else if (status == 2) {
+                    story_timeupdate();
+                }
+            }
+
+            function story_timeupdate() {
+                let tmp_currentstory = current_story_audio;
                 setTimeout(function () {
-                    $(".fstory_completion")[0].style.transitionDuration = (story_data[story_index].data[storyFlow_index].duration / 10) + "s";
-                    StorySiriWave.speed = 0.2;
-                    StorySiriWave.amplitude = 1;
-                }, 100);
+                    if (current_story_audio) {
+                        current_story_audio.getCurrentPosition(function (position) {
+                            let progress = Math.floor(position * 100 / story_data[story_index].data[storyFlow_index].duration);
+                            story_completion.style.width = progress + "%";
+                            if (tmp_currentstory == current_story_audio && audio_playing) {
+                                story_timeupdate();
+                            }
+                        }, function (err) {
+                            console.log(err)
+                        });
+                    }
+
+                }, 250);
+            }
+            // current_story_audio.src = url;
+            // current_story_audio.volume = 1.0;
+            $(".loading_story")[0].style.opacity = "0";
+            document.getElementById("fstory_wave").style.opacity = "1";
+            current_story_audio.play();
+            audio_playing = true;
+            StorySiriWave.speed = 0.2;
+            StorySiriWave.amplitude = 1;
+            if (story_data[story_index].private_id != window.localStorage.getItem("user_private_id")) {
+                $(".fstory_seen_icon")[0].style.display = "none";
+                $(".fstory_seen_txt")[0].style.display = "none";
+
+                let data = {
+                    ObjectId: story_data[story_index].data[storyFlow_index].id
+                }
+                ServerManager.AddStoryView(data);
+            } else {
+                $(".fstory_seen_icon")[0].style.display = "block";
+                $(".fstory_seen_txt")[0].style.display = "block";
+            }
+            // UNIQUEMENT SI C'EST MA STORY :
+            // let data = {
+            //     Index: 0,
+            //     ObjectId: story_data[story_index].data[storyFlow_index].id
+            // }
+            // ServerManager.GetStoryView(data);
+
+            // block.ready = true;
+            // block.floading_flow.style.display = "none";
+            // block.fplay_button.style.display = "block";
+            // block.fpause_button.style.display = "none";
+        });
+        // current_story_audio.oncanplaythrough = function () {
+        //     if (current_story_audio) {
+        //         console.log("can play story");
+        //         current_story_audio.play();
+        //         StorySiriWave.speed = 0.2;
+        //         StorySiriWave.amplitude = 1;
+        //     }
+        // }
+        // current_story_audio.ontimeupdate = function () {
+        //     if (current_story_audio) {
+        //         let progress = Math.floor(current_story_audio.currentTime * 100 / story_data[story_index].data[storyFlow_index].duration);
+        //         story_completion.style.width = progress + "%";
+        //         // console.log(progress);
+        //     }
+        // };
+
+        // current_story_audio.onended = function () {
+        //     story_completion.style.width = "100%";
+        //     story_data[story_index].data[storyFlow_index].audio.pause();
+        //     audio_playing = false;
+        //     // setTimeout(function () {
+        //     nextStory();
+        //     // }, 500);
+        // }
+        // REPLACE EVERYTING WITH current_story_audio !!!!!!!!!!!!!!!!!!!!
+
+        // setTimeout(function () {
+        //     story_data[story_index].data[storyFlow_index].audio.play();
+        //     story_data[story_index].data[storyFlow_index].audio.ontimeupdate = function () {
+        //         let progress = Math.floor(story_data[story_index].data[storyFlow_index].audio.currentTime * 100 / story_data[story_index].data[storyFlow_index].duration);
+        //         story_completion.style.width = progress + "%";
+        //         console.log(progress);
+        //         // if (progress == 100) {
+        //         //     story_data[story_index].data[storyFlow_index].audio.pause();
+        //         //     nextStory();
+        //         // }
+        //     };
+        //     story_data[story_index].data[storyFlow_index].audio.onended = function () {
+        //         story_completion.style.width = "100%";
+        //         story_data[story_index].data[storyFlow_index].audio.pause();
+        //         setTimeout(function () {
+        //             nextStory();
+        //         }, 500);
+        //     }
+        //     story_completion.style.transitionDuration = (story_data[story_index].data[storyFlow_index].duration / 10) + "s";
+        //     StorySiriWave.speed = 0.2;
+        //     StorySiriWave.amplitude = 1;
+        // }, 100);
+
+        // -- story_read_ids.push(story_data[story_index].id);
+        // -- window.localStorage.setObj("story_read", story_read_ids);
+        let found = story_read.filter(x => x.private_id == story_data[story_index].private_id);
+        if (found.length > 0) {
+            if (story_data[story_index].data[storyFlow_index].time > found[0].lastStoryTime) {
+                story_read[story_read.indexOf(found[0])].lastStoryTime = story_data[story_index].data[storyFlow_index].time;
+                console.log("update story read : " + story_data[story_index].data[storyFlow_index].time);
+            }
+        } else {
+            story_read.push({
+                private_id: story_data[story_index].private_id,
+                lastStoryTime: story_data[story_index].data[storyFlow_index].time
+            })
+            console.log(story_data);
+            console.log(story_index);
+            console.log(storyFlow_index);
+            console.log("add story read : " + story_data[story_index].data[storyFlow_index].time);
+        }
+
+        window.localStorage.setObj("story_read", story_read);
+
+        $(".fstory_seen_txt")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
+        $(".seen_number")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
+    }
+
+
+    function previousStory() {
+        if (can_next_prev) {
+            current_story_audio.pause();
+            audio_playing = false;
+            current_story_audio.getCurrentPosition(function (position) {
+                if (position < 1) {
+                    stopAllStoriesAudio();
+                    if (storyFlow_index > 0) {
+                        storyFlow_index--;
+                        tryLoadStory(story_index, storyFlow_index);
+                    } else if (story_index > 0) {
+                        story_index--;
+                        storyFlow_index = story_data[story_index].data.length - 1;
+                        tryLoadStory(story_index, storyFlow_index);
+                    } else {
+                        CloseStory();
+                    }
+                } else {
+                    $(".fstory_completion")[0].style.transitionDuration = "0s";
+                    current_story_audio.seekTo(0.0);
+                    StorySiriWave.speed = 0;
+                    StorySiriWave.amplitude = 0;
+                    setTimeout(function () {
+                        $(".fstory_completion")[0].style.transitionDuration = (story_data[story_index].data[storyFlow_index].duration / 10) + "s";
+                        StorySiriWave.speed = 0.2;
+                        StorySiriWave.amplitude = 1;
+                    }, 100);
+                    tryLoadStory(story_index, storyFlow_index);
+                }
+                can_next_prev = false;
+                setTimeout(function () {
+                    can_next_prev = true
+                }, next_prev_delay);
+            }, function (err) {
+                console.log(err)
+            });
+
+        }
+
+    }
+
+    function nextStory() {
+        if (can_next_prev) {
+            stopAllStoriesAudio();
+            if (storyFlow_index < story_data[story_index].data.length - 1) {
+                storyFlow_index++;
                 tryLoadStory(story_index, storyFlow_index);
+            } else if (story_index < story_data.length - 1) {
+                story_index++;
+                storyFlow_index = 0;
+                tryLoadStory(story_index, storyFlow_index);
+            } else {
+                CloseStory();
             }
             can_next_prev = false;
             setTimeout(function () {
                 can_next_prev = true
             }, next_prev_delay);
-        }, function (err) {
-            console.log(err)
-        });
-
-    }
-
-}
-
-function nextStory() {
-    if (can_next_prev) {
-        stopAllStoriesAudio();
-        if (storyFlow_index < story_data[story_index].data.length - 1) {
-            storyFlow_index++;
-            tryLoadStory(story_index, storyFlow_index);
-        } else if (story_index < story_data.length - 1) {
-            story_index++;
-            storyFlow_index = 0;
-            tryLoadStory(story_index, storyFlow_index);
-        } else {
-            CloseStory();
         }
-        can_next_prev = false;
-        setTimeout(function () {
-            can_next_prev = true
-        }, next_prev_delay);
     }
-}
 
-function stopAllStoriesAudio() {
-    if (StorySiriWave) {
-        StorySiriWave.speed = 0;
-        StorySiriWave.amplitude = 0;
-    }
-    if (current_story_audio) {
-        current_story_audio.pause();
-        audio_playing = false;
-        current_story_audio.seekTo(0.0);
-        current_story_audio = null;
-    }
-    // for (var i = 0; i < story_data.length; i++) {
-    //     for (var j = 0; j < story_data[i].data.length; j++) {
-    //         story_data[i].data[j].audio.pause();
-    //         story_data[i].data[j].audio.currentTime = 0.0;
-    //     }
-    // }
-
-    if (current_story_comment) {
-        current_story_comment.audio.pause();
-        audio_playing = false;
-        current_story_comment.audio.seekTo(0.0);
-        current_story_comment = null;
-    }
-    // if (story_data[story_index] && story_data[story_index].data[storyFlow_index]) {
-    //     for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
-    //         let com = story_data[story_index].data[storyFlow_index].comments[i];
-    //         com.audio.pause();
-    //         audio_playing = false;
-    //         com.audio.seekTo(0.0);
-    //         com.isPlaying = false;
-    //     }
-    // }
-
-    if (recorded_com) {
-        recorded_com.pause();
-        audio_playing = false;
-    }
-}
-
-function stop_comments() {
-    if (story_data[story_index].data[storyFlow_index] != null) {
-        for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
-            let com = story_data[story_index].data[storyFlow_index].comments[i];
-            let div_comment = $("div[comment_id='" + (i + story_comment_index * 10) + "']")[0];
-            if (div_comment) {
-                div_comment.style.backgroundImage = "url('src/icons/play.png')";
-            }
-            com.audio.pause();
+    function stopAllStoriesAudio() {
+        if (StorySiriWave) {
+            StorySiriWave.speed = 0;
+            StorySiriWave.amplitude = 0;
+        }
+        if (current_story_audio) {
+            current_story_audio.pause();
             audio_playing = false;
-            com.audio.seekTo(0.0);
-            com.isPlaying = false;
+            current_story_audio.seekTo(0.0);
+            current_story_audio = null;
+        }
+        // for (var i = 0; i < story_data.length; i++) {
+        //     for (var j = 0; j < story_data[i].data.length; j++) {
+        //         story_data[i].data[j].audio.pause();
+        //         story_data[i].data[j].audio.currentTime = 0.0;
+        //     }
+        // }
+
+        if (current_story_comment) {
+            current_story_comment.audio.pause();
+            audio_playing = false;
+            current_story_comment.audio.seekTo(0.0);
+            current_story_comment = null;
+        }
+        // if (story_data[story_index] && story_data[story_index].data[storyFlow_index]) {
+        //     for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
+        //         let com = story_data[story_index].data[storyFlow_index].comments[i];
+        //         com.audio.pause();
+        //         audio_playing = false;
+        //         com.audio.seekTo(0.0);
+        //         com.isPlaying = false;
+        //     }
+        // }
+
+        if (recorded_com) {
+            recorded_com.pause();
+            audio_playing = false;
         }
     }
-}
 
-function loadStoryComments(data) {
-    // story_comment_index = 0;
-    if (story_comment_index == 0) {
-        story_data[story_index].data[storyFlow_index].comments = [];
-        $(".fstory_comment_list")[0].innerHTML = "";
-    }
-    let i = 0;
-    for (let comment of data.Data) {
-        console.log(comment);
-        let com = new StoryComment();
-        com.private_id = comment.PrivateId;
-        com.time = set_timestamp(comment.Time);
-        com.duration = parseFloat(comment.Duration);
-        let src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + comment.ProfilePicture.name + '?';
-        let param = `${data.LinkBuilder.Params.hash}=${comment.ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${comment.ProfilePicture.timestamp}`;
-        com.user_picture = src + param;
-        let src_comment_audio = 'https://' + data.LinkBuilder.Hostname + '/comments/' + comment.Audio.name + '?';
-        let param_comment_audio = `${data.LinkBuilder.Params.hash}=${comment.Audio.hash}&${data.LinkBuilder.Params.time}=${comment.Audio.timestamp}`;
-        com.ready = false;
-
-        let comment_li = document.createElement("li");
-        comment_li.className = "fstory_comment_li";
-        let comment_time = document.createElement("label");
-        comment_time.innerHTML = com.time;
-        comment_time.className = "fstory_comment_time";
-        let comment_loading = document.createElement("div");
-        comment_loading.className = "fstory_comment_loading";
-        comment_loading.setAttribute("comment_loading_id", (i + story_comment_index * 10));
-        let comment_pp = document.createElement("div");
-        comment_pp.className = "fstory_comment_pp";
-        comment_pp.style.backgroundImage = "url(" + com.user_picture + ")";
-        let comment_play = document.createElement("div");
-        comment_play.setAttribute("comment_id", (i + story_comment_index * 10));
-        comment_play.className = "fstory_comment_play";
-        comment_play.onclick = function () {
-            if (com.ready) {
-                playStoryComment(com, comment_play)
+    function stop_comments() {
+        if (story_data[story_index].data[storyFlow_index] != null) {
+            for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
+                let com = story_data[story_index].data[storyFlow_index].comments[i];
+                let div_comment = $("div[comment_id='" + (i + story_comment_index * 10) + "']")[0];
+                if (div_comment) {
+                    div_comment.style.backgroundImage = "url('src/icons/play.png')";
+                }
+                com.audio.pause();
+                audio_playing = false;
+                com.audio.seekTo(0.0);
+                com.isPlaying = false;
             }
-        };
-        com.htmlelement = comment_play;
-        let comment_pseudo = document.createElement("label");
-        comment_pseudo.className = "fstory_comment_pseudo";
-        comment_pseudo.innerHTML = com.private_id;
-        comment_pseudo.onclick = function () { // chris
-            console.log("on a bien clique sur la photo de la story");
-            let data = {
-                private_Id: com.private_id,
-                user_private_Id: window.localStorage.getItem("user_private_id")
-            };
-            CloseStory();
-            go_to_account(data);
-        };
-        comment_li.appendChild(comment_time);
-        comment_li.appendChild(comment_loading);
-        comment_li.appendChild(comment_pp);
-        comment_li.appendChild(comment_play);
-        comment_li.appendChild(comment_pseudo);
-        $(".fstory_comment_list")[0].appendChild(comment_li);
+        }
+    }
 
-        comment_play.style.backgroundImage = "url(\"src/icons/loading_circle.gif\")";
-        let local_comment = FlowLoader.DownloadFlow(src_comment_audio + param_comment_audio);
-        local_comment.OnReady(function (url) {
-            console.log("local url : " + url);
-            // com.audio.src = url;
-            com.audio = new Media(url, function (success) {
-                console.log(success)
+    function loadStoryComments(data) {
+        // story_comment_index = 0;
+        if (story_comment_index == 0) {
+            story_data[story_index].data[storyFlow_index].comments = [];
+            $(".fstory_comment_list")[0].innerHTML = "";
+        }
+        let i = 0;
+        for (let comment of data.Data) {
+            console.log(comment);
+            let com = new StoryComment();
+            com.private_id = comment.PrivateId;
+            com.time = set_timestamp(comment.Time);
+            com.duration = parseFloat(comment.Duration);
+            let src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + comment.ProfilePicture.name + '?';
+            let param = `${data.LinkBuilder.Params.hash}=${comment.ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${comment.ProfilePicture.timestamp}`;
+            com.user_picture = src + param;
+            let src_comment_audio = 'https://' + data.LinkBuilder.Hostname + '/comments/' + comment.Audio.name + '?';
+            let param_comment_audio = `${data.LinkBuilder.Params.hash}=${comment.Audio.hash}&${data.LinkBuilder.Params.time}=${comment.Audio.timestamp}`;
+            com.ready = false;
+
+            let comment_li = document.createElement("li");
+            comment_li.className = "fstory_comment_li";
+            let comment_time = document.createElement("label");
+            comment_time.innerHTML = com.time;
+            comment_time.className = "fstory_comment_time";
+            let comment_loading = document.createElement("div");
+            comment_loading.className = "fstory_comment_loading";
+            comment_loading.setAttribute("comment_loading_id", (i + story_comment_index * 10));
+            let comment_pp = document.createElement("div");
+            comment_pp.className = "fstory_comment_pp";
+            comment_pp.style.backgroundImage = "url(" + com.user_picture + ")";
+            let comment_play = document.createElement("div");
+            comment_play.setAttribute("comment_id", (i + story_comment_index * 10));
+            comment_play.className = "fstory_comment_play";
+            comment_play.onclick = function () {
+                if (com.ready) {
+                    playStoryComment(com, comment_play)
+                }
+            };
+            com.htmlelement = comment_play;
+            let comment_pseudo = document.createElement("label");
+            comment_pseudo.className = "fstory_comment_pseudo";
+            comment_pseudo.innerHTML = com.private_id;
+            comment_pseudo.onclick = function () { // chris
+                console.log("on a bien clique sur la photo de la story");
+                let data = {
+                    private_Id: com.private_id,
+                    user_private_Id: window.localStorage.getItem("user_private_id")
+                };
+                CloseStory();
+                go_to_account(data);
+            };
+            comment_li.appendChild(comment_time);
+            comment_li.appendChild(comment_loading);
+            comment_li.appendChild(comment_pp);
+            comment_li.appendChild(comment_play);
+            comment_li.appendChild(comment_pseudo);
+            $(".fstory_comment_list")[0].appendChild(comment_li);
+
+            comment_play.style.backgroundImage = "url(\"src/icons/loading_circle.gif\")";
+            let local_comment = FlowLoader.DownloadFlow(src_comment_audio + param_comment_audio);
+            local_comment.OnReady(function (url) {
+                console.log("local url : " + url);
+                // com.audio.src = url;
+                com.audio = new Media(url, function (success) {
+                    console.log(success)
+                }, function (err) {
+                    console.log(err)
+                }, storyCommentStatus);
+                // current_story_comment = com;
+
+                function storyCommentStatus(status) {
+                    console.log("A status change occurred: " + status);
+                    console.log(current_story_comment);
+                    if (status == 4) {
+                        current_story_comment.htmlelement.style.backgroundImage = "url('src/icons/play.png')";
+                        current_story_comment.isPlaying = false;
+                        audio_playing = false;
+                        current_story_comment.audio.seekTo(0.0);
+                        current_story_comment.current_value = 0;
+                    }
+                    // else if (status == 2) {
+                    //     story_timeupdate();
+                    // }
+                }
+                com.ready = true;
+                comment_play.style.backgroundImage = "url(\"src/icons/play.png\")";
+            });
+            // com.audio = new Audio(src_comment_audio + param_comment_audio);
+            // console.log(src_comment_audio + param_comment_audio);
+            story_data[story_index].data[storyFlow_index].comments.push(com);
+            i++;
+        }
+
+        if (data.Data.length < 10) {
+            can_get_comment = false;
+        } else {
+            can_get_comment = true;
+        }
+
+        $(".fstory_comment_list").scroll(function () {
+            var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+            if (Math.round($(this).scrollTop()) >= limit * 0.75 && can_get_comment) {
+                story_comment_index += 1;
+                console.log("story_comment_index : " + story_comment_index);
+                let data = {
+                    index: story_comment_index,
+                    objectId: story_data[story_index].data[storyFlow_index].id
+                }
+                ServerManager.GetStoryComments(data);
+                can_get_comment = false;
+            }
+        });
+    }
+
+    function playStoryComment(comment, htmlelement) {
+        // stop all comments except current one
+        // for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
+        //     let com = story_data[story_index].data[storyFlow_index].comments[i];
+        //     if (com != comment) {
+        //         com.audio.pause();
+        //         audio_playing = false;
+        //         com.audio.seekTo(0.0);
+        //         com.isPlaying = false;
+        //     }
+        // }
+        if (current_story_comment && current_story_comment != comment) {
+            current_story_comment.audio.pause();
+            audio_playing = false;
+            current_story_comment.audio.seekTo(0);
+            current_story_comment.isPlaying = false;
+            current_story_comment.htmlelement.style.backgroundImage = "url('src/icons/play.png')";
+
+        }
+        console.log(comment);
+        console.log(current_story_comment);
+        current_story_comment = comment;
+
+        if (!comment.isPlaying) {
+            console.log("play !");
+            var loading_com = $("div[comment_loading_id='" + (htmlelement.getAttribute("comment_id")) + "']")[0];
+            // var current_value = 0;
+            htmlelement.style.backgroundImage = "url('src/icons/pause.png')";
+            current_story_comment.audio.play();
+            audio_playing = true;
+            // comment.audio.onended = function () {
+            //     htmlelement.style.backgroundImage = "url('src/icons/play.png')";
+            //     comment.isPlaying = false;
+            //     audio_playing = false;
+            //     comment.audio.seekTo(0.0);
+            //     current_value = 0;
+            // };
+            // comment.audio.ontimeupdate = function () {
+            //     //console.log(loading_com);
+            //     //--let target_value = (comment.audio.currentTime / comment.audio.duration) * 100;
+            //     // current_value = Lerp(current_value, target_value, 0.5);
+            //     //--let css = "rgba(0, 0, 0, 0) conic-gradient(white 0deg, white "+target_value+"%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
+            //     //--$(loading_com).css({"background": css});//.style.backgroundImage = "conic-gradient(white 0 50%, transparent 0 100%);";
+            // }
+            current_value = (comment.audio.currentTime / comment.duration) * 100;
+            smoothUpdateBar(loading_com, comment);
+            comment.isPlaying = true;
+        } else {
+            console.log("pause !");
+            htmlelement.style.backgroundImage = "url('src/icons/play.png')";
+            comment.audio.pause();
+            audio_playing = false;
+            comment.isPlaying = false;
+        }
+    }
+
+    function lerp(start, end, amt) {
+        return (1 - amt) * start + amt * end
+    }
+
+    function smoothUpdateBar(loading_com, comment) {
+        setTimeout(function () {
+            comment.audio.getCurrentPosition(function (position) {
+                let target_value = (position / comment.duration) * 100;
+                // current_story_comment.current_value = Lerp(current_story_comment.current_value, target_value, 0.5);
+                current_story_comment.current_value = target_value;
+                let css = "rgba(0, 0, 0, 0) conic-gradient(white 0deg, white " + current_story_comment.current_value + "%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
+                $(loading_com).css({
+                    "background": css
+                });
+                if (comment.isPlaying) {
+                    smoothUpdateBar(loading_com, comment);
+                }
             }, function (err) {
                 console.log(err)
-            }, storyCommentStatus);
-            // current_story_comment = com;
-
-            function storyCommentStatus(status) {
-                console.log("A status change occurred: " + status);
-                console.log(current_story_comment);
-                if (status == 4) {
-                    current_story_comment.htmlelement.style.backgroundImage = "url('src/icons/play.png')";
-                    current_story_comment.isPlaying = false;
-                    audio_playing = false;
-                    current_story_comment.audio.seekTo(0.0);
-                    current_story_comment.current_value = 0;
-                }
-                // else if (status == 2) {
-                //     story_timeupdate();
-                // }
-            }
-            com.ready = true;
-            comment_play.style.backgroundImage = "url(\"src/icons/play.png\")";
-        });
-        // com.audio = new Audio(src_comment_audio + param_comment_audio);
-        // console.log(src_comment_audio + param_comment_audio);
-        story_data[story_index].data[storyFlow_index].comments.push(com);
-        i++;
-    }
-
-    if (data.Data.length < 10) {
-        can_get_comment = false;
-    } else {
-        can_get_comment = true;
-    }
-
-    $(".fstory_comment_list").scroll(function () {
-        var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-        if (Math.round($(this).scrollTop()) >= limit * 0.75 && can_get_comment) {
-            story_comment_index += 1;
-            console.log("story_comment_index : " + story_comment_index);
-            let data = {
-                index: story_comment_index,
-                objectId: story_data[story_index].data[storyFlow_index].id
-            }
-            ServerManager.GetStoryComments(data);
-            can_get_comment = false;
-        }
-    });
-}
-
-function playStoryComment(comment, htmlelement) {
-    // stop all comments except current one
-    // for (let i = 0; i < story_data[story_index].data[storyFlow_index].comments.length; i++) {
-    //     let com = story_data[story_index].data[storyFlow_index].comments[i];
-    //     if (com != comment) {
-    //         com.audio.pause();
-    //         audio_playing = false;
-    //         com.audio.seekTo(0.0);
-    //         com.isPlaying = false;
-    //     }
-    // }
-    if (current_story_comment && current_story_comment != comment) {
-        current_story_comment.audio.pause();
-        audio_playing = false;
-        current_story_comment.audio.seekTo(0);
-        current_story_comment.isPlaying = false;
-        current_story_comment.htmlelement.style.backgroundImage = "url('src/icons/play.png')";
-
-    }
-    console.log(comment);
-    console.log(current_story_comment);
-    current_story_comment = comment;
-
-    if (!comment.isPlaying) {
-        console.log("play !");
-        var loading_com = $("div[comment_loading_id='" + (htmlelement.getAttribute("comment_id")) + "']")[0];
-        // var current_value = 0;
-        htmlelement.style.backgroundImage = "url('src/icons/pause.png')";
-        current_story_comment.audio.play();
-        audio_playing = true;
-        // comment.audio.onended = function () {
-        //     htmlelement.style.backgroundImage = "url('src/icons/play.png')";
-        //     comment.isPlaying = false;
-        //     audio_playing = false;
-        //     comment.audio.seekTo(0.0);
-        //     current_value = 0;
-        // };
-        // comment.audio.ontimeupdate = function () {
-        //     //console.log(loading_com);
-        //     //--let target_value = (comment.audio.currentTime / comment.audio.duration) * 100;
-        //     // current_value = Lerp(current_value, target_value, 0.5);
-        //     //--let css = "rgba(0, 0, 0, 0) conic-gradient(white 0deg, white "+target_value+"%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
-        //     //--$(loading_com).css({"background": css});//.style.backgroundImage = "conic-gradient(white 0 50%, transparent 0 100%);";
-        // }
-        current_value = (comment.audio.currentTime / comment.duration) * 100;
-        smoothUpdateBar(loading_com, comment);
-        comment.isPlaying = true;
-    } else {
-        console.log("pause !");
-        htmlelement.style.backgroundImage = "url('src/icons/play.png')";
-        comment.audio.pause();
-        audio_playing = false;
-        comment.isPlaying = false;
-    }
-}
-
-function lerp(start, end, amt) {
-    return (1 - amt) * start + amt * end
-}
-
-function smoothUpdateBar(loading_com, comment) {
-    setTimeout(function () {
-        comment.audio.getCurrentPosition(function (position) {
-            let target_value = (position / comment.duration) * 100;
-            // current_story_comment.current_value = Lerp(current_story_comment.current_value, target_value, 0.5);
-            current_story_comment.current_value = target_value;
-            let css = "rgba(0, 0, 0, 0) conic-gradient(white 0deg, white " + current_story_comment.current_value + "%, transparent 0deg, transparent 100%) repeat scroll 0% 0% / auto padding-box border-box";
-            $(loading_com).css({
-                "background": css
             });
-            if (comment.isPlaying) {
-                smoothUpdateBar(loading_com, comment);
-            }
-        }, function (err) {
-            console.log(err)
-        });
 
-    }, 40);
-}
-
-function ShowSeenPopup() {
-    $(".seen_ul")[0].innerHTML = "";
-    story_seen_index = 0;
-    inSeenPopup = true;
-    let data = {
-        Index: story_seen_index,
-        ObjectId: story_data[story_index].data[storyFlow_index].id
+        }, 40);
     }
-    story_data[story_index].data[storyFlow_index].seen = [];
-    ServerManager.GetStoryView(data);
-    $(".seen_popup_bg").css({
-        "opacity": "0.3",
-        "pointer-events": "auto"
-    });
-    $(".seen_popup").css({
-        "transform": "translate3d(0, 0, 0)"
-    });
-}
 
-
-
-function CloseSeenPopup() {
-    inSeenPopup = false;
-    $(".seen_popup_bg").css({
-        "opacity": "0",
-        "pointer-events": "none"
-    });
-    $(".seen_popup").css({
-        "transform": "translate3d(0, 70vh, 0)"
-    });
-}
-
-function loadStorySeen(data) {
-    $(".fstory_seen_txt")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
-    $(".seen_number")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
-    // $(".seen_ul")[0].innerHTML = "";
-    if (story_seen_index == 0) {
+    function ShowSeenPopup() {
+        $(".seen_ul")[0].innerHTML = "";
+        story_seen_index = 0;
+        inSeenPopup = true;
+        let data = {
+            Index: story_seen_index,
+            ObjectId: story_data[story_index].data[storyFlow_index].id
+        }
         story_data[story_index].data[storyFlow_index].seen = [];
+        ServerManager.GetStoryView(data);
+        $(".seen_popup_bg").css({
+            "opacity": "0.3",
+            "pointer-events": "auto"
+        });
+        $(".seen_popup").css({
+            "transform": "translate3d(0, 0, 0)"
+        });
     }
 
-    for (let i = 0; i < data.Data.length; i++) {
-        let new_StorySeen = new StorySeen();
-        new_StorySeen.private_id = "@" + data.Data[i].PrivateId;
-        new_StorySeen.time = "vu " + set_timestamp(data.Data[i].LastStoryView);
-        let src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Data[i].ProfilePicture.name + '?';
-        let param = `${data.LinkBuilder.Params.hash}=${data.Data[i].ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.Data[i].ProfilePicture.timestamp}`;
-        new_StorySeen.user_picture = src + param;
-        story_data[story_index].data[storyFlow_index].seen.push(new_StorySeen);
+
+
+    function CloseSeenPopup() {
+        inSeenPopup = false;
+        $(".seen_popup_bg").css({
+            "opacity": "0",
+            "pointer-events": "none"
+        });
+        $(".seen_popup").css({
+            "transform": "translate3d(0, 70vh, 0)"
+        });
     }
 
-    $(".seen_ul")[0].innerHTML = "";
-    for (let i = 0; i < story_data[story_index].data[storyFlow_index].seen.length; i++) {
-        let seen_li = document.createElement("li");
-        seen_li.className = "seen_li";
-        let seen_pseudo = document.createElement("label");
-        seen_pseudo.innerHTML = story_data[story_index].data[storyFlow_index].seen[i].private_id;
-        seen_pseudo.className = "seen_pseudo";
-        let seen_pp = document.createElement("div");
-        seen_pp.className = "seen_pp";
-        seen_pp.style.backgroundImage = "url(" + story_data[story_index].data[storyFlow_index].seen[i].user_picture + ")";
-        seen_pp.onclick = function () { // chris
-            console.log("on a bien clique sur la photo de la story");
-            let data = {
-                private_Id: story_data[story_index].data[storyFlow_index].seen[i].private_id.slice(1),
-                user_private_Id: window.localStorage.getItem("user_private_id")
+    function loadStorySeen(data) {
+        $(".fstory_seen_txt")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
+        $(".seen_number")[0].innerHTML = story_data[story_index].data[storyFlow_index].seen_number;
+        // $(".seen_ul")[0].innerHTML = "";
+        if (story_seen_index == 0) {
+            story_data[story_index].data[storyFlow_index].seen = [];
+        }
+
+        for (let i = 0; i < data.Data.length; i++) {
+            let new_StorySeen = new StorySeen();
+            new_StorySeen.private_id = "@" + data.Data[i].PrivateId;
+            new_StorySeen.time = "vu " + set_timestamp(data.Data[i].LastStoryView);
+            let src = 'https://' + data.LinkBuilder.Hostname + ':' + data.LinkBuilder.Port + '/images/' + data.Data[i].ProfilePicture.name + '?';
+            let param = `${data.LinkBuilder.Params.hash}=${data.Data[i].ProfilePicture.hash}&${data.LinkBuilder.Params.time}=${data.Data[i].ProfilePicture.timestamp}`;
+            new_StorySeen.user_picture = src + param;
+            story_data[story_index].data[storyFlow_index].seen.push(new_StorySeen);
+        }
+
+        $(".seen_ul")[0].innerHTML = "";
+        for (let i = 0; i < story_data[story_index].data[storyFlow_index].seen.length; i++) {
+            let seen_li = document.createElement("li");
+            seen_li.className = "seen_li";
+            let seen_pseudo = document.createElement("label");
+            seen_pseudo.innerHTML = story_data[story_index].data[storyFlow_index].seen[i].private_id;
+            seen_pseudo.className = "seen_pseudo";
+            let seen_pp = document.createElement("div");
+            seen_pp.className = "seen_pp";
+            seen_pp.style.backgroundImage = "url(" + story_data[story_index].data[storyFlow_index].seen[i].user_picture + ")";
+            seen_pp.onclick = function () { // chris
+                console.log("on a bien clique sur la photo de la story");
+                let data = {
+                    private_Id: story_data[story_index].data[storyFlow_index].seen[i].private_id.slice(1),
+                    user_private_Id: window.localStorage.getItem("user_private_id")
+                };
+                CloseStory();
+                go_to_account(data);
             };
-            CloseStory();
-            go_to_account(data);
-        };
 
-        let seen_time = document.createElement("label");
-        seen_time.innerHTML = story_data[story_index].data[storyFlow_index].seen[i].time;
-        seen_time.className = "seen_time";
+            let seen_time = document.createElement("label");
+            seen_time.innerHTML = story_data[story_index].data[storyFlow_index].seen[i].time;
+            seen_time.className = "seen_time";
 
-        seen_li.appendChild(seen_pseudo);
-        seen_li.appendChild(seen_pp);
-        seen_li.appendChild(seen_time);
-        $(".seen_ul")[0].appendChild(seen_li);
+            seen_li.appendChild(seen_pseudo);
+            seen_li.appendChild(seen_pp);
+            seen_li.appendChild(seen_time);
+            $(".seen_ul")[0].appendChild(seen_li);
+        }
+        if (data.Data.length < 10) {
+            can_get_seen = false;
+        } else {
+            can_get_seen = true;
+        }
     }
-    if (data.Data.length < 10) {
-        can_get_seen = false;
-    } else {
-        can_get_seen = true;
-    }
-}
 
-function closeRecordComment() {
-    // StopRecording("cancel");
-    $(".comment_record_popup").css({
-        "opacity": "0",
-        "pointer-events": "none"
-    });
-    $('.fstory_addcomment_btn')[0].style.display = "block";
-    $(".validate_record_comment")[0].style.display = "none";
-    $(".listen_record_comment")[0].style.display = "none";
-    recorded_com.pause();
-    audio_playing = false;
-}
-
-function ListenRecordedComment() {
-    if (playing_recorded_com) {
+    function closeRecordComment() {
+        // StopRecording("cancel");
+        $(".comment_record_popup").css({
+            "opacity": "0",
+            "pointer-events": "none"
+        });
+        $('.fstory_addcomment_btn')[0].style.display = "block";
+        $(".validate_record_comment")[0].style.display = "none";
+        $(".listen_record_comment")[0].style.display = "none";
         recorded_com.pause();
         audio_playing = false;
-        $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/play.png')";
-        playing_recorded_com = false;
-    } else {
-        recorded_com.play();
-        audio_playing = true;
-        $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/pause.png')";
-        playing_recorded_com = true;
     }
-}
 
-function PublishRecordedComment() {
-    // Send recorded com to the server
-    console.log("published comment (ignore canceled debug)");
-    closeRecordComment();
-}
+    function ListenRecordedComment() {
+        if (playing_recorded_com) {
+            recorded_com.pause();
+            audio_playing = false;
+            $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/play.png')";
+            playing_recorded_com = false;
+        } else {
+            recorded_com.play();
+            audio_playing = true;
+            $(".play_record_comment")[0].style.backgroundImage = "url('src/icons/pause.png')";
+            playing_recorded_com = true;
+        }
+    }
 
-////////////////////////// RECORDING STORY //////////////////////////
-document.getElementById("popup-story-record").addEventListener("opened", function () {
-    $('.frecord-btn').css({
-        "display": "flex"
+    function PublishRecordedComment() {
+        // Send recorded com to the server
+        console.log("published comment (ignore canceled debug)");
+        closeRecordComment();
+    }
+
+    ////////////////////////// RECORDING STORY //////////////////////////
+    document.getElementById("popup-story-record").addEventListener("opened", function () {
+        $('.frecord-btn').css({
+            "display": "flex"
+        });
+        $(".record-shadow")[0].style.display = "block";
+
+        let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+        facebookConnectPlugin.logEvent("current_page", {
+            page: current_page,
+            duration: time_in_last_screen
+        }, null, function () {
+            console.log("fb current_page event success")
+        }, function () {
+            console.log("fb current_page error")
+        });
+        current_page = "record-story";
+        last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+
+        // analytics.setCurrentScreen(current_page);
+
     });
-    $(".record-shadow")[0].style.display = "block";
 
-    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-    facebookConnectPlugin.logEvent("current_page", {
-        page: current_page,
-        duration: time_in_last_screen
-    }, null, function () {
-        console.log("fb current_page event success")
-    }, function () {
-        console.log("fb current_page error")
+    document.getElementById("popup-story-record").addEventListener("closed", function () {
+        $('.frecord-btn').css({
+            "display": "none"
+        });
+        $(".record-shadow")[0].style.display = "none";
+        // StopRecording();
+
+        // analytics.setCurrentScreen(current_page);
+        let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+        facebookConnectPlugin.logEvent("current_page", {
+            page: current_page,
+            duration: time_in_last_screen
+        }, null, function () {
+            console.log("fb current_page event success")
+        }, function () {
+            console.log("fb current_page error")
+        });
+        current_page = "home";
+
     });
-    current_page = "record-story";
-    last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-
-    // analytics.setCurrentScreen(current_page);
-
-});
-
-document.getElementById("popup-story-record").addEventListener("closed", function () {
-    $('.frecord-btn').css({
-        "display": "none"
-    });
-    $(".record-shadow")[0].style.display = "none";
-    // StopRecording();
-
-    // analytics.setCurrentScreen(current_page);
-    let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-    facebookConnectPlugin.logEvent("current_page", {
-        page: current_page,
-        duration: time_in_last_screen
-    }, null, function () {
-        console.log("fb current_page event success")
-    }, function () {
-        console.log("fb current_page error")
-    });
-    current_page = "home";
-
-});
