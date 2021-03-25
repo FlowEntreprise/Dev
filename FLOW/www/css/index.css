@@ -100,28 +100,26 @@ textarea {
     transition-duration: 1s;
 } */
 
-.navbar_red_dot
-{
+.navbar_red_dot {
 	position: absolute;
-    width: 5vw;
-    height: 5vw;
-    border-radius: 5vw;
-    background-color: #FF0054;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 10px;
-    font-weight: 600;
+	margin-top: 5px;
+	width: 5vw;
+	height: 5vw;
+	border-radius: 5vw;
+	background-color: #FF0054;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 10px;
+	font-weight: 600;
 }
 
-#navbar_red_dot_message
-{
+#navbar_red_dot_message {
 	right: 24vw;
 }
 
-#navbar_red_dot_notification
-{
+#navbar_red_dot_notification {
 	right: 5vw;
 }
 
