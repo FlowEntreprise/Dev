@@ -352,9 +352,14 @@ function block_chat(data) {
 
     this.fblock_chat_text = document.createElement('label');
     this.fblock_chat_text.className = 'fblock_chat_text';
-    this.fblock_chat_text.innerText = this.block_chat_last_message.message;
-    this.block_chat.appendChild(this.fblock_chat_text);
+    if (this.block_chat_last_message.deleted) {
+        this.fblock_chat_text.innerText = "(Ce message a été supprimé)";
+    }
+    else {
 
+        this.fblock_chat_text.innerText = this.block_chat_last_message.message;
+    }
+    this.block_chat.appendChild(this.fblock_chat_text);
     this.fblock_chat_dots = document.createElement("img");
     this.fblock_chat_dots.className = "fblock_chat_dots";
     this.fblock_chat_dots.src = "../www/src/icons/3dots.png";
