@@ -1917,7 +1917,7 @@ class ServerManagerClass {
 									.once("value").then(message_snapshot => {
 										if (message_snapshot.val() != null) {
 											let data_message = message_snapshot.val();
-											chat_data.last_message.seen_by = data_message.seen_by;
+											chat_data.last_message = data_message;
 										}
 									}).then(function () {
 										ServerManager.GetFirebaseUserProfile(chat_data, callback, chat_id);
