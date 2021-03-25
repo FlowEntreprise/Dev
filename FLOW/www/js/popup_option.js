@@ -20,7 +20,7 @@ function display_option_for_message(data) { // affiche la popup option pour supp
     $("#report_button").css("display", "table");
     Popup("popup-option", true, 85.5);
 
-    if (data.block_message.className == "my_block_message") {
+    if (data.block_message.className.includes("my_block_message")) {
         element_to_delete.type = "dm";
         element_to_delete.element = data;
         $("#delete_button").css("display", "table");
@@ -260,27 +260,20 @@ $("#delete_button").on("touchend", function () {
             }, "Confirmation", ["Oui", "Annuler"]);
         }
 
-
-
-
         if (element_to_delete.type == "dm") {
             navigator.notification.confirm("Veux-tu vraiment supprimer ce message ?", function (id) {
                 if (id == 1) {
                     Popup("popup-option", false);
                     current_block_message.chat_id = current_block_chat.chat_id;
-                    ServerManager.Delete_text_message(current_block_message);
+                    if (current_block_message.audio_url.length || current_block_message.image_url) {
+                        getPathStorageFromUrl(current_block_message);
+                    }
+                    else {
+                        ServerManager.Delete_text_message(current_block_message);
+                    }
                 }
             }, "Confirmation", ["Oui", "Annuler"]);
         }
-
-
-
-
-
-
-
-
-
 
     } else {
         //alert("Une erreur est survenue lors de la suppression de cet élément");

@@ -1968,14 +1968,23 @@ class ServerManagerClass {
 				["deleted"]: true
 			}
 		).then(function () {
-			$("#" + data.message_id + ">.block_message_child").text("Ce message a été supprimé");
-			$("#" + data.message_id + ">.block_message_child").css(
+			create_deleted_message(data.message_id);
+		});
+	}
+
+	Delete_media_from_firebase(data) {
+		let desertRef = firebase.storage().ref().child(data.path);
+		desertRef.delete().then(() => {
+			firebase.database().ref(FirebaseEnvironment + "/messages/" + data.chat_id + "/" + data.message_id).update(
 				{
-					"background-color": "white",
-					"color": "#80808059",
-					"box-shadow": "none"
+					["deleted"]: true
 				}
-			);
+			).then(function () {
+				create_deleted_message(data.message_id);
+			});
+
+		}).catch((error) => {
+			console.log(error.message);
 		});
 	}
 

@@ -481,6 +481,9 @@
 	background-color: white !important;
 	color: #80808059 !important;
 	box-shadow: none !important;
+	padding: none !important;
+	width: none !important;
+	
 }
 
 .block_message {

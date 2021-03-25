@@ -445,15 +445,12 @@ function block_message(data, previous_message) {
     });*/
 
     this.block_message.addEventListener('long-press', function (e) {
-        console.log("was long pressed");
         current_block_message = block_message;
-        if (self.audio_url.length == 0 && self.image == 0 && block_message.deleted != true) // supression de MON msg text
+        if (block_message.deleted != true) // supression de MON msg text
         {
             display_option_for_message(block_message);
         }
     });
-
-
 
     if (!self.audio_url) {
         $(this.block_message_child).text(this.block_message_text);
@@ -506,7 +503,7 @@ function block_message(data, previous_message) {
 
     // });
 
-    if (self.image) {
+    if (self.image && !self.deleted) {
         $(self.block_message_child).text("");
         let image = document.createElement("img");
         image.src = self.image;
@@ -547,7 +544,7 @@ function block_message(data, previous_message) {
             }, 50);
 
         }
-    } else if (self.audio_url) {
+    } else if (self.audio_url && !self.deleted) {
         let upload_custom_key = data.progress_key + current_block_chat.chat_id;
         $("." + upload_custom_key + "").css("display", "none");
         $("#UpdateProgressBar").removeClass(upload_custom_key);
@@ -1088,7 +1085,6 @@ function check_if_user_is_blocked(data) {
 
 
 }
-
 
 /*------------------------TO DO-----------------------
 - Gestion des vues ----------DONE
