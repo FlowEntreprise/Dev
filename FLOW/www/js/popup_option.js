@@ -185,7 +185,7 @@ $("#report_button").on("touchend", function () {
 
 $("#copy_button").on("touchend", function () {
     if (element_to_copy == "flow_tittle") {
-        cordova.plugins.clipboard.copy($(current_flow_block.fpost_description).text());
+        cordova.plugins.clipboard.copy($(current_flow_block.fpost_description).$(current_block_playing.fpost_description).prop('title'));
         Popup("popup-option", false);
     }
     if (element_to_copy == "comment") {
