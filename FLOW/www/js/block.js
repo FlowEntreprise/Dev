@@ -268,32 +268,16 @@ function block(params) {
 		this.ftop_part.appendChild(this.fposte_nombre_ecoute);
 
 
-		if (validURL(params.description)) {
-			if (!/^https?:\/\//i.test(params.description)) {
-				params.description = 'http://' + params.description;
-			}
-			this.fpost_description = document.createElement("a");
-			this.fpost_description.className = "fpost_description";
-			this.fpost_description.title = params.description;
-			this.fpost_description.href = params.description;
-			params.description = params.description.replace(/(^\w+:|^)\/\//, '');
-			if (params.description.length > 26) {
-				params.description = params.description.substring(0, 26) + "...";
-			}
-			this.fpost_description.innerHTML = params.description;
-			$(this.fpost_description).css("color", "#1A84EF");
 
-		}
-		else {
-			this.fpost_description = document.createElement("div");
-			this.fpost_description.className = "fpost_description";
-			this.fpost_description.title = params.description;
-			this.fpost_description.innerHTML = params.description.replace(
-				/@[^ ]+/gi,
-				'<span class="flow_tagged_users">$&</span>'
-			);
-		}
+		this.fpost_description = document.createElement("div");
+		this.fpost_description.className = "fpost_description";
+		this.fpost_description.title = params.description;
+		params.description = params.description.replace(
+			/@[^ ]+/gi,
+			'<span class="flow_tagged_users">$&</span>'
+		);
 
+		$(this.fpost_description).append(check_if_url_in_string(params.description));
 		this.fbottom_part.appendChild(this.fpost_description);
 
 		this.fpost_tag = document.createElement("p");

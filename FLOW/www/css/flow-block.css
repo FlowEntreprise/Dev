@@ -195,7 +195,7 @@
 
 .fpost_description {
 	position: relative;
-	display: table-cell;
+	/*display: table-cell;*/
 	vertical-align: middle;
 	overflow: hidden;
 	width: 60vw;
@@ -209,6 +209,7 @@
 	line-height: 18px;
 	/* background-color: red; */
 	font-family: "Roboto-Regular";
+	text-decoration: none;
 }
 
 .fpost_tag {

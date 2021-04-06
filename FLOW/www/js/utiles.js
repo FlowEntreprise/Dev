@@ -137,6 +137,13 @@ function validURL(str) {
     return !!pattern.test(str);
 }
 
+function check_if_starts_with_http(url) {
+    if (!/^https?:\/\//i.test(url)) {
+        url = 'http://' + url;
+    }
+    return url;
+}
+
 function go_to_account(data) {
     //fonction permettant apres click sur sa photo d'aller sur le compte de l'utilisateur
     let time_in_last_screen =
@@ -246,4 +253,29 @@ function affichage_nombre(number, decPlaces) {
     }
 
     return number;
+}
+
+function check_if_url_in_string(string_to_check) {
+    string_to_check.split(" ").forEach(function (elem, index) {
+        if (validURL(elem)) {
+            let clean_str = check_if_starts_with_http(elem);
+            let a_tag = document.createElement("a");
+            a_tag.title = clean_str;
+            a_tag.href = clean_str;
+            clean_str = clean_str.replace(/(^\w+:|^)\/\//, '');
+            if (string_to_check > 26) {
+                clean_str = clean_str.substring(0, 20) + "...";
+            }
+            a_tag.innerHTML = clean_str;
+            $(a_tag).css({
+                "top": "-0.5",
+                "color": "#1A84EF",
+                "text-decoration": "none",
+                "position": "relative"
+            });
+            let word_to_replace = string_to_check.split(" ")[index];
+            string_to_check = string_to_check.replace(word_to_replace, a_tag.outerHTML);
+        }
+    });
+    return string_to_check + "<br>";
 }
