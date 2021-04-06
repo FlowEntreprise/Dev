@@ -313,11 +313,11 @@
 
 .tagged_users {
 	font-family: 'Roboto-Regular';
-	color: dodgerblue;
+	color: #1A84EF;
 }
 
 .flow_tagged_users {
-	color: dodgerblue;
+	color: #1A84EF;
 	text-align: unset !important;
 	display: unset !important;
 	font-size: unset !important;
