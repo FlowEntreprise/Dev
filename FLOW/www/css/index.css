@@ -535,6 +535,7 @@ ul {
 	z-index: 2;
 	transition-duration: 0.3s;
 	transform: translate3d(0, 0, 0);
+	/* opacity: 0.25; */
 	/* display: none; */
 }
 

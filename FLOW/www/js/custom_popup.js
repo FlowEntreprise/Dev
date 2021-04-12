@@ -8,7 +8,8 @@ function Popup(identifier, show, height = 0) {
     let animation_direction = popup.children[1].getAttribute("animation-direction");
     if (show) {
         popup.setAttribute("height", height);
-        popup.style.pointerEvents = "auto";
+        popup.style.pointerEvents = "all";
+        popup.children[0].style.pointerEvents = "all";
         popup.children[0].style.opacity = "1";
         popup.children[0].children[0].style.display = "block";
         switch (animation_direction) {
@@ -28,6 +29,7 @@ function Popup(identifier, show, height = 0) {
     } else {
         height = popup.getAttribute("height");
         popup.style.pointerEvents = "none";
+        popup.children[0].style.pointerEvents = "none";
         popup.children[0].style.opacity = "0";
         popup.children[0].children[0].style.display = "none";
         switch (animation_direction) {

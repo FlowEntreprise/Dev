@@ -23,6 +23,7 @@ function setupApp() {
         initMainTopbar(document.querySelector(".top50"));
         initMainTopbar(document.querySelector(".recents"));
         setupFDJ();
+        // setupDiscover();
         // initialize explore swiper
         // explore_swiper = new Swiper('.explore_tabs');
     });

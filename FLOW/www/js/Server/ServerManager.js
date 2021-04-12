@@ -1673,7 +1673,7 @@ class ServerManagerClass {
 		});
 	}
 
-	GetRandomFlow(excluded) {
+	GetRandomFlow(excluded, discover) {
 		let final_data = {
 			Data: {
 				FlowsExcluded: excluded,
@@ -1688,7 +1688,7 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				//console.log(response);
-				showRandomFlow(response);
+				showRandomFlow(response, discover);
 			},
 			error: function (response) {
 				//console.log(response);

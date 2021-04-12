@@ -189,7 +189,8 @@ function stopFDJParticles() {
 }
 
 
-function showRandomFlow(data) {
+function showRandomFlow(data, discover) {
+    if (discover) showRandomDiscover(data);
     if (!showingFDJ) {
         if (!data.Data) {
             gettingRandomFlow = false;
@@ -402,7 +403,7 @@ function GetRandomFlow() {
         let tmp_random_excluded = window.localStorage.getItem("random_excluded");
         if (!tmp_random_excluded) randomExcluded = [];
         else randomExcluded = tmp_random_excluded.split(",");
-        ServerManager.GetRandomFlow(randomExcluded);
+        ServerManager.GetRandomFlow(randomExcluded, false);
         stopAllBlocksAudio();
     }
 }

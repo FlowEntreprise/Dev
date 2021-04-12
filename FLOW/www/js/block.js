@@ -63,7 +63,7 @@ function block(params) {
 			current_block_playing = block;
 			block.fplay_button.style.display = "none";
 			block.fpause_button.style.display = "block";
-			wave.start();
+			// wave.start();
 			waveform.style.display = "block";
 			block.myaudio.play();
 			audio_playing = true;
@@ -75,7 +75,7 @@ function block(params) {
 			// block.progress_div.style.borderTopRightRadius = '0vw';
 			block.progress_div.style.width = "100%";
 			block.isPlaying = true;
-			block.myRange.style.pointerEvents = "all";
+			// block.myRange.style.pointerEvents = "all";
 		} else {
 			console.log("audio not ready");
 		}
@@ -90,10 +90,10 @@ function block(params) {
 			block.fplay_button.style.display = "block";
 			block.fpause_button.style.display = "none";
 			waveform.style.display = "none";
-			wave.stop();
+			// wave.stop();
 			block.isPlaying = false;
 			audio_playing = false;
-			block.myRange.style.pointerEvents = "none";
+			// block.myRange.style.pointerEvents = "none";
 			block.progress_div.style.transitionDuration = "0s";
 			block.myaudio.getCurrentPosition(
 				function (position) {
@@ -190,13 +190,13 @@ function block(params) {
 	}
 	this.block_flow.appendChild(this.ftop_part);
 
-	this.myRange = document.createElement("input");
-	this.myRange.type = "range";
-	this.myRange.className = "fslider";
-	this.myRange.min = "1";
-	this.myRange.max = "100";
-	this.myRange.value = "1";
-	this.ftop_part.appendChild(this.myRange);
+	// this.myRange = document.createElement("input");
+	// this.myRange.type = "range";
+	// this.myRange.className = "fslider";
+	// this.myRange.min = "1";
+	// this.myRange.max = "100";
+	// this.myRange.value = "1";
+	// this.ftop_part.appendChild(this.myRange);
 
 	this.floading_flow = document.createElement("img");
 	this.floading_flow.className = "floading_flow";
@@ -312,8 +312,8 @@ function block(params) {
 		this.fimg_impression_comment.className = "fimg_impression";
 		this.fimg_impression_comment.src =
 			this.IsComment == 1 ?
-				"src/icons/Comment_filled.png" :
-				"src/icons/Comment.png";
+			"src/icons/Comment_filled.png" :
+			"src/icons/Comment.png";
 		this.fcomment.appendChild(this.fimg_impression_comment);
 		this.ftxt_impression_comment = document.createElement("p");
 		this.ftxt_impression_comment.className = "ftxt_impression";
@@ -408,31 +408,31 @@ function block(params) {
 	}
 
 	var wave;
-	wave = new SiriWaveBlock({
-		container: waveform,
-		width: document.documentElement.clientWidth,
-		height: document.documentElement.clientHeight * 0.3,
-		cover: true,
-		speed: 0.03,
-		amplitude: 0.7,
-		frequency: 2,
-	});
+	// wave = new SiriWaveBlock({
+	// 	container: waveform,
+	// 	width: document.documentElement.clientWidth,
+	// 	height: document.documentElement.clientHeight * 0.3,
+	// 	cover: true,
+	// 	speed: 0.03,
+	// 	amplitude: 0.7,
+	// 	frequency: 2,
+	// });
 
-	var resize = function () {
-		var height = document.documentElement.clientHeight * 0.3;
-		var width = document.documentElement.clientWidth;
-		wave.height = height;
-		wave.height_2 = height / 2;
-		wave.MAX = wave.height_2 - 4;
-		wave.width = width;
-		wave.width_2 = width / 2;
-		wave.width_4 = width / 4;
-		wave.canvas.height = height;
-		wave.canvas.width = width;
-		wave.container.style.margin = -(height / 2) + "px auto";
-	};
-	window.addEventListener("resize", resize);
-	resize();
+	// var resize = function () {
+	// 	var height = document.documentElement.clientHeight * 0.3;
+	// 	var width = document.documentElement.clientWidth;
+	// 	wave.height = height;
+	// 	wave.height_2 = height / 2;
+	// 	wave.MAX = wave.height_2 - 4;
+	// 	wave.width = width;
+	// 	wave.width_2 = width / 2;
+	// 	wave.width_4 = width / 4;
+	// 	wave.canvas.height = height;
+	// 	wave.canvas.width = width;
+	// 	wave.container.style.margin = -(height / 2) + "px auto";
+	// };
+	// window.addEventListener("resize", resize);
+	// resize();
 
 	this.myaudio = new Audio();
 	if (params.audioURL) {
@@ -486,8 +486,9 @@ function block(params) {
 	};
 
 	this.flowend = function () {
+		let self = this;
 		audio_playing = false;
-		waveform.style.display = "none";
+		// waveform.style.display = "none";
 		block.progress_div.style.transitionDuration = "0s";
 		// block.progress_div.style.borderTopRightRadius = '2vw';
 		block.progress_div.style.opacity = "0";
@@ -497,6 +498,9 @@ function block(params) {
 			block.progress_div.style.width = "0%";
 			block.offset_indicator = 0.25;
 			canAddView = true;
+			setTimeout(function () {
+				if (current_block_playing == self) block.flowplay();
+			}, 100);
 		}, 100);
 		block.currentTime = 0;
 	};
@@ -535,28 +539,28 @@ function block(params) {
 		block.flowpause();
 	});
 
-	this.myRange.addEventListener("input", function () {
-		// console.log("change");
-		// block.seek();
-		block.progress = block.myRange.value;
-		block.progress_div.style.transitionDuration = "0s";
-		if (block.progress > 99) block.progress = 99;
-		block.currentTime = (block.progress * params.duration) / 100;
-		block.progress_div.style.width =
-			(block.currentTime * 100) / params.duration + "%";
-	});
+	// this.myRange.addEventListener("input", function () {
+	// 	// console.log("change");
+	// 	// block.seek();
+	// 	block.progress = block.myRange.value;
+	// 	block.progress_div.style.transitionDuration = "0s";
+	// 	if (block.progress > 99) block.progress = 99;
+	// 	block.currentTime = (block.progress * params.duration) / 100;
+	// 	block.progress_div.style.width =
+	// 		(block.currentTime * 100) / params.duration + "%";
+	// });
 
-	this.myRange.addEventListener("touchend", function () {
-		// block.myaudio.currentTime = block.currentTime;
-		console.log("seek to : " + block.currentTime);
-		block.myaudio.seekTo(block.currentTime * 1000);
-		block.offset_indicator = 0;
-		// setTimeout(function () {
-		block.flowplay();
-		// }, 100)
-		console.log("flow play");
-		//current_flow_block
-	});
+	// this.myRange.addEventListener("touchend", function () {
+	// 	// block.myaudio.currentTime = block.currentTime;
+	// 	console.log("seek to : " + block.currentTime);
+	// 	block.myaudio.seekTo(block.currentTime * 1000);
+	// 	block.offset_indicator = 0;
+	// 	// setTimeout(function () {
+	// 	block.flowplay();
+	// 	// }, 100)
+	// 	console.log("flow play");
+	// 	//current_flow_block
+	// });
 
 	// this.myRange.addEventListener('input', function () {
 	//     console.log("input");
@@ -571,22 +575,22 @@ function block(params) {
 	//     event.stopPropagation();
 	// });
 
-	this.myRange.addEventListener(
-		"touchstart",
-		function (e) {
-			iosPolyfill(e, this);
-			this.focus();
-			block.flowpause();
-			block.progress = block.myRange.value;
-			block.progress_div.style.transitionDuration = params.duration / 100 + "s";
-			if (block.progress > 99) block.progress = 99;
-			block.currentTime = (block.progress * params.duration) / 100;
-			block.progress_div.style.width =
-				(block.currentTime * 100) / params.duration + "%";
-		}, {
-		passive: true,
-	}
-	);
+	// this.myRange.addEventListener(
+	// 	"touchstart",
+	// 	function (e) {
+	// 		iosPolyfill(e, this);
+	// 		this.focus();
+	// 		block.flowpause();
+	// 		block.progress = block.myRange.value;
+	// 		block.progress_div.style.transitionDuration = params.duration / 100 + "s";
+	// 		if (block.progress > 99) block.progress = 99;
+	// 		block.currentTime = (block.progress * params.duration) / 100;
+	// 		block.progress_div.style.width =
+	// 			(block.currentTime * 100) / params.duration + "%";
+	// 	}, {
+	// 	passive: true,
+	// }
+	// );
 
 	// Like d'un flow
 	$(this.fimg_impression_like).on("click", function () {
@@ -618,7 +622,7 @@ function block(params) {
 		if (connected) {
 			if (comment_button_was_clicked_in_popup_specifique == false) {
 				current_flow_block = block; +
-					current_flow_block.Comments <= 1 ?
+				current_flow_block.Comments <= 1 ?
 					(text_comment_number = current_flow_block.Comments + " commentaire") :
 					(text_comment_number =
 						current_flow_block.Comments + " commentaires");
@@ -814,9 +818,9 @@ function go_to_account(data) {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-		page: current_page,
-		duration: time_in_last_screen,
-	},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -1145,4 +1149,3 @@ function iosPolyfill(e, slider) {
 
 	slider.value = segCopy.indexOf(ind) + 1;
 }
-
