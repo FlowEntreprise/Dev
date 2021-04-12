@@ -69,11 +69,9 @@ function block_response(response_data, response_is_specifique) {
 
     this.fblock_response_response = document.createElement("p");
     this.fblock_response_response.className = "fblock_response_response";
-    this.fblock_response_response.innerHTML =
-        this.fresponse_text.replace(
-            /@[^ ]+/gi,
-            '<span class="tagged_users">$&</span>'
-        ) + "<br>";
+
+    this.fresponse_text = this.fresponse_text.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>');
+    $(this.fblock_response_response).append(check_if_url_in_string(this.fresponse_text));
     $(this.fblock_response).append(this.fblock_response_response);
 
     this.f_response_date = document.createElement("label");
@@ -207,7 +205,9 @@ function block_comment(comment_data, comment_is_specifique) {
 
     this.fblock_comment_comment = document.createElement('p');
     this.fblock_comment_comment.className = 'fblock_comment_comment';
-    this.fblock_comment_comment.innerHTML = this.fcomment_text.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>') + "<br>";
+
+    this.fcomment_text = this.fcomment_text.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>');
+    $(this.fblock_comment_comment).append(check_if_url_in_string(this.fcomment_text));
     $(this.fblock_comment).append(this.fblock_comment_comment);
 
     this.fdate = document.createElement('label');
@@ -220,7 +220,7 @@ function block_comment(comment_data, comment_is_specifique) {
     this.fblock_comment_label_repondre.innerHTML = "Répondre";
     $(this.fblock_comment_comment).append(this.fblock_comment_label_repondre);
 
-    $(this.fblock_comment_label_repondre).on('click', function () {
+    $(this.fblock_comment_label_repondre).on('click', function (event) {
         current_comment_block = block_comment;
         current_response_block = undefined;
         it_is_a_response = true;

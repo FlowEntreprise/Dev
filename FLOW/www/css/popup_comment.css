@@ -117,6 +117,7 @@
 	padding: 0;
 	padding-bottom: calc(2.5* var(--custom-vh));
 	font-weight: 500;
+	text-decoration: none;
 }
 
 .fblock_response_response {
@@ -137,6 +138,7 @@
 	padding: 0;
 	padding-bottom: calc(2.5* var(--custom-vh));
 	font-weight: 500;
+	text-decoration: none;
 }
 
 .fdate {
@@ -268,7 +270,7 @@
 
 .fblock_response_container {
 	position: relative;
-	/*top: 4vh;*/
+	top: 1vh;
 	left: 19.5vw;
 	width: 80.5VW;
 	overflow: hidden;
@@ -310,15 +312,16 @@
 }
 
 .tagged_users {
-	font-weight: bold;
-	color: dodgerblue;
+	font-family: 'Roboto-Regular';
+	color: #1A84EF;
 }
 
 .flow_tagged_users {
-	color: dodgerblue;
+	color: #1A84EF;
 	text-align: unset !important;
 	display: unset !important;
 	font-size: unset !important;
+	font-family: 'Roboto-Regular';
 }
 
 .tl_private_id_indicator {

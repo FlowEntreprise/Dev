@@ -267,12 +267,17 @@ function block(params) {
 		this.fposte_nombre_ecoute.innerText = this.Views > 1 ? affichage_nombre(this.Views, 1) + " écoutes" : affichage_nombre(this.Views, 1) + " écoute";
 		this.ftop_part.appendChild(this.fposte_nombre_ecoute);
 
+
+
 		this.fpost_description = document.createElement("div");
 		this.fpost_description.className = "fpost_description";
-		this.fpost_description.innerHTML = params.description.replace(
+		this.fpost_description.title = params.description;
+		params.description = params.description.replace(
 			/@[^ ]+/gi,
 			'<span class="flow_tagged_users">$&</span>'
 		);
+
+		$(this.fpost_description).append(check_if_url_in_string(params.description));
 		this.fbottom_part.appendChild(this.fpost_description);
 
 		this.fpost_tag = document.createElement("p");
@@ -1052,42 +1057,6 @@ function stopAllBlocksAudio(callback) {
 	}
 }
 
-function affichage_nombre(number, decPlaces) {
-	// cette fonction permet d'afficher les nombres de likes et autres (1200 devien 1.2 k)
-
-	decPlaces = Math.pow(10, decPlaces);
-
-	// Enumerate number abbreviations
-	var abbrev = ["k", "m", "b", "t"];
-
-	// Go through the array backwards, so we do the largest first
-	for (var i = abbrev.length - 1; i >= 0; i--) {
-		// Convert array index to "1000", "1000000", etc
-		var size = Math.pow(10, (i + 1) * 3);
-
-		// If the number is bigger or equal do the abbreviation
-		if (size <= number) {
-			// Here, we multiply by decPlaces, round, and then divide by decPlaces.
-			// This gives us nice rounding to a particular decimal place.
-			var number = Math.round((number * decPlaces) / size) / decPlaces;
-
-			// Handle special case where we round up to the next abbreviation
-			if (number == 1000 && i < abbrev.length - 1) {
-				number = 1;
-				i++;
-			}
-
-			// console.log(number);
-			// Add the letter for the abbreviation
-			number += abbrev[i];
-
-			// We are done... stop
-			break;
-		}
-	}
-
-	return number;
-}
 
 document
 	.getElementById("popup-comment")
