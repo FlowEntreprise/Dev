@@ -199,8 +199,8 @@
 	vertical-align: middle;
 	overflow: hidden;
 	width: 60vw;
-	height: calc(6 * var(--custom-vh));
-	max-height: calc(6 * var(--custom-vh));
+	height: calc(7 * var(--custom-vh));
+	max-height: calc(7 * var(--custom-vh));
 	font-size: 13px;
 	left: 2vw;
 	top: calc(2.5 * var(--custom-vh));
