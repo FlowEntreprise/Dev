@@ -64,7 +64,7 @@ function RefreshTL() {
 function pullToRefreshEnd() {
 	console.log("refreshed !");
 	home_ptr.Stop();
-	top50_ptr.Stop();
+	// top50_ptr.Stop();
 	recents_ptr.Stop();
 	notifs_ptr.Stop();
 }

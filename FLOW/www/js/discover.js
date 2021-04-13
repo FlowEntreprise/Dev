@@ -18,6 +18,10 @@ function setupDiscover() {
             getDiscoverFlow();
             discover_index = current_index;
         }
+
+        let tmp_random_excluded = window.localStorage.getItem("random_excluded");
+        if (!tmp_random_excluded) tmp_random_excluded = "";
+        if (!tmp_random_excluded.includes(discover_flows[current_index])) window.localStorage.setItem("random_excluded", tmp_random_excluded + discover_flows[current_index].ObjectId + ",");
     });
 
     // console.log(swiper);
@@ -81,9 +85,9 @@ function showRandomDiscover(data) {
     all_blocks.push(new_block);
     discover_flows.push(new_block);
 
-    let tmp_random_excluded = window.localStorage.getItem("random_excluded");
-    if (!tmp_random_excluded) tmp_random_excluded = "";
-    window.localStorage.setItem("random_excluded", tmp_random_excluded + flow.ObjectId + ",");
+    // let tmp_random_excluded = window.localStorage.getItem("random_excluded");
+    // if (!tmp_random_excluded) tmp_random_excluded = "";
+    // window.localStorage.setItem("random_excluded", tmp_random_excluded + flow.ObjectId + ",");
 
     // check random_excluded limit to 100 objectId
     let random_excluded_array = window.localStorage.getItem("random_excluded").split(",");

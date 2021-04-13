@@ -143,44 +143,16 @@ function inExplore() {
 		// });
 
 		explore_categories = new Swiper(".explore-swiper", {
-			slidesPerView: 3
+			slidesPerView: 3,
+			initialSlide: 1
 		});
 
 		explore_categories.on("slideChange", function () {
-			$(".explore_view").removeClass("active");
-			if (explore_categories.activeIndex == 0) {
-				$(".flowoftheday").addClass("active");
-				if (in_flowoftheday) $(".explore_view.active").scrollTop(0);
-				$(".fred_dot_toolbar_fdj").css("display", "none");
-				in_top50 = false;
-				in_recents = false;
-				in_flowoftheday = true;
-				if (showingFDJ && youAreFDJ) {
-					startFDJParticles();
-					setTimeout(function () {
-						stopFDJParticles();
-					}, 5000);
-				}
-			}
-			if (explore_categories.activeIndex == 1) {
-				$(".top50").addClass("active");
-				if (in_recents) $(".explore_view.active").scrollTop(0);
-				in_top50 = true;
-				in_recents = false;
-				in_flowoftheday = false;
-			} else if (explore_categories.activeIndex == 2) {
-				$(".recents").addClass("active");
-				if (in_top50) $(".explore_view.active").scrollTop(0);
-				in_top50 = false;
-				in_recents = true;
-				in_flowoftheday = false;
-			} else if (explore_categories.activeIndex == 3) {
-				$(".discover").addClass("active");
-				if (!discover_swiper_initialised) {
-					setupDiscover();
-				}
-			}
+			checkExploreSlide(explore_categories);
 		});
+
+		checkExploreSlide(explore_categories);
+
 
 		// Framework7
 		// mySwiper.on("slideChangeStart", function () {
@@ -196,15 +168,57 @@ function inExplore() {
 			explore_categories.slideTo(2);
 		})
 
-		$(".top50_btn")[0].addEventListener("click", function () {
+		// $(".top50_btn")[0].addEventListener("click", function () {
+		// 	explore_categories.slideTo(1);
+		// })
+
+		$(".discover_btn")[0].addEventListener("click", function () {
 			explore_categories.slideTo(1);
 		})
 
-		explore_categories.slideTo(1);
+		// explore_categories.slideTo(3);
 
 		explore_tabs_initialised = true;
 	}
 	stopAllBlocksAudio();
+}
+
+function checkExploreSlide(explore_categories) {
+	if (current_block_playing) current_block_playing.flowpause();
+	$(".explore_view").removeClass("active");
+	if (explore_categories.activeIndex == 0) {
+		$(".flowoftheday").addClass("active");
+		if (in_flowoftheday) $(".explore_view.active").scrollTop(0);
+		$(".fred_dot_toolbar_fdj").css("display", "none");
+		in_top50 = false;
+		in_recents = false;
+		in_flowoftheday = true;
+		if (showingFDJ && youAreFDJ) {
+			startFDJParticles();
+			setTimeout(function () {
+				stopFDJParticles();
+			}, 5000);
+		}
+	}
+	// if (explore_categories.activeIndex == 1) {
+	// 	$(".top50").addClass("active");
+	// 	if (in_recents) $(".explore_view.active").scrollTop(0);
+	// 	in_top50 = true;
+	// 	in_recents = false;
+	// 	in_flowoftheday = false;
+	// } else 
+	if (explore_categories.activeIndex == 2) {
+		$(".recents").addClass("active");
+		if (in_top50) $(".explore_view.active").scrollTop(0);
+		in_top50 = false;
+		in_recents = true;
+		in_flowoftheday = false;
+	} else if (explore_categories.activeIndex == 1) {
+		$(".discover").addClass("active");
+		if (!discover_swiper_initialised) {
+			setupDiscover();
+		}
+	}
 }
 
 function inMessages() {

@@ -12,9 +12,9 @@ let searching_flows = false;
 function explore_tab_loaded() {
 
 	// Initilize top50 pull to refresh
-	top50_ptr = setupPTR(document.querySelector(".top50"), function () {
-		RefreshExplore();
-	});
+	// top50_ptr = setupPTR(document.querySelector(".top50"), function () {
+	// 	RefreshExplore();
+	// });
 
 	// Initilize recents pull to refresh
 	recents_ptr = setupPTR(document.querySelector(".recents"), function () {
@@ -26,13 +26,14 @@ function explore_tab_loaded() {
 		// app.destroyPullToRefresh(ptrContent_explore);
 		$(".search_results")[0].style.opacity = 1;
 		$(".search_results")[0].style.pointerEvents = "auto";
-		$(".list-block-top50")[0].style.opacity = 0;
-		$(".list-block-top50")[0].style.display = "none";
-		$(".list-block-top50")[0].style.pointerEvents = "none";
+		// $(".list-block-top50")[0].style.opacity = 0;
+		// $(".list-block-top50")[0].style.display = "none";
+		// $(".list-block-top50")[0].style.pointerEvents = "none";
 		$(".list-block-recents")[0].style.opacity = 0;
 		$(".list-block-recents")[0].style.display = "none";
 		$(".list-block-recents")[0].style.pointerEvents = "none";
 		$(".fdj_parent")[0].style.display = "none";
+		$(".swiper-container.discover")[0].style.display = "none";
 
 		// $(".list-block-top50")[0].innerHTML = "";
 		exploreCurrentIndex = 0;
@@ -51,14 +52,15 @@ function explore_tab_loaded() {
 			// app.initPullToRefresh(ptrContent_explore);
 			$(".search_results")[0].style.opacity = 0;
 			$(".search_results")[0].style.pointerEvents = "none";
-			$(".list-block-top50")[0].style.opacity = 1;
-			$(".list-block-top50")[0].style.display = "block";
-			$(".list-block-top50")[0].style.pointerEvents = "auto";
+			// $(".list-block-top50")[0].style.opacity = 1;
+			// $(".list-block-top50")[0].style.display = "block";
+			// $(".list-block-top50")[0].style.pointerEvents = "auto";
 			$(".list-block-recents")[0].style.opacity = 1;
 			$(".list-block-recents")[0].style.display = "block";
 			$(".list-block-recents")[0].style.pointerEvents = "auto";
 			$(".explore-swiper")[0].style.display = "block";
 			$(".fdj_parent")[0].style.display = "block";
+			$(".swiper-container.discover")[0].style.display = "block";
 		}
 	});
 	$(".search_back")[0].addEventListener("touchend", function () {
@@ -167,7 +169,7 @@ function explore_tab_loaded() {
 		Index: exploreCurrentIndex,
 	};
 
-	ServerManager.GetTop50(data1);
+	// ServerManager.GetTop50(data1);
 
 	let data2 = {
 		Index: recentsCurrentIndex,
@@ -242,15 +244,16 @@ function back_search() {
 	// app.initPullToRefresh(ptrContent_explore);
 	$(".search_results")[0].style.opacity = 0;
 	$(".search_results")[0].style.pointerEvents = "none";
-	$(".list-block-top50")[0].style.opacity = 1;
-	$(".list-block-top50")[0].style.display = "block";
-	$(".list-block-top50")[0].style.pointerEvents = "auto";
+	// $(".list-block-top50")[0].style.opacity = 1;
+	// $(".list-block-top50")[0].style.display = "block";
+	// $(".list-block-top50")[0].style.pointerEvents = "auto";
 	$(".list-block-recents")[0].style.opacity = 1;
 	$(".list-block-recents")[0].style.display = "block";
 	$(".list-block-recents")[0].style.pointerEvents = "auto";
 	$(".explore-swiper")[0].style.display = "block";
 	$(".search_back")[0].style.display = "none";
 	$(".fdj_parent")[0].style.display = "block";
+	$(".swiper-container.discover")[0].style.display = "block";
 	searching = false;
 	$(".fsearch-bar").blur();
 	$(".fsearch-bar")[0].value = "";
@@ -271,7 +274,7 @@ function RefreshExplore() {
 	let data1 = {
 		Index: exploreCurrentIndex,
 	};
-	ServerManager.GetTop50(data1);
+	// ServerManager.GetTop50(data1);
 
 	recentsCurrentIndex = 0;
 	let data2 = {

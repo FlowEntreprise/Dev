@@ -115,12 +115,11 @@ function block(params) {
 						let data = block.ObjectId;
 						ServerManager.AddViewFlow(data);
 						canAddView = false;
-						console.log(current_block_playing);
-						current_block_playing.Views += 1;
-						if (current_block_playing.Views > 1) {
-							$(current_block_playing.fposte_nombre_ecoute).text(current_block_playing.Views + " écoutes");
+						block.Views += 1;
+						if (block.Views > 1) {
+							$(block.fposte_nombre_ecoute).text(block.Views + " écoutes");
 						} else {
-							$(current_block_playing.fposte_nombre_ecoute).text(current_block_playing.Views + " écoute");
+							$(block.fposte_nombre_ecoute).text(block.Views + " écoute");
 						}
 					}
 					if (typeof callback === "function") callback();

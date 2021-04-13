@@ -20,7 +20,7 @@ function setupApp() {
 
     $(".explore_tab").load("pages/explore.html", function () {
         explore_tab_loaded();
-        initMainTopbar(document.querySelector(".top50"));
+        // initMainTopbar(document.querySelector(".top50"));
         initMainTopbar(document.querySelector(".recents"));
         setupFDJ();
         // setupDiscover();
@@ -37,7 +37,10 @@ function setupApp() {
     });
 
     // initialize pages_swiper
-    pages_swiper = new Swiper('.main_pages');
+    pages_swiper = new Swiper('.main_pages', {
+        initialSlide: 1
+    });
+
     pages_swiper.on("slideChange", pageHasChanged);
     pages_swiper.on("sliderMove", function () {
         canRegisterPTR = false
@@ -45,6 +48,14 @@ function setupApp() {
     pages_swiper.on("touchEnd", function () {
         canRegisterPTR = true
     });
+
+    pages_swiper.init();
+
+    setTimeout(function () {
+        // pages_swiper.slideTo(1);
+        inExplore();
+        pageHasChanged();
+    }, 800);
 
     // initialize myaccount_swiper
     myaccount_swiper = new Swiper('.ftabsMonCompte');
