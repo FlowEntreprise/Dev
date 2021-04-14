@@ -212,8 +212,10 @@ ul {
 
 #div_new_features {
 	position: absolute;
-	width: 80vw;
+	width: calc(80vw - 20px);
 	height: calc(50 * var(--custom-vh));
+	padding-left: 10px;
+	padding-right: 10px;
 	background-color: #fff;
 	z-index: 999;
 	top: calc(25 * var(--custom-vh));
@@ -234,7 +236,8 @@ ul {
 #paragraphe_div_new_feature {
 	position: relative;
 	top: 0vh;
-	left: 5vw;
+	left: calc(5vw - 10px);
+	margin-left: -10px;
 	vertical-align: middle;
 	display: table-cell;
 	height: calc(35 * var(--custom-vh));
@@ -246,7 +249,7 @@ ul {
 #paragraphe_div_new_feature>.img1 {
 	padding-top: 5px;
 	padding-bottom: 10px;
-	height: 16vh;
+	height: 20vh;
 	width: 100%;
 	object-fit: contain;
 }

@@ -24,7 +24,7 @@ var canAddView = true;
   };
  ****************************************/
 function block(params) {
-	//console.log("NEW BLOCK CREATED");
+	////console.log("NEW BLOCK CREATED");
 
 	let block = this;
 	this.ObjectId = params.ObjectId;
@@ -67,8 +67,8 @@ function block(params) {
 			waveform.style.display = "block";
 			block.myaudio.play();
 			audio_playing = true;
-			console.log(params.duration);
-			console.log("play : " + block.currentTime);
+			//console.log(params.duration);
+			//console.log("play : " + block.currentTime);
 			block.progress_div.style.transitionDuration =
 				params.duration - block.currentTime + "s";
 			block.progress_div.style.display = "block";
@@ -77,7 +77,7 @@ function block(params) {
 			block.isPlaying = true;
 			// block.myRange.style.pointerEvents = "all";
 		} else {
-			console.log("audio not ready");
+			//console.log("audio not ready");
 		}
 	};
 
@@ -86,7 +86,7 @@ function block(params) {
 			// if (window.cordova.platformId == "ios") {
 			//     cordova.plugins.backgroundMode.disable();
 			// }
-			console.log("pause (" + block.offset_indicator + ")");
+			//console.log("pause (" + block.offset_indicator + ")");
 			block.fplay_button.style.display = "block";
 			block.fpause_button.style.display = "none";
 			waveform.style.display = "none";
@@ -97,21 +97,21 @@ function block(params) {
 			block.progress_div.style.transitionDuration = "0s";
 			block.myaudio.getCurrentPosition(
 				function (position) {
-					console.log("actual pause");
+					//console.log("actual pause");
 					block.myaudio.pause();
 					if (position == -1) position = 0;
 					if (block.currentTime == -1) block.currentTime = 0;
-					console.log("pause : " + position);
-					console.log(block.currentTime);
-					console.log("-->" + (position - block.currentTime));
+					//console.log("pause : " + position);
+					//console.log(block.currentTime);
+					//console.log("-->" + (position - block.currentTime));
 					let width =
 						((position + block.offset_indicator) * 100) / params.duration;
 					block.progress_div.style.width = width + "%";
 					block.currentTime = position;
-					console.log(width, block.currentTime, canAddView);
+					//console.log(width, block.currentTime, canAddView);
 					if ((width >= 33 || block.currentTime <= 0) && canAddView && !stop) {
-						console.log(stop);
-						console.log("add 1 view to current playing flow");
+						//console.log(stop);
+						//console.log("add 1 view to current playing flow");
 						let data = block.ObjectId;
 						ServerManager.AddViewFlow(data);
 						canAddView = false;
@@ -127,7 +127,7 @@ function block(params) {
 					// block.myaudio.seekTo(block.currentTime * 1000);
 				},
 				function (err) {
-					console.log(err);
+					//console.log(err);
 				}
 			);
 		}
@@ -355,11 +355,11 @@ function block(params) {
 			window.plugins.socialsharing.shareWithOptions(
 				options,
 				function (result) {
-					console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
-					console.log("Shared to app: " + result.app); // On Android result.app since plugin version 5.4.0 this is no longer empty. On iOS it's empty when sharing is cancelled (result.completed=false)
+					//console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
+					//console.log("Shared to app: " + result.app); // On Android result.app since plugin version 5.4.0 this is no longer empty. On iOS it's empty when sharing is cancelled (result.completed=false)
 				},
 				function (msg) {
-					console.log("Sharing failed with message: " + msg);
+					//console.log("Sharing failed with message: " + msg);
 				}
 			);
 		};
@@ -442,22 +442,22 @@ function block(params) {
 	if (params.audioURL) {
 		let local_flow = FlowLoader.DownloadFlow(params.audioURL);
 		local_flow.OnReady(function (url) {
-			// console.log(local_flow);
+			// //console.log(local_flow);
 			// block.myaudio.src = url;
 			// block.myaudio.volume = 1.0;
 			block.myaudio = new Media(url, mediaSuccess, mediaFailure, mediaStatus);
 			// params.duration = local_flow.duration;
 
 			function mediaSuccess() {
-				console.log("Successfully finished task.");
+				//console.log("Successfully finished task.");
 			}
 
 			function mediaFailure(err) {
-				// console.log("An error occurred: " + err.code);
+				// //console.log("An error occurred: " + err.code);
 			}
 
 			function mediaStatus(status) {
-				console.log("A status change occurred: " + status);
+				//console.log("A status change occurred: " + status);
 				if (status == 4) {
 					block.flowend();
 				}
@@ -465,7 +465,7 @@ function block(params) {
 			// block.myaudio.play();
 			// block.myaudio.setVolume('0.0');
 			// setTimeout(function () {
-			// console.log("duration : " + block.myaudio.getDuration());
+			// //console.log("duration : " + block.myaudio.getDuration());
 			// params.duration = block.myaudio.getDuration();
 			block.ready = true;
 			block.floading_flow.style.display = "none";
@@ -476,6 +476,8 @@ function block(params) {
 			block.myaudio.setVolume("1.0");
 			block.currentTime = 0;
 			block.offset_indicator = 0.25;
+			let event = new Event('ready');
+			block.block_flow.dispatchEvent(event);
 			// }, 500);
 			// setTimeout(function () {
 			//
@@ -489,7 +491,7 @@ function block(params) {
 		block.flowend();
 	};
 
-	this.flowend = function () {
+	this.flowend = function (dontloop) {
 		let self = this;
 		audio_playing = false;
 		// waveform.style.display = "none";
@@ -497,21 +499,23 @@ function block(params) {
 		// block.progress_div.style.borderTopRightRadius = '2vw';
 		block.progress_div.style.opacity = "0";
 		block.flowpause();
+		block.myaudio.stop();
 		setTimeout(function () {
 			block.progress_div.style.opacity = "1";
 			block.progress_div.style.width = "0%";
 			block.offset_indicator = 0.25;
 			canAddView = true;
 			setTimeout(function () {
-				if (current_block_playing == self) block.flowplay();
+				console.log(dontloop);
+				if (current_block_playing == self && !dontloop) block.flowplay();
 			}, 100);
 		}, 100);
 		block.currentTime = 0;
 	};
 
 	// this.seek = function () {
-	//     console.log("seek");
-	//     console.log(block.myRange.value);
+	//     //console.log("seek");
+	//     //console.log(block.myRange.value);
 	//     this.progress = block.myRange.value;
 	//     this.time = (this.progress * block.myaudio.duration) / 100;
 	//     block.myaudio.currentTime = Math.round(this.time);
@@ -522,10 +526,10 @@ function block(params) {
 	//         (block.myaudio.currentTime * 100) / block.myaudio.duration + "%";
 	//     setTimeout(function () {
 	//         block.seeking = false;
-	//         console.log("seeking = false");
+	//         //console.log("seeking = false");
 	//     }, 600);
 	//     // block.flowplay();
-	//     // console.log("flow play");
+	//     // //console.log("flow play");
 	// };
 
 	this.fplay_button.addEventListener("click", function () {
@@ -544,7 +548,7 @@ function block(params) {
 	});
 
 	// this.myRange.addEventListener("input", function () {
-	// 	// console.log("change");
+	// 	// //console.log("change");
 	// 	// block.seek();
 	// 	block.progress = block.myRange.value;
 	// 	block.progress_div.style.transitionDuration = "0s";
@@ -556,18 +560,18 @@ function block(params) {
 
 	// this.myRange.addEventListener("touchend", function () {
 	// 	// block.myaudio.currentTime = block.currentTime;
-	// 	console.log("seek to : " + block.currentTime);
+	// 	//console.log("seek to : " + block.currentTime);
 	// 	block.myaudio.seekTo(block.currentTime * 1000);
 	// 	block.offset_indicator = 0;
 	// 	// setTimeout(function () {
 	// 	block.flowplay();
 	// 	// }, 100)
-	// 	console.log("flow play");
+	// 	//console.log("flow play");
 	// 	//current_flow_block
 	// });
 
 	// this.myRange.addEventListener('input', function () {
-	//     console.log("input");
+	//     //console.log("input");
 	//     this.focus();
 	//     //block.wasPlaying = block.isPlaying;
 	//     block.flowpause();
@@ -673,7 +677,7 @@ $(".fpopover_delete_flow").on("click", function () {
 function display_all_comments(block) {
 	//fonction permettant d'affiher tous les commentaires
 	$(".fblock_comment_content").html("");
-	console.log(" le display all comment à ete appelé");
+	//console.log(" le display all comment à ete appelé");
 	var loading_comment = document.createElement("div");
 	loading_comment.className = "loading-spinner loading_tl loading_comment";
 	$(".fblock_comment_content").append(loading_comment);
@@ -696,7 +700,7 @@ function display_all_comments(block) {
 
 function display_all_likes(block) {
 	//fonction permettant d'affiher tout les likes d'un flow
-	console.log("display_all_likes");
+	//console.log("display_all_likes");
 	likes_index = 0;
 	CanRefreshLikes = true;
 	$(".fblock_likes_content").html("");
@@ -721,7 +725,7 @@ function display_all_likes(block) {
 
 function display_comment_likes(comment, is_response) {
 	//fonction permettant d'affiher tout les likes d'un commentaire
-	console.log("display_comment_likes");
+	//console.log("display_comment_likes");
 	likes_index = 0;
 	CanRefreshLikes = true;
 	$(".fblock_likes_content").html("");
@@ -729,7 +733,7 @@ function display_comment_likes(comment, is_response) {
 	loading_likes.className = "loading-spinner loading_tl loading_likes";
 	$(".fblock_likes_content").append(loading_likes);
 	$(".flikes_number").text("");
-	console.log(comment);
+	//console.log(comment);
 	let ObjectId = comment.ObjectId;
 	/*?
 		   block.ObjectId :
@@ -827,10 +831,10 @@ function go_to_account(data) {
 		},
 		null,
 		function () {
-			console.log("fb current_page event success");
+			//console.log("fb current_page event success");
 		},
 		function () {
-			console.log("fb current_page error");
+			//console.log("fb current_page error");
 		}
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -896,8 +900,8 @@ $(".fblock_comment_content").scroll(function () {
 	if (CanRefreshCommentList == true) {
 		if (Math.round($(this).scrollTop()) >= limit * 0.85) {
 			CanRefreshCommentList = false;
-			console.log("Get comment on Server");
-			console.log("CommentListCurrentIndex : " + CommentListCurrentIndex);
+			//console.log("Get comment on Server");
+			//console.log("CommentListCurrentIndex : " + CommentListCurrentIndex);
 			let data = {
 				ObjectId: current_flow_block.ObjectId,
 				Index: CommentListCurrentIndex,
@@ -909,9 +913,9 @@ $(".fblock_comment_content").scroll(function () {
 });
 
 function UpdateCommentList(response, data_block) {
-	console.log("updating comment list...");
+	//console.log("updating comment list...");
 	var text_comment_number;
-	// console.log(data.Data);
+	// //console.log(data.Data);
 	if (Array.isArray(response.Data)) {
 		/*(response.Data.length == 1) ? (text_comment_number = response.Data.length + " commentaire") : (text_comment_number = response.Data.length + " commentaires");
 			$(".fcomment_number").text(text_comment_number);*/
@@ -967,7 +971,7 @@ function UpdateCommentList(response, data_block) {
 		}
 
 		if ($(".loading_tl")) $(".loading_tl").remove();
-		console.log("user updated !");
+		//console.log("user updated !");
 		pullToRefreshEnd();
 		if (response.Data.length < 10) {
 			CanRefreshCommentList = false;
@@ -997,14 +1001,14 @@ function get_all_likes(response) {
 	// }
 	// $(".flikes_number").text(text_likes_number);
 
-	console.log(response);
-	console.log(likes_index);
+	//console.log(response);
+	//console.log(likes_index);
 	var i = 0;
 	if (response.Data) {
 		likes_index++;
 		for (i = 0; i < response.Data.length; i++) {
 			let like_data = response.Data[i];
-			console.log(like_data);
+			//console.log(like_data);
 			this.fblock_like = document.createElement("div");
 			this.fblock_like.className = "fblock_like";
 			$(".fblock_likes_content").append(this.fblock_like);
@@ -1049,7 +1053,7 @@ var last_story_color;
 
 function stopAllBlocksAudio(callback) {
 	if (audio_playing || current_block_playing) {
-		console.log("stop all audio");
+		//console.log("stop all audio");
 		// all_blocks.map((a) => a.flowpause(true));
 		current_block_playing.flowpause(callback, "stop");
 		audio_playing = false;

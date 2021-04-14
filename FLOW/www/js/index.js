@@ -465,6 +465,8 @@ $("#close_div_new_features").on("click", function () {
 	$("#div_new_features").css("display", "none");
 	$("#div_new_features_background").css("display", "none");
 	window.localStorage.setItem("new_features_version", AppVersion.version);
+	in_new_features = false;
+	discover_flows[0].flowplay();
 });
 
 function check_app_version(app_version) {

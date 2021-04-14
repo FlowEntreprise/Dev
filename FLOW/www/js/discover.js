@@ -12,7 +12,7 @@ function setupDiscover() {
 
     discover_swiper.on('slideChange', function () {
         let current_index = discover_swiper.activeIndex;
-        if (current_block_playing) current_block_playing.flowpause();
+        if (current_block_playing) current_block_playing.flowend(true);
         discover_flows[current_index].flowplay();
         if (current_index > discover_index) {
             getDiscoverFlow();
@@ -21,7 +21,7 @@ function setupDiscover() {
 
         let tmp_random_excluded = window.localStorage.getItem("random_excluded");
         if (!tmp_random_excluded) tmp_random_excluded = "";
-        if (!tmp_random_excluded.includes(discover_flows[current_index])) window.localStorage.setItem("random_excluded", tmp_random_excluded + discover_flows[current_index].ObjectId + ",");
+        if (!tmp_random_excluded.includes(discover_flows[current_index].ObjectId)) window.localStorage.setItem("random_excluded", tmp_random_excluded + discover_flows[current_index].ObjectId + ",");
     });
 
     // console.log(swiper);
@@ -80,17 +80,25 @@ function showRandomDiscover(data) {
     console.log(container);
     console.log(flow);
 
-    var new_block = new block(block_params);
+    let new_block = new block(block_params);
     new_block.block_flow.style.marginTop = "1vw";
+    console.log(in_new_features);
+    if (discover_flows.length == 0 && !in_new_features) {
+        let tmp_random_excluded = window.localStorage.getItem("random_excluded");
+        if (!tmp_random_excluded) tmp_random_excluded = "";
+        if (!tmp_random_excluded.includes(new_block.ObjectId)) window.localStorage.setItem("random_excluded", tmp_random_excluded + new_block.ObjectId + ",");
+
+        new_block.block_flow.addEventListener("ready", function () {
+            if (discover_index == 0 && !in_new_features) {
+                new_block.flowplay();
+            }
+        });
+    }
     all_blocks.push(new_block);
     discover_flows.push(new_block);
 
-    // let tmp_random_excluded = window.localStorage.getItem("random_excluded");
-    // if (!tmp_random_excluded) tmp_random_excluded = "";
-    // window.localStorage.setItem("random_excluded", tmp_random_excluded + flow.ObjectId + ",");
-
     // check random_excluded limit to 100 objectId
-    let random_excluded_array = window.localStorage.getItem("random_excluded").split(",");
+    let random_excluded_array = window.localStorage.getItem("random_excluded") ? window.localStorage.getItem("random_excluded").split(",") : [];
     if (random_excluded_array.length > 100) {
         random_excluded_array.shift();
         let random_excluded_string = random_excluded_array.join(",");

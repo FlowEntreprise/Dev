@@ -16,7 +16,7 @@ var in_top50 = true;
 var in_recents = false;
 var in_flowoftheday = false;
 var in_dm_image_fullscreen = false;
-
+var in_new_features = false;
 //Framework7
 // $("#tab1").load("pages/home.html");
 // $("#tab2").load("pages/explore.html");
@@ -217,6 +217,10 @@ function checkExploreSlide(explore_categories) {
 		$(".discover").addClass("active");
 		if (!discover_swiper_initialised) {
 			setupDiscover();
+		} else {
+			setTimeout(function () {
+				discover_flows[discover_swiper.activeIndex].flowplay();
+			}, 500);
 		}
 	}
 }
