@@ -53,6 +53,7 @@ function block(params) {
 	this.last_like_time;
 	this.offset_indicator = 0;
 	this.Responses = params.Responses;
+	this.loading_audio = false;
 
 	this.flowplay = function () {
 		if (this.ready) {
@@ -67,8 +68,8 @@ function block(params) {
 			waveform.style.display = "block";
 			block.myaudio.play();
 			audio_playing = true;
-			//console.log(params.duration);
-			//console.log("play : " + block.currentTime);
+			console.log(params.duration);
+			console.log("play : " + block.currentTime);
 			block.progress_div.style.transitionDuration =
 				params.duration - block.currentTime + "s";
 			block.progress_div.style.display = "block";
@@ -77,7 +78,11 @@ function block(params) {
 			block.isPlaying = true;
 			// block.myRange.style.pointerEvents = "all";
 		} else {
-			//console.log("audio not ready");
+			console.log("audio not ready");
+			current_block_playing = block;
+			if (!block.loading_audio) {
+				block.LoadAudio();
+			}
 		}
 	};
 
@@ -127,7 +132,7 @@ function block(params) {
 					// block.myaudio.seekTo(block.currentTime * 1000);
 				},
 				function (err) {
-					//console.log(err);
+					console.log(err);
 				}
 			);
 		}
@@ -439,25 +444,28 @@ function block(params) {
 	// resize();
 
 	this.myaudio = new Audio();
-	if (params.audioURL) {
-		let local_flow = FlowLoader.DownloadFlow(params.audioURL);
+
+	this.LoadAudio = function () {
+		block.loading_audio = true;
+		let local_flow = FlowLoader.DownloadFlow(params.audioURL, block);
 		local_flow.OnReady(function (url) {
-			// //console.log(local_flow);
+			block.loading_audio = false;
+			console.log(local_flow);
 			// block.myaudio.src = url;
 			// block.myaudio.volume = 1.0;
 			block.myaudio = new Media(url, mediaSuccess, mediaFailure, mediaStatus);
 			// params.duration = local_flow.duration;
 
 			function mediaSuccess() {
-				//console.log("Successfully finished task.");
+				console.log("Successfully finished task.");
 			}
 
 			function mediaFailure(err) {
-				// //console.log("An error occurred: " + err.code);
+				console.log("An error occurred: " + err.code);
 			}
 
 			function mediaStatus(status) {
-				//console.log("A status change occurred: " + status);
+				console.log("A status change occurred: " + status);
 				if (status == 4) {
 					block.flowend();
 				}
@@ -478,11 +486,14 @@ function block(params) {
 			block.offset_indicator = 0.25;
 			let event = new Event('ready');
 			block.block_flow.dispatchEvent(event);
-			// }, 500);
-			// setTimeout(function () {
-			//
-			// }, 500)
+
+			if (current_block_playing == block) {
+				block.flowplay();
+			}
 		});
+	}
+	if (params.audioURL) {
+		this.LoadAudio();
 	}
 
 	this.isPlaying = false;
@@ -500,6 +511,7 @@ function block(params) {
 		block.progress_div.style.opacity = "0";
 		block.flowpause();
 		block.myaudio.stop();
+		block.myaudio.release();
 		setTimeout(function () {
 			block.progress_div.style.opacity = "1";
 			block.progress_div.style.width = "0%";

@@ -3,12 +3,17 @@ class FlowLoaderClass {
         this.flows = [];
     }
 
-    DownloadFlow(url) {
+    DownloadFlow(url, block) {
         let returned_flow = this.flows.filter(flow => (flow.online_url == url));
         console.log(returned_flow);
         if (returned_flow.length == 0) {
-            let new_flow = new FlowObj(url);
+            let new_flow = new FlowObj(url, block);
             this.flows.push(new_flow);
+            // unload flow if more than 10 in cache
+            if (this.flows.length > 10) {
+                this.flows[0].Unload();
+                this.flows.shift();
+            }
             returned_flow = new_flow;
         } else {
             returned_flow = returned_flow[0];
@@ -18,8 +23,9 @@ class FlowLoaderClass {
 }
 
 class FlowObj {
-    constructor(url) {
+    constructor(url, block) {
         this.online_url = url;
+        this.block = block;
         if (url.includes("blob")) {
             this.fileName = url.replace("blob:file:///", "");
         } else {
@@ -107,6 +113,26 @@ class FlowObj {
             };
 
             fileWriter.write(dataObj);
+        });
+    }
+
+    Unload() {
+        let self = this;
+        if (self.block) self.block.ready = false;
+        window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function (dirEntry) {
+            dirEntry.getFile(self.fileName, {
+                create: false
+            }, function (fileEntry) {
+                fileEntry.remove(function (file) {
+                    console.log("file removed!");
+                }, function (error) {
+                    console.log("error occurred: " + error.code);
+                }, function () {
+                    console.log("file does not exist");
+                });
+            });
+        }, function (err) {
+            console.error(err);
         });
     }
 }
