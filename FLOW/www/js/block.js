@@ -497,9 +497,9 @@ function block(params) {
 			let event = new Event('ready');
 			block.block_flow.dispatchEvent(event);
 
-			// if (current_block_playing == block) {
-			// 	block.flowplay();
-			// }
+			if (current_block_playing == block) {
+				block.flowplay();
+			}
 		});
 	}
 	if (params.audioURL) {
@@ -522,6 +522,7 @@ function block(params) {
 		block.flowpause();
 		block.myaudio.stop();
 		block.myaudio.release();
+		if (current_block_playing == block) current_block_playing = null;
 		setTimeout(function () {
 			block.progress_div.style.opacity = "1";
 			block.progress_div.style.transform = "scale3d(0, 1, 1)"
