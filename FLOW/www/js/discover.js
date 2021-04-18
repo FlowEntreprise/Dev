@@ -26,13 +26,13 @@ function setupDiscover() {
         let current_index = discover_swiper.activeIndex;
         if (current_block_playing) current_block_playing.flowend(true);
         if (delayPlay) clearTimeout(delayPlay);
-        delayPlay = setTimeout(function () {
-            discover_flows[current_index].flowplay();
-            if (current_index > discover_index) {
-                discover_index = current_index;
-            }
-        }, 300);
-        getDiscoverFlow();
+        // delayPlay = setTimeout(function () {
+        discover_flows[current_index].flowplay();
+        if (current_index > discover_index) {
+            discover_index = current_index;
+            getDiscoverFlow();
+        }
+        // }, 300);
 
 
 
