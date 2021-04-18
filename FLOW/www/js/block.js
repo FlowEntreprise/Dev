@@ -529,8 +529,8 @@ function block(params) {
 			block.offset_indicator = 0.25;
 			canAddView = true;
 			setTimeout(function () {
-				// console.log(dontloop);
-				if (current_block_playing == self && !dontloop && discover_flows[discover_swiper.activeIndex] == self) block.flowplay();
+				console.log(current_block_playing, self, dontloop, discover_flows[discover_swiper.activeIndex]);
+				if (!dontloop && discover_flows[discover_swiper.activeIndex] == self) block.flowplay();
 			}, 100);
 		}, 100);
 		block.currentTime = 0;

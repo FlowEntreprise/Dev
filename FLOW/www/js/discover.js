@@ -22,7 +22,7 @@ function setupDiscover() {
         }
     });
 
-    discover_swiper.on('slideChange', function () {
+    discover_swiper.on('transitionEnd', function () {
         let current_index = discover_swiper.activeIndex;
         if (current_block_playing) current_block_playing.flowend(true);
         if (delayPlay) clearTimeout(delayPlay);
