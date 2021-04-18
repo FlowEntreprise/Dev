@@ -32,7 +32,7 @@ var app = {
 	onDeviceReady: function () {
 		Keyboard.hide();
 		let custom_vh = window.innerHeight / 100;
-		console.log(window.localStorage.getItem("custom_vh"), custom_vh);
+		// console.log(window.localStorage.getItem("custom_vh"), custom_vh);
 		if (window.localStorage.getItem("custom_vh")) {
 			custom_vh = window.localStorage.getItem("custom_vh");
 		} else {
@@ -75,13 +75,13 @@ var app = {
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
 
 		function keyboardShowHandler(e) {
-			// console.log('Keyboard height is: ' + e.keyboardHeight);
+			// // console.log('Keyboard height is: ' + e.keyboardHeight);
 		}
 
 		window.addEventListener("native.keyboardhide", keyboardHideHandler);
 
 		function keyboardHideHandler(e) {
-			console.log('Keyboard hidden');
+			// console.log('Keyboard hidden');
 			if (in_identification) {
 				$(".after-record-block-container").css("margin-top", "-30vh");
 			}
@@ -94,10 +94,10 @@ var app = {
 				},
 			},
 			function (match) {
-				console.log("deeplink match !", match);
+				// console.log("deeplink match !", match);
 			},
 			function (nomatch) {
-				console.log("deeplink didnt match 😞", nomatch);
+				// console.log("deeplink didnt match 😞", nomatch);
 				if (nomatch.$link.path) {
 					let FlowId = nomatch.$link.path.replace("/", "");
 					setTimeout(function () {
@@ -114,11 +114,11 @@ var app = {
 			LaunchReview.rating(
 				function (result) {
 					if (cordova.platformId === "android") {
-						console.log("Rating dialog displayed");
+						// console.log("Rating dialog displayed");
 						window.localStorage.setItem("last_ask_user_rating", Date.now());
 					} else if (cordova.platformId === "ios") {
 						if (result === "requested") {
-							console.log("Requested display of rating dialog");
+							// console.log("Requested display of rating dialog");
 
 							ratingTimerId = setTimeout(function () {
 								console.warn(
@@ -128,16 +128,16 @@ var app = {
 								);
 							}, MAX_DIALOG_WAIT_TIME);
 						} else if (result === "shown") {
-							console.log("Rating dialog displayed");
+							// console.log("Rating dialog displayed");
 							window.localStorage.setItem("last_ask_user_rating", Date.now());
 							clearTimeout(ratingTimerId);
 						} else if (result === "dismissed") {
-							console.log("Rating dialog dismissed");
+							// console.log("Rating dialog dismissed");
 						}
 					}
 				},
 				function (err) {
-					console.log("Error opening rating dialog: " + err);
+					// console.log("Error opening rating dialog: " + err);
 				}
 			);
 
@@ -147,13 +147,13 @@ var app = {
 			}
 		}, 270000);
 
-		console.log("Les contactes sont : ");
-		console.log(navigator.contacts);
+		// console.log("Les contactes sont : ");
+		// console.log(navigator.contacts);
 
 		this.receivedEvent("deviceready");
 	},
 	onPause: function () {
-		console.log("pause");
+		// console.log("pause");
 		stopAllStoriesAudio();
 		stopAllBlocksAudio();
 		let time_in_last_screen =
@@ -165,16 +165,16 @@ var app = {
 			},
 			null,
 			function () {
-				console.log("fb current_page event success");
+				// // console.log("fb current_page event success");
 			},
 			function () {
-				console.log("fb current_page error");
+				// console.warn("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 		// if (appState.takingPicture || appState.imageUri) {
 		//     window.localStorage.setItem("app_state", JSON.stringify(appState));
-		//     console.log("app state saved");
+		//     // console.log("app state saved");
 		// }
 	},
 	onResume: function (event) {
@@ -217,10 +217,10 @@ var app = {
 			},
 			null,
 			function () {
-				console.log("fb current_page event success");
+				// // console.log("fb current_page event success");
 			},
 			function () {
-				console.log("fb current_page error");
+				// console.warn("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -233,9 +233,9 @@ var app = {
 			window.addEventListener("audioinput", onAudioInputCapture, false);
 			window.addEventListener("audioinputerror", onAudioInputError, false);
 
-			console.log("cordova-plugin-audioinput successfully initialised");
+			// console.log("cordova-plugin-audioinput successfully initialised");
 		} else {
-			console.log("cordova-plugin-audioinput not found!");
+			// console.log("cordova-plugin-audioinput not found!");
 		}
 
 		var push = PushNotification.init({
@@ -252,7 +252,7 @@ var app = {
 
 		push.on("registration", function (data) {
 			// data.registrationId
-			//console.log(data.registrationId);
+			//// console.log(data.registrationId);
 			registrationId = data.registrationId;
 
 			if (window.cordova.platformId == "ios" && registrationId.length < 100) {
@@ -272,15 +272,15 @@ var app = {
 			let topic = "all-ios";
 			let unsubscribe = "all-android";
 			push.unsubscribe(unsubscribe, function () {
-				console.log('unsubscribe success: ' + unsubscribe);
+				// console.log('unsubscribe success: ' + unsubscribe);
 			}, function (e) {
-				console.log()('unsubscribe error:');
+				// console.log()('unsubscribe error:');
 			});
 
 			push.subscribe(topic, function () {
-				console.log('subscribe success: ' + topic);
+				// console.log('subscribe success: ' + topic);
 			}, function (e) {
-				console.log()('subscribe error:');
+				// console.log()('subscribe error:');
 			});
 		}
 
@@ -288,23 +288,23 @@ var app = {
 			let topic = "all-android";
 			let unsubscribe = "all-ios";
 			push.unsubscribe(unsubscribe, function () {
-				console.log('unsubscribe success: ' + unsubscribe);
+				// console.log('unsubscribe success: ' + unsubscribe);
 			}, function (e) {
-				console.log()('unsubscribe error:');
+				// console.log()('unsubscribe error:');
 			});
 
 			push.subscribe(topic, function () {
-				console.log('subscribe success: ' + topic);
+				// console.log('subscribe success: ' + topic);
 			}, function (e) {
-				console.log()('subscribe error:');
+				// console.log()('subscribe error:');
 			});
 		}
 
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
 			pas dans l'application */
-			//console.log("data notif firebase");
-			//console.log(data);
+			//// console.log("data notif firebase");
+			//// console.log(data);
 			if (data.additionalData.foreground == false) {
 				Popup("popup-specifique", false);
 				Popup("popup-comment", false);
@@ -394,7 +394,7 @@ var app = {
 		});
 
 		push.on("error", function (e) {
-			//console.log(e.message);
+			//// console.log(e.message);
 		});
 
 		firebase.initializeApp(firebaseConfig);
@@ -500,18 +500,18 @@ function check_app_version(app_version) {
 
 
 function offline() {
-	console.log("you are offline");
+	// console.log("you are offline");
 	pullToRefreshEnd();
 }
 
 function online() {
-	console.log("you are online");
+	// console.log("you are online");
 	ServerManager.GetStory();
 }
 
 window.handleOpenURL = function (url) {
 	setTimeout(function () {
-		console.log("received url: " + url);
+		// console.log("received url: " + url);
 		if (url.includes("flow")) {
 			let IdFlow = url.split("flow/")[1];
 			ServerManager.GetSingle({

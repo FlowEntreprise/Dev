@@ -660,7 +660,7 @@ function show_specifique_element_for_comment_button(notif_block) {
 }
 
 function UpdateNotificationList(data, set_to_seen) {
-    console.log("updating notification list...");
+    // console.log("updating notification list...");
     // console.log(data.Data);
     if (Array.isArray(data.Data)) {
         if (data.Data.length > 0) {
@@ -725,8 +725,7 @@ function notification_check_seen() {
             if (number_of_notif_unseen > 0) {
                 if (number_of_notif_unseen > 99) {
                     $("#navbar_red_dot_notification").text("+99");
-                }
-                else {
+                } else {
                     $("#navbar_red_dot_notification").text(number_of_notif_unseen);
                 }
                 $("#navbar_red_dot_notification").css("display", "flex");
@@ -805,8 +804,8 @@ function send_notif_to_user(block, type) {
         comment_text: block.Comment_text, // texte commentaire genre le vrai commenaire t'a capté
         like_comment_text: block.fcomment_text, // texte lorsque l'on like un commentaire
         IdFlow: prepare_id_flow == undefined ? prepare_id_flow = "undefined" : prepare_id_flow,
-        Id_comment: block.IdComment /*? block.ObjectId : undefined*/,
-        Id_response: block.Idresponse /*? block.ObjectId : undefined*/,
+        Id_comment: block.IdComment /*? block.ObjectId : undefined*/ ,
+        Id_response: block.Idresponse /*? block.ObjectId : undefined*/ ,
         tag_in_flow: block.tag_in_flow
     };
     if (sender_info.comment_text == undefined) {
@@ -1081,8 +1080,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
 
     if (current_page == "messages" && data.additionalData.type == 'send_message' || InPopupMessage == true) {
         // Il est tard je suis fatigué et ne sais plus faire l'inverse d'un ou logique
-    }
-    else {
+    } else {
         $(".f_in_app_notif").css("bottom", "12.5vh");
     }
     setTimeout(function () {

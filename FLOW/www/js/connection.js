@@ -5,7 +5,7 @@ var user_token;
 // CheckIfConnected();
 
 function ConnectUser(data) {
-    console.log("user connected");
+    // console.log("user connected");
     connected = true;
     // $(".empty_tl")[0].style.display = "none";
     $(".fneed_connect").css({
@@ -22,10 +22,10 @@ function ConnectUser(data) {
         "pointer-events": "none"
     });
     ServerManager.GetStory();
-    ServerManager.GetTimeline(0);
+    // ServerManager.GetTimeline(0); rmTL
     notification_check_seen();
     // Framework7
-    RefreshExplore();
+    // RefreshExplore();
 
     refresh_notif();
     let loading_tl = document.createElement("div");
@@ -61,10 +61,10 @@ function ConnectUser(data) {
 
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                console.log("user is in firebase");
+                // console.log("user is in firebase");
             } else {
                 firebase.auth().signOut();
-                console.log("user is delete from");
+                // console.log("user is delete from");
             }
         });
 

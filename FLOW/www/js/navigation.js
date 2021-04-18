@@ -39,10 +39,10 @@ function inHome() {
 		},
 		null,
 		function () {
-			console.log("fb current_page event success");
+			// console.log("fb current_page event success");
 		},
 		function () {
-			console.log("fb current_page error");
+			console.warn("fb current_page error");
 		}
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -91,10 +91,10 @@ function inExplore() {
 		},
 		null,
 		function () {
-			console.log("fb current_page event success");
+			// console.log("fb current_page event success");
 		},
 		function () {
-			console.log("fb current_page error");
+			console.warn("fb current_page error");
 		}
 	);
 	$(".fred_dot_toolbar_explore").css("display", "none");
@@ -160,20 +160,20 @@ function inExplore() {
 		// app.showTab(target);
 		// });
 
-		$(".flowoftheday_btn")[0].addEventListener("click", function () {
-			explore_categories.slideTo(0);
-		})
+		// $(".flowoftheday_btn")[0].addEventListener("click", function () {
+		// 	explore_categories.slideTo(0);
+		// })
 
-		$(".recents_btn")[0].addEventListener("click", function () {
-			explore_categories.slideTo(2);
-		})
+		// $(".recents_btn")[0].addEventListener("click", function () {
+		// 	explore_categories.slideTo(2);
+		// })
 
 		// $(".top50_btn")[0].addEventListener("click", function () {
 		// 	explore_categories.slideTo(1);
 		// })
 
 		$(".discover_btn")[0].addEventListener("click", function () {
-			explore_categories.slideTo(1);
+			explore_categories.slideTo(0);
 		})
 
 		// explore_categories.slideTo(3);
@@ -186,20 +186,20 @@ function inExplore() {
 function checkExploreSlide(explore_categories) {
 	if (current_block_playing) current_block_playing.flowpause();
 	$(".explore_view").removeClass("active");
-	if (explore_categories.activeIndex == 0) {
-		$(".flowoftheday").addClass("active");
-		if (in_flowoftheday) $(".explore_view.active").scrollTop(0);
-		$(".fred_dot_toolbar_fdj").css("display", "none");
-		in_top50 = false;
-		in_recents = false;
-		in_flowoftheday = true;
-		if (showingFDJ && youAreFDJ) {
-			startFDJParticles();
-			setTimeout(function () {
-				stopFDJParticles();
-			}, 5000);
-		}
-	}
+	// if (explore_categories.activeIndex == 0) {
+	// 	$(".flowoftheday").addClass("active");
+	// 	if (in_flowoftheday) $(".explore_view.active").scrollTop(0);
+	// 	$(".fred_dot_toolbar_fdj").css("display", "none");
+	// 	in_top50 = false;
+	// 	in_recents = false;
+	// 	in_flowoftheday = true;
+	// 	if (showingFDJ && youAreFDJ) {
+	// 		startFDJParticles();
+	// 		setTimeout(function () {
+	// 			stopFDJParticles();
+	// 		}, 5000);
+	// 	}
+	// }
 	// if (explore_categories.activeIndex == 1) {
 	// 	$(".top50").addClass("active");
 	// 	if (in_recents) $(".explore_view.active").scrollTop(0);
@@ -207,13 +207,14 @@ function checkExploreSlide(explore_categories) {
 	// 	in_recents = false;
 	// 	in_flowoftheday = false;
 	// } else 
-	if (explore_categories.activeIndex == 2) {
-		$(".recents").addClass("active");
-		if (in_top50) $(".explore_view.active").scrollTop(0);
-		in_top50 = false;
-		in_recents = true;
-		in_flowoftheday = false;
-	} else if (explore_categories.activeIndex == 1) {
+	// if (explore_categories.activeIndex == 2) {
+	// 	$(".recents").addClass("active");
+	// 	if (in_top50) $(".explore_view.active").scrollTop(0);
+	// 	in_top50 = false;
+	// 	in_recents = true;
+	// 	in_flowoftheday = false;
+	// } else 
+	if (explore_categories.activeIndex == 0) {
 		$(".discover").addClass("active");
 		if (!discover_swiper_initialised) {
 			setupDiscover();
@@ -235,10 +236,10 @@ function inMessages() {
 		},
 		null,
 		function () {
-			console.log("fb current_page event success");
+			// console.log("fb current_page event success");
 		},
 		function () {
-			console.log("fb current_page error");
+			console.warn("fb current_page error");
 		}
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -309,10 +310,10 @@ function inNotifications() {
 		},
 		null,
 		function () {
-			console.log("fb current_page event success");
+			// console.log("fb current_page event success");
 		},
 		function () {
-			console.log("fb current_page error");
+			console.warn("fb current_page error");
 		}
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -381,10 +382,10 @@ function onBackKeyDown() {
 		},
 		null,
 		function () {
-			console.log("fb current_page event success");
+			// console.log("fb current_page event success");
 		},
 		function () {
-			console.log("fb current_page error");
+			console.warn("fb current_page error");
 		}
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);

@@ -56,16 +56,16 @@ function RefreshTL() {
 	console.log("refreshing...");
 	stopAllBlocksAudio();
 	TLCurrentIndex = 0;
-	ServerManager.GetTimeline(0);
+	// ServerManager.GetTimeline(0); rmTL
 	ServerManager.GetStory();
 }
 
 
 function pullToRefreshEnd() {
-	console.log("refreshed !");
+	// console.log("refreshed !");
 	home_ptr.Stop();
 	// top50_ptr.Stop();
-	recents_ptr.Stop();
+	// recents_ptr.Stop();
 	notifs_ptr.Stop();
 }
 

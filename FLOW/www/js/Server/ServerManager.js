@@ -1451,7 +1451,7 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				RefreshTL();
-				RefreshExplore();
+				// RefreshExplore();
 				in_app_notif(data);
 			},
 			error: function (response) {
@@ -1474,7 +1474,7 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				RefreshTL();
-				RefreshExplore();
+				// RefreshExplore();
 				in_app_notif(data);
 			},
 			error: function (response) {

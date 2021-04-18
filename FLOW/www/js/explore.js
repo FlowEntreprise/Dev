@@ -17,9 +17,9 @@ function explore_tab_loaded() {
 	// });
 
 	// Initilize recents pull to refresh
-	recents_ptr = setupPTR(document.querySelector(".recents"), function () {
-		RefreshExplore();
-	});
+	// recents_ptr = setupPTR(document.querySelector(".recents"), function () {
+	// RefreshExplore();
+	// });
 
 	// Initialize search_bar events 
 	$(".fsearch-bar")[0].addEventListener("focus", function () {
@@ -174,9 +174,9 @@ function explore_tab_loaded() {
 	let data2 = {
 		Index: recentsCurrentIndex,
 	};
-	ServerManager.GetNewFlows(data2);
+	// ServerManager.GetNewFlows(data2);
 
-	ServerManager.GetFDJ();
+	// ServerManager.GetFDJ();
 
 	$(".show_more_users")[0].addEventListener("touchend", function () {
 		ShowMoreUsers();
@@ -263,9 +263,9 @@ function back_search() {
 }
 
 var ptrContent_explore = $("#tab2");
-ptrContent_explore.on("ptr:refresh", function (e) {
-	RefreshExplore();
-});
+// ptrContent_explore.on("ptr:refresh", function (e) {
+// 	RefreshExplore();
+// });
 
 function RefreshExplore() {
 	console.log("refreshing...");
@@ -280,10 +280,10 @@ function RefreshExplore() {
 	let data2 = {
 		Index: recentsCurrentIndex,
 	};
-	ServerManager.GetNewFlows(data2);
+	// ServerManager.GetNewFlows(data2);
 
 	// ServerManager.GetRandomFlow(randomExcluded);
-	ServerManager.GetFDJ();
+	// ServerManager.GetFDJ();
 }
 
 function RefreshSearch() {

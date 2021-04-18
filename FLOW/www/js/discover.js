@@ -1,27 +1,44 @@
 var discover_swiper;
 let discover_index = 0;
 let discover_flows = [];
+let delayPlay = null;
 
 function setupDiscover() {
     discover_swiper = new Swiper(".swiper-container.discover", {
         direction: "vertical",
         slidesPerView: 3,
         centeredSlides: true,
-        spaceBetween: 150
+        spaceBetween: 150,
+        initialSlide: 0,
+        virtual: {
+            slides: (function () {
+                let slides = [];
+                slides.push("<div class='parent'></div>");
+                // for (var i = 0; i < 1; i += 1) {
+                //     slides.push('Slide ' + (i + 1));
+                // }
+                return slides;
+            })()
+        }
     });
 
     discover_swiper.on('slideChange', function () {
         let current_index = discover_swiper.activeIndex;
         if (current_block_playing) current_block_playing.flowend(true);
-        discover_flows[current_index].flowplay();
-        if (current_index > discover_index) {
-            getDiscoverFlow();
-            discover_index = current_index;
-        }
+        if (delayPlay) clearTimeout(delayPlay);
+        delayPlay = setTimeout(function () {
+            discover_flows[current_index].flowplay();
+            if (current_index > discover_index) {
+                discover_index = current_index;
+            }
+        }, 300);
+        getDiscoverFlow();
 
-        let tmp_random_excluded = window.localStorage.getItem("random_excluded");
-        if (!tmp_random_excluded) tmp_random_excluded = "";
-        if (!tmp_random_excluded.includes(discover_flows[current_index].ObjectId)) window.localStorage.setItem("random_excluded", tmp_random_excluded + discover_flows[current_index].ObjectId + ",");
+
+
+        // let tmp_random_excluded = window.localStorage.getItem("random_excluded");
+        // if (!tmp_random_excluded) tmp_random_excluded = "";
+        // if (!tmp_random_excluded.includes(discover_flows[current_index].ObjectId)) window.localStorage.setItem("random_excluded", tmp_random_excluded + discover_flows[current_index].ObjectId + ",");
     });
 
     // console.log(swiper);
@@ -30,7 +47,7 @@ function setupDiscover() {
 }
 
 function getDiscoverFlow(numberOfFlows) {
-    console.log("getting discover flow...");
+    // console.log("getting discover flow...");
     let tmp_random_excluded = window.localStorage.getItem("random_excluded");
     if (!tmp_random_excluded) randomExcluded = [];
     else randomExcluded = tmp_random_excluded.split(",");
@@ -39,9 +56,9 @@ function getDiscoverFlow(numberOfFlows) {
 
 
 function showRandomDiscover(data) {
-    console.log(data);
+    // console.log(data);
     for (let i = 0; i < data.Data.length; i++) {
-        console.log("discover flow loaded !");
+        // console.log("discover flow loaded !");
         if (!data.Data) {
             $(".random_flow_btn").toggleClass("searching");
             window.localStorage.removeItem("random_excluded");
@@ -50,8 +67,8 @@ function showRandomDiscover(data) {
             return false
         }
         let flow = data.Data[i];
-        discover_swiper.appendSlide('<div class="swiper-slide">New Slide</div>');
-        let container = $(".swiper-container.discover .swiper-slide").last();
+        if (discover_flows.length > 0) discover_swiper.virtual.appendSlide('<div class="parent">New Slide</div>');
+        let container = $(".swiper-container.discover .parent").last();
         container[0].innerHTML = "";
         let pattern_key = "";
         if (flow.Background.PatternKey) pattern_key = flow.Background.PatternKey;
@@ -77,32 +94,18 @@ function showRandomDiscover(data) {
             Views: flow.Views,
             Responses: flow.Responses,
         };
-        console.log(container);
-        console.log(flow);
-
         let new_block = new block(block_params);
         new_block.block_flow.style.marginTop = "1vw";
-        console.log(in_new_features);
-        if (discover_flows.length == 0 && !in_new_features) {
-            let tmp_random_excluded = window.localStorage.getItem("random_excluded");
-            if (!tmp_random_excluded) tmp_random_excluded = "";
-            if (!tmp_random_excluded.includes(new_block.ObjectId)) window.localStorage.setItem("random_excluded", tmp_random_excluded + new_block.ObjectId + ",");
 
+        if (discover_flows.length == 0 && !in_new_features) {
             new_block.block_flow.addEventListener("ready", function () {
                 if (discover_index == 0 && !in_new_features) {
                     new_block.flowplay();
                 }
             });
         }
+
         all_blocks.push(new_block);
         discover_flows.push(new_block);
-
-        // check random_excluded limit to 100 objectId
-        let random_excluded_array = window.localStorage.getItem("random_excluded") ? window.localStorage.getItem("random_excluded").split(",") : [];
-        if (random_excluded_array.length > 100) {
-            random_excluded_array.shift();
-            let random_excluded_string = random_excluded_array.join(",");
-            window.localStorage.setItem("random_excluded", random_excluded_string);
-        }
     }
 }

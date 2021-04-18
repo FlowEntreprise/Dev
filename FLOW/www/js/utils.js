@@ -155,10 +155,10 @@ function go_to_account(data) {
     },
         null,
         function () {
-            console.log("fb current_page event success");
+            // console.log("fb current_page event success");
         },
         function () {
-            console.log("fb current_page error");
+            console.warn("fb current_page error");
         }
     );
     last_currentpage_timestamp = Math.floor(Date.now() / 1000);
