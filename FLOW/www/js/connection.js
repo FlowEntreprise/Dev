@@ -22,7 +22,7 @@ function ConnectUser(data) {
         "pointer-events": "none"
     });
     ServerManager.GetStory();
-    // ServerManager.GetTimeline(0); rmTL
+    // ServerManager.GetTimeline(0);
     notification_check_seen();
     // Framework7
     // RefreshExplore();
@@ -30,7 +30,7 @@ function ConnectUser(data) {
     refresh_notif();
     let loading_tl = document.createElement("div");
     loading_tl.className = "loading-spinner loading_tl";
-    $(".list-block")[0].appendChild(loading_tl);
+    // $(".list-block")[0].appendChild(loading_tl); rmTL
     loading_tl.style.marginTop = "60%";
 
     // analytics.logEvent("user_connection", {
@@ -121,7 +121,7 @@ function DisconnectUser() {
     $(".fred_dot_toolbar_new_notif").css('display', 'none');
     pages_swiper.slideTo(1);
     $(".empty_tl")[0].style.display = "block";
-    $(".list-block")[0].innerHTML = "";
+    // $(".list-block")[0].innerHTML = ""; rmTL
     $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-connect', true, 60)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\" /><div class=\"unread_shadow\"></div><label class=\"fstory_user\">Ta story</label></div></li>";
     $(".faccount").css({
         "background-image": "url('src/icons/Account@3x.png')"

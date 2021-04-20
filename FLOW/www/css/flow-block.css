@@ -9,7 +9,7 @@
 	border-radius: 2vw;
 	/* box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1); */
 	font-family: "Roboto-Light";
-	/* transform: translateZ(0); */
+	transform: translateZ(0);
 	will-change: transform;
 }
 
@@ -327,7 +327,7 @@
 	display: none;
 }
 
-#progress_div {
+.progress_div {
 	position: absolute;
 	top: 0;
 	left: 0;

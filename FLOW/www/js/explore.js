@@ -86,22 +86,23 @@ function explore_tab_loaded() {
 	$(".fexplore-btn").on("touchend", function () {
 		// var home_scrolling = false;
 		$(".fred_dot_toolbar_explore").css("display", "none");
-		if (current_page == "explore") {
-			let element = document.getElementById("tab2");
-			// element.onscroll = function() {
-			//     home_scrolling = true;
-			// };
-			let last_scrollTop = element.scrollTop;
-			const scrollToTop = () => {
-				const c = element.scrollTop;
-				if (c > 0 && c <= last_scrollTop) {
-					window.requestAnimationFrame(scrollToTop);
-					element.scrollTo(0, c - c / 8);
-					last_scrollTop = c;
-				}
-			};
-			scrollToTop();
-		}
+		// if (current_page == "explore") {
+		// 	let element = document.getElementById("tab2");
+		// 	// element.onscroll = function() {
+		// 	//     home_scrolling = true;
+		// 	// };
+		// 	let last_scrollTop = element.scrollTop;
+		// 	const scrollToTop = () => {
+		// 		const c = element.scrollTop;
+		// 		if (c > 0 && c <= last_scrollTop) {
+		// 			window.requestAnimationFrame(scrollToTop);
+		// 			element.scrollTo(0, c - c / 8);
+		// 			last_scrollTop = c;
+		// 		}
+		// 	};
+		// 	scrollToTop();
+		// }
+		explore_swiper.slideTo(0);
 	});
 
 	// Scroll loading infos 

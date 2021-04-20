@@ -1,7 +1,6 @@
 var discover_swiper;
 let discover_index = 0;
 let discover_flows = [];
-let delayPlay = null;
 
 function setupDiscover() {
     discover_swiper = new Swiper(".swiper-container.discover", {
@@ -13,10 +12,9 @@ function setupDiscover() {
         virtual: {
             slides: (function () {
                 let slides = [];
-                slides.push("<div class='parent'></div>");
-                // for (var i = 0; i < 1; i += 1) {
-                //     slides.push('Slide ' + (i + 1));
-                // }
+                for (var i = 0; i < 100; i += 1) {
+                    slides.push("<div class='parent notloaded'>Chargement...</div>");
+                }
                 return slides;
             })()
         }
@@ -25,16 +23,11 @@ function setupDiscover() {
     discover_swiper.on('transitionEnd', function () {
         let current_index = discover_swiper.activeIndex;
         if (current_block_playing) current_block_playing.flowend(true);
-        if (delayPlay) clearTimeout(delayPlay);
-        // delayPlay = setTimeout(function () {
         discover_flows[current_index].flowplay();
         if (current_index > discover_index) {
             discover_index = current_index;
             getDiscoverFlow();
         }
-        // }, 300);
-
-
 
         // let tmp_random_excluded = window.localStorage.getItem("random_excluded");
         // if (!tmp_random_excluded) tmp_random_excluded = "";
@@ -48,9 +41,9 @@ function setupDiscover() {
 
 function getDiscoverFlow(numberOfFlows) {
     // console.log("getting discover flow...");
-    let tmp_random_excluded = window.localStorage.getItem("random_excluded");
-    if (!tmp_random_excluded) randomExcluded = [];
-    else randomExcluded = tmp_random_excluded.split(",");
+    // let tmp_random_excluded = window.localStorage.getItem("random_excluded");
+    // if (!tmp_random_excluded) randomExcluded = [];
+    // else randomExcluded = tmp_random_excluded.split(",");
     ServerManager.GetRandomFlow(randomExcluded, true, numberOfFlows);
 }
 
@@ -67,8 +60,9 @@ function showRandomDiscover(data) {
             return false
         }
         let flow = data.Data[i];
-        if (discover_flows.length > 0) discover_swiper.virtual.appendSlide('<div class="parent">New Slide</div>');
-        let container = $(".swiper-container.discover .parent").last();
+        // if (discover_flows.length > 0) discover_swiper.virtual.appendSlide('<div class="parent">Une erreur s\'est produite</div>');
+        // let container = $(".swiper-container.discover .parent").last();
+        let container = $(".swiper-container.discover .parent.notloaded").first();
         container[0].innerHTML = "";
         let pattern_key = "";
         if (flow.Background.PatternKey) pattern_key = flow.Background.PatternKey;
@@ -107,5 +101,6 @@ function showRandomDiscover(data) {
 
         all_blocks.push(new_block);
         discover_flows.push(new_block);
+        container.removeClass("notloaded");
     }
 }

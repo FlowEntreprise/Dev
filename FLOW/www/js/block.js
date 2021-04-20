@@ -57,11 +57,16 @@ function block(params) {
 	this.first_play = true;
 
 	this.flowplay = function () {
+		console.log("play flow", block);
+		console.trace();
 		if (this.ready) {
 			// if (window.cordova.platformId == "ios") {
 			//     cordova.plugins.backgroundMode.enable();
 			// }
-			if (current_block_playing != block) canAddView = true;
+			if (current_block_playing != block) {
+				canAddView = true;
+				if (current_block_playing) current_block_playing.flowend();
+			}
 			current_block_playing = block;
 			block.fplay_button.style.display = "none";
 			block.fpause_button.style.display = "block";
@@ -246,7 +251,7 @@ function block(params) {
 	this.ftop_part.appendChild(this.bar);
 
 	this.progress_div = document.createElement("div");
-	this.progress_div.id = "progress_div";
+	this.progress_div.className = "progress_div";
 	this.ftop_part.appendChild(this.progress_div);
 
 	this.fposter_name = document.createElement("p");
@@ -490,7 +495,7 @@ function block(params) {
 			block.fpause_button.style.display = "none";
 			// block.myaudio.stop();
 			// block.myaudio.seekTo(0);
-			block.myaudio.setVolume("1.0");
+			// block.myaudio.setVolume("1.0");
 			block.currentTime = 0;
 
 			block.offset_indicator = 0.25;
@@ -513,7 +518,6 @@ function block(params) {
 	};
 
 	this.flowend = function (dontloop) {
-		let self = this;
 		audio_playing = false;
 		// waveform.style.display = "none";
 		block.progress_div.style.transitionDuration = "0s";
@@ -529,8 +533,9 @@ function block(params) {
 			block.offset_indicator = 0.25;
 			canAddView = true;
 			setTimeout(function () {
-				console.log(current_block_playing, self, dontloop, discover_flows[discover_swiper.activeIndex]);
-				if (!dontloop && discover_flows[discover_swiper.activeIndex] == self) block.flowplay();
+				// console.log(current_block_playing, self, dontloop, discover_flows[discover_swiper.activeIndex]);
+				let current_flow = current_page == "home" ? home_flows[home_swiper.activeIndex] : discover_flows[discover_swiper.activeIndex];
+				if (!dontloop && current_flow == block) block.flowplay();
 			}, 100);
 		}, 100);
 		block.currentTime = 0;

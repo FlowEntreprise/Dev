@@ -1,6 +1,7 @@
 var canShowNavbar = true;
 var explore_tabs_initialised = false;
 var discover_swiper_initialised = false;
+var home_swiper_initialised = false;
 var in_comments = false;
 var in_likes = false;
 var in_specifique = false;
@@ -30,8 +31,7 @@ $(".main_topbar").css({
 // $("#popup-myaccount").find(".popup_content").load("pages/myAccount.html");
 
 function inHome() {
-	let time_in_last_screen =
-		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+	let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
 			page: current_page,
@@ -80,6 +80,11 @@ function inHome() {
 		});
 	}
 	stopAllBlocksAudio();
+
+	if (!home_swiper_initialised) {
+		console.log("setup Home");
+		setupHome();
+	}
 }
 
 function inExplore() {
@@ -152,25 +157,6 @@ function inExplore() {
 		});
 
 		checkExploreSlide(explore_categories);
-
-
-		// Framework7
-		// mySwiper.on("slideChangeStart", function () {
-		// var target = "#" + $(".swiper-slide-next").attr("target");
-		// app.showTab(target);
-		// });
-
-		// $(".flowoftheday_btn")[0].addEventListener("click", function () {
-		// 	explore_categories.slideTo(0);
-		// })
-
-		// $(".recents_btn")[0].addEventListener("click", function () {
-		// 	explore_categories.slideTo(2);
-		// })
-
-		// $(".top50_btn")[0].addEventListener("click", function () {
-		// 	explore_categories.slideTo(1);
-		// })
 
 		$(".discover_btn")[0].addEventListener("click", function () {
 			explore_categories.slideTo(0);

@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-	ServerURL: "https://api.flowappweb.com/",
+	ServerURL: "https://api-test.flowappweb.com/",
 	ConnexionURL: "ConnexionFromApi",
 	AddFlowURL: "AddFlow",
 	GetSingleFlowURL: "GetSingle",
@@ -344,7 +344,7 @@ class ServerManagerClass {
 			success: function (response) {
 				//// //console.log("Flow sucessfully recovered from database :");
 				//// //console.log(response);
-				PopFlow(response.Data, response.LinkBuilder);
+				// PopFlow(response.Data, response.LinkBuilder); rmTL
 			},
 			error: function (response) {
 				//// //console.log("Flow recovering from database error : ");
@@ -909,6 +909,7 @@ class ServerManagerClass {
 	}
 
 	GetTimeline(data) {
+		// console.log(data);
 		let final_data = {
 			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
@@ -925,7 +926,7 @@ class ServerManagerClass {
 			success: function (response) {
 				let end = Date.now();
 				let elapsed_time = end - start;
-				console.log("elapsed time : " + elapsed_time);
+				// console.log("elapsed time : " + elapsed_time);
 				////console.log("success");
 				//console.log(response);
 				timeline_get_block_and_blocked_users(response);
