@@ -7,7 +7,7 @@
 	height: calc(35 * var(--custom-vh));
 	background-color: #ffffff;
 	border-radius: 2vw;
-	/* box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1); */
+	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
 	font-family: "Roboto-Light";
 	transform: translateZ(0);
 	will-change: transform;
