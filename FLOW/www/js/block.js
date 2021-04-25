@@ -532,11 +532,13 @@ function block(params) {
 			block.progress_div.style.transform = "scale3d(0, 1, 1)"
 			block.offset_indicator = 0.25;
 			canAddView = true;
-			setTimeout(function () {
-				// console.log(current_block_playing, self, dontloop, discover_flows[discover_swiper.activeIndex]);
-				let current_flow = current_page == "home" ? home_flows[home_swiper.activeIndex] : discover_flows[discover_swiper.activeIndex];
-				if (!dontloop && current_flow == block) block.flowplay();
-			}, 100);
+			if (current_page == "home" || (current_page == "explore" && !searching)) {
+				setTimeout(function () {
+					// console.log(current_block_playing, self, dontloop, discover_flows[discover_swiper.activeIndex]);
+					let current_flow = current_page == "home" ? home_flows[home_swiper.activeIndex] : discover_flows[discover_swiper.activeIndex];
+					if (!dontloop && current_flow == block) block.flowplay();
+				}, 100);
+			}
 		}, 100);
 		block.currentTime = 0;
 	};

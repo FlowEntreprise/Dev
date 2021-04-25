@@ -29,10 +29,10 @@ function explore_tab_loaded() {
 		// $(".list-block-top50")[0].style.opacity = 0;
 		// $(".list-block-top50")[0].style.display = "none";
 		// $(".list-block-top50")[0].style.pointerEvents = "none";
-		$(".list-block-recents")[0].style.opacity = 0;
-		$(".list-block-recents")[0].style.display = "none";
-		$(".list-block-recents")[0].style.pointerEvents = "none";
-		$(".fdj_parent")[0].style.display = "none";
+		// $(".list-block-recents")[0].style.opacity = 0;
+		// $(".list-block-recents")[0].style.display = "none";
+		// $(".list-block-recents")[0].style.pointerEvents = "none";
+		// $(".fdj_parent")[0].style.display = "none";
 		$(".swiper-container.discover")[0].style.display = "none";
 
 		// $(".list-block-top50")[0].innerHTML = "";
@@ -55,11 +55,11 @@ function explore_tab_loaded() {
 			// $(".list-block-top50")[0].style.opacity = 1;
 			// $(".list-block-top50")[0].style.display = "block";
 			// $(".list-block-top50")[0].style.pointerEvents = "auto";
-			$(".list-block-recents")[0].style.opacity = 1;
-			$(".list-block-recents")[0].style.display = "block";
-			$(".list-block-recents")[0].style.pointerEvents = "auto";
+			// $(".list-block-recents")[0].style.opacity = 1;
+			// $(".list-block-recents")[0].style.display = "block";
+			// $(".list-block-recents")[0].style.pointerEvents = "auto";
 			$(".explore-swiper")[0].style.display = "block";
-			$(".fdj_parent")[0].style.display = "block";
+			// $(".fdj_parent")[0].style.display = "block";
 			$(".swiper-container.discover")[0].style.display = "block";
 		}
 	});
@@ -248,12 +248,12 @@ function back_search() {
 	// $(".list-block-top50")[0].style.opacity = 1;
 	// $(".list-block-top50")[0].style.display = "block";
 	// $(".list-block-top50")[0].style.pointerEvents = "auto";
-	$(".list-block-recents")[0].style.opacity = 1;
-	$(".list-block-recents")[0].style.display = "block";
-	$(".list-block-recents")[0].style.pointerEvents = "auto";
+	// $(".list-block-recents")[0].style.opacity = 1;
+	// $(".list-block-recents")[0].style.display = "block";
+	// $(".list-block-recents")[0].style.pointerEvents = "auto";
 	$(".explore-swiper")[0].style.display = "block";
 	$(".search_back")[0].style.display = "none";
-	$(".fdj_parent")[0].style.display = "block";
+	// $(".fdj_parent")[0].style.display = "block";
 	$(".swiper-container.discover")[0].style.display = "block";
 	searching = false;
 	$(".fsearch-bar").blur();
@@ -638,10 +638,10 @@ function UpdateRecents(data, data_block_user) {
 		setTimeout(function () {
 			// if ($(".loading_tl")) $(".loading_tl").remove();
 			if (recentsCurrentIndex == 0) {
-				$(".list-block-recents")[0].innerHTML = "";
+				// $(".list-block-recents")[0].innerHTML = "";
 				let loading_tl = document.createElement("div");
 				loading_tl.className = "loading-spinner loading_tl";
-				$(".list-block-recents")[0].appendChild(loading_tl);
+				// $(".list-block-recents")[0].appendChild(loading_tl);
 			}
 			console.log(data);
 			for (let i = 0; i < data.length; i++) {
@@ -654,7 +654,7 @@ function UpdateRecents(data, data_block_user) {
 							if (flow.Background.PatternKey)
 								pattern_key = flow.Background.PatternKey;
 							let block_params = {
-								parent_element: $(".list-block-recents")[0],
+								// parent_element: $(".list-block-recents")[0],
 								afterblock: false,
 								audioURL: flow.Audio,
 								duration: flow.Duration,
@@ -686,7 +686,7 @@ function UpdateRecents(data, data_block_user) {
 					if (flow.Background.PatternKey)
 						pattern_key = flow.Background.PatternKey;
 					let block_params = {
-						parent_element: $(".list-block-recents")[0],
+						// parent_element: $(".list-block-recents")[0],
 						afterblock: false,
 						audioURL: flow.Audio,
 						duration: flow.Duration,
@@ -719,12 +719,12 @@ function UpdateRecents(data, data_block_user) {
 				canRefreshRecents = false;
 				let tick_tl = document.createElement("div");
 				tick_tl.className = "tick_icon";
-				$(".list-block-recents")[0].appendChild(tick_tl);
+				// $(".list-block-recents")[0].appendChild(tick_tl);
 			} else {
 				canRefreshRecents = true;
 				let loading_tl = document.createElement("div");
 				loading_tl.className = "loading-spinner loading_tl";
-				$(".list-block-recents")[0].appendChild(loading_tl);
+				// $(".list-block-recents")[0].appendChild(loading_tl);
 			}
 		}, 500);
 	} else {
