@@ -279,3 +279,4 @@ function check_if_url_in_string(string_to_check) {
     });
     return string_to_check + "<br>";
 }
+

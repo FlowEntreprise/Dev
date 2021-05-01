@@ -88,11 +88,11 @@ var app = {
 		}
 
 		IonicDeeplink.route({
-				"/flow/:FlowId": {
-					target: "flow",
-					parent: "flow",
-				},
+			"/flow/:FlowId": {
+				target: "flow",
+				parent: "flow",
 			},
+		},
 			function (match) {
 				// console.log("deeplink match !", match);
 			},
@@ -160,9 +160,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				// // console.log("fb current_page event success");
@@ -212,9 +212,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				// // console.log("fb current_page event success");
@@ -238,7 +238,7 @@ var app = {
 			// console.log("cordova-plugin-audioinput not found!");
 		}
 
-		var push = PushNotification.init({
+		push = PushNotification.init({
 			android: {
 				icon: device.manufacturer == "OnePlus" ?
 					"flow_icone_one_plus" : "flow_icone",
@@ -249,6 +249,7 @@ var app = {
 				sound: "true",
 			},
 		});
+
 
 		push.on("registration", function (data) {
 			// data.registrationId
@@ -266,7 +267,28 @@ var app = {
 				);
 				ServerManager.APNS_token_to_FCM_token(data_apns_to_fcm);
 			}
+
+			if (!window.localStorage.getItem("user_token")) {
+				let data = {
+					RegisterId: registrationId
+				};
+				console.log("Le registration id est : " + data.RegisterId);
+				ServerManager.IsRegisterExist(data);
+			}
+
 		});
+
+		push.setApplicationIconBadgeNumber(
+			() => {
+				console.log('success');
+			},
+			() => {
+				console.log('error');
+			},
+			2
+		);
+
+
 
 		if (window.cordova.platformId == "ios") {
 			let topic = "all-ios";
@@ -305,6 +327,29 @@ var app = {
 			pas dans l'application */
 			//// console.log("data notif firebase");
 			//// console.log(data);
+
+			/*push.getApplicationIconBadgeNumber(
+				n => {
+					console.log('Get badge number success', n);
+
+					push.setApplicationIconBadgeNumber(
+						() => {
+							console.log('Set badge number success');
+						},
+						() => {
+							console.log('Set badge number error');
+						},
+						n
+					);
+
+				},
+				() => {
+					console.log('Get badge number error');
+				}
+			);*/
+
+
+
 			if (data.additionalData.foreground == false) {
 				Popup("popup-specifique", false);
 				Popup("popup-comment", false);

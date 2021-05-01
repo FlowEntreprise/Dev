@@ -54,7 +54,9 @@ const ServerParams = {
 	AddViewFlow: "AddViewFlow",
 	GetNewFlows: "GetNewFlows",
 	GetRandomFlow: "GetRandomFlow",
-	GetFlowOfTheDay: "GetFlowOfTheDay"
+	GetFlowOfTheDay: "GetFlowOfTheDay",
+	IsRegisterExist: "IsRegisterExist",
+	ConexionForUserUnregistered: "ConexionForUserUnregistered"
 };
 var FirebaseEnvironment = ServerParams.ServerURL == "https://api.flowappweb.com/" ? "prod" : "dev";
 const apiTypes = {
@@ -64,11 +66,12 @@ const apiTypes = {
 	Facebook: "facebook",
 	Flow: "flow",
 	Apple: "apple",
+	Unregistered: "unregistered"
 };
 
 // Server Manager Class :
 class ServerManagerClass {
-	constructor() {}
+	constructor() { }
 
 	/* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -78,6 +81,16 @@ class ServerManagerClass {
 		let final_data;
 		let DataSend;
 		switch (api) {
+			case apiTypes.Unregistered:
+				DataSend = {
+					RegisterId: registrationId,
+					LastOs: window.cordova.platformId
+				};
+				final_data = {
+					Data: DataSend,
+					Action: "Unregistered",
+				};
+				break;
 			case apiTypes.Flow:
 				DataSend = {
 					Username: data.Username,
@@ -87,6 +100,10 @@ class ServerManagerClass {
 					Email: data.Email,
 					Birth: data.Birth,
 				};
+				if (registrationId) {
+					DataSend.RegisterId = registrationId;
+					DataSend.LastOs = window.cordova.platformId;
+				}
 				final_data = {
 					Data: DataSend,
 					Action: "Flow",
@@ -101,6 +118,10 @@ class ServerManagerClass {
 					Link: data.picture.data.url,
 					Token: data.id,
 				};
+				if (registrationId) {
+					DataSend.RegisterId = registrationId;
+					DataSend.LastOs = window.cordova.platformId;
+				}
 				final_data = {
 					Data: DataSend,
 					Action: "Facebook",
@@ -128,6 +149,10 @@ class ServerManagerClass {
 					Link: data.imageUrl,
 					Token: data.userId,
 				};
+				if (registrationId) {
+					DataSend.RegisterId = registrationId;
+					DataSend.LastOs = window.cordova.platformId;
+				}
 				final_data = {
 					Data: DataSend,
 					Action: "Google",
@@ -141,6 +166,10 @@ class ServerManagerClass {
 					Biographie: data.description,
 					Token: String(data.id),
 				};
+				if (registrationId) {
+					DataSend.RegisterId = registrationId;
+					DataSend.LastOs = window.cordova.platformId;
+				}
 				final_data = {
 					Data: DataSend,
 					Action: "Twitter",
@@ -167,13 +196,17 @@ class ServerManagerClass {
 					Biographie: data.bio,
 					Token: data.id,
 				};
+				if (registrationId) {
+					DataSend.RegisterId = registrationId;
+					DataSend.LastOs = window.cordova.platformId;
+				}
 				final_data = {
 					Data: DataSend,
 					Action: "Apple",
 				};
 				break;
 			default:
-				////console.log("Error in parameters sent to Connect() in ServerManager.");
+			////console.log("Error in parameters sent to Connect() in ServerManager.");
 		}
 		console.log(final_data);
 		$.ajax({
@@ -183,12 +216,17 @@ class ServerManagerClass {
 			success: function (response) {
 				//// //console.log("Connection success : ");
 				console.log(response);
-				storeVariables(response);
-				ConnectUser(response);
+				if (response && response.PrivateId) {
+					storeVariables(response);
+					ConnectUser(response);
+				}
+				else {
+					window.localStorage.setItem("unregistered_user_token", response.TokenId);
+				}
 			},
 			error: function (response) {
-				//// //console.log("Connection error : ");
-				//// //console.log(response);
+				console.log("Connection error : ");
+				console.log(response);
 			},
 		});
 	}
@@ -306,7 +344,7 @@ class ServerManagerClass {
 			success: function (response) {
 				check_app_version(response.Data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -323,7 +361,7 @@ class ServerManagerClass {
 			success: function (response) {
 				//console.log("User last connexion updated");
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -700,7 +738,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -724,7 +762,7 @@ class ServerManagerClass {
 					}
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -741,7 +779,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowUserFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -756,7 +794,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyInfosUser(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -772,7 +810,7 @@ class ServerManagerClass {
 				////console.log("on recup le getInfosUserNumber");
 				ShowInfosUserNumber(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -800,7 +838,7 @@ class ServerManagerClass {
 					ShowUserProfile(response);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -823,7 +861,7 @@ class ServerManagerClass {
 				////console.log(response);
 				UpdateFollowersList(response, data.follow_list);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -854,7 +892,7 @@ class ServerManagerClass {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -874,7 +912,7 @@ class ServerManagerClass {
 				// myApp.pullToRefreshTrigger(ptrContent);
 				callback(response, data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1161,6 +1199,33 @@ class ServerManagerClass {
 		});
 	}
 
+
+	IsRegisterExist(data) {
+		let final_data = {
+			Data: data,
+			Action: "IsRegisterExist"
+		};
+		//// //console.log(final_data.Data);
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.IsRegisterExist,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				console.log("La reponse du IsRegisterExist est : ");
+				console.log(response);
+				if (response.Data == false) {
+					ServerManager.Connect('unregistered', {});
+				}
+			},
+			error: function (response) {
+				////console.log("registerId update error : ");
+				////console.log(response);
+				//// //console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
+			},
+		});
+	}
+
+
 	AddNotificationToUser(data) {
 		let final_data = {
 			Data: data,
@@ -1212,7 +1277,7 @@ class ServerManagerClass {
 	UpdateNotificationToView(data) {
 		let final_data = {
 			Data: data,
-			TokenId: window.localStorage.getItem("user_token"),
+			TokenId: window.localStorage.getItem("user_token")
 		};
 		////console.log(final_data);
 		$.ajax({
@@ -1271,7 +1336,7 @@ class ServerManagerClass {
 				ServerManager.UpdateRegisterId(data);*/
 				//console.log(registrationId);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1522,7 +1587,7 @@ class ServerManagerClass {
 			},
 			error: function (response) {
 				////console.log(response);
-			},
+			}
 		});
 	}
 
@@ -1630,11 +1695,17 @@ class ServerManagerClass {
 
 	AddViewFlow(data) {
 		let final_data = {
-			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
 				ObjectId: data,
-			},
+			}
 		};
+		if (window.localStorage.getItem("user_token")) {
+			final_data.TokenId = window.localStorage.getItem("user_token");
+		}
+		else {
+			final_data.TokenId = window.localStorage.getItem("unregistered_user_token");
+		}
+
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.AddViewFlow,

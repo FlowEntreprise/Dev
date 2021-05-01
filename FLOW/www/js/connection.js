@@ -68,25 +68,6 @@ function ConnectUser(data) {
             }
         });
 
-        /*console.log("le mail pour firebase est :" + Email);
-        console.log("le password pour firebase est :" + password);
-        firebase.auth().signInWithEmailAndPassword(Email, password).then(user => {
-            ServerManager.AddUserToFirebase(data);
-        }).catch((error) => {
-            console.log("Error sign in firebase :");
-            console.log(error.code);
-            console.log(error.message);
-            if (error.code) {
-                firebase.auth().createUserWithEmailAndPassword(Email, password).then(user => {
-                    ServerManager.AddUserToFirebase(data);
-                }).catch((error) => {
-                    console.log("Error create in firebase :");
-                    console.log(error.code);
-                    console.log(error.message);
-                });
-            }
-        });*/
-
         $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
     }, 200);
     ServerManager.GetVersionProtocol();
