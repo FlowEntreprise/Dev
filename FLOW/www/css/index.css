@@ -99,6 +99,31 @@ textarea {
     background-image: url("../src/icons/FLOW@3x.png");
     transition-duration: 1s;
 } */
+
+.navbar_red_dot {
+	position: absolute;
+	margin-top: 5px;
+	width: 5vw;
+	height: 5vw;
+	border-radius: 5vw;
+	background-color: #FF0054;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 10px;
+	font-weight: 600;
+}
+
+#navbar_red_dot_message {
+	right: 24vw;
+}
+
+#navbar_red_dot_notification {
+	right: 5vw;
+}
+
+
 .f_in_app_notif {
 	position: absolute;
 	width: 85vw;
@@ -187,8 +212,10 @@ ul {
 
 #div_new_features {
 	position: absolute;
-	width: 80vw;
+	width: calc(80vw - 20px);
 	height: calc(50 * var(--custom-vh));
+	padding-left: 10px;
+	padding-right: 10px;
 	background-color: #fff;
 	z-index: 999;
 	top: calc(25 * var(--custom-vh));
@@ -209,7 +236,8 @@ ul {
 #paragraphe_div_new_feature {
 	position: relative;
 	top: 0vh;
-	left: 5vw;
+	left: calc(5vw - 10px);
+	margin-left: -10px;
 	vertical-align: middle;
 	display: table-cell;
 	height: calc(35 * var(--custom-vh));
@@ -221,7 +249,7 @@ ul {
 #paragraphe_div_new_feature>.img1 {
 	padding-top: 5px;
 	padding-bottom: 10px;
-	height: 16vh;
+	height: 20vh;
 	width: 100%;
 	object-fit: contain;
 }
@@ -510,6 +538,7 @@ ul {
 	z-index: 2;
 	transition-duration: 0.3s;
 	transform: translate3d(0, 0, 0);
+	/* opacity: 0.25; */
 	/* display: none; */
 }
 

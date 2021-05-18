@@ -55,8 +55,8 @@ function setupFDJ() {
                     block_user: block_user_fdj
                 };
                 ServerManager.ActionFollow(data_user, function (response, data) {
-                    ServerManager.GetFDJ();
-                    RefreshTL();
+                    // ServerManager.GetFDJ();
+                    // RefreshTL();rmTL
                 });
 
             } else {
@@ -149,20 +149,20 @@ function initFDJParticles() {
         }
         return results;
     }();
-    window.step = function () {
-        if (canPlayFDJParticles) {
-            FDJplaying = true;
-            var c, j, len, results;
-            requestAnimationFrame(step);
-            context.clearRect(0, 0, w, h);
-            results = [];
-            for (j = 0, len = confetti.length; j < len; j++) {
-                c = confetti[j];
-                results.push(c.draw());
-            }
-            return results;
-        }
-    };
+    // window.step = function () {
+    //     if (canPlayFDJParticles) {
+    //         FDJplaying = true;
+    //         var c, j, len, results;
+    //         requestAnimationFrame(step);
+    //         context.clearRect(0, 0, w, h);
+    //         results = [];
+    //         for (j = 0, len = confetti.length; j < len; j++) {
+    //             c = confetti[j];
+    //             results.push(c.draw());
+    //         }
+    //         return results;
+    //     }
+    // };
 
 }
 
@@ -189,7 +189,8 @@ function stopFDJParticles() {
 }
 
 
-function showRandomFlow(data) {
+function showRandomFlow(data, discover) {
+    if (discover) showRandomDiscover(data);
     if (!showingFDJ) {
         if (!data.Data) {
             gettingRandomFlow = false;
@@ -402,7 +403,7 @@ function GetRandomFlow() {
         let tmp_random_excluded = window.localStorage.getItem("random_excluded");
         if (!tmp_random_excluded) randomExcluded = [];
         else randomExcluded = tmp_random_excluded.split(",");
-        ServerManager.GetRandomFlow(randomExcluded);
+        ServerManager.GetRandomFlow(randomExcluded, false);
         stopAllBlocksAudio();
     }
 }

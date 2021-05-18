@@ -6,12 +6,12 @@ var NotificationListCurrentIndex = 0;
 var notification_list_empty = true;
 
 function notifications_tab_loaded() {
-    $(".fnotif-btn").on("click", function () {
+    $(".notifications_btn").on("click", function () {
         // var home_scrolling = false;
         if (current_page == "notifications") {
 
             set_all_notifs_to_seen();
-            let element = document.getElementById("tab4");
+            let element = document.querySelector(".notifications_parent");
             // element.onscroll = function() {
             //     home_scrolling = true;
             // };
@@ -67,6 +67,8 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
         this.Id_response = data.additionalData.sender_info.Id_response;
         this.seen = false;
         this.type = data.additionalData.type;
+        this.id_notif = data.additionalData.IdNotif;
+
         //if(this.like_comment == "like_comment")
         //{this.message = data.additionalData.sender_info.comment_text;}
     } else {
@@ -77,6 +79,7 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
         this.private_Id = data.PrivateId;
         this.time = data.Time;
         this.type = data.TypeOfNotification;
+        this.id_notif = this.type = data.IdNotif;
         if (data.TypeOfNotification == "like_comment" || data.TypeOfNotification == "send_comment") {
             this.Id_comment = data.ObjectId;
         }
@@ -195,7 +198,7 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
         $(block_notification_like.fred_dot_border).css('display', 'none');
         console.log("le point rouge shoud disparaitre pour de la notif de like");
         set_seen(block_notification_like);
-        check_seen();
+        notification_check_seen();
         $(".flow_specifique_container").html("");
 
         // c'est like_comment partout mais ça devrait etre juste le type de like
@@ -273,7 +276,7 @@ function block_notification_echo(data) {
     $(this.block_notification_echo).on("click", function () {
         $(block_notification_echo.fred_dot_border).css('display', 'none');
         set_seen(block_notification_echo);
-        check_seen();
+        notification_check_seen();
     });
 
 }
@@ -292,6 +295,7 @@ function block_notification_comment(data) {
         this.Id_comment = data.additionalData.sender_info.Id_comment;
         this.seen = false;
         this.type = data.additionalData.type;
+        this.id_notif = data.additionalData.IdNotif;
 
     } else {
         this.full_name = data.FullName;
@@ -303,6 +307,7 @@ function block_notification_comment(data) {
         this.seen = !!+data.IsView;
         this.IdNotif = data.IdNotif;
         this.type = data.TypeOfNotification;
+        this.id_notif = this.type = data.IdNotif;
         if (data.TypeOfNotification == "like_comment" || data.TypeOfNotification == "send_comment") {
             this.Id_comment = data.ObjectId;
         }
@@ -374,7 +379,7 @@ function block_notification_comment(data) {
         $(loading_before_popup_specifique).css("top", "46vh");
         $(block_notification_comment.fred_dot_border).css('display', 'none');
         set_seen(block_notification_comment);
-        check_seen();
+        notification_check_seen();
         $(".flow_specifique_container").html("");
         if (block_notification_comment.Id_comment) {
             let data_single_comment = {
@@ -421,6 +426,7 @@ function block_notification_follow(data) {
         this.IdFlow = data.additionalData.sender_info.IdFlow;
         this.seen = false;
         this.type = data.additionalData.type;
+        this.id_notif = data.additionalData.IdNotif;
     } else {
         this.full_name = data.FullName;
         this.message = data.Content;
@@ -432,6 +438,7 @@ function block_notification_follow(data) {
         this.seen = !!+data.IsView;
         this.IdNotif = data.IdNotif;
         this.type = data.TypeOfNotification;
+        this.id_notif = this.type = data.IdNotif;
     }
     if (this.message.length > 28) this.message = this.message.substring(0, 28) + "...";
     this.block_notification_follow = document.createElement('div');
@@ -476,7 +483,7 @@ function block_notification_follow(data) {
     $(this.block_notification_follow).on("click", function () {
         $(block_notification_follow.fred_dot_border).css('display', 'none');
         set_seen(block_notification_follow);
-        check_seen();
+        notification_check_seen();
         /* $(".flow_specifique_container").html("");
          let myApp = new Framework7();
          let data_flow = {
@@ -518,6 +525,7 @@ function block_notification_story_comment(data) {
         this.IdFlow = data.additionalData.sender_info.IdFlow;
         this.seen = false;
         this.type = data.additionalData.type;
+        this.id_notif = data.additionalData.IdNotif;
     } else {
         this.full_name = data.FullName;
         this.message = data.Content;
@@ -529,6 +537,7 @@ function block_notification_story_comment(data) {
         this.seen = !!+data.IsView;
         this.IdNotif = data.IdNotif;
         this.type = data.TypeOfNotification;
+        this.id_notif = this.type = data.IdNotif;
     }
     if (this.message.length > 28) this.message = this.message.substring(0, 28) + "...";
     this.block_notification_story_comment = document.createElement('div');
@@ -576,7 +585,7 @@ function block_notification_story_comment(data) {
     $(this.block_notification_story_comment).on("click", function () {
         $(block_notification_story_comment.fred_dot_border).css('display', 'none');
         set_seen(block_notification_story_comment);
-        check_seen();
+        notification_check_seen();
         /* $(".flow_specifique_container").html("");
          let myApp = new Framework7();
          let data_flow = {
@@ -608,7 +617,7 @@ function refresh_notif(set_to_seen) {
         Index: 0,
     };
     NotificationListCurrentIndex = 0;
-    all_notifications_block.length = 0;
+    //all_notifications_block.length = 0;
     ServerManager.GetNotificationOfUser(data_notification, set_to_seen);
 }
 
@@ -620,12 +629,10 @@ function set_all_notifs_to_seen() {
         if (all_notifications_block[i].seen != true) {
             ServerManager.UpdateNotificationToView(data_notif_seen);
             all_notifications_block[i].seen = true;
-            if (all_notifications_block[i].fred_dot_border) {
-                all_notifications_block[i].fred_dot_border.remove();
-            }
         }
     }
-    $(".fred_dot_toolbar_new_notif").css("display", "none");
+    $(".fred_dot_border").remove();
+    $("#navbar_red_dot_notification").css("display", "none");
 }
 
 function show_specifique_element_for_comment_button(notif_block) {
@@ -653,7 +660,7 @@ function show_specifique_element_for_comment_button(notif_block) {
 }
 
 function UpdateNotificationList(data, set_to_seen) {
-    console.log("updating notification list...");
+    // console.log("updating notification list...");
     // console.log(data.Data);
     if (Array.isArray(data.Data)) {
         if (data.Data.length > 0) {
@@ -670,6 +677,7 @@ function UpdateNotificationList(data, set_to_seen) {
         }
         for (let i = 0; i < data.Data.length; i++) {
             pop_notif_block(data.Data[i]);
+            notification_check_seen();
         }
         NotificationListCurrentIndex++;
         if ($(".loading_tl")) $(".loading_tl").remove();
@@ -700,21 +708,35 @@ function UpdateNotificationList(data, set_to_seen) {
 
 //fonction qui permet de faire disparaitre le point rouge de l'iconne de notifications
 //quand toute les notifications on été consulté
-function check_seen() {
-
-    let all_notifications_block_without_doublon;
+function notification_check_seen() {
+    /*let all_notifications_block_without_doublon;
     var cache = {};
     all_notifications_block_without_doublon = all_notifications_block.filter(function (elem, index, array) {
         return cache[elem.IdNotif] ? 0 : cache[elem.IdNotif] = 1;
-    });
+    });*/
 
-    $(".fred_dot_toolbar_new_notif").css('display', 'none');
-
-    for (var i = 0; i < all_notifications_block_without_doublon.length; i++) {
-        if (all_notifications_block_without_doublon[i].seen == false) {
-            $(".fred_dot_toolbar_new_notif").css('display', 'block');
+    let number_of_notif_unseen = 0;
+    for (let i = 0; i < all_notifications_block.length; i++) {
+        if (all_notifications_block[i].seen == false) {
+            number_of_notif_unseen++;
         }
+
+        if (i == all_notifications_block.length - 1) {
+            if (number_of_notif_unseen > 0) {
+                if (number_of_notif_unseen > 99) {
+                    $("#navbar_red_dot_notification").text("+99");
+                } else {
+                    $("#navbar_red_dot_notification").text(number_of_notif_unseen);
+                }
+                $("#navbar_red_dot_notification").css("display", "flex");
+            }
+            if (number_of_notif_unseen < 1) {
+                $("#navbar_red_dot_notification").css("display", "none");
+            }
+        }
+
     }
+
 
 }
 
@@ -734,32 +756,33 @@ function set_seen(object) {
 
 //fonction qui permet de creer les blocs de notifs
 function push_notif_block(notification_type, like_type) {
-
+    // like_type est enfait les datas de la notif
     if (like_type.IsView == "0") {
         $(".fred_dot_toolbar_new_notif").css('display', 'block');
     }
     switch (notification_type) {
         case 'like':
-            var new_notif_like = new block_notification_like(like_type);
-            all_notifications_block.push(new_notif_like);
+            let new_notif_like = new block_notification_like(like_type);
+            if (!all_notifications_block.some(notif => notif.IdNotif === like_type.IdNotif)) all_notifications_block.push(new_notif_like);
+
             break;
         case 'echo':
-            var new_notif_echo = new block_notification_echo(like_type);
-            all_notifications_block.push(new_notif_echo);
+            let new_notif_echo = new block_notification_echo(like_type);
+            if (!all_notifications_block.some(notif => notif.IdNotif === like_type.IdNotif)) all_notifications_block.push(new_notif_echo);
             break;
         case 'comment':
-            var new_notif_comment = new block_notification_comment(like_type);
-            all_notifications_block.push(new_notif_comment);
+            let new_notif_comment = new block_notification_comment(like_type);
+            if (!all_notifications_block.some(notif => notif.IdNotif === like_type.IdNotif)) all_notifications_block.push(new_notif_comment);
             break;
 
         case 'follow':
-            var new_notif_follow = new block_notification_follow(like_type);
-            all_notifications_block.push(new_notif_follow);
+            let new_notif_follow = new block_notification_follow(like_type);
+            if (!all_notifications_block.some(notif => notif.IdNotif === like_type.IdNotif)) all_notifications_block.push(new_notif_follow);
             break;
 
         case 'story_comment':
-            var new_notif_story_comment = new block_notification_story_comment(like_type);
-            all_notifications_block.push(new_notif_story_comment);
+            let new_notif_story_comment = new block_notification_story_comment(like_type);
+            if (!all_notifications_block.some(notif => notif.IdNotif === like_type.IdNotif)) all_notifications_block.push(new_notif_story_comment);
             break;
     }
 }
@@ -781,8 +804,8 @@ function send_notif_to_user(block, type) {
         comment_text: block.Comment_text, // texte commentaire genre le vrai commenaire t'a capté
         like_comment_text: block.fcomment_text, // texte lorsque l'on like un commentaire
         IdFlow: prepare_id_flow == undefined ? prepare_id_flow = "undefined" : prepare_id_flow,
-        Id_comment: block.IdComment /*? block.ObjectId : undefined*/,
-        Id_response: block.Idresponse /*? block.ObjectId : undefined*/,
+        Id_comment: block.IdComment /*? block.ObjectId : undefined*/ ,
+        Id_response: block.Idresponse /*? block.ObjectId : undefined*/ ,
         tag_in_flow: block.tag_in_flow
     };
     if (sender_info.comment_text == undefined) {
@@ -1021,6 +1044,11 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
             $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
             break;
 
+        case 'report_dm':
+            $(".flabel_in_app_notif").text("Ce message a bien été signalé");
+            $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
+            break;
+
         case 'delete_flow':
             $(".flabel_in_app_notif").text("Ce flow a bien été supprimé");
             $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
@@ -1052,8 +1080,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
 
     if (current_page == "messages" && data.additionalData.type == 'send_message' || InPopupMessage == true) {
         // Il est tard je suis fatigué et ne sais plus faire l'inverse d'un ou logique
-    }
-    else {
+    } else {
         $(".f_in_app_notif").css("bottom", "12.5vh");
     }
     setTimeout(function () {

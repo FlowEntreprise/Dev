@@ -20,9 +20,10 @@ function setupApp() {
 
     $(".explore_tab").load("pages/explore.html", function () {
         explore_tab_loaded();
-        initMainTopbar(document.querySelector(".top50"));
-        initMainTopbar(document.querySelector(".recents"));
-        setupFDJ();
+        // initMainTopbar(document.querySelector(".top50"));
+        // initMainTopbar(document.querySelector(".recents"));
+        // setupFDJ();
+        // setupDiscover();
         // initialize explore swiper
         // explore_swiper = new Swiper('.explore_tabs');
     });
@@ -36,7 +37,10 @@ function setupApp() {
     });
 
     // initialize pages_swiper
-    pages_swiper = new Swiper('.main_pages');
+    pages_swiper = new Swiper('.main_pages', {
+        initialSlide: 1
+    });
+
     pages_swiper.on("slideChange", pageHasChanged);
     pages_swiper.on("sliderMove", function () {
         canRegisterPTR = false
@@ -45,16 +49,25 @@ function setupApp() {
         canRegisterPTR = true
     });
 
+    pages_swiper.init();
+
+    setTimeout(function () {
+        // pages_swiper.slideTo(1);
+        inExplore();
+        pageHasChanged();
+    }, 800);
+
     // initialize myaccount_swiper
     myaccount_swiper = new Swiper('.ftabsMonCompte');
     // initialize account_swiper
     account_swiper = new Swiper('.ftabsAccount');
 
     // initialize new features popup
-    console.log
     if (window.localStorage.getItem("new_features_version") != AppVersion.version) {
 
-        // Exception pour cette version : pas de popup nouveautés :
+        in_new_features = true;
+
+        //Exception pour cette version: pas de popup nouveautés:
         $(".fred_dot_toolbar_fdj").css("display", "none");
         $(".fred_dot_toolbar_explore").css("display", "none");
         $("#div_new_features").css("display", "block");
@@ -81,9 +94,9 @@ function setupApp() {
         }, 7000);
 
         // Discornect user if needed 
-        setTimeout(function () {
-            DisconnectUser();
-        }, 500);
+        // setTimeout(function () {
+        //     DisconnectUser();
+        // }, 500);
     } else {
         $(".fred_dot_toolbar_fdj").css("display", "none");
         $(".fred_dot_toolbar_explore").css("display", "none");
@@ -125,7 +138,7 @@ function hideTopBar(element) {
 // when pages_swiper changed
 function pageHasChanged() {
     let current_page_index = pages_swiper.activeIndex;
-    console.log(current_page_index);
+    // console.log(current_page_index);
     let home_btn = $(".home_btn");
     let explore_btn = $(".explore_btn");
     let messages_btn = $(".messages_btn");

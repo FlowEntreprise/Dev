@@ -315,17 +315,20 @@ function SpawnStoryWindow(story_block) {
             // OR
             tryLoadStory(story_index, storyFlow_index);
             showStoryMain(false);
+            var fstory_addcomment_btn = document.getElementsByClassName("fstory_addcomment_btn")[0];
 
-            $('.fstory_addcomment_btn').longpress(function () {
+            fstory_addcomment_btn.addEventListener('long-press', function (e) {
                 if (connected) {
                     record_was_hold = true;
                     stop_comments();
                     startCapture();
-                    $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")"
+                    $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")";
                 } else {
                     Popup("popup-connect", true, 60);
                 }
             });
+
+
             $('.fstory_addcomment_btn').on('click', function () {
                 if (recording) {
                     console.log("stop recording");
@@ -678,7 +681,7 @@ function loadStory(story_index, storyFlow_index) {
     let local_story = FlowLoader.DownloadFlow(story_data[story_index].data[storyFlow_index].audio_src);
     local_story.OnReady(function (url) {
         console.log("local url : " + url);
-        current_story_audio = new Media(url, function () {}, function () {}, storyAudioStatus);
+        current_story_audio = new Media(url, function () { }, function () { }, storyAudioStatus);
 
         function storyAudioStatus(status) {
             console.log("A status change occurred: " + status);

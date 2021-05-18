@@ -12,27 +12,28 @@ let searching_flows = false;
 function explore_tab_loaded() {
 
 	// Initilize top50 pull to refresh
-	top50_ptr = setupPTR(document.querySelector(".top50"), function () {
-		RefreshExplore();
-	});
+	// top50_ptr = setupPTR(document.querySelector(".top50"), function () {
+	// 	RefreshExplore();
+	// });
 
 	// Initilize recents pull to refresh
-	recents_ptr = setupPTR(document.querySelector(".recents"), function () {
-		RefreshExplore();
-	});
+	// recents_ptr = setupPTR(document.querySelector(".recents"), function () {
+	// RefreshExplore();
+	// });
 
 	// Initialize search_bar events 
 	$(".fsearch-bar")[0].addEventListener("focus", function () {
 		// app.destroyPullToRefresh(ptrContent_explore);
 		$(".search_results")[0].style.opacity = 1;
 		$(".search_results")[0].style.pointerEvents = "auto";
-		$(".list-block-top50")[0].style.opacity = 0;
-		$(".list-block-top50")[0].style.display = "none";
-		$(".list-block-top50")[0].style.pointerEvents = "none";
-		$(".list-block-recents")[0].style.opacity = 0;
-		$(".list-block-recents")[0].style.display = "none";
-		$(".list-block-recents")[0].style.pointerEvents = "none";
-		$(".fdj_parent")[0].style.display = "none";
+		// $(".list-block-top50")[0].style.opacity = 0;
+		// $(".list-block-top50")[0].style.display = "none";
+		// $(".list-block-top50")[0].style.pointerEvents = "none";
+		// $(".list-block-recents")[0].style.opacity = 0;
+		// $(".list-block-recents")[0].style.display = "none";
+		// $(".list-block-recents")[0].style.pointerEvents = "none";
+		// $(".fdj_parent")[0].style.display = "none";
+		$(".swiper-container.discover")[0].style.display = "none";
 
 		// $(".list-block-top50")[0].innerHTML = "";
 		exploreCurrentIndex = 0;
@@ -51,14 +52,15 @@ function explore_tab_loaded() {
 			// app.initPullToRefresh(ptrContent_explore);
 			$(".search_results")[0].style.opacity = 0;
 			$(".search_results")[0].style.pointerEvents = "none";
-			$(".list-block-top50")[0].style.opacity = 1;
-			$(".list-block-top50")[0].style.display = "block";
-			$(".list-block-top50")[0].style.pointerEvents = "auto";
-			$(".list-block-recents")[0].style.opacity = 1;
-			$(".list-block-recents")[0].style.display = "block";
-			$(".list-block-recents")[0].style.pointerEvents = "auto";
+			// $(".list-block-top50")[0].style.opacity = 1;
+			// $(".list-block-top50")[0].style.display = "block";
+			// $(".list-block-top50")[0].style.pointerEvents = "auto";
+			// $(".list-block-recents")[0].style.opacity = 1;
+			// $(".list-block-recents")[0].style.display = "block";
+			// $(".list-block-recents")[0].style.pointerEvents = "auto";
 			$(".explore-swiper")[0].style.display = "block";
-			$(".fdj_parent")[0].style.display = "block";
+			// $(".fdj_parent")[0].style.display = "block";
+			$(".swiper-container.discover")[0].style.display = "block";
 		}
 	});
 	$(".search_back")[0].addEventListener("touchend", function () {
@@ -84,22 +86,23 @@ function explore_tab_loaded() {
 	$(".fexplore-btn").on("touchend", function () {
 		// var home_scrolling = false;
 		$(".fred_dot_toolbar_explore").css("display", "none");
-		if (current_page == "explore") {
-			let element = document.getElementById("tab2");
-			// element.onscroll = function() {
-			//     home_scrolling = true;
-			// };
-			let last_scrollTop = element.scrollTop;
-			const scrollToTop = () => {
-				const c = element.scrollTop;
-				if (c > 0 && c <= last_scrollTop) {
-					window.requestAnimationFrame(scrollToTop);
-					element.scrollTo(0, c - c / 8);
-					last_scrollTop = c;
-				}
-			};
-			scrollToTop();
-		}
+		// if (current_page == "explore") {
+		// 	let element = document.getElementById("tab2");
+		// 	// element.onscroll = function() {
+		// 	//     home_scrolling = true;
+		// 	// };
+		// 	let last_scrollTop = element.scrollTop;
+		// 	const scrollToTop = () => {
+		// 		const c = element.scrollTop;
+		// 		if (c > 0 && c <= last_scrollTop) {
+		// 			window.requestAnimationFrame(scrollToTop);
+		// 			element.scrollTo(0, c - c / 8);
+		// 			last_scrollTop = c;
+		// 		}
+		// 	};
+		// 	scrollToTop();
+		// }
+		explore_swiper.slideTo(0);
 	});
 
 	// Scroll loading infos 
@@ -167,14 +170,14 @@ function explore_tab_loaded() {
 		Index: exploreCurrentIndex,
 	};
 
-	ServerManager.GetTop50(data1);
+	// ServerManager.GetTop50(data1);
 
 	let data2 = {
 		Index: recentsCurrentIndex,
 	};
-	ServerManager.GetNewFlows(data2);
+	// ServerManager.GetNewFlows(data2);
 
-	ServerManager.GetFDJ();
+	// ServerManager.GetFDJ();
 
 	$(".show_more_users")[0].addEventListener("touchend", function () {
 		ShowMoreUsers();
@@ -242,15 +245,16 @@ function back_search() {
 	// app.initPullToRefresh(ptrContent_explore);
 	$(".search_results")[0].style.opacity = 0;
 	$(".search_results")[0].style.pointerEvents = "none";
-	$(".list-block-top50")[0].style.opacity = 1;
-	$(".list-block-top50")[0].style.display = "block";
-	$(".list-block-top50")[0].style.pointerEvents = "auto";
-	$(".list-block-recents")[0].style.opacity = 1;
-	$(".list-block-recents")[0].style.display = "block";
-	$(".list-block-recents")[0].style.pointerEvents = "auto";
+	// $(".list-block-top50")[0].style.opacity = 1;
+	// $(".list-block-top50")[0].style.display = "block";
+	// $(".list-block-top50")[0].style.pointerEvents = "auto";
+	// $(".list-block-recents")[0].style.opacity = 1;
+	// $(".list-block-recents")[0].style.display = "block";
+	// $(".list-block-recents")[0].style.pointerEvents = "auto";
 	$(".explore-swiper")[0].style.display = "block";
 	$(".search_back")[0].style.display = "none";
-	$(".fdj_parent")[0].style.display = "block";
+	// $(".fdj_parent")[0].style.display = "block";
+	$(".swiper-container.discover")[0].style.display = "block";
 	searching = false;
 	$(".fsearch-bar").blur();
 	$(".fsearch-bar")[0].value = "";
@@ -260,9 +264,9 @@ function back_search() {
 }
 
 var ptrContent_explore = $("#tab2");
-ptrContent_explore.on("ptr:refresh", function (e) {
-	RefreshExplore();
-});
+// ptrContent_explore.on("ptr:refresh", function (e) {
+// 	RefreshExplore();
+// });
 
 function RefreshExplore() {
 	console.log("refreshing...");
@@ -271,16 +275,16 @@ function RefreshExplore() {
 	let data1 = {
 		Index: exploreCurrentIndex,
 	};
-	ServerManager.GetTop50(data1);
+	// ServerManager.GetTop50(data1);
 
 	recentsCurrentIndex = 0;
 	let data2 = {
 		Index: recentsCurrentIndex,
 	};
-	ServerManager.GetNewFlows(data2);
+	// ServerManager.GetNewFlows(data2);
 
 	// ServerManager.GetRandomFlow(randomExcluded);
-	ServerManager.GetFDJ();
+	// ServerManager.GetFDJ();
 }
 
 function RefreshSearch() {
@@ -634,10 +638,10 @@ function UpdateRecents(data, data_block_user) {
 		setTimeout(function () {
 			// if ($(".loading_tl")) $(".loading_tl").remove();
 			if (recentsCurrentIndex == 0) {
-				$(".list-block-recents")[0].innerHTML = "";
+				// $(".list-block-recents")[0].innerHTML = "";
 				let loading_tl = document.createElement("div");
 				loading_tl.className = "loading-spinner loading_tl";
-				$(".list-block-recents")[0].appendChild(loading_tl);
+				// $(".list-block-recents")[0].appendChild(loading_tl);
 			}
 			console.log(data);
 			for (let i = 0; i < data.length; i++) {
@@ -650,7 +654,7 @@ function UpdateRecents(data, data_block_user) {
 							if (flow.Background.PatternKey)
 								pattern_key = flow.Background.PatternKey;
 							let block_params = {
-								parent_element: $(".list-block-recents")[0],
+								// parent_element: $(".list-block-recents")[0],
 								afterblock: false,
 								audioURL: flow.Audio,
 								duration: flow.Duration,
@@ -682,7 +686,7 @@ function UpdateRecents(data, data_block_user) {
 					if (flow.Background.PatternKey)
 						pattern_key = flow.Background.PatternKey;
 					let block_params = {
-						parent_element: $(".list-block-recents")[0],
+						// parent_element: $(".list-block-recents")[0],
 						afterblock: false,
 						audioURL: flow.Audio,
 						duration: flow.Duration,
@@ -715,12 +719,12 @@ function UpdateRecents(data, data_block_user) {
 				canRefreshRecents = false;
 				let tick_tl = document.createElement("div");
 				tick_tl.className = "tick_icon";
-				$(".list-block-recents")[0].appendChild(tick_tl);
+				// $(".list-block-recents")[0].appendChild(tick_tl);
 			} else {
 				canRefreshRecents = true;
 				let loading_tl = document.createElement("div");
 				loading_tl.className = "loading-spinner loading_tl";
-				$(".list-block-recents")[0].appendChild(loading_tl);
+				// $(".list-block-recents")[0].appendChild(loading_tl);
 			}
 		}, 500);
 	} else {

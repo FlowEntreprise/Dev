@@ -256,6 +256,7 @@ function messages_tab_loaded() {
     document.getElementById("popup-message").addEventListener("opened", function () {
         InPopupMessage = true;
         can_load_more_message = true;
+        ServerManager.GetBlockedUsers(data = {}, 'dm');
         $("#div_send_message").css("transform", "translate3d(0vw, 0, 0)");
         $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
         current_page = "dm_messages";
@@ -270,6 +271,7 @@ function messages_tab_loaded() {
         previous_message = {};
         first_message = {};
         $(".loading_message").remove();
+        $("#div_user_blocked_message").css("display", "none");
         firebase.database().ref(FirebaseEnvironment + "/messages/" + current_block_chat.chat_id).off();
         firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id + '/last_message/seen_by').off();
         firebase.database().ref(FirebaseEnvironment + '/chats/' + current_block_chat.chat_id).orderByChild('is_typing').off();
@@ -313,6 +315,7 @@ function block_chat(data) {
 
     $(this.block_chat).on("click", function () {
         current_block_chat = block_chat;
+        block_chat.is_seen = true;
         $(current_block_chat.block_chat).css("background-color", "#fff");
         $(".fred_dot_toolbar_new_message").css("display", "none");
         data_dm = {
@@ -323,16 +326,19 @@ function block_chat(data) {
             message_id: current_block_chat.block_chat_last_message.message_id
         };
         console.log(" Data DM :");
-        console.log(data_dm);
         ServerManager.SetMessageToSeen(data_dm);
+        check_block_chat_seen();
         //live_chat(data_dm.chat_id);
         setup_popup_message(data_dm, true);
     });
 
-    $(this.block_chat).on("taphold", function () {
-        current_block_chat = block_chat;
-        delete_chat_from_html();
-    });
+    /*$(this.block_chat).on("taphold", function () {
+        delete_block_conversation(block_chat);
+    });*/
+
+    /*this.block_chat.addEventListener('long-press', function (e) {
+        delete_block_conversation(block_chat);
+    });*/
 
     this.fphoto_block_chat = document.createElement('div');
     this.fphoto_block_chat.className = 'fphoto_block_chat';
@@ -346,9 +352,14 @@ function block_chat(data) {
 
     this.fblock_chat_text = document.createElement('label');
     this.fblock_chat_text.className = 'fblock_chat_text';
-    this.fblock_chat_text.innerText = this.block_chat_last_message.message;
-    this.block_chat.appendChild(this.fblock_chat_text);
+    if (this.block_chat_last_message.deleted) {
+        this.fblock_chat_text.innerText = "(Ce message a été supprimé)";
+    }
+    else {
 
+        this.fblock_chat_text.innerText = this.block_chat_last_message.message;
+    }
+    this.block_chat.appendChild(this.fblock_chat_text);
     this.fblock_chat_dots = document.createElement("img");
     this.fblock_chat_dots.className = "fblock_chat_dots";
     this.fblock_chat_dots.src = "../www/src/icons/3dots.png";
@@ -367,12 +378,9 @@ function block_chat(data) {
             }
         }
     }
-
-    set_block_chat_seen();
     if (notif_chat_id && notif_chat_id == this.chat_id) {
         $(block_chat.block_chat).trigger("click");
     }
-
 }
 // affichage de la date complete quand il s'est ecoulé plus de 2h entre 2 msg
 function block_message_date(time, prepend) {
@@ -396,7 +404,6 @@ function block_message_seen(data) {
 }
 
 function block_message(data, previous_message) {
-    console.log(data);
     let self = this;
     var block_message = this;
     this.message_id = data.id;
@@ -408,6 +415,7 @@ function block_message(data, previous_message) {
     this.seen_by = data.seen_by;
     this.block_message = document.createElement('li');
     this.image = data.image;
+    this.deleted = data.deleted;
     self.audio_url = data.audio;
 
     this.time_and_seen_container = document.createElement('div');
@@ -431,6 +439,23 @@ function block_message(data, previous_message) {
         this.block_message.className = 'block_message';
         this.time_and_seen_container.innerText = set_timestamp(this.block_message_time, true);
     }
+
+    /*$(this.block_message).on("taphold", function () {
+        console.log("was clicked");
+        current_block_message = block_message;
+        if (self.audio_url.length == 0 && self.image == 0 && block_message.deleted != true) // supression de MON msg text
+        {
+            display_option_for_message(block_message);
+        }
+    });*/
+
+    this.block_message.addEventListener('long-press', function (e) {
+        current_block_message = block_message;
+        if (block_message.deleted != true) // supression de MON msg text
+        {
+            display_option_for_message(block_message);
+        }
+    });
 
     if (!self.audio_url) {
         $(this.block_message_child).text(this.block_message_text);
@@ -483,7 +508,7 @@ function block_message(data, previous_message) {
 
     // });
 
-    if (self.image) {
+    if (self.image && !self.deleted) {
         $(self.block_message_child).text("");
         let image = document.createElement("img");
         image.src = self.image;
@@ -524,7 +549,7 @@ function block_message(data, previous_message) {
             }, 50);
 
         }
-    } else if (self.audio_url) {
+    } else if (self.audio_url && !self.deleted) {
         let upload_custom_key = data.progress_key + current_block_chat.chat_id;
         $("." + upload_custom_key + "").css("display", "none");
         $("#UpdateProgressBar").removeClass(upload_custom_key);
@@ -703,6 +728,11 @@ function block_message(data, previous_message) {
 
     }
 
+    if (this.deleted == true) {
+        $(this.block_message_child).addClass("deleted_block_message");
+        $(this.block_message_child).text("Ce message a été supprimé");
+    }
+
 }
 
 
@@ -710,12 +740,30 @@ function CreateConversation(data) {
     ServerManager.CheckFirstChat(data);
 }
 
-function set_block_chat_seen() {
-    for (let i = 0; i < all_block_chat.length; i++) {
-        if (all_block_chat[i] && all_block_chat[i].is_seen == false) {
-            $(".fred_dot_toolbar_new_message").css("display", "block");
+function check_block_chat_seen() {
+    let number_of_message_unseen = 0;
+    let tab_length = all_block_chat.length - 1;
+    console.log("la taille est :" + tab_length);
+    all_block_chat.forEach(function (elem, index) {
+        if (elem.is_seen == false) {
+            number_of_message_unseen++;
         }
-    }
+        if (index == tab_length) {
+            if (number_of_message_unseen > 0) {
+                if (number_of_message_unseen > 99) {
+                    $("#navbar_red_dot_message").text("+99");
+                }
+                else {
+                    $("#navbar_red_dot_message").text(number_of_message_unseen);
+                }
+                $("#navbar_red_dot_message").css("display", "flex");
+            }
+            if (number_of_message_unseen < 1) {
+                $("#navbar_red_dot_message").css("display", "none");
+            }
+        }
+
+    });
 }
 
 
@@ -759,7 +807,8 @@ function pop_block_chat(data) {
     $(".loading_chat_list").remove();
     // $(".no_conversation_yet").remove();
     let new_block_chat = new block_chat(data);
-    all_block_chat.push(new_block_chat);
+    return new_block_chat;
+    //all_block_chat.push(new_block_chat);
 
 }
 
@@ -1021,7 +1070,26 @@ function UpdateProgressBar(percent, vocal_id) {
     }
 }
 
+function check_if_user_is_blocked(data) {
+    console.log(" user blocked dm : ");
+    console.log(data);
 
+    (data.BlockedByUser).forEach(user => {
+        if (user == current_block_chat.block_chat_member_private_id) {
+            $("#div_user_blocked_message").css("display", "flex");
+            $("#label_user_blocked_message").text("Cet utilisateur vous a bloqué");
+        }
+    });
+
+    (data.UserBlocked).forEach(user => {
+        if (user == current_block_chat.block_chat_member_private_id) {
+            $("#div_user_blocked_message").css("display", "flex");
+            $("#label_user_blocked_message").text("Vous avez bloqué cet utilsateur");
+        }
+    });
+
+
+}
 
 /*------------------------TO DO-----------------------
 - Gestion des vues ----------DONE

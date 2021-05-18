@@ -122,7 +122,7 @@ function block_user(follow_list, target, data) {
 				block_user: block_user,
 			};
 			ServerManager.ActionFollow(data_user, function (response, data) {
-				ServerManager.GetFDJ();
+				// ServerManager.GetFDJ();
 				RefreshTL();
 				FollowResponse(response, data.type, data.block_user);
 			});

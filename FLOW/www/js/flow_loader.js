@@ -3,12 +3,16 @@ class FlowLoaderClass {
         this.flows = [];
     }
 
-    DownloadFlow(url) {
+    DownloadFlow(url, block) {
         let returned_flow = this.flows.filter(flow => (flow.online_url == url));
-        console.log(returned_flow);
         if (returned_flow.length == 0) {
-            let new_flow = new FlowObj(url);
+            let new_flow = new FlowObj(url, block);
             this.flows.push(new_flow);
+            // unload flow if more than 10 in cache
+            if (this.flows.length > 10) {
+                this.flows[0].Unload();
+                this.flows.shift();
+            }
             returned_flow = new_flow;
         } else {
             returned_flow = returned_flow[0];
@@ -18,8 +22,9 @@ class FlowLoaderClass {
 }
 
 class FlowObj {
-    constructor(url) {
+    constructor(url, block) {
         this.online_url = url;
+        this.block = block;
         if (url.includes("blob")) {
             this.fileName = url.replace("blob:file:///", "");
         } else {
@@ -43,16 +48,16 @@ class FlowObj {
     }
 
     LoadFromUrl(url) {
-        console.log(url);
+        // console.log(url);
         let self = this;
         var xhr = new XMLHttpRequest();
-        console.log("downloading flow from online url...");
+        // console.log("downloading flow from online url...");
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
 
         xhr.onload = function () {
             if (this.status == 200) {
-                console.log("flow successfully downloaded !");
+                // console.log("flow successfully downloaded !");
                 var blob = new Blob([this.response], {
                     type: 'audio/mpeg'
                 });
@@ -67,7 +72,7 @@ class FlowObj {
                 // self.ready = true;
                 window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function (dirEntry) {
                     var isAppend = true;
-                    console.log(blob, self.fileName);
+                    // console.log(blob, self.fileName);
                     self.saveFile(dirEntry, blob, self.fileName);
                 }, function (err) {
                     console.error(err);
@@ -97,16 +102,36 @@ class FlowObj {
         fileEntry.createWriter(function (fileWriter) {
 
             fileWriter.onwriteend = function () {
-                console.log("Successful file writed : " + fileWriter.localURL);
+                // console.log("Successful file writed : " + fileWriter.localURL);
                 self.local_url = fileWriter.localURL;
                 self.ready = true;
             };
 
             fileWriter.onerror = function (e) {
-                console.log("Failed file write: " + e.toString());
+                console.warn("Failed file write: " + e.toString());
             };
 
             fileWriter.write(dataObj);
+        });
+    }
+
+    Unload() {
+        let self = this;
+        if (self.block) self.block.ready = false;
+        window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function (dirEntry) {
+            dirEntry.getFile(self.fileName, {
+                create: false
+            }, function (fileEntry) {
+                fileEntry.remove(function (file) {
+                    // console.log("file removed!");
+                }, function (error) {
+                    console.warn("error occurred: " + error.code);
+                }, function () {
+                    console.warn("file does not exist");
+                });
+            });
+        }, function (err) {
+            console.error(err);
         });
     }
 }
