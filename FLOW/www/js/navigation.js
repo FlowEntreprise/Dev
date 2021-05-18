@@ -31,59 +31,67 @@ $(".main_topbar").css({
 // $("#popup-myaccount").find(".popup_content").load("pages/myAccount.html");
 
 function inHome() {
-	let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
-	facebookConnectPlugin.logEvent(
-		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
-		null,
-		function () {
-			// console.log("fb current_page event success");
-		},
-		function () {
-			console.warn("fb current_page error");
-		}
-	);
-	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
-
-	$(".main_topbar").css({
-		display: "block",
-		height: "calc(19 * var(--custom-vh))",
-	});
-	// app.showNavbar($(".navbar"));
-	showTopBar(main_topbar);
-	canShowNavbar = true;
-	current_page = "home";
-
-	$(".fhome-bar").css({
-		display: "block",
-	});
-	$(".fexplore-bar").css({
-		display: "none",
-	});
-	$(".fmessages-bar").css({
-		display: "none",
-	});
-	$(".fnotifications-bar").css({
-		display: "none",
-	});
-	if (window.cordova.platformId == "ios") {
-		$(".faccount").css({
-			top: "calc(0 * var(--custom-vh) + 47px)",
-			display: "block",
-		});
+	if (!connected) {
+		setTimeout(function () {
+			// app.showTab("#tab1");
+			pages_swiper.slideTo(1);
+			Popup("popup-connect", true, 60);
+		}, 100);
 	} else {
-		$(".faccount").css({
-			top: "calc(0 * var(--custom-vh) + 17px)",
+		let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
+		facebookConnectPlugin.logEvent(
+			"current_page", {
+				page: current_page,
+				duration: time_in_last_screen,
+			},
+			null,
+			function () {
+				// console.log("fb current_page event success");
+			},
+			function () {
+				console.warn("fb current_page error");
+			}
+		);
+		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
+
+		$(".main_topbar").css({
+			display: "block",
+			height: "calc(19 * var(--custom-vh))",
+		});
+		// app.showNavbar($(".navbar"));
+		showTopBar(main_topbar);
+		canShowNavbar = true;
+		current_page = "home";
+
+		$(".fhome-bar").css({
 			display: "block",
 		});
-	}
-	stopAllBlocksAudio();
+		$(".fexplore-bar").css({
+			display: "none",
+		});
+		$(".fmessages-bar").css({
+			display: "none",
+		});
+		$(".fnotifications-bar").css({
+			display: "none",
+		});
+		if (window.cordova.platformId == "ios") {
+			$(".faccount").css({
+				top: "calc(0 * var(--custom-vh) + 47px)",
+				display: "block",
+			});
+		} else {
+			$(".faccount").css({
+				top: "calc(0 * var(--custom-vh) + 17px)",
+				display: "block",
+			});
+		}
+		stopAllBlocksAudio();
 
-	if (!home_swiper_initialised) {
-		console.log("setup Home");
-		setupHome();
+		if (!home_swiper_initialised) {
+			console.log("setup Home");
+			setupHome();
+		}
 	}
 }
 
@@ -269,7 +277,7 @@ function inMessages() {
 	if (!connected) {
 		setTimeout(function () {
 			// app.showTab("#tab1");
-			pages_swiper.slideTo(0);
+			pages_swiper.slideTo(1);
 			Popup("popup-connect", true, 60);
 		}, 100);
 	}
@@ -343,7 +351,7 @@ function inNotifications() {
 	if (!connected) {
 		setTimeout(function () {
 			// app.showTab("#tab1");
-			pages_swiper.slideTo(0);
+			pages_swiper.slideTo(1);
 			Popup("popup-connect", true, 60);
 		}, 100);
 	}
