@@ -4,10 +4,12 @@ function signin_with_apple() {
             requestedScopes: [0, 1]
         },
         function (credential) {
+            console.log("credential : ");
             console.log(credential)
             fetch('https://some-random-api.ml/img/fox')
                 .then(response => response.json())
                 .then(data => {
+                    console.log("Response from Apple")
                     console.log(data)
                     let pseudo = credential.fullName.givenName + credential.fullName.familyName;
                     let fullname = credential.fullName.givenName + " " + credential.fullName.familyName;
