@@ -112,6 +112,7 @@ function PopFlow(data) {
 	// let str = ".parent#" + timeline_block_index;
 	// let container = $(str);
 	// if (discover_flows.length > 0) discover_swiper.virtual.appendSlide('<div class="parent">Une erreur s\'est produite</div>');
+	home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
 	let container = $(".swiper-container.home .parent.notloaded").first();
 	if (container[0]) {
 		container[0].innerHTML = "";
@@ -164,7 +165,6 @@ function PopFlow(data) {
 		home_flows.push(new_block);
 		timeline_block_index++;
 		container.removeClass("notloaded");
-		home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
 	} else {
 		console.warn("could not spawn block", timeline_block_index);
 		// tmp_home_flows.push({
@@ -189,6 +189,7 @@ function UpdateTimeline(data, data_block_user) {
 	console.log(data.Data);
 	if (Array.isArray(data.Data)) {
 		$(".empty_tl")[0].style.display = "none";
+		$(".swiper-container.home")[0].style.display = "block";
 		let unique_data = [];
 		for (let index in data.Data) {
 			let unique = true;
