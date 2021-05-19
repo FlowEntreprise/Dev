@@ -54,6 +54,7 @@ const ServerParams = {
 	AddViewFlow: "AddViewFlow",
 	GetNewFlows: "GetNewFlows",
 	GetRandomFlow: "GetRandomFlow",
+	GetFlowDiscover: "GetFlowDiscover",
 	GetFlowOfTheDay: "GetFlowOfTheDay",
 	IsRegisterExist: "IsRegisterExist",
 	ConexionForUserUnregistered: "ConexionForUserUnregistered"
@@ -71,7 +72,7 @@ const apiTypes = {
 
 // Server Manager Class :
 class ServerManagerClass {
-	constructor() { }
+	constructor() {}
 
 	/* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -206,7 +207,7 @@ class ServerManagerClass {
 				};
 				break;
 			default:
-			////console.log("Error in parameters sent to Connect() in ServerManager.");
+				////console.log("Error in parameters sent to Connect() in ServerManager.");
 		}
 		console.log(final_data);
 		$.ajax({
@@ -219,8 +220,7 @@ class ServerManagerClass {
 				if (response && response.PrivateId) {
 					storeVariables(response);
 					ConnectUser(response);
-				}
-				else {
+				} else {
 					window.localStorage.setItem("unregistered_user_token", response.TokenId);
 				}
 			},
@@ -344,7 +344,7 @@ class ServerManagerClass {
 			success: function (response) {
 				check_app_version(response.Data);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -361,7 +361,7 @@ class ServerManagerClass {
 			success: function (response) {
 				//console.log("User last connexion updated");
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -738,7 +738,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyFlow(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -762,7 +762,7 @@ class ServerManagerClass {
 					}
 				}
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -779,7 +779,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowUserFlow(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -794,7 +794,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyInfosUser(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -810,7 +810,7 @@ class ServerManagerClass {
 				////console.log("on recup le getInfosUserNumber");
 				ShowInfosUserNumber(response);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -838,7 +838,7 @@ class ServerManagerClass {
 					ShowUserProfile(response);
 				}
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -861,7 +861,7 @@ class ServerManagerClass {
 				////console.log(response);
 				UpdateFollowersList(response, data.follow_list);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -892,7 +892,7 @@ class ServerManagerClass {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -912,7 +912,7 @@ class ServerManagerClass {
 				// myApp.pullToRefreshTrigger(ptrContent);
 				callback(response, data);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -1336,7 +1336,7 @@ class ServerManagerClass {
 				ServerManager.UpdateRegisterId(data);*/
 				//console.log(registrationId);
 			},
-			error: function (response) { },
+			error: function (response) {},
 		});
 	}
 
@@ -1701,8 +1701,7 @@ class ServerManagerClass {
 		};
 		if (window.localStorage.getItem("user_token")) {
 			final_data.TokenId = window.localStorage.getItem("user_token");
-		}
-		else {
+		} else {
 			final_data.TokenId = window.localStorage.getItem("unregistered_user_token");
 		}
 
@@ -1763,6 +1762,32 @@ class ServerManagerClass {
 			success: function (response) {
 				//console.log(response);
 				showRandomFlow(response, discover);
+			},
+			error: function (response) {
+				//console.log(response);
+				pullToRefreshEnd();
+			},
+		});
+	}
+
+	GetFlowDiscover(index, numberOfFlows) {
+		if (!numberOfFlows) numberOfFlows = 1;
+		let final_data = {
+			Data: {
+				Index: index,
+				Pull: numberOfFlows
+			},
+			TokenId: window.localStorage.getItem("user_token"),
+		};
+
+		//// //console.log(final_data);
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.GetFlowDiscover,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				console.log(index, response.Data[0]);
+				showRandomFlow(response, true);
 			},
 			error: function (response) {
 				//console.log(response);

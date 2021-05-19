@@ -44,7 +44,9 @@ function getDiscoverFlow(numberOfFlows) {
     // let tmp_random_excluded = window.localStorage.getItem("random_excluded");
     // if (!tmp_random_excluded) randomExcluded = [];
     // else randomExcluded = tmp_random_excluded.split(",");
-    ServerManager.GetRandomFlow(randomExcluded, true, numberOfFlows);
+    let index = discover_index;
+    if (discover_index > 0) index = discover_index + 2;
+    ServerManager.GetFlowDiscover(index, numberOfFlows);
 }
 
 
