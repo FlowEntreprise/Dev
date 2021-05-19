@@ -12,7 +12,7 @@ function setupDiscover() {
         virtual: {
             slides: (function () {
                 let slides = [];
-                for (var i = 0; i < 100; i += 1) {
+                for (var i = 0; i < 1; i += 1) {
                     slides.push("<div class='parent notloaded'>Chargement...</div>");
                 }
                 return slides;
@@ -23,7 +23,7 @@ function setupDiscover() {
     discover_swiper.on('transitionEnd', function () {
         let current_index = discover_swiper.activeIndex;
         if (current_block_playing) current_block_playing.flowend(true);
-        discover_flows[current_index].flowplay();
+        if (discover_flows[current_index]) discover_flows[current_index].flowplay();
         if (current_index > discover_index) {
             discover_index = current_index;
             getDiscoverFlow();
@@ -52,6 +52,13 @@ function getDiscoverFlow(numberOfFlows) {
 
 function showRandomDiscover(data) {
     // console.log(data);
+    if (!data.Data) {
+        // $(".swiper-container.discover .parent.notloaded").remove();
+        discover_swiper.virtual.removeSlide(discover_swiper.virtual.slides.length - 1);
+        discover_swiper.virtual.appendSlide("<div class='parent notloaded'>Tu as fait le tour de l'application !<br>Reviens demain pour plus de contenu</div>");
+        discover_swiper.slideTo(discover_swiper.virtual.slides.length - 1);
+        return true;
+    }
     for (let i = 0; i < data.Data.length; i++) {
         // console.log("discover flow loaded !");
         if (!data.Data) {
@@ -104,5 +111,6 @@ function showRandomDiscover(data) {
         all_blocks.push(new_block);
         discover_flows.push(new_block);
         container.removeClass("notloaded");
+        discover_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>")
     }
 }

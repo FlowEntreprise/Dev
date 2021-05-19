@@ -1702,7 +1702,7 @@ class ServerManagerClass {
 		if (window.localStorage.getItem("user_token")) {
 			final_data.TokenId = window.localStorage.getItem("user_token");
 		} else {
-			final_data.TokenId = window.localStorage.getItem("unregistered_user_token");
+			final_data.TokenId = registrationId;
 		}
 
 		$.ajax({
@@ -1774,19 +1774,20 @@ class ServerManagerClass {
 		if (!numberOfFlows) numberOfFlows = 1;
 		let final_data = {
 			Data: {
-				Index: index,
+				// Index: index,
 				Pull: numberOfFlows
 			},
-			TokenId: window.localStorage.getItem("user_token"),
+			TokenId: window.localStorage.getItem("user_token") ? window.localStorage.getItem("user_token") : registrationId
 		};
 
+		console.log(final_data);
 		//// //console.log(final_data);
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.GetFlowDiscover,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				console.log(index, response.Data[0]);
+				console.log(response);
 				showRandomFlow(response, true);
 			},
 			error: function (response) {

@@ -505,6 +505,9 @@ function block(params) {
 			if (current_block_playing == block) {
 				block.flowplay();
 			}
+
+			// Bug doublons discover (propre)
+			ServerManager.AddViewFlow(block.ObjectId);
 		});
 	}
 	if (params.audioURL) {
