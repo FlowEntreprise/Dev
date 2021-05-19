@@ -62,6 +62,26 @@ function RefreshTL() {
 	TLCurrentIndex = 0;
 	// ServerManager.GetTimeline(0);
 	ServerManager.GetStory();
+	home_index = 0;
+	timeline_index = 0;
+	timeline_block_index = 0;
+	home_flows = [];
+	TLCurrentIndex = 0;
+
+	if (home_swiper) {
+		home_swiper.virtual.prependSlide("<div class='parent notloaded'>Chargement...</div>");
+		home_swiper.slideTo(0);
+		let todelete = [];
+		for (let i = 1; i < home_swiper.virtual.slides.length; i++) {
+			todelete.push(i);
+		}
+		console.log(todelete);
+		home_swiper.virtual.removeSlide(todelete);
+		// home_swiper.virtual.removeAllSlides();
+		for (let i = 0; i < 3; i++) {
+			getHomeFlow();
+		}
+	}
 }
 
 
@@ -93,8 +113,8 @@ function PopFlow(data) {
 	// let container = $(str);
 	// if (discover_flows.length > 0) discover_swiper.virtual.appendSlide('<div class="parent">Une erreur s\'est produite</div>');
 	let container = $(".swiper-container.home .parent.notloaded").first();
-	container[0].innerHTML = "";
 	if (container[0]) {
+		container[0].innerHTML = "";
 		// if (randomID) tmp_home_flows.splice(tmp_home_flows.indexOf(tmp_home_flows.find(x => x.random_id == randomID)), 1);
 		// console.log(tmp_home_flows);
 		// console.log(container[0]);
@@ -144,6 +164,7 @@ function PopFlow(data) {
 		home_flows.push(new_block);
 		timeline_block_index++;
 		container.removeClass("notloaded");
+		home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
 	} else {
 		console.warn("could not spawn block", timeline_block_index);
 		// tmp_home_flows.push({
@@ -165,9 +186,10 @@ function UpdateTimeline(data, data_block_user) {
 	// console.log("updating timeline...");
 	// stopAllBlocksAudio();
 	// console.log(data);
-	// console.log(data.Data);
+	console.log(data.Data);
 	if (Array.isArray(data.Data)) {
 		$(".empty_tl")[0].style.display = "none";
+		$(".swiper-container.home")[0].style.display = "block";
 		let unique_data = [];
 		for (let index in data.Data) {
 			let unique = true;
@@ -212,7 +234,7 @@ function UpdateTimeline(data, data_block_user) {
 			if ($(".loading_tl")) $(".loading_tl").remove();
 			// console.log("timeline updated !");
 			// pullToRefreshEnd();
-			// TLCurrentIndex++;
+			TLCurrentIndex++;
 			// if (unique_data.length < 5) {
 			// 	CanRefreshTL = false;
 			// 	let tick_tl = document.createElement("div");
@@ -226,8 +248,10 @@ function UpdateTimeline(data, data_block_user) {
 			// }
 		}, 500);
 	} else {
+		if (home_swiper.activeIndex == home_swiper.virtual.slides.length - 2) home_swiper.virtual.removeSlide(home_swiper.virtual.slides.length - 1);
 		if (TLCurrentIndex == 0) {
 			$(".empty_tl")[0].style.display = "block";
+			$(".swiper-container.home")[0].style.display = "none";
 		}
 		// StopRefreshTL();
 	}
@@ -274,7 +298,7 @@ function setupHome() {
 		virtual: {
 			slides: (function () {
 				let slides = [];
-				for (var i = 0; i < 100; i += 1) {
+				for (var i = 0; i < 1; i += 1) {
 					slides.push("<div class='parent notloaded'>Chargement...</div>");
 				}
 				return slides;
@@ -284,12 +308,14 @@ function setupHome() {
 
 	home_swiper.on('transitionEnd', function () {
 		// home_swiper.activeIndex == 0 ? canRegisterPTR = true : canRegisterPTR = false;
-		let current_index = home_swiper.activeIndex;
-		if (current_block_playing) current_block_playing.flowend(true);
-		home_flows[current_index].flowplay();
-		if (current_index > home_index) {
-			home_index = current_index;
-			getHomeFlow();
+		if (home_flows.length > 0) {
+			let current_index = home_swiper.activeIndex;
+			if (current_block_playing) current_block_playing.flowend(true);
+			home_flows[current_index].flowplay();
+			if (current_index > home_index) {
+				home_index = current_index;
+				getHomeFlow();
+			}
 		}
 	});
 

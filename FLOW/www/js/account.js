@@ -430,7 +430,7 @@ $("#fFollowButtunAccount").click(function () {
 			};
 			ServerManager.ActionFollow(data, function (response, data) {
 				// ServerManager.GetFDJ();
-				// RefreshTL();rmTL
+				RefreshTL();
 				FollowResponse(response, data.type, data.block_user);
 			});
 		}

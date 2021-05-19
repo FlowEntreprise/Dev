@@ -57,8 +57,8 @@ function block(params) {
 	this.first_play = true;
 
 	this.flowplay = function () {
-		console.log("play flow", block);
-		console.trace();
+		// console.log("play flow", block);
+		// console.trace();
 		if (this.ready) {
 			// if (window.cordova.platformId == "ios") {
 			//     cordova.plugins.backgroundMode.enable();
