@@ -298,9 +298,9 @@ function setupHome() {
 		virtual: {
 			slides: (function () {
 				let slides = [];
-				for (var i = 0; i < 1; i += 1) {
-					slides.push("<div class='parent notloaded'>Chargement...</div>");
-				}
+				// for (var i = 0; i < 1; i += 1) {
+				// 	slides.push("<div class='parent notloaded'>Chargement...</div>");
+				// }
 				return slides;
 			})()
 		}
