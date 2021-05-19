@@ -505,7 +505,7 @@ function CloseAfterRecord() {
 	current_page = "home";
 
 	// analytics.setCurrentScreen(current_page);
-
+	RefreshTL();
 	// rmTL
 	// TLCurrentIndex = 0;
 	// ServerManager.GetTimeline(0);
