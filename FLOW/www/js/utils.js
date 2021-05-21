@@ -280,3 +280,74 @@ function check_if_url_in_string(string_to_check) {
     return string_to_check + "<br>";
 }
 
+var language_mapping = {
+    //English
+    "en": {
+        "fpopup-connect-msg-inscription": "An account is required to perform this action",
+        "privacy_policy": ["By continuing you agree to the ",
+            "<a class=\"funderline\" onclick=\"window.open('http:\/\/www.flowappweb.com/terms_and_conditions.html', '_self', 'location=no')\">Terms of Use</a> ",
+            "and affirm that you have read and understand FLOW's ",
+            "<a class=\"funderline\" onclick=\"window.open('http:\/\/www.flowappweb.com/privacy_policy.html', '_self', 'location=no')\">privacy policy</a>"
+        ],
+        "fstory_user": "Your story",
+        "fexplore_text": "Discover",
+        "fbackground-after-txt": "Background Image",
+        "ios_camera_auth": "Authorisation in progress...<br><br>the first time this step may take up to 10 seconds",
+        "fbackground-after-story-txt": "Background color",
+        "frandom-color-txt": "OTHER COLOUR",
+        "ffollowersBandeau": "Followers",
+        "ffollowingBandeau": "Followings",
+        "fnameMonCompte": "Loading",
+        "feditProfil": "EDIT PROFIL",
+        "myactivity": "My Activity",
+        "mylikes": "Likes",
+        "disconnect_btn": "Disconnect",
+        "fFollowButtunAccount": "FOLLOW",
+        "activity": "Activity",
+        "likes": "Like",
+        "popup_followings_title": "Followings",
+        "popup_identification_title": "Tag a friend",
+        "label_user_blocked_message": "This user has blocked you",
+        "create-conversation_title": "New conversation",
+        "tuto_txt_1": "Welcome to FLOW",
+        "tuto_txt_2": "The first <span>voice-based</span> social network",
+        "tuto_txt_3": "You are one of the <span>first users</span> of the application"
+
+    },
+    //French
+    "fr": {
+        "fpopup-connect-msg-inscription": "Un compte est nécessaire pour réaliser cette action",
+        "privacy_policy": ["En continuant vous acceptez les ",
+            "<a class=\"funderline\" onclick=\"window.open('http:\/\/www.flowappweb.com/terms_and_conditions.html', '_self', 'location=no')\">conditions d'utilisations</a> ",
+            "et affirmez avoir lu et compris la ",
+            "<a class=\"funderline\" onclick=\"window.open('http:\/\/www.flowappweb.com/privacy_policy.html', '_self', 'location=no')\">politique de confidentialité de FLOW</a>"
+        ],
+        "fstory_user": "Ta story",
+        "fexplore_text": "Découvrir",
+        "fbackground-after-txt": "Image de fond",
+        "ios_camera_auth": "Autorisation des médias en cours...<br><br>la première fois cette étape peut prendre jusqu'à 10 secondes",
+        "fbackground-after-story-txt": "Couleur de fond",
+        "frandom-color-txt": "AUTRE COULEUR",
+        "ffollowersBandeau": "Abonnés",
+        "ffollowingBandeau": "Abonnements",
+        "fnameMonCompte": "Chargement",
+        "feditProfil": "MODIFIER PROFIL",
+        "myactivity": "Mon Activité",
+        "mylikes": "J'aime",
+        "disconnect_btn": "Se deconnecter",
+        "fFollowButtunAccount": "S'ABONNER",
+        "activity": "Activité",
+        "likes": "Aime",
+        "popup_followings_title": "Abonnements",
+        "popup_identification_title": "Identifie un ami",
+        "label_user_blocked_message": "Cet utilisateur vous a bloquée",
+        "create-conversation_title": "Nouvelle conversation",
+        "tuto_txt_1": "Bienvenue sur FLOW",
+        "tuto_txt_2": "Le premier réseau social basé sur la <span>voix</span>",
+        "tuto_txt_3": "Tu fais partie des <span>premiers utilisateurs</span> de l'application"
+    }
+
+};
+
+//#TODO Faire traduction des places holder
+

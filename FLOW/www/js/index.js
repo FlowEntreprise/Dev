@@ -15,7 +15,7 @@ var analytics;
 var push;
 var httpd = null;
 var worker;
-
+var device_language;
 var registrationId;
 var noteId = 0;
 var app = {
@@ -32,6 +32,11 @@ var app = {
 	onDeviceReady: function () {
 		Keyboard.hide();
 		let custom_vh = window.innerHeight / 100;
+		device_language = navigator.language.slice(0, 2);
+
+		$(".language").each(function (index, element) {
+			$(this).html(language_mapping[device_language][$(this).attr("id")]);
+		});
 		// console.log(window.localStorage.getItem("custom_vh"), custom_vh);
 		if (window.localStorage.getItem("custom_vh")) {
 			custom_vh = window.localStorage.getItem("custom_vh");
