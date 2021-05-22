@@ -44,7 +44,7 @@ function home_tab_loaded() {
 	// setup input comment placeholder
 	$("#finput_comment").blur(function () {
 		console.log("an input was out focused");
-		$(this).attr("placeholder", "Ajouter un commentaire...");
+		$(this).attr("placeholder", `${language_mapping[device_language][placeholder_add_comment]}`);
 	});
 
 	// initialize pull to refresh

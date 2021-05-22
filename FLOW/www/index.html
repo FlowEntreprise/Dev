@@ -115,7 +115,7 @@
             <div class="fexplore-bar">
                 <a class="fred_dot_toolbar fred_dot_toolbar_fdj"></a>
                 <div class="faccount"></div>
-                <input class="fsearch-bar" placeholder="Explorer" />
+                <input id="placeholder_explore" class="fsearch-bar language" placeholder="Explorer" />
                 <div class="search_icon"></div>
                 <div class="search_back"></div>
                 <div class="swiper-container swiper-3 explore-swiper">
@@ -171,7 +171,8 @@
             <!-- Content of TopBar in Messages -->
             <div class="fmessages-bar">
                 <label class="title">MESSAGES</label>
-                <input class="fmessages-search-bar" placeholder="Chercher une conversation" />
+                <input id="placeholder_find_conversation" class="fmessages-search-bar language"
+                    placeholder="Chercher une conversation" />
                 <div class="search_icon"></div>
                 <div id="new_conversation">+</div>
                 <div class="faccount"></div>
@@ -588,8 +589,9 @@
             </div>
         </div>
         <div class="fwrite_comment">
-            <textarea class="regex-example" placeholder="Ajouter un commentaire..." maxlength="100" id="finput_comment"
-                rows="1" class="finput_comment"></textarea>
+            <textarea id="placeholder_add_comment" class="regex-example language"
+                placeholder="Ajouter un commentaire..." maxlength="100" id="finput_comment" rows="1"
+                class="finput_comment"></textarea>
             <img src="src/icons/send.png" class="fsend_comment">
         </div>
 
@@ -626,7 +628,8 @@
             <li id="UploadProgressBar"></li>
             <img src="../www/src/icons/camera.png" id="SendFromCamera">
             <img src="../www/src/icons/gallery.png" id="SendFromGallery">
-            <textarea id="input_send_message" placeholder="Taper un message" autocomplete="off"></textarea>
+            <textarea id="input_send_message" class="language" placeholder="Taper un message"
+                autocomplete="off"></textarea>
             <div class="delete_vocal"></div>
             <div class="wave_vocal"></div>
             <div id="button_send_vocal">
@@ -649,7 +652,8 @@
                         onclick="Popup('popup-create-conversation', false)">
 
                     <div id="create-conversation_title" class="language">Nouvelle conversation</div>
-                    <input class="create-conversation-search-bar" placeholder="Chercher un utilisateur" />
+                    <input id="create-conversation-search-bar" class="create-conversation-search-bar language"
+                        placeholder=" Chercher un utilisateur" />
                 </div>
                 <div class="fconversation_block_utilisateur_list">
                 </div>
