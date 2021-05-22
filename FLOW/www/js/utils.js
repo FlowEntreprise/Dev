@@ -400,7 +400,21 @@ var language_mapping = {
         "response_like": "a aimé ta réponse",
         "notif_commented": "a commenté",
         "notif_responded": "a répondu",
-        "notif_tag": "t'a identifié dans un flow"
+        "notif_tag": "t'a identifié",
+        "followed_you": "s'est abonné à toi",
+        "reacted_to_your_story": "a réagi à ta story",
+        "was_blocked": "a été bloqué",
+        "was_unblocked": "a été débloqué",
+        "report_flow": "Ce flow a bien été signalé",
+        "report_comment": "Ce commentaire a bien été signalé",
+        "report_dm": "Ce message a bien été signalé",
+        "delete_flow": "Ce flow a bien été supprimé",
+        "_delete_comment": "Ce commentaire a bien été supprimé",
+        "reply": "Reply",
+        "show_responses": "Afficher les réponses",
+        "previous_responses": "Réponses précédentes",
+        "reduce": "Réduire",
+        "empty_comment": "Le commentaire est vide"
     }
 
 };

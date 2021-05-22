@@ -463,7 +463,7 @@ function block_notification_follow(data) {
 
     this.fnotif_text = document.createElement('label');
     this.fnotif_text.className = 'fnotif_text';
-    this.fnotif_text.innerText = '@' + this.private_Id + " s'est abonné à toi";
+    this.fnotif_text.innerText = '@' + this.private_Id + ` ${language_mapping[device_language][followed_you]}`;
     this.block_notification_follow.appendChild(this.fnotif_text);
 
     if (block_notification_follow.seen == false) {
@@ -563,7 +563,7 @@ function block_notification_story_comment(data) {
     this.fnotif_text = document.createElement('label');
     this.fnotif_text.className = 'fnotif_label';
     this.fnotif_text.style.top = "3.7vh";
-    let txt = '@' + this.private_Id + " a réagi à ta story";
+    let txt = '@' + this.private_Id + ` ${language_mapping[device_language][reacted_to_your_story]}`;
     if (txt.length > 28) txt = txt.substring(0, 28) + "...";
     this.fnotif_text.innerText = txt;
     this.block_notification_story_comment.appendChild(this.fnotif_text);
@@ -818,37 +818,38 @@ function send_notif_to_user(block, type) {
     switch (type) {
         case 'story_comment':
             notif_lastos = block.LastOs;
-            notif_body = "@" + sender_info.privateId + " a réagi à ta story " + sender_info.post_texte;
+            notif_body = "@" + sender_info.privateId + ` ${language_mapping[device_language][reacted_to_your_story]}` + sender_info.post_texte;
+
             notif_recipient = block.RegisterId;
             break;
 
         case 'follow':
             notif_lastos = block.LastOs;
-            notif_body = "@" + sender_info.privateId + " s'est abonné à toi " + sender_info.post_texte;
+            notif_body = "@" + sender_info.privateId + ` ${language_mapping[device_language][followed_you]}` + sender_info.post_texte;
             notif_recipient = block.RegisterId;
             break;
 
         case 'like_flow':
             notif_lastos = block.LastOs;
-            notif_body = "@" + sender_info.privateId + " a aimé ton flow : " + sender_info.post_texte;
+            notif_body = "@" + sender_info.privateId + ` ${language_mapping[device_language][flow_like]} : ` + sender_info.post_texte;
             notif_recipient = block.RegisterId;
             break;
 
         case 'tag_in_flow':
             notif_lastos = block.LastOs;
-            notif_body = "@" + sender_info.privateId + " t'a identifié dans un flow : " + block.Comment_text;
+            notif_body = "@" + sender_info.privateId + ` ${language_mapping[device_language][notif_tag]} : ` + block.Comment_text;
             notif_recipient = block.RegisterId;
             break;
 
         case 'send_response':
             notif_lastos = block.current_flow_block.LastOs;
-            notif_body = "@" + sender_info.privateId + " a répondu : " + block.Comment;
+            notif_body = "@" + sender_info.privateId + ` ${language_mapping[device_language][notif_responded]} : ` + block.Comment;
             notif_recipient = block.current_flow_block.RegisterId;
             break;
 
         case 'send_comment':
             notif_lastos = block.current_flow_block.LastOs;
-            notif_body = "@" + sender_info.privateId + " a commenté : " + block.Comment;
+            notif_body = "@" + sender_info.privateId + ` ${language_mapping[device_language][notif_commented]} : ` + block.Comment;
             notif_recipient = block.current_flow_block.RegisterId;
             break;
 
@@ -860,13 +861,13 @@ function send_notif_to_user(block, type) {
 
         case 'like_comment':
             notif_lastos = block.LastOs;
-            notif_body = "@" + sender_info.privateId + " a aimé ton commentaire : " + block.Comment_text;
+            notif_body = "@" + sender_info.privateId + ` ${language_mapping[device_language][comment_like]} : ` + block.Comment_text;
             notif_recipient = block.RegisterId;
             break;
 
         case 'like_response':
             notif_lastos = block.LastOs;
-            notif_body = "@" + sender_info.privateId + " a aimé ta réponse : " + block.response_text;
+            notif_body = "@" + sender_info.privateId + ` ${language_mapping[device_language][response_like]} : ` + block.response_text;
             notif_recipient = block.RegisterId;
             break;
 
@@ -973,19 +974,19 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
     switch (data.additionalData.type) {
         case 'like_flow':
 
-            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a aimé ton flow");
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + ` ${language_mapping[device_language][flow_like]}`);
             $(".f_in_app_notif").css("background-color", "rgb(255, 0, 84)");
             break;
 
         case 'send_comment':
 
-            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a commenté ton flow");
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + ` ${language_mapping[device_language][notif_commented]}`);
             $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
             break;
 
         case 'tag_in_comment':
 
-            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " t'a identifié");
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + ` ${language_mapping[device_language][notif_tag]}`);
             $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
             break;
 
@@ -993,10 +994,10 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
         case 'send_response':
 
             if (data.additionalData.tag_in_comment) {
-                $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " t'a identifié");
+                $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + ` ${language_mapping[device_language][notif_tag]}`);
             } else {
 
-                $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a répondu");
+                $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + ` ${language_mapping[device_language][notif_responded]}`);
             }
             $(".f_in_app_notif").css("background-color", "rgb(26, 132, 239)");
 
@@ -1004,59 +1005,59 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
 
         case 'like_comment':
 
-            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a aimé ton commentaire");
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + ` ${language_mapping[device_language][comment_like]}`);
             $(".f_in_app_notif").css("background-color", "rgb(255, 0, 84)");
             break;
 
         case 'like_response':
 
-            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a aimé ta réponse");
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + ` ${language_mapping[device_language][response_like]}`);
             $(".f_in_app_notif").css("background-color", "rgb(255, 0, 84)");
             break;
 
         case 'follow':
 
-            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " s'est abonné à toi");
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + ` ${language_mapping[device_language][followed_you]}`);
             $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
             break;
 
         case 'story_comment':
-            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + " a réagi à ta s...");
+            $(".flabel_in_app_notif").text("@" + data.additionalData.sender_info.privateId + ` ${language_mapping[device_language][reacted_to_your_story]}`);
             $(".f_in_app_notif").css("background-color", "rgb(152, 57, 198)");
             break;
 
         case 'block_user':
-            $(".flabel_in_app_notif").text("@" + data.additionalData.privateId + " a été bloqué");
+            $(".flabel_in_app_notif").text("@" + data.additionalData.privateId + ` ${language_mapping[device_language][was_blocked]}`);
             $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
             break;
 
         case 'unblock_user':
-            $(".flabel_in_app_notif").text("@" + data.additionalData.privateId + " a été débloqué");
+            $(".flabel_in_app_notif").text("@" + data.additionalData.privateId + ` ${language_mapping[device_language][was_unblocked]}`);
             $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
             break;
 
         case 'report_flow':
-            $(".flabel_in_app_notif").text("Ce flow a bien été signalé");
+            $(".flabel_in_app_notif").text(`${language_mapping[device_language][report_flow]}`);
             $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
             break;
 
         case 'report_comment':
-            $(".flabel_in_app_notif").text("Ce commentaire a bien été signalé");
+            $(".flabel_in_app_notif").text(`${language_mapping[device_language][report_comment]}`);
             $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
             break;
 
         case 'report_dm':
-            $(".flabel_in_app_notif").text("Ce message a bien été signalé");
+            $(".flabel_in_app_notif").text(`${language_mapping[device_language][report_dm]}`);
             $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
             break;
 
         case 'delete_flow':
-            $(".flabel_in_app_notif").text("Ce flow a bien été supprimé");
+            $(".flabel_in_app_notif").text(`${language_mapping[device_language][delete_flow]}`);
             $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
             break;
 
         case 'delete_comment':
-            $(".flabel_in_app_notif").text("Ce commentaire a bien été supprimé");
+            $(".flabel_in_app_notif").text(`${language_mapping[device_language][_delete_comment]}`);
             $(".f_in_app_notif").css("background-color", "rgb(146, 171, 178)");
             break;
 
