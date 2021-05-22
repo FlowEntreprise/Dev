@@ -113,15 +113,16 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
 
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
-    this.fnotif_label.innerText = '@' + this.private_Id + ' a aimé ton flow';
+    this.fnotif_label.innerText = '@' + this.private_Id + ` ${language_mapping[device_language][flow_like]}`;
+
     this.fnotif_label.style.top = "2.5vh";
     if (block_notification_like.like_comment == "like_comment") {
-        let txt = '@' + this.private_Id + ' a aimé ton commentaire';
+        let txt = '@' + this.private_Id + ` ${language_mapping[device_language][comment_like]}`;
         if (txt.length > 28) txt = txt.substring(0, 28) + "...";
         this.fnotif_label.innerText = txt;
     }
     if (block_notification_like.like_comment == "like_response") {
-        let txt = '@' + this.private_Id + ' a aimé ta réponse';
+        let txt = '@' + this.private_Id + ` ${language_mapping[device_language][response_like]}`;
         if (txt.length > 28) txt = txt.substring(0, 28) + "...";
         this.fnotif_label.innerText = txt;
     }
@@ -155,14 +156,14 @@ function block_notification_like(data) { //type permet de defini si c'est le lik
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
     this.fnotif_label.style.top = "2.5vh";
-    this.fnotif_label.innerText = '@' + this.private_Id + ' a aimé ton flow';
+    this.fnotif_label.innerText = '@' + this.private_Id + ` ${language_mapping[device_language][flow_like]}`;
     if (block_notification_like.like_comment == "like_comment") {
-        let txt = '@' + this.private_Id + ' a aimé ton commentaire';
+        let txt = '@' + this.private_Id + ` ${language_mapping[device_language][comment_like]}`;
         if (txt.length > 28) txt = txt.substring(0, 28) + "...";
         this.fnotif_label.innerText = txt;
     }
     if (block_notification_like.like_comment == "like_response") {
-        let txt = '@' + this.private_Id + ' a aimé ta réponse';
+        let txt = '@' + this.private_Id + ` ${language_mapping[device_language][response_like]}`;
         if (txt.length > 28) txt = txt.substring(0, 28) + "...";
         this.fnotif_label.innerText = txt;
     }
@@ -336,16 +337,16 @@ function block_notification_comment(data) {
     this.fnotif_label = document.createElement('label');
     this.fnotif_label.className = 'fnotif_label';
     if (data.TypeOfNotification == "send_comment") {
-        this.fnotif_label.innerText = '@' + this.private_Id + " a commenté ";
+        this.fnotif_label.innerText = '@' + this.private_Id + ` ${language_mapping[device_language][notif_commented]}`;
         if (this.fnotif_label.innerText.length > 28) this.fnotif_label.innerText = this.fnotif_label.innerText.substring(0, 28) + "...";
     }
     if (data.TypeOfNotification == "send_response") {
-        this.fnotif_label.innerText = '@' + this.private_Id + " a répondu";
+        this.fnotif_label.innerText = '@' + this.private_Id + ` ${language_mapping[device_language][notif_responded]}`;
         if (this.fnotif_label.innerText.length > 28) this.fnotif_label.innerText = this.fnotif_label.innerText.substring(0, 28) + "...";
     }
 
     if (data.TypeOfNotification == "tag_in_flow") {
-        this.fnotif_label.innerText = '@' + this.private_Id + " t'a identifié dans un flow";
+        this.fnotif_label.innerText = '@' + this.private_Id + ` ${language_mapping[device_language][notif_tag]}`;
         if (this.fnotif_label.innerText.length > 28) this.fnotif_label.innerText = this.fnotif_label.innerText.substring(0, 28) + "...";
     }
 
@@ -804,8 +805,8 @@ function send_notif_to_user(block, type) {
         comment_text: block.Comment_text, // texte commentaire genre le vrai commenaire t'a capté
         like_comment_text: block.fcomment_text, // texte lorsque l'on like un commentaire
         IdFlow: prepare_id_flow == undefined ? prepare_id_flow = "undefined" : prepare_id_flow,
-        Id_comment: block.IdComment /*? block.ObjectId : undefined*/ ,
-        Id_response: block.Idresponse /*? block.ObjectId : undefined*/ ,
+        Id_comment: block.IdComment /*? block.ObjectId : undefined*/,
+        Id_response: block.Idresponse /*? block.ObjectId : undefined*/,
         tag_in_flow: block.tag_in_flow
     };
     if (sender_info.comment_text == undefined) {

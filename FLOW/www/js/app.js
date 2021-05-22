@@ -74,19 +74,19 @@ function setupApp() {
         $("#div_new_features_background").css("display", "block");
         $("#border_close_div_new_features")[0].innerHTML = "5 secondes";
         setTimeout(function () {
-            $("#border_close_div_new_features")[0].innerHTML = "4 secondes";
+            $("#border_close_div_new_features")[0].innerHTML = `4 ${language_mapping[device_language][multi_seconde]}`;
         }, 3000);
         setTimeout(function () {
-            $("#border_close_div_new_features")[0].innerHTML = "3 secondes";
+            $("#border_close_div_new_features")[0].innerHTML = `3 ${language_mapping[device_language][multi_seconde]}`;
         }, 4000);
         setTimeout(function () {
-            $("#border_close_div_new_features")[0].innerHTML = "2 secondes";
+            $("#border_close_div_new_features")[0].innerHTML = `2 ${language_mapping[device_language][multi_seconde]}`;
         }, 5000);
         setTimeout(function () {
-            $("#border_close_div_new_features")[0].innerHTML = "1 seconde";
+            $("#border_close_div_new_features")[0].innerHTML = `1 ${language_mapping[device_language][single_seconde]}`;
         }, 6000);
         setTimeout(function () {
-            $("#border_close_div_new_features")[0].innerHTML = "C'est parti !";
+            $("#border_close_div_new_features")[0].innerHTML = `${language_mapping[device_language][c_parti]}`;
             $("#close_div_new_features").css({
                 "opacity": "1",
                 "pointer-events": "auto"
