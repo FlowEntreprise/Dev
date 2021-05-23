@@ -301,11 +301,11 @@ function RefreshSearch() {
 	search_index = 0;
 	let no_users = document.createElement("div");
 	no_users.className = "no_results";
-	no_users.innerHTML = `${language_mapping[device_language][no_results]}`;
+	no_users.innerHTML = `${language_mapping[device_language]['no_results']}`;
 	$(".top_users")[0].appendChild(no_users);
 	let no_flows = document.createElement("div");
 	no_flows.className = "no_results";
-	no_flows.innerHTML = `${language_mapping[device_language][no_results]}`;
+	no_flows.innerHTML = `${language_mapping[device_language]['no_results']}`;
 	$(".top_flows")[0].appendChild(no_flows);
 	$(".top_users")[0].style.height =
 		" calc(" + (0 * 7 + 2) + " * var(--custom-vh))";
@@ -350,10 +350,10 @@ function SpawnUserSearch(data) {
 		user_privateId.innerHTML = "@" + user.PrivateId;
 		let follow_btn = document.createElement("div");
 		follow_btn.className = "follow_btn";
-		follow_btn.innerHTML = `${language_mapping[device_language][fFollowButtunAccount]}`;
+		follow_btn.innerHTML = `${language_mapping[device_language]['fFollowButtunAccount']}`;
 		if (user.YouFollowHim == "true") {
 			follow_btn.className = "follow_btn following";
-			follow_btn.innerHTML = `${language_mapping[device_language][ffollowersBandeau]}`;
+			follow_btn.innerHTML = `${language_mapping[device_language]['ffollowersBandeau']}`;
 		}
 
 		user_block.appendChild(pp);
@@ -373,7 +373,7 @@ function SpawnUserSearch(data) {
 		if (search_index == 0 && users.length == 0) {
 			let no_users = document.createElement("div");
 			no_users.className = "no_results";
-			no_users.innerHTML = `${language_mapping[device_language][no_results]}`;
+			no_users.innerHTML = `${language_mapping[device_language]['no_results']}`;
 			top_users.appendChild(no_users);
 		}
 	}
@@ -428,7 +428,7 @@ function SpawnFlowSearch(data) {
 		// $(".show_more_flows")[0].style.display = "block";
 		let show_more_flows = document.createElement("div");
 		show_more_flows.className = "show_more_flows";
-		show_more_flows.innerHTML = `${language_mapping[device_language][show_more]}`;
+		show_more_flows.innerHTML = `${language_mapping[device_language]['show_more']}`;
 		show_more_flows.addEventListener("touchend", function () {
 			ShowMoreFlows();
 		});
@@ -438,7 +438,7 @@ function SpawnFlowSearch(data) {
 		if (search_index == 0 && flows.length == 0) {
 			let no_flows = document.createElement("div");
 			no_flows.className = "no_results";
-			no_flows.innerHTML = `${language_mapping[device_language][no_results]}`;
+			no_flows.innerHTML = `${language_mapping[device_language]['no_results']}`;
 			top_flows[0].appendChild(no_flows);
 		}
 	}

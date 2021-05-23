@@ -44,7 +44,7 @@ function home_tab_loaded() {
 	// setup input comment placeholder
 	$("#finput_comment").blur(function () {
 		console.log("an input was out focused");
-		$(this).attr("placeholder", `${language_mapping[device_language][placeholder_add_comment]}`);
+		$(this).attr("placeholder", `${language_mapping[device_language]['placeholder_add_comment']}`);
 	});
 
 	// initialize pull to refresh
@@ -69,7 +69,7 @@ function RefreshTL() {
 	TLCurrentIndex = 0;
 
 	if (home_swiper) {
-		home_swiper.virtual.prependSlide(`<div class='parent notloaded'> ${language_mapping[device_language][fnameMonCompte]}...</div>`);
+		home_swiper.virtual.prependSlide(`<div class='parent notloaded'> ${language_mapping[device_language]['fnameMonCompte']}...</div>`);
 		home_swiper.slideTo(0);
 		let todelete = [];
 		for (let i = 1; i < home_swiper.virtual.slides.length; i++) {
@@ -164,7 +164,7 @@ function PopFlow(data) {
 		home_flows.push(new_block);
 		timeline_block_index++;
 		container.removeClass("notloaded");
-		home_swiper.virtual.appendSlide(`<div class='parent notloaded'> ${language_mapping[device_language][fnameMonCompte]}...</div>`);
+		home_swiper.virtual.appendSlide(`<div class='parent notloaded'> ${language_mapping[device_language]['fnameMonCompte']}...</div>`);
 	} else {
 		console.warn("could not spawn block", timeline_block_index);
 		// tmp_home_flows.push({
@@ -299,7 +299,7 @@ function setupHome() {
 			slides: (function () {
 				let slides = [];
 				for (var i = 0; i < 1; i += 1) {
-					slides.push(`<div class='parent notloaded'> ${language_mapping[device_language][fnameMonCompte]}...</div>`);
+					slides.push(`<div class='parent notloaded'> ${language_mapping[device_language]['fnameMonCompte']}...</div>`);
 				}
 				return slides;
 			})()

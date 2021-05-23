@@ -401,7 +401,7 @@ $(".fvalidate-after_btn").on("touchend", function () {
 		} else {
 			//alert("La description d'un Flow ne peut pas être vide");
 			navigator.notification.alert(
-				`${language_mapping[device_language][flow_empty_description]}`,
+				`${language_mapping[device_language]['flow_empty_description']}`,
 				alertDismissed,
 				"Information"
 			);
@@ -850,7 +850,7 @@ function TakePhoto(callback) {
 		function error() {
 			//alert('Permission photo non acordée');
 			navigator.notification.alert(
-				`${language_mapping[device_language][photo_permission_denied]}`,
+				`${language_mapping[device_language]['photo_permission_denied']}`,
 				alertDismissed,
 				"Information"
 			);
@@ -889,7 +889,7 @@ function GetPhotoFromGallery(callback) {
 		function error() {
 			//alert('Permission galerie photo non accordée');
 			navigator.notification.alert(
-				`${language_mapping[device_language][gallery_permission_denied]}`,
+				`${language_mapping[device_language]['gallery_permission_denied']}`,
 				alertDismissed,
 				"Information"
 			);

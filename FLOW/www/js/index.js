@@ -16,6 +16,7 @@ var push;
 var httpd = null;
 var worker;
 var device_language;
+var language_mapping;
 var registrationId;
 var noteId = 0;
 var app = {
@@ -33,9 +34,13 @@ var app = {
 		Keyboard.hide();
 		let custom_vh = window.innerHeight / 100;
 		device_language = navigator.language.slice(0, 2);
+		_language_mapping();
 
 		$(".language").each(function (index, element) {
 			$(this).html(language_mapping[device_language][$(this).attr("id")]);
+			if ($(this).attr("placeholder")) {
+				$(this).attr("placeholder", language_mapping[device_language][$(this).attr("id")]);
+			}
 		});
 		// console.log(window.localStorage.getItem("custom_vh"), custom_vh);
 		if (window.localStorage.getItem("custom_vh")) {

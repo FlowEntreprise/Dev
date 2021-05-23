@@ -130,12 +130,12 @@ function block_user(follow_list, target, data) {
 
 		if (data.YouFollowHim == "true") {
 			$(this.following_button).addClass("activeButtunFollow");
-			$(this.following_button).text(`${language_mapping[device_language][ffollowersBandeau]}`);
+			$(this.following_button).text(`${language_mapping[device_language]['ffollowersBandeau']}`);
 		} else if (
 			data.PrivateId != window.localStorage.getItem("user_private_id")
 		) {
 			$(this.following_button).removeClass("activeButtunFollow");
-			this.following_button.innerText = `${language_mapping[device_language][fFollowButtunAccount]}`;
+			this.following_button.innerText = `${language_mapping[device_language]['fFollowButtunAccount']}`;
 		}
 		if (this.following_button) {
 			this.block_user.appendChild(this.following_button);

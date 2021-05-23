@@ -353,7 +353,7 @@ function block_chat(data) {
     this.fblock_chat_text = document.createElement('label');
     this.fblock_chat_text.className = 'fblock_chat_text';
     if (this.block_chat_last_message.deleted) {
-        this.fblock_chat_text.innerText = `(${language_mapping[device_language][message_was_deleted]})`;
+        this.fblock_chat_text.innerText = `(${language_mapping[device_language]['message_was_deleted']})`;
     }
     else {
 
@@ -730,7 +730,7 @@ function block_message(data, previous_message) {
 
     if (this.deleted == true) {
         $(this.block_message_child).addClass("deleted_block_message");
-        $(this.block_message_child).text(`${language_mapping[device_language][message_was_deleted]}`);
+        $(this.block_message_child).text(`${language_mapping[device_language]['message_was_deleted']}`);
     }
 
 }
@@ -782,7 +782,7 @@ function setup_popup_message(data, LiveChat) { // si on doit debuter le live cha
         live_chat(data);
     } else {
         $(loading_msg).removeClass("loading-spinner");
-        $(loading_msg).text(`${language_mapping[device_language][no_message_in_conversation]}`);
+        $(loading_msg).text(`${language_mapping[device_language]['no_message_in_conversation']}`);
         $(loading_msg).addClass("noMessageInConv");
     }
 
@@ -1043,7 +1043,7 @@ function DisplayFollowingsPopupCreateConversation(data, follow_list) {
     } else {
         let no_users = document.createElement("div");
         no_users.className = "no_results no_results_messages";
-        no_users.innerHTML = `${language_mapping[device_language][no_results]}`;
+        no_users.innerHTML = `${language_mapping[device_language]['no_results']}`;
         $(".fconversation_block_utilisateur_list").html("");
         $(".fconversation_block_utilisateur_list")[0].appendChild(no_users);
     }
@@ -1077,14 +1077,14 @@ function check_if_user_is_blocked(data) {
     (data.BlockedByUser).forEach(user => {
         if (user == current_block_chat.block_chat_member_private_id) {
             $("#div_user_blocked_message").css("display", "flex");
-            $("#label_user_blocked_message").text(`${language_mapping[device_language][label_user_blocked_message]}`);
+            $("#label_user_blocked_message").text(`${language_mapping[device_language]['label_user_blocked_message']}`);
         }
     });
 
     (data.UserBlocked).forEach(user => {
         if (user == current_block_chat.block_chat_member_private_id) {
             $("#div_user_blocked_message").css("display", "flex");
-            $("#label_user_blocked_message").text(`${language_mapping[device_language][label_user_you_blocked_message]}`);
+            $("#label_user_blocked_message").text(`${language_mapping[device_language]['label_user_you_blocked_message']}`);
         }
     });
 

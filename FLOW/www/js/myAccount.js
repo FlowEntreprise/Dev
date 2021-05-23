@@ -413,7 +413,7 @@ function ShowMyFlow(flow) {
 		if (indexMyFlow == 0) {
 			let no_flows = document.createElement("label");
 			no_flows.className = "empty_content";
-			no_flows.innerHTML = `${language_mapping[device_language][empty_content]}`;
+			no_flows.innerHTML = `${language_mapping[device_language]['empty_content']}`;
 			$("#MyActivity")[0].appendChild(no_flows);
 		}
 		// window.alert("Plus de flow a recupt");
@@ -549,7 +549,7 @@ function ShowMyLikedFlows(flow, data_block_user) {
 		if (indexMyLike == 0) {
 			let no_flows = document.createElement("label");
 			no_flows.className = "empty_content";
-			no_flows.innerHTML = `${language_mapping[device_language][empty_liked_content]}`;
+			no_flows.innerHTML = `${language_mapping[device_language]['empty_liked_content']}`;
 			$("#MyLikes")[0].appendChild(no_flows);
 		}
 		if ($(".loading_myaccount")) $(".loading_myaccount").remove();
