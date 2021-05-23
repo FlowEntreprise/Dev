@@ -37,9 +37,16 @@ var app = {
 		_language_mapping();
 
 		$(".language").each(function (index, element) {
-			$(this).html(language_mapping[device_language][$(this).attr("id")]);
 			if ($(this).attr("placeholder")) {
-				$(this).attr("placeholder", language_mapping[device_language][$(this).attr("id")]);
+				if ($(this).attr("id") == "finput_comment") {
+					$(this).attr("placeholder", language_mapping[device_language]["placeholder_add_comment"]);
+				}
+				else {
+					$(this).attr("placeholder", language_mapping[device_language][$(this).attr("id")]);
+				}
+			}
+			else {
+				$(this).html(language_mapping[device_language][$(this).attr("id")]);
 			}
 		});
 		// console.log(window.localStorage.getItem("custom_vh"), custom_vh);
@@ -533,7 +540,7 @@ function check_app_version(app_version) {
 				app_version.Android != AppVersion.version)
 		) {
 			navigator.notification.confirm(
-				"Mets l'application à jour pour profiter des toutes dernières fonctionnalités.",
+				`${language_mapping[device_language]['update_ap']}`,
 				function (id) {
 					if (id == 1) {
 						if (window.cordova.platformId == "ios") {
@@ -546,8 +553,8 @@ function check_app_version(app_version) {
 						}
 					}
 				},
-				"Nouvelle version de l'application disponible !",
-				["OK", "Annuler"]
+				`${language_mapping[device_language]['new_version_available']}`,
+				[`${language_mapping[device_language]['yes']}`, `${language_mapping[device_language]['cancel']}`]
 			);
 		}
 	}, 1000);

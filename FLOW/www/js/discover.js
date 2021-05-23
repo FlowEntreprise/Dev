@@ -13,7 +13,7 @@ function setupDiscover() {
             slides: (function () {
                 let slides = [];
                 for (var i = 0; i < 1; i += 1) {
-                    slides.push(`<div class='parent notloaded'> ${language_mapping[device_language]['fnameMonCompte']}...</div>`);
+                    slides.push(`<div class='parent notloaded'> ${language_mapping[device_language][fnameMonCompte]}...</div>`);
                 }
                 return slides;
             })()
@@ -55,7 +55,7 @@ function showRandomDiscover(data) {
     if (!data.Data) {
         // $(".swiper-container.discover .parent.notloaded").remove();
         discover_swiper.virtual.removeSlide(discover_swiper.virtual.slides.length - 1);
-        discover_swiper.virtual.appendSlide(`${language_mapping[device_language]['fin_de_lapplication']}`);
+        discover_swiper.virtual.appendSlide(`${language_mapping[device_language][fin_de_lapplication]}`);
         discover_swiper.slideTo(discover_swiper.virtual.slides.length - 1);
         return true;
     }
@@ -111,6 +111,6 @@ function showRandomDiscover(data) {
         all_blocks.push(new_block);
         discover_flows.push(new_block);
         container.removeClass("notloaded");
-        discover_swiper.virtual.appendSlide(`<div class='parent notloaded'> ${language_mapping[device_language]['fnameMonCompte']}...</div>`)
+        discover_swiper.virtual.appendSlide(`<div class='parent notloaded'> ${language_mapping[device_language][fnameMonCompte]}...</div>`)
     }
 }

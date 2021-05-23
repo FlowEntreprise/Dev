@@ -555,7 +555,7 @@
                 <div class="scroll_fix_ios"></div>
             </div>
             <div class="popup_content" id="popup_followers_content" animation-direction="up">
-                <label class="popup_followers_title">Abonnés</label>
+                <label id="popup_followers_title" class="popup_followers_title language">Abonnés</label>
                 <img src="src/icons/cancel.png" class="fclose_followers" onclick="Popup('popup-followers', false)">
                 <div class="popup_followers_container">
                 </div>
@@ -589,12 +589,11 @@
             </div>
         </div>
         <div class="fwrite_comment">
-            <textarea id="placeholder_add_comment" class="regex-example language"
-                placeholder="Ajouter un commentaire..." maxlength="100" id="finput_comment" rows="1"
-                class="finput_comment"></textarea>
+            <textarea class="regex-example language" placeholder="Ajouter un commentaire..." maxlength="100"
+                id="finput_comment" rows="1" class="finput_comment"></textarea>
             <img src="src/icons/send.png" class="fsend_comment">
         </div>
-
+        <!-- id="placeholder_add_comment" -->
         <div class="custom_popup" id="popup-likes">
             <div class="popup_bg">
                 <div class="scroll_fix_ios"></div>

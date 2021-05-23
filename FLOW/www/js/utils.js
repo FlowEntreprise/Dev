@@ -29,7 +29,6 @@ function set_timestamp(timestamp, return_hours) {
 
         let message_hour_past = Math.floor(difference / 1000 / 60 / 60);
         let minutes;
-        let mois = ["janv", "févr", "mars", "avril", "mai", "juin", "juill", "août", "sept", "oct", "nov", "déc"];
         date.getMinutes() < 10 ? minutes = "0" + date.getMinutes() : minutes = date.getMinutes();
         //date = date.toLocaleDateString("fr") + " " + date.getHours() + ":" + minutes;
         if (message_hour_past > 8760) {
@@ -41,11 +40,11 @@ function set_timestamp(timestamp, return_hours) {
             return date;
         }
         if (message_hour_past >= 24 && message_hour_past < 8760 && return_hours != "label_block_message_date") {
-            date = new Date(timestamp).getDate() + " " + mois[new Date(timestamp).getMonth()];
+            date = new Date(timestamp).getDate() + " " + language_mapping[device_language]['mois'][new Date(timestamp).getMonth()];
             return date;
         }
         if (message_hour_past >= 24 && message_hour_past < 8760 && return_hours == "label_block_message_date") {
-            date = new Date(timestamp).getDate() + " " + mois[new Date(timestamp).getMonth()] + " " + new Date(timestamp).getHours() + ":" + minutes;
+            date = new Date(timestamp).getDate() + " " + language_mapping[device_language]['mois'][new Date(timestamp).getMonth()] + " " + new Date(timestamp).getHours() + ":" + minutes;
             return date;
         }
     }
@@ -65,29 +64,22 @@ function set_timestamp(timestamp, return_hours) {
     }
 
     if (day_past > 0 && day_past < 7) {
-        day_past > 1 ? (time_str = day_past + " j") : (time_str = day_past + " j");
-        return time_str;
+        return time_str = `${day_past} ${language_mapping[device_language]["diminutif_jour"]}`;
     }
 
     if (week_past >= 1 && week_past <= 5) {
-        week_past == 1 ?
-            (time_str = week_past + " sem") :
-            (time_str = week_past + " sem");
-        return time_str;
+        time_str = `${week_past} ${language_mapping[device_language]["diminutif_semaine"]}`;
+        return week_past < 2 ? time_str : time_str + "s";
     }
 
     if (month_past > 0 && month_past <= 12) {
-        month_past < 2 ?
-            (time_str = month_past + " mois") :
-            (time_str = month_past + " mois");
-        return time_str;
+        time_str = `${month_past} ${language_mapping[device_language]["diminutif_mois"]}`;
+        return month_past < 2 ? time_str : time_str + "s";
     }
 
     if (year_past > 0) {
-        year_past < 2 ?
-            (time_str = year_past + " an") :
-            (time_str = year_past + " ans");
-        return time_str;
+        time_str = `${year_past} ${language_mapping[device_language]["diminutif_anne"]}`;
+        return year_past < 2 ? time_str : time_str + "s";
     }
 }
 
@@ -310,6 +302,7 @@ function _language_mapping() {
             "activity": "Activity",
             "likes": "Like",
             "popup_followings_title": "Followings",
+            "popup_followers_title": "Followers",
             "popup_identification_title": "Tag a friend",
             "label_user_blocked_message": "This user has blocked you",
             "label_user_you_blocked_message": "You have blocked this user",
@@ -364,7 +357,7 @@ function _language_mapping() {
             "reply": "Reply",
             "show_responses": "Show responses",
             "previous_responses": "Previous responses",
-            "reduce": "Reduce",
+            "reduce": "Hide",
             "empty_comment": "The comment is empty",
             "btn_delete_conversation": "Delete the conversation",
             "btn_delete_message": "Delete the message",
@@ -401,7 +394,27 @@ function _language_mapping() {
             "placeholder_add_comment": "Add a comment...",
             "placeholder_add_response": "Add a response...",
             "input_send_message": "Type a message",
-            "create-conversation-search-bar": "Search for a user"
+            "create-conversation-search-bar": "Search for a user",
+            "mois": {
+                0: "jan",
+                1: "feb",
+                2: "mar",
+                3: "apr",
+                4: "may",
+                5: "jun",
+                6: "jul",
+                7: "aug",
+                8: "sep",
+                9: "oct",
+                10: "nov",
+                11: "dec"
+            },
+            "diminutif_jour": "d",
+            "diminutif_semaine": "week",
+            "diminutif_mois": "month",
+            "diminutif_anne": "year",
+            "update_ap": "Update the app to get the latest features.",
+            "new_version_available": "New version available!"
         },
         //French
         "fr": {
@@ -429,6 +442,7 @@ function _language_mapping() {
             "activity": "Activité",
             "likes": "Aime",
             "popup_followings_title": "Abonnements",
+            "popup_followers_title": "Abonnés",
             "popup_identification_title": "Identifie un ami",
             "label_user_blocked_message": "Cet utilisateur vous a bloqué",
             "label_user_you_blocked_message": "Vous avez bloqué cet utilisateur",
@@ -520,11 +534,34 @@ function _language_mapping() {
             "placeholder_add_comment": "Ajouter un commentaire...",
             "placeholder_add_response": "Ajouter une réponse...",
             "input_send_message": "Taper un message",
-            "create-conversation-search-bar": "Chercher un utilisateur"
+            "create-conversation-search-bar": "Chercher un utilisateur",
+            "mois": {
+                0: "janv",
+                1: "févr",
+                2: "mars",
+                3: "avril",
+                4: "mai",
+                5: "juin",
+                6: "juill",
+                7: "août",
+                8: "sept",
+                9: "oct",
+                10: "nov",
+                11: "déc"
+            },
+            "diminutif_jour": "j",
+            "diminutif_semaine": "sem",
+            "diminutif_mois": "mois",
+            "diminutif_anne": "an",
+            "update_ap": "Mets l'application à jour pour profiter des toutes dernières fonctionnalités.",
+            "new_version_available": "Nouvelle version de l'application disponible !"
         }
 
     };
 }
 
 //#TODO Faire traduction des places holder
+
+
+
 
