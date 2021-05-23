@@ -293,6 +293,7 @@ function messages_tab_loaded() {
     document.getElementById("popup-create-conversation").addEventListener("opened", function () {
         GetFollowingsPopupCreateConversation();
     });
+
     // document.getElementById("popup-create-conversation").addEventListener("closed", function () {});
 }
 

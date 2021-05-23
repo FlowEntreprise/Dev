@@ -49,7 +49,7 @@ function notifications_tab_loaded() {
             }
         }
     });
-
+    translate_app();
 }
 
 function block_notification_like(data) { //type permet de defini si c'est le like d'un flow ou le like d'un commentaire

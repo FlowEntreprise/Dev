@@ -33,22 +33,19 @@ var app = {
 	onDeviceReady: function () {
 		Keyboard.hide();
 		let custom_vh = window.innerHeight / 100;
-		device_language = navigator.language.slice(0, 2);
-		_language_mapping();
-
-		$(".language").each(function (index, element) {
-			if ($(this).attr("placeholder")) {
-				if ($(this).attr("id") == "finput_comment") {
-					$(this).attr("placeholder", language_mapping[device_language]["placeholder_add_comment"]);
-				}
-				else {
-					$(this).attr("placeholder", language_mapping[device_language][$(this).attr("id")]);
-				}
-			}
-			else {
-				$(this).html(language_mapping[device_language][$(this).attr("id")]);
-			}
-		});
+		// $(".language").each(function (index, element) {
+		// 	if ($(this).attr("placeholder")) {
+		// 		if ($(this).attr("id") == "finput_comment") {
+		// 			$(this).attr("placeholder", language_mapping[device_language]["placeholder_add_comment"]);
+		// 		}
+		// 		else {
+		// 			$(this).attr("placeholder", language_mapping[device_language][$(this).attr("id")]);
+		// 		}
+		// 	}
+		// 	else {
+		// 		$(this).html(language_mapping[device_language][$(this).attr("id")]);
+		// 	}
+		// });
 		// console.log(window.localStorage.getItem("custom_vh"), custom_vh);
 		if (window.localStorage.getItem("custom_vh")) {
 			custom_vh = window.localStorage.getItem("custom_vh");

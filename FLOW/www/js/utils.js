@@ -272,9 +272,7 @@ function check_if_url_in_string(string_to_check) {
     return string_to_check + "<br>";
 }
 
-function _language_mapping() {
-
-
+function translate_app() {
     language_mapping = {
         //English
         "en": {
@@ -309,9 +307,9 @@ function _language_mapping() {
             "create-conversation_title": "New conversation",
             "tuto_txt_1": "Welcome to FLOW",
             "tuto_txt_2": "The first <span>voice-based</span> social network",
-            "tuto_txt_3": "You are one of the <span>first users</span> of the application",
+            "tuto_txt_3": "You are one of the <span>first users</span> of the app",
             "tuto_txt_4": "We chase <span>bugs</span> every day",
-            "tuto_txt_5": "We <span>update</span> the application very regularly",
+            "tuto_txt_5": "We <span>update</span> the app very regularly",
             "tuto_next_btn": "NEXT",
             "tuto_txt_6": "You can <span>listen</span> and <span>publish</span> <span>vocals</span>",
             "tuto_txt_7": "These vocals are called <span>flows</span>",
@@ -558,7 +556,23 @@ function _language_mapping() {
         }
 
     };
+
+    device_language = navigator.language.slice(0, 2);
+    $(".language").each(function (index, element) {
+        if ($(this).attr("placeholder")) {
+            if ($(this).attr("id") == "finput_comment") {
+                $(this).attr("placeholder", language_mapping[device_language]["placeholder_add_comment"]);
+            }
+            else {
+                $(this).attr("placeholder", language_mapping[device_language][$(this).attr("id")]);
+            }
+        }
+        else {
+            $(this).html(language_mapping[device_language][$(this).attr("id")]);
+        }
+    });
 }
+
 
 //#TODO Faire traduction des places holder
 
