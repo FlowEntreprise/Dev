@@ -55,7 +55,7 @@ function showRandomDiscover(data) {
     if (!data.Data) {
         // $(".swiper-container.discover .parent.notloaded").remove();
         discover_swiper.virtual.removeSlide(discover_swiper.virtual.slides.length - 1);
-        discover_swiper.virtual.appendSlide("<div class='parent notloaded'>Tu as fait le tour de l'application !<br>Reviens demain pour plus de contenu</div>");
+        discover_swiper.virtual.appendSlide(`${language_mapping[device_language][fin_de_lapplication]}`);
         discover_swiper.slideTo(discover_swiper.virtual.slides.length - 1);
         return true;
     }

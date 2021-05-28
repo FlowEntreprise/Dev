@@ -74,9 +74,9 @@ document.getElementById("popup-record").addEventListener("opened", function () {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			// console.log("fb current_page event success");
@@ -120,9 +120,9 @@ document.getElementById("popup-record").addEventListener("closed", function () {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			// console.log("fb current_page event success");
@@ -152,9 +152,9 @@ document
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				// console.log("fb current_page event success");
@@ -210,9 +210,9 @@ document
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				// console.log("fb current_page event success");
@@ -315,9 +315,9 @@ $(".fcancel-after_btn").on("touchend", function () {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				// console.log("fb current_page event success");
@@ -336,9 +336,9 @@ $(".fcancel-after_btn").on("touchend", function () {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				// console.log("fb current_page event success");
@@ -383,10 +383,10 @@ $(".fvalidate-after_btn").on("touchend", function () {
 
 				facebookConnectPlugin.logEvent(
 					"record_flow", {
-						// private_id: data.PrivatedId,
-						// description: data.Description,
-						duration: data.Duration,
-					},
+					// private_id: data.PrivatedId,
+					// description: data.Description,
+					duration: data.Duration,
+				},
 					null,
 					function () {
 						console.log("fb record flow event success");
@@ -401,7 +401,7 @@ $(".fvalidate-after_btn").on("touchend", function () {
 		} else {
 			//alert("La description d'un Flow ne peut pas être vide");
 			navigator.notification.alert(
-				"La description d'un Flow ne peut pas être vide",
+				`${language_mapping[device_language]['flow_empty_description']}`,
 				alertDismissed,
 				"Information"
 			);
@@ -428,8 +428,8 @@ $(".fvalidate-after_btn").on("touchend", function () {
 
 			facebookConnectPlugin.logEvent(
 				"upload_story", {
-					duration: storydata.Duration,
-				},
+				duration: storydata.Duration,
+			},
 				null,
 				function () {
 					console.log("fb event success");
@@ -490,9 +490,9 @@ function CloseAfterRecord() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			// console.log("fb current_page event success");
@@ -558,9 +558,9 @@ function Save(blob) {
 				Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 			facebookConnectPlugin.logEvent(
 				"current_page", {
-					page: current_page,
-					duration: time_in_last_screen,
-				},
+				page: current_page,
+				duration: time_in_last_screen,
+			},
 				null,
 				function () {
 					// console.log("fb current_page event success");
@@ -644,9 +644,9 @@ function Save(blob) {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				// console.log("fb current_page event success");
@@ -694,8 +694,8 @@ function Save(blob) {
 
 			facebookConnectPlugin.logEvent(
 				"upload_story_comment", {
-					duration: story_comment.Duration,
-				},
+				duration: story_comment.Duration,
+			},
 				null,
 				function () {
 					console.log("fb record sotry comment event success");
@@ -850,7 +850,7 @@ function TakePhoto(callback) {
 		function error() {
 			//alert('Permission photo non acordée');
 			navigator.notification.alert(
-				"Permission photo non acordée",
+				`${language_mapping[device_language]['photo_permission_denied']}`,
 				alertDismissed,
 				"Information"
 			);
@@ -889,7 +889,7 @@ function GetPhotoFromGallery(callback) {
 		function error() {
 			//alert('Permission galerie photo non accordée');
 			navigator.notification.alert(
-				"Permission galerie photo non accordée",
+				`${language_mapping[device_language]['gallery_permission_denied']}`,
 				alertDismissed,
 				"Information"
 			);
@@ -1003,9 +1003,9 @@ function closeStoryRecord() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			// console.log("fb current_page event success");

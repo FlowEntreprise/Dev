@@ -44,7 +44,7 @@ function home_tab_loaded() {
 	// setup input comment placeholder
 	$("#finput_comment").blur(function () {
 		console.log("an input was out focused");
-		$(this).attr("placeholder", "Ajouter un commentaire...");
+		$(this).attr("placeholder", `${language_mapping[device_language]['placeholder_add_comment']}`);
 	});
 
 	// initialize pull to refresh
@@ -69,7 +69,7 @@ function RefreshTL() {
 	TLCurrentIndex = 0;
 
 	if (home_swiper) {
-		home_swiper.virtual.prependSlide("<div class='parent notloaded'>Chargement...</div>");
+		home_swiper.virtual.prependSlide(`<div class='parent notloaded'> ${language_mapping[device_language]['fnameMonCompte']}...</div>`);
 		home_swiper.slideTo(0);
 		let todelete = [];
 		for (let i = 1; i < home_swiper.virtual.slides.length; i++) {
