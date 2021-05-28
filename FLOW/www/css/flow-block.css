@@ -403,3 +403,8 @@
 	width: 35px;
 	background: red;
 } */
+
+.parent {
+	transform: translateZ(0);
+	will-change: transform;
+}

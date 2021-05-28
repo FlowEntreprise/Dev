@@ -78,9 +78,9 @@ function RefreshTL() {
 		console.log(todelete);
 		home_swiper.virtual.removeSlide(todelete);
 		// home_swiper.virtual.removeAllSlides();
-		for (let i = 0; i < 3; i++) {
-			getHomeFlow();
-		}
+		// for (let i = 0; i < 3; i++) {
+		getHomeFlow(3);
+		// }
 	}
 }
 
@@ -112,7 +112,9 @@ function PopFlow(data) {
 	// let str = ".parent#" + timeline_block_index;
 	// let container = $(str);
 	// if (discover_flows.length > 0) discover_swiper.virtual.appendSlide('<div class="parent">Une erreur s\'est produite</div>');
+	home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
 	let container = $(".swiper-container.home .parent.notloaded").first();
+	container[0].innerHTML = "";
 	if (container[0]) {
 		container[0].innerHTML = "";
 		// if (randomID) tmp_home_flows.splice(tmp_home_flows.indexOf(tmp_home_flows.find(x => x.random_id == randomID)), 1);
@@ -164,7 +166,8 @@ function PopFlow(data) {
 		home_flows.push(new_block);
 		timeline_block_index++;
 		container.removeClass("notloaded");
-		home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
+		if (home_index == 0) home_swiper.slideTo(0);
+		// home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
 	} else {
 		console.warn("could not spawn block", timeline_block_index);
 		// tmp_home_flows.push({
@@ -298,9 +301,9 @@ function setupHome() {
 		virtual: {
 			slides: (function () {
 				let slides = [];
-				for (var i = 0; i < 1; i += 1) {
-					slides.push("<div class='parent notloaded'>Chargement...</div>");
-				}
+				// for (var i = 0; i < 1; i += 1) {
+				// 	slides.push("<div class='parent notloaded'>Chargement...</div>");
+				// }
 				return slides;
 			})()
 		}
@@ -314,19 +317,20 @@ function setupHome() {
 			home_flows[current_index].flowplay();
 			if (current_index > home_index) {
 				home_index = current_index;
-				getHomeFlow();
+				getHomeFlow(1);
 			}
 		}
 	});
 
-	for (let i = 0; i < 3; i++) {
-		getHomeFlow();
-	}
+	// for (let i = 0; i < 3; i++) {
+	getHomeFlow(3);
+	// }
 
 	home_swiper_initialised = true;
 }
 
-function getHomeFlow() {
-	ServerManager.GetTimeline(timeline_index);
+function getHomeFlow(numberOfFlow) {
+	if (timeline_index == 1) timeline_index += 2;
+	ServerManager.GetTimeline(timeline_index, numberOfFlow);
 	timeline_index += 1;
 }

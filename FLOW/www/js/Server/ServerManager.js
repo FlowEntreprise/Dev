@@ -946,15 +946,17 @@ class ServerManagerClass {
 		});
 	}
 
-	GetTimeline(data) {
+	GetTimeline(data, pull) {
 		// console.log(data);
+		if (!pull) pull = 1;
 		let final_data = {
 			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
 				Index: data,
+				Pull: pull
 			},
 		};
-		//console.log(final_data);
+		console.log(final_data);
 		//console.log("Get timeline index : " + data);
 		let start = Date.now();
 		$.ajax({
@@ -966,7 +968,7 @@ class ServerManagerClass {
 				let elapsed_time = end - start;
 				// console.log("elapsed time : " + elapsed_time);
 				////console.log("success");
-				//console.log(response);
+				console.log(response);
 				timeline_get_block_and_blocked_users(response);
 			},
 			error: function (response) {

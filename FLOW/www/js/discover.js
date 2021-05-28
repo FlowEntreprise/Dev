@@ -12,9 +12,9 @@ function setupDiscover() {
         virtual: {
             slides: (function () {
                 let slides = [];
-                for (var i = 0; i < 1; i += 1) {
-                    slides.push("<div class='parent notloaded'>Chargement...</div>");
-                }
+                // for (var i = 0; i < 1; i += 1) {
+                //     slides.push("<div class='parent notloaded'>Chargement...</div>");
+                // }
                 return slides;
             })()
         }
@@ -24,9 +24,9 @@ function setupDiscover() {
         let current_index = discover_swiper.activeIndex;
         if (current_block_playing) current_block_playing.flowend(true);
         if (discover_flows[current_index]) discover_flows[current_index].flowplay();
-        if (current_index > discover_index) {
+        if (current_index > discover_index && current_index % 2 == 0) {
             discover_index = current_index;
-            getDiscoverFlow();
+            getDiscoverFlow(2);
         }
 
         // let tmp_random_excluded = window.localStorage.getItem("random_excluded");
@@ -71,6 +71,8 @@ function showRandomDiscover(data) {
         let flow = data.Data[i];
         // if (discover_flows.length > 0) discover_swiper.virtual.appendSlide('<div class="parent">Une erreur s\'est produite</div>');
         // let container = $(".swiper-container.discover .parent").last();
+
+        discover_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
         let container = $(".swiper-container.discover .parent.notloaded").first();
         container[0].innerHTML = "";
         let pattern_key = "";
@@ -98,6 +100,7 @@ function showRandomDiscover(data) {
             Responses: flow.Responses,
         };
         let new_block = new block(block_params);
+        // discover_swiper.virtual.appendSlide(new_block.block_flow);
         new_block.block_flow.style.marginTop = "1vw";
 
         if (discover_flows.length == 0 && !in_new_features) {
@@ -111,6 +114,6 @@ function showRandomDiscover(data) {
         all_blocks.push(new_block);
         discover_flows.push(new_block);
         container.removeClass("notloaded");
-        discover_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>")
+        if (discover_index == 0) discover_swiper.slideTo(0);
     }
 }

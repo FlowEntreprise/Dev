@@ -188,7 +188,7 @@ function block(params) {
 		this.block_flow.appendChild(tl_indicator);
 	}
 	this.block_flow.style.marginTop = "12vw";
-	params.parent_element.append(this.block_flow);
+	if (params.parent_element) params.parent_element.append(this.block_flow);
 
 	this.ftop_part = document.createElement("div");
 	this.ftop_part.className = "ftop_part";
