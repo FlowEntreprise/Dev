@@ -1,6 +1,7 @@
 // Variables :
 let CanRefreshTL = true;
 let TLCurrentIndex = 0;
+let HomeFlowsArray = [];
 
 function home_tab_loaded() {
 	// scroll to top if tap on home
@@ -59,6 +60,7 @@ function home_tab_loaded() {
 function RefreshTL() {
 	console.log("refreshing...");
 	// stopAllBlocksAudio();
+	HomeFlowsArray = [];
 	TLCurrentIndex = 0;
 	// ServerManager.GetTimeline(0);
 	ServerManager.GetStory();
@@ -93,7 +95,7 @@ function pullToRefreshEnd() {
 	notifs_ptr.Stop();
 }
 
-function PopFlow(data) {
+function PopFlow(data, container) {
 	var image_link = undefined;
 	var pattern_key = undefined;
 	if (data.Background.PatternKey != undefined) {
@@ -112,8 +114,10 @@ function PopFlow(data) {
 	// let str = ".parent#" + timeline_block_index;
 	// let container = $(str);
 	// if (discover_flows.length > 0) discover_swiper.virtual.appendSlide('<div class="parent">Une erreur s\'est produite</div>');
-	home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
-	let container = $(".swiper-container.home .parent.notloaded").first();
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//////// home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
+	//////// let container = $(".swiper-container.home .parent.notloaded").first();
 	container[0].innerHTML = "";
 	if (container[0]) {
 		container[0].innerHTML = "";
@@ -166,7 +170,7 @@ function PopFlow(data) {
 		home_flows.push(new_block);
 		timeline_block_index++;
 		container.removeClass("notloaded");
-		if (home_index == 0) home_swiper.slideTo(0);
+		// if (home_index == 0) home_swiper.slideTo(0);
 		// home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
 	} else {
 		console.warn("could not spawn block", timeline_block_index);
@@ -186,9 +190,6 @@ function timeline_get_block_and_blocked_users(data_timeline) {
 }
 
 function UpdateTimeline(data, data_block_user) {
-	// console.log("updating timeline...");
-	// stopAllBlocksAudio();
-	// console.log(data);
 	console.log(data.Data);
 	if (Array.isArray(data.Data)) {
 		$(".empty_tl")[0].style.display = "none";
@@ -214,10 +215,8 @@ function UpdateTimeline(data, data_block_user) {
 		setTimeout(function () {
 			if ($(".loading_tl")) $(".loading_tl").remove();
 			if (TLCurrentIndex == 0) {
-				// $(".list-block")[0].innerHTML = "";
 				let loading_tl = document.createElement("div");
 				loading_tl.className = "loading-spinner loading_tl";
-				// $(".list-block")[0].appendChild(loading_tl);
 			}
 			for (let i = 0; i < unique_data.length; i++) {
 				if (unique_block_user.length != 0) {
@@ -225,30 +224,23 @@ function UpdateTimeline(data, data_block_user) {
 						if (
 							unique_block_user[i_unique_block_user] != unique_data[i].PrivateId
 						) {
-							// console.log("pop flow 1")
-							PopFlow(unique_data[i]);
+							// PopFlow();
+							HomeFlowsArray.push(unique_data[i]);
+							// home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
 						}
 					}
 				} else {
-					// console.log("pop flow 2")
-					PopFlow(unique_data[i]);
+					// PopFlow(unique_data[i]);
+					HomeFlowsArray.push(unique_data[i]);
+					// home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
 				}
 			}
 			if ($(".loading_tl")) $(".loading_tl").remove();
-			// console.log("timeline updated !");
-			// pullToRefreshEnd();
 			TLCurrentIndex++;
-			// if (unique_data.length < 5) {
-			// 	CanRefreshTL = false;
-			// 	let tick_tl = document.createElement("div");
-			// 	tick_tl.className = "tick_icon";
-			// 	// $(".list-block")[0].appendChild(tick_tl);
-			// } else {
-			// 	CanRefreshTL = true;
-			// 	let loading_tl = document.createElement("div");
-			// 	loading_tl.className = "loading-spinner loading_tl";
-			// 	// $(".list-block")[0].appendChild(loading_tl);
-			// }
+			if (home_index == 0) {
+				TryPopHomeFlows();
+				home_swiper.slideTo(0);
+			}
 		}, 500);
 	} else {
 		if (home_swiper.activeIndex == home_swiper.virtual.slides.length - 2) home_swiper.virtual.removeSlide(home_swiper.virtual.slides.length - 1);
@@ -260,14 +252,31 @@ function UpdateTimeline(data, data_block_user) {
 	}
 }
 
+function TryPopHomeFlows() {
+	let indexesToRemove = [];
+	if (home_swiper.activeIndex >= home_swiper.virtual.slides.length - 2 && HomeFlowsArray.length > 0) {
+		for (let i in HomeFlowsArray) {
+			home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
+		}
+	}
+	for (let i in HomeFlowsArray) {
+		let container = $(".swiper-container.home .parent.notloaded").first();
+		if (container[0]) {
+			PopFlow(HomeFlowsArray[i], container);
+			indexesToRemove.unshift(i);
+		}
+	}
+	for (let i in indexesToRemove) {
+		HomeFlowsArray.splice(indexesToRemove[i], 1);
+	}
+}
+
 function StopRefreshTL() {
 	if ($(".loading_tl")) $(".loading_tl").remove();
 	CanRefreshTL = false;
 	CanRefreshFollowList = false;
 	pullToRefreshEnd();
 }
-
-
 
 function successFunction() {
 	let d = new Date();
@@ -301,9 +310,9 @@ function setupHome() {
 		virtual: {
 			slides: (function () {
 				let slides = [];
-				// for (var i = 0; i < 1; i += 1) {
-				// 	slides.push("<div class='parent notloaded'>Chargement...</div>");
-				// }
+				for (var i = 0; i < 5; i += 1) {
+					slides.push("<div class='parent notloaded'>Chargement...</div>");
+				}
 				return slides;
 			})()
 		}
@@ -314,16 +323,17 @@ function setupHome() {
 		if (home_flows.length > 0) {
 			let current_index = home_swiper.activeIndex;
 			if (current_block_playing) current_block_playing.flowend(true);
+			TryPopHomeFlows();
 			home_flows[current_index].flowplay();
-			if (current_index > home_index) {
+			if (current_index > home_index && (current_index + 3) % 5 == 0) {
 				home_index = current_index;
-				getHomeFlow(1);
+				getHomeFlow(5);
 			}
 		}
 	});
 
 	// for (let i = 0; i < 3; i++) {
-	getHomeFlow(3);
+	getHomeFlow(5);
 	// }
 
 	home_swiper_initialised = true;

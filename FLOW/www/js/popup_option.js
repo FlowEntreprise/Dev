@@ -123,7 +123,10 @@ function delete_response_from_html(element) {
                 nombre_de_reponses_apres_ajout = current_comment_block.nombre_de_reponses;
             }
             if (nb_response == 0) {
-                $(current_comment_block.fblock_comment_label_afficher_les_reponses).css({ "opacity": "0", "pointer-events": "none" });
+                $(current_comment_block.fblock_comment_label_afficher_les_reponses).css({
+                    "opacity": "0",
+                    "pointer-events": "none"
+                });
             } else {
                 $(current_comment_block.fblock_comment_label_afficher_les_reponses).text(`${language_mapping[device_language]['show_responses']} (${nb_response})`);
                 $(current_comment_block.label_afficher_plus_de_reponses).text(`${language_mapping[device_language]['show_more']} (${nombre_de_reponses_apres_ajout})`);
@@ -267,8 +270,7 @@ $("#delete_button").on("touchend", function () {
                     current_block_message.chat_id = current_block_chat.chat_id;
                     if (current_block_message.audio_url.length || current_block_message.image_url) {
                         getPathStorageFromUrl(current_block_message);
-                    }
-                    else {
+                    } else {
                         ServerManager.Delete_text_message(current_block_message);
                     }
                 }
