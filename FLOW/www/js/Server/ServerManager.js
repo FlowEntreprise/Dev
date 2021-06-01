@@ -1773,12 +1773,13 @@ class ServerManagerClass {
 		});
 	}
 
-	GetFlowDiscover(index, numberOfFlows) {
+	GetFlowDiscover(index, numberOfFlows, excluded) {
 		if (!numberOfFlows) numberOfFlows = 1;
 		let final_data = {
 			Data: {
-				Index: index,
-				Pull: numberOfFlows
+				Index: 0,
+				Pull: numberOfFlows,
+				FlowsExcluded: excluded
 			},
 			TokenId: window.localStorage.getItem("user_token") ? window.localStorage.getItem("user_token") : registrationId
 		};

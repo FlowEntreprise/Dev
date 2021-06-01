@@ -3,6 +3,7 @@ let discover_index = 0;
 let discover_flow_index = 0;
 let discover_flows = [];
 let DiscoverFlowsArray = [];
+let discover_flows_seen = [];
 
 function setupDiscover() {
     discover_swiper = new Swiper(".swiper-container.discover", {
@@ -26,6 +27,10 @@ function setupDiscover() {
         let current_index = discover_swiper.activeIndex;
         if (current_block_playing) current_block_playing.flowend(true);
         TryPopDiscoverFlows();
+        if (discover_flows[current_index] && discover_flows_seen.includes(discover_flows[current_index].ObjectId)) {
+            discover_flows_seen.splice(discover_flows_seen.indexOf(discover_flows[current_index].ObjectId), 1);
+            console.log("remove : " + discover_flows[current_index].ObjectId);
+        }
         if (discover_flows[current_index]) discover_flows[current_index].flowplay();
         if (current_index > discover_index && (current_index + 3) % 5 == 0) {
             discover_index = current_index;
@@ -48,7 +53,10 @@ function getDiscoverFlow(numberOfFlows) {
     // if (!tmp_random_excluded) randomExcluded = [];
     // else randomExcluded = tmp_random_excluded.split(",");
     // if (discover_index > 0) index = discover_index + 2;
-    ServerManager.GetFlowDiscover(discover_flow_index, numberOfFlows);
+    let excluded = discover_flows_seen;
+    // console.log(DiscoverFlowsArray.length);
+    // console.log(excluded);
+    ServerManager.GetFlowDiscover(discover_flow_index, numberOfFlows, excluded);
     discover_flow_index++;
 }
 
@@ -61,6 +69,7 @@ function AddToDiscoverArray(data) {
         for (let i = 0; i < data.Data.length; i++) {
             if (discover_index == 0) discover_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
             DiscoverFlowsArray.push(data.Data[i]);
+            discover_flows_seen.push(data.Data[i].ObjectId);
         }
 
         if (discover_index == 0) {
@@ -134,4 +143,26 @@ function showRandomDiscover(data, container) {
     container.removeClass("notloaded");
     // if (discover_index == 0) discover_swiper.slideTo(0);
     // }
+}
+
+function ResetAccountDev() {
+    push.unregister(
+        () => {
+            console.log('success');
+            let push = PushNotification.init({
+                android: {
+                    icon: device.manufacturer == "OnePlus" ?
+                        "flow_icone_one_plus" : "flow_icone",
+                },
+                ios: {
+                    alert: "true",
+                    badge: "true",
+                    sound: "true",
+                },
+            });
+        },
+        () => {
+            console.log('error');
+        }
+    );
 }
