@@ -16,7 +16,7 @@ function setupDiscover() {
             slides: (function () {
                 let slides = [];
                 for (var i = 0; i < 1; i += 1) {
-                    slides.push("<div class='parent notloaded'>Chargement...</div>");
+                    slides.push(`${language_mapping[device_language]['chargement_swiper']}`);
                 }
                 return slides;
             })()
@@ -67,7 +67,7 @@ function AddToDiscoverArray(data) {
         discover_swiper.slideTo(discover_swiper.virtual.slides.length - 1);
     } else {
         for (let i = 0; i < data.Data.length; i++) {
-            if (discover_index == 0) discover_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
+            if (discover_index == 0) discover_swiper.virtual.appendSlide(`${language_mapping[device_language]['chargement_swiper']}`);
             DiscoverFlowsArray.push(data.Data[i]);
             discover_flows_seen.push(data.Data[i].ObjectId);
         }
@@ -83,7 +83,7 @@ function TryPopDiscoverFlows() {
     let indexesToRemove = [];
     if (discover_swiper.activeIndex >= discover_swiper.virtual.slides.length - 2 && DiscoverFlowsArray.length > 0) {
         for (let i in DiscoverFlowsArray) {
-            discover_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
+            discover_swiper.virtual.appendSlide(`${language_mapping[device_language]['chargement_swiper']}`);
         }
     }
     for (let i in DiscoverFlowsArray) {
@@ -99,7 +99,7 @@ function TryPopDiscoverFlows() {
 }
 
 function showRandomDiscover(data, container) {
-    let flow = data
+    let flow = data;
 
     container[0].innerHTML = "";
     let pattern_key = "";

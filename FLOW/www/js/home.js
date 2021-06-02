@@ -71,7 +71,7 @@ function RefreshTL() {
 	TLCurrentIndex = 0;
 
 	if (home_swiper) {
-		home_swiper.virtual.prependSlide(`<div class='parent notloaded'> ${language_mapping[device_language]['fnameMonCompte']}...</div>`);
+		home_swiper.virtual.prependSlide(`${language_mapping[device_language]['chargement_swiper']}`);
 		home_swiper.slideTo(0);
 		let todelete = [];
 		for (let i = 1; i < home_swiper.virtual.slides.length; i++) {
@@ -116,7 +116,7 @@ function PopFlow(data, container) {
 	// if (discover_flows.length > 0) discover_swiper.virtual.appendSlide('<div class="parent">Une erreur s\'est produite</div>');
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//////// home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
+	//////// home_swiper.virtual.appendSlide(`${language_mapping[device_language]['chargement_swiper']}`);
 	//////// let container = $(".swiper-container.home .parent.notloaded").first();
 	container[0].innerHTML = "";
 	if (container[0]) {
@@ -171,7 +171,7 @@ function PopFlow(data, container) {
 		timeline_block_index++;
 		container.removeClass("notloaded");
 		// if (home_index == 0) home_swiper.slideTo(0);
-		// home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
+		// home_swiper.virtual.appendSlide(`${language_mapping[device_language]['chargement_swiper']}`);
 	} else {
 		console.warn("could not spawn block", timeline_block_index);
 		// tmp_home_flows.push({
@@ -226,13 +226,13 @@ function UpdateTimeline(data, data_block_user) {
 						) {
 							// PopFlow();
 							HomeFlowsArray.push(unique_data[i]);
-							// home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
+							// home_swiper.virtual.appendSlide(`${language_mapping[device_language]['chargement_swiper']}`);
 						}
 					}
 				} else {
 					// PopFlow(unique_data[i]);
 					HomeFlowsArray.push(unique_data[i]);
-					// home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
+					// home_swiper.virtual.appendSlide(`${language_mapping[device_language]['chargement_swiper']}`);
 				}
 			}
 			if ($(".loading_tl")) $(".loading_tl").remove();
@@ -256,7 +256,7 @@ function TryPopHomeFlows() {
 	let indexesToRemove = [];
 	if (home_swiper.activeIndex >= home_swiper.virtual.slides.length - 2 && HomeFlowsArray.length > 0) {
 		for (let i in HomeFlowsArray) {
-			home_swiper.virtual.appendSlide("<div class='parent notloaded'>Chargement...</div>");
+			home_swiper.virtual.appendSlide(`${language_mapping[device_language]['chargement_swiper']}`);
 		}
 	}
 	for (let i in HomeFlowsArray) {
@@ -311,7 +311,7 @@ function setupHome() {
 			slides: (function () {
 				let slides = [];
 				for (var i = 0; i < 5; i += 1) {
-					slides.push("<div class='parent notloaded'>Chargement...</div>");
+					slides.push(`${language_mapping[device_language]['chargement_swiper']}`);
 				}
 				return slides;
 			})()
