@@ -54,7 +54,10 @@ const ServerParams = {
 	AddViewFlow: "AddViewFlow",
 	GetNewFlows: "GetNewFlows",
 	GetRandomFlow: "GetRandomFlow",
-	GetFlowOfTheDay: "GetFlowOfTheDay"
+	GetFlowDiscover: "GetFlowDiscover",
+	GetFlowOfTheDay: "GetFlowOfTheDay",
+	IsRegisterExist: "IsRegisterExist",
+	ConexionForUserUnregistered: "ConexionForUserUnregistered"
 };
 var FirebaseEnvironment = ServerParams.ServerURL == "https://api.flowappweb.com/" ? "prod" : "dev";
 const apiTypes = {
@@ -64,6 +67,7 @@ const apiTypes = {
 	Facebook: "facebook",
 	Flow: "flow",
 	Apple: "apple",
+	Unregistered: "unregistered"
 };
 
 // Server Manager Class :
@@ -78,6 +82,16 @@ class ServerManagerClass {
 		let final_data;
 		let DataSend;
 		switch (api) {
+			case apiTypes.Unregistered:
+				DataSend = {
+					RegisterId: registrationId,
+					LastOs: window.cordova.platformId
+				};
+				final_data = {
+					Data: DataSend,
+					Action: "Unregistered",
+				};
+				break;
 			case apiTypes.Flow:
 				DataSend = {
 					Username: data.Username,
@@ -87,6 +101,10 @@ class ServerManagerClass {
 					Email: data.Email,
 					Birth: data.Birth,
 				};
+				if (registrationId) {
+					DataSend.RegisterId = registrationId;
+					DataSend.LastOs = window.cordova.platformId;
+				}
 				final_data = {
 					Data: DataSend,
 					Action: "Flow",
@@ -101,6 +119,10 @@ class ServerManagerClass {
 					Link: data.picture.data.url,
 					Token: data.id,
 				};
+				if (registrationId) {
+					DataSend.RegisterId = registrationId;
+					DataSend.LastOs = window.cordova.platformId;
+				}
 				final_data = {
 					Data: DataSend,
 					Action: "Facebook",
@@ -128,6 +150,10 @@ class ServerManagerClass {
 					Link: data.imageUrl,
 					Token: data.userId,
 				};
+				if (registrationId) {
+					DataSend.RegisterId = registrationId;
+					DataSend.LastOs = window.cordova.platformId;
+				}
 				final_data = {
 					Data: DataSend,
 					Action: "Google",
@@ -141,6 +167,10 @@ class ServerManagerClass {
 					Biographie: data.description,
 					Token: String(data.id),
 				};
+				if (registrationId) {
+					DataSend.RegisterId = registrationId;
+					DataSend.LastOs = window.cordova.platformId;
+				}
 				final_data = {
 					Data: DataSend,
 					Action: "Twitter",
@@ -167,6 +197,10 @@ class ServerManagerClass {
 					Biographie: data.bio,
 					Token: data.id,
 				};
+				if (registrationId) {
+					DataSend.RegisterId = registrationId;
+					DataSend.LastOs = window.cordova.platformId;
+				}
 				final_data = {
 					Data: DataSend,
 					Action: "Apple",
@@ -183,12 +217,16 @@ class ServerManagerClass {
 			success: function (response) {
 				//// //console.log("Connection success : ");
 				console.log(response);
-				storeVariables(response);
-				ConnectUser(response);
+				if (response && response.PrivateId) {
+					storeVariables(response);
+					ConnectUser(response);
+				} else {
+					window.localStorage.setItem("unregistered_user_token", response.TokenId);
+				}
 			},
 			error: function (response) {
-				//// //console.log("Connection error : ");
-				//// //console.log(response);
+				console.log("Connection error : ");
+				console.log(response);
 			},
 		});
 	}
@@ -344,7 +382,7 @@ class ServerManagerClass {
 			success: function (response) {
 				//// //console.log("Flow sucessfully recovered from database :");
 				//// //console.log(response);
-				PopFlow(response.Data, response.LinkBuilder);
+				// PopFlow(response.Data, response.LinkBuilder); rmTL
 			},
 			error: function (response) {
 				//// //console.log("Flow recovering from database error : ");
@@ -908,14 +946,17 @@ class ServerManagerClass {
 		});
 	}
 
-	GetTimeline(data) {
+	GetTimeline(data, pull) {
+		// console.log(data);
+		if (!pull) pull = 1;
 		let final_data = {
 			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
 				Index: data,
+				Pull: pull
 			},
 		};
-		//console.log(final_data);
+		console.log(final_data);
 		//console.log("Get timeline index : " + data);
 		let start = Date.now();
 		$.ajax({
@@ -925,9 +966,9 @@ class ServerManagerClass {
 			success: function (response) {
 				let end = Date.now();
 				let elapsed_time = end - start;
-				console.log("elapsed time : " + elapsed_time);
+				// console.log("elapsed time : " + elapsed_time);
 				////console.log("success");
-				//console.log(response);
+				console.log(response);
 				timeline_get_block_and_blocked_users(response);
 			},
 			error: function (response) {
@@ -1160,6 +1201,33 @@ class ServerManagerClass {
 		});
 	}
 
+
+	IsRegisterExist(data) {
+		let final_data = {
+			Data: data,
+			Action: "IsRegisterExist"
+		};
+		//// //console.log(final_data.Data);
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.IsRegisterExist,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				console.log("La reponse du IsRegisterExist est : ");
+				console.log(response);
+				if (response.Data == false) {
+					ServerManager.Connect('unregistered', {});
+				}
+			},
+			error: function (response) {
+				////console.log("registerId update error : ");
+				////console.log(response);
+				//// //console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
+			},
+		});
+	}
+
+
 	AddNotificationToUser(data) {
 		let final_data = {
 			Data: data,
@@ -1211,7 +1279,7 @@ class ServerManagerClass {
 	UpdateNotificationToView(data) {
 		let final_data = {
 			Data: data,
-			TokenId: window.localStorage.getItem("user_token"),
+			TokenId: window.localStorage.getItem("user_token")
 		};
 		////console.log(final_data);
 		$.ajax({
@@ -1451,7 +1519,7 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				RefreshTL();
-				RefreshExplore();
+				// RefreshExplore();
 				in_app_notif(data);
 			},
 			error: function (response) {
@@ -1474,7 +1542,7 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				RefreshTL();
-				RefreshExplore();
+				// RefreshExplore();
 				in_app_notif(data);
 			},
 			error: function (response) {
@@ -1521,7 +1589,7 @@ class ServerManagerClass {
 			},
 			error: function (response) {
 				////console.log(response);
-			},
+			}
 		});
 	}
 
@@ -1629,11 +1697,16 @@ class ServerManagerClass {
 
 	AddViewFlow(data) {
 		let final_data = {
-			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
 				ObjectId: data,
-			},
+			}
 		};
+		if (window.localStorage.getItem("user_token")) {
+			final_data.TokenId = window.localStorage.getItem("user_token");
+		} else {
+			final_data.TokenId = registrationId;
+		}
+
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.AddViewFlow,
@@ -1690,7 +1763,37 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				//console.log(response);
+				// AddToDiscoverArray(response);
 				showRandomFlow(response, discover);
+			},
+			error: function (response) {
+				//console.log(response);
+				pullToRefreshEnd();
+			},
+		});
+	}
+
+	GetFlowDiscover(index, numberOfFlows, excluded) {
+		if (!numberOfFlows) numberOfFlows = 1;
+		let final_data = {
+			Data: {
+				Index: 0,
+				Pull: numberOfFlows,
+				FlowsExcluded: excluded
+			},
+			TokenId: window.localStorage.getItem("user_token") ? window.localStorage.getItem("user_token") : registrationId
+		};
+
+		console.log(final_data);
+		//// //console.log(final_data);
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.GetFlowDiscover,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				console.log(response);
+				// showRandomFlow(response, true);
+				AddToDiscoverArray(response);
 			},
 			error: function (response) {
 				//console.log(response);

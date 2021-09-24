@@ -185,7 +185,7 @@ function RefreshStories() {
     /* ------------------------------------------------*/
     /*              REFRESH AFTER GETTING DATA         */
     /* ------------------------------------------------*/
-    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-story-record', true)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div><label class=\"fstory_user\">Ta story</label></div></li>";
+    $(".fstory_list")[0].innerHTML = `<li><div class=\"fstory_block\" onclick=\"Popup('popup-story-record', true)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div><label class=\"fstory_user\">${language_mapping[device_language]["fstory_user"]}</label></div></li>`;
     // if (connected && window.localStorage.getItem("user_profile_pic")) {
     //     $(".mystory_pic")[0].src = "src/icons/plus.png"//window.localStorage.getItem("user_profile_pic");
     // }
@@ -233,8 +233,8 @@ function RefreshStories() {
         let story_user = document.createElement("label");
         story_user.className = "fstory_user";
         if (story_data[i].private_id == window.localStorage.getItem("user_private_id")) {
-            $(".fstory_user")[0].innerHTML = "Ajouter story";
-            story_user.innerHTML = "Ta story";
+            $(".fstory_user")[0].innerHTML = `${language_mapping[device_language]['add_story']}`;
+            story_user.innerHTML = `${language_mapping[device_language]['fstory_user']}`;
         } else {
             story_user.innerHTML = story_data[i].private_id;
         }
@@ -1109,7 +1109,7 @@ function playStoryComment(comment, htmlelement) {
 }
 
 function lerp(start, end, amt) {
-    return (1 - amt) * start + amt * end
+    return (1 - amt) * start + amt * end;
 }
 
 function smoothUpdateBar(loading_com, comment) {

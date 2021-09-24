@@ -79,10 +79,10 @@ document.getElementById("popup-record").addEventListener("opened", function () {
 	},
 		null,
 		function () {
-			console.log("fb current_page event success");
+			// console.log("fb current_page event success");
 		},
 		function () {
-			console.log("fb current_page error");
+			console.warn("fb current_page error");
 		}
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -125,10 +125,10 @@ document.getElementById("popup-record").addEventListener("closed", function () {
 	},
 		null,
 		function () {
-			console.log("fb current_page event success");
+			// console.log("fb current_page event success");
 		},
 		function () {
-			console.log("fb current_page error");
+			console.warn("fb current_page error");
 		}
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -157,10 +157,10 @@ document
 		},
 			null,
 			function () {
-				console.log("fb current_page event success");
+				// console.log("fb current_page event success");
 			},
 			function () {
-				console.log("fb current_page error");
+				console.warn("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -215,10 +215,10 @@ document
 		},
 			null,
 			function () {
-				console.log("fb current_page event success");
+				// console.log("fb current_page event success");
 			},
 			function () {
-				console.log("fb current_page error");
+				console.warn("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -320,10 +320,10 @@ $(".fcancel-after_btn").on("touchend", function () {
 		},
 			null,
 			function () {
-				console.log("fb current_page event success");
+				// console.log("fb current_page event success");
 			},
 			function () {
-				console.log("fb current_page error");
+				console.warn("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -341,10 +341,10 @@ $(".fcancel-after_btn").on("touchend", function () {
 		},
 			null,
 			function () {
-				console.log("fb current_page event success");
+				// console.log("fb current_page event success");
 			},
 			function () {
-				console.log("fb current_page error");
+				console.warn("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -401,7 +401,7 @@ $(".fvalidate-after_btn").on("touchend", function () {
 		} else {
 			//alert("La description d'un Flow ne peut pas être vide");
 			navigator.notification.alert(
-				"La description d'un Flow ne peut pas être vide",
+				`${language_mapping[device_language]['flow_empty_description']}`,
 				alertDismissed,
 				"Information"
 			);
@@ -495,19 +495,20 @@ function CloseAfterRecord() {
 	},
 		null,
 		function () {
-			console.log("fb current_page event success");
+			// console.log("fb current_page event success");
 		},
 		function () {
-			console.log("fb current_page error");
+			console.warn("fb current_page error");
 		}
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 	current_page = "home";
 
 	// analytics.setCurrentScreen(current_page);
-
-	TLCurrentIndex = 0;
-	ServerManager.GetTimeline(0);
+	RefreshTL();
+	// rmTL
+	// TLCurrentIndex = 0;
+	// ServerManager.GetTimeline(0);
 }
 
 function PlayRipple(element, className) {
@@ -562,10 +563,10 @@ function Save(blob) {
 			},
 				null,
 				function () {
-					console.log("fb current_page event success");
+					// console.log("fb current_page event success");
 				},
 				function () {
-					console.log("fb current_page error");
+					console.warn("fb current_page error");
 				}
 			);
 			last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -648,10 +649,10 @@ function Save(blob) {
 		},
 			null,
 			function () {
-				console.log("fb current_page event success");
+				// console.log("fb current_page event success");
 			},
 			function () {
-				console.log("fb current_page error");
+				console.warn("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -731,8 +732,7 @@ function Save(blob) {
 			if (first_chat == true) {
 				ServerManager.AddChat(data_dm, false);
 				ServerManager.UploadAudioToFirebase(DataFirebase);
-			}
-			else {
+			} else {
 
 				ServerManager.UploadAudioToFirebase(DataFirebase);
 			}
@@ -850,7 +850,7 @@ function TakePhoto(callback) {
 		function error() {
 			//alert('Permission photo non acordée');
 			navigator.notification.alert(
-				"Permission photo non acordée",
+				`${language_mapping[device_language]['photo_permission_denied']}`,
 				alertDismissed,
 				"Information"
 			);
@@ -889,7 +889,7 @@ function GetPhotoFromGallery(callback) {
 		function error() {
 			//alert('Permission galerie photo non accordée');
 			navigator.notification.alert(
-				"Permission galerie photo non accordée",
+				`${language_mapping[device_language]['gallery_permission_denied']}`,
 				alertDismissed,
 				"Information"
 			);
@@ -1008,10 +1008,10 @@ function closeStoryRecord() {
 	},
 		null,
 		function () {
-			console.log("fb current_page event success");
+			// console.log("fb current_page event success");
 		},
 		function () {
-			console.log("fb current_page error");
+			console.warn("fb current_page error");
 		}
 	);
 	current_page = "home";
