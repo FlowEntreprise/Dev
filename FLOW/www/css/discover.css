@@ -1,15 +1,13 @@
-.swiper-container.discover,
-.swiper-container.home {
+.swiper-container.discover {
     margin-top: calc(-9 * var(--custom-vh));
     width: 100%;
-    height: calc(100 * var(--custom-vh));
+    height: 100%;
     margin-left: auto;
     margin-right: auto;
     /* background: red; */
 }
 
-.swiper-container.discover .swiper-slide,
-.swiper-container.home .swiper-slide {
+.swiper-container.discover .swiper-slide {
     text-align: center;
     font-size: 18px;
     transform: scale3d(0.75, 0.75, 0.75);
@@ -34,8 +32,7 @@
     transition-duration: 0.4s;
 }
 
-.swiper-container.discover .swiper-slide-active,
-.swiper-container.home .swiper-slide-active {
+.swiper-container.discover .swiper-slide-active {
     transition-duration: 0.4s;
     transform: scale3d(1, 1, 1);
 }

@@ -202,7 +202,6 @@
 .afficher_plus_de_reponses_container {
 	text-align: center;
 	margin-left: 19.5vw;
-	margin-top: 1.5vh;
 	width: 80.5VW;
 	color: #92abb2;
 	font-size: calc(1.6 * var(--custom-vh));

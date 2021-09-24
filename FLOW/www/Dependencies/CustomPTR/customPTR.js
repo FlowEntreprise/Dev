@@ -35,7 +35,7 @@ function ptrStop(ptr_options) {
 }
 
 function swipeStart(e, ptr_options) {
-    // console.log("swipe_start", ptr_options);
+    console.log("swipe_start", ptr_options);
     if (typeof e["targetTouches"] !== "undefined") {
         let touch = e.targetTouches[0];
         pStart.x = touch.screenX;
@@ -85,7 +85,7 @@ function swipe(e, ptr_options) {
 // document.addEventListener("touchend", e => swipeEnd(e), false);
 
 function setupPTR(element, callback) {
-    // console.log(element);
+    console.log(element);
     let ptr_options = {};
     ptr_options.ptr_parent = element;
     ptr_options.ptr_loading = element.querySelector(".ptr_loading");

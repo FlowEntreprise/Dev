@@ -17,9 +17,9 @@ function explore_tab_loaded() {
 	// });
 
 	// Initilize recents pull to refresh
-	// recents_ptr = setupPTR(document.querySelector(".recents"), function () {
-	// RefreshExplore();
-	// });
+	recents_ptr = setupPTR(document.querySelector(".recents"), function () {
+		RefreshExplore();
+	});
 
 	// Initialize search_bar events 
 	$(".fsearch-bar")[0].addEventListener("focus", function () {
@@ -29,10 +29,10 @@ function explore_tab_loaded() {
 		// $(".list-block-top50")[0].style.opacity = 0;
 		// $(".list-block-top50")[0].style.display = "none";
 		// $(".list-block-top50")[0].style.pointerEvents = "none";
-		// $(".list-block-recents")[0].style.opacity = 0;
-		// $(".list-block-recents")[0].style.display = "none";
-		// $(".list-block-recents")[0].style.pointerEvents = "none";
-		// $(".fdj_parent")[0].style.display = "none";
+		$(".list-block-recents")[0].style.opacity = 0;
+		$(".list-block-recents")[0].style.display = "none";
+		$(".list-block-recents")[0].style.pointerEvents = "none";
+		$(".fdj_parent")[0].style.display = "none";
 		$(".swiper-container.discover")[0].style.display = "none";
 
 		// $(".list-block-top50")[0].innerHTML = "";
@@ -55,11 +55,11 @@ function explore_tab_loaded() {
 			// $(".list-block-top50")[0].style.opacity = 1;
 			// $(".list-block-top50")[0].style.display = "block";
 			// $(".list-block-top50")[0].style.pointerEvents = "auto";
-			// $(".list-block-recents")[0].style.opacity = 1;
-			// $(".list-block-recents")[0].style.display = "block";
-			// $(".list-block-recents")[0].style.pointerEvents = "auto";
+			$(".list-block-recents")[0].style.opacity = 1;
+			$(".list-block-recents")[0].style.display = "block";
+			$(".list-block-recents")[0].style.pointerEvents = "auto";
 			$(".explore-swiper")[0].style.display = "block";
-			// $(".fdj_parent")[0].style.display = "block";
+			$(".fdj_parent")[0].style.display = "block";
 			$(".swiper-container.discover")[0].style.display = "block";
 		}
 	});
@@ -86,23 +86,22 @@ function explore_tab_loaded() {
 	$(".fexplore-btn").on("touchend", function () {
 		// var home_scrolling = false;
 		$(".fred_dot_toolbar_explore").css("display", "none");
-		// if (current_page == "explore") {
-		// 	let element = document.getElementById("tab2");
-		// 	// element.onscroll = function() {
-		// 	//     home_scrolling = true;
-		// 	// };
-		// 	let last_scrollTop = element.scrollTop;
-		// 	const scrollToTop = () => {
-		// 		const c = element.scrollTop;
-		// 		if (c > 0 && c <= last_scrollTop) {
-		// 			window.requestAnimationFrame(scrollToTop);
-		// 			element.scrollTo(0, c - c / 8);
-		// 			last_scrollTop = c;
-		// 		}
-		// 	};
-		// 	scrollToTop();
-		// }
-		explore_swiper.slideTo(0);
+		if (current_page == "explore") {
+			let element = document.getElementById("tab2");
+			// element.onscroll = function() {
+			//     home_scrolling = true;
+			// };
+			let last_scrollTop = element.scrollTop;
+			const scrollToTop = () => {
+				const c = element.scrollTop;
+				if (c > 0 && c <= last_scrollTop) {
+					window.requestAnimationFrame(scrollToTop);
+					element.scrollTo(0, c - c / 8);
+					last_scrollTop = c;
+				}
+			};
+			scrollToTop();
+		}
 	});
 
 	// Scroll loading infos 
@@ -175,9 +174,9 @@ function explore_tab_loaded() {
 	let data2 = {
 		Index: recentsCurrentIndex,
 	};
-	// ServerManager.GetNewFlows(data2);
+	ServerManager.GetNewFlows(data2);
 
-	// ServerManager.GetFDJ();
+	ServerManager.GetFDJ();
 
 	$(".show_more_users")[0].addEventListener("touchend", function () {
 		ShowMoreUsers();
@@ -248,12 +247,12 @@ function back_search() {
 	// $(".list-block-top50")[0].style.opacity = 1;
 	// $(".list-block-top50")[0].style.display = "block";
 	// $(".list-block-top50")[0].style.pointerEvents = "auto";
-	// $(".list-block-recents")[0].style.opacity = 1;
-	// $(".list-block-recents")[0].style.display = "block";
-	// $(".list-block-recents")[0].style.pointerEvents = "auto";
+	$(".list-block-recents")[0].style.opacity = 1;
+	$(".list-block-recents")[0].style.display = "block";
+	$(".list-block-recents")[0].style.pointerEvents = "auto";
 	$(".explore-swiper")[0].style.display = "block";
 	$(".search_back")[0].style.display = "none";
-	// $(".fdj_parent")[0].style.display = "block";
+	$(".fdj_parent")[0].style.display = "block";
 	$(".swiper-container.discover")[0].style.display = "block";
 	searching = false;
 	$(".fsearch-bar").blur();
@@ -264,9 +263,9 @@ function back_search() {
 }
 
 var ptrContent_explore = $("#tab2");
-// ptrContent_explore.on("ptr:refresh", function (e) {
-// 	RefreshExplore();
-// });
+ptrContent_explore.on("ptr:refresh", function (e) {
+	RefreshExplore();
+});
 
 function RefreshExplore() {
 	console.log("refreshing...");
@@ -281,10 +280,10 @@ function RefreshExplore() {
 	let data2 = {
 		Index: recentsCurrentIndex,
 	};
-	// ServerManager.GetNewFlows(data2);
+	ServerManager.GetNewFlows(data2);
 
 	// ServerManager.GetRandomFlow(randomExcluded);
-	// ServerManager.GetFDJ();
+	ServerManager.GetFDJ();
 }
 
 function RefreshSearch() {
@@ -301,11 +300,11 @@ function RefreshSearch() {
 	search_index = 0;
 	let no_users = document.createElement("div");
 	no_users.className = "no_results";
-	no_users.innerHTML = `${language_mapping[device_language]['no_results']}`;
+	no_users.innerHTML = "Pas de résultat";
 	$(".top_users")[0].appendChild(no_users);
 	let no_flows = document.createElement("div");
 	no_flows.className = "no_results";
-	no_flows.innerHTML = `${language_mapping[device_language]['no_results']}`;
+	no_flows.innerHTML = "Pas de résultat";
 	$(".top_flows")[0].appendChild(no_flows);
 	$(".top_users")[0].style.height =
 		" calc(" + (0 * 7 + 2) + " * var(--custom-vh))";
@@ -350,10 +349,10 @@ function SpawnUserSearch(data) {
 		user_privateId.innerHTML = "@" + user.PrivateId;
 		let follow_btn = document.createElement("div");
 		follow_btn.className = "follow_btn";
-		follow_btn.innerHTML = `${language_mapping[device_language]['fFollowButtunAccount']}`;
+		follow_btn.innerHTML = "S'ABONNER";
 		if (user.YouFollowHim == "true") {
 			follow_btn.className = "follow_btn following";
-			follow_btn.innerHTML = `${language_mapping[device_language]['ffollowersBandeau']}`;
+			follow_btn.innerHTML = "ABONNÉ";
 		}
 
 		user_block.appendChild(pp);
@@ -373,7 +372,7 @@ function SpawnUserSearch(data) {
 		if (search_index == 0 && users.length == 0) {
 			let no_users = document.createElement("div");
 			no_users.className = "no_results";
-			no_users.innerHTML = `${language_mapping[device_language]['no_results']}`;
+			no_users.innerHTML = "Pas de résultat";
 			top_users.appendChild(no_users);
 		}
 	}
@@ -428,7 +427,7 @@ function SpawnFlowSearch(data) {
 		// $(".show_more_flows")[0].style.display = "block";
 		let show_more_flows = document.createElement("div");
 		show_more_flows.className = "show_more_flows";
-		show_more_flows.innerHTML = `${language_mapping[device_language]['show_more']}`;
+		show_more_flows.innerHTML = "Afficher plus";
 		show_more_flows.addEventListener("touchend", function () {
 			ShowMoreFlows();
 		});
@@ -438,7 +437,7 @@ function SpawnFlowSearch(data) {
 		if (search_index == 0 && flows.length == 0) {
 			let no_flows = document.createElement("div");
 			no_flows.className = "no_results";
-			no_flows.innerHTML = `${language_mapping[device_language]['no_results']}`;
+			no_flows.innerHTML = "Pas de résultat";
 			top_flows[0].appendChild(no_flows);
 		}
 	}
@@ -638,10 +637,10 @@ function UpdateRecents(data, data_block_user) {
 		setTimeout(function () {
 			// if ($(".loading_tl")) $(".loading_tl").remove();
 			if (recentsCurrentIndex == 0) {
-				// $(".list-block-recents")[0].innerHTML = "";
+				$(".list-block-recents")[0].innerHTML = "";
 				let loading_tl = document.createElement("div");
 				loading_tl.className = "loading-spinner loading_tl";
-				// $(".list-block-recents")[0].appendChild(loading_tl);
+				$(".list-block-recents")[0].appendChild(loading_tl);
 			}
 			console.log(data);
 			for (let i = 0; i < data.length; i++) {
@@ -654,7 +653,7 @@ function UpdateRecents(data, data_block_user) {
 							if (flow.Background.PatternKey)
 								pattern_key = flow.Background.PatternKey;
 							let block_params = {
-								// parent_element: $(".list-block-recents")[0],
+								parent_element: $(".list-block-recents")[0],
 								afterblock: false,
 								audioURL: flow.Audio,
 								duration: flow.Duration,
@@ -686,7 +685,7 @@ function UpdateRecents(data, data_block_user) {
 					if (flow.Background.PatternKey)
 						pattern_key = flow.Background.PatternKey;
 					let block_params = {
-						// parent_element: $(".list-block-recents")[0],
+						parent_element: $(".list-block-recents")[0],
 						afterblock: false,
 						audioURL: flow.Audio,
 						duration: flow.Duration,
@@ -719,12 +718,12 @@ function UpdateRecents(data, data_block_user) {
 				canRefreshRecents = false;
 				let tick_tl = document.createElement("div");
 				tick_tl.className = "tick_icon";
-				// $(".list-block-recents")[0].appendChild(tick_tl);
+				$(".list-block-recents")[0].appendChild(tick_tl);
 			} else {
 				canRefreshRecents = true;
 				let loading_tl = document.createElement("div");
 				loading_tl.className = "loading-spinner loading_tl";
-				// $(".list-block-recents")[0].appendChild(loading_tl);
+				$(".list-block-recents")[0].appendChild(loading_tl);
 			}
 		}, 500);
 	} else {

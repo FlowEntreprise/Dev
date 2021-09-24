@@ -32,7 +32,6 @@ function flow_specifique(data, show_comment, type, data_specifique, all_data) {
 	//block_params.description = block_params.description.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>');
 	var new_block = new block(block_params);
 	current_flow_block = new_block;
-	new_block.block_flow.style.boxShadow = "0 4px 15px 0 rgba(0, 0, 0, 0.1)";
 	all_blocks.push(new_block);
 	if (
 		show_comment == true &&

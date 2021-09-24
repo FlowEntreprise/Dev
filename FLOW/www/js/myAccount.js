@@ -64,15 +64,15 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-		page: current_page,
-		duration: time_in_last_screen,
-	},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 		null,
 		function () {
-			// console.log("fb current_page event success");
+			console.log("fb current_page event success");
 		},
 		function () {
-			console.warn("fb current_page error");
+			console.log("fb current_page error");
 		}
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -413,7 +413,7 @@ function ShowMyFlow(flow) {
 		if (indexMyFlow == 0) {
 			let no_flows = document.createElement("label");
 			no_flows.className = "empty_content";
-			no_flows.innerHTML = `${language_mapping[device_language]['empty_content']}`;
+			no_flows.innerHTML = "Aucun flow publié";
 			$("#MyActivity")[0].appendChild(no_flows);
 		}
 		// window.alert("Plus de flow a recupt");
@@ -522,15 +522,15 @@ document
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+				page: current_page,
+				duration: time_in_last_screen,
+			},
 			null,
 			function () {
-				// console.log("fb current_page event success");
+				console.log("fb current_page event success");
 			},
 			function () {
-				console.warn("fb current_page error");
+				console.log("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -549,7 +549,7 @@ function ShowMyLikedFlows(flow, data_block_user) {
 		if (indexMyLike == 0) {
 			let no_flows = document.createElement("label");
 			no_flows.className = "empty_content";
-			no_flows.innerHTML = `${language_mapping[device_language]['empty_liked_content']}`;
+			no_flows.innerHTML = "Aucun flow aimé";
 			$("#MyLikes")[0].appendChild(no_flows);
 		}
 		if ($(".loading_myaccount")) $(".loading_myaccount").remove();
@@ -615,7 +615,7 @@ function ShowMyLikedFlows(flow, data_block_user) {
 						all_blocks.push(new_block);
 						if (i == 0 && indexMyLike == 0)
 							new_block.block_flow.style.marginTop =
-								"calc(27 * var(--custom-vh))";
+							"calc(27 * var(--custom-vh))";
 						if ($(".loading_myaccount")) $(".loading_myaccount").remove();
 
 						//console.log("Pop Flow");

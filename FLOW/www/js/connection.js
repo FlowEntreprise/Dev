@@ -5,7 +5,7 @@ var user_token;
 // CheckIfConnected();
 
 function ConnectUser(data) {
-    // console.log("user connected");
+    console.log("user connected");
     connected = true;
     // $(".empty_tl")[0].style.display = "none";
     $(".fneed_connect").css({
@@ -22,15 +22,15 @@ function ConnectUser(data) {
         "pointer-events": "none"
     });
     ServerManager.GetStory();
-    // ServerManager.GetTimeline(0);
+    ServerManager.GetTimeline(0);
     notification_check_seen();
     // Framework7
-    // RefreshExplore();
+    RefreshExplore();
 
     refresh_notif();
     let loading_tl = document.createElement("div");
     loading_tl.className = "loading-spinner loading_tl";
-    // $(".list-block")[0].appendChild(loading_tl); rmTL
+    $(".list-block")[0].appendChild(loading_tl);
     loading_tl.style.marginTop = "60%";
 
     // analytics.logEvent("user_connection", {
@@ -61,12 +61,31 @@ function ConnectUser(data) {
 
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                // console.log("user is in firebase");
+                console.log("user is in firebase");
             } else {
                 firebase.auth().signOut();
-                // console.log("user is delete from");
+                console.log("user is delete from");
             }
         });
+
+        /*console.log("le mail pour firebase est :" + Email);
+        console.log("le password pour firebase est :" + password);
+        firebase.auth().signInWithEmailAndPassword(Email, password).then(user => {
+            ServerManager.AddUserToFirebase(data);
+        }).catch((error) => {
+            console.log("Error sign in firebase :");
+            console.log(error.code);
+            console.log(error.message);
+            if (error.code) {
+                firebase.auth().createUserWithEmailAndPassword(Email, password).then(user => {
+                    ServerManager.AddUserToFirebase(data);
+                }).catch((error) => {
+                    console.log("Error create in firebase :");
+                    console.log(error.code);
+                    console.log(error.message);
+                });
+            }
+        });*/
 
         $(".faccount")[0].style.backgroundImage = "url('" + window.localStorage.getItem("user_profile_pic") + "')";
     }, 200);
@@ -102,7 +121,7 @@ function DisconnectUser() {
     $(".fred_dot_toolbar_new_notif").css('display', 'none');
     pages_swiper.slideTo(1);
     $(".empty_tl")[0].style.display = "block";
-    // $(".list-block")[0].innerHTML = ""; rmTL
+    $(".list-block")[0].innerHTML = "";
     $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-connect', true, 60)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\" /><div class=\"unread_shadow\"></div><label class=\"fstory_user\">Ta story</label></div></li>";
     $(".faccount").css({
         "background-image": "url('src/icons/Account@3x.png')"
