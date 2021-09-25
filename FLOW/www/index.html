@@ -105,7 +105,7 @@
                         <div class="fstory_block" onclick="Popup('popup-connect', true, 60)">
                             <img src="src/icons/plus.png" class="fstory_pic mystory_pic fnoshadow" />
                             <div class="unread_shadow"></div>
-                            <label class="fstory_user">Ta story</label>
+                            <label id="fstory_user" class="fstory_user language">Ta story</label>
                         </div>
                     </li>
                 </ul>
@@ -115,7 +115,7 @@
             <div class="fexplore-bar">
                 <a class="fred_dot_toolbar fred_dot_toolbar_fdj"></a>
                 <div class="faccount"></div>
-                <input class="fsearch-bar" placeholder="Explorer" />
+                <input id="placeholder_explore" class="fsearch-bar language" placeholder="Explorer" />
                 <div class="search_icon"></div>
                 <div class="search_back"></div>
                 <div class="swiper-container swiper-3 explore-swiper">
@@ -133,7 +133,7 @@
                             <span>Tendances</span>
                         </div> -->
                         <div class="swiper-slide fexplore_text discover_btn" target="discover">
-                            <span>Découvrir</span>
+                            <span class="language" id="fexplore_text">Découvrir</span>
                         </div>
                         <div class="swiper-slide fexplore_text recents_btn" target="recents">
                             <span>Récents</span>
@@ -171,7 +171,8 @@
             <!-- Content of TopBar in Messages -->
             <div class="fmessages-bar">
                 <label class="title">MESSAGES</label>
-                <input class="fmessages-search-bar" placeholder="Chercher une conversation" />
+                <input id="placeholder_find_conversation" class="fmessages-search-bar language"
+                    placeholder="Chercher une conversation" />
                 <div class="search_icon"></div>
                 <div id="new_conversation">+</div>
                 <div class="faccount"></div>
@@ -246,7 +247,7 @@
             </div>
             <div class="popup_content" animation-direction="up">
                 <div class="after-record-block-container"></div>
-                <label class="fbackground-after-txt">Image de fond</label>
+                <label id="fbackground-after-txt" class="fbackground-after-txt language">Image de fond</label>
                 <div class="fcamera-after"></div>
                 <div class="fgallery-after"></div>
                 <label class="ffx-after-txt">Effets</label>
@@ -294,8 +295,9 @@
                 <div class="fvalidate-after_btn record"></div>
                 <div class="fcancel-after_btn"></div>
                 <div class="floading-spinner loading-record-flow"></div>
-                <div class="ios_camera_auth">
-                    <label>Autorisation des médias en cours...<br><br>la première fois cette étape peut prendre
+                <div class="ios_camera_auth  language">
+                    <label id="ios_camera_auth" class="language">Autorisation des médias en cours...<br><br>la première
+                        fois cette étape peut prendre
                         jusqu'à 10 secondes</label>
                     <div class="floading-spinner"></div>
                 </div>
@@ -328,9 +330,10 @@
             </div>
             <div class="popup_content" animation-direction="up">
                 <div class="after-story-record-block-container"></div>
-                <label class="fbackground-after-story-txt">Couleur de fond</label>
-                <div class="frandom-color-btn" onclick="new_block.randomColorGradient()"><label
-                        class="frandom-color-txt">AUTRE COULEUR</label></div>
+                <label id="fbackground-after-story-txt" class="fbackground-after-story-txt language">Couleur de
+                    fond</label>
+                <div class="frandom-color-btn" onclick="new_block.randomColorGradient()"><label id="frandom-color-txt"
+                        class="frandom-color-txt language">AUTRE COULEUR</label></div>
                 <div class="frestart-after_btn"></div>
                 <div class="fvalidate-after_btn story"></div>
                 <div class="fcancel-after_btn"></div>
@@ -350,23 +353,23 @@
                         </div>
                         <div id="fbandeauMonCompte">
                             <div class="finfoBandeau" id="ffLowBandeau">Flows</div>
-                            <div class="finfoBandeau" id="ffollowersBandeau">Abonnés</div>
-                            <div class="finfoBandeau" id="ffollowingBandeau">Abonnem...</div>
+                            <div class="finfoBandeau language" id="ffollowersBandeau">Abonnés</div>
+                            <div class="finfoBandeau language" id="ffollowingBandeau">Abonnem...</div>
                             <div id="fflowmyBandeauChiffre"></div>
                             <div id="ffollowersmyBandeauChiffre"></div>
                             <div id="ffollowingmyBandeauChiffre"></div>
                         </div>
                         <div id="fmyprofilPicture"></div>
-                        <div id="fnameMonCompte">Chargement</div>
+                        <div id="fnameMonCompte" class="language">Chargement</div>
                         <div id="myprivateID"></div>
                         <div id="fbioMonCompte"></div>
-                        <div id="feditProfil">MODIFIER PROFIL</div>
+                        <div id="feditProfil" class="language">MODIFIER PROFIL</div>
                         <div class="myrank_img"></div>
                         <div class="myrank_number">0</div>
                     </div>
                     <div class="fnavMonCompte fnavMonCompteTransitionTop">
-                        <div id="myactivity" class="MonCompte active">Mon Activité</div>
-                        <div id="mylikes" class="MonCompte">J'aime</div>
+                        <div id="myactivity" class="MonCompte active language">Mon Activité</div>
+                        <div id="mylikes" class="MonCompte language">J'aime</div>
                     </div>
 
                     <div class="swiper-container ftabsMonCompte">
@@ -392,7 +395,7 @@
                         <div id="fprofilPicturePopup"></div>
                         <input type="text" id="editProfileName" maxlength="25">
                         <textarea name="" id="feditBio" cols="25" rows="3" maxlength="100"></textarea>
-                        <div class="disconnect_btn">Se deconnecter</div>
+                        <div class="disconnect_btn language" id="disconnect_btn">Se deconnecter</div>
                     </div>
                 </div>
             </div>
@@ -410,8 +413,8 @@
                         </div>
                         <div id="fbandeauCompte">
                             <div class="finfoBandeau" id="ffLowBandeau">Flows</div>
-                            <div class="finfoBandeau" id="ffollowersBandeau">Abonnés</div>
-                            <div class="finfoBandeau" id="ffollowingBandeau">Abonnem...</div>
+                            <div class="finfoBandeau language" id="ffollowersBandeau">Abonnés</div>
+                            <div class="finfoBandeau language" id="ffollowingBandeau">Abonnem...</div>
                             <div id="fflowBandeauChiffre"></div>
                             <div id="ffollowersBandeauChiffre"></div>
                             <div id="ffollowingBandeauChiffre"></div>
@@ -420,7 +423,7 @@
                         <div id="fnameCompte"></div>
                         <div id="privateID"></div>
                         <div id="fbioCompte"></div>
-                        <div id="fFollowButtunAccount">S'ABONNER</div>
+                        <div id="fFollowButtunAccount" class="language">S'ABONNER</div>
                         <div id="GoDMBtn"></div>
                         <div id="fFollowYouButtunAccount"></div>
                         <div id="block_button"></div>
@@ -447,8 +450,8 @@
                             </div> -->
 
                     <div class="fnavAccount fnavAccountTransitionTop">
-                        <div id="activity" class="Compte active">Activité</div>
-                        <div id="likes" class="Compte">Aime</div>
+                        <div id="activity" class="Compte active language">Activité</div>
+                        <div id="likes" class="Compte language">Aime</div>
                     </div>
 
                     <div class="swiper-container ftabsAccount">
@@ -552,7 +555,7 @@
                 <div class="scroll_fix_ios"></div>
             </div>
             <div class="popup_content" id="popup_followers_content" animation-direction="up">
-                <label class="popup_followers_title">Abonnés</label>
+                <label id="popup_followers_title" class="popup_followers_title language">Abonnés</label>
                 <img src="src/icons/cancel.png" class="fclose_followers" onclick="Popup('popup-followers', false)">
                 <div class="popup_followers_container">
                 </div>
@@ -564,7 +567,7 @@
                 <div class="scroll_fix_ios"></div>
             </div>
             <div class="popup_content" id="popup_followings_content" animation-direction="up">
-                <label class="popup_followings_title">Abonnements</label>
+                <label class="popup_followings_title language" id="popup_followings_title">Abonnements</label>
                 <img src="src/icons/cancel.png" class="fclose_followings" onclick="Popup('popup-followings', false)">
                 <div class="popup_followings_container">
                 </div>
@@ -577,7 +580,8 @@
                 <div class="scroll_fix_ios"></div>
             </div>
             <div class="popup_content" id="popup_follow_identification" animation-direction="up">
-                <label class="popup_identification_title">Identifie un ami</label>
+                <label id="popup_identification_title" class="popup_identification_title language">Identifie un
+                    ami</label>
                 <img src="src/icons/cancel.png" class="fclose_identification"
                     onclick="Popup('popup-identification', false)">
                 <div class="popup_identification_container">
@@ -585,8 +589,8 @@
             </div>
         </div>
         <div class="fwrite_comment">
-            <textarea class="regex-example" placeholder="Ajouter un commentaire..." maxlength="100" id="finput_comment"
-                rows="1" class="finput_comment"></textarea>
+            <textarea class="regex-example language" placeholder="Ajouter un commentaire..." maxlength="100"
+                id="finput_comment" rows="1" class="finput_comment"></textarea>
             <img src="src/icons/send.png" class="fsend_comment">
         </div>
 
@@ -623,7 +627,8 @@
             <li id="UploadProgressBar"></li>
             <img src="../www/src/icons/camera.png" id="SendFromCamera">
             <img src="../www/src/icons/gallery.png" id="SendFromGallery">
-            <textarea id="input_send_message" placeholder="Taper un message" autocomplete="off"></textarea>
+            <textarea id="input_send_message" class="language" placeholder="Taper un message"
+                autocomplete="off"></textarea>
             <div class="delete_vocal"></div>
             <div class="wave_vocal"></div>
             <div id="button_send_vocal">
@@ -633,7 +638,7 @@
         </div>
 
         <div id="div_user_blocked_message">
-            <label id="label_user_blocked_message">Cet utilisateur vous a bloquée</label>
+            <label id="label_user_blocked_message" class="language">Cet utilisateur vous a bloquée</label>
         </div>
 
         <div class="custom_popup" id="popup-create-conversation">
@@ -645,8 +650,9 @@
                     <img src="../www/src/icons/back.png" id="create-conversation_back_button"
                         onclick="Popup('popup-create-conversation', false)">
 
-                    <div id="create-conversation_title">Nouvelle conversation</div>
-                    <input class="create-conversation-search-bar" placeholder="Chercher un utilisateur" />
+                    <div id="create-conversation_title" class="language">Nouvelle conversation</div>
+                    <input id="create-conversation-search-bar" class="create-conversation-search-bar language"
+                        placeholder=" Chercher un utilisateur" />
                 </div>
                 <div class="fconversation_block_utilisateur_list">
                 </div>
@@ -687,20 +693,20 @@
                 <div class="scroll_fix_ios"></div>
             </div>
             <div class="popup_content" style="border-radius: 15px 15px 0px 0px" animation-direction="up">
-                <p id="fpopup-connect-msg-inscription">
+                <p class="language" id="fpopup-connect-msg-inscription">
                     Un compte est nécessaire pour réaliser cette action
                 </p>
                 <div id="fcontent_logo_reseaux_sociaux">
-                    <a href=""><img src="" alt="logo google" class="fgoogle_btn fsize_img_reseaux_sociaux" /></a>
+                    <img src="" alt="logo google" class="fgoogle_btn fsize_img_reseaux_sociaux" />
 
                     <!-- <a href=""><img src="../www/src/icons/instagram-round-flat-512@3x.png" alt="logo instagram"
                         class="finsta_btn fsize_img_reseaux_sociaux" /></a> -->
 
-                    <a href=""><img src="../www/src/icons/facebook_circle-512@3x.png" alt="logo facebook"
-                            class="ffacebook_btn fsize_img_reseaux_sociaux" /></a>
+                    <img src="../www/src/icons/facebook_circle-512@3x.png" alt="logo facebook"
+                        class="ffacebook_btn fsize_img_reseaux_sociaux" />
 
-                    <a href=""><img src="../www/src/icons/twitter-512@3x.png" alt="logo twitter"
-                            class="ftwitter_btn fsize_img_reseaux_sociaux" /></a>
+                    <img src="../www/src/icons/twitter-512@3x.png" alt="logo twitter"
+                        class="ftwitter_btn fsize_img_reseaux_sociaux" />
                 </div>
                 <!-- BETA POUR LE MOMENT PAS D'INSCRIPTION PAR TEL -->
                 <!-- <div id="fseparation">
@@ -712,7 +718,7 @@
                 inscription avec mail ou telephone
             </div> -->
                 <div id="fpolitique">
-                    <p>
+                    <p class="language" id="privacy_policy">
                         En continuant vous acceptez les
                         <a class="funderline"
                             onclick="window.open('http:\/\/www.flowappweb.com/terms_and_conditions.html', '_self', 'location=no')">conditions
@@ -732,32 +738,40 @@
 
 
         <div class="tuto_app" ontouchend="skip()">
-            <label class="tuto_txt _1">Bienvenue sur FLOW</label>
-            <label class="tuto_txt _2">Le premier réseau social basé sur la <span>voix</span></label>
-            <label class="tuto_txt _3">Tu fais partie des <span>premiers utilisateurs</span> de l'application</label>
-            <label class="tuto_txt _4">Nous faisons la chasse aux <span>bugs</span> tous les jours</label>
-            <label class="tuto_txt _5">Nous <span>mettons à jour</span> l'application très régulièrement</label>
+            <label id="tuto_txt_1" class="tuto_txt _1 language">Bienvenue sur FLOW</label>
+            <label id="tuto_txt_2" class="tuto_txt _2 language">Le premier réseau social basé sur la
+                <span>voix</span></label>
+            <label id="tuto_txt_3" class="tuto_txt _3 language">Tu fais partie des <span>premiers utilisateurs</span> de
+                l'application</label>
+            <label id="tuto_txt_4" class="tuto_txt _4 language">Nous faisons la chasse aux <span>bugs</span> tous les
+                jours</label>
+            <label id="tuto_txt_5" class="tuto_txt _5 language">Nous <span>mettons à jour</span> l'application très
+                régulièrement</label>
             <div class="tuto_next_btn_shadow"></div>
-            <div class="tuto_next_btn" ontouchend="nextTutoFrame()">SUIVANT</div>
-            <label class="tuto_txt _6">Tu peux <span>écouter</span> et <span>publier</span> des
+            <div id="tuto_next_btn" class="tuto_next_btn language" ontouchend="nextTutoFrame()">SUIVANT</div>
+            <label id="tuto_txt_6" class="tuto_txt _6 language">Tu peux <span>écouter</span> et <span>publier</span> des
                 <span>vocaux</span></label>
-            <label class="tuto_txt _7">Ces vocaux sont appelés des <span>flows</span></label>
-            <label class="tuto_txt _8">Ils durent moins de <span>15 secondes</span></label>
-            <label class="tuto_txt _9">Pour <span>enregistrer</span> ton premier flow</label>
-            <label class="tuto_txt _10">Utilise le <span>bouton d'enregistrement</span></label>
-            <label class="tuto_txt _11">Tu peux également ajouter un flow temporaire<br>en faisant une
+            <label id="tuto_txt_7" class="tuto_txt _7 language">Ces vocaux sont appelés des <span>flows</span></label>
+            <label id="tuto_txt_8" class="tuto_txt _8 language">Ils durent moins de <span>15 secondes</span></label>
+            <label id="tuto_txt_9" class="tuto_txt _9 language">Pour <span>enregistrer</span> ton premier flow</label>
+            <label id="tuto_txt_10" class="tuto_txt _10 language">Utilise le <span>bouton
+                    d'enregistrement</span></label>
+            <label id="tuto_txt_11" class="tuto_txt _11 language">Tu peux également ajouter un flow temporaire<br>en
+                faisant une
                 <span>story</span>
                 pour tes <span>abonnés</span></label>
-            <label class="tuto_txt _12"><span>Abonne toi</span> aux comptes qui te plaisent pour<br>toujours plus de
+            <label id="tuto_txt_12" class="tuto_txt _12 language"><span>Abonne toi</span> aux comptes qui te plaisent
+                pour<br>toujours
+                plus de
                 contenu</label>
-            <label class="tuto_txt _13">Amuse-toi bien sur <span>FLOW</span></label>
+            <label id="tuto_txt_13" class="tuto_txt _13 language">Amuse-toi bien sur <span>FLOW</span></label>
             <div class="screen_tuto"></div>
             <div class="tuto_record_btn"></div>
             <div class="tuto_story_btn"></div>
         </div>
 
         <div class="loading_connect">
-            <label class="loading_connect_txt">Connexion</label>
+            <label id="loading_connect_txt" class="loading_connect_txt Connexion language">Connexion</label>
             <div class="floading-spinner loading-connect-spinner"></div>
         </div>
     </div>

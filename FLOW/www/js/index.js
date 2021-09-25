@@ -15,7 +15,8 @@ var analytics;
 var push;
 var httpd = null;
 var worker;
-
+var device_language;
+var language_mapping;
 var registrationId;
 var noteId = 0;
 var app = {
@@ -75,13 +76,13 @@ var app = {
 		window.addEventListener("native.keyboardshow", keyboardShowHandler);
 
 		function keyboardShowHandler(e) {
-			// console.log('Keyboard height is: ' + e.keyboardHeight);
+			// // console.log('Keyboard height is: ' + e.keyboardHeight);
 		}
 
 		window.addEventListener("native.keyboardhide", keyboardHideHandler);
 
 		function keyboardHideHandler(e) {
-			console.log('Keyboard hidden');
+			// console.log('Keyboard hidden');
 			if (in_identification) {
 				$(".after-record-block-container").css("margin-top", "-30vh");
 			}
@@ -94,10 +95,10 @@ var app = {
 				},
 			},
 			function (match) {
-				console.log("deeplink match !", match);
+				// console.log("deeplink match !", match);
 			},
 			function (nomatch) {
-				console.log("deeplink didnt match 😞", nomatch);
+				// console.log("deeplink didnt match 😞", nomatch);
 				if (nomatch.$link.path) {
 					let FlowId = nomatch.$link.path.replace("/", "");
 					setTimeout(function () {
@@ -114,11 +115,11 @@ var app = {
 			LaunchReview.rating(
 				function (result) {
 					if (cordova.platformId === "android") {
-						console.log("Rating dialog displayed");
+						// console.log("Rating dialog displayed");
 						window.localStorage.setItem("last_ask_user_rating", Date.now());
 					} else if (cordova.platformId === "ios") {
 						if (result === "requested") {
-							console.log("Requested display of rating dialog");
+							// console.log("Requested display of rating dialog");
 
 							ratingTimerId = setTimeout(function () {
 								console.warn(
@@ -128,11 +129,11 @@ var app = {
 								);
 							}, MAX_DIALOG_WAIT_TIME);
 						} else if (result === "shown") {
-							console.log("Rating dialog displayed");
+							// console.log("Rating dialog displayed");
 							window.localStorage.setItem("last_ask_user_rating", Date.now());
 							clearTimeout(ratingTimerId);
 						} else if (result === "dismissed") {
-							console.log("Rating dialog dismissed");
+							// console.log("Rating dialog dismissed");
 						}
 					}
 				},
@@ -147,13 +148,13 @@ var app = {
 			}
 		}, 270000);
 
-		console.log("Les contactes sont : ");
-		console.log(navigator.contacts);
+		// console.log("Les contactes sont : ");
+		// console.log(navigator.contacts);
 
 		this.receivedEvent("deviceready");
 	},
 	onPause: function () {
-		console.log("pause");
+		// console.log("pause");
 		stopAllStoriesAudio();
 		stopAllBlocksAudio();
 		let time_in_last_screen =
@@ -165,16 +166,16 @@ var app = {
 			},
 			null,
 			function () {
-				console.log("fb current_page event success");
+				// // console.log("fb current_page event success");
 			},
 			function () {
-				console.log("fb current_page error");
+				// console.warn("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 		// if (appState.takingPicture || appState.imageUri) {
 		//     window.localStorage.setItem("app_state", JSON.stringify(appState));
-		//     console.log("app state saved");
+		//     // console.log("app state saved");
 		// }
 	},
 	onResume: function (event) {
@@ -217,10 +218,10 @@ var app = {
 			},
 			null,
 			function () {
-				console.log("fb current_page event success");
+				// // console.log("fb current_page event success");
 			},
 			function () {
-				console.log("fb current_page error");
+				// console.warn("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -233,12 +234,12 @@ var app = {
 			window.addEventListener("audioinput", onAudioInputCapture, false);
 			window.addEventListener("audioinputerror", onAudioInputError, false);
 
-			console.log("cordova-plugin-audioinput successfully initialised");
+			// console.log("cordova-plugin-audioinput successfully initialised");
 		} else {
-			console.log("cordova-plugin-audioinput not found!");
+			// console.log("cordova-plugin-audioinput not found!");
 		}
 
-		var push = PushNotification.init({
+		push = PushNotification.init({
 			android: {
 				icon: device.manufacturer == "OnePlus" ?
 					"flow_icone_one_plus" : "flow_icone",
@@ -252,7 +253,7 @@ var app = {
 
 		push.on("registration", function (data) {
 			// data.registrationId
-			//console.log(data.registrationId);
+			//// console.log(data.registrationId);
 			registrationId = data.registrationId;
 
 			if (window.cordova.platformId == "ios" && registrationId.length < 100) {
@@ -266,21 +267,30 @@ var app = {
 				);
 				ServerManager.APNS_token_to_FCM_token(data_apns_to_fcm);
 			}
+
+			if (!window.localStorage.getItem("user_token")) {
+				let data = {
+					RegisterId: registrationId
+				};
+				console.log("Le registration id est : " + data.RegisterId);
+				ServerManager.IsRegisterExist(data);
+			}
+
 		});
 
 		if (window.cordova.platformId == "ios") {
 			let topic = "all-ios";
 			let unsubscribe = "all-android";
 			push.unsubscribe(unsubscribe, function () {
-				console.log('unsubscribe success: ' + unsubscribe);
+				// console.log('unsubscribe success: ' + unsubscribe);
 			}, function (e) {
-				console.log()('unsubscribe error:');
+				// console.log()('unsubscribe error:');
 			});
 
 			push.subscribe(topic, function () {
-				console.log('subscribe success: ' + topic);
+				// console.log('subscribe success: ' + topic);
 			}, function (e) {
-				console.log()('subscribe error:');
+				// console.log()('subscribe error:');
 			});
 		}
 
@@ -288,15 +298,15 @@ var app = {
 			let topic = "all-android";
 			let unsubscribe = "all-ios";
 			push.unsubscribe(unsubscribe, function () {
-				console.log('unsubscribe success: ' + unsubscribe);
+				// console.log('unsubscribe success: ' + unsubscribe);
 			}, function (e) {
-				console.log()('unsubscribe error:');
+				// console.log()('unsubscribe error:');
 			});
 
 			push.subscribe(topic, function () {
-				console.log('subscribe success: ' + topic);
+				// console.log('subscribe success: ' + topic);
 			}, function (e) {
-				console.log()('subscribe error:');
+				// console.log()('subscribe error:');
 			});
 		}
 
@@ -478,7 +488,7 @@ function check_app_version(app_version) {
 				app_version.Android != AppVersion.version)
 		) {
 			navigator.notification.confirm(
-				"Mets l'application à jour pour profiter des toutes dernières fonctionnalités.",
+				`${language_mapping[device_language]['update_ap']}`,
 				function (id) {
 					if (id == 1) {
 						if (window.cordova.platformId == "ios") {
@@ -491,8 +501,8 @@ function check_app_version(app_version) {
 						}
 					}
 				},
-				"Nouvelle version de l'application disponible !",
-				["OK", "Annuler"]
+				`${language_mapping[device_language]['new_version_available']}`,
+				[`${language_mapping[device_language]['yes']}`, `${language_mapping[device_language]['cancel']}`]
 			);
 		}
 	}, 1000);
@@ -500,18 +510,18 @@ function check_app_version(app_version) {
 
 
 function offline() {
-	console.log("you are offline");
+	// console.log("you are offline");
 	pullToRefreshEnd();
 }
 
 function online() {
-	console.log("you are online");
+	// console.log("you are online");
 	ServerManager.GetStory();
 }
 
 window.handleOpenURL = function (url) {
 	setTimeout(function () {
-		console.log("received url: " + url);
+		// console.log("received url: " + url);
 		if (url.includes("flow")) {
 			let IdFlow = url.split("flow/")[1];
 			ServerManager.GetSingle({

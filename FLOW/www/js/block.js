@@ -111,7 +111,7 @@ function block(params) {
 					//console.log("-->" + (position - block.currentTime));
 					let width =
 						((position + block.offset_indicator) * 100) / params.duration;
-					block.progress_div.style.width = width + "%";
+					block.progress_div.style.transform = "scale3d(" + (width / 100) + ", 1, 1)";
 					block.currentTime = position;
 					//console.log(width, block.currentTime, canAddView);
 					if ((width >= 33 || block.currentTime <= 0) && canAddView && !stop) {
@@ -122,9 +122,9 @@ function block(params) {
 						canAddView = false;
 						block.Views += 1;
 						if (block.Views > 1) {
-							$(block.fposte_nombre_ecoute).text(block.Views + " écoutes");
+							$(block.fposte_nombre_ecoute).text(block.Views + ` ${language_mapping[device_language]['multi_flow_views']}`);
 						} else {
-							$(block.fposte_nombre_ecoute).text(block.Views + " écoute");
+							$(block.fposte_nombre_ecoute).text(block.Views + ` ${language_mapping[device_language]['single_flow_views']}`);
 						}
 					}
 					if (typeof callback === "function") callback();
@@ -152,7 +152,7 @@ function block(params) {
 			params.LikeBy = params.LikeBy.split(",")[0].replace(/[\[\]']+/g, "");
 			params.LikeBy =
 				'<span class="tl_private_id_indicator">' + params.LikeBy + "</span>";
-			indicator_txt = params.LikeBy + " a aimé ceci";
+			indicator_txt = params.LikeBy + ` ${language_mapping[device_language]['tl_private_id_indicator_like']}`;
 			indicator_icon =
 				"<img class='tl_indicator_icon' src='./src/icons/Like.png' width='15vw' height='30vw' align='middle'>";
 		}
@@ -163,7 +163,7 @@ function block(params) {
 			);
 			params.CommentBy =
 				'<span class="tl_private_id_indicator">' + params.CommentBy + "</span>";
-			indicator_txt = params.CommentBy + " a commenté ceci";
+			indicator_txt = params.CommentBy + ` ${language_mapping[device_language]['tl_private_id_indicator_comment']}`;
 			indicator_icon =
 				"<img class='tl_indicator_icon' src='./src/icons/Comment.png' width='15vw' height='30vw' align='middle'>";
 		}
@@ -174,7 +174,7 @@ function block(params) {
 		this.block_flow.appendChild(tl_indicator);
 	}
 	this.block_flow.style.marginTop = "12vw";
-	params.parent_element.append(this.block_flow);
+	if (params.parent_element) params.parent_element.append(this.block_flow);
 
 	this.ftop_part = document.createElement("div");
 	this.ftop_part.className = "ftop_part";
@@ -237,7 +237,7 @@ function block(params) {
 	this.ftop_part.appendChild(this.bar);
 
 	this.progress_div = document.createElement("div");
-	this.progress_div.id = "progress_div";
+	this.progress_div.className = "progress_div";
 	this.ftop_part.appendChild(this.progress_div);
 
 	this.fposter_name = document.createElement("p");
@@ -379,7 +379,7 @@ function block(params) {
 		this.finput_description = document.createElement("textarea");
 		this.finput_description.className = "finput_description";
 		this.finput_description.id = "finput_description";
-		this.finput_description.placeholder = "Touche pour ajouter une description";
+		this.finput_description.placeholder = `${language_mapping[device_language]['finput_description']}`;
 		this.finput_description.maxLength = "80";
 		this.fbottom_part.appendChild(this.finput_description);
 	}
@@ -514,7 +514,7 @@ function block(params) {
 		block.myaudio.release();
 		setTimeout(function () {
 			block.progress_div.style.opacity = "1";
-			block.progress_div.style.width = "0%";
+			block.progress_div.style.transform = "scale3d(0, 1, 1)"
 			block.offset_indicator = 0.25;
 			canAddView = true;
 			setTimeout(function () {
@@ -643,16 +643,16 @@ function block(params) {
 			if (comment_button_was_clicked_in_popup_specifique == false) {
 				current_flow_block = block; +
 				current_flow_block.Comments <= 1 ?
-					(text_comment_number = current_flow_block.Comments + " commentaire") :
+					(text_comment_number = current_flow_block.Comments + ` ${language_mapping[device_language]['single_comment']}`) :
 					(text_comment_number =
-						current_flow_block.Comments + " commentaires");
+						current_flow_block.Comments + ` ${language_mapping[device_language]['multi_comment']}`);
 				$(".fcomment_number").text(text_comment_number);
 				display_all_comments(current_flow_block);
 			} else {
 				current_flow_block.Comments <= 1 ?
-					(text_comment_number = current_flow_block.Comments + " commentaire") :
+					(text_comment_number = current_flow_block.Comments + ` ${language_mapping[device_language]['single_comment']}`) :
 					(text_comment_number =
-						current_flow_block.Comments + " commentaires");
+						current_flow_block.Comments + ` ${language_mapping[device_language]['multi_comment']}`);
 				$(".fcomment_number").text(text_comment_number);
 				display_all_comments(current_flow_block);
 				show_specifique_element_for_comment_button(current_notification_block);
@@ -730,8 +730,8 @@ function display_all_likes(block) {
 	ServerManager.GetFlowLikes(data);
 	Popup("popup-likes", true, 40);
 	let nb_likes = affichage_nombre(block.Likes, 1);
-	let like_str = "J'aime";
-	if (nb_likes == "0" || nb_likes == "1") like_str = "J'aime";
+	let like_str = `${language_mapping[device_language]['likes']}`;
+	if (nb_likes == "0" || nb_likes == "1") like_str = `${language_mapping[device_language]['likes']}`;
 	$(".flikes_number").text(nb_likes + " " + like_str);
 }
 
@@ -761,8 +761,8 @@ function display_comment_likes(comment, is_response) {
 	}
 	Popup("popup-likes", true, 50);
 	let nb_likes = affichage_nombre(comment.Likes, 1);
-	let like_str = "J'aime";
-	if (nb_likes == "0" || nb_likes == "1") like_str = "J'aime";
+	let like_str = `${language_mapping[device_language]['likes']}`;
+	if (nb_likes == "0" || nb_likes == "1") like_str = `${language_mapping[device_language]['likes']}`;
 	$(".flikes_number").text(nb_likes + " " + like_str);
 }
 
@@ -998,7 +998,7 @@ function UpdateCommentList(response, data_block) {
 			$(".fblock_comment_content")[0].appendChild(loading_tl);
 		}
 	} else {
-		text_comment_number = " 0 commentaire";
+		text_comment_number = ` 0 ${language_mapping[device_language]['single_comment']}`;
 		StopRefreshTL();
 	}
 }
