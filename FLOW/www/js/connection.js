@@ -22,7 +22,7 @@ function ConnectUser(data) {
         "pointer-events": "none"
     });
     ServerManager.GetStory();
-    ServerManager.GetTimeline(0);
+    ServerManager.GetTimeline(0, 5);
     notification_check_seen();
     // Framework7
     RefreshExplore();

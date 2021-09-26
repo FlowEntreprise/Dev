@@ -32,7 +32,7 @@ function home_tab_loaded() {
 				CanRefreshTL = false;
 				console.log("Get Flow on Server");
 				console.log("TLCurrentIndex : " + TLCurrentIndex);
-				ServerManager.GetTimeline(TLCurrentIndex);
+				ServerManager.GetTimeline(TLCurrentIndex, 5);
 			}
 		}
 	});
@@ -57,7 +57,7 @@ function RefreshTL() {
 	// stopAllBlocksAudio();
 	HomeFlowsArray = [];
 	TLCurrentIndex = 0;
-	 ServerManager.GetTimeline(0);
+	ServerManager.GetTimeline(0, 5);
 	ServerManager.GetStory();
 }
 

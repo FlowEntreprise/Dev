@@ -507,7 +507,7 @@ function CloseAfterRecord() {
 	// analytics.setCurrentScreen(current_page);
 
 	TLCurrentIndex = 0;
-	ServerManager.GetTimeline(0);
+	ServerManager.GetTimeline(0, 5);
 }
 
 function PlayRipple(element, className) {
