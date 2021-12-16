@@ -56,11 +56,16 @@ function block(params) {
 	this.loading_audio = false;
 
 	this.flowplay = function () {
+		// console.log("play flow", block);
+		// console.trace();
 		if (this.ready) {
 			// if (window.cordova.platformId == "ios") {
 			//     cordova.plugins.backgroundMode.enable();
 			// }
-			if (current_block_playing != block) canAddView = true;
+			if (current_block_playing != block) {
+				canAddView = true;
+				if (current_block_playing) current_block_playing.flowend();
+			}
 			current_block_playing = block;
 			block.fplay_button.style.display = "none";
 			block.fpause_button.style.display = "block";
@@ -68,17 +73,25 @@ function block(params) {
 			waveform.style.display = "block";
 			block.myaudio.play();
 			audio_playing = true;
-			console.log(params.duration);
-			console.log("play : " + block.currentTime);
-			block.progress_div.style.transitionDuration =
-				params.duration - block.currentTime + "s";
-			block.progress_div.style.display = "block";
+			// console.log(params.duration);
+			// console.log("play : " + block.currentTime);
+			// block.progress_div.style.transitionDuration =
+			// 	params.duration - block.currentTime + "s"; REMETTRE
+			// block.progress_div.style.display = "block";
 			// block.progress_div.style.borderTopRightRadius = '0vw';
-			block.progress_div.style.width = "100%";
+			block.progress_div.style.transitionDuration = params.duration - block.currentTime + "s";
+			if (block.first_play) {
+				setTimeout(function () {
+					block.progress_div.style.transform = "scale3d(1, 1, 1)";
+				}, 200);
+				block.first_play = false;
+			} else {
+				block.progress_div.style.transform = "scale3d(1, 1, 1)";
+			}
 			block.isPlaying = true;
 			// block.myRange.style.pointerEvents = "all";
 		} else {
-			console.log("audio not ready");
+			// console.log("audio not ready");
 			current_block_playing = block;
 			if (!block.loading_audio) {
 				block.LoadAudio();
@@ -91,7 +104,7 @@ function block(params) {
 			// if (window.cordova.platformId == "ios") {
 			//     cordova.plugins.backgroundMode.disable();
 			// }
-			//console.log("pause (" + block.offset_indicator + ")");
+			//// console.log("pause (" + block.offset_indicator + ")");
 			block.fplay_button.style.display = "block";
 			block.fpause_button.style.display = "none";
 			waveform.style.display = "none";
@@ -102,21 +115,21 @@ function block(params) {
 			block.progress_div.style.transitionDuration = "0s";
 			block.myaudio.getCurrentPosition(
 				function (position) {
-					//console.log("actual pause");
+					//// console.log("actual pause");
 					block.myaudio.pause();
 					if (position == -1) position = 0;
 					if (block.currentTime == -1) block.currentTime = 0;
-					//console.log("pause : " + position);
-					//console.log(block.currentTime);
-					//console.log("-->" + (position - block.currentTime));
+					//// console.log("pause : " + position);
+					//// console.log(block.currentTime);
+					//// console.log("-->" + (position - block.currentTime));
 					let width =
 						((position + block.offset_indicator) * 100) / params.duration;
 					block.progress_div.style.transform = "scale3d(" + (width / 100) + ", 1, 1)";
 					block.currentTime = position;
-					//console.log(width, block.currentTime, canAddView);
-					if ((width >= 33 || block.currentTime <= 0) && canAddView && !stop) {
-						//console.log(stop);
-						//console.log("add 1 view to current playing flow");
+					//// console.log(width, block.currentTime, canAddView);
+					if ((width >= 80 || block.currentTime <= 0) && canAddView && !stop) {
+						//// console.log(stop);
+						//// console.log("add 1 view to current playing flow");
 						let data = block.ObjectId;
 						ServerManager.AddViewFlow(data);
 						canAddView = false;
@@ -132,7 +145,7 @@ function block(params) {
 					// block.myaudio.seekTo(block.currentTime * 1000);
 				},
 				function (err) {
-					console.log(err);
+					// console.log(err);
 				}
 			);
 		}
@@ -321,8 +334,8 @@ function block(params) {
 		this.fimg_impression_comment.className = "fimg_impression";
 		this.fimg_impression_comment.src =
 			this.IsComment == 1 ?
-			"src/icons/Comment_filled.png" :
-			"src/icons/Comment.png";
+				"src/icons/Comment_filled.png" :
+				"src/icons/Comment.png";
 		this.fcomment.appendChild(this.fimg_impression_comment);
 		this.ftxt_impression_comment = document.createElement("p");
 		this.ftxt_impression_comment.className = "ftxt_impression";
@@ -642,7 +655,7 @@ function block(params) {
 		if (connected) {
 			if (comment_button_was_clicked_in_popup_specifique == false) {
 				current_flow_block = block; +
-				current_flow_block.Comments <= 1 ?
+					current_flow_block.Comments <= 1 ?
 					(text_comment_number = current_flow_block.Comments + ` ${language_mapping[device_language]['single_comment']}`) :
 					(text_comment_number =
 						current_flow_block.Comments + ` ${language_mapping[device_language]['multi_comment']}`);
@@ -838,9 +851,9 @@ function go_to_account(data) {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			//console.log("fb current_page event success");

@@ -34,9 +34,9 @@ function inHome() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -86,9 +86,9 @@ function inExplore() {
 	let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -164,17 +164,17 @@ function inExplore() {
 			explore_categories.slideTo(0);
 		})
 
+		$(".top50_btn")[0].addEventListener("click", function () {
+			explore_categories.slideTo(1);
+		})
+
 		$(".recents_btn")[0].addEventListener("click", function () {
 			explore_categories.slideTo(2);
 		})
 
-		// $(".top50_btn")[0].addEventListener("click", function () {
+		// $(".discover_btn")[0].addEventListener("click", function () {
 		// 	explore_categories.slideTo(1);
 		// })
-
-		$(".discover_btn")[0].addEventListener("click", function () {
-			explore_categories.slideTo(1);
-		})
 
 		// explore_categories.slideTo(3);
 
@@ -216,7 +216,7 @@ function checkExploreSlide(explore_categories) {
 	} else if (explore_categories.activeIndex == 1) {
 		$(".discover").addClass("active");
 		if (!discover_swiper_initialised) {
-			setupDiscover();
+			//setupDiscover();
 		} else {
 			setTimeout(function () {
 				discover_flows[discover_swiper.activeIndex].flowplay();
@@ -230,9 +230,9 @@ function inMessages() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -304,9 +304,9 @@ function inNotifications() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -376,9 +376,9 @@ function onBackKeyDown() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");

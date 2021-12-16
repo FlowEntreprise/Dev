@@ -12,9 +12,9 @@ let searching_flows = false;
 function explore_tab_loaded() {
 
 	// Initilize top50 pull to refresh
-	// top50_ptr = setupPTR(document.querySelector(".top50"), function () {
-	// 	RefreshExplore();
-	// });
+	top50_ptr = setupPTR(document.querySelector(".top50"), function () {
+		RefreshExplore();
+	});
 
 	// Initilize recents pull to refresh
 	recents_ptr = setupPTR(document.querySelector(".recents"), function () {
@@ -594,7 +594,7 @@ function UpdateTop50(data, data_block_user) {
 			console.log("top50 updated !");
 			pullToRefreshEnd();
 			// exploreCurrentIndex++;
-			if (data.length < 5) {
+			if (data.length < 10) {
 				canRefreshTop50 = false;
 				let tick_tl = document.createElement("div");
 				tick_tl.className = "tick_icon";
