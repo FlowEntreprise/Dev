@@ -190,6 +190,7 @@ function stopFDJParticles() {
 
 
 function showRandomFlow(data, discover) {
+    console.log(data);
     if (discover) showRandomDiscover(data);
     if (!showingFDJ) {
         if (!data.Data) {
@@ -201,7 +202,7 @@ function showRandomFlow(data, discover) {
             return false
         }
         stopAllBlocksAudio();
-        let flow = data.Data;
+        let flow = data.Data[0];
         let container = $(".list-block-flowoftheday");
         container[0].innerHTML = "";
         let pattern_key = "";
