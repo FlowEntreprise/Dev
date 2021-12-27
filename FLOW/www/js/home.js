@@ -30,6 +30,9 @@ function home_tab_loaded() {
 		if (CanRefreshTL == true) {
 			if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 				CanRefreshTL = false;
+				let loading_tl = document.createElement("div");
+				loading_tl.className = "loading-spinner loading_tl";
+				$(".list-block")[0].appendChild(loading_tl);
 				console.log("Get Flow on Server");
 				console.log("TLCurrentIndex : " + TLCurrentIndex);
 				ServerManager.GetTimeline(TLCurrentIndex, 5);
@@ -45,7 +48,7 @@ function home_tab_loaded() {
 
 	// initialize pull to refresh
 	home_ptr = setupPTR(document.querySelector(".home_parent"), function () {
-		RefreshTL()
+		RefreshTL();
 	});
 
 	// Check if user is connected
@@ -146,7 +149,7 @@ function UpdateTimeline(data, data_block_user) {
 			(item, pos) => unique_block_user.indexOf(item) === pos
 		);
 		setTimeout(function () {
-			if ($(".loading_tl")) $(".loading_tl").remove();
+			//if ($(".loading_tl")) $(".loading_tl").remove();
 			if (TLCurrentIndex == 0) {
 				$(".list-block")[0].innerHTML = "";
 				let loading_tl = document.createElement("div");
@@ -191,7 +194,7 @@ function UpdateTimeline(data, data_block_user) {
 }
 
 function StopRefreshTL() {
-	if ($(".loading_tl")) $(".loading_tl").remove();
+	//if ($(".loading_tl")) $(".loading_tl").remove();
 	CanRefreshTL = false;
 	CanRefreshFollowList = false;
 	pullToRefreshEnd();

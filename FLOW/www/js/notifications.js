@@ -669,19 +669,19 @@ function UpdateNotificationList(data, set_to_seen) {
         } else {
             $(".no_notif")[0].style.display = "block";
         }
-        if ($(".loading_tl")) $(".loading_tl").remove();
+        if ($(".loading_notif")) $(".loading_notif").remove();
         if (NotificationListCurrentIndex == 0) {
             $(".list-notif-block")[0].innerHTML = "";
-            let loading_tl = document.createElement("div");
-            loading_tl.className = "loading-spinner loading_tl";
-            $(".list-notif-block")[0].appendChild(loading_tl);
+            let loading_notif = document.createElement("div");
+            loading_notif.className = "loading-spinner loading_notif";
+            $(".list-notif-block")[0].appendChild(loading_notif);
         }
         for (let i = 0; i < data.Data.length; i++) {
             pop_notif_block(data.Data[i]);
             notification_check_seen();
         }
         NotificationListCurrentIndex++;
-        if ($(".loading_tl")) $(".loading_tl").remove();
+        if ($(".loading_notif")) $(".loading_notif").remove();
         console.log("notification updated !");
         if (data.Data.length < 10) {
             CanRefreshNotificationList = false;
@@ -691,9 +691,9 @@ function UpdateNotificationList(data, set_to_seen) {
 
         } else {
             CanRefreshNotificationList = true;
-            let loading_tl = document.createElement("div");
-            loading_tl.className = "loading-spinner loading_tl";
-            $(".list-notif-block")[0].appendChild(loading_tl);
+            let loading_notif = document.createElement("div");
+            loading_notif.className = "loading-spinner loading_notif";
+            $(".list-notif-block")[0].appendChild(loading_notif);
         }
         notification_list_empty = false;
         if (set_to_seen) {
@@ -1081,7 +1081,7 @@ function in_app_notif(data) { // petite popup qui apparait lorsque l'on reçois 
 
 
     if (current_page == "messages" && data.additionalData.type == 'send_message' || InPopupMessage == true) {
-        // Il est tard je suis fatigué et ne sais plus faire l'inverse d'un ou logique
+        // Il est tard je suis fatigué et ne sais plus faire l'inverse d'un où logique
     } else {
         $(".f_in_app_notif").css("bottom", "12.5vh");
     }

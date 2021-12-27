@@ -274,7 +274,7 @@ function RefreshExplore() {
 	let data1 = {
 		Index: exploreCurrentIndex,
 	};
-	// ServerManager.GetTop50(data1);
+	ServerManager.GetTop50(data1);
 
 	recentsCurrentIndex = 0;
 	let data2 = {
@@ -635,18 +635,18 @@ function UpdateRecents(data, data_block_user) {
 		}
 
 		setTimeout(function () {
-			// if ($(".loading_tl")) $(".loading_tl").remove();
+			if ($(".loading_recent")) $(".loading_recent").remove();
 			if (recentsCurrentIndex == 0) {
 				$(".list-block-recents")[0].innerHTML = "";
-				let loading_tl = document.createElement("div");
-				loading_tl.className = "loading-spinner loading_tl";
-				$(".list-block-recents")[0].appendChild(loading_tl);
+				let loading_recent = document.createElement("div");
+				loading_recent.className = "loading-spinner loading_recent";
+				$(".list-block-recents")[0].appendChild(loading_recent);
 			}
 			console.log(data);
 			for (let i = 0; i < data.length; i++) {
 				if (unique_block_user && unique_block_user.length != 0) {
 					for (let i_unique_block_user in unique_block_user) {
-						// flow avec filtre utilisateurs bloqués
+						//flow avec filtre utilisateurs bloqués
 						if (unique_block_user[i_unique_block_user] != data[i].PrivateId) {
 							let flow = data[i];
 							let pattern_key = "";
@@ -711,7 +711,7 @@ function UpdateRecents(data, data_block_user) {
 					all_blocks.push(new_block);
 				}
 			}
-			if ($(".loading_tl")) $(".loading_tl").remove();
+			//if ($(".loading_recent")) $(".loading_recent").remove();
 			console.log("recents updated !");
 			pullToRefreshEnd();
 			if (data.length < 5) {
@@ -721,9 +721,9 @@ function UpdateRecents(data, data_block_user) {
 				$(".list-block-recents")[0].appendChild(tick_tl);
 			} else {
 				canRefreshRecents = true;
-				let loading_tl = document.createElement("div");
-				loading_tl.className = "loading-spinner loading_tl";
-				$(".list-block-recents")[0].appendChild(loading_tl);
+				let loading_recent = document.createElement("div");
+				loading_recent.className = "loading-spinner loading_recent";
+				$(".list-block-recents")[0].appendChild(loading_recent);
 			}
 		}, 500);
 	} else {
@@ -732,7 +732,7 @@ function UpdateRecents(data, data_block_user) {
 }
 
 function StopRefreshRecents() {
-	if ($(".loading_tl")) $(".loading_tl").remove();
+	//if ($(".loading_recent")) $(".loading_recent").remove();
 	canRefreshRecents = false;
 	// pullToRefreshEnd();
 }

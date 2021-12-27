@@ -10,7 +10,7 @@
 
 .loading-spinner {
 	position: absolute;
-	margin-top: calc(3.5* var(--custom-vh));
+	margin-top: calc(-3.5* var(--custom-vh));
 	left: 50vw;
 	height: calc(4* var(--custom-vh));
 	width: calc(4* var(--custom-vh));
