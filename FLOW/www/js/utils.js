@@ -559,7 +559,6 @@ function translate_app() {
 
     };
 
-    device_language = navigator.language.slice(0, 2);
     $(".language").each(function (index, element) {
         if ($(this).attr("placeholder")) {
             if ($(this).attr("id") == "finput_comment") {

@@ -5,7 +5,6 @@ class FlowLoaderClass {
 
     DownloadFlow(url, block) {
         let returned_flow = this.flows.filter(flow => (flow.online_url == url));
-        console.log(returned_flow);
         if (returned_flow.length == 0) {
             let new_flow = new FlowObj(url, block);
             this.flows.push(new_flow);
@@ -39,7 +38,7 @@ class FlowObj {
 
     OnReady(callback) {
         let self = this;
-        if (!this.ready /*|| !this.duration*/ ) {
+        if (!this.ready /*|| !this.duration*/) {
             setTimeout(function () {
                 self.OnReady(callback);
             }, 50);
@@ -49,7 +48,6 @@ class FlowObj {
     }
 
     LoadFromUrl(url) {
-        console.log(url);
         let self = this;
         var xhr = new XMLHttpRequest();
         console.log("downloading flow from online url...");

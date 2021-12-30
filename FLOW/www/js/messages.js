@@ -61,10 +61,8 @@ function messages_tab_loaded() {
 
     $("#SendFromCamera").on("click", function () {
         TakePhoto(function (imageData) {
-            console.log(imageData);
             // Contenu de l'image : imageData
             toDataUrl(imageData, function (b64) {
-                console.log(b64);
                 let data = {
                     content: b64,
                     name: Date.now(),
@@ -85,10 +83,8 @@ function messages_tab_loaded() {
 
     $("#SendFromGallery").on("click", function () {
         GetPhotoFromGallery(function (imageData) {
-            console.log(imageData);
             // Contenu de l'image : imageData
             toDataUrl(imageData, function (b64) {
-                console.log(b64);
                 let data = {
                     content: b64,
                     name: Date.now(),
@@ -245,9 +241,6 @@ function messages_tab_loaded() {
             can_load_more_message = false;
             let loading_message = document.createElement("div");
             loading_message.className = "loading-spinner loading_message";
-            // $("#fblock_message_content").append(loading_message); // cause flickering
-            // console.log("limite :" + limit + "; Current scroll : " + Math.round($(this).scrollTop()));
-            console.log("load old messages");
             let old_diff = content[0].scrollHeight - content[0].clientHeight;
             message_infinite_scroll(current_block_chat, old_diff);
         }
@@ -264,7 +257,6 @@ function messages_tab_loaded() {
             current_dm_audio.pause();
         }
         notif_chat_id = undefined;
-        console.log(" dm popup finish open");
     });
     document.getElementById("popup-message").addEventListener("closed", function () {
         InPopupMessage = false;
@@ -325,7 +317,6 @@ function block_chat(data) {
             is_groupe_chat: current_block_chat.is_groupe_chat,
             message_id: current_block_chat.block_chat_last_message.message_id
         };
-        console.log(" Data DM :");
         ServerManager.SetMessageToSeen(data_dm);
         check_block_chat_seen();
         //live_chat(data_dm.chat_id);
@@ -553,16 +544,12 @@ function block_message(data, previous_message) {
         let upload_custom_key = data.progress_key + current_block_chat.chat_id;
         $("." + upload_custom_key + "").css("display", "none");
         $("#UpdateProgressBar").removeClass(upload_custom_key);
-        console.log(this.sender_private_id, window.localStorage.getItem("user_private_id"));
-        console.log(self.audio_url);
         self.audio_duration = data.audio_duration;
         self.currentTime = 0;
         self.offset_indicator = 0;
         let local_flow = FlowLoader.DownloadFlow(self.audio_url);
-        console.log(local_flow);
         local_flow.OnReady(function (url) {
             self.audio = new Media(url, mediaSuccess, mediaFailure, mediaStatus);
-            console.log(self.audio);
             // Solution HESS :
             // let bs = new Audio(self.audio_url);
             // bs.oncanplay = function () {
@@ -640,7 +627,6 @@ function block_message(data, previous_message) {
             current_dm_audio = self;
             self.play_btn.classList.add("pause");
             self.audio.play();
-            console.log(self.audio);
             dm_vocal_playing = true;
             // console.log(params.duration);
             // console.log("play : " + block.currentTime);
@@ -659,13 +645,9 @@ function block_message(data, previous_message) {
             self.overlay_indicator.style.transitionDuration = "0s";
             self.audio.getCurrentPosition(
                 function (position) {
-                    console.log("actual pause");
                     self.audio.pause();
                     if (position == -1) position = 0;
                     if (self.currentTime == -1) self.currentTime = 0;
-                    console.log("pause : " + position);
-                    console.log(self.currentTime);
-                    console.log("-->" + (position - self.currentTime));
                     let width = ((position + self.offset_indicator) * 100) / self.audio_duration;
                     self.overlay_indicator.style.width = width + "%";
                     self.currentTime = position;
@@ -705,11 +687,9 @@ function block_message(data, previous_message) {
         });
 
         self.myRange.addEventListener("touchend", function () {
-            console.log("seek to : " + self.currentTime);
             self.audio.seekTo(self.currentTime * 1000);
             self.offset_indicator = 0;
             self.play();
-            console.log("flow play");
         });
 
         self.myRange.addEventListener("touchstart", function (e) {
@@ -743,7 +723,6 @@ function CreateConversation(data) {
 function check_block_chat_seen() {
     let number_of_message_unseen = 0;
     let tab_length = all_block_chat.length - 1;
-    console.log("la taille est :" + tab_length);
     all_block_chat.forEach(function (elem, index) {
         if (elem.is_seen == false) {
             number_of_message_unseen++;
@@ -834,13 +813,8 @@ function exclude(key) {
 
 // Affiche les msg precedent 30 par 30
 function message_infinite_scroll(data, old_diff) {
-    console.log("message_infinite_scroll was called");
     firebase.database().ref(FirebaseEnvironment + "/messages/" + data.chat_id).orderByKey().endAt(exclude(data.first_messake_key)).limitToLast(30)
         .once('value').then(function (dataSnapshot) {
-            //console.log(" les 20 anciens msg sont : ");
-            //console.log(dataSnapshot.val());
-            //console.log(" les id des anciens msg sont : ");
-            //console.log(dataSnapshot.key);
             let tab_all_messages = Object.entries(dataSnapshot.val());
             current_block_chat.first_messake_key = tab_all_messages[0][0];
 
@@ -867,8 +841,6 @@ function message_infinite_scroll(data, old_diff) {
             }
             let new_diff = scrollableElement.scrollHeight - scrollableElement.clientHeight;
             $(scrollableElement).scrollTop(new_diff - old_diff);
-            console.log(new_diff, old_diff);
-
 
         });
 
@@ -1015,7 +987,6 @@ function difference(obj1, obj2) {
             return keyFound = key;
         }
     });
-    //console.log("key difference : ");
     return keyFound || -1;
 }
 
@@ -1071,8 +1042,6 @@ function UpdateProgressBar(percent, vocal_id) {
 }
 
 function check_if_user_is_blocked(data) {
-    console.log(" user blocked dm : ");
-    console.log(data);
 
     (data.BlockedByUser).forEach(user => {
         if (user == current_block_chat.block_chat_member_private_id) {

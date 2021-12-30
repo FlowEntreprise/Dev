@@ -138,7 +138,6 @@ function hideTopBar(element) {
 // when pages_swiper changed
 function pageHasChanged() {
     let current_page_index = pages_swiper.activeIndex;
-    console.log(current_page_index);
     let home_btn = $(".home_btn");
     let explore_btn = $(".explore_btn");
     let messages_btn = $(".messages_btn");

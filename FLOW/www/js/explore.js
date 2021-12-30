@@ -83,14 +83,17 @@ function explore_tab_loaded() {
 		}
 	});
 	// Scroll to top when explore-btn touched
-	$(".fexplore-btn").on("touchend", function () {
+	$(".explore_btn").on("touchend", function () {
 		// var home_scrolling = false;
 		$(".fred_dot_toolbar_explore").css("display", "none");
 		if (current_page == "explore") {
-			let element = document.getElementById("tab2");
-			// element.onscroll = function() {
-			//     home_scrolling = true;
-			// };
+			let element;
+			if ($(".top50").hasClass("active")) {
+				element = document.querySelector(".top50");
+			}
+			else {
+				element = document.querySelector(".recents");
+			}
 			let last_scrollTop = element.scrollTop;
 			const scrollToTop = () => {
 				const c = element.scrollTop;
@@ -594,7 +597,7 @@ function UpdateTop50(data, data_block_user) {
 			console.log("top50 updated !");
 			pullToRefreshEnd();
 			// exploreCurrentIndex++;
-			if (data.length < 10) {
+			if (data.length < 5) {
 				canRefreshTop50 = false;
 				let tick_tl = document.createElement("div");
 				tick_tl.className = "tick_icon";

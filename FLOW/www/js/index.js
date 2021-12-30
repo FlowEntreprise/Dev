@@ -33,6 +33,7 @@ var app = {
 	onDeviceReady: function () {
 		Keyboard.hide();
 		let custom_vh = window.innerHeight / 100;
+		device_language = navigator.language.slice(0, 2);
 		console.log(window.localStorage.getItem("custom_vh"), custom_vh);
 		if (window.localStorage.getItem("custom_vh")) {
 			custom_vh = window.localStorage.getItem("custom_vh");
@@ -89,11 +90,11 @@ var app = {
 		}
 
 		IonicDeeplink.route({
-				"/flow/:FlowId": {
-					target: "flow",
-					parent: "flow",
-				},
+			"/flow/:FlowId": {
+				target: "flow",
+				parent: "flow",
 			},
+		},
 			function (match) {
 				// console.log("deeplink match !", match);
 			},
@@ -161,9 +162,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				// // console.log("fb current_page event success");
@@ -213,9 +214,9 @@ var app = {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				// // console.log("fb current_page event success");
@@ -279,8 +280,16 @@ var app = {
 		});
 
 		if (window.cordova.platformId == "ios") {
-			let topic = "all-ios";
-			let unsubscribe = "all-android";
+			let topic;
+			let unsubscribe;
+			if (device_language == "fr") {
+				topic = "all-ios-fr";
+				unsubscribe = "all-ios-en";
+			}
+			else {
+				topic = "all-ios-en";
+				unsubscribe = "all-ios-fr";
+			}
 			push.unsubscribe(unsubscribe, function () {
 				// console.log('unsubscribe success: ' + unsubscribe);
 			}, function (e) {
@@ -295,20 +304,33 @@ var app = {
 		}
 
 		if (window.cordova.platformId == "android") {
-			let topic = "all-android";
-			let unsubscribe = "all-ios";
+
+			let topic;
+			let unsubscribe;
+			if (device_language == "fr") {
+				topic = "all-android-fr";
+				unsubscribe = "all-android-en";
+			}
+			else {
+				topic = "all-android-en";
+				unsubscribe = "all-android-fr";
+			}
+
+			console.log("LA LANGUE DE DEVICE : " + device_language);
 			push.unsubscribe(unsubscribe, function () {
-				// console.log('unsubscribe success: ' + unsubscribe);
+				console.log('unsubscribe success: ' + unsubscribe);
 			}, function (e) {
-				// console.log()('unsubscribe error:');
+				console.log()('unsubscribe error:');
 			});
 
 			push.subscribe(topic, function () {
-				// console.log('subscribe success: ' + topic);
+				console.log('subscribe success: ' + topic);
 			}, function (e) {
-				// console.log()('subscribe error:');
+				console.log()('subscribe error:');
 			});
 		}
+
+
 
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es

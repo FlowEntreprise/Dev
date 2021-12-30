@@ -463,7 +463,6 @@ function block(params) {
 		let local_flow = FlowLoader.DownloadFlow(params.audioURL, block);
 		local_flow.OnReady(function (url) {
 			block.loading_audio = false;
-			console.log(local_flow);
 			// block.myaudio.src = url;
 			// block.myaudio.volume = 1.0;
 			block.myaudio = new Media(url, mediaSuccess, mediaFailure, mediaStatus);
