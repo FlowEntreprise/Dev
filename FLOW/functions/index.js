@@ -7,9 +7,7 @@ const { Storage } = require('@google-cloud/storage');
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
-
-const gcs = new Storage();
-
+const gcs = new Storage({ keyFilename: "key.json" });
 const admin = require('firebase-admin');
 admin.initializeApp();
 
