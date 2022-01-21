@@ -5,7 +5,7 @@ var element_to_delete = {};
 function delete_block_conversation(data) // affiche la popup option pour supprime une conversation
 {
     element_to_copy = "block_conversation";
-    $("#label_delete_button").text(`${language_mapping[device_language][delete_conversation]}`);
+    $("#label_delete_button").text(`${language_mapping[device_language]['delete_conversation']}`);
     $("#report_button").css("display", "none");
     $("#delete_button").css("display", "table");
     Popup("popup-option", true, 85.5);
@@ -13,9 +13,9 @@ function delete_block_conversation(data) // affiche la popup option pour supprim
 
 function display_option_for_message(data) { // affiche la popup option pour supprime un message
     element_to_copy = "dm";
-    $("#label_copy_button").text(`${language_mapping[device_language][copy_message]}`);
-    $("#label_report_button").text(`${language_mapping[device_language][report_message]}`);
-    $("#label_delete_button").text(`${language_mapping[device_language][delete_message]}`);
+    $("#label_copy_button").text(`${language_mapping[device_language]['btn_copy_message']}`);
+    $("#label_report_button").text(`${language_mapping[device_language]['btn_report_message']}`);
+    $("#label_delete_button").text(`${language_mapping[device_language]['btn_delete_message']}`);
     $("#delete_button").css("display", "none");
     $("#report_button").css("display", "table");
     Popup("popup-option", true, 85.5);

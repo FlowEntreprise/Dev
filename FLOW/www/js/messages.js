@@ -442,6 +442,7 @@ function block_message(data, previous_message) {
 
     this.block_message.addEventListener('long-press', function (e) {
         current_block_message = block_message;
+        console.log("block message was long pressed");
         if (block_message.deleted != true) // supression de MON msg text
         {
             display_option_for_message(block_message);
@@ -624,18 +625,26 @@ function block_message(data, previous_message) {
 
         self.play = function () {
             // current_block_playing = block;
-            current_dm_audio = self;
-            self.play_btn.classList.add("pause");
-            self.audio.play();
-            dm_vocal_playing = true;
-            // console.log(params.duration);
-            // console.log("play : " + block.currentTime);
-            self.overlay_indicator.style.transitionDuration = self.audio_duration - self.currentTime + "s";
-            self.overlay_indicator.style.display = "block";
-            // block.progress_div.style.borderTopRightRadius = '0vw';
-            self.overlay_indicator.style.width = "100%";
-            // block.isPlaying = true;
-            self.myRange.style.pointerEvents = "all";
+            if (self.audio) {
+                current_dm_audio = self;
+                self.play_btn.classList.add("pause");
+                self.audio.play();
+                dm_vocal_playing = true;
+                // console.log(params.duration);
+                // console.log("play : " + block.currentTime);
+                self.overlay_indicator.style.transitionDuration = self.audio_duration - self.currentTime + "s";
+                self.overlay_indicator.style.display = "block";
+                // block.progress_div.style.borderTopRightRadius = '0vw';
+                self.overlay_indicator.style.width = "100%";
+                // block.isPlaying = true;
+                self.myRange.style.pointerEvents = "all";
+            }
+            else {
+                console.log(" le self.audio ne fonctionne pas mon reuf");
+                $("#" + self.message_id + " .block_message_child").removeAttr("style");
+                $("#" + self.message_id + " .block_message_child").html("Une erreur s'est produite");
+            }
+
         }
 
         self.pause = function () {
@@ -705,7 +714,10 @@ function block_message(data, previous_message) {
             passive: true,
         });
 
-
+        console.log("le local url est : " + local_flow.local_url);
+        if (local_flow.audio) {
+            console.log("Il y a un audio");
+        }
     }
 
     if (this.deleted == true) {
