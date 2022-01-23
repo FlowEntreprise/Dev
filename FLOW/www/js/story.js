@@ -185,7 +185,7 @@ function RefreshStories() {
     /* ------------------------------------------------*/
     /*              REFRESH AFTER GETTING DATA         */
     /* ------------------------------------------------*/
-    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-story-record', true)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div><label class=\"fstory_user\">Ta story</label></div></li>";
+    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-story-record', true)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div><label id=\"fstory_user\" class=\"fstory_user language\">Ta story</label></div></li>";
     // if (connected && window.localStorage.getItem("user_profile_pic")) {
     //     $(".mystory_pic")[0].src = "src/icons/plus.png"//window.localStorage.getItem("user_profile_pic");
     // }

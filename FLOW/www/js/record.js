@@ -366,6 +366,7 @@ $(".fvalidate-after_btn").on("touchend", function () {
 				Sound: appState.blob64,
 				Duration: record_time,
 				Time: "0",
+				language: device_language
 			};
 			console.log(data);
 			// Socket.client.send("Flow", "AddFlow", data); --OLD

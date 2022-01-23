@@ -122,7 +122,7 @@ function DisconnectUser() {
     pages_swiper.slideTo(1);
     $(".empty_tl")[0].style.display = "block";
     $(".list-block")[0].innerHTML = "";
-    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-connect', true, 60)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\" /><div class=\"unread_shadow\"></div><label class=\"fstory_user\">Ta story</label></div></li>";
+    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-connect', true, 60)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\" /><div class=\"unread_shadow\"></div><label id=\"fstory_user\" class=\"fstory_user language\">Ta story</label></div></li>";
     $(".faccount").css({
         "background-image": "url('src/icons/Account@3x.png')"
     });
@@ -241,7 +241,7 @@ document.getElementById("popup-connect").addEventListener("closed", function () 
 
 // $$('.popup-connect').on('popup:open', function () {
 //     StatusBar.backgroundColorByHexString('#949494');
-//     StatusBar.styleLightContent();    
+//     StatusBar.styleLightContent();
 // });
 
 // $$('.popup-connect').on('popup:close', function () {
