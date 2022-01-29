@@ -275,7 +275,7 @@ function check_if_url_in_string(string_to_check) {
 function translate_app() {
     language_mapping = {
         //English
-        "en": {
+        "EN": {
             //STATIC
             "fpopup-connect-msg-inscription": "An account is required to perform this action",
             "privacy_policy": ["By continuing you agree to the ",
@@ -421,10 +421,16 @@ function translate_app() {
             "diminutif_mois": "month",
             "diminutif_anne": "year",
             "update_ap": "Update the app to get the latest features.",
-            "new_version_available": "New version available!"
+            "new_version_available": "New version available!",
+            "elu_fdj": "was elected today's flow!",
+            "fdj_nxt_election": "next election in",
+            "heure": "hour",
+            "minute": "minute",
+            "seconde": "second",
+            "refresh_fdj": "rafraîchis pour découvrir le flow du jour !"
         },
         //French
-        "fr": {
+        "FR": {
             //STATIC
             "fpopup-connect-msg-inscription": "Un compte est nécessaire pour réaliser cette action",
             "privacy_policy": ["En continuant vous acceptez les ",
@@ -570,7 +576,13 @@ function translate_app() {
             "diminutif_mois": "moi",
             "diminutif_anne": "an",
             "update_ap": "Mets l'application à jour pour profiter des toutes dernières fonctionnalités.",
-            "new_version_available": "Nouvelle version de l'application disponible !"
+            "new_version_available": "Nouvelle version de l'application disponible !",
+            "elu_fdj": "a été élu flow du jour !",
+            "fdj_nxt_election": "prochaine élection dans",
+            "heure": "heure",
+            "minute": "minute",
+            "seconde": "seconde",
+            "refresh_fdj": "refreshed to discover today's!"
         }
 
     };

@@ -33,7 +33,7 @@ var app = {
 	onDeviceReady: function () {
 		Keyboard.hide();
 		let custom_vh = window.innerHeight / 100;
-		device_language = navigator.language.slice(0, 2);
+		device_language = navigator.language.slice(0, 2).toUpperCase();
 		console.log(window.localStorage.getItem("custom_vh"), custom_vh);
 		if (window.localStorage.getItem("custom_vh")) {
 			custom_vh = window.localStorage.getItem("custom_vh");
@@ -282,7 +282,7 @@ var app = {
 		if (window.cordova.platformId == "ios") {
 			let topic;
 			let unsubscribe;
-			if (device_language == "fr") {
+			if (device_language == "FR") {
 				topic = "all-ios-fr";
 				unsubscribe = "all-ios-en";
 			}
@@ -307,7 +307,7 @@ var app = {
 
 			let topic;
 			let unsubscribe;
-			if (device_language == "fr") {
+			if (device_language == "FR") {
 				topic = "all-android-fr";
 				unsubscribe = "all-android-en";
 			}
