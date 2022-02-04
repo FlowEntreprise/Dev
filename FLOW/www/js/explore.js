@@ -2,24 +2,28 @@ let searching = false;
 let search_index = 0;
 let canRefreshUsers = true;
 let canRefreshFlows = true;
-let exploreCurrentIndex = 0;
+let top50CurrentIndex = 0;
 let recentsCurrentIndex = 0;
 let canRefreshTop50 = true;
 let canRefreshRecents = true;
 let searching_users = false;
 let searching_flows = false;
+let recentsCurrentLanguage = navigator.language.slice(0, 2).toUpperCase();
+let top50CurrentLanguage = navigator.language.slice(0, 2).toUpperCase();
+
 
 function explore_tab_loaded() {
 
 	// Initilize top50 pull to refresh
 	top50_ptr = setupPTR(document.querySelector(".top50"), function () {
-		RefreshExplore();
+		refresh_top50();
 	});
 
 	// Initilize recents pull to refresh
 	recents_ptr = setupPTR(document.querySelector(".recents"), function () {
-		RefreshExplore();
+		refresh_recents();
 	});
+	RefreshExplore();
 
 	// Initialize search_bar events 
 	$(".fsearch-bar")[0].addEventListener("focus", function () {
@@ -33,10 +37,10 @@ function explore_tab_loaded() {
 		$(".list-block-recents")[0].style.display = "none";
 		$(".list-block-recents")[0].style.pointerEvents = "none";
 		$(".fdj_parent")[0].style.display = "none";
-		$(".swiper-container.discover")[0].style.display = "none";
+		//$(".swiper-container.discover")[0].style.display = "none";
 
 		// $(".list-block-top50")[0].innerHTML = "";
-		exploreCurrentIndex = 0;
+		top50CurrentIndex = 0;
 		recentsCurrentIndex = 0;
 		$(".explore-swiper")[0].style.display = "none";
 		$(".search_back")[0].style.display = "block";
@@ -60,7 +64,7 @@ function explore_tab_loaded() {
 			$(".list-block-recents")[0].style.pointerEvents = "auto";
 			$(".explore-swiper")[0].style.display = "block";
 			$(".fdj_parent")[0].style.display = "block";
-			$(".swiper-container.discover")[0].style.display = "block";
+			//$(".swiper-container.discover")[0].style.display = "block";
 		}
 	});
 	$(".search_back")[0].addEventListener("touchend", function () {
@@ -112,17 +116,17 @@ function explore_tab_loaded() {
 		ShowMoreUsers();
 	});
 
-	$("#tab2").scroll(function () {
+	$(".list-block-recents").scroll(function () {
 		if (!searching) {
 			if (in_top50) {
 				if (canRefreshTop50) {
 					var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 					if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 						canRefreshTop50 = false;
-						exploreCurrentIndex += 1;
-						console.log("explore top50 index : " + exploreCurrentIndex);
+						top50CurrentIndex += 1;
+						console.log("explore top50 index : " + top50CurrentIndex);
 						let data = {
-							Index: exploreCurrentIndex,
+							Index: top50CurrentIndex,
 						};
 						ServerManager.GetTop50(data);
 					}
@@ -136,6 +140,7 @@ function explore_tab_loaded() {
 						console.log("explore recents index : " + recentsCurrentIndex);
 						let data = {
 							Index: recentsCurrentIndex,
+							language: recentsCurrentLanguage
 						};
 						ServerManager.GetNewFlows(data);
 					}
@@ -169,15 +174,8 @@ function explore_tab_loaded() {
 	});
 
 	let data1 = {
-		Index: exploreCurrentIndex,
+		Index: top50CurrentIndex,
 	};
-
-	// ServerManager.GetTop50(data1);
-
-	let data2 = {
-		Index: recentsCurrentIndex,
-	};
-	ServerManager.GetNewFlows(data2);
 
 	ServerManager.GetFDJ();
 
@@ -191,10 +189,10 @@ function explore_tab_loaded() {
 					var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 					if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 						canRefreshTop50 = false;
-						exploreCurrentIndex += 1;
-						console.log("explore top50 index : " + exploreCurrentIndex);
+						top50CurrentIndex += 1;
+						console.log("explore top50 index : " + top50CurrentIndex);
 						let data = {
-							Index: exploreCurrentIndex,
+							Index: top50CurrentIndex,
 						};
 						ServerManager.GetTop50(data);
 					}
@@ -256,7 +254,7 @@ function back_search() {
 	$(".explore-swiper")[0].style.display = "block";
 	$(".search_back")[0].style.display = "none";
 	$(".fdj_parent")[0].style.display = "block";
-	$(".swiper-container.discover")[0].style.display = "block";
+	//$(".swiper-container.discover")[0].style.display = "block";
 	searching = false;
 	$(".fsearch-bar").blur();
 	$(".fsearch-bar")[0].value = "";
@@ -270,21 +268,33 @@ ptrContent_explore.on("ptr:refresh", function (e) {
 	RefreshExplore();
 });
 
-function RefreshExplore() {
-	console.log("refreshing...");
+
+function refresh_top50() {
 	stopAllBlocksAudio();
-	exploreCurrentIndex = 0;
+	top50CurrentIndex = 0;
+	top50CurrentLanguage = navigator.language.slice(0, 2).toUpperCase();
 	let data1 = {
-		Index: exploreCurrentIndex,
+		Index: top50CurrentIndex,
+		language: top50CurrentLanguage
 	};
 	ServerManager.GetTop50(data1);
+}
 
+function refresh_recents() {
+	stopAllBlocksAudio();
 	recentsCurrentIndex = 0;
+	recentsCurrentLanguage = navigator.language.slice(0, 2).toUpperCase();
 	let data2 = {
 		Index: recentsCurrentIndex,
+		language: recentsCurrentLanguage
 	};
 	ServerManager.GetNewFlows(data2);
+}
 
+function RefreshExplore() {
+	console.log("refreshing...");
+	refresh_top50();
+	refresh_recents();
 	// ServerManager.GetRandomFlow(randomExcluded);
 	ServerManager.GetFDJ();
 }
@@ -506,7 +516,7 @@ function UpdateTop50(data, data_block_user) {
 	console.log("updating top50...");
 	stopAllBlocksAudio();
 	console.log(data);
-	if (Array.isArray(data) && data.length > 0) {
+	if (Array.isArray(data.Data) && data.Data.length > 0) {
 		let unique_block_user;
 		if (connected) {
 			unique_block_user = data_block_user.Data.UserBlocked.concat(
@@ -518,19 +528,20 @@ function UpdateTop50(data, data_block_user) {
 		}
 
 		setTimeout(function () {
-			// if ($(".loading_tl")) $(".loading_tl").remove();
-			if (exploreCurrentIndex == 0) {
+			if ($(".loading_top50")) $(".loading_top50").remove();
+			$(".list-block-top50 .tick_icon").remove();
+			if (top50CurrentIndex == 0 && top50CurrentLanguage == device_language) {
 				$(".list-block-top50")[0].innerHTML = "";
-				let loading_tl = document.createElement("div");
-				loading_tl.className = "loading-spinner loading_tl";
-				$(".list-block-top50")[0].appendChild(loading_tl);
+				let loading_top50 = document.createElement("div");
+				loading_top50.className = "loading-spinner loading_top50";
+				$(".list-block-top50")[0].appendChild(loading_top50);
 			}
-			for (let i = 0; i < data.length; i++) {
+			for (let i = 0; i < data.Data.length; i++) {
 				if (unique_block_user && unique_block_user.length != 0) {
 					for (let i_unique_block_user in unique_block_user) {
 						// flow avec filtre utilisateurs bloqués
-						if (unique_block_user[i_unique_block_user] != data[i].PrivateId) {
-							let flow = data[i];
+						if (unique_block_user[i_unique_block_user] != data.Data[i].PrivateId) {
+							let flow = data.Data[i];
 							let pattern_key = "";
 							if (flow.Background.PatternKey)
 								pattern_key = flow.Background.PatternKey;
@@ -562,7 +573,7 @@ function UpdateTop50(data, data_block_user) {
 						}
 					}
 				} else {
-					let flow = data[i];
+					let flow = data.Data[i];
 					let pattern_key = "";
 					if (flow.Background.PatternKey)
 						pattern_key = flow.Background.PatternKey;
@@ -593,20 +604,39 @@ function UpdateTop50(data, data_block_user) {
 					all_blocks.push(new_block);
 				}
 			}
-			if ($(".loading_tl")) $(".loading_tl").remove();
+			if ($(".loading_top50")) $(".loading_top50").remove();
 			console.log("top50 updated !");
 			pullToRefreshEnd();
-			// exploreCurrentIndex++;
-			if (data.length < 5) {
+
+			//Arrivé à la fin des flow du même language que le device, on change de language
+			if (data.Data.length < 5 && top50CurrentLanguage == device_language) {
+				canRefreshTop50 = true;
+				top50CurrentIndex = 0;
+				/*let loading_recent = document.createElement("div");
+				loading_recent.className = "loading-spinner loading_recent";
+				$(".list-block-recents")[0].appendChild(loading_recent);*/
+				if (device_language == "FR") {
+					top50CurrentLanguage = "EN";
+				}
+				else {
+					top50CurrentLanguage = "FR";
+				}
+				let data = {
+					Index: recentsCurrentIndex,
+					language: top50CurrentLanguage
+				};
+				ServerManager.GetTop50(data);
+			}
+			if (data.Data.length < 5 && top50CurrentLanguage != device_language) {
 				canRefreshTop50 = false;
 				let tick_tl = document.createElement("div");
 				tick_tl.className = "tick_icon";
 				$(".list-block-top50")[0].appendChild(tick_tl);
 			} else {
 				canRefreshTop50 = true;
-				let loading_tl = document.createElement("div");
-				loading_tl.className = "loading-spinner loading_tl";
-				$(".list-block-top50")[0].appendChild(loading_tl);
+				let loading_top50 = document.createElement("div");
+				loading_top50.className = "loading-spinner loading_top50";
+				$(".list-block-top50")[0].appendChild(loading_top50);
 			}
 		}, 500);
 	} else {
@@ -617,7 +647,7 @@ function UpdateTop50(data, data_block_user) {
 function StopRefreshTop50() {
 	if ($(".loading_tl")) $(".loading_tl").remove();
 	canRefreshTop50 = false;
-	// pullToRefreshEnd();
+	pullToRefreshEnd();
 }
 
 // ---------------------------------------------- //
@@ -639,7 +669,8 @@ function UpdateRecents(data, data_block_user) {
 
 		setTimeout(function () {
 			if ($(".loading_recent")) $(".loading_recent").remove();
-			if (recentsCurrentIndex == 0) {
+			$(".list-block-recents .tick_icon").remove();
+			if (recentsCurrentIndex == 0 && recentsCurrentLanguage == device_language) {
 				$(".list-block-recents")[0].innerHTML = "";
 				let loading_recent = document.createElement("div");
 				loading_recent.className = "loading-spinner loading_recent";
@@ -717,7 +748,27 @@ function UpdateRecents(data, data_block_user) {
 			//if ($(".loading_recent")) $(".loading_recent").remove();
 			console.log("recents updated !");
 			pullToRefreshEnd();
-			if (data.length < 5) {
+
+			//Arrivé à la fin des flow du même language que le device, on change de language
+			if (data.length < 5 && recentsCurrentLanguage == device_language) {
+				canRefreshRecents = true;
+				recentsCurrentIndex = 0;
+				/*let loading_recent = document.createElement("div");
+				loading_recent.className = "loading-spinner loading_recent";
+				$(".list-block-recents")[0].appendChild(loading_recent);*/
+				if (device_language == "FR") {
+					recentsCurrentLanguage = "EN";
+				}
+				else {
+					recentsCurrentLanguage = "FR";
+				}
+				let data = {
+					Index: recentsCurrentIndex,
+					language: recentsCurrentLanguage
+				};
+				ServerManager.GetNewFlows(data);
+			}
+			if (data.length < 5 && recentsCurrentLanguage != device_language) {
 				canRefreshRecents = false;
 				let tick_tl = document.createElement("div");
 				tick_tl.className = "tick_icon";
@@ -737,5 +788,5 @@ function UpdateRecents(data, data_block_user) {
 function StopRefreshRecents() {
 	//if ($(".loading_recent")) $(".loading_recent").remove();
 	canRefreshRecents = false;
-	// pullToRefreshEnd();
+	pullToRefreshEnd();
 }

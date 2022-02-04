@@ -311,7 +311,7 @@ function showFDJ(data) {
     } else {
         youAreFDJ = false;
     }
-    $(".fdj_title")[0].innerHTML = pseudo + `${language_mapping[device_language]['elu_fdj']}`;
+    $(".fdj_title")[0].innerHTML = pseudo + ` ${language_mapping[device_language]['elu_fdj']}`;
 
 
     if (flow.YouFollowHim == "1") followingFDJ = true;
@@ -424,11 +424,11 @@ function getTimeRemaining(endtime) {
     const days = Math.floor(total / (1000 * 60 * 60 * 24));
 
     let result = "";
-    if (hours > 0) result = `${language_mapping[device_language]['fdj_nxt_election']}` + (hours + 1) + ` ${language_mapping[device_language]['heure']}s.`;
+    if (hours > 0) result = `${language_mapping[device_language]['fdj_nxt_election']} ` + (hours + 1) + ` ${language_mapping[device_language]['heure']}s.`;
     // else if (hours == 1) result = `${language_mapping[device_language]['fdj_nxt_election']}` + hours + " heure.";
-    else if (minutes > 0) result = `${language_mapping[device_language]['fdj_nxt_election']}` + (minutes + 1) + ` ${language_mapping[device_language]['minute']}s.`;
-    else if (seconds > 1) result = `${language_mapping[device_language]['fdj_nxt_election']}` + seconds + ` ${language_mapping[device_language]['seconde']}s.`;
-    else if (seconds == 1) result = `${language_mapping[device_language]['fdj_nxt_election']}` + seconds + ` ${language_mapping[device_language]['heure']}.`;
+    else if (minutes > 0) result = `${language_mapping[device_language]['fdj_nxt_election']} ` + (minutes + 1) + ` ${language_mapping[device_language]['minute']}s.`;
+    else if (seconds > 1) result = `${language_mapping[device_language]['fdj_nxt_election']} ` + seconds + ` ${language_mapping[device_language]['seconde']}s.`;
+    else if (seconds == 1) result = `${language_mapping[device_language]['fdj_nxt_election']} ` + seconds + ` ${language_mapping[device_language]['heure']}.`;
     else result = `${language_mapping[device_language]['refresh_fdj']}`;
 
     return result;

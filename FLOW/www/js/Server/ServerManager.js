@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-	ServerURL: "https://dev-api.flowappweb.com/",
+	ServerURL: "https://api-test.flowappweb.com/",
 	ConnexionURL: "ConnexionFromApi",
 	AddFlowURL: "AddFlow",
 	GetSingleFlowURL: "GetSingle",
@@ -1674,6 +1674,7 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
 				Index: data.Index,
+				language: device_language
 			},
 		};
 		$.ajax({
@@ -1726,6 +1727,7 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
 				Index: data.Index,
+				language: data.language
 			},
 		};
 		$.ajax({

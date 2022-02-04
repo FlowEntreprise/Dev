@@ -1,6 +1,7 @@
 //DisconnectUser();
 var connected = false;
 var user_token;
+var was_disconnected = false;
 
 // CheckIfConnected();
 
@@ -21,11 +22,14 @@ function ConnectUser(data) {
         "opacity": "0",
         "pointer-events": "none"
     });
-    ServerManager.GetStory();
-    ServerManager.GetTimeline(0, 5);
-    notification_check_seen();
-    // Framework7
-    RefreshExplore();
+
+    if (was_disconnected == true) {
+        ServerManager.GetStory();
+        ServerManager.GetTimeline(0, 5);
+        notification_check_seen();
+        // Framework7
+        RefreshExplore();
+    }
 
     refresh_notif();
     let loading_tl = document.createElement("div");
@@ -96,6 +100,7 @@ function ConnectUser(data) {
 
 function DisconnectUser() {
     // console.log("user disconnected");
+    was_disconnected = true;
     if (window.localStorage.getItem("firebase_token")) {
         firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").off();
         firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token"))
