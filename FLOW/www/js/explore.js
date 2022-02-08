@@ -127,6 +127,7 @@ function explore_tab_loaded() {
 						console.log("explore top50 index : " + top50CurrentIndex);
 						let data = {
 							Index: top50CurrentIndex,
+							language: top50CurrentLanguage
 						};
 						ServerManager.GetTop50(data);
 					}
@@ -193,6 +194,7 @@ function explore_tab_loaded() {
 						console.log("explore top50 index : " + top50CurrentIndex);
 						let data = {
 							Index: top50CurrentIndex,
+							language: top50CurrentLanguage
 						};
 						ServerManager.GetTop50(data);
 					}
@@ -206,6 +208,7 @@ function explore_tab_loaded() {
 						console.log("explore recents index : " + recentsCurrentIndex);
 						let data = {
 							Index: recentsCurrentIndex,
+							language: recentsCurrentLanguage
 						};
 						ServerManager.GetNewFlows(data);
 					}

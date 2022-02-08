@@ -1674,7 +1674,7 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
 				Index: data.Index,
-				language: device_language
+				language: data.language
 			},
 		};
 		$.ajax({
