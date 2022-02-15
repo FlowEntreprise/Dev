@@ -69,11 +69,9 @@ function block_response(response_data, response_is_specifique) {
 
     this.fblock_response_response = document.createElement("p");
     this.fblock_response_response.className = "fblock_response_response";
-    this.fblock_response_response.innerHTML =
-        this.fresponse_text.replace(
-            /@[^ ]+/gi,
-            '<span class="tagged_users">$&</span>'
-        ) + "<br>";
+
+    this.fresponse_text = this.fresponse_text.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>');
+    $(this.fblock_response_response).append(check_if_url_in_string(this.fresponse_text));
     $(this.fblock_response).append(this.fblock_response_response);
 
     this.f_response_date = document.createElement("label");
@@ -85,7 +83,7 @@ function block_response(response_data, response_is_specifique) {
     this.fblock_response_label_repondre = document.createElement("label");
     this.fblock_response_label_repondre.className =
         "fblock_response_label_repondre";
-    this.fblock_response_label_repondre.innerHTML = "Répondre";
+    this.fblock_response_label_repondre.innerHTML = `${language_mapping[device_language]['reply']}`;
     $(this.fblock_response_response).append(this.fblock_response_label_repondre);
 
     $(this.fblock_response_label_repondre).on("click", function () {
@@ -93,7 +91,7 @@ function block_response(response_data, response_is_specifique) {
         it_is_a_response = true;
         it_is_a_response_to_a_response = true;
         $("#finput_comment").focus();
-        $("#finput_comment").attr("placeholder", "Ajouter une réponse...");
+        $("#finput_comment").attr("placeholder", `${language_mapping[device_language]['placeholder_add_response']}`);
     });
 
     this.fresponse_like = document.createElement("img");
@@ -133,7 +131,7 @@ function block_response(response_data, response_is_specifique) {
     this.fbr_1 = document.createElement("br");
     $(this.fblock_response).append(this.fbr_1);
 
-    $$(this.fblock_response_response).on("taphold", function () {
+    this.fblock_response_response.addEventListener('long-press', function (e) {
         current_response_block = block_response;
         let delete_response = true;
         delete_comment_from_bdd(current_response_block, delete_response);
@@ -207,7 +205,9 @@ function block_comment(comment_data, comment_is_specifique) {
 
     this.fblock_comment_comment = document.createElement('p');
     this.fblock_comment_comment.className = 'fblock_comment_comment';
-    this.fblock_comment_comment.innerHTML = this.fcomment_text.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>') + "<br>";
+
+    this.fcomment_text = this.fcomment_text.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>');
+    $(this.fblock_comment_comment).append(check_if_url_in_string(this.fcomment_text));
     $(this.fblock_comment).append(this.fblock_comment_comment);
 
     this.fdate = document.createElement('label');
@@ -217,22 +217,22 @@ function block_comment(comment_data, comment_is_specifique) {
 
     this.fblock_comment_label_repondre = document.createElement('label');
     this.fblock_comment_label_repondre.className = 'fblock_comment_label_repondre';
-    this.fblock_comment_label_repondre.innerHTML = "Répondre";
+    this.fblock_comment_label_repondre.innerHTML = `${language_mapping[device_language]['reply']}`;
     $(this.fblock_comment_comment).append(this.fblock_comment_label_repondre);
 
-    $(this.fblock_comment_label_repondre).on('click', function () {
+    $(this.fblock_comment_label_repondre).on('click', function (event) {
         current_comment_block = block_comment;
         current_response_block = undefined;
         it_is_a_response = true;
         $("#finput_comment").focus();
-        $("#finput_comment").attr("placeholder", "Ajouter une réponse...");
+        $("#finput_comment").attr("placeholder", `${language_mapping[device_language]['placeholder_add_response']}`);
     });
 
     if (this.nombre_de_reponses > 0) {
 
         this.fblock_comment_label_afficher_les_reponses = document.createElement('label');
         this.fblock_comment_label_afficher_les_reponses.className = 'fblock_comment_label_afficher_les_reponses';
-        this.fblock_comment_label_afficher_les_reponses.innerHTML = "Afficher les reponses (" + this.nombre_de_reponses + ")";
+        this.fblock_comment_label_afficher_les_reponses.innerHTML = `${language_mapping[device_language]['show_responses']} (${this.nombre_de_reponses})`;
         $(this.fblock_comment_comment).append(this.fblock_comment_label_afficher_les_reponses);
 
 
@@ -257,7 +257,10 @@ function block_comment(comment_data, comment_is_specifique) {
                 };
                 ServerManager.GetCommentResponse(data);
             }
-            $(current_comment_block.fblock_comment_label_afficher_les_reponses).css("opacity", "0");
+            $(current_comment_block.fblock_comment_label_afficher_les_reponses).css({
+                "opacity": "0",
+                "pointer-events": "none"
+            });
         });
 
     }
@@ -290,7 +293,7 @@ function block_comment(comment_data, comment_is_specifique) {
 
     this.fblock_comment_label_reponses_precedentes = document.createElement('label');
     this.fblock_comment_label_reponses_precedentes.className = 'fblock_comment_label_reponses_precedentes';
-    this.fblock_comment_label_reponses_precedentes.innerHTML = "Réponses précédentes (" + this.nombre_de_reponses + ")";
+    this.fblock_comment_label_reponses_precedentes.innerHTML = `${language_mapping[device_language]['previous_responses']} (${this.nombre_de_reponses})`;
     $(this.fblock_response_container).append(this.fblock_comment_label_reponses_precedentes);
 
     $(this.fblock_comment_label_reponses_precedentes).on('click', function () {
@@ -316,7 +319,7 @@ function block_comment(comment_data, comment_is_specifique) {
 
     this.label_afficher_plus_de_reponses = document.createElement('label');
     this.label_afficher_plus_de_reponses.className = 'label_afficher_plus_de_reponses';
-    this.label_afficher_plus_de_reponses.innerHTML = "Afficher plus (" + this.nombre_de_reponses + ")";
+    this.label_afficher_plus_de_reponses.innerHTML = `${language_mapping[device_language]['show_more']} (${this.nombre_de_reponses})`;
     $(this.afficher_plus_de_reponses_container).append(this.label_afficher_plus_de_reponses);
 
     $(this.label_afficher_plus_de_reponses).on('click', function () {
@@ -352,7 +355,10 @@ function block_comment(comment_data, comment_is_specifique) {
         scroll_to = $('.fblock_comment_content').scrollTop() + scroll_to - current_comment_block.response_container_previous_height / 2;
         $(current_comment_block.fblock_response_container).css("height", "0px");
         $(current_comment_block.afficher_plus_de_reponses_container).css("display", "none");
-        $(current_comment_block.fblock_comment_label_afficher_les_reponses).css("opacity", "1");
+        $(current_comment_block.fblock_comment_label_afficher_les_reponses).css({
+            "opacity": "1",
+            "pointer-events": "auto"
+        });
         //$(".fblock_comment_content").scrollTop(scroll_to.top);
         setTimeout(function () {
             $(".fblock_comment_content").animate({
@@ -366,7 +372,7 @@ function block_comment(comment_data, comment_is_specifique) {
 
     this.label_cacher_reponse = document.createElement('label');
     this.label_cacher_reponse.className = 'label_cacher_reponse';
-    this.label_cacher_reponse.innerHTML = "Réduire";
+    this.label_cacher_reponse.innerHTML = `${language_mapping[device_language]['reduce']}`;
     $(this.label_hide_and_up_arrow_grey_container).append(this.label_cacher_reponse);
 
     this.up_arrow_grey = document.createElement('img');
@@ -388,15 +394,8 @@ function block_comment(comment_data, comment_is_specifique) {
         }
     });
 
-    $$(this.fid_user).on('taphold', function () {
-        var clickedLink = this;
-        // app.popover('#popover_comment', clickedLink);
 
-    });
-
-
-    $$(this.fblock_comment_comment).on('taphold', function () {
-        var clickedLink = this;
+    this.fblock_comment_comment.addEventListener('long-press', function (e) {
         current_comment_block = block_comment;
         delete_comment_from_bdd(current_comment_block);
     });
@@ -433,7 +432,7 @@ $(".fpopover_copy_comment").on("touchend", function () {
 $(".fpopover_report_comment").on("touchend", function () {
     //alert("Ce commentaire a été signalé");
     navigator.notification.alert(
-        "Ce commentaire a été signalé",
+        `${language_mapping[device_language]['report_comment']}`,
         alertDismissed,
         "Information"
     );
@@ -551,10 +550,11 @@ function display_response(response, data_response_unique) {
                 current_comment_block.response_current_index++;
             }
             $(current_comment_block.label_afficher_plus_de_reponses).text(
-                "Afficher plus (" + current_comment_block.nombre_de_reponses_restant + ")"
+                `${language_mapping[device_language]['show_more']} (${current_comment_block.nombre_de_reponses_restant})`
+
             );
             $(current_comment_block.fblock_comment_label_reponses_precedentes).text(
-                "Réponses précédentes (" + current_comment_block.nombre_de_reponses_precedent + ")"
+                `${language_mapping[device_language]['previous_responses']} (${current_comment_block.nombre_de_reponses_precedent})`
             );
             //$(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
         } else {
@@ -575,7 +575,7 @@ function display_response(response, data_response_unique) {
 
             //$(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + current_comment_block.nombre_de_reponses_restant + ")");
             $(current_comment_block.fblock_comment_label_reponses_precedentes).text(
-                "Réponses précédentes (" + current_comment_block.nombre_de_reponses_precedent + ")"
+                `${language_mapping[device_language]['previous_responses']} (${current_comment_block.nombre_de_reponses_precedent})`
             );
             //$(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
             $(current_comment_block.fblock_response_container).css("height", "");
@@ -620,9 +620,10 @@ function send_comment_to_server(data) {
     let comment_number = parseInt($(".fcomment_number").text());
     let tableau_comment_to_tag_users = data.Comment.split(" ");
     comment_number = comment_number + 1;
-    $(".fcomment_number").text(comment_number + " commentaire");
+
+    $(".fcomment_number").text(comment_number + ` ${language_mapping[device_language]['single_comment']}`);
     if (comment_number > 1) {
-        $(".fcomment_number").text(comment_number + " commentaires");
+        $(".fcomment_number").text(comment_number + ` ${language_mapping[device_language]['multi_comment']}`);
     }
 
     $(current_flow_block.ftxt_impression_comment).text(comment_number);
@@ -705,7 +706,7 @@ function send_response_to_server(data) {
         nombre_de_reponses_apres_ajout = current_comment_block.nombre_de_reponses;
     }
     $(current_comment_block.fblock_comment_label_afficher_les_reponses).text(
-        "Afficher les reponses (" + current_comment_block.nombre_de_reponses + ")"
+        `${language_mapping[device_language]['show_responses']} (${current_comment_block.nombre_de_reponses})`
     );
     if (
         registrationId != response_data.current_flow_block.RegisterId
@@ -746,7 +747,10 @@ function send_response_to_server(data) {
     console.log("response sucessfully added to database :");
     console.log("data du send response to server" + data + "");
     $(current_comment_block.label_afficher_plus_de_reponses).text("Afficher plus (" + nombre_de_reponses_apres_ajout + ")");
-    $(current_comment_block.fblock_comment_label_afficher_les_reponses).css("opacity", "0");
+    $(current_comment_block.fblock_comment_label_afficher_les_reponses).css({
+        "opacity": "0",
+        "pointer-events": "none"
+    });
     $(current_comment_block.afficher_plus_de_reponses_container).css("display", "inline-flex");
     /*if (current_comment_block.response_current_index == 0 && current_comment_block.label_afficher_plus_de_reponses) {
         $(current_comment_block.label_afficher_plus_de_reponses).click();
@@ -781,7 +785,7 @@ $(".fsend_comment").on("click", function () {
 
         if (text == "") {
             //alert("Le commentaire est vide");
-            navigator.notification.alert("Le commentaire est vide", alertDismissed, "Information");
+            navigator.notification.alert(`${language_mapping[device_language]['empty_comment']}`, alertDismissed, "Information");
         } else {
             $("#finput_comment").val("");
 
@@ -797,7 +801,7 @@ $(".fsend_comment").on("click", function () {
         if (text == "") {
             //alert("Le commentaire est vide");
             navigator.notification.alert(
-                "Le commentaire est vide",
+                `${language_mapping[device_language]['empty_comment']}`,
                 alertDismissed,
                 "Information"
             );
@@ -862,7 +866,7 @@ $("input").focus(function () {
 if (window.cordova.platformId == "ios") {
     $("#finput_comment").focus(function () {
         setTimeout(function () {
-            Popup("popup-comment", true, 55);
+            Popup("popup-comment", true, 35);
         }, 200);
     });
 
@@ -919,11 +923,9 @@ $("#finput_comment").keyup(function () {
             }
             $(".popup_identification_container")[0].innerHTML = "";
         }
-        if (window.cordova.platformId == "ios") {
-            Popup("popup-identification", true, 55);
-        } else {
-            Popup("popup-identification", true, 5);
-        }
+
+        Popup("popup-identification", true, 5);
+
     } else {
         Popup("popup-identification", false);
         IdentificationListCurrentIndex = 0;

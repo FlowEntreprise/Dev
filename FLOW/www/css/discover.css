@@ -1,0 +1,38 @@
+.swiper-container.discover {
+    margin-top: calc(-9 * var(--custom-vh));
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    /* background: red; */
+}
+
+.swiper-container.discover .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    transform: scale3d(0.75, 0.75, 0.75);
+    /* background: rgba(0, 0, 0, 0.5); */
+    /* height: calc((100% - 30px) / 2); */
+    /* min-height: calc(40 * var(--custom-vh)); */
+    /* max-height: calc(40 * var(--custom-vh)); */
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    transition-duration: 0.4s;
+}
+
+.swiper-container.discover .swiper-slide-active {
+    transition-duration: 0.4s;
+    transform: scale3d(1, 1, 1);
+}

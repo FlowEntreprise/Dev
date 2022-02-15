@@ -52,11 +52,11 @@ const pSBC = (p, c0, c1, l) => {
         b: 0,
         a: -1
     } : {
-            r: 255,
-            g: 255,
-            b: 255,
-            a: -1
-        }, p = P ? p * -1 : p, P = 1 - p;
+        r: 255,
+        g: 255,
+        b: 255,
+        a: -1
+    }, p = P ? p * -1 : p, P = 1 - p;
     if (!f || !t) return null;
     if (l) r = m(P * f.r + p * t.r), g = m(P * f.g + p * t.g), b = m(P * f.b + p * t.b);
     else r = m((P * f.r ** 2 + p * t.r ** 2) ** 0.5), g = m((P * f.g ** 2 + p * t.g ** 2) ** 0.5), b = m((P * f.b ** 2 + p * t.b ** 2) ** 0.5);
@@ -185,7 +185,7 @@ function RefreshStories() {
     /* ------------------------------------------------*/
     /*              REFRESH AFTER GETTING DATA         */
     /* ------------------------------------------------*/
-    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-story-record', true)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div><label class=\"fstory_user\">Ta story</label></div></li>";
+    $(".fstory_list")[0].innerHTML = "<li><div class=\"fstory_block\" onclick=\"Popup('popup-story-record', true)\"><img src=\"src/icons/plus.png\" class=\"fstory_pic mystory_pic fnoshadow\"><div class=\"unread_shadow\"></div><label id=\"fstory_user\" class=\"fstory_user language\">Ta story</label></div></li>";
     // if (connected && window.localStorage.getItem("user_profile_pic")) {
     //     $(".mystory_pic")[0].src = "src/icons/plus.png"//window.localStorage.getItem("user_profile_pic");
     // }
@@ -315,18 +315,21 @@ function SpawnStoryWindow(story_block) {
             // OR
             tryLoadStory(story_index, storyFlow_index);
             showStoryMain(false);
+            var fstory_addcomment_btn = document.getElementsByClassName("fstory_addcomment_btn")[0];
 
-            $$('.fstory_addcomment_btn').on('taphold', function () {
+            fstory_addcomment_btn.addEventListener('long-press', function (e) {
                 if (connected) {
                     record_was_hold = true;
                     stop_comments();
                     startCapture();
-                    $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")"
+                    $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")";
                 } else {
                     Popup("popup-connect", true, 60);
                 }
             });
-            $$('.fstory_addcomment_btn').on('click', function () {
+
+
+            $('.fstory_addcomment_btn').on('click', function () {
                 if (recording) {
                     console.log("stop recording");
                     if (record_time > 2) {
@@ -341,7 +344,7 @@ function SpawnStoryWindow(story_block) {
                     $(".fstory_addcomment_btn")[0].style.backgroundImage = "url(\"src/icons/stop_icon.png\")"
                 }
             });
-            $$('.fstory_addcomment_confirm').on('touchend', function () {
+            $('.fstory_addcomment_confirm').on('touchend', function () {
                 let story_comment = {
                     ObjectId: story_data[story_index].data[storyFlow_index].id,
                     // PrivatedId: window.localStorage.getItem("user_private_id"),
@@ -371,7 +374,7 @@ function SpawnStoryWindow(story_block) {
 
                 }, 100);
             });
-            $$('.fstory_addcomment_cancel').on('touchend', function () {
+            $('.fstory_addcomment_cancel').on('touchend', function () {
                 $(".fstory_addcomment_confirmation")[0].style.opacity = 0;
                 $(".fstory_addcomment_btn")[0].style.opacity = 1;
 
@@ -1221,7 +1224,7 @@ function closeRecordComment() {
         "opacity": "0",
         "pointer-events": "none"
     });
-    $$('.fstory_addcomment_btn')[0].style.display = "block";
+    $('.fstory_addcomment_btn')[0].style.display = "block";
     $(".validate_record_comment")[0].style.display = "none";
     $(".listen_record_comment")[0].style.display = "none";
     recorded_com.pause();
@@ -1272,7 +1275,7 @@ document.getElementById("popup-story-record").addEventListener("opened", functio
 });
 
 document.getElementById("popup-story-record").addEventListener("closed", function () {
-    $$('.frecord-btn').css({
+    $('.frecord-btn').css({
         "display": "none"
     });
     $(".record-shadow")[0].style.display = "none";

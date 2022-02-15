@@ -1,5 +1,10 @@
-#ptr_arrow_notif {
-	opacity: 0;
+.notifications_parent {
+	height: calc(100 * var(--custom-vh));
+	width: 100vw;
+	overflow-x: hidden;
+	padding-top: calc(9 * var(--custom-vh));
+	transition: transform 0.5s;
+	/* padding-top: calc(7* var(--custom-vh)); */
 }
 
 .no_notif {
@@ -155,8 +160,8 @@
 }
 
 .list-notif-block {
-	margin-top: calc(2 * var(--custom-vh)) !important;
-	padding-bottom: calc(12* var(--custom-vh));
+	/* margin-top: calc(2 * var(--custom-vh)) !important; */
+	padding-bottom: calc(28* var(--custom-vh));
 }
 
 .layer_notif {

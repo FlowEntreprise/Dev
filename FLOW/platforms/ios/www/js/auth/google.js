@@ -9,11 +9,15 @@ function google_conn() {
     },
     function (obj) {
       //   alert(JSON.stringify(obj)); // do something useful instead of alerting
-      console.log(obj);
       // var txt = obj.displayName + " --- " + obj.email + " --- " + obj.imageUrl + " --- " + obj.userId;
 
       // Socket.client.send('Inscription','Google',obj); -- OLD
+      console.log(obj.imageUrl);
+      let img_big = obj.imageUrl.replace("s96-", "s500-");
+      console.log(obj);
+      obj.imageUrl = img_big;
       ServerManager.Connect(apiTypes.Google, obj);
+
       //document.getElementById('infos').innerHTML = txt;
       //Transport(socket,obj,'google');
       //alert(txt);

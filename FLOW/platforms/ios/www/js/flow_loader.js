@@ -3,12 +3,16 @@ class FlowLoaderClass {
         this.flows = [];
     }
 
-    DownloadFlow(url) {
+    DownloadFlow(url, block) {
         let returned_flow = this.flows.filter(flow => (flow.online_url == url));
-        // console.log(returned_flow);
         if (returned_flow.length == 0) {
-            let new_flow = new FlowObj(url);
+            let new_flow = new FlowObj(url, block);
             this.flows.push(new_flow);
+            // unload flow if more than 10 in cache
+            if (this.flows.length > 10) {
+                this.flows[0].Unload();
+                this.flows.shift();
+            }
             returned_flow = new_flow;
         } else {
             returned_flow = returned_flow[0];
@@ -18,12 +22,13 @@ class FlowLoaderClass {
 }
 
 class FlowObj {
-    constructor(url) {
+    constructor(url, block) {
         this.online_url = url;
+        this.block = block;
         if (url.includes("blob")) {
             this.fileName = url.replace("blob:file:///", "");
         } else {
-            this.fileName = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'));
+            this.fileName = url.substring(url.lastIndexOf('/') + 1, (url.lastIndexOf('/') + 1 + url.substring(url.lastIndexOf('/') + 1).indexOf('.')));
         }
         this.local_url = "";
         this.ready = false;
@@ -33,7 +38,7 @@ class FlowObj {
 
     OnReady(callback) {
         let self = this;
-        if (!this.ready /*|| !this.duration*/ ) {
+        if (!this.ready /*|| !this.duration*/) {
             setTimeout(function () {
                 self.OnReady(callback);
             }, 50);
@@ -43,16 +48,15 @@ class FlowObj {
     }
 
     LoadFromUrl(url) {
-        // console.log(url);
         let self = this;
         var xhr = new XMLHttpRequest();
-        // console.log("downloading flow from online url...");
+        console.log("downloading flow from online url...");
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
 
         xhr.onload = function () {
             if (this.status == 200) {
-                // console.log("flow successfully downloaded !");
+                console.log("flow successfully downloaded !");
                 var blob = new Blob([this.response], {
                     type: 'audio/mpeg'
                 });
@@ -67,13 +71,26 @@ class FlowObj {
                 // self.ready = true;
                 window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function (dirEntry) {
                     var isAppend = true;
-                    // console.log(blob, self.fileName);
+                    console.log(blob, self.fileName);
                     self.saveFile(dirEntry, blob, self.fileName);
                 }, function (err) {
                     console.error(err);
                 });
             }
         };
+
+        // xhr.onreadystatechange = function (oEvent) {
+        //     if (xhr.readyState === 4) {
+        //         if (xhr.status === 200) {
+        //             console.log(xhr.responseText)
+        //         } else {
+        //             console.log("Error", xhr.statusText);
+        //         }
+        //     }
+        // };
+        // if (xhr.status == 200) {
+
+        // }
         xhr.send();
     }
 
@@ -97,7 +114,7 @@ class FlowObj {
         fileEntry.createWriter(function (fileWriter) {
 
             fileWriter.onwriteend = function () {
-                // console.log("Successful file writed : " + fileWriter.localURL);
+                console.log("Successful file writed : " + fileWriter.localURL);
                 self.local_url = fileWriter.localURL;
                 self.ready = true;
             };
@@ -107,6 +124,26 @@ class FlowObj {
             };
 
             fileWriter.write(dataObj);
+        });
+    }
+
+    Unload() {
+        let self = this;
+        if (self.block) self.block.ready = false;
+        window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function (dirEntry) {
+            dirEntry.getFile(self.fileName, {
+                create: false
+            }, function (fileEntry) {
+                fileEntry.remove(function (file) {
+                    console.log("file removed!");
+                }, function (error) {
+                    console.log("error occurred: " + error.code);
+                }, function () {
+                    console.log("file does not exist");
+                });
+            });
+        }, function (err) {
+            console.error(err);
         });
     }
 }

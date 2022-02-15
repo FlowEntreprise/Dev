@@ -1,65 +1,79 @@
-var ptrContent = $$(".pull-to-refresh-content");
-// Add 'refresh' listener on it
-ptrContent.on("ptr:refresh", function (e) {
+// Variables :
+let CanRefreshTL = true;
+let TLCurrentIndex = 0;
+
+function home_tab_loaded() {
+
 	RefreshTL();
-});
+	// scroll to top if tap on home
+	$(".home_btn ").on("touchend", function () {
+		// var home_scrolling = false;
+		if (current_page == "home") {
+			let element = document.querySelector(".home_parent");
+			// element.onscroll = function() {
+			//     home_scrolling = true;
+			// };
+			let last_scrollTop = element.scrollTop;
+			const scrollToTop = () => {
+				const c = element.scrollTop;
+				if (c > 0 && c <= last_scrollTop) {
+					window.requestAnimationFrame(scrollToTop);
+					element.scrollTo(0, c - c / 8);
+					last_scrollTop = c;
+				}
+			};
+			scrollToTop();
+		}
+	});
+
+	// setup scroll to load TL
+	$(".home_parent").scroll(function () {
+		var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+		if (CanRefreshTL == true) {
+			if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+				CanRefreshTL = false;
+				let loading_tl = document.createElement("div");
+				loading_tl.className = "loading-spinner loading_tl";
+				$(".list-block")[0].appendChild(loading_tl);
+				console.log("Get Flow on Server");
+				console.log("TLCurrentIndex : " + TLCurrentIndex);
+				ServerManager.GetTimeline(TLCurrentIndex, 5);
+			}
+		}
+	});
+
+	// setup input comment placeholder
+	$("#finput_comment").blur(function () {
+		console.log("an input was out focused");
+		$(this).attr("placeholder", `${language_mapping[device_language]['placeholder_add_comment']}`);
+	});
+
+	// initialize pull to refresh
+	home_ptr = setupPTR(document.querySelector(".home_parent"), function () {
+		RefreshTL();
+	});
+
+	// Check if user is connected
+	CheckIfConnected();
+}
 
 function RefreshTL() {
 	console.log("refreshing...");
-	stopAllBlocksAudio();
+	// stopAllBlocksAudio();
+	HomeFlowsArray = [];
 	TLCurrentIndex = 0;
-	ServerManager.GetTimeline(0);
+	ServerManager.GetTimeline(0, 5);
 	ServerManager.GetStory();
 }
 
-ptrContent.on("ptr:pullstart", function (e) {
-	console.log("pull start");
-	$("#ptr_arrow").css("opacity", "1");
-});
-
-ptrContent.on("ptr:pullend", function (e) {
-	console.log("pull end");
-	$("#ptr_arrow").css("opacity", "0");
-});
-$(".fhome-btn").on("touchend", function () {
-	// var home_scrolling = false;
-	if (current_page == "home") {
-		let element = document.getElementById("tab1");
-		// element.onscroll = function() {
-		//     home_scrolling = true;
-		// };
-		let last_scrollTop = element.scrollTop;
-		const scrollToTop = () => {
-			const c = element.scrollTop;
-			if (c > 0 && c <= last_scrollTop) {
-				window.requestAnimationFrame(scrollToTop);
-				element.scrollTo(0, c - c / 8);
-				last_scrollTop = c;
-			}
-		};
-		scrollToTop();
-	}
-});
 
 function pullToRefreshEnd() {
 	console.log("refreshed !");
-	$("#ptr_arrow").css("opacity", "0");
-	app.pullToRefreshDone();
+	home_ptr.Stop();
+	top50_ptr.Stop();
+	recents_ptr.Stop();
+	notifs_ptr.Stop();
 }
-
-let CanRefreshTL = true;
-let TLCurrentIndex = 0;
-$("#tab1").scroll(function () {
-	var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
-	if (CanRefreshTL == true) {
-		if (Math.round($(this).scrollTop()) >= limit * 0.75) {
-			CanRefreshTL = false;
-			console.log("Get Flow on Server");
-			console.log("TLCurrentIndex : " + TLCurrentIndex);
-			ServerManager.GetTimeline(TLCurrentIndex);
-		}
-	}
-});
 
 function PopFlow(data, LinkBuilder) {
 	var image_link = undefined;
@@ -99,7 +113,7 @@ function PopFlow(data, LinkBuilder) {
 		LikeBy: data.LikeBy,
 		Responses: data.Responses,
 	};
-	//block_params.description = block_params.description.replace(/@[^ ]+/gi, '<span class="flow_tagged_users">$&</span>');
+	// Testing Framework7 scroll perf
 	var new_block = new block(block_params);
 	all_blocks.push(new_block);
 
@@ -137,7 +151,7 @@ function UpdateTimeline(data, data_block_user) {
 			(item, pos) => unique_block_user.indexOf(item) === pos
 		);
 		setTimeout(function () {
-			if ($(".loading_tl")) $(".loading_tl").remove();
+			//if ($(".loading_tl")) $(".loading_tl").remove();
 			if (TLCurrentIndex == 0) {
 				$(".list-block")[0].innerHTML = "";
 				let loading_tl = document.createElement("div");
@@ -182,76 +196,18 @@ function UpdateTimeline(data, data_block_user) {
 }
 
 function StopRefreshTL() {
-	if ($(".loading_tl")) $(".loading_tl").remove();
+	//if ($(".loading_tl")) $(".loading_tl").remove();
 	CanRefreshTL = false;
 	CanRefreshFollowList = false;
 	pullToRefreshEnd();
 }
 
-$(".finput_comment").focus(function () {
-	console.log("an input was focused");
-	// DisableImmersiveMode();
-});
 
-$("#finput_comment").blur(function () {
-	console.log("an input was out focused");
-	$(this).attr("placeholder", "Ajouter un commentaire...");
-
-	// EnableImmersiveMode();
-});
-
-function DisableImmersiveMode() {
-	// setTimeout(function () {
-	// StatusBar.show();
-	// StatusBar.overlaysWebView(true);
-	// StatusBar.backgroundColorByHexString('#00000000');
-	// StatusBar.styleDefault();
-	// console.log("reset status bar");
-	console.log("Exit Immersive Mode");
-	// $(".ftop_bar")[0].style.opacity = 0;
-	setTimeout(function () {
-		_root.style.setProperty("--custom-vh2", 3.7 * _myvar + "px");
-	}, 50);
-	AndroidFullScreen.showSystemUI(successFunction, errorFunction);
-	// StatusBar.styleDefault(); ios
-	// }, 100);
-}
-
-function EnableImmersiveMode() {
-	// setTimeout(function () {
-	// StatusBar.show();
-	// StatusBar.overlaysWebView(true);
-	// StatusBar.backgroundColorByHexString('#00000000');
-	// StatusBar.styleDefault();
-	// console.log("reset status bar");
-	console.log("Enable Immersive Mode");
-	// $(".ftop_bar")[0].style.opacity = 0;
-	setTimeout(function () {
-		_root.style.setProperty("--custom-vh2", "0px");
-	}, 50);
-	AndroidFullScreen.setSystemUiVisibility(
-		AndroidFullScreen.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-		AndroidFullScreen.SYSTEM_UI_FLAG_LAYOUT_STABLE,
-		successFunction,
-		errorFunction
-	);
-	StatusBar.styleDefault();
-	// }, 100);
-}
-
-$("#target").focus(function () {
-	console.log("Handler for .focus() called.");
-});
 
 function successFunction() {
 	let d = new Date();
 	console.log("end_time : " + d.getMilliseconds);
 	console.info("It worked!");
-	// setTimeout(function () {
-	//   // $(".ftop_bar")[0].style.opacity = 1;
-	//   // StatusBar.overlaysWebView(true);
-
-	// }, 200);
 }
 
 function errorFunction(error) {

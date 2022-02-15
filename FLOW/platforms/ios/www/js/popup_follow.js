@@ -5,14 +5,22 @@ var all_tagged_users = [];
 function block_user(follow_list, target, data) {
 	//follow_list true correspond au block user de la liste des utilisateur que l'on peu identifier dans un commentaire
 	var block_user = this; //
-	//var profilePicLink = src_profile_img + param_profile_img;
-	var profilePicLink = data.ProfilePicture;
+	//var block_user.profilePicLink = src_profile_img + param_profile_img;
+	this.profilePicLink = data.ProfilePicture;
 	this.block_user = document.createElement("div");
 	this.RegisterId = data.RegisterId;
 	this.LastOs = data.LastOs;
-	follow_list == false ?
-		(this.block_user.className = "f_block_user") :
+	this.FirebaseToken = data.FirebaseToken;
+	this.FullName = data.FullName;
+	this.PrivateId = data.PrivateId;
+	if (follow_list == false) {
+		(this.block_user.className = "f_block_user");
+	}
+	if (follow_list == true || follow_list == "CreateConversation") {
 		(this.block_user.className = "f_block_user_tag");
+	}
+
+
 	if (target == "followers") {
 		$(".popup_followers_container").append(this.block_user);
 	}
@@ -25,10 +33,15 @@ function block_user(follow_list, target, data) {
 		$(".popup_identification_container").append(this.block_user);
 	}
 
+	if (target == "CreateConversation") {
+		$(".fconversation_block_utilisateur_list").append(this.block_user);
+	}
+
+
 	this.fphoto_block_user = document.createElement("div");
 	this.fphoto_block_user.className = "f_user_photo";
 	this.fphoto_block_user.style.backgroundImage =
-		"url('" + profilePicLink + "')";
+		"url('" + block_user.profilePicLink + "')";
 	this.block_user.appendChild(this.fphoto_block_user);
 
 	$(this.fphoto_block_user).on("click", function () {
@@ -52,7 +65,6 @@ function block_user(follow_list, target, data) {
 	this.block_user.appendChild(this.f_user_private_id);
 
 	if (follow_list == true) {
-		//$(this.f_user_private_id).removeClass("f_user_private_id").addClass("f_user_private_id_identification");
 		if (current_page != "after-record") {
 			$(this.block_user).on("click", function () {
 				$("#finput_comment").focus();
@@ -69,9 +81,7 @@ function block_user(follow_list, target, data) {
 					RegisterId: data.RegisterId,
 					LastOs: data.LastOs,
 				};
-				if (!all_tagged_users.some(user => user.private_Id === data_user.private_Id)) {
-					all_tagged_users.push(data_user);
-				}
+				all_tagged_users.push(data_user);
 				Popup("popup-identification", false, -5);
 			});
 		} else {
@@ -99,10 +109,6 @@ function block_user(follow_list, target, data) {
 	}
 
 	if (follow_list == false) {
-		// this.f_user_bio = document.createElement('label'); //bio
-		// this.f_user_bio.className = 'f_user_bio';
-		// this.f_user_bio.innerText = data.Bio;
-		// this.block_user.appendChild(this.f_user_bio);
 
 		if (data.PrivateId != window.localStorage.getItem("user_private_id")) {
 			this.following_button = document.createElement("div"); //
@@ -124,18 +130,42 @@ function block_user(follow_list, target, data) {
 
 		if (data.YouFollowHim == "true") {
 			$(this.following_button).addClass("activeButtunFollow");
-			$(this.following_button).text("ABONNÉ");
+			$(this.following_button).text(`${language_mapping[device_language]['ffollowersBandeau']}`);
 		} else if (
 			data.PrivateId != window.localStorage.getItem("user_private_id")
 		) {
 			$(this.following_button).removeClass("activeButtunFollow");
-			this.following_button.innerText = "S'ABONNER";
+			this.following_button.innerText = `${language_mapping[device_language]['fFollowButtunAccount']}`;
 		}
 		if (this.following_button) {
 			this.block_user.appendChild(this.following_button);
 		}
 	}
-	console.log(data.HeFollowYou, my_followers);
+
+	if (follow_list == "CreateConversation") {
+
+		$(this.block_user).on("click", function () {
+
+			if (block_user.FirebaseToken < window.localStorage.getItem("firebase_token")) {
+				chat_id = block_user.FirebaseToken + window.localStorage.getItem("firebase_token");
+			} else {
+				chat_id = window.localStorage.getItem("firebase_token") + block_user.FirebaseToken;
+			}
+
+			data_dm = {
+				fullname: block_user.FullName,
+				private_id: block_user.PrivateId,
+				user_id: block_user.FirebaseToken,
+				chat_id: chat_id,
+				profile_picture: block_user.profilePicLink,
+				is_groupe_chat: false
+			};
+			CreateConversation(data_dm);
+
+		});
+
+	}
+	//console.log(data.HeFollowYou, my_followers);
 	if (data.HeFollowYou == "true" && my_followers == false) {
 		this.follow_you_button = document.createElement("div");
 		this.follow_you_button.className = "follow_you_button";
@@ -152,7 +182,7 @@ $(
 	"#ffollowersBandeau,#ffollowersmyBandeauChiffre,#ffollowersBandeauChiffre"
 ).on("click", function (event) {
 	let target = $(event.target);
-	console.log(target);
+	//console.log(target);
 	if (
 		target.is("#ffollowersmyBandeauChiffre") ||
 		target.is("#fMyfollowersBandeau")
@@ -161,7 +191,7 @@ $(
 	} else {
 		my_followers = false;
 	}
-	console.log(my_followers);
+	//console.log(my_followers);
 	let data_followers = {
 		PrivateId: privateIDAccount,
 		Index: 0,
@@ -175,8 +205,8 @@ $(
 
 	CanRefreshFollowersList = true;
 	FollowersListCurrentIndex = 0;
-	console.log("show folower of users");
-	console.log(data_followers);
+	//console.log("show folower of users");
+	//console.log(data_followers);
 	ServerManager.GetFollowerOfUser(data_followers);
 	Popup("popup-followers", true, 30);
 	in_followers = true;
@@ -196,8 +226,8 @@ $(".popup_followers_container").scroll(function () {
 	if (CanRefreshFollowersList == true) {
 		if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 			CanRefreshFollowersList = false;
-			console.log("Get followers on Server");
-			console.log("FollowersListCurrentIndex : " + FollowersListCurrentIndex);
+			//console.log("Get followers on Server");
+			//console.log("FollowersListCurrentIndex : " + FollowersListCurrentIndex);
 			let data_followers_scroll = {
 				PrivateId: privateIDAccount,
 				Index: FollowersListCurrentIndex,
@@ -216,8 +246,8 @@ $(".popup_followers_container").scroll(function () {
 });
 
 function UpdateFollowersList(data, follow_list) {
-	console.log("updating Followers list...");
-	// console.log(data.Data);
+	//console.log("updating Followers list...");
+	// //console.log(data.Data);
 	if (Array.isArray(data)) {
 		//$(".popup_followers_container").html("");
 		setTimeout(function () {
@@ -234,7 +264,7 @@ function UpdateFollowersList(data, follow_list) {
 			}
 			FollowersListCurrentIndex++;
 			if ($(".loading_tl")) $(".loading_tl").remove();
-			console.log("user updated !");
+			//console.log("user updated !");
 			pullToRefreshEnd();
 			if (data.length < 10) {
 				CanRefreshFollowersList = false;
@@ -258,7 +288,7 @@ $(
 	"#ffollowingBandeau,#ffollowingmyBandeauChiffre,#ffollowingBandeauChiffre"
 ).on("click", function (event) {
 	let target = $(event.target);
-	console.log("la target est :" + target);
+	//console.log("la target est :" + target);
 	if (
 		target.is("#ffollowingsmyBandeauChiffre") ||
 		target.is("#fMyfollowingsBandeau")
@@ -280,8 +310,8 @@ $(
 
 	CanRefreshfollowingsList = true;
 	followingsListCurrentIndex = 0;
-	console.log("show folower of users");
-	console.log(data_followings);
+	//console.log("show folower of users");
+	//console.log(data_followings);
 	ServerManager.GetFollowingOfUser(data_followings);
 	Popup("popup-followings", true, 30);
 	in_following = true;
@@ -301,8 +331,8 @@ $(".popup_followings_container").scroll(function () {
 	if (CanRefreshfollowingsList == true) {
 		if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 			CanRefreshfollowingsList = false;
-			console.log("Get followings on Server");
-			console.log("followingsListCurrentIndex : " + followingsListCurrentIndex);
+			//console.log("Get followings on Server");
+			//console.log("followingsListCurrentIndex : " + followingsListCurrentIndex);
 			let data_followings_scroll = {
 				PrivateId: privateIDAccount,
 				Index: followingsListCurrentIndex,
@@ -321,8 +351,8 @@ $(".popup_followings_container").scroll(function () {
 });
 
 function UpdatefollowingsList(data, follow_list) {
-	console.log("updating followings list...");
-	// console.log(data.Data);
+	//console.log("updating followings list...");
+	// //console.log(data.Data);
 	if (Array.isArray(data)) {
 		//$(".popup_followings_container").html("");
 		setTimeout(function () {
@@ -339,7 +369,7 @@ function UpdatefollowingsList(data, follow_list) {
 			}
 			followingsListCurrentIndex++;
 			if ($(".loading_tl")) $(".loading_tl").remove();
-			console.log("user updated !");
+			//console.log("user updated !");
 			pullToRefreshEnd();
 			if (data.length < 10) {
 				CanRefreshfollowingsList = false;
@@ -375,8 +405,8 @@ var IdentificationListCurrentIndex = 0;
 //   if (CanRefreshIdentificationList == true) {
 //     if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 //       CanRefreshIdentificationList = false;
-//       console.log("Get Identification on Server");
-//       console.log("IdentificationListCurrentIndex : " + IdentificationListCurrentIndex);
+//       //console.log("Get Identification on Server");
+//       //console.log("IdentificationListCurrentIndex : " + IdentificationListCurrentIndex);
 //       let data_Identification_scroll = {
 //         PrivateId: privateIDAccount,
 //         Index: IdentificationListCurrentIndex,
@@ -387,19 +417,19 @@ var IdentificationListCurrentIndex = 0;
 //       } else {
 //         data_Identification_scroll.PrivateId = privateIDAccount;
 //       }
-//       console.log("t'es dans le scroll des identification");
+//       //console.log("t'es dans le scroll des identification");
 //       ServerManager.GetFollowingOfUser(data_Identification_scroll);
 //     }
 //   }
 // });
 
 function UpdateIdentificationList(data, follow_list, search) {
-	console.log("updating Identification list...");
-	// console.log(data.Data);
+	//console.log("updating Identification list...");
+	// //console.log(data.Data);
 	if (Array.isArray(data)) {
 		//$(".popup_Identification_container").html("");
 		// setTimeout(function () {
-		console.log(IdentificationListCurrentIndex);
+		//console.log(IdentificationListCurrentIndex);
 		if ($(".loading_tl")) $(".loading_tl").remove();
 		$(".popup_identification_container")[0].innerHTML = "";
 		if (IdentificationListCurrentIndex == 0) {
@@ -415,7 +445,7 @@ function UpdateIdentificationList(data, follow_list, search) {
 			all_users_block.push(user);
 		}
 		if ($(".loading_tl")) $(".loading_tl").remove();
-		console.log("user updated !");
+		//console.log("user updated !");
 		pullToRefreshEnd();
 		let search_lenght;
 		if (search == "yes_search") {

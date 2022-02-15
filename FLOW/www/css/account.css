@@ -9,7 +9,7 @@
 
 .fnavAccount {
 	position: absolute;
-	top: calc(22 * var(--custom-vh)) !important;
+	top: calc(19 * var(--custom-vh)) !important;
 	left: 22vw !important;
 	font-size: 19px !important;
 	background-color: transparent !important;
@@ -48,7 +48,7 @@
 #fFollowYouButtunAccount {
 	position: absolute;
 	top: calc(25.1 * var(--custom-vh));
-	right: 20vw;
+	left: calc(35vw + 105px + 13vw);
 	width: 25px;
 	height: 25px;
 	background-image: url("../src/icons/follow_you.png");
@@ -58,6 +58,21 @@
 	border: solid 1.5px #92abb2;
 	border-radius: 25px;
 }
+
+#GoDMBtn {
+	position: absolute;
+	top: calc(25.1 * var(--custom-vh));
+	left: calc(35vw + 105px + 3vw);
+	width: 25px;
+	height: 25px;
+	background-image: url("../src/icons/Messages_filled.png");
+	background-position: center;
+	background-size: 65%;
+	background-repeat: no-repeat;
+	border: solid 1.5px #92abb2;
+	border-radius: 25px;
+}
+
 
 #label_i_am_blocked {
 	position: absolute;
@@ -71,7 +86,7 @@
 #block_button {
 	position: absolute;
 	top: calc(24.6 * var(--custom-vh));
-	right: 7vw;
+	left: calc(35vw + 105px + 22vw);
 	width: 35px;
 	height: 35px;
 	background-image: url("../src/icons/block.png");
@@ -160,6 +175,15 @@
 	background-color: white !important;
 	box-shadow: none !important;
 	width: 100vw !important;
+	padding-top: calc(3 * var(--custom-vh));
+	height: calc(7 * var(--custom-vh));
+	left: 0 !important;
+	z-index: 2;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
 }
 
 .fnavAccountTransitionTop {
@@ -174,6 +198,9 @@
 	color: #92abb2 !important;
 	filter: none !important;
 	width: auto !important;
+	text-align: center;
+	margin-right: 20px;
+	margin-left: 20px;
 }
 
 .Compte.active {
@@ -188,7 +215,7 @@
 	top: calc(32 * var(--custom-vh));
 	left: 0vw;
 	transition-duration: 0.4s;
-	height: calc(94 * var(--custom-vh));
+	height: calc(130 * var(--custom-vh));
 }
 
 .fblockCompte {
@@ -198,7 +225,7 @@
 }
 
 .fblockAccountPadding {
-	padding-top: calc(1.5 * var(--custom-vh)) !important;
+	padding-top: calc(30 * var(--custom-vh)) !important;
 }
 
 .sizeTollBarAccount {

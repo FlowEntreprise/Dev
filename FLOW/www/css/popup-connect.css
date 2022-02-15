@@ -15,6 +15,7 @@
 	text-align: center;
 	width: 76vw;
 	margin-left: 12vw;
+	font-family: "Roboto-Regular";
 }
 
 .fsize_img_reseaux_sociaux {
@@ -67,6 +68,7 @@
 	margin-left: 5vw;
 	margin-right: 5vw;
 	text-align: center;
+	font-family: "Roboto-Light";
 }
 
 #fcompte_conn {

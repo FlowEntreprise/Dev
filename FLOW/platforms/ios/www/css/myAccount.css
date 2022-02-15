@@ -10,7 +10,7 @@
 #accountBannerScroll {
 	position: absolute;
 	width: 100vw;
-	height: calc(30 * var(--custom-vh));
+	height: calc(29 * var(--custom-vh));
 	background: white;
 	z-index: 5;
 }
@@ -177,13 +177,20 @@
 
 .fnavMonCompte {
 	position: absolute;
-	top: calc(22 * var(--custom-vh)) !important;
+	top: calc(20 * var(--custom-vh)) !important;
 	left: 22vw !important;
 	font-size: 19px !important;
 	background-color: white !important;
 	box-shadow: none !important;
 	width: 100vw !important;
+	height: calc(7 * var(--custom-vh));
 	left: 0 !important;
+	z-index: 2;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
 }
 
 .fnavMonCompteTransitionTop {
@@ -198,8 +205,11 @@
 	color: #92abb2 !important;
 	filter: none !important;
 	width: auto !important;
-	margin-left: -20px;
-	margin-right: 60px;
+	/* margin-left: -20px;
+	margin-right: 60px; */
+	text-align: center;
+	margin-right: 20px;
+	margin-left: 20px;
 }
 
 .MonCompte.active {
@@ -214,7 +224,7 @@
 	top: calc(32 * var(--custom-vh));
 	left: 0vw;
 	transition-duration: 0.4s;
-	height: calc(94 * var(--custom-vh));
+	height: calc(120 * var(--custom-vh));
 }
 
 #myprivateID {
@@ -238,7 +248,7 @@
 }
 
 .fblockMonComptePadding {
-	padding-top: calc(1.5 * var(--custom-vh)) !important;
+	padding-top: calc(30 * var(--custom-vh)) !important;
 }
 
 #fmybigProfilPictureContainer {

@@ -2,148 +2,132 @@ let searching = false;
 let search_index = 0;
 let canRefreshUsers = true;
 let canRefreshFlows = true;
-let exploreCurrentIndex = 0;
+let top50CurrentIndex = 0;
 let recentsCurrentIndex = 0;
 let canRefreshTop50 = true;
 let canRefreshRecents = true;
 let searching_users = false;
 let searching_flows = false;
-$(".fsearch-bar")[0].addEventListener("focus", function () {
-	app.destroyPullToRefresh(ptrContent_explore);
-	$(".search_results")[0].style.opacity = 1;
-	$(".search_results")[0].style.pointerEvents = "auto";
-	$(".list-block-top50")[0].style.opacity = 0;
-	$(".list-block-top50")[0].style.display = "none";
-	$(".list-block-top50")[0].style.pointerEvents = "none";
-	$(".list-block-recents")[0].style.opacity = 0;
-	$(".list-block-recents")[0].style.display = "none";
-	$(".list-block-recents")[0].style.pointerEvents = "none";
-	$(".fdj_parent")[0].style.display = "none";
+let recentsCurrentLanguage = navigator.language.slice(0, 2).toUpperCase();
+let top50CurrentLanguage = navigator.language.slice(0, 2).toUpperCase();
 
-	// $(".list-block-top50")[0].innerHTML = "";
-	exploreCurrentIndex = 0;
-	recentsCurrentIndex = 0;
-	$(".explore-swiper")[0].style.display = "none";
-	$(".search_back")[0].style.display = "block";
-	searching = true;
-	if ($(".fsearch-bar")[0].value.length == 0) {
-		RefreshSearch();
-	}
-	searching_users = false;
-	searching_flows = false;
-});
-$(".fsearch-bar")[0].addEventListener("blur", function () {
-	if (!searching) {
-		app.initPullToRefresh(ptrContent_explore);
-		$(".search_results")[0].style.opacity = 0;
-		$(".search_results")[0].style.pointerEvents = "none";
-		$(".list-block-top50")[0].style.opacity = 1;
-		$(".list-block-top50")[0].style.display = "block";
-		$(".list-block-top50")[0].style.pointerEvents = "auto";
-		$(".list-block-recents")[0].style.opacity = 1;
-		$(".list-block-recents")[0].style.display = "block";
-		$(".list-block-recents")[0].style.pointerEvents = "auto";
-		$(".explore-swiper")[0].style.display = "block";
-		$(".fdj_parent")[0].style.display = "block";
-	}
-});
-$(".search_back")[0].addEventListener("touchend", function () {
-	back_search();
-});
 
-function back_search() {
-	app.initPullToRefresh(ptrContent_explore);
-	$(".search_results")[0].style.opacity = 0;
-	$(".search_results")[0].style.pointerEvents = "none";
-	$(".list-block-top50")[0].style.opacity = 1;
-	$(".list-block-top50")[0].style.display = "block";
-	$(".list-block-top50")[0].style.pointerEvents = "auto";
-	$(".list-block-recents")[0].style.opacity = 1;
-	$(".list-block-recents")[0].style.display = "block";
-	$(".list-block-recents")[0].style.pointerEvents = "auto";
-	$(".explore-swiper")[0].style.display = "block";
-	$(".search_back")[0].style.display = "none";
-	$(".fdj_parent")[0].style.display = "block";
-	searching = false;
-	$(".fsearch-bar").blur();
-	$(".fsearch-bar")[0].value = "";
-	RefreshSearch();
-	searching_users = false;
-	searching_flows = false;
-}
+function explore_tab_loaded() {
 
-var ptrContent_explore = $$("#tab2");
-// Add 'refresh' listener on it
-ptrContent_explore.on("ptr:refresh", function (e) {
+	// Initilize top50 pull to refresh
+	top50_ptr = setupPTR(document.querySelector(".top50"), function () {
+		refresh_top50();
+	});
+
+	// Initilize recents pull to refresh
+	recents_ptr = setupPTR(document.querySelector(".recents"), function () {
+		refresh_recents();
+	});
 	RefreshExplore();
-});
 
-function RefreshExplore() {
-	console.log("refreshing...");
-	stopAllBlocksAudio();
-	exploreCurrentIndex = 0;
-	let data1 = {
-		Index: exploreCurrentIndex,
-	};
-	ServerManager.GetTop50(data1);
+	// Initialize search_bar events 
+	$(".fsearch-bar")[0].addEventListener("focus", function () {
+		// app.destroyPullToRefresh(ptrContent_explore);
+		$(".search_results")[0].style.opacity = 1;
+		$(".search_results")[0].style.pointerEvents = "auto";
+		// $(".list-block-top50")[0].style.opacity = 0;
+		// $(".list-block-top50")[0].style.display = "none";
+		// $(".list-block-top50")[0].style.pointerEvents = "none";
+		$(".list-block-recents")[0].style.opacity = 0;
+		$(".list-block-recents")[0].style.display = "none";
+		$(".list-block-recents")[0].style.pointerEvents = "none";
+		$(".fdj_parent")[0].style.display = "none";
+		//$(".swiper-container.discover")[0].style.display = "none";
 
-	recentsCurrentIndex = 0;
-	let data2 = {
-		Index: recentsCurrentIndex,
-	};
-	ServerManager.GetNewFlows(data2);
-
-	// ServerManager.GetRandomFlow(randomExcluded);
-	ServerManager.GetFDJ();
-}
-
-ptrContent_explore.on("ptr:pullstart", function (e) {
-	console.log("pull start");
-	$("#ptr_arrow_explore").css("opacity", "1");
-});
-
-ptrContent_explore.on("ptr:pullend", function (e) {
-	console.log("pull end");
-	$("#ptr_arrow_explore").css("opacity", "0");
-});
-
-$(".fexplore-btn").on("touchend", function () {
-	// var home_scrolling = false;
-	$(".fred_dot_toolbar_explore").css("display", "none");
-	if (current_page == "explore") {
-		let element = document.getElementById("tab2");
-		// element.onscroll = function() {
-		//     home_scrolling = true;
-		// };
-		let last_scrollTop = element.scrollTop;
-		const scrollToTop = () => {
-			const c = element.scrollTop;
-			if (c > 0 && c <= last_scrollTop) {
-				window.requestAnimationFrame(scrollToTop);
-				element.scrollTo(0, c - c / 8);
-				last_scrollTop = c;
+		// $(".list-block-top50")[0].innerHTML = "";
+		top50CurrentIndex = 0;
+		recentsCurrentIndex = 0;
+		$(".explore-swiper")[0].style.display = "none";
+		$(".search_back")[0].style.display = "block";
+		searching = true;
+		if ($(".fsearch-bar")[0].value.length == 0) {
+			RefreshSearch();
+		}
+		searching_users = false;
+		searching_flows = false;
+	});
+	$(".fsearch-bar")[0].addEventListener("blur", function () {
+		if (!searching) {
+			// app.initPullToRefresh(ptrContent_explore);
+			$(".search_results")[0].style.opacity = 0;
+			$(".search_results")[0].style.pointerEvents = "none";
+			// $(".list-block-top50")[0].style.opacity = 1;
+			// $(".list-block-top50")[0].style.display = "block";
+			// $(".list-block-top50")[0].style.pointerEvents = "auto";
+			$(".list-block-recents")[0].style.opacity = 1;
+			$(".list-block-recents")[0].style.display = "block";
+			$(".list-block-recents")[0].style.pointerEvents = "auto";
+			$(".explore-swiper")[0].style.display = "block";
+			$(".fdj_parent")[0].style.display = "block";
+			//$(".swiper-container.discover")[0].style.display = "block";
+		}
+	});
+	$(".search_back")[0].addEventListener("touchend", function () {
+		back_search();
+	});
+	$(".fsearch-bar")[0].addEventListener("keydown", function (e) {
+		setTimeout(function () {
+			if ($(".fsearch-bar")[0].value.length > 0) {
+				RefreshSearch();
+				let data = {
+					Index: search_index,
+					Search: $(".fsearch-bar")[0].value,
+				};
+				ServerManager.SearchUser(data);
+				ServerManager.SearchFlow(data);
 			}
-		};
-		scrollToTop();
-	}
-});
+		}, 50);
+		if (e.keyCode == 13) {
+			$(".fsearch-bar").blur();
+		}
+	});
+	// Scroll to top when explore-btn touched
+	$(".explore_btn").on("touchend", function () {
+		// var home_scrolling = false;
+		$(".fred_dot_toolbar_explore").css("display", "none");
+		if (current_page == "explore") {
+			let element;
+			if ($(".top50").hasClass("active")) {
+				element = document.querySelector(".top50");
+			}
+			else {
+				element = document.querySelector(".recents");
+			}
+			let last_scrollTop = element.scrollTop;
+			const scrollToTop = () => {
+				const c = element.scrollTop;
+				if (c > 0 && c <= last_scrollTop) {
+					window.requestAnimationFrame(scrollToTop);
+					element.scrollTo(0, c - c / 8);
+					last_scrollTop = c;
+				}
+			};
+			scrollToTop();
+		}
+	});
 
-document.addEventListener("deviceready", function () {
+	// Scroll loading infos 
 	$(".show_more_users")[0].addEventListener("touchend", function () {
 		ShowMoreUsers();
 	});
 
-	$("#tab2").scroll(function () {
+	/*$(".list-block-recents").scroll(function () {
 		if (!searching) {
 			if (in_top50) {
 				if (canRefreshTop50) {
 					var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 					if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 						canRefreshTop50 = false;
-						exploreCurrentIndex += 1;
-						console.log("explore top50 index : " + exploreCurrentIndex);
+						top50CurrentIndex += 1;
+						console.log("explore top50 index : " + top50CurrentIndex);
 						let data = {
-							Index: exploreCurrentIndex,
+							Index: top50CurrentIndex,
+							language: top50CurrentLanguage
 						};
 						ServerManager.GetTop50(data);
 					}
@@ -157,6 +141,7 @@ document.addEventListener("deviceready", function () {
 						console.log("explore recents index : " + recentsCurrentIndex);
 						let data = {
 							Index: recentsCurrentIndex,
+							language: recentsCurrentLanguage
 						};
 						ServerManager.GetNewFlows(data);
 					}
@@ -187,50 +172,134 @@ document.addEventListener("deviceready", function () {
 				}
 			}
 		}
-	});
+	});*/
 
-	// if (in_top50) {
 	let data1 = {
-		Index: exploreCurrentIndex,
+		Index: top50CurrentIndex,
 	};
 
+	ServerManager.GetFDJ();
+
+	$(".show_more_users")[0].addEventListener("touchend", function () {
+		ShowMoreUsers();
+	});
+	$(".explore_view").scroll(function () {
+
+		var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+		if (!searching) {
+			if (in_top50) {
+				if (canRefreshTop50) {
+
+					if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+						canRefreshTop50 = false;
+						top50CurrentIndex += 1;
+						console.log("explore top50 index : " + top50CurrentIndex);
+						let data = {
+							Index: top50CurrentIndex,
+							language: top50CurrentLanguage
+						};
+						ServerManager.GetTop50(data);
+					}
+				}
+			} else if (in_recents) {
+				if (canRefreshRecents) {
+					if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+						canRefreshRecents = false;
+						recentsCurrentIndex += 1;
+						console.log("explore recents index : " + recentsCurrentIndex);
+						let data = {
+							Index: recentsCurrentIndex,
+							language: recentsCurrentLanguage
+						};
+						ServerManager.GetNewFlows(data);
+					}
+				}
+			}
+		} else {
+			if (canRefreshUsers && searching_users) {
+				if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+					search_index += 1;
+					console.log("search_index : " + search_index);
+					let data = {
+						Index: search_index,
+						Search: $(".fsearch-bar")[0].value,
+					};
+					ServerManager.SearchUser(data);
+				}
+			} else if (canRefreshFlows && searching_flows) {
+				if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+					search_index += 1;
+					console.log("search_index : " + search_index);
+					let data = {
+						Index: search_index,
+						Search: $(".fsearch-bar")[0].value,
+					};
+					ServerManager.SearchFlow(data);
+				}
+			}
+		}
+	});
+}
+
+
+
+function back_search() {
+	// app.initPullToRefresh(ptrContent_explore);
+	$(".search_results")[0].style.opacity = 0;
+	$(".search_results")[0].style.pointerEvents = "none";
+	// $(".list-block-top50")[0].style.opacity = 1;
+	// $(".list-block-top50")[0].style.display = "block";
+	// $(".list-block-top50")[0].style.pointerEvents = "auto";
+	$(".list-block-recents")[0].style.opacity = 1;
+	$(".list-block-recents")[0].style.display = "block";
+	$(".list-block-recents")[0].style.pointerEvents = "auto";
+	$(".explore-swiper")[0].style.display = "block";
+	$(".search_back")[0].style.display = "none";
+	$(".fdj_parent")[0].style.display = "block";
+	//$(".swiper-container.discover")[0].style.display = "block";
+	searching = false;
+	$(".fsearch-bar").blur();
+	$(".fsearch-bar")[0].value = "";
+	RefreshSearch();
+	searching_users = false;
+	searching_flows = false;
+}
+
+var ptrContent_explore = $("#tab2");
+ptrContent_explore.on("ptr:refresh", function (e) {
+	RefreshExplore();
+});
+
+
+function refresh_top50() {
+	stopAllBlocksAudio();
+	top50CurrentIndex = 0;
+	top50CurrentLanguage = navigator.language.slice(0, 2).toUpperCase();
+	let data1 = {
+		Index: top50CurrentIndex,
+		language: top50CurrentLanguage
+	};
 	ServerManager.GetTop50(data1);
-	// } else if (in_recents) {
+}
+
+function refresh_recents() {
+	stopAllBlocksAudio();
+	recentsCurrentIndex = 0;
+	recentsCurrentLanguage = navigator.language.slice(0, 2).toUpperCase();
 	let data2 = {
 		Index: recentsCurrentIndex,
+		language: recentsCurrentLanguage
 	};
-
 	ServerManager.GetNewFlows(data2);
+}
 
+function RefreshExplore() {
+	console.log("refreshing...");
+	refresh_top50();
+	refresh_recents();
 	// ServerManager.GetRandomFlow(randomExcluded);
 	ServerManager.GetFDJ();
-	// }
-
-	// const ptr = PullToRefresh.init({
-	//     mainElement: '#tab2',
-	//     triggerElement: '#tab2',
-	//     onRefresh() {
-	//         console.log("refreshed !");
-	//     }
-	// });
-});
-
-$(".fsearch-bar")[0].addEventListener("keydown", function (e) {
-	setTimeout(function () {
-		if ($(".fsearch-bar")[0].value.length > 0) {
-			RefreshSearch();
-			let data = {
-				Index: search_index,
-				Search: $(".fsearch-bar")[0].value,
-			};
-			ServerManager.SearchUser(data);
-			ServerManager.SearchFlow(data);
-		}
-	}, 50);
-	if (e.keyCode == 13) {
-		$(".fsearch-bar").blur();
-	}
-});
+}
 
 function RefreshSearch() {
 	search_index = 0;
@@ -449,7 +518,7 @@ function UpdateTop50(data, data_block_user) {
 	console.log("updating top50...");
 	stopAllBlocksAudio();
 	console.log(data);
-	if (Array.isArray(data) && data.length > 0) {
+	if (Array.isArray(data.Data) && data.Data.length > 0) {
 		let unique_block_user;
 		if (connected) {
 			unique_block_user = data_block_user.Data.UserBlocked.concat(
@@ -461,19 +530,20 @@ function UpdateTop50(data, data_block_user) {
 		}
 
 		setTimeout(function () {
-			// if ($(".loading_tl")) $(".loading_tl").remove();
-			if (exploreCurrentIndex == 0) {
+			if ($(".loading_top50")) $(".loading_top50").remove();
+			$(".list-block-top50 .tick_icon").remove();
+			if (top50CurrentIndex == 0 && top50CurrentLanguage == device_language) {
 				$(".list-block-top50")[0].innerHTML = "";
-				let loading_tl = document.createElement("div");
-				loading_tl.className = "loading-spinner loading_tl";
-				$(".list-block-top50")[0].appendChild(loading_tl);
+				let loading_top50 = document.createElement("div");
+				loading_top50.className = "loading-spinner loading_top50";
+				$(".list-block-top50")[0].appendChild(loading_top50);
 			}
-			for (let i = 0; i < data.length; i++) {
+			for (let i = 0; i < data.Data.length; i++) {
 				if (unique_block_user && unique_block_user.length != 0) {
 					for (let i_unique_block_user in unique_block_user) {
 						// flow avec filtre utilisateurs bloqués
-						if (unique_block_user[i_unique_block_user] != data[i].PrivateId) {
-							let flow = data[i];
+						if (unique_block_user[i_unique_block_user] != data.Data[i].PrivateId) {
+							let flow = data.Data[i];
 							let pattern_key = "";
 							if (flow.Background.PatternKey)
 								pattern_key = flow.Background.PatternKey;
@@ -505,7 +575,7 @@ function UpdateTop50(data, data_block_user) {
 						}
 					}
 				} else {
-					let flow = data[i];
+					let flow = data.Data[i];
 					let pattern_key = "";
 					if (flow.Background.PatternKey)
 						pattern_key = flow.Background.PatternKey;
@@ -536,31 +606,60 @@ function UpdateTop50(data, data_block_user) {
 					all_blocks.push(new_block);
 				}
 			}
-			if ($(".loading_tl")) $(".loading_tl").remove();
+			if ($(".loading_top50")) $(".loading_top50").remove();
 			console.log("top50 updated !");
 			pullToRefreshEnd();
-			// exploreCurrentIndex++;
-			if (data.length < 5) {
+
+			//Arrivé à la fin des flow du même language que le device, on change de language
+			if (data.Data.length < 5 && top50CurrentLanguage == device_language) {
+				top50SwitchLanguage();
+			}
+			if (data.Data.length < 5 && top50CurrentLanguage != device_language) {
 				canRefreshTop50 = false;
 				let tick_tl = document.createElement("div");
 				tick_tl.className = "tick_icon";
 				$(".list-block-top50")[0].appendChild(tick_tl);
 			} else {
 				canRefreshTop50 = true;
-				let loading_tl = document.createElement("div");
-				loading_tl.className = "loading-spinner loading_tl";
-				$(".list-block-top50")[0].appendChild(loading_tl);
+				let loading_top50 = document.createElement("div");
+				loading_top50.className = "loading-spinner loading_top50";
+				$(".list-block-top50")[0].appendChild(loading_top50);
 			}
 		}, 500);
 	} else {
-		StopRefreshTop50();
+
+		if (top50CurrentLanguage == device_language) {
+			top50SwitchLanguage();
+		}
+		if (top50CurrentLanguage != device_language) {
+			StopRefreshTop50();
+		}
 	}
+}
+
+function top50SwitchLanguage() {
+	canRefreshTop50 = true;
+	top50CurrentIndex = 0;
+	/*let loading_recent = document.createElement("div");
+	loading_recent.className = "loading-spinner loading_recent";
+	$(".list-block-top50")[0].appendChild(loading_recent);*/
+	if (device_language == "FR") {
+		top50CurrentLanguage = "EN";
+	}
+	else {
+		top50CurrentLanguage = "FR";
+	}
+	let data = {
+		Index: top50CurrentIndex,
+		language: top50CurrentLanguage
+	};
+	ServerManager.GetTop50(data);
 }
 
 function StopRefreshTop50() {
 	if ($(".loading_tl")) $(".loading_tl").remove();
 	canRefreshTop50 = false;
-	// pullToRefreshEnd();
+	pullToRefreshEnd();
 }
 
 // ---------------------------------------------- //
@@ -581,18 +680,19 @@ function UpdateRecents(data, data_block_user) {
 		}
 
 		setTimeout(function () {
-			// if ($(".loading_tl")) $(".loading_tl").remove();
-			if (recentsCurrentIndex == 0) {
+			if ($(".loading_recent")) $(".loading_recent").remove();
+			$(".list-block-recents .tick_icon").remove();
+			if (recentsCurrentIndex == 0 && recentsCurrentLanguage == device_language) {
 				$(".list-block-recents")[0].innerHTML = "";
-				let loading_tl = document.createElement("div");
-				loading_tl.className = "loading-spinner loading_tl";
-				$(".list-block-recents")[0].appendChild(loading_tl);
+				let loading_recent = document.createElement("div");
+				loading_recent.className = "loading-spinner loading_recent";
+				$(".list-block-recents")[0].appendChild(loading_recent);
 			}
 			console.log(data);
 			for (let i = 0; i < data.length; i++) {
 				if (unique_block_user && unique_block_user.length != 0) {
 					for (let i_unique_block_user in unique_block_user) {
-						// flow avec filtre utilisateurs bloqués
+						//flow avec filtre utilisateurs bloqués
 						if (unique_block_user[i_unique_block_user] != data[i].PrivateId) {
 							let flow = data[i];
 							let pattern_key = "";
@@ -657,28 +757,57 @@ function UpdateRecents(data, data_block_user) {
 					all_blocks.push(new_block);
 				}
 			}
-			if ($(".loading_tl")) $(".loading_tl").remove();
+			//if ($(".loading_recent")) $(".loading_recent").remove();
 			console.log("recents updated !");
 			pullToRefreshEnd();
-			if (data.length < 5) {
+
+			//Arrivé à la fin des flow du même language que le device, on change de language
+			if (data.length < 5 && recentsCurrentLanguage == device_language) {
+				RecentsSwitchLanguage();
+			}
+			if (data.length < 5 && recentsCurrentLanguage != device_language) {
 				canRefreshRecents = false;
 				let tick_tl = document.createElement("div");
 				tick_tl.className = "tick_icon";
 				$(".list-block-recents")[0].appendChild(tick_tl);
 			} else {
 				canRefreshRecents = true;
-				let loading_tl = document.createElement("div");
-				loading_tl.className = "loading-spinner loading_tl";
-				$(".list-block-recents")[0].appendChild(loading_tl);
+				let loading_recent = document.createElement("div");
+				loading_recent.className = "loading-spinner loading_recent";
+				$(".list-block-recents")[0].appendChild(loading_recent);
 			}
 		}, 500);
 	} else {
-		StopRefreshRecents();
+		if (recentsCurrentLanguage == device_language) {
+			RecentsSwitchLanguage();
+		}
+		if (recentsCurrentLanguage != device_language) {
+			StopRefreshRecents();
+		}
 	}
 }
 
+function RecentsSwitchLanguage() {
+	canRefreshRecents = true;
+	recentsCurrentIndex = 0;
+	/*let loading_recent = document.createElement("div");
+	loading_recent.className = "loading-spinner loading_recent";
+	$(".list-block-recents")[0].appendChild(loading_recent);*/
+	if (device_language == "FR") {
+		recentsCurrentLanguage = "EN";
+	}
+	else {
+		recentsCurrentLanguage = "FR";
+	}
+	let data = {
+		Index: recentsCurrentIndex,
+		language: recentsCurrentLanguage
+	};
+	ServerManager.GetNewFlows(data);
+}
+
 function StopRefreshRecents() {
-	if ($(".loading_tl")) $(".loading_tl").remove();
+	//if ($(".loading_recent")) $(".loading_recent").remove();
 	canRefreshRecents = false;
-	// pullToRefreshEnd();
+	pullToRefreshEnd();
 }

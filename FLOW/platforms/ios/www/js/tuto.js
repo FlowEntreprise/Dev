@@ -164,7 +164,7 @@ function nextTutoFrame() {
             }
             if (tuto_2_index == 18) {
                 $(".tuto_next_btn_shadow")[0].style.opacity = 1;
-                $(".tuto_next_btn")[0].innerHTML = "C'EST PARTI";
+                $(".tuto_next_btn")[0].innerHTML = `${language_mapping[device_language]['c_parti']}`;
                 $(".tuto_next_btn")[0].style.opacity = 1;
                 $(".tuto_next_btn")[0].style.pointerEvents = "auto";
             }
@@ -173,6 +173,10 @@ function nextTutoFrame() {
                 $(".tuto_app")[0].style.transform = "translate3d(0, calc(100 * var(--custom-vh)), 0)";
                 $(".tuto_app")[0].style.pointerEvents = "none";
                 window.localStorage.setItem("first_open", "false");
+                let custom_vh = window.innerHeight / 100;
+                window.localStorage.setItem("custom_vh", custom_vh);
+                document.documentElement.style.setProperty("--custom-vh", custom_vh + "px");
+
                 setTimeout(function () {
                     $(".tuto_app")[0].style.display = "none";
                 }, 1000);
