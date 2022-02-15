@@ -3,6 +3,8 @@ let CanRefreshTL = true;
 let TLCurrentIndex = 0;
 
 function home_tab_loaded() {
+
+	RefreshTL();
 	// scroll to top if tap on home
 	$(".home_btn ").on("touchend", function () {
 		// var home_scrolling = false;

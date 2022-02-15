@@ -116,7 +116,7 @@ function explore_tab_loaded() {
 		ShowMoreUsers();
 	});
 
-	$(".list-block-recents").scroll(function () {
+	/*$(".list-block-recents").scroll(function () {
 		if (!searching) {
 			if (in_top50) {
 				if (canRefreshTop50) {
@@ -172,7 +172,7 @@ function explore_tab_loaded() {
 				}
 			}
 		}
-	});
+	});*/
 
 	let data1 = {
 		Index: top50CurrentIndex,
@@ -184,10 +184,12 @@ function explore_tab_loaded() {
 		ShowMoreUsers();
 	});
 	$(".explore_view").scroll(function () {
+
+		var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 		if (!searching) {
 			if (in_top50) {
 				if (canRefreshTop50) {
-					var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+
 					if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 						canRefreshTop50 = false;
 						top50CurrentIndex += 1;
@@ -201,7 +203,6 @@ function explore_tab_loaded() {
 				}
 			} else if (in_recents) {
 				if (canRefreshRecents) {
-					var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 					if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 						canRefreshRecents = false;
 						recentsCurrentIndex += 1;
@@ -216,7 +217,6 @@ function explore_tab_loaded() {
 			}
 		} else {
 			if (canRefreshUsers && searching_users) {
-				var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 				if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 					search_index += 1;
 					console.log("search_index : " + search_index);
@@ -227,7 +227,6 @@ function explore_tab_loaded() {
 					ServerManager.SearchUser(data);
 				}
 			} else if (canRefreshFlows && searching_flows) {
-				var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 				if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 					search_index += 1;
 					console.log("search_index : " + search_index);
@@ -613,22 +612,7 @@ function UpdateTop50(data, data_block_user) {
 
 			//Arrivé à la fin des flow du même language que le device, on change de language
 			if (data.Data.length < 5 && top50CurrentLanguage == device_language) {
-				canRefreshTop50 = true;
-				top50CurrentIndex = 0;
-				/*let loading_recent = document.createElement("div");
-				loading_recent.className = "loading-spinner loading_recent";
-				$(".list-block-recents")[0].appendChild(loading_recent);*/
-				if (device_language == "FR") {
-					top50CurrentLanguage = "EN";
-				}
-				else {
-					top50CurrentLanguage = "FR";
-				}
-				let data = {
-					Index: recentsCurrentIndex,
-					language: top50CurrentLanguage
-				};
-				ServerManager.GetTop50(data);
+				top50SwitchLanguage();
 			}
 			if (data.Data.length < 5 && top50CurrentLanguage != device_language) {
 				canRefreshTop50 = false;
@@ -643,8 +627,33 @@ function UpdateTop50(data, data_block_user) {
 			}
 		}, 500);
 	} else {
-		StopRefreshTop50();
+
+		if (top50CurrentLanguage == device_language) {
+			top50SwitchLanguage();
+		}
+		if (top50CurrentLanguage != device_language) {
+			StopRefreshTop50();
+		}
 	}
+}
+
+function top50SwitchLanguage() {
+	canRefreshTop50 = true;
+	top50CurrentIndex = 0;
+	/*let loading_recent = document.createElement("div");
+	loading_recent.className = "loading-spinner loading_recent";
+	$(".list-block-top50")[0].appendChild(loading_recent);*/
+	if (device_language == "FR") {
+		top50CurrentLanguage = "EN";
+	}
+	else {
+		top50CurrentLanguage = "FR";
+	}
+	let data = {
+		Index: top50CurrentIndex,
+		language: top50CurrentLanguage
+	};
+	ServerManager.GetTop50(data);
 }
 
 function StopRefreshTop50() {
@@ -754,22 +763,7 @@ function UpdateRecents(data, data_block_user) {
 
 			//Arrivé à la fin des flow du même language que le device, on change de language
 			if (data.length < 5 && recentsCurrentLanguage == device_language) {
-				canRefreshRecents = true;
-				recentsCurrentIndex = 0;
-				/*let loading_recent = document.createElement("div");
-				loading_recent.className = "loading-spinner loading_recent";
-				$(".list-block-recents")[0].appendChild(loading_recent);*/
-				if (device_language == "FR") {
-					recentsCurrentLanguage = "EN";
-				}
-				else {
-					recentsCurrentLanguage = "FR";
-				}
-				let data = {
-					Index: recentsCurrentIndex,
-					language: recentsCurrentLanguage
-				};
-				ServerManager.GetNewFlows(data);
+				RecentsSwitchLanguage();
 			}
 			if (data.length < 5 && recentsCurrentLanguage != device_language) {
 				canRefreshRecents = false;
@@ -784,8 +778,32 @@ function UpdateRecents(data, data_block_user) {
 			}
 		}, 500);
 	} else {
-		StopRefreshRecents();
+		if (recentsCurrentLanguage == device_language) {
+			RecentsSwitchLanguage();
+		}
+		if (recentsCurrentLanguage != device_language) {
+			StopRefreshRecents();
+		}
 	}
+}
+
+function RecentsSwitchLanguage() {
+	canRefreshRecents = true;
+	recentsCurrentIndex = 0;
+	/*let loading_recent = document.createElement("div");
+	loading_recent.className = "loading-spinner loading_recent";
+	$(".list-block-recents")[0].appendChild(loading_recent);*/
+	if (device_language == "FR") {
+		recentsCurrentLanguage = "EN";
+	}
+	else {
+		recentsCurrentLanguage = "FR";
+	}
+	let data = {
+		Index: recentsCurrentIndex,
+		language: recentsCurrentLanguage
+	};
+	ServerManager.GetNewFlows(data);
 }
 
 function StopRefreshRecents() {

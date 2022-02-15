@@ -65,7 +65,7 @@ function setupApp() {
     // initialize new features popup
     if (window.localStorage.getItem("new_features_version") != AppVersion.version) {
 
-        in_new_features = true;
+        /*in_new_features = true;
 
         //Exception pour cette version: pas de popup nouveautés:
         $(".fred_dot_toolbar_fdj").css("display", "none");
@@ -91,7 +91,7 @@ function setupApp() {
                 "opacity": "1",
                 "pointer-events": "auto"
             });
-        }, 7000);
+        }, 7000);*/
 
         // Discornect user if needed 
         // setTimeout(function () {
