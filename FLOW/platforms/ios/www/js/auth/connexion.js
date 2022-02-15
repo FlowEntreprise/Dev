@@ -32,10 +32,9 @@ $(".fgoogle_btn").on("touchend", function () {
     console.log("google / apple clicked");
     if (window.cordova.platformId == "android") {
         google_conn();
+    } else {
+        signin_with_apple();
     }
-     else {
-       signin_with_apple();
-   }
 });
 // $(".finsta_btn").on("touchend", function () {
 //     login_insta();

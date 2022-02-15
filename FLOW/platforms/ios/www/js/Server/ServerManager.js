@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-	ServerURL: "https://api.flowappweb.com/",
+	ServerURL: "https://api-test.flowappweb.com/",
 	ConnexionURL: "ConnexionFromApi",
 	AddFlowURL: "AddFlow",
 	GetSingleFlowURL: "GetSingle",
@@ -54,7 +54,10 @@ const ServerParams = {
 	AddViewFlow: "AddViewFlow",
 	GetNewFlows: "GetNewFlows",
 	GetRandomFlow: "GetRandomFlow",
-	GetFlowOfTheDay: "GetFlowOfTheDay"
+	GetFlowDiscover: "GetFlowDiscover",
+	GetFlowOfTheDay: "GetFlowOfTheDay",
+	IsRegisterExist: "IsRegisterExist",
+	ConexionForUserUnregistered: "ConexionForUserUnregistered"
 };
 var FirebaseEnvironment = ServerParams.ServerURL == "https://api.flowappweb.com/" ? "prod" : "dev";
 const apiTypes = {
@@ -64,11 +67,12 @@ const apiTypes = {
 	Facebook: "facebook",
 	Flow: "flow",
 	Apple: "apple",
+	Unregistered: "unregistered"
 };
 
 // Server Manager Class :
 class ServerManagerClass {
-	constructor() {}
+	constructor() { }
 
 	/* Placez toutes les fonctions faisant des appels au Serveur et à la BDD ici
 	 * Ne pas hésiter à créer de nouvelles fonctions pour chaque actions
@@ -78,6 +82,16 @@ class ServerManagerClass {
 		let final_data;
 		let DataSend;
 		switch (api) {
+			case apiTypes.Unregistered:
+				DataSend = {
+					RegisterId: registrationId,
+					LastOs: window.cordova.platformId
+				};
+				final_data = {
+					Data: DataSend,
+					Action: "Unregistered",
+				};
+				break;
 			case apiTypes.Flow:
 				DataSend = {
 					Username: data.Username,
@@ -87,6 +101,10 @@ class ServerManagerClass {
 					Email: data.Email,
 					Birth: data.Birth,
 				};
+				if (registrationId) {
+					DataSend.RegisterId = registrationId;
+					DataSend.LastOs = window.cordova.platformId;
+				}
 				final_data = {
 					Data: DataSend,
 					Action: "Flow",
@@ -101,6 +119,10 @@ class ServerManagerClass {
 					Link: data.picture.data.url,
 					Token: data.id,
 				};
+				if (registrationId) {
+					DataSend.RegisterId = registrationId;
+					DataSend.LastOs = window.cordova.platformId;
+				}
 				final_data = {
 					Data: DataSend,
 					Action: "Facebook",
@@ -128,6 +150,10 @@ class ServerManagerClass {
 					Link: data.imageUrl,
 					Token: data.userId,
 				};
+				if (registrationId) {
+					DataSend.RegisterId = registrationId;
+					DataSend.LastOs = window.cordova.platformId;
+				}
 				final_data = {
 					Data: DataSend,
 					Action: "Google",
@@ -141,6 +167,10 @@ class ServerManagerClass {
 					Biographie: data.description,
 					Token: String(data.id),
 				};
+				if (registrationId) {
+					DataSend.RegisterId = registrationId;
+					DataSend.LastOs = window.cordova.platformId;
+				}
 				final_data = {
 					Data: DataSend,
 					Action: "Twitter",
@@ -167,13 +197,17 @@ class ServerManagerClass {
 					Biographie: data.bio,
 					Token: data.id,
 				};
+				if (registrationId) {
+					DataSend.RegisterId = registrationId;
+					DataSend.LastOs = window.cordova.platformId;
+				}
 				final_data = {
 					Data: DataSend,
 					Action: "Apple",
 				};
 				break;
 			default:
-				////console.log("Error in parameters sent to Connect() in ServerManager.");
+			////console.log("Error in parameters sent to Connect() in ServerManager.");
 		}
 		console.log(final_data);
 		$.ajax({
@@ -183,8 +217,12 @@ class ServerManagerClass {
 			success: function (response) {
 				//// //console.log("Connection success : ");
 				console.log(response);
-				storeVariables(response);
-				ConnectUser(response);
+				if (response && response.PrivateId) {
+					storeVariables(response);
+					ConnectUser(response);
+				} else {
+					window.localStorage.setItem("unregistered_user_token", response.TokenId);
+				}
 			},
 			error: function (response) {
 				//// //console.log("Connection error : ");
@@ -282,7 +320,7 @@ class ServerManagerClass {
 					data.Description
 				); // clean et envoi les notifs
 				TLCurrentIndex = 0;
-				ServerManager.GetTimeline(0);
+				ServerManager.GetTimeline(0, 5);
 				CloseAfterRecord();
 			},
 			error: function (response) {
@@ -306,7 +344,7 @@ class ServerManagerClass {
 			success: function (response) {
 				check_app_version(response.Data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -323,7 +361,7 @@ class ServerManagerClass {
 			success: function (response) {
 				//console.log("User last connexion updated");
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -700,7 +738,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -724,7 +762,7 @@ class ServerManagerClass {
 					}
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -741,7 +779,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowUserFlow(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -756,7 +794,7 @@ class ServerManagerClass {
 			success: function (response) {
 				ShowMyInfosUser(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -772,7 +810,7 @@ class ServerManagerClass {
 				////console.log("on recup le getInfosUserNumber");
 				ShowInfosUserNumber(response);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -800,7 +838,7 @@ class ServerManagerClass {
 					ShowUserProfile(response);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -823,7 +861,7 @@ class ServerManagerClass {
 				////console.log(response);
 				UpdateFollowersList(response, data.follow_list);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -854,7 +892,7 @@ class ServerManagerClass {
 					UpdatefollowingsList(response, data.follow_list);
 				}
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -874,7 +912,7 @@ class ServerManagerClass {
 				// myApp.pullToRefreshTrigger(ptrContent);
 				callback(response, data);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -908,11 +946,14 @@ class ServerManagerClass {
 		});
 	}
 
-	GetTimeline(data) {
+	GetTimeline(data, pull) {
+		// console.log(data);
+		if (!pull) pull = 1;
 		let final_data = {
 			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
 				Index: data,
+				Pull: pull
 			},
 		};
 		//console.log(final_data);
@@ -1160,6 +1201,33 @@ class ServerManagerClass {
 		});
 	}
 
+
+	IsRegisterExist(data) {
+		let final_data = {
+			Data: data,
+			Action: "IsRegisterExist"
+		};
+		//// //console.log(final_data.Data);
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.IsRegisterExist,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				console.log("La reponse du IsRegisterExist est : ");
+				console.log(response);
+				if (response.Data == false) {
+					ServerManager.Connect('unregistered', {});
+				}
+			},
+			error: function (response) {
+				////console.log("registerId update error : ");
+				////console.log(response);
+				//// //console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
+			},
+		});
+	}
+
+
 	AddNotificationToUser(data) {
 		let final_data = {
 			Data: data,
@@ -1211,7 +1279,7 @@ class ServerManagerClass {
 	UpdateNotificationToView(data) {
 		let final_data = {
 			Data: data,
-			TokenId: window.localStorage.getItem("user_token"),
+			TokenId: window.localStorage.getItem("user_token")
 		};
 		////console.log(final_data);
 		$.ajax({
@@ -1270,7 +1338,7 @@ class ServerManagerClass {
 				ServerManager.UpdateRegisterId(data);*/
 				//console.log(registrationId);
 			},
-			error: function (response) {},
+			error: function (response) { },
 		});
 	}
 
@@ -1515,6 +1583,9 @@ class ServerManagerClass {
 						ShowLikedFlows(data, response);
 					}
 				}
+				if (action == "dm") {
+					check_if_user_is_blocked(response.Data);
+				}
 			},
 			error: function (response) {
 				////console.log(response);
@@ -1603,6 +1674,7 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
 				Index: data.Index,
+				language: data.language
 			},
 		};
 		$.ajax({
@@ -1629,8 +1701,14 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
 				ObjectId: data,
-			},
+			}
 		};
+		if (window.localStorage.getItem("user_token")) {
+			final_data.TokenId = window.localStorage.getItem("user_token");
+		} else {
+			final_data.TokenId = registrationId;
+		}
+
 		$.ajax({
 			type: "POST",
 			url: ServerParams.ServerURL + ServerParams.AddViewFlow,
@@ -1649,6 +1727,7 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
 				Index: data.Index,
+				language: data.language
 			},
 		};
 		$.ajax({
@@ -1670,10 +1749,12 @@ class ServerManagerClass {
 		});
 	}
 
-	GetRandomFlow(excluded) {
+	GetRandomFlow(excluded, discover, numberOfFlows) {
+		if (!numberOfFlows) numberOfFlows = 1;
 		let final_data = {
 			Data: {
 				FlowsExcluded: excluded,
+				NumberOfFlows: numberOfFlows
 			},
 			TokenId: window.localStorage.getItem("user_token"),
 		};
@@ -1685,7 +1766,36 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				//console.log(response);
-				showRandomFlow(response);
+				showRandomFlow(response, discover);
+			},
+			error: function (response) {
+				//console.log(response);
+				pullToRefreshEnd();
+			},
+		});
+	}
+
+	GetFlowDiscover(index, numberOfFlows, excluded) {
+		if (!numberOfFlows) numberOfFlows = 1;
+		let final_data = {
+			Data: {
+				Index: 0,
+				Pull: numberOfFlows,
+				FlowsExcluded: excluded
+			},
+			TokenId: window.localStorage.getItem("user_token") ? window.localStorage.getItem("user_token") : registrationId
+		};
+
+		console.log(final_data);
+		//// //console.log(final_data);
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.GetFlowDiscover,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				console.log(response);
+				// showRandomFlow(response, true);
+				AddToDiscoverArray(response);
 			},
 			error: function (response) {
 				//console.log(response);
@@ -1732,6 +1842,7 @@ class ServerManagerClass {
 				current_block_chat.chat_id = data.chat_id;
 				current_block_chat.members = {};
 				current_block_chat.members.id = data.user_id;
+				current_block_chat.block_chat_member_private_id = data.private_id;
 				setup_popup_message(data);
 			} else {
 				// on crée juste un nouveau message
@@ -1855,11 +1966,13 @@ class ServerManagerClass {
 
 									if (item && item.chat_id === chat_id) {
 										$("#" + chat_id + "").remove();
+										all_block_chat.splice(index, 1);
 									}
 
 								});
 							}
 							all_block_chat.push(pop_block_chat(data_block_chat));
+							check_block_chat_seen();
 
 						}
 					});
@@ -1888,7 +2001,7 @@ class ServerManagerClass {
 
 					delete snapshot.val()[window.localStorage.getItem("firebase_token")];
 					Object.entries(snapshot.val()).forEach(item => {
-						clean_chat_list[item[0]] = item[1].time
+						clean_chat_list[item[0]] = item[1].time;
 					});
 
 					let ordered_chat = Object.fromEntries(
@@ -1903,21 +2016,15 @@ class ServerManagerClass {
 					}
 					nb_block_chat_to_pop = Object.keys(ordered_chat).length;
 					previous_chat_list = clean_chat_list;
-					console.log("ordered_chat : ");
-					console.log(ordered_chat);
 					Object.keys(ordered_chat).forEach(chat_id => {
 						firebase.database().ref(FirebaseEnvironment + "/chats/" + chat_id)
 							.once("value").then(chat_snapshot => {
-								console.log("Data du chat");
-								console.log(chat_snapshot.val());
 								let chat_data = chat_snapshot.val();
 								firebase.database().ref(FirebaseEnvironment + "/messages/" + chat_id + "/" + chat_data.last_message.message_id)
 									.once("value").then(message_snapshot => {
-										console.log("Data du msg avant de recup la conv");
-										console.log(message_snapshot.val());
 										if (message_snapshot.val() != null) {
 											let data_message = message_snapshot.val();
-											chat_data.last_message.seen_by = data_message.seen_by;
+											chat_data.last_message = data_message;
 										}
 									}).then(function () {
 										ServerManager.GetFirebaseUserProfile(chat_data, callback, chat_id);
@@ -1944,8 +2051,6 @@ class ServerManagerClass {
 	}
 
 	SetMessageToSeen(data) {
-		console.log("data message seen");
-		console.log(data);
 
 		if (data.message_id) {
 			firebase.database().ref(FirebaseEnvironment).update({
@@ -1961,6 +2066,29 @@ class ServerManagerClass {
 		firebase.database().ref(FirebaseEnvironment + "/members/" + data.chat_id).child(window.localStorage.getItem("firebase_token")).remove();
 		firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").child(data.chat_id).remove();
 		$("#" + data.chat_id + "").remove();
+	}
+
+	Delete_text_message(data) // En vrai c'est un update vu qu'on le supprime jamais vraiment le msg
+	{
+		firebase.database().ref(FirebaseEnvironment + "/messages/" + data.chat_id + "/" + data.message_id).update({
+			["deleted"]: true
+		}).then(function () {
+			create_deleted_message(data.message_id);
+		});
+	}
+
+	Delete_media_from_firebase(data) {
+		let desertRef = firebase.storage().ref().child(data.path);
+		desertRef.delete().then(() => {
+			firebase.database().ref(FirebaseEnvironment + "/messages/" + data.chat_id + "/" + data.message_id).update({
+				["deleted"]: true
+			}).then(function () {
+				create_deleted_message(data.message_id);
+			});
+
+		}).catch((error) => {
+			console.log(error.message);
+		});
 	}
 
 	SearchChat(data) {

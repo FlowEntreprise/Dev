@@ -164,7 +164,7 @@ function nextTutoFrame() {
             }
             if (tuto_2_index == 18) {
                 $(".tuto_next_btn_shadow")[0].style.opacity = 1;
-                $(".tuto_next_btn")[0].innerHTML = "C'EST PARTI";
+                $(".tuto_next_btn")[0].innerHTML = `${language_mapping[device_language]['c_parti']}`;
                 $(".tuto_next_btn")[0].style.opacity = 1;
                 $(".tuto_next_btn")[0].style.pointerEvents = "auto";
             }

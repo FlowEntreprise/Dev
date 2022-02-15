@@ -54,6 +54,7 @@ const ServerParams = {
 	AddViewFlow: "AddViewFlow",
 	GetNewFlows: "GetNewFlows",
 	GetRandomFlow: "GetRandomFlow",
+	GetFlowDiscover: "GetFlowDiscover",
 	GetFlowOfTheDay: "GetFlowOfTheDay",
 	IsRegisterExist: "IsRegisterExist",
 	ConexionForUserUnregistered: "ConexionForUserUnregistered"
@@ -219,14 +220,13 @@ class ServerManagerClass {
 				if (response && response.PrivateId) {
 					storeVariables(response);
 					ConnectUser(response);
-				}
-				else {
+				} else {
 					window.localStorage.setItem("unregistered_user_token", response.TokenId);
 				}
 			},
 			error: function (response) {
-				console.log("Connection error : ");
-				console.log(response);
+				//// //console.log("Connection error : ");
+				//// //console.log(response);
 			},
 		});
 	}
@@ -320,7 +320,7 @@ class ServerManagerClass {
 					data.Description
 				); // clean et envoi les notifs
 				TLCurrentIndex = 0;
-				ServerManager.GetTimeline(0);
+				ServerManager.GetTimeline(0, 5);
 				CloseAfterRecord();
 			},
 			error: function (response) {
@@ -382,7 +382,7 @@ class ServerManagerClass {
 			success: function (response) {
 				//// //console.log("Flow sucessfully recovered from database :");
 				//// //console.log(response);
-				// PopFlow(response.Data, response.LinkBuilder); rmTL
+				PopFlow(response.Data, response.LinkBuilder);
 			},
 			error: function (response) {
 				//// //console.log("Flow recovering from database error : ");
@@ -946,12 +946,14 @@ class ServerManagerClass {
 		});
 	}
 
-	GetTimeline(data) {
+	GetTimeline(data, pull) {
 		// console.log(data);
+		if (!pull) pull = 1;
 		let final_data = {
 			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
 				Index: data,
+				Pull: pull
 			},
 		};
 		//console.log(final_data);
@@ -964,7 +966,7 @@ class ServerManagerClass {
 			success: function (response) {
 				let end = Date.now();
 				let elapsed_time = end - start;
-				// console.log("elapsed time : " + elapsed_time);
+				console.log("elapsed time : " + elapsed_time);
 				////console.log("success");
 				//console.log(response);
 				timeline_get_block_and_blocked_users(response);
@@ -1517,7 +1519,7 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				RefreshTL();
-				// RefreshExplore();
+				RefreshExplore();
 				in_app_notif(data);
 			},
 			error: function (response) {
@@ -1540,7 +1542,7 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				RefreshTL();
-				// RefreshExplore();
+				RefreshExplore();
 				in_app_notif(data);
 			},
 			error: function (response) {
@@ -1587,7 +1589,7 @@ class ServerManagerClass {
 			},
 			error: function (response) {
 				////console.log(response);
-			}
+			},
 		});
 	}
 
@@ -1672,6 +1674,7 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
 				Index: data.Index,
+				language: data.language
 			},
 		};
 		$.ajax({
@@ -1695,15 +1698,15 @@ class ServerManagerClass {
 
 	AddViewFlow(data) {
 		let final_data = {
+			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
 				ObjectId: data,
 			}
 		};
 		if (window.localStorage.getItem("user_token")) {
 			final_data.TokenId = window.localStorage.getItem("user_token");
-		}
-		else {
-			final_data.TokenId = window.localStorage.getItem("unregistered_user_token");
+		} else {
+			final_data.TokenId = registrationId;
 		}
 
 		$.ajax({
@@ -1724,6 +1727,7 @@ class ServerManagerClass {
 			TokenId: window.localStorage.getItem("user_token"),
 			Data: {
 				Index: data.Index,
+				language: data.language
 			},
 		};
 		$.ajax({
@@ -1763,6 +1767,35 @@ class ServerManagerClass {
 			success: function (response) {
 				//console.log(response);
 				showRandomFlow(response, discover);
+			},
+			error: function (response) {
+				//console.log(response);
+				pullToRefreshEnd();
+			},
+		});
+	}
+
+	GetFlowDiscover(index, numberOfFlows, excluded) {
+		if (!numberOfFlows) numberOfFlows = 1;
+		let final_data = {
+			Data: {
+				Index: 0,
+				Pull: numberOfFlows,
+				FlowsExcluded: excluded
+			},
+			TokenId: window.localStorage.getItem("user_token") ? window.localStorage.getItem("user_token") : registrationId
+		};
+
+		console.log(final_data);
+		//// //console.log(final_data);
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.GetFlowDiscover,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				console.log(response);
+				// showRandomFlow(response, true);
+				AddToDiscoverArray(response);
 			},
 			error: function (response) {
 				//console.log(response);

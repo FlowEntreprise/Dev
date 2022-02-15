@@ -215,7 +215,7 @@
 	top: calc(32 * var(--custom-vh));
 	left: 0vw;
 	transition-duration: 0.4s;
-	height: calc(94 * var(--custom-vh));
+	height: calc(130 * var(--custom-vh));
 }
 
 .fblockCompte {
@@ -225,7 +225,7 @@
 }
 
 .fblockAccountPadding {
-	padding-top: calc(1.5 * var(--custom-vh)) !important;
+	padding-top: calc(30 * var(--custom-vh)) !important;
 }
 
 .sizeTollBarAccount {

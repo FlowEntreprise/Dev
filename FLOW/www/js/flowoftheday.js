@@ -55,8 +55,8 @@ function setupFDJ() {
                     block_user: block_user_fdj
                 };
                 ServerManager.ActionFollow(data_user, function (response, data) {
-                    // ServerManager.GetFDJ();
-                    // RefreshTL();rmTL
+                    ServerManager.GetFDJ();
+                    RefreshTL();
                 });
 
             } else {
@@ -149,20 +149,20 @@ function initFDJParticles() {
         }
         return results;
     }();
-    // window.step = function () {
-    //     if (canPlayFDJParticles) {
-    //         FDJplaying = true;
-    //         var c, j, len, results;
-    //         requestAnimationFrame(step);
-    //         context.clearRect(0, 0, w, h);
-    //         results = [];
-    //         for (j = 0, len = confetti.length; j < len; j++) {
-    //             c = confetti[j];
-    //             results.push(c.draw());
-    //         }
-    //         return results;
-    //     }
-    // };
+    window.step = function () {
+        if (canPlayFDJParticles) {
+            FDJplaying = true;
+            var c, j, len, results;
+            requestAnimationFrame(step);
+            context.clearRect(0, 0, w, h);
+            results = [];
+            for (j = 0, len = confetti.length; j < len; j++) {
+                c = confetti[j];
+                results.push(c.draw());
+            }
+            return results;
+        }
+    };
 
 }
 
@@ -190,6 +190,7 @@ function stopFDJParticles() {
 
 
 function showRandomFlow(data, discover) {
+    console.log(data);
     if (discover) showRandomDiscover(data);
     if (!showingFDJ) {
         if (!data.Data) {
@@ -201,7 +202,7 @@ function showRandomFlow(data, discover) {
             return false
         }
         stopAllBlocksAudio();
-        let flow = data.Data;
+        let flow = data.Data[0];
         let container = $(".list-block-flowoftheday");
         container[0].innerHTML = "";
         let pattern_key = "";
@@ -310,7 +311,8 @@ function showFDJ(data) {
     } else {
         youAreFDJ = false;
     }
-    $(".fdj_title")[0].innerHTML = pseudo + " a été élu flow du jour !";
+    $(".fdj_title")[0].innerHTML = pseudo + ` ${language_mapping[device_language]['elu_fdj']}`;
+
 
     if (flow.YouFollowHim == "1") followingFDJ = true;
     else followingFDJ = false;
@@ -320,7 +322,7 @@ function showFDJ(data) {
     $(".fdj_crown")[0].style.opacity = 1;
     $(".random_flow_btn").removeClass("searching");
     $(".fdj_txt")[0].style.opacity = 0;
-    $(".fdj_txt")[0].innerHTML = "Recherche dans la bibliothèque de flows...";
+    $(".fdj_txt")[0].innerHTML = `${language_mapping[device_language]['fdj_txt']}`;
     $(".fdj_pp").removeClass("reduced");
     $(".fdj_title").removeClass("reduced");
     $(".fdj_timer").removeClass("reduced");
@@ -334,7 +336,7 @@ function showFDJ(data) {
             $(".fdj_follow")[0].innerHTML = "ABONNÉ";
         } else {
             if ($(".fdj_follow").hasClass("followed")) $(".fdj_follow").removeClass("followed");
-            $(".fdj_follow")[0].innerHTML = "S'ABONNER";
+            $(".fdj_follow")[0].innerHTML = `${language_mapping[device_language]['fdj_follow']}`;
         }
     } else {
         let rank = parseInt(flow.NbFlowsOfTheDay);
@@ -399,7 +401,7 @@ function GetRandomFlow() {
         if (!$(".fdj_follow").hasClass("reduced")) $(".fdj_follow").addClass("reduced");
         $(".fdj_follow")[0].innerHTML = "VOIR LE FLOW";
         $(".fdj_txt")[0].style.opacity = 0.5;
-        $(".fdj_txt")[0].innerHTML = "Recherche dans la bibliothèque de flows...";
+        $(".fdj_txt")[0].innerHTML = `${language_mapping[device_language]['fdj_txt']}`;
         let tmp_random_excluded = window.localStorage.getItem("random_excluded");
         if (!tmp_random_excluded) randomExcluded = [];
         else randomExcluded = tmp_random_excluded.split(",");
@@ -422,12 +424,12 @@ function getTimeRemaining(endtime) {
     const days = Math.floor(total / (1000 * 60 * 60 * 24));
 
     let result = "";
-    if (hours > 0) result = "prochaine élection dans " + (hours + 1) + " heures.";
-    // else if (hours == 1) result = "prochaine élection dans " + hours + " heure.";
-    else if (minutes > 0) result = "prochaine élection dans " + (minutes + 1) + " minutes.";
-    else if (seconds > 1) result = "prochaine élection dans " + seconds + " secondes.";
-    else if (seconds == 1) result = "prochaine élection dans " + seconds + " seconde.";
-    else result = "rafraîchis pour découvrir le flow du jour !";
+    if (hours > 0) result = `${language_mapping[device_language]['fdj_nxt_election']} ` + (hours + 1) + ` ${language_mapping[device_language]['heure']}s.`;
+    // else if (hours == 1) result = `${language_mapping[device_language]['fdj_nxt_election']}` + hours + " heure.";
+    else if (minutes > 0) result = `${language_mapping[device_language]['fdj_nxt_election']} ` + (minutes + 1) + ` ${language_mapping[device_language]['minute']}s.`;
+    else if (seconds > 1) result = `${language_mapping[device_language]['fdj_nxt_election']} ` + seconds + ` ${language_mapping[device_language]['seconde']}s.`;
+    else if (seconds == 1) result = `${language_mapping[device_language]['fdj_nxt_election']} ` + seconds + ` ${language_mapping[device_language]['heure']}.`;
+    else result = `${language_mapping[device_language]['refresh_fdj']}`;
 
     return result;
     // return {

@@ -32,7 +32,6 @@ function fInitialisationAccount(privateId) {
 	loading_tl.style.marginTop = "50%";
 	$("#UserActivity")[0].appendChild(loading_tl);
 	$("#UserLikes")[0].appendChild(loading_tl);
-	console.log("on est dans fInitialisationAccount");
 	privateIDAccount = privateId;
 	indexAccount = 0;
 	indexAccountLike = 0;
@@ -64,8 +63,6 @@ function fInitialisationAccount(privateId) {
 
 function user_block_management(data, privateId) {
 	// gere les users que l'on a block et qui nous ont block
-	console.log("on est dans user_block_management");
-
 	if (data.UserBlocked.length == 0) {
 		user_is_blocked = false;
 	} else {
@@ -76,6 +73,9 @@ function user_block_management(data, privateId) {
 				$("#block_button").css(
 					"background-image",
 					'url("src/icons/block_filled.png")'
+				);
+				$("#GoDMBtn").css(
+					"display", "none"
 				);
 				break;
 			} else {
@@ -94,6 +94,9 @@ function user_block_management(data, privateId) {
 	} else {
 		for (let i in data.BlockedByUser) {
 			if (data.BlockedByUser[i] == privateId) {
+				$("#GoDMBtn").css(
+					"display", "none"
+				);
 				blocked_by_user = true;
 				break;
 			} else {
@@ -139,6 +142,9 @@ document
 		last_scroll = 0;
 		current_page = "account";
 		// app.showTab("#tabCompte1");
+		$("#GoDMBtn").css(
+			"display", "block"
+		);
 		account_swiper.slideTo(0);
 		$(".ftabsAccount")[0].style.display = "block";
 		$("#tabCompte2").css("display", "block");
@@ -487,16 +493,13 @@ function manageFollowYou() {
 }
 
 function ShowUserProfile(response) {
-	console.log(response);
 	let myrank_number;
 	let myrank_img;
 	account_fullname = response.Data.FullName;
 	FirebaseToken = response.Data.FirebaseToken;
 	if (response.Data.PrivateId == window.localStorage.getItem("user_private_id")) {
-		console.log("my profile infos received");
 		const src = "https://" + response.LinkBuilder.Hostname + ":" + response.LinkBuilder.Port + "/images/" + response.Data.ProfilePicture.name + "?";
 		const param = `${response.LinkBuilder.Params.hash}=${response.Data.ProfilePicture.hash}&${response.LinkBuilder.Params.time}=${response.Data.ProfilePicture.timestamp}`;
-		console.log(src + param);
 		let link_built = src + param;
 		window.localStorage.setItem("user_profile_pic", link_built);
 		$("#fmyprofilPicture").css({
@@ -559,10 +562,8 @@ function ShowUserProfile(response) {
 	else if (rank == 0) rank = 1;
 	else rank = rank_tables[rank];
 
-	console.log(rank);
 	let crown_colors = ["#9E7D6D", "#7b8a9d", "#CFA441", "#CFA441", "#CFA441", "#c82e21", "#16dc81", "#41dde4"];
 	let crown_color = crown_colors[rank - 1];
-	console.log(crown_color);
 	myrank_number.innerHTML = response.Data.NbFlowsOfTheDay;
 	myrank_number.style.color = crown_color;
 	myrank_img.style.backgroundImage = "url('./src/icons/crown" + rank + ".png')";
@@ -682,7 +683,6 @@ function ShowUserFlow(flow) {
 }
 
 function ShowLikedFlows(flow, data_block_user) {
-	console.log(flow);
 	if (Array.isArray(flow.Data) == false || flow.Data.length == 0) {
 		UserLikeAdd = false;
 		if (indexAccountLike == 0) {
@@ -724,7 +724,6 @@ function ShowLikedFlows(flow, data_block_user) {
 				pattern_key = data.Background.PatternKey;
 			}
 			const flow_link = data.Audio;
-			console.log(flow_link);
 			var profilePicLink = data.ProfilePicture;
 			if (unique_block_user && unique_block_user.length > 0) {
 				for (let i_unique_block_user in unique_block_user) {
@@ -858,7 +857,6 @@ function FollowResponse(response, type, element) {
 // block user
 
 $("#block_button").on("click", function () {
-	console.log("click sur boutton de block");
 	if (user_is_blocked == false) {
 		// block.png icone grise donc user debloqué
 		navigator.notification.confirm(
@@ -889,6 +887,9 @@ $("#block_button").on("click", function () {
 						$("#block_button").css(
 							"background-image",
 							'url("src/icons/block_filled.png")'
+						);
+						$("#GoDMBtn").css(
+							"display", "none"
 						);
 						$("#fFollowYouButtunAccount").css("display", "none");
 						$("#fFollowButtunAccount").removeClass("activeButtunFollow");
@@ -924,6 +925,9 @@ $("#block_button").on("click", function () {
 					$("#block_button").css(
 						"background-image",
 						'url("src/icons/block.png")'
+					);
+					$("#GoDMBtn").css(
+						"display", "block"
 					);
 					user_is_blocked = false;
 				}

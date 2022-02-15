@@ -3,6 +3,8 @@ let CanRefreshTL = true;
 let TLCurrentIndex = 0;
 
 function home_tab_loaded() {
+
+	RefreshTL();
 	// scroll to top if tap on home
 	$(".home_btn ").on("touchend", function () {
 		// var home_scrolling = false;
@@ -30,9 +32,12 @@ function home_tab_loaded() {
 		if (CanRefreshTL == true) {
 			if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 				CanRefreshTL = false;
+				let loading_tl = document.createElement("div");
+				loading_tl.className = "loading-spinner loading_tl";
+				$(".list-block")[0].appendChild(loading_tl);
 				console.log("Get Flow on Server");
 				console.log("TLCurrentIndex : " + TLCurrentIndex);
-				ServerManager.GetTimeline(TLCurrentIndex);
+				ServerManager.GetTimeline(TLCurrentIndex, 5);
 			}
 		}
 	});
@@ -40,12 +45,12 @@ function home_tab_loaded() {
 	// setup input comment placeholder
 	$("#finput_comment").blur(function () {
 		console.log("an input was out focused");
-		$(this).attr("placeholder", "Ajouter un commentaire...");
+		$(this).attr("placeholder", `${language_mapping[device_language]['placeholder_add_comment']}`);
 	});
 
 	// initialize pull to refresh
 	home_ptr = setupPTR(document.querySelector(".home_parent"), function () {
-		RefreshTL()
+		RefreshTL();
 	});
 
 	// Check if user is connected
@@ -54,9 +59,10 @@ function home_tab_loaded() {
 
 function RefreshTL() {
 	console.log("refreshing...");
-	stopAllBlocksAudio();
+	// stopAllBlocksAudio();
+	HomeFlowsArray = [];
 	TLCurrentIndex = 0;
-	ServerManager.GetTimeline(0);
+	ServerManager.GetTimeline(0, 5);
 	ServerManager.GetStory();
 }
 
@@ -145,7 +151,7 @@ function UpdateTimeline(data, data_block_user) {
 			(item, pos) => unique_block_user.indexOf(item) === pos
 		);
 		setTimeout(function () {
-			if ($(".loading_tl")) $(".loading_tl").remove();
+			//if ($(".loading_tl")) $(".loading_tl").remove();
 			if (TLCurrentIndex == 0) {
 				$(".list-block")[0].innerHTML = "";
 				let loading_tl = document.createElement("div");
@@ -190,7 +196,7 @@ function UpdateTimeline(data, data_block_user) {
 }
 
 function StopRefreshTL() {
-	if ($(".loading_tl")) $(".loading_tl").remove();
+	//if ($(".loading_tl")) $(".loading_tl").remove();
 	CanRefreshTL = false;
 	CanRefreshFollowList = false;
 	pullToRefreshEnd();

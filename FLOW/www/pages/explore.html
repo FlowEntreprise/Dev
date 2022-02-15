@@ -5,9 +5,9 @@
 </div> -->
 
 <div class="search_results">
-	<label class="top_users_txt">Utilisateurs</label>
+	<label id="top_users_txt" class="top_users_txt language">Utilisateurs</label>
 	<div class="top_users"></div>
-	<div class="show_more_users">Afficher plus</div>
+	<div id="show_more" class="show_more_users language">Afficher plus</div>
 	<label class="top_flows_txt">Flows</label>
 	<div class="top_flows">
 		<!-- <div class='show_more_flows'>Afficher plus</div> -->
@@ -16,42 +16,85 @@
 
 
 <div class="explore_tabs">
-	<!-- <div class="explore_view top50 active">
-		<div class="ptr_loading">
-			<div class="loading-spinner"></div>
-		</div>
-		<div class="list-block list-block-top50"></div>
-	</div> -->
-	<!-- <div class="explore_view recents">
-		<div class="ptr_loading">
-			<div class="loading-spinner"></div>
-		</div>
-		<div class="list-block list-block-recents"></div>
-	</div> -->
-	<div class="explore_view discover">
-		<div class="swiper-container discover">
-			<div class="swiper-wrapper">
-			</div>
-		</div>
-	</div>
-	<!-- <div class="explore_view flowoftheday">
+
+	<div class="explore_view flowoftheday">
 		<div class="fdj_parent">
 			<canvas class="fdj_canvas"></canvas>
 			<div class="fdj_pp"></div>
 			<div class="fdj_crown"></div>
-			<div class="fdj_title">Vous avez été élu flow du jour !</div>
-			<div class="fdj_follow">S'ABONNER</div>
-			<div class="fdj_timer">prochaine élection dans 22 heures.</div>
-			<div class="fdj_txt">Recherche dans la bibliothèque de flows...</div>
+			<div id="fdj_title" class="fdj_title language">Vous avez été élu flow du jour !</div>
+			<div id="fdj_follow" class="fdj_follow language">S'ABONNER</div>
+			<div id="fdj_timer" class="fdj_timer language">prochaine élection dans 22 heures.</div>
+			<div id="fdj_txt" class="fdj_txt language">Recherche dans la bibliothèque de flows...</div>
 			<div class="empty_flow">
 				<div class="loading-spinner loading_fdj"></div>
 			</div>
 			<div class="list-block list-block-flowoftheday"></div>
-			<div class="random_flow_btn" onclick="GetRandomFlow()">
+			<div id="random_flow_btn" class="random_flow_btn language" onclick="GetRandomFlow()">
 				Découvrir un flow aléatoire
 				<div class="random_icon"></div>
 			</div>
 		</div>
-	</div> -->
+	</div>
+
+	<div class="explore_view top50 active">
+		<div class="ptr_loading">
+			<div class="loading-spinner"></div>
+		</div>
+		<div class="list-block list-block-top50"></div>
+	</div>
+	<div class="explore_view recents">
+		<div class="ptr_loading">
+			<div class="loading-spinner"></div>
+		</div>
+		<div class="list-block list-block-recents"></div>
+	</div>
+	<!-- <div class="explore_view discover"> -->
+	<!-- <div class="swiper-container discover">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide">
+					<div style="height: calc(35 * var(--custom-vh)); width: 100%; background: blue; opacity: 0.5;">
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div style="height: calc(35 * var(--custom-vh)); width: 100%; background: blue; opacity: 0.5;">
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div style="height: calc(35 * var(--custom-vh)); width: 100%; background: blue; opacity: 0.5;">
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div style="height: calc(35 * var(--custom-vh)); width: 100%; background: blue; opacity: 0.5;">
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div style="height: calc(35 * var(--custom-vh)); width: 100%; background: blue; opacity: 0.5;">
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div style="height: calc(35 * var(--custom-vh)); width: 100%; background: blue; opacity: 0.5;">
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div style="height: calc(35 * var(--custom-vh)); width: 100%; background: blue; opacity: 0.5;">
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div style="height: calc(35 * var(--custom-vh)); width: 100%; background: blue; opacity: 0.5;">
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div style="height: calc(35 * var(--custom-vh)); width: 100%; background: blue; opacity: 0.5;">
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div style="height: calc(35 * var(--custom-vh)); width: 100%; background: blue; opacity: 0.5;">
+					</div>
+				</div>
+		</div>
+	</div>-->
+</div>
+
 
 </div>

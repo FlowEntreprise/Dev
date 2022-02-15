@@ -178,6 +178,9 @@
     -ms-transform: scale(1);
     -webkit-transform: scale(1);
     transform: scale(1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -189,9 +192,10 @@
 }
 
 .random_icon {
-    position: relative;
-    margin-left: -5px;
-    margin-top: calc(-6 * var(--custom-vh));
+    position: absolute;
+    margin-left: 15px;
+    left: 0;
+    margin-top: 0;
     width: 40px;
     height: 95%;
     background-image: url("../src/icons/dices.png");

@@ -16,7 +16,7 @@ var in_top50 = true;
 var in_recents = false;
 var in_flowoftheday = false;
 var in_dm_image_fullscreen = false;
-
+var in_new_features = false;
 //Framework7
 // $("#tab1").load("pages/home.html");
 // $("#tab2").load("pages/explore.html");
@@ -34,9 +34,9 @@ function inHome() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -86,9 +86,9 @@ function inExplore() {
 	let time_in_last_screen = Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -143,42 +143,16 @@ function inExplore() {
 		// });
 
 		explore_categories = new Swiper(".explore-swiper", {
-			slidesPerView: 3
+			slidesPerView: 3,
+			initialSlide: 1
 		});
 
 		explore_categories.on("slideChange", function () {
-			$(".explore_view").removeClass("active");
-			if (explore_categories.activeIndex == 0) {
-				$(".flowoftheday").addClass("active");
-				if (in_flowoftheday) $(".explore_view.active").scrollTop(0);
-				$(".fred_dot_toolbar_fdj").css("display", "none");
-				in_top50 = false;
-				in_recents = false;
-				in_flowoftheday = true;
-				if (showingFDJ && youAreFDJ) {
-					startFDJParticles();
-					setTimeout(function () {
-						stopFDJParticles();
-					}, 5000);
-				}
-			}
-			if (explore_categories.activeIndex == 1) {
-				$(".top50").addClass("active");
-				if (in_recents) $(".explore_view.active").scrollTop(0);
-				in_top50 = true;
-				in_recents = false;
-				in_flowoftheday = false;
-			} else if (explore_categories.activeIndex == 2) {
-				$(".recents").addClass("active");
-				if (in_top50) $(".explore_view.active").scrollTop(0);
-				in_top50 = false;
-				in_recents = true;
-				in_flowoftheday = false;
-			} else if (explore_categories.activeIndex == 3) {
-				$(".discover").addClass("active");
-				if (!discover_swiper_initialised) {}
-			}
+			checkExploreSlide(explore_categories);
 		});
+
+		checkExploreSlide(explore_categories);
+
 
 		// Framework7
 		// mySwiper.on("slideChangeStart", function () {
@@ -190,19 +164,65 @@ function inExplore() {
 			explore_categories.slideTo(0);
 		})
 
-		$(".recents_btn")[0].addEventListener("click", function () {
-			explore_categories.slideTo(2);
-		})
-
 		$(".top50_btn")[0].addEventListener("click", function () {
 			explore_categories.slideTo(1);
 		})
 
-		explore_categories.slideTo(1);
+		$(".recents_btn")[0].addEventListener("click", function () {
+			explore_categories.slideTo(2);
+		})
+
+		// $(".discover_btn")[0].addEventListener("click", function () {
+		// 	explore_categories.slideTo(1);
+		// })
+
+		// explore_categories.slideTo(3);
 
 		explore_tabs_initialised = true;
 	}
 	stopAllBlocksAudio();
+}
+
+function checkExploreSlide(explore_categories) {
+	if (current_block_playing) current_block_playing.flowpause();
+	$(".explore_view").removeClass("active");
+	if (explore_categories.activeIndex == 0) {
+		$(".flowoftheday").addClass("active");
+		if (in_flowoftheday) $(".explore_view.active").scrollTop(0);
+		$(".fred_dot_toolbar_fdj").css("display", "none");
+		in_top50 = false;
+		in_recents = false;
+		in_flowoftheday = true;
+		if (showingFDJ && youAreFDJ) {
+			startFDJParticles();
+			setTimeout(function () {
+				stopFDJParticles();
+			}, 5000);
+		}
+	}
+	if (explore_categories.activeIndex == 1) {
+		$(".top50").addClass("active");
+		if (in_recents) $(".explore_view.active").scrollTop(0);
+		in_top50 = true;
+		in_recents = false;
+		in_flowoftheday = false;
+	} else
+		if (explore_categories.activeIndex == 2) {
+			$(".recents").addClass("active");
+			if (in_top50) $(".explore_view.active").scrollTop(0);
+			in_top50 = false;
+			in_recents = true;
+			in_flowoftheday = false;
+		} else if (explore_categories.activeIndex == 1) {
+			$(".discover").addClass("active");
+			if (!discover_swiper_initialised) {
+				//setupDiscover();
+			} else {
+				setTimeout(function () {
+					discover_flows[discover_swiper.activeIndex].flowplay();
+				}, 500);
+			}
+		}
 }
 
 function inMessages() {
@@ -210,9 +230,9 @@ function inMessages() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -284,9 +304,9 @@ function inNotifications() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -326,7 +346,9 @@ function inNotifications() {
 		display: "block",
 	});
 	canShowNavbar = true;
-	current_page = "notifications";
+	setTimeout(() => {
+		current_page = "notifications";
+	}, 100);
 	$(".faccount").css({
 		top: "calc(1 * var(--custom-vh) + 7px)",
 		display: "block",
@@ -354,9 +376,9 @@ function onBackKeyDown() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");

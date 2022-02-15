@@ -10,11 +10,10 @@
 	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
 	font-family: "Roboto-Light";
 	transform: translateZ(0);
-	will-change: transform;
 }
 
 .fposter_photo {
-	position: fixed;
+	position: absolute;
 	width: 15vw;
 	height: 15vw;
 	top: calc(18.5 * var(--custom-vh));
@@ -24,7 +23,7 @@
 	background-size: cover;
 	background-position: center;
 	border-radius: 100%;
-	/* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	z-index: 1;
 }
 
@@ -40,7 +39,7 @@
 	background-position: center;
 	border-radius: 10vw;
 	z-index: 3;
-	/* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .ffollower2 {
@@ -55,7 +54,7 @@
 	background-position: center;
 	border-radius: 10vw;
 	z-index: 2;
-	/* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .ffollower3 {
@@ -70,13 +69,12 @@
 	background-position: center;
 	border-radius: 10vw;
 	z-index: 1;
-	/* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .ftop_part {
 	position: absolute;
 	display: block;
-	overflow: hidden;
 	top: 0;
 	height: calc(25 * var(--custom-vh));
 	width: 90vw;
@@ -98,7 +96,7 @@
 	color: #ffffff;
 	text-align: left;
 	font-weight: bold;
-	/* text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); */
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 .fpost_date {
@@ -110,7 +108,7 @@
 	height: calc(2 * var(--custom-vh));
 	color: #ffffff;
 	text-align: left;
-	/* text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); */
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 	display: none;
 }
 
@@ -119,7 +117,7 @@
 	left: 81vw;
 	top: calc(-2 * var(--custom-vh));
 	font-size: 7vw;
-	/* text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3); */
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 	font-weight: bold;
 	color: #ffffff;
 	font-family: "Times New Roman", Times, serif;
@@ -132,7 +130,7 @@
 	top: calc(20 * var(--custom-vh));
 	color: white;
 	opacity: 0.7;
-	/* filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.8)); */
+	filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.8));
 }
 
 .floading_flow {
@@ -145,7 +143,7 @@
 	z-index: 2;
 	object-fit: contain;
 	object-position: center;
-	/* filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.3)); */
+	filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.3));
 	transform: translateZ(0);
 }
 
@@ -158,7 +156,7 @@
 	text-align: center;
 	z-index: 2;
 	display: none;
-	/* filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.3)); */
+	filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.3));
 }
 
 .fpause_button {
@@ -170,7 +168,7 @@
 	text-align: center;
 	z-index: 2;
 	display: none;
-	/* filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.3)); */
+	filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.3));
 }
 
 .fbottom_part {
@@ -292,7 +290,7 @@
 	width: 15vw;
 	height: 15vw;
 	border-radius: 15vw;
-	/* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1); */
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 	z-index: 10;
 }
 
@@ -323,7 +321,7 @@
 	width: 95vw;
 	height: calc(0.25 * var(--custom-vh));
 	background-color: rgba(255, 255, 255, 0.9);
-	/* box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.33); */
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.33);
 	opacity: 0.9;
 	display: none;
 }
@@ -336,14 +334,13 @@
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.4);
 	z-index: 0;
-	/* border-top-left-radius: 2vw;
-	border-top-right-radius: 2vw; */
+	border-top-left-radius: 2vw;
+	border-top-right-radius: 2vw;
 	pointer-events: none;
 	transition-timing-function: linear;
+	transform-origin: left;
 	transform: scale3d(0, 1, 1);
-	transform-origin: center left;
-	will-change: transform;
-	/* transition-duration: 0.5s; */
+	/* transition-duration: 0.6s; */
 }
 
 .fslider {

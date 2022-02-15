@@ -69,10 +69,10 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 		},
 		null,
 		function () {
-			// console.log("fb current_page event success");
+			console.log("fb current_page event success");
 		},
 		function () {
-			console.warn("fb current_page error");
+			console.log("fb current_page error");
 		}
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -413,7 +413,7 @@ function ShowMyFlow(flow) {
 		if (indexMyFlow == 0) {
 			let no_flows = document.createElement("label");
 			no_flows.className = "empty_content";
-			no_flows.innerHTML = "Aucun flow publié";
+			no_flows.innerHTML = `${language_mapping[device_language]['empty_content']}`;
 			$("#MyActivity")[0].appendChild(no_flows);
 		}
 		// window.alert("Plus de flow a recupt");
@@ -527,10 +527,10 @@ document
 			},
 			null,
 			function () {
-				// console.log("fb current_page event success");
+				console.log("fb current_page event success");
 			},
 			function () {
-				console.warn("fb current_page error");
+				console.log("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -549,7 +549,7 @@ function ShowMyLikedFlows(flow, data_block_user) {
 		if (indexMyLike == 0) {
 			let no_flows = document.createElement("label");
 			no_flows.className = "empty_content";
-			no_flows.innerHTML = "Aucun flow aimé";
+			no_flows.innerHTML = `${language_mapping[device_language]['empty_liked_content']}`;
 			$("#MyLikes")[0].appendChild(no_flows);
 		}
 		if ($(".loading_myaccount")) $(".loading_myaccount").remove();

@@ -200,6 +200,7 @@
 	opacity: 0;
 	pointer-events: none;
 	overflow-y: scroll;
+	background-color:#fff;
 }
 
 .top_users_txt {

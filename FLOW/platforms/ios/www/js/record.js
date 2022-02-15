@@ -33,7 +33,12 @@ $(".flow_btn_img").on("click", function () {
 		Popup("popup-connect", true, 60);
 	}
 });
-$(".flow_btn_img").longpress(function () {
+
+var flow_btn_img = document.getElementsByClassName("flow_btn_img")[0];
+var frecord_btn = document.getElementsByClassName("frecord-btn")[0];
+
+flow_btn_img.addEventListener('long-press', function (e) {
+
 	if (connected) {
 		console.log("Hold Record !");
 		// app.popup('.popup-record');
@@ -48,13 +53,16 @@ $(".flow_btn_img").longpress(function () {
 		Popup("popup-connect", true, 60);
 	}
 });
-$(".frecord-btn").longpress(function () {
+
+frecord_btn.addEventListener('long-press', function (e) {
 	if (!recording && !record_was_hold) {
 		console.log("Hold Record !");
 		record_was_hold = true;
 		startCapture();
 	}
 });
+
+
 document.getElementById("popup-record").addEventListener("opened", function () {
 	stopAllBlocksAudio();
 	$("#flow_number_of_sec").text("00");
@@ -358,6 +366,7 @@ $(".fvalidate-after_btn").on("touchend", function () {
 				Sound: appState.blob64,
 				Duration: record_time,
 				Time: "0",
+				language: device_language
 			};
 			console.log(data);
 			// Socket.client.send("Flow", "AddFlow", data); --OLD
@@ -499,7 +508,7 @@ function CloseAfterRecord() {
 	// analytics.setCurrentScreen(current_page);
 
 	TLCurrentIndex = 0;
-	ServerManager.GetTimeline(0);
+	ServerManager.GetTimeline(0, 5);
 }
 
 function PlayRipple(element, className) {

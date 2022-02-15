@@ -21,8 +21,8 @@ function setupApp() {
     $(".explore_tab").load("pages/explore.html", function () {
         explore_tab_loaded();
         // initMainTopbar(document.querySelector(".top50"));
-        // initMainTopbar(document.querySelector(".recents"));
-        // setupFDJ();
+        initMainTopbar(document.querySelector(".recents"));
+        setupFDJ();
         // setupDiscover();
         // initialize explore swiper
         // explore_swiper = new Swiper('.explore_tabs');
@@ -65,7 +65,7 @@ function setupApp() {
     // initialize new features popup
     if (window.localStorage.getItem("new_features_version") != AppVersion.version) {
 
-        in_new_features = true;
+        /*in_new_features = true;
 
         //Exception pour cette version: pas de popup nouveautés:
         $(".fred_dot_toolbar_fdj").css("display", "none");
@@ -74,24 +74,24 @@ function setupApp() {
         $("#div_new_features_background").css("display", "block");
         $("#border_close_div_new_features")[0].innerHTML = "5 secondes";
         setTimeout(function () {
-            $("#border_close_div_new_features")[0].innerHTML = "4 secondes";
+            $("#border_close_div_new_features")[0].innerHTML = `4 ${language_mapping[device_language]['multi_seconde']}`;
         }, 3000);
         setTimeout(function () {
-            $("#border_close_div_new_features")[0].innerHTML = "3 secondes";
+            $("#border_close_div_new_features")[0].innerHTML = `3 ${language_mapping[device_language]['multi_seconde']}`;
         }, 4000);
         setTimeout(function () {
-            $("#border_close_div_new_features")[0].innerHTML = "2 secondes";
+            $("#border_close_div_new_features")[0].innerHTML = `2 ${language_mapping[device_language]['multi_seconde']}`;
         }, 5000);
         setTimeout(function () {
-            $("#border_close_div_new_features")[0].innerHTML = "1 seconde";
+            $("#border_close_div_new_features")[0].innerHTML = `1 ${language_mapping[device_language]['single_seconde']}`;
         }, 6000);
         setTimeout(function () {
-            $("#border_close_div_new_features")[0].innerHTML = "C'est parti !";
+            $("#border_close_div_new_features")[0].innerHTML = `${language_mapping[device_language]['c_parti']}`;
             $("#close_div_new_features").css({
                 "opacity": "1",
                 "pointer-events": "auto"
             });
-        }, 7000);
+        }, 7000);*/
 
         // Discornect user if needed 
         // setTimeout(function () {
@@ -138,7 +138,6 @@ function hideTopBar(element) {
 // when pages_swiper changed
 function pageHasChanged() {
     let current_page_index = pages_swiper.activeIndex;
-    // console.log(current_page_index);
     let home_btn = $(".home_btn");
     let explore_btn = $(".explore_btn");
     let messages_btn = $(".messages_btn");

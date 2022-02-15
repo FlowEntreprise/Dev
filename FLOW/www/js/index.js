@@ -15,7 +15,8 @@ var analytics;
 var push;
 var httpd = null;
 var worker;
-
+var device_language;
+var language_mapping;
 var registrationId;
 var noteId = 0;
 var app = {
@@ -32,7 +33,8 @@ var app = {
 	onDeviceReady: function () {
 		Keyboard.hide();
 		let custom_vh = window.innerHeight / 100;
-		// console.log(window.localStorage.getItem("custom_vh"), custom_vh);
+		device_language = navigator.language.slice(0, 2).toUpperCase();
+		console.log(window.localStorage.getItem("custom_vh"), custom_vh);
 		if (window.localStorage.getItem("custom_vh")) {
 			custom_vh = window.localStorage.getItem("custom_vh");
 		} else {
@@ -137,7 +139,7 @@ var app = {
 					}
 				},
 				function (err) {
-					// console.log("Error opening rating dialog: " + err);
+					console.log("Error opening rating dialog: " + err);
 				}
 			);
 
@@ -250,7 +252,6 @@ var app = {
 			},
 		});
 
-
 		push.on("registration", function (data) {
 			// data.registrationId
 			//// console.log(data.registrationId);
@@ -278,21 +279,17 @@ var app = {
 
 		});
 
-		push.setApplicationIconBadgeNumber(
-			() => {
-				console.log('success');
-			},
-			() => {
-				console.log('error');
-			},
-			2
-		);
-
-
-
 		if (window.cordova.platformId == "ios") {
-			let topic = "all-ios";
-			let unsubscribe = "all-android";
+			let topic;
+			let unsubscribe;
+			if (device_language == "FR") {
+				topic = "all-ios-fr";
+				unsubscribe = "all-ios-en";
+			}
+			else {
+				topic = "all-ios-en";
+				unsubscribe = "all-ios-fr";
+			}
 			push.unsubscribe(unsubscribe, function () {
 				// console.log('unsubscribe success: ' + unsubscribe);
 			}, function (e) {
@@ -307,49 +304,39 @@ var app = {
 		}
 
 		if (window.cordova.platformId == "android") {
-			let topic = "all-android";
-			let unsubscribe = "all-ios";
+
+			let topic;
+			let unsubscribe;
+			if (device_language == "FR") {
+				topic = "all-android-fr";
+				unsubscribe = "all-android-en";
+			}
+			else {
+				topic = "all-android-en";
+				unsubscribe = "all-android-fr";
+			}
+
+			console.log("LA LANGUE DE DEVICE : " + device_language);
 			push.unsubscribe(unsubscribe, function () {
-				// console.log('unsubscribe success: ' + unsubscribe);
+				console.log('unsubscribe success: ' + unsubscribe);
 			}, function (e) {
-				// console.log()('unsubscribe error:');
+				console.log()('unsubscribe error:');
 			});
 
 			push.subscribe(topic, function () {
-				// console.log('subscribe success: ' + topic);
+				console.log('subscribe success: ' + topic);
 			}, function (e) {
-				// console.log()('subscribe error:');
+				console.log()('subscribe error:');
 			});
 		}
+
+
 
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
 			pas dans l'application */
-			//// console.log("data notif firebase");
-			//// console.log(data);
-
-			/*push.getApplicationIconBadgeNumber(
-				n => {
-					console.log('Get badge number success', n);
-
-					push.setApplicationIconBadgeNumber(
-						() => {
-							console.log('Set badge number success');
-						},
-						() => {
-							console.log('Set badge number error');
-						},
-						n
-					);
-
-				},
-				() => {
-					console.log('Get badge number error');
-				}
-			);*/
-
-
-
+			//console.log("data notif firebase");
+			//console.log(data);
 			if (data.additionalData.foreground == false) {
 				Popup("popup-specifique", false);
 				Popup("popup-comment", false);
@@ -439,7 +426,7 @@ var app = {
 		});
 
 		push.on("error", function (e) {
-			//// console.log(e.message);
+			//console.log(e.message);
 		});
 
 		firebase.initializeApp(firebaseConfig);
@@ -523,7 +510,7 @@ function check_app_version(app_version) {
 				app_version.Android != AppVersion.version)
 		) {
 			navigator.notification.confirm(
-				"Mets l'application à jour pour profiter des toutes dernières fonctionnalités.",
+				`${language_mapping[device_language]['update_ap']}`,
 				function (id) {
 					if (id == 1) {
 						if (window.cordova.platformId == "ios") {
@@ -536,8 +523,8 @@ function check_app_version(app_version) {
 						}
 					}
 				},
-				"Nouvelle version de l'application disponible !",
-				["OK", "Annuler"]
+				`${language_mapping[device_language]['new_version_available']}`,
+				[`${language_mapping[device_language]['yes']}`, `${language_mapping[device_language]['cancel']}`]
 			);
 		}
 	}, 1000);

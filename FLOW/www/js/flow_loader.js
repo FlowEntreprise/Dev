@@ -38,7 +38,7 @@ class FlowObj {
 
     OnReady(callback) {
         let self = this;
-        if (!this.ready /*|| !this.duration*/ ) {
+        if (!this.ready /*|| !this.duration*/) {
             setTimeout(function () {
                 self.OnReady(callback);
             }, 50);
@@ -48,16 +48,15 @@ class FlowObj {
     }
 
     LoadFromUrl(url) {
-        // console.log(url);
         let self = this;
         var xhr = new XMLHttpRequest();
-        // console.log("downloading flow from online url...");
+        console.log("downloading flow from online url...");
         xhr.open('GET', url, true);
         xhr.responseType = 'blob';
 
         xhr.onload = function () {
             if (this.status == 200) {
-                // console.log("flow successfully downloaded !");
+                console.log("flow successfully downloaded !");
                 var blob = new Blob([this.response], {
                     type: 'audio/mpeg'
                 });
@@ -72,13 +71,26 @@ class FlowObj {
                 // self.ready = true;
                 window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function (dirEntry) {
                     var isAppend = true;
-                    // console.log(blob, self.fileName);
+                    console.log(blob, self.fileName);
                     self.saveFile(dirEntry, blob, self.fileName);
                 }, function (err) {
                     console.error(err);
                 });
             }
         };
+
+        // xhr.onreadystatechange = function (oEvent) {
+        //     if (xhr.readyState === 4) {
+        //         if (xhr.status === 200) {
+        //             console.log(xhr.responseText)
+        //         } else {
+        //             console.log("Error", xhr.statusText);
+        //         }
+        //     }
+        // };
+        // if (xhr.status == 200) {
+
+        // }
         xhr.send();
     }
 
@@ -102,13 +114,13 @@ class FlowObj {
         fileEntry.createWriter(function (fileWriter) {
 
             fileWriter.onwriteend = function () {
-                // console.log("Successful file writed : " + fileWriter.localURL);
+                console.log("Successful file writed : " + fileWriter.localURL);
                 self.local_url = fileWriter.localURL;
                 self.ready = true;
             };
 
             fileWriter.onerror = function (e) {
-                console.warn("Failed file write: " + e.toString());
+                console.log("Failed file write: " + e.toString());
             };
 
             fileWriter.write(dataObj);
@@ -123,11 +135,11 @@ class FlowObj {
                 create: false
             }, function (fileEntry) {
                 fileEntry.remove(function (file) {
-                    // console.log("file removed!");
+                    console.log("file removed!");
                 }, function (error) {
-                    console.warn("error occurred: " + error.code);
+                    console.log("error occurred: " + error.code);
                 }, function () {
-                    console.warn("file does not exist");
+                    console.log("file does not exist");
                 });
             });
         }, function (err) {

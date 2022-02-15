@@ -74,15 +74,15 @@ document.getElementById("popup-record").addEventListener("opened", function () {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
-			// console.log("fb current_page event success");
+			console.log("fb current_page event success");
 		},
 		function () {
-			console.warn("fb current_page error");
+			console.log("fb current_page error");
 		}
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -120,15 +120,15 @@ document.getElementById("popup-record").addEventListener("closed", function () {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
-			// console.log("fb current_page event success");
+			console.log("fb current_page event success");
 		},
 		function () {
-			console.warn("fb current_page error");
+			console.log("fb current_page error");
 		}
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -152,15 +152,15 @@ document
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
-				// console.log("fb current_page event success");
+				console.log("fb current_page event success");
 			},
 			function () {
-				console.warn("fb current_page error");
+				console.log("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -210,15 +210,15 @@ document
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
-				// console.log("fb current_page event success");
+				console.log("fb current_page event success");
 			},
 			function () {
-				console.warn("fb current_page error");
+				console.log("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -315,15 +315,15 @@ $(".fcancel-after_btn").on("touchend", function () {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
-				// console.log("fb current_page event success");
+				console.log("fb current_page event success");
 			},
 			function () {
-				console.warn("fb current_page error");
+				console.log("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -336,15 +336,15 @@ $(".fcancel-after_btn").on("touchend", function () {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
-				// console.log("fb current_page event success");
+				console.log("fb current_page event success");
 			},
 			function () {
-				console.warn("fb current_page error");
+				console.log("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -366,6 +366,7 @@ $(".fvalidate-after_btn").on("touchend", function () {
 				Sound: appState.blob64,
 				Duration: record_time,
 				Time: "0",
+				language: device_language
 			};
 			console.log(data);
 			// Socket.client.send("Flow", "AddFlow", data); --OLD
@@ -383,10 +384,10 @@ $(".fvalidate-after_btn").on("touchend", function () {
 
 				facebookConnectPlugin.logEvent(
 					"record_flow", {
-						// private_id: data.PrivatedId,
-						// description: data.Description,
-						duration: data.Duration,
-					},
+					// private_id: data.PrivatedId,
+					// description: data.Description,
+					duration: data.Duration,
+				},
 					null,
 					function () {
 						console.log("fb record flow event success");
@@ -428,8 +429,8 @@ $(".fvalidate-after_btn").on("touchend", function () {
 
 			facebookConnectPlugin.logEvent(
 				"upload_story", {
-					duration: storydata.Duration,
-				},
+				duration: storydata.Duration,
+			},
 				null,
 				function () {
 					console.log("fb event success");
@@ -490,25 +491,24 @@ function CloseAfterRecord() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
-			// console.log("fb current_page event success");
+			console.log("fb current_page event success");
 		},
 		function () {
-			console.warn("fb current_page error");
+			console.log("fb current_page error");
 		}
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 	current_page = "home";
 
 	// analytics.setCurrentScreen(current_page);
-	RefreshTL();
-	// rmTL
-	// TLCurrentIndex = 0;
-	// ServerManager.GetTimeline(0);
+
+	TLCurrentIndex = 0;
+	ServerManager.GetTimeline(0, 5);
 }
 
 function PlayRipple(element, className) {
@@ -558,15 +558,15 @@ function Save(blob) {
 				Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 			facebookConnectPlugin.logEvent(
 				"current_page", {
-					page: current_page,
-					duration: time_in_last_screen,
-				},
+				page: current_page,
+				duration: time_in_last_screen,
+			},
 				null,
 				function () {
-					// console.log("fb current_page event success");
+					console.log("fb current_page event success");
 				},
 				function () {
-					console.warn("fb current_page error");
+					console.log("fb current_page error");
 				}
 			);
 			last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -644,15 +644,15 @@ function Save(blob) {
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
-				// console.log("fb current_page event success");
+				console.log("fb current_page event success");
 			},
 			function () {
-				console.warn("fb current_page error");
+				console.log("fb current_page error");
 			}
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
@@ -694,8 +694,8 @@ function Save(blob) {
 
 			facebookConnectPlugin.logEvent(
 				"upload_story_comment", {
-					duration: story_comment.Duration,
-				},
+				duration: story_comment.Duration,
+			},
 				null,
 				function () {
 					console.log("fb record sotry comment event success");
@@ -732,7 +732,8 @@ function Save(blob) {
 			if (first_chat == true) {
 				ServerManager.AddChat(data_dm, false);
 				ServerManager.UploadAudioToFirebase(DataFirebase);
-			} else {
+			}
+			else {
 
 				ServerManager.UploadAudioToFirebase(DataFirebase);
 			}
@@ -1003,15 +1004,15 @@ function closeStoryRecord() {
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
-			// console.log("fb current_page event success");
+			console.log("fb current_page event success");
 		},
 		function () {
-			console.warn("fb current_page error");
+			console.log("fb current_page error");
 		}
 	);
 	current_page = "home";
