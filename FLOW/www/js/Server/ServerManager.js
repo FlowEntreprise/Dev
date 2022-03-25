@@ -45,6 +45,7 @@ const ServerParams = {
 	UnBlockUser: "UnBlockUser",
 	GetBlockedUsers: "GetBlockedUsers",
 	AddReportFlow: "AddReportFlow",
+	AddReportUser: "AddReportUser",
 	AddCommentResponse: "AddCommentResponse",
 	GetCommentResponse: "GetCommentResponse",
 	GetCommentLikes: "GetCommentLikes",
@@ -1607,6 +1608,29 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				////console.log("le flow a bien été report");
+				in_app_notif(data);
+			},
+			error: function (response) {
+				////console.log(response);
+			},
+		});
+	}
+
+
+	AddReportUser(data) {
+		let final_data = {
+			Data: {
+				PrivateId: data.PrivateId,
+			},
+			TokenId: window.localStorage.getItem("user_token"),
+		};
+		////console.log(final_data);
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.AddReportUser,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				////console.log("le user a bien été report");
 				in_app_notif(data);
 			},
 			error: function (response) {
