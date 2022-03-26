@@ -860,7 +860,7 @@ $("#block_button").on("click", function () {
 	if (user_is_blocked == false) {
 		// block.png icone grise donc user debloqué
 		navigator.notification.confirm(
-			"Veux-tu vraiment bloquer cet utilisateur ?",
+			`${language_mapping[device_language]['user_block_confirmation']}`,
 			function (id) {
 				if (id == 1) {
 					function alertDismissed() { }
@@ -933,7 +933,7 @@ $("#block_button").on("click", function () {
 				}
 			},
 			"Confirmation",
-			["Oui", "Annuler"]
+			[`${language_mapping[device_language]['yes']}`, `${language_mapping[device_language]['cancel']}`]
 		);
 		return;
 	}
