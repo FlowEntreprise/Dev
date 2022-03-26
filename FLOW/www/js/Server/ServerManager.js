@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-	ServerURL: "https://api.flowappweb.com/",
+	ServerURL: "https://api-test.flowappweb.com/",
 	ConnexionURL: "ConnexionFromApi",
 	AddFlowURL: "AddFlow",
 	GetSingleFlowURL: "GetSingle",
@@ -1620,7 +1620,7 @@ class ServerManagerClass {
 	AddReportUser(data) {
 		let final_data = {
 			Data: {
-				PrivateId: data.PrivateId,
+				PrivateId: data.privateId,
 			},
 			TokenId: window.localStorage.getItem("user_token"),
 		};
@@ -1630,11 +1630,10 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.AddReportUser,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				////console.log("le user a bien été report");
-				in_app_notif(data);
+				//console.log(response);
 			},
 			error: function (response) {
-				////console.log(response);
+				console.log(response);
 			},
 		});
 	}

@@ -938,3 +938,31 @@ $("#block_button").on("click", function () {
 		return;
 	}
 });
+
+
+$("#user_report_button").on("click", function () {
+	if (user_is_blocked == false) {
+		// block.png icone grise donc user debloqué
+		navigator.notification.confirm(
+
+			`${language_mapping[device_language]['user_report_confirmation']}`,
+			function (id) {
+				if (id == 1) {
+					function alertDismissed() { }
+
+					let data = {
+						privateId: privateIDAccount
+					};
+					//ServerManager.AddReportUser(data);
+
+					$("#user_report_button").css(
+						"display", "none"
+					);
+				}
+			},
+			"Confirmation",
+			[`${language_mapping[device_language]['yes']}`, `${language_mapping[device_language]['cancel']}`]
+		);
+		return;
+	}
+});
