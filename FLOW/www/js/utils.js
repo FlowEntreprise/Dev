@@ -279,9 +279,9 @@ function translate_app() {
             //STATIC
             "fpopup-connect-msg-inscription": "An account is required to perform this action",
             "privacy_policy": ["By continuing you agree to the ",
-                "<a class=\"funderline\" onclick=\"window.open('http:\/\/www.flowappweb.com/terms_and_conditions.html', '_self', 'location=no')\">Terms of Use</a> ",
+                "<a class=\"funderline\" onclick=\"window.open('https:\/\/www.flowappweb.com/terms_and_conditions.html', '_self', 'location=no')\">Terms of Use</a> ",
                 "and affirm that you have read and understand FLOW's ",
-                "<a class=\"funderline\" onclick=\"window.open('http:\/\/www.flowappweb.com/privacy_policy.html', '_self', 'location=no')\">privacy policy</a>"
+                "<a class=\"funderline\" onclick=\"window.open('https:\/\/www.flowappweb.com/privacy_policy.html', '_self', 'location=no')\">privacy policy</a>"
             ],
             "fdj_title": "You have been elected flow of the day!",
             "fdj_follow": "FOLLOW",
@@ -436,9 +436,9 @@ function translate_app() {
             //STATIC
             "fpopup-connect-msg-inscription": "Un compte est nécessaire pour réaliser cette action",
             "privacy_policy": ["En continuant vous acceptez les ",
-                "<a class=\"funderline\" onclick=\"window.open('http:\/\/www.flowappweb.com/terms_and_conditions.html', '_self', 'location=no')\">conditions d'utilisations</a> ",
+                "<a class=\"funderline\" onclick=\"window.open('https:\/\/www.flowappweb.com/terms_and_conditions.html', '_self', 'location=no')\">conditions d'utilisations</a> ",
                 "et affirmez avoir lu et compris la ",
-                "<a class=\"funderline\" onclick=\"window.open('http:\/\/www.flowappweb.com/privacy_policy.html', '_self', 'location=no')\">politique de confidentialité de FLOW</a>"
+                "<a class=\"funderline\" onclick=\"window.open('https:\/\/www.flowappweb.com/privacy_policy.html', '_self', 'location=no')\">politique de confidentialité de FLOW</a>"
             ],
             "fdj_title": "Vous avez été élu flow du jour !",
             "fdj_follow": "S'ABONNER",
