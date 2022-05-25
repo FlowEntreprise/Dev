@@ -279,9 +279,9 @@ function translate_app() {
             //STATIC
             "fpopup-connect-msg-inscription": "An account is required to perform this action",
             "privacy_policy": ["By continuing you agree to the ",
-                "<a class=\"funderline\" onclick=\"window.open('http:\/\/www.flowappweb.com/terms_and_conditions.html', '_self', 'location=no')\">Terms of Use</a> ",
+                "<a class=\"funderline\" onclick=\"window.open('https:\/\/www.flowappweb.com/terms_and_conditions.html', '_self', 'location=no')\">Terms of Use</a> ",
                 "and affirm that you have read and understand FLOW's ",
-                "<a class=\"funderline\" onclick=\"window.open('http:\/\/www.flowappweb.com/privacy_policy.html', '_self', 'location=no')\">privacy policy</a>"
+                "<a class=\"funderline\" onclick=\"window.open('https:\/\/www.flowappweb.com/privacy_policy.html', '_self', 'location=no')\">privacy policy</a>"
             ],
             "fdj_title": "You have been elected flow of the day!",
             "fdj_follow": "FOLLOW",
@@ -377,6 +377,8 @@ function translate_app() {
             "btn_report_commentaire": "Report comment",
             "btn_copy_commentaire_title": "Copy  comment",
             "flow_report_confirmation": "Do you really want to report this flow ?",
+            "user_report_confirmation": "Do you really want to report this user ?",
+            "user_block_confirmation": "Do you really want to block this user ?",
             "commentaire_report_confirmation": "Do you really want to report this comment ?",
             "message_report_confirmation": "Do you really want to report this message ?",
             "flow_delete_confirmation": "Do you really want to delete this flow ?",
@@ -434,9 +436,9 @@ function translate_app() {
             //STATIC
             "fpopup-connect-msg-inscription": "Un compte est nécessaire pour réaliser cette action",
             "privacy_policy": ["En continuant vous acceptez les ",
-                "<a class=\"funderline\" onclick=\"window.open('http:\/\/www.flowappweb.com/terms_and_conditions.html', '_self', 'location=no')\">conditions d'utilisations</a> ",
+                "<a class=\"funderline\" onclick=\"window.open('https:\/\/www.flowappweb.com/terms_and_conditions.html', '_self', 'location=no')\">conditions d'utilisations</a> ",
                 "et affirmez avoir lu et compris la ",
-                "<a class=\"funderline\" onclick=\"window.open('http:\/\/www.flowappweb.com/privacy_policy.html', '_self', 'location=no')\">politique de confidentialité de FLOW</a>"
+                "<a class=\"funderline\" onclick=\"window.open('https:\/\/www.flowappweb.com/privacy_policy.html', '_self', 'location=no')\">politique de confidentialité de FLOW</a>"
             ],
             "fdj_title": "Vous avez été élu flow du jour !",
             "fdj_follow": "S'ABONNER",
@@ -531,7 +533,9 @@ function translate_app() {
             "btn_delete_commentaire": "Supprimer le commentaire",
             "btn_report_commentaire": "Signaler le commentaire",
             "btn_copy_commentaire_title": "Copier le commentaire",
-            "flow_report_confirmation": "Veux-tu vraiment signaler ce flow ?",
+            "flow_report_confirmation": "Veux-tu vraiment signaler cet utilisateur ?",
+            "user_report_confirmation": "Veux-tu vraiment signaler ce flow ?",
+            "user_block_confirmation": "Veux-tu vraiment bloquer cet utilisateur ?",
             "commentaire_report_confirmation": "Veux-tu vraiment signaler ce commentaire ?",
             "message_report_confirmation": "Veux-tu vraiment signaler ce message ?",
             "flow_delete_confirmation": "Veux-tu vraiment supprimer ce flow ?",

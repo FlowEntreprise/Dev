@@ -297,8 +297,7 @@ function RefreshExplore() {
 	console.log("refreshing...");
 	refresh_top50();
 	refresh_recents();
-	// ServerManager.GetRandomFlow(randomExcluded);
-	ServerManager.GetFDJ();
+	// ServerManager.GetRandomFlow(randomExcluded);	
 }
 
 function RefreshSearch() {

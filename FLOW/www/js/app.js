@@ -12,12 +12,7 @@ var main_topbar;
 // Setup all elements
 function setupApp() {
 
-    //initialize tabs content
-    $(".home_tab").load("pages/home.html", function () {
-        home_tab_loaded();
-        initMainTopbar(document.querySelector(".home_parent"));
-    });
-
+    //initialize tabs content    
     $(".explore_tab").load("pages/explore.html", function () {
         explore_tab_loaded();
         // initMainTopbar(document.querySelector(".top50"));
@@ -28,6 +23,11 @@ function setupApp() {
         // explore_swiper = new Swiper('.explore_tabs');
     });
 
+    $(".home_tab").load("pages/home.html", function () {
+        home_tab_loaded();
+        initMainTopbar(document.querySelector(".home_parent"));
+    });
+
     $(".messages_tab").load("pages/messages.html", function () {
         messages_tab_loaded();
     });
@@ -35,6 +35,7 @@ function setupApp() {
     $(".notifications_tab").load("pages/notifications.html", function () {
         notifications_tab_loaded();
     });
+
 
     // initialize pages_swiper
     pages_swiper = new Swiper('.main_pages', {
