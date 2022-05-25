@@ -64,9 +64,9 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 		Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 	facebookConnectPlugin.logEvent(
 		"current_page", {
-			page: current_page,
-			duration: time_in_last_screen,
-		},
+		page: current_page,
+		duration: time_in_last_screen,
+	},
 		null,
 		function () {
 			console.log("fb current_page event success");
@@ -83,11 +83,16 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 	indexMyLike = 0;
 	$("#MyActivity")[0].innerHTML = "";
 	$("#MyLikes")[0].innerHTML = "";
+
+	let LikesFirstLoad = document.createElement("div");
+	LikesFirstLoad.className = "loading-spinner LikesFirstLoad";
+
 	let loading_tl = document.createElement("div");
 	loading_tl.className = "loading-spinner loading_myaccount";
 	loading_tl.style.marginTop = "50%";
 	$("#MyActivity")[0].appendChild(loading_tl);
 	$("#MyLikes")[0].appendChild(loading_tl);
+	$("#MyLikes")[0].appendChild(LikesFirstLoad);
 	$("#fnameMonCompte").html(nameMonCompte);
 	$("#fbioMonCompte").html(bioMonCompte);
 	let getFlow = {
@@ -522,9 +527,9 @@ document
 			Math.floor(Date.now() / 1000) - last_currentpage_timestamp;
 		facebookConnectPlugin.logEvent(
 			"current_page", {
-				page: current_page,
-				duration: time_in_last_screen,
-			},
+			page: current_page,
+			duration: time_in_last_screen,
+		},
 			null,
 			function () {
 				console.log("fb current_page event success");
@@ -611,11 +616,12 @@ function ShowMyLikedFlows(flow, data_block_user) {
 							LastOs: data.LastOs,
 							Views: data.Views
 						};
+						if ($(".LikesFirstLoad")) $(".LikesFirstLoad").remove();
 						let new_block = new block(block_params);
 						all_blocks.push(new_block);
 						if (i == 0 && indexMyLike == 0)
 							new_block.block_flow.style.marginTop =
-							"calc(27 * var(--custom-vh))";
+								"calc(27 * var(--custom-vh))";
 						if ($(".loading_myaccount")) $(".loading_myaccount").remove();
 
 						//console.log("Pop Flow");
@@ -647,6 +653,7 @@ function ShowMyLikedFlows(flow, data_block_user) {
 					LastOs: data.LastOs,
 					Views: data.Views
 				};
+				if ($(".LikesFirstLoad")) $(".LikesFirstLoad").remove();
 				let new_block = new block(block_params);
 				all_blocks.push(new_block);
 				if (i == 0 && indexMyLike == 0)

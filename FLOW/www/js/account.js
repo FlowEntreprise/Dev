@@ -27,11 +27,16 @@ function alertDismissed() { }
 function fInitialisationAccount(privateId) {
 	$("#UserActivity")[0].innerHTML = "";
 	$("#UserLikes")[0].innerHTML = "";
+
+	let LikesFirstLoad = document.createElement("div");
+	LikesFirstLoad.className = "loading-spinner LikesFirstLoad";
+
 	let loading_tl = document.createElement("div");
 	loading_tl.className = "loading-spinner loading_account";
 	loading_tl.style.marginTop = "50%";
 	$("#UserActivity")[0].appendChild(loading_tl);
 	$("#UserLikes")[0].appendChild(loading_tl);
+	$("#UserLikes")[0].appendChild(LikesFirstLoad);
 	privateIDAccount = privateId;
 	indexAccount = 0;
 	indexAccountLike = 0;
@@ -686,6 +691,7 @@ function ShowLikedFlows(flow, data_block_user) {
 	if (Array.isArray(flow.Data) == false || flow.Data.length == 0) {
 		UserLikeAdd = false;
 		if (indexAccountLike == 0) {
+			if ($(".LikesFirstLoad")) $(".LikesFirstLoad").remove();
 			let no_flows = document.createElement("label");
 			no_flows.className = "empty_content";
 			no_flows.innerHTML = "Aucun flow aimé";
@@ -752,6 +758,7 @@ function ShowLikedFlows(flow, data_block_user) {
 							Comments: data.Comments,
 							Responses: data.Responses
 						};
+						if ($(".LikesFirstLoad")) $(".LikesFirstLoad").remove();
 						let new_block = new block(block_params);
 						all_blocks.push(new_block);
 						if (i == 0 && indexAccountLike == 0)
