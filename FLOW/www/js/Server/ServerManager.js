@@ -85,6 +85,7 @@ class ServerManagerClass {
 		switch (api) {
 			case apiTypes.Unregistered:
 				DataSend = {
+					Language: navigator.language.slice(0, 2).toUpperCase(),
 					RegisterId: registrationId,
 					LastOs: window.cordova.platformId
 				};
@@ -95,6 +96,7 @@ class ServerManagerClass {
 				break;
 			case apiTypes.Flow:
 				DataSend = {
+					Language: navigator.language.slice(0, 2).toUpperCase(),
 					Username: data.Username,
 					Password: data.Password,
 					Name: data.Name,
@@ -113,6 +115,7 @@ class ServerManagerClass {
 				break;
 			case apiTypes.Facebook:
 				DataSend = {
+					Language: navigator.language.slice(0, 2).toUpperCase(),
 					Username: data.name,
 					Fullname: data.name,
 					Email: data.email,
@@ -145,6 +148,7 @@ class ServerManagerClass {
 
 				Username = Username.replace(parenthesis, "");
 				DataSend = {
+					Language: navigator.language.slice(0, 2).toUpperCase(),
 					Username: Username,
 					Fullname: Fullname,
 					Email: data.email,
@@ -162,6 +166,7 @@ class ServerManagerClass {
 				break;
 			case apiTypes.Twitter:
 				DataSend = {
+					Language: navigator.language.slice(0, 2).toUpperCase(),
 					Username: data.name,
 					Fullname: data.name,
 					Link: data.profile_image_url,
@@ -179,6 +184,7 @@ class ServerManagerClass {
 				break;
 			case apiTypes.Instagram:
 				DataSend = {
+					Language: navigator.language.slice(0, 2).toUpperCase(),
 					Username: data.full_name,
 					Fullname: data.full_name,
 					Link: data.profile_picture,
@@ -192,6 +198,7 @@ class ServerManagerClass {
 				break;
 			case apiTypes.Apple:
 				DataSend = {
+					Language: navigator.language.slice(0, 2).toUpperCase(),
 					Username: data.username,
 					Fullname: data.full_name,
 					Link: data.profile_picture,
