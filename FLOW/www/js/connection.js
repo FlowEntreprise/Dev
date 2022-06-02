@@ -48,9 +48,11 @@ function ConnectUser(data) {
             Private_id: window.localStorage.getItem("user_private_id"),
             full_name: window.localStorage.getItem("user_name"),
             profile_pic: window.localStorage.getItem("user_profile_pic"),
-            user_id: window.localStorage.getItem("firebase_token")
+            user_id: window.localStorage.getItem("firebase_token"),
+            Language: navigator.language.slice(0, 2).toUpperCase()
         };
         ServerManager.UpdateRegisterId(data);
+        ServerManager.UpdateUserLanguage(data);
 
         firebase.auth().signInAnonymously().then((user) => {
             ServerManager.AddUserToFirebase(data);

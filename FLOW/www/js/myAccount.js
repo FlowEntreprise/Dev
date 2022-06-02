@@ -373,9 +373,7 @@ function closeEditProfile() {
 		) {
 			let updateEditProfile = {
 				FullName: $("#editProfileName").val(),
-				Biography: $("#feditBio").val(),
-				Language: navigator.language.slice(0, 2).toUpperCase()
-
+				Biography: $("#feditBio").val()
 			};
 			console.log(window.localStorage.getItem("user_profile_pic"));
 			if (PPHasChanged) {

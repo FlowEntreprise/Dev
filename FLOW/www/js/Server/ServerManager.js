@@ -25,6 +25,8 @@ const ServerParams = {
 	GetSingleResponseExtended: "GetSingleResponseExtended",
 	ActionFollowProfil: "Follow",
 	UpdateRegisterId: "UpdateRegisterId",
+	UpdateUserLanguage: "UpdateUserLanguage",
+	UpdatePhoneNumber: "UpdatePhoneNumber",
 	GetFollowerOfUser: "GetFollowerOfUser",
 	GetFollowingOfUser: "GetFollowingOfUser",
 	AddStoryComment: "AddStoryComment",
@@ -85,7 +87,7 @@ class ServerManagerClass {
 		switch (api) {
 			case apiTypes.Unregistered:
 				DataSend = {
-					Language: navigator.language.slice(0, 2).toUpperCase(),
+
 					RegisterId: registrationId,
 					LastOs: window.cordova.platformId
 				};
@@ -96,7 +98,7 @@ class ServerManagerClass {
 				break;
 			case apiTypes.Flow:
 				DataSend = {
-					Language: navigator.language.slice(0, 2).toUpperCase(),
+
 					Username: data.Username,
 					Password: data.Password,
 					Name: data.Name,
@@ -115,7 +117,7 @@ class ServerManagerClass {
 				break;
 			case apiTypes.Facebook:
 				DataSend = {
-					Language: navigator.language.slice(0, 2).toUpperCase(),
+
 					Username: data.name,
 					Fullname: data.name,
 					Email: data.email,
@@ -148,7 +150,7 @@ class ServerManagerClass {
 
 				Username = Username.replace(parenthesis, "");
 				DataSend = {
-					Language: navigator.language.slice(0, 2).toUpperCase(),
+
 					Username: Username,
 					Fullname: Fullname,
 					Email: data.email,
@@ -166,7 +168,7 @@ class ServerManagerClass {
 				break;
 			case apiTypes.Twitter:
 				DataSend = {
-					Language: navigator.language.slice(0, 2).toUpperCase(),
+
 					Username: data.name,
 					Fullname: data.name,
 					Link: data.profile_image_url,
@@ -184,7 +186,7 @@ class ServerManagerClass {
 				break;
 			case apiTypes.Instagram:
 				DataSend = {
-					Language: navigator.language.slice(0, 2).toUpperCase(),
+
 					Username: data.full_name,
 					Fullname: data.full_name,
 					Link: data.profile_picture,
@@ -198,7 +200,7 @@ class ServerManagerClass {
 				break;
 			case apiTypes.Apple:
 				DataSend = {
-					Language: navigator.language.slice(0, 2).toUpperCase(),
+
 					Username: data.username,
 					Fullname: data.full_name,
 					Link: data.profile_picture,
@@ -943,8 +945,7 @@ class ServerManagerClass {
 				UpdateProfile(
 					final_data.Data.FullName,
 					final_data.Data.Biography,
-					final_data.Data.Image,
-					final_data.Data.Language
+					final_data.Data.Image
 				);
 			},
 			error: function (response) {
@@ -1209,6 +1210,55 @@ class ServerManagerClass {
 			},
 		});
 	}
+
+	UpdateUserLanguage(data) {
+		let final_data = {
+			Data: data,
+			Action: "Language",
+			TokenId: window.localStorage.getItem("user_token"),
+		};
+		//// //console.log(final_data.Data);
+
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.UpdateUserLanguage,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				// //console.log('registerId update sucessfully: ');
+				// //console.log(response);
+			},
+			error: function (response) {
+				////console.log("registerId update error : ");
+				////console.log(response);
+				//// //console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
+			},
+		});
+	}
+
+	UpdatePhoneNumber(data) {
+		let final_data = {
+			Data: data,
+			Action: "PhoneNumber",
+			TokenId: window.localStorage.getItem("user_token"),
+		};
+		//// //console.log(final_data.Data);
+
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.UpdatePhoneNumber,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				// //console.log('registerId update sucessfully: ');
+				// //console.log(response);
+			},
+			error: function (response) {
+				////console.log("registerId update error : ");
+				////console.log(response);
+				//// //console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
+			},
+		});
+	}
+
 
 
 	IsRegisterExist(data) {
