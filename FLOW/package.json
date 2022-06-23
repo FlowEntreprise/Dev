@@ -49,6 +49,7 @@
 		"elementtree": "^0.1.7",
 		"es6-promise-plugin": "^4.2.2",
 		"glob": "^5.0.15",
+		"intl-tel-input": "^17.0.16",
 		"ionic-plugin-deeplinks": "^1.0.20",
 		"jquery.scrollto": "^2.1.2",
 		"npm": "^2.15.12",

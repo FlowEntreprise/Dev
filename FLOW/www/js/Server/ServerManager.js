@@ -1248,13 +1248,13 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.UpdatePhoneNumber,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				// //console.log('registerId update sucessfully: ');
-				// //console.log(response);
+				console.log('PhoneNumber update sucessfully: ');
+				console.log(response);
 			},
 			error: function (response) {
-				////console.log("registerId update error : ");
-				////console.log(response);
-				//// //console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
+				console.log("PhoneNumber update error : ");
+				console.log(response);
+				console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
 			},
 		});
 	}
@@ -2261,6 +2261,38 @@ class ServerManagerClass {
 		}, () => {
 			let downloadURL = voiceRef.snapshot.downloadURL;
 			console.log(downloadURL);
+		});
+
+	}
+
+
+	sendSmsVerificationCode(data) {
+		firebase.firestore().collection("messages").add({
+			to: data.PhoneNumber,
+			body: `Votre code de verification FLOW: ${data.verificationCode}`
+		}).then((docRef) => {
+			console.log("Document written with ID: ", docRef.id);
+			firestoreDocRefId = docRef.id;
+			check_user_verification_code_is_valide();
+		})
+			.catch((error) => {
+				console.error("Error adding document: ", error);
+			});
+	}
+
+
+	checkSmsVerificationCode(data) {
+		firebase.firestore().collection("messages").doc(data.id).get().then((doc) => {
+			if (doc.exists) {
+				console.log("Document data:", doc.data());
+				let data1 = doc.data();
+				data1.user_input_verification_code_value = data.user_input_verification_code_value;
+				checkIfUserCodeMatchFirestoreCode(data1);
+			} else {
+				console.log("No such document!");
+			}
+		}).catch((error) => {
+			console.log("Error getting document:", error);
 		});
 
 	}

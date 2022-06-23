@@ -27,16 +27,26 @@
     <link rel="stylesheet" type="text/css" href="css/flow_specifique.css" />
     <link rel="stylesheet" type="text/css" href="css/flowoftheday.css" />
     <link rel="stylesheet" type="text/css" href="css/discover.css" />
+    <link rel="stylesheet" type="text/css" href="css/popup-sms.css" />
     <!-- <link rel="stylesheet" type="text/css" href="css/comment_specifique.css" /> -->
     <link rel="stylesheet" type="text/css" href="css/custom_popup.css" />
     <link rel="stylesheet" type="text/css" href="css/popup_follow.css" />
     <!-- <link rel="stylesheet" type="text/css" href="css/popup_follow_list.css" /> -->
     <link rel="stylesheet" type="text/css" href="css/popup_likes.css" />
+    <link rel="stylesheet" type="text/css" href="css/intlTelInput.scss" />
     <link rel="stylesheet" type="text/css" href="css/popup_option.css" />
     <link rel="stylesheet" type="text/css" href="css/loading.css" />
     <link rel="stylesheet" type="text/css" href="css/jquery.highlight-within-textarea.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+
 
     <script type="text/javascript" src="Dependencies/Jquery/jquery_v331.js"></script>
+
     <script type="text/javascript" src="Dependencies/Jquery/longpress.js"></script>
     <script type="text/javascript" src="Dependencies/Jquery/longpress_2.js"></script>
     <script type="text/javascript" src="Dependencies/Siriwave/siriwave-block.js"></script>
@@ -690,6 +700,25 @@
             <label class="flabel_in_app_notif" id="InAppNotifNewMessage"></label>
         </div>
 
+        <div class="custom_popup" id="popup-sms">
+            <div class="popup_bg">
+                <div class="scroll_fix_ios"></div>
+            </div>
+            <div class="popup_content" animation-direction="up" id="popup_sms_content">
+
+                <h1 id="title_popup_sms">Retrouves tes amis déja present sur flow !</h1>
+                <img src="../www/src/icons/friends.png" id="sms_friends_logo">
+                <form id="mobile_number_form">
+                    <input type="tel" id="mobile-number" placeholder="+1 1 23 45 67 89 ">
+                </form>
+                <input type="text" id="verification_code" placeholder="Code de verification">
+                <label id="erreur_numero">Numero incorrect</label>
+                <div id="btn_valider_numero">Valider</div>
+                <label id="ignorer_numero" onclick="Popup('popup-sms', false)">Ignorer</label>
+                <div class="loading-spinner loading_phone_number"></div>
+            </div>
+        </div>
+
         <div class="custom_popup" id="popup-connect">
             <div class="popup_bg">
                 <div class="scroll_fix_ios"></div>
@@ -829,6 +858,7 @@
 <script type="text/javascript" src="js/popup_comment.js"></script>
 <script type="text/javascript" src="js/popup_likes.js"></script>
 <script type="text/javascript" src="js/popup_option.js"></script>
+<script type="text/javascript" src="js/popup-sms.js"></script>
 <script type="text/javascript" src="js/myAccount.js"></script>
 <script type="text/javascript" src="js/account.js"></script>
 <script type="text/javascript" src="js/utils.js"></script>
@@ -841,5 +871,6 @@
 <script type="text/javascript" src="js/discover.js"></script>
 <script type="text/javascript" src="js/jquery.highlight-within-textarea.js"></script>
 <script type="text/javascript" src="Dependencies/CustomPTR/customPTR.js"></script>
+<script type="text/javascript" src="js/intlTelInput.js"></script>
 
 </html>
