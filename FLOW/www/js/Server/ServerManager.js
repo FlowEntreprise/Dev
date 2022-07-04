@@ -29,6 +29,7 @@ const ServerParams = {
 	UpdatePhoneNumber: "UpdatePhoneNumber",
 	GetFollowerOfUser: "GetFollowerOfUser",
 	GetFollowingOfUser: "GetFollowingOfUser",
+	GetUserFromContactList: "GetUserFromContactList",
 	AddStoryComment: "AddStoryComment",
 	GetStoryComments: "GetStoryComment",
 	AddStoryView: "AddStoryView",
@@ -905,6 +906,36 @@ class ServerManagerClass {
 			error: function (response) { },
 		});
 	}
+
+
+	GetUserFromContactList(data) {
+		let final_data = {
+			TokenId: window.localStorage.getItem("user_token"),
+			Data: {
+				Index: data.Index,
+				PrivateId: data.PrivateId,
+				ContactList: data.ContactList
+			},
+		};
+		////console.log("final data = ");
+		////console.log(final_data);
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.GetUserFromContactList,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				console.log("Get User From Contact List Succes : ");
+				console.log(response);
+			},
+			error: function (response) {
+
+				console.log("Get User From Contact List error : ");
+				console.log(response);
+			},
+		});
+	}
+
+
 
 	ActionFollow(data, callback) {
 		let final_data = {

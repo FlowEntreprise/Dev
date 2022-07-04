@@ -1,3 +1,4 @@
+var all_contacts = [];
 var input = document.querySelector("#mobile-number");
 var canDisplayVerificationCodeInput = false;
 var firestoreDocRefId;
@@ -99,3 +100,34 @@ function checkIfUserCodeMatchFirestoreCode(data) {
     }
 }
 
+function onSuccess(contacts) {
+    for (let i = 0; i < contacts.length; i++) {
+        if (contacts[i].phoneNumbers) {
+            let phoneNumber = contacts[i].phoneNumbers[0].value;
+            if (phoneNumber && phoneNumber.startsWith('+')) {
+                all_contacts.push(phoneNumber.replace(/[^0-9+]/g, ''));
+            }
+        }
+        if (i == (contacts.length - 1)) {
+            let data = {
+                PrivateId: window.localStorage.getItem("user_private_id"),
+                Index: 0,
+                ContactList: all_contacts
+            };
+            ServerManager.GetUserFromContactList(data);
+        }
+
+    }
+}
+
+function onError(contactError) {
+    alert('onError!');
+}
+
+function getContactAlreadyOnFLow() {
+    var ContactOptions = new ContactFindOptions();
+    ContactOptions.filter = "";
+    ContactOptions.multiple = true;
+    filter = ["displayName", "name"];
+    navigator.contacts.find(filter, onSuccess, onError, ContactOptions);
+}
