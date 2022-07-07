@@ -825,7 +825,7 @@ class ServerManagerClass {
 		});
 	}
 
-	GetUserInfo(data) {
+	GetUserInfo(data, toCheckPhoneNumber) {
 		let final_data = {
 			Data: data,
 			TokenId: window.localStorage.getItem("user_token"),
@@ -838,6 +838,7 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				////console.log("on recup le profil");
+
 				if (typeof response == "string") {
 					// alert("Utilisateur introuvable");
 					navigator.notification.alert(
@@ -846,7 +847,12 @@ class ServerManagerClass {
 						"Information"
 					);
 				} else {
-					ShowUserProfile(response);
+					if (toCheckPhoneNumber == true) {
+						checkIfUserPhoneNumberIsAlreadyVerified(response);
+					}
+					else {
+						ShowUserProfile(response);
+					}
 				}
 			},
 			error: function (response) { },
@@ -925,12 +931,11 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				console.log("Get User From Contact List Succes : ");
-				console.log(response);
+				UpdateContactList(response, false);
 			},
 			error: function (response) {
 
 				console.log("Get User From Contact List error : ");
-				console.log(response);
 			},
 		});
 	}

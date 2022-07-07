@@ -194,7 +194,7 @@ function CheckIfConnected() {
 }
 
 function storeVariables(data) {
-    // console.log(data);
+    console.log(data);
     window.localStorage.setItem("user_name", data.FullName);
     window.localStorage.setItem("user_bio", data.Bio);
     window.localStorage.setItem("user_private_id", data.PrivateId);

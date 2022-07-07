@@ -165,6 +165,8 @@ function go_to_account(data) {
             Popup("popup-identification", false);
             Popup("popup-message", false);
             Popup("popup-create-conversation", false);
+            Popup("popup-sms", false);
+            Popup("popup-contact-on-flow", false);
             Popup("popup-myaccount", true);
             current_page = "my-account";
         } else {
@@ -181,6 +183,8 @@ function go_to_account(data) {
             Popup("popup-message", false);
             Popup("popup-create-conversation", false);
             Popup("popup-specifique", false);
+            Popup("popup-sms", false);
+            Popup("popup-contact-on-flow", false);
         } else {
             Popup("popup-comment", false);
             Popup("popup-followers", false);
@@ -190,6 +194,8 @@ function go_to_account(data) {
             Popup("popup-create-conversation", false);
             Popup("popup-specifique", false);
             Popup("popup-myaccount", false);
+            Popup("popup-sms", false);
+            Popup("popup-contact-on-flow", false);
             if (connected == true) {
                 ServerManager.GetBlockedUsers(data.private_Id, "go_to_acount"); // true si c'est une redirection vers un compte
             } else {
@@ -429,7 +435,13 @@ function translate_app() {
             "heure": "hour",
             "minute": "minute",
             "seconde": "second",
-            "refresh_fdj": "rafraîchis pour découvrir le flow du jour !"
+            "refresh_fdj": "refreshed to discover today's!",
+            "title_popup_sms": "Find your friends on flow!",
+            "erreur_numero": "Incorrect number",
+            "btn_valider_numero": "Validate",
+            "ignorer_numero": "Skip",
+            "title_contact_on_flow": "Friends already on flow",
+            "no_friends": "Unfortunately your friends are not yet on Flow, don't hesitate to invite them"
         },
         //French
         "FR": {
@@ -586,7 +598,13 @@ function translate_app() {
             "heure": "heure",
             "minute": "minute",
             "seconde": "seconde",
-            "refresh_fdj": "refreshed to discover today's!"
+            "refresh_fdj": "rafraîchis pour découvrir le flow du jour!",
+            "title_popup_sms": "Retrouves tes amis déja present sur flow!",
+            "erreur_numero": "Numero incorrect",
+            "btn_valider_numero": "Valider",
+            "ignorer_numero": "Ignorer",
+            "title_contact_on_flow": "Amis déja present sur flow",
+            "no_friends": "Malheureusement tes amis ne sont pas encore sur Flow, n'hesite pas à les inviter"
         }
 
     };

@@ -706,16 +706,30 @@
             </div>
             <div class="popup_content" animation-direction="up" id="popup_sms_content">
 
-                <h1 id="title_popup_sms">Retrouves tes amis déja present sur flow !</h1>
+                <h1 id="title_popup_sms" class="language">Retrouves tes amis déja present sur flow !</h1>
                 <img src="../www/src/icons/friends.png" id="sms_friends_logo">
                 <form id="mobile_number_form">
                     <input type="tel" id="mobile-number" placeholder="+1 1 23 45 67 89 ">
                 </form>
-                <input type="text" id="verification_code" placeholder="Code de verification">
-                <label id="erreur_numero">Numero incorrect</label>
-                <div id="btn_valider_numero">Valider</div>
-                <label id="ignorer_numero" onclick="Popup('popup-sms', false)">Ignorer</label>
+                <input type="text" id="verification_code" class="language" placeholder="Verification code">
+                <label id="erreur_numero" class="language">Numero incorrect</label>
+                <div id="btn_valider_numero" class="language">Valider</div>
+                <label id="ignorer_numero" class="language">Ignorer</label>
                 <div class="loading-spinner loading_phone_number"></div>
+            </div>
+        </div>
+
+        <div class="custom_popup" id="popup-contact-on-flow">
+            <div class="popup_bg">
+                <div class="scroll_fix_ios"></div>
+            </div>
+            <div class="popup_content" animation-direction="up" id="popup_contact_on_flow_content">
+                <h1 id="title_contact_on_flow" class="language">Amis déja present sur flow</h1>
+                <img src="src/icons/cancel.png" class="fclose_followings"
+                    onclick="Popup('popup-contact-on-flow', false)">
+                <div class="list_contact_on_flow">
+                </div>
+
             </div>
         </div>
 

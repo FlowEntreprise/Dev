@@ -9,6 +9,11 @@
     display: none;
 }
 
+.loading_contact_list {
+    position: absolute;
+    top: 30vh;
+}
+
 #verification_code {
     position: absolute;
     width: 50vw;
@@ -44,6 +49,23 @@
 
 #title_popup_sms {
     margin-top: 6vh;
+    text-align: center;
+    width: 95%;
+    margin-left: 2.5%;
+    color: #1a84ef;
+}
+
+#title_contact_on_flow {
+    margin-top: 2vh;
+    text-align: center;
+    width: 95%;
+    margin-left: 2.5%;
+    color: #1a84ef;
+}
+
+#no_friends {
+    position: absolute;
+    top: 70vh;
     text-align: center;
     width: 95%;
     margin-left: 2.5%;

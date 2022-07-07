@@ -1,7 +1,10 @@
 var all_contacts = [];
+var all_phone_numbers = [];
 var input = document.querySelector("#mobile-number");
 var canDisplayVerificationCodeInput = false;
 var firestoreDocRefId;
+var CanRefreshContactList = true;
+var ContactListCurrentIndex = 0;
 var intlTelInputInstance = intlTelInput(input, {
     dropdownContainer: document.querySelector("#popup_sms_content"),
     geoIpLookup: function (callback) {
@@ -91,6 +94,7 @@ function checkIfUserCodeMatchFirestoreCode(data) {
 
         };
         ServerManager.UpdatePhoneNumber(data1);
+        getContactAlreadyOnFLow();
     }
     else {
         $("#erreur_numero").css("opacity", "1");
@@ -105,14 +109,16 @@ function onSuccess(contacts) {
         if (contacts[i].phoneNumbers) {
             let phoneNumber = contacts[i].phoneNumbers[0].value;
             if (phoneNumber && phoneNumber.startsWith('+')) {
-                all_contacts.push(phoneNumber.replace(/[^0-9+]/g, ''));
+                all_phone_numbers.push(phoneNumber.replace(/[^0-9+]/g, ''));
+
+                all_contacts.push({ "name": contacts[i].displayName, "phoneNumber": phoneNumber.replace(/[^0-9+]/g, '') });
             }
         }
         if (i == (contacts.length - 1)) {
             let data = {
                 PrivateId: window.localStorage.getItem("user_private_id"),
-                Index: 0,
-                ContactList: all_contacts
+                Index: ContactListCurrentIndex,
+                ContactList: all_phone_numbers
             };
             ServerManager.GetUserFromContactList(data);
         }
@@ -125,9 +131,112 @@ function onError(contactError) {
 }
 
 function getContactAlreadyOnFLow() {
+    Popup("popup-contact-on-flow", true, 30);
     var ContactOptions = new ContactFindOptions();
     ContactOptions.filter = "";
     ContactOptions.multiple = true;
     filter = ["displayName", "name"];
     navigator.contacts.find(filter, onSuccess, onError, ContactOptions);
 }
+
+
+$(".list_contact_on_flow").scroll(function () {
+    var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
+    if (CanRefreshContactList == true) {
+        if (Math.round($(this).scrollTop()) >= limit * 0.75) {
+            CanRefreshContactList = false;
+            //console.log("Get followers on Server");
+            //console.log("ContactListCurrentIndex : " + ContactListCurrentIndex);
+            let data = {
+                PrivateId: window.localStorage.getItem("user_private_id"),
+                Index: ContactListCurrentIndex,
+                ContactList: all_contacts
+            };
+            ServerManager.GetUserFromContactList(data);
+        }
+    }
+});
+
+function UpdateContactList(data, follow_list) {
+    //console.log("updating Followers list...");
+    // //console.log(data.Data);
+    if (data.length == 0) {
+        let no_friends = document.createElement("h2");
+        no_friends.id = "no_friends";
+        no_friends.className = " language";
+        no_friends.innerText = `${language_mapping[device_language]['no_friends']}`;
+        $(".list_contact_on_flow")[0].appendChild(no_friends);
+    }
+
+    if (Array.isArray(data) && data.length > 0) {
+        //$(".list_contact_on_flow").html("");
+        setTimeout(function () {
+            if ($(".loading_phone_number")) $(".loading_phone_number").remove();
+            if (ContactListCurrentIndex == 0) {
+                $(".list_contact_on_flow")[0].innerHTML = "";
+                let loading_phone_number = document.createElement("div");
+                loading_phone_number.className = "loading-spinner loading_phone_number";
+                $(".list_contact_on_flow")[0].appendChild(loading_phone_number);
+            }
+            for (let i = 0; i < data.length; i++) {
+                let user = new block_user(follow_list, "contactList", data[i]);
+                all_users_block.push(user);
+            }
+            ContactListCurrentIndex++;
+            if ($(".loading_phone_number")) $(".loading_phone_number").remove();
+            //console.log("user updated !");
+            pullToRefreshEnd();
+            if (data.length < 10) {
+                CanRefreshContactList = false;
+                // let tick_tl = document.createElement("div");
+                // tick_tl.className = "tick_icon";
+                // $(".list_contact_on_flow")[0].appendChild(tick_tl);
+            } else {
+                CanRefreshContactList = true;
+                let loading_phone_number = document.createElement("div");
+                loading_phone_number.className = "loading-spinner loading_phone_number";
+                $(".list_contact_on_flow")[0].appendChild(loading_phone_number);
+            }
+        }, 500);
+    } else {
+        StopRefreshTL();
+    }
+}
+
+document
+    .getElementById("popup-contact-on-flow")
+    .addEventListener("closed", function () {
+        $(".list_contact_on_flow")[0].innerHTML = "";
+        CanRefreshContactList = true;
+        ContactListCurrentIndex = 0;
+    });
+
+document
+    .getElementById("popup-contact-on-flow")
+    .addEventListener("opened", function () {
+        let loading_contact_list = document.createElement("div");
+        loading_contact_list.className = "loading-spinner loading_contact_list";
+        $(".list_contact_on_flow")[0].appendChild(loading_contact_list);
+    });
+
+
+function askIfUserWantToVerifyPhoneNumber() {
+    let getMyUserInfoAccount = {
+        PrivateId: window.localStorage.getItem("user_private_id"),
+    };
+    ServerManager.GetUserInfo(getMyUserInfoAccount, true);
+}
+
+function checkIfUserPhoneNumberIsAlreadyVerified(data) {
+    if (data.Data.PhoneNumber != null) {
+        //getContactAlreadyOnFLow();
+    }
+    else {
+        Popup("popup-sms", true, 20);
+    }
+}
+
+$("#ignorer_numero").on("click", function () {
+    Popup('popup-sms', false);
+    window.localStorage.setItem("last_time_phone_number_verification_was_asked", Date.now());
+});

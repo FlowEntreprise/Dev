@@ -7,7 +7,6 @@ var notification_list_empty = true;
 
 function notifications_tab_loaded() {
     $(".notifications_btn").on("click", function () {
-        Popup("popup-sms", true, 20);
         // var home_scrolling = false;
         if (current_page == "notifications") {
 
