@@ -441,7 +441,8 @@ function translate_app() {
             "btn_valider_numero": "Validate",
             "ignorer_numero": "Skip",
             "title_contact_on_flow": "Friends already on flow",
-            "no_friends": "Unfortunately your friends are not yet on Flow, don't hesitate to invite them"
+            "no_friends": "Unfortunately your friends are not yet on Flow, don't hesitate to invite them",
+            "explore_find_friends": "Find friends"
         },
         //French
         "FR": {
@@ -604,7 +605,8 @@ function translate_app() {
             "btn_valider_numero": "Valider",
             "ignorer_numero": "Ignorer",
             "title_contact_on_flow": "Amis déja present sur flow",
-            "no_friends": "Malheureusement tes amis ne sont pas encore sur Flow, n'hesite pas à les inviter"
+            "no_friends": "Malheureusement tes amis ne sont pas encore sur Flow, n'hesite pas à les inviter",
+            "explore_find_friends": "Retrouver des amis"
         }
 
     };

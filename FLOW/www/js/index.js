@@ -151,10 +151,10 @@ var app = {
 
 		setTimeout(function () {
 			let last_phone_number_verification_asked = Math.floor((Date.now() - window.localStorage.getItem("last_time_phone_number_verification_was_asked")) / 1000 / 60 / 60 / 24);
-			if (last_phone_number_verification_asked > 3) {
+			if (last_phone_number_verification_asked > 3 || window.localStorage.getItem("last_time_phone_number_verification_was_asked") == null) {
 				askIfUserWantToVerifyPhoneNumber();
 			}
-		}, 500);
+		}, 15000);
 
 		this.receivedEvent("deviceready");
 	},

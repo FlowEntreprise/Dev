@@ -44,6 +44,7 @@ function explore_tab_loaded() {
 		recentsCurrentIndex = 0;
 		$(".explore-swiper")[0].style.display = "none";
 		$(".search_back")[0].style.display = "block";
+		$("#explore_find_friends").css('display', 'block');
 		searching = true;
 		if ($(".fsearch-bar")[0].value.length == 0) {
 			RefreshSearch();
@@ -255,6 +256,7 @@ function back_search() {
 	$(".list-block-recents")[0].style.pointerEvents = "auto";
 	$(".explore-swiper")[0].style.display = "block";
 	$(".search_back")[0].style.display = "none";
+	$("#explore_find_friends").css('display', 'none');
 	$(".fdj_parent")[0].style.display = "block";
 	//$(".swiper-container.discover")[0].style.display = "block";
 	searching = false;

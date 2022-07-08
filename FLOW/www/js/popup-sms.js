@@ -150,7 +150,7 @@ $(".list_contact_on_flow").scroll(function () {
             let data = {
                 PrivateId: window.localStorage.getItem("user_private_id"),
                 Index: ContactListCurrentIndex,
-                ContactList: all_contacts
+                ContactList: all_phone_numbers
             };
             ServerManager.GetUserFromContactList(data);
         }
@@ -160,11 +160,12 @@ $(".list_contact_on_flow").scroll(function () {
 function UpdateContactList(data, follow_list) {
     //console.log("updating Followers list...");
     // //console.log(data.Data);
-    if (data.length == 0) {
+    if (data.length == 0 && ContactListCurrentIndex == 0) {
         let no_friends = document.createElement("h2");
         no_friends.id = "no_friends";
         no_friends.className = " language";
         no_friends.innerText = `${language_mapping[device_language]['no_friends']}`;
+        $(".list_contact_on_flow").html("");
         $(".list_contact_on_flow")[0].appendChild(no_friends);
     }
 
@@ -239,4 +240,8 @@ function checkIfUserPhoneNumberIsAlreadyVerified(data) {
 $("#ignorer_numero").on("click", function () {
     Popup('popup-sms', false);
     window.localStorage.setItem("last_time_phone_number_verification_was_asked", Date.now());
+});
+
+$("#explore_find_friends").on("click", function () {
+    getContactAlreadyOnFLow();
 });
