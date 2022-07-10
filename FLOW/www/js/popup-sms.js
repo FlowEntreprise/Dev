@@ -108,10 +108,10 @@ function onSuccess(contacts) {
     for (let i = 0; i < contacts.length; i++) {
         if (contacts[i].phoneNumbers) {
             let phoneNumber = contacts[i].phoneNumbers[0].value;
-            if (phoneNumber && phoneNumber.startsWith('+')) {
+            if (phoneNumber && phoneNumber.startsWith('+') && contacts[i].name.formatted) {
                 all_phone_numbers.push(phoneNumber.replace(/[^0-9+]/g, ''));
 
-                all_contacts.push({ "name": contacts[i].displayName, "phoneNumber": phoneNumber.replace(/[^0-9+]/g, '') });
+                all_contacts.push({ "name": contacts[i].name.formatted.trim(), "phoneNumber": phoneNumber.replace(/[^0-9+]/g, '') });
             }
         }
         if (i == (contacts.length - 1)) {
