@@ -55,6 +55,7 @@ $("#btn_valider_numero").on("click", function () {
     if (canDisplayVerificationCodeInput == false) {
         let user_phone_number = intlTelInputInstance.getNumber();
         if (!intlTelInputInstance.isValidNumber()) {
+            $(".loading_phone_number").css("display", "none");
             $("#erreur_numero").css("opacity", "1");
             setTimeout(() => {
                 $("#erreur_numero").css("opacity", "0");
