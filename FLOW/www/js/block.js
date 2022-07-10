@@ -281,7 +281,7 @@ function block(params) {
 
 		this.fposte_nombre_ecoute = document.createElement('p');
 		this.fposte_nombre_ecoute.className = 'fposte_nombre_ecoute';
-		this.fposte_nombre_ecoute.innerText = this.Views > 1 ? affichage_nombre(this.Views, 1) + " écoutes" : affichage_nombre(this.Views, 1) + " écoute";
+		this.fposte_nombre_ecoute.innerText = this.Views > 1 ? affichage_nombre(this.Views, 1) + ` ${language_mapping[device_language]['multi_flow_views']}` : affichage_nombre(this.Views, 1) + ` ${language_mapping[device_language]['multi_flow_view']}`;
 		this.ftop_part.appendChild(this.fposte_nombre_ecoute);
 
 
