@@ -138,6 +138,20 @@ function delete_response_from_html(element) {
 }
 
 
+
+$("#delete_account_btn").on("touchend", function () {
+
+    navigator.notification.confirm(`${language_mapping[device_language]['confirmation_supprimer_compte']}`, function (id) {
+        if (id == 1) {
+            navigator.notification.alert(`${language_mapping[device_language]['supression_compte_sept_jours']}`, alertDismissed, "Information");
+            window.localStorage.setItem("account_should_be_deleted", true);
+            $("#delete_account_btn").css({ 'color': '#92abb2', 'border': 'solid 1px #92abb2', 'pointer-events': 'none' });
+        }
+    }, "Confirmation", [`${language_mapping[device_language]['yes']}`, `${language_mapping[device_language]['cancel']}`]);
+
+
+});
+
 $("#report_button").on("touchend", function () {
     if (element_to_copy == "flow_tittle") { // element_to_copy c'est juste l'elem selectionné
         navigator.notification.confirm(`${language_mapping[device_language]['flow_report_confirmation']}`, function (id) {

@@ -442,7 +442,10 @@ function translate_app() {
             "ignorer_numero": "Skip",
             "title_contact_on_flow": "Friends already on flow",
             "no_friends": "Unfortunately your friends are not yet on Flow, don't hesitate to invite them",
-            "explore_find_friends": "Find friends"
+            "explore_find_friends": "Find friends",
+            "confirmation_supprimer_compte": "Do you really want to delete your account ?",
+            "supression_compte_sept_jours": "Your account will be deleted within 7 days",
+            "delete_account_btn": "Delete account"
         },
         //French
         "FR": {
@@ -606,7 +609,10 @@ function translate_app() {
             "ignorer_numero": "Ignorer",
             "title_contact_on_flow": "Amis déja present sur flow",
             "no_friends": "Malheureusement tes amis ne sont pas encore sur Flow, n'hesite pas à les inviter",
-            "explore_find_friends": "Retrouver des amis"
+            "explore_find_friends": "Retrouver des amis",
+            "confirmation_supprimer_compte": "Voulez-vous vraiment supprimer votre compte ?",
+            "supression_compte_sept_jours": "Votre compte sera suprimmé sous 7 jours",
+            "delete_account_btn": "Supprimer compte"
         }
 
     };
