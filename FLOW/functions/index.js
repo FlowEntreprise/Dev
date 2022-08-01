@@ -9,6 +9,8 @@ const os = require('os');
 const fs = require('fs');
 const gcs = new Storage({ keyFilename: "key.json" });
 const admin = require('firebase-admin');
+const nodemailer = require('nodemailer');
+const cors = require('cors')({ origin: true });
 admin.initializeApp();
 
 // Makes an ffmpeg command return a promise.
@@ -17,6 +19,7 @@ function promisifyCommand(command) {
     command.on('end', resolve).on('error', reject).run();
   });
 }
+//firebase login
 
 // Deploy all functions : firebase deploy --only functions
 // Deploy specific function : firebase deploy --only functions:functionnName
@@ -293,6 +296,47 @@ function UpdateLastMessage(dataMessage) {
     console.log(`Unable send notif from cloud functions ${err.message}`);
   });
 }
+
+
+/*--------------------------------------------------Send Notif Email----------------------------------*/
+
+/**
+* Here we're using Gmail to send 
+*/
+
+let transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'flowapp.entreprise@gmail.com',
+    pass: 'bfvzxcciythnbmpa'
+  }
+});
+
+exports.sendMail = functions.https.onRequest((req, res) => {
+  cors(req, res, () => {
+
+    // getting dest email by query string
+    const dest = req.body.dest;
+
+    const mailOptions = {
+      from: 'Team FLOW <flowapp.entreprise@gmail.com>', // Something like: Jane Doe <janedoe@gmail.com>
+      to: dest,
+      subject: 'TEST ENVOI MAIL 1', // email subject
+      html: `<p style="font-size: 16px;">Challah ça marche</p>
+              <br />
+              <img src="https://static.hitek.fr/img/actualite/ill_m/782636289/goku.jpg" />
+          ` // email content in HTML
+    };
+
+    // returning result
+    return transporter.sendMail(mailOptions, (erro, info) => {
+      if (erro) {
+        return res.send(erro.toString());
+      }
+      return res.send('Sended');
+    });
+  });
+});
 
 
 /*---------------------------------------TEST ENCODE BEFORE UPLOAD------------------------------------*/
