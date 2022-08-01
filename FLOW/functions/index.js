@@ -317,14 +317,22 @@ exports.sendMail = functions.https.onRequest((req, res) => {
 
     // getting dest email by query string
     const dest = req.body.dest;
+    const notif_body = req.body.notif_body;
+    const mail_title = req.body.mail_title;
+    const text_download_flow = req.body.text_download_flow;
+    const instal_flow = req.body.instal_flow;
 
     const mailOptions = {
       from: 'Team FLOW <flowapp.entreprise@gmail.com>', // Something like: Jane Doe <janedoe@gmail.com>
       to: dest,
-      subject: 'TEST ENVOI MAIL 1', // email subject
-      html: `<p style="font-size: 16px;">Challah ça marche</p>
-              <br />
-              <img src="https://static.hitek.fr/img/actualite/ill_m/782636289/goku.jpg" />
+      subject: 'FLOW notification', // email subject 
+      html: `
+      <div><h1 style="text-align: center"><span style="color: #1a84ef">${mail_title}</span></h1><div></div></div>
+      <img class="max-width" border="0" style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; max-width:25% !important;margin-left:auto; margin-right:auto; width:15%; height:auto !important;" width="75" alt="" data-proportionally-constrained="true" data-responsive="true" src="https://drive.google.com/uc?export=view&id=1Wq2FFrlOcgyOHPKThwKQqDcXs2S1mgm2">
+      <div style="font-family: inherit; text-align: center"><span style="font-family: verdana, geneva, sans-serif; color: #92abb2; font-size: 18px"><strong>${notif_body}</strong></span></div>
+      <div style="font-family: inherit; text-align: center"><span style="font-family: verdana, geneva, sans-serif; color: #92abb2; font-size: 18px">${text_download_flow}</span></div>
+              <br/>
+       <div style="text-align: center"><a href="http://onelink.to/6b7mth" style="background-color:#1a84ef; border:1px solid #1a84ef; border-color:#1a84ef; border-radius:6px; border-width:1px; color:#ffffff; display:inline-block; font-size:14px; font-weight:bold; letter-spacing:0px; line-height:normal; padding:12px 18px 12px 18px; text-align:center; text-decoration:none; border-style:solid; font-family:verdana,geneva,sans-serif;" target="_blank">${instal_flow}</a></div>
           ` // email content in HTML
     };
 
