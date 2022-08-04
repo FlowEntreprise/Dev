@@ -615,6 +615,7 @@ function send_comment_to_server(data) {
         current_flow_block: current_flow_block,
         tag_user_RegisterId: undefined,
         Responses: 0,
+        reciever_private_id: current_flow_block.privateID
     };
 
     let comment_number = parseInt($(".fcomment_number").text());
@@ -682,6 +683,7 @@ function send_response_to_server(data) {
         current_comment_block: current_comment_block,
         current_flow_block: current_comment_block, //peut sembler etrange mais facilite l'envoi des notifs (case "send_comment")
         tag_user_RegisterId: undefined,
+        reciever_private_id: current_comment_block.private_Id
     };
     if (it_is_a_response == true && current_response_block != undefined) {
         response_data.current_flow_block = current_response_block;
@@ -1065,6 +1067,7 @@ function color_like(block, like) {
     // like des commentaires et de reponses
     let now = Date.now();
     console.log("chris color like");
+    block.reciever_private_id = block.private_Id;
     if (block.fblock_response) {
         // si c'est un like de reponse
         if (like) {
