@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-	ServerURL: "https://api.flowappweb.com/",
+	ServerURL: "https://api-test.flowappweb.com/",
 	ConnexionURL: "ConnexionFromApi",
 	AddFlowURL: "AddFlow",
 	GetSingleFlowURL: "GetSingle",
@@ -1969,6 +1969,7 @@ class ServerManagerClass {
 	GetFDJ() {
 		let final_data = {
 			Data: {
+				Language: device_language,
 				FlowsExcluded: [],
 			},
 			TokenId: window.localStorage.getItem("user_token"),
