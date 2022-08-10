@@ -211,6 +211,8 @@ document
         $(".list_contact_on_flow")[0].innerHTML = "";
         CanRefreshContactList = true;
         ContactListCurrentIndex = 0;
+        all_contacts.length = 0;
+        all_phone_numbers.length = 0;
     });
 
 document
