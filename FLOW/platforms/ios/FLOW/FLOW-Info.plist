@@ -93,6 +93,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>cette application requiert l'utilisation de la camera pour prendre des photos afin d'illustrer les flows</string>
+	<key>NSContactsUsageDescription</key>
+	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Cette application peut accèder à votre localisation pour proposer du contenu audio local en fonction de votre position.</string>
 	<key>NSMainNibFile~ipad</key>

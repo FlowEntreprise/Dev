@@ -34,6 +34,11 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 	$("#accountBannerScroll").css("transition-duration", "0.2s");
 	$("#accountBannerScroll").css("transform", "translate3d(0vw, 0vh, 0vh)");
 	$(".fnavMonCompte").removeClass("fnavMonCompteTransitionTop");
+	if (window.localStorage.getItem("account_should_be_deleted") == true) {
+		$("#delete_account_btn").addClass("was_delete_account_btn");
+	} else {
+		$("#delete_account_btn").addClass("delete_account_btn");
+	}
 	$(".fnavMonCompte").addClass("fnavMonCompteTransitionDown");
 	$(".ftabsMonCompte").css("transition-duration", "0.2s");
 	var scrollTest = $(".scrollMyAccount").scrollTop();
@@ -373,7 +378,7 @@ function closeEditProfile() {
 		) {
 			let updateEditProfile = {
 				FullName: $("#editProfileName").val(),
-				Biography: $("#feditBio").val(),
+				Biography: $("#feditBio").val()
 			};
 			console.log(window.localStorage.getItem("user_profile_pic"));
 			if (PPHasChanged) {

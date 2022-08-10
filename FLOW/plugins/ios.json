@@ -105,6 +105,10 @@
     },
     "cordova-plugin-sign-in-with-apple": {
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-contacts": {
+      "CONTACTS_USAGE_DESCRIPTION": " ",
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {

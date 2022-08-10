@@ -27,16 +27,26 @@
     <link rel="stylesheet" type="text/css" href="css/flow_specifique.css" />
     <link rel="stylesheet" type="text/css" href="css/flowoftheday.css" />
     <link rel="stylesheet" type="text/css" href="css/discover.css" />
+    <link rel="stylesheet" type="text/css" href="css/popup-sms.css" />
     <!-- <link rel="stylesheet" type="text/css" href="css/comment_specifique.css" /> -->
     <link rel="stylesheet" type="text/css" href="css/custom_popup.css" />
     <link rel="stylesheet" type="text/css" href="css/popup_follow.css" />
     <!-- <link rel="stylesheet" type="text/css" href="css/popup_follow_list.css" /> -->
     <link rel="stylesheet" type="text/css" href="css/popup_likes.css" />
+    <link rel="stylesheet" type="text/css" href="css/intlTelInput.scss" />
     <link rel="stylesheet" type="text/css" href="css/popup_option.css" />
     <link rel="stylesheet" type="text/css" href="css/loading.css" />
     <link rel="stylesheet" type="text/css" href="css/jquery.highlight-within-textarea.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+
 
     <script type="text/javascript" src="Dependencies/Jquery/jquery_v331.js"></script>
+
     <script type="text/javascript" src="Dependencies/Jquery/longpress.js"></script>
     <script type="text/javascript" src="Dependencies/Jquery/longpress_2.js"></script>
     <script type="text/javascript" src="Dependencies/Siriwave/siriwave-block.js"></script>
@@ -118,6 +128,7 @@
                 <input id="placeholder_explore" class="fsearch-bar language" placeholder="Explorer" />
                 <div class="search_icon"></div>
                 <div class="search_back"></div>
+                <div id="explore_find_friends" class="language"></div>
                 <div class="swiper-container swiper-3 explore-swiper">
 
                     <div class="swiper-pagination"></div>
@@ -397,6 +408,7 @@
                         <input type="text" id="editProfileName" maxlength="25">
                         <textarea name="" id="feditBio" cols="25" rows="3" maxlength="100"></textarea>
                         <div class="disconnect_btn language" id="disconnect_btn">Se deconnecter</div>
+                        <div class="delete_account_btn language" id="delete_account_btn">Supprimer compte</div>
                     </div>
                 </div>
             </div>
@@ -690,6 +702,39 @@
             <label class="flabel_in_app_notif" id="InAppNotifNewMessage"></label>
         </div>
 
+        <div class="custom_popup" id="popup-sms">
+            <div class="popup_bg">
+                <div class="scroll_fix_ios"></div>
+            </div>
+            <div class="popup_content" animation-direction="up" id="popup_sms_content">
+
+                <h1 id="title_popup_sms" class="language">Retrouves tes amis déja present sur flow !</h1>
+                <img src="../www/src/icons/friends.png" id="sms_friends_logo">
+                <form id="mobile_number_form">
+                    <input type="tel" id="mobile-number" placeholder="+1 1 23 45 67 89 ">
+                </form>
+                <input type="text" id="verification_code" class="language" placeholder="Verification code">
+                <label id="erreur_numero" class="language">Numero incorrect</label>
+                <div id="btn_valider_numero" class="language">Valider</div>
+                <label id="ignorer_numero" class="language">Ignorer</label>
+                <div class="loading-spinner loading_phone_number"></div>
+            </div>
+        </div>
+
+        <div class="custom_popup" id="popup-contact-on-flow">
+            <div class="popup_bg">
+                <div class="scroll_fix_ios"></div>
+            </div>
+            <div class="popup_content" animation-direction="up" id="popup_contact_on_flow_content">
+                <h1 id="title_contact_on_flow" class="language">Amis déja present sur flow</h1>
+                <img src="src/icons/cancel.png" class="fclose_followings"
+                    onclick="Popup('popup-contact-on-flow', false)">
+                <div class="list_contact_on_flow">
+                </div>
+
+            </div>
+        </div>
+
         <div class="custom_popup" id="popup-connect">
             <div class="popup_bg">
                 <div class="scroll_fix_ios"></div>
@@ -829,6 +874,7 @@
 <script type="text/javascript" src="js/popup_comment.js"></script>
 <script type="text/javascript" src="js/popup_likes.js"></script>
 <script type="text/javascript" src="js/popup_option.js"></script>
+<script type="text/javascript" src="js/popup-sms.js"></script>
 <script type="text/javascript" src="js/myAccount.js"></script>
 <script type="text/javascript" src="js/account.js"></script>
 <script type="text/javascript" src="js/utils.js"></script>
@@ -841,5 +887,7 @@
 <script type="text/javascript" src="js/discover.js"></script>
 <script type="text/javascript" src="js/jquery.highlight-within-textarea.js"></script>
 <script type="text/javascript" src="Dependencies/CustomPTR/customPTR.js"></script>
+<script type="text/javascript" src="js/intlTelInput.js"></script>
+<script src="https://unpkg.com/libphonenumber-js@1.9.6/bundle/libphonenumber-max.js"></script>
 
 </html>

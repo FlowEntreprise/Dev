@@ -102,6 +102,8 @@ function setupApp() {
         $(".fred_dot_toolbar_fdj").css("display", "none");
         $(".fred_dot_toolbar_explore").css("display", "none");
     }
+
+
 }
 //initialize hide on scroll main_topbar
 function initMainTopbar(scroll_parent) {

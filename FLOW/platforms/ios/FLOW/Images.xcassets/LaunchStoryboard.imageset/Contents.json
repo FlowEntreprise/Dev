@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "splash-30.png",
+      "filename" : "splash-39.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -26,7 +26,7 @@
       "scale" : "1x"
     },
     {
-      "filename" : "splash-31.png",
+      "filename" : "splash-40.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -51,7 +51,7 @@
       "scale" : "2x"
     },
     {
-      "filename" : "splash-32.png",
+      "filename" : "splash-41.png",
       "idiom" : "universal",
       "scale" : "3x"
     },

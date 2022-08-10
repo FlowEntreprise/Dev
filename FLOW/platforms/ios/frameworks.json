@@ -14,5 +14,7 @@
     "Social.framework": 1,
     "MessageUI.framework": 1,
     "StoreKit.framework": 1,
-    "AuthenticationServices.framework": 1
+    "AuthenticationServices.framework": 1,
+    "AddressBook.framework": 1,
+    "AddressBookUI.framework": 1
 }

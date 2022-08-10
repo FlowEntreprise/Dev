@@ -25,8 +25,11 @@ const ServerParams = {
 	GetSingleResponseExtended: "GetSingleResponseExtended",
 	ActionFollowProfil: "Follow",
 	UpdateRegisterId: "UpdateRegisterId",
+	UpdateUserLanguage: "UpdateUserLanguage",
+	UpdatePhoneNumber: "UpdatePhoneNumber",
 	GetFollowerOfUser: "GetFollowerOfUser",
 	GetFollowingOfUser: "GetFollowingOfUser",
+	GetUserFromContactList: "GetUserFromContactList",
 	AddStoryComment: "AddStoryComment",
 	GetStoryComments: "GetStoryComment",
 	AddStoryView: "AddStoryView",
@@ -85,6 +88,7 @@ class ServerManagerClass {
 		switch (api) {
 			case apiTypes.Unregistered:
 				DataSend = {
+
 					RegisterId: registrationId,
 					LastOs: window.cordova.platformId
 				};
@@ -95,6 +99,7 @@ class ServerManagerClass {
 				break;
 			case apiTypes.Flow:
 				DataSend = {
+
 					Username: data.Username,
 					Password: data.Password,
 					Name: data.Name,
@@ -113,6 +118,7 @@ class ServerManagerClass {
 				break;
 			case apiTypes.Facebook:
 				DataSend = {
+
 					Username: data.name,
 					Fullname: data.name,
 					Email: data.email,
@@ -145,6 +151,7 @@ class ServerManagerClass {
 
 				Username = Username.replace(parenthesis, "");
 				DataSend = {
+
 					Username: Username,
 					Fullname: Fullname,
 					Email: data.email,
@@ -162,6 +169,7 @@ class ServerManagerClass {
 				break;
 			case apiTypes.Twitter:
 				DataSend = {
+
 					Username: data.name,
 					Fullname: data.name,
 					Link: data.profile_image_url,
@@ -179,6 +187,7 @@ class ServerManagerClass {
 				break;
 			case apiTypes.Instagram:
 				DataSend = {
+
 					Username: data.full_name,
 					Fullname: data.full_name,
 					Link: data.profile_picture,
@@ -192,6 +201,7 @@ class ServerManagerClass {
 				break;
 			case apiTypes.Apple:
 				DataSend = {
+
 					Username: data.username,
 					Fullname: data.full_name,
 					Link: data.profile_picture,
@@ -815,7 +825,7 @@ class ServerManagerClass {
 		});
 	}
 
-	GetUserInfo(data) {
+	GetUserInfo(data, toCheckPhoneNumber) {
 		let final_data = {
 			Data: data,
 			TokenId: window.localStorage.getItem("user_token"),
@@ -828,6 +838,7 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				////console.log("on recup le profil");
+
 				if (typeof response == "string") {
 					// alert("Utilisateur introuvable");
 					navigator.notification.alert(
@@ -836,7 +847,12 @@ class ServerManagerClass {
 						"Information"
 					);
 				} else {
-					ShowUserProfile(response);
+					if (toCheckPhoneNumber == true) {
+						checkIfUserPhoneNumberIsAlreadyVerified(response);
+					}
+					else {
+						ShowUserProfile(response);
+					}
 				}
 			},
 			error: function (response) { },
@@ -896,6 +912,35 @@ class ServerManagerClass {
 			error: function (response) { },
 		});
 	}
+
+
+	GetUserFromContactList(data) {
+		let final_data = {
+			TokenId: window.localStorage.getItem("user_token"),
+			Data: {
+				Index: data.Index,
+				PrivateId: data.PrivateId,
+				ContactList: data.ContactList
+			},
+		};
+		////console.log("final data = ");
+		////console.log(final_data);
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.GetUserFromContactList,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				console.log("Get User From Contact List Succes : ");
+				UpdateContactList(response, false);
+			},
+			error: function (response) {
+
+				console.log("Get User From Contact List error : ");
+			},
+		});
+	}
+
+
 
 	ActionFollow(data, callback) {
 		let final_data = {
@@ -1201,6 +1246,55 @@ class ServerManagerClass {
 			},
 		});
 	}
+
+	UpdateUserLanguage(data) {
+		let final_data = {
+			Data: data,
+			Action: "Language",
+			TokenId: window.localStorage.getItem("user_token"),
+		};
+		//// //console.log(final_data.Data);
+
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.UpdateUserLanguage,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				// //console.log('registerId update sucessfully: ');
+				// //console.log(response);
+			},
+			error: function (response) {
+				////console.log("registerId update error : ");
+				////console.log(response);
+				//// //console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
+			},
+		});
+	}
+
+	UpdatePhoneNumber(data) {
+		let final_data = {
+			Data: data,
+			Action: "PhoneNumber",
+			TokenId: window.localStorage.getItem("user_token"),
+		};
+		//// //console.log(final_data.Data);
+
+		$.ajax({
+			type: "POST",
+			url: ServerParams.ServerURL + ServerParams.UpdatePhoneNumber,
+			data: JSON.stringify(final_data),
+			success: function (response) {
+				console.log('PhoneNumber update sucessfully: ');
+				console.log(response);
+			},
+			error: function (response) {
+				console.log("PhoneNumber update error : ");
+				console.log(response);
+				console.log(ServerParams.ServerURL + ServerParams.UpdateProfileURL);
+			},
+		});
+	}
+
 
 
 	IsRegisterExist(data) {
@@ -2203,6 +2297,38 @@ class ServerManagerClass {
 		}, () => {
 			let downloadURL = voiceRef.snapshot.downloadURL;
 			console.log(downloadURL);
+		});
+
+	}
+
+
+	sendSmsVerificationCode(data) {
+		firebase.firestore().collection("messages").add({
+			to: data.PhoneNumber,
+			body: `Votre code de verification FLOW: ${data.verificationCode}`
+		}).then((docRef) => {
+			console.log("Document written with ID: ", docRef.id);
+			firestoreDocRefId = docRef.id;
+			check_user_verification_code_is_valide();
+		})
+			.catch((error) => {
+				console.error("Error adding document: ", error);
+			});
+	}
+
+
+	checkSmsVerificationCode(data) {
+		firebase.firestore().collection("messages").doc(data.id).get().then((doc) => {
+			if (doc.exists) {
+				console.log("Document data:", doc.data());
+				let data1 = doc.data();
+				data1.user_input_verification_code_value = data.user_input_verification_code_value;
+				checkIfUserCodeMatchFirestoreCode(data1);
+			} else {
+				console.log("No such document!");
+			}
+		}).catch((error) => {
+			console.log("Error getting document:", error);
 		});
 
 	}

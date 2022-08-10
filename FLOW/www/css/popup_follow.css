@@ -37,6 +37,7 @@
 }
 
 .popup_followers_container,
+.list_contact_on_flow,
 .popup_followings_container,
 .popup_identification_container {
     padding: 0 !important;
@@ -95,6 +96,15 @@
     top: calc(5 * var(--custom-vh));
     left: 21vw;
     color: #1a84ef;
+    font-family: "Roboto-Regular";
+    opacity: 0.5;
+}
+
+.f_user_phone_number {
+    position: absolute;
+    top: calc(7 * var(--custom-vh));
+    left: 21vw;
+    color: #92abb2;
     font-family: "Roboto-Regular";
     opacity: 0.5;
 }

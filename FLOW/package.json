@@ -102,11 +102,15 @@
       "cordova-launch-review": {},
       "cordova-plugin-appversion": {},
       "cordova-plugin-ios-disable-bounce": {},
-      "cordova-plugin-sign-in-with-apple": {}
+      "cordova-plugin-sign-in-with-apple": {},
+      "cordova-plugin-contacts": {
+        "CONTACTS_USAGE_DESCRIPTION": " "
+      }
     },
     "platforms": []
   },
   "devDependencies": {
+    "cordova-plugin-contacts": "^2.3.1",
     "cordova.plugins.diagnostic": "~4.0.11"
   }
 }

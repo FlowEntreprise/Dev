@@ -1,6 +1,7 @@
 var all_users_block = [];
 var my_followers = false;
 var all_tagged_users = [];
+var can_append_phone_number = false;
 //block qui correspond à utilisateur de la liste des followers et follwing
 function block_user(follow_list, target, data) {
 	//follow_list true correspond au block user de la liste des utilisateur que l'on peu identifier dans un commentaire
@@ -13,6 +14,7 @@ function block_user(follow_list, target, data) {
 	this.FirebaseToken = data.FirebaseToken;
 	this.FullName = data.FullName;
 	this.PrivateId = data.PrivateId;
+	this.PhoneNumber = data.PhoneNumber.replace(/[^0-9+]/g, '');
 	if (follow_list == false) {
 		(this.block_user.className = "f_block_user");
 	}
@@ -36,6 +38,16 @@ function block_user(follow_list, target, data) {
 	if (target == "CreateConversation") {
 		$(".fconversation_block_utilisateur_list").append(this.block_user);
 	}
+	if (target == "contactList") {
+		$(".list_contact_on_flow").append(this.block_user);
+		all_contacts.forEach(contact => {
+			if (contact.phoneNumber == block_user.PhoneNumber) {
+				this.FullName = contact.name;
+				can_append_phone_number = true;
+			}
+		});
+
+	}
 
 
 	this.fphoto_block_user = document.createElement("div");
@@ -56,13 +68,20 @@ function block_user(follow_list, target, data) {
 
 	this.f_user_fullname = document.createElement("label");
 	this.f_user_fullname.className = "f_user_fullname";
-	this.f_user_fullname.innerText = data.FullName;
+	this.f_user_fullname.innerText = this.FullName;
 	this.block_user.appendChild(this.f_user_fullname);
 
 	this.f_user_private_id = document.createElement("label");
 	this.f_user_private_id.className = "f_user_private_id";
 	this.f_user_private_id.innerText = "@" + data.PrivateId;
 	this.block_user.appendChild(this.f_user_private_id);
+
+	if (can_append_phone_number == true) {
+		this.f_user_phone_number = document.createElement("label");
+		this.f_user_phone_number.className = "f_user_phone_number";
+		this.f_user_phone_number.innerText = block_user.PhoneNumber;
+		this.block_user.appendChild(this.f_user_phone_number);
+	}
 
 	if (follow_list == true) {
 		if (current_page != "after-record") {
