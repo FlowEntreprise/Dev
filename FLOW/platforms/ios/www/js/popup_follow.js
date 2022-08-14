@@ -14,7 +14,10 @@ function block_user(follow_list, target, data) {
 	this.FirebaseToken = data.FirebaseToken;
 	this.FullName = data.FullName;
 	this.PrivateId = data.PrivateId;
-	this.PhoneNumber = data.PhoneNumber.replace(/[^0-9+]/g, '');
+	if (data.PhoneNumber) {
+		this.PhoneNumber = data.PhoneNumber.replace(/[^0-9+]/g, '');
+	}
+
 	if (follow_list == false) {
 		(this.block_user.className = "f_block_user");
 	}

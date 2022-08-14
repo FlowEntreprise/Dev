@@ -411,7 +411,8 @@ function story_comment_uploaded() {
     let story_comment_data = {
         sender_private_id: window.localStorage.getItem("user_private_id"),
         RegisterId: story_data[story_index].register_id,
-        LastOs: story_data[story_index].LastOs
+        LastOs: story_data[story_index].LastOs,
+        reciever_private_id: story_data[story_index].private_id
     }
     if (registrationId != story_comment_data.RegisterId) {
         send_notif_to_user(story_comment_data, "story_comment");
@@ -1109,7 +1110,7 @@ function playStoryComment(comment, htmlelement) {
 }
 
 function lerp(start, end, amt) {
-    return (1 - amt) * start + amt * end
+    return (1 - amt) * start + amt * end;
 }
 
 function smoothUpdateBar(loading_com, comment) {
@@ -1126,7 +1127,7 @@ function smoothUpdateBar(loading_com, comment) {
                 smoothUpdateBar(loading_com, comment);
             }
         }, function (err) {
-            console.log(err)
+            console.log(err);
         });
 
     }, 40);
@@ -1139,7 +1140,7 @@ function ShowSeenPopup() {
     let data = {
         Index: story_seen_index,
         ObjectId: story_data[story_index].data[storyFlow_index].id
-    }
+    };
     story_data[story_index].data[storyFlow_index].seen = [];
     ServerManager.GetStoryView(data);
     $(".seen_popup_bg").css({

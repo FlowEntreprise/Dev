@@ -163,9 +163,8 @@
 .random_flow_btn {
     position: absolute;
     bottom: calc(8 * var(--custom-vh));
-    padding-left: 20px;
     left: 15vw;
-    width: calc(70vw - 20px);
+    width: calc(70vw);
     height: calc(6 * var(--custom-vh));
     background-color: #1a84ef;
     border-radius: 50px;
@@ -180,7 +179,7 @@
     transform: scale(1);
     display: flex;
     justify-content: center;
-    align-items: center;
+    font-size: x-large;
 }
 
 
@@ -220,7 +219,7 @@
 
 .list-block-flowoftheday {
     position: absolute;
-    top: 37vh;
+    top: 36.75vh;
     padding: 0;
     /* padding-top: calc(12.5 * var(--custom-vh)); */
 }

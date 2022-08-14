@@ -278,6 +278,21 @@ function check_if_url_in_string(string_to_check) {
     return string_to_check + "<br>";
 }
 
+function checkIfItsBeen1Month(data) {
+    data.PrivateId = data.data.sender_info.notif_recipient_private_id;
+    if (data.lastConnexionTime) {
+        let diffDays = parseInt((Date.now() - new Date(data.lastConnexionTime)) / (1000 * 60 * 60 * 24), 10);
+        if (diffDays > 30) {
+
+            ServerManager.GetUserInfo(data, 'send_mail');
+        }
+    }
+    else {
+        ServerManager.GetUserInfo(data, 'send_mail');
+    }
+
+}
+
 function translate_app() {
     language_mapping = {
         //English
@@ -293,7 +308,7 @@ function translate_app() {
             "fdj_follow": "FOLLOW",
             "fdj_timer": "The next election in 22 hours.",
             "fdj_txt": "Searching the flows library...",
-            "random_flow_btn": "Discover a random flow",
+            "random_flow_btn": "Next",
             "flowoftheday_btn": "<span>Today's flow</span>",
             "top50_btn": "<span>Trending</span>",
             "recents_btn": "<span>Latest</span>",
@@ -460,7 +475,7 @@ function translate_app() {
             "fdj_follow": "S'ABONNER",
             "fdj_timer": "prochaine élection dans 22 heures.",
             "fdj_txt": "Recherche dans la bibliothèque de flows...",
-            "random_flow_btn": "Découvrir un flow aléatoire",
+            "random_flow_btn": "Suivant",
             "flowoftheday_btn": "<span>Flow du jour</span>",
             "top50_btn": "<span>Tendances</span>",
             "recents_btn": "<span>Récents</span>",

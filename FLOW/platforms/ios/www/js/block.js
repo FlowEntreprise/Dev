@@ -781,6 +781,8 @@ function display_comment_likes(comment, is_response) {
 // fonction permettant de colorier ou non les like, echo et comment.
 function impression_coloring(object, type, block, like_type) {
 	let now = Date.now();
+
+	block.reciever_private_id = block.privateID;
 	switch (type) {
 		case "like":
 			$(object).each(function () {

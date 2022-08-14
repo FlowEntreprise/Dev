@@ -844,6 +844,7 @@ function FollowResponse(response, type, element) {
 			sender_private_id: window.localStorage.getItem("user_private_id"),
 			RegisterId: account_registrationId,
 			LastOs: LastOs,
+			reciever_private_id: privateIDAccount
 		};
 		if (type == "block_user_follow") {
 			(data_notif_follow.RegisterId = element.RegisterId),

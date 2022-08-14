@@ -851,7 +851,14 @@ class ServerManagerClass {
 						checkIfUserPhoneNumberIsAlreadyVerified(response);
 					}
 					else {
-						ShowUserProfile(response);
+						if (toCheckPhoneNumber == 'send_mail' && response.Data.Email) {
+							final_data.response = response;
+							ServerManager.Send_mail_notif(final_data);
+						}
+						else {
+							ShowUserProfile(response);
+						}
+
 					}
 				}
 			},
@@ -934,8 +941,8 @@ class ServerManagerClass {
 				UpdateContactList(response, false);
 			},
 			error: function (response) {
-
 				console.log("Get User From Contact List error : ");
+				console.log(response);
 			},
 		});
 	}
@@ -1480,6 +1487,7 @@ class ServerManagerClass {
 				data_notif_to_bdd.IdFlow = data.data.sender_info.Id_response;
 			}
 		}
+		ServerManager.getUserLastConnexionTime(data);
 		$.ajax({
 			type: "POST",
 			url: "https://fcm.googleapis.com/fcm/send",
@@ -1505,6 +1513,43 @@ class ServerManagerClass {
 			},
 			error: function (response) {
 				////console.log("La notif n'a pas été envoyé");
+			},
+		});
+	}
+
+	Send_mail_notif(data) {
+
+		let data_mail = {
+			dest: data.response.Data.Email,
+			notif_body: data.Data.data.body,
+			mail_title: "Un utilisateur t'a contacté sur FLOW !",
+			text_download_flow: "Installe FLOW afin de pouvoir lui répondre.",
+			instal_flow: "Installer"
+		};
+
+		if (data.response.Data.LANGUAGE && data.response.Data.LANGUAGE != 'FR') {
+			data_mail.mail_title = "Un utilisateur t'a contacté sur FLOW !";
+			data_mail.text_download_flow = "Instal FLOW in order to respond to him.";
+			data_mail.instal_flow = "Install";
+		}
+
+		$.ajax({
+			type: "POST",
+			url: "https://us-central1-flow-85249.cloudfunctions.net/sendMail",
+			headers: {
+				Authorization: "Bearer ya29.A0AVA9y1uzfCEaykIH-xvdpF4BPIklzSteWjFcgro90uPIFO44MmZI7W8o7DiXRjPp3zjvCfPacFyxSUO9t1p46V9jPszAVfikCajlnCXHdvYDgoCXOCn8Qiajq7NAglqdarhEVqMHLzRtbN9UJA6s7I_EhKTlYUNnWUtBVEFTQVRBU0ZRRTY1ZHI4eGlBNEZUV1hxWk5CU0REYTN5SmZWUQ0163",
+			},
+			contentType: "application/json",
+			dataType: "json",
+			data: JSON.stringify(data_mail),
+
+			success: function (response) {
+
+
+				console.log(response);
+			},
+			error: function (response) {
+				console.log(response);
 			},
 		});
 	}
@@ -1924,6 +1969,7 @@ class ServerManagerClass {
 	GetFDJ() {
 		let final_data = {
 			Data: {
+				Language: device_language,
 				FlowsExcluded: [],
 			},
 			TokenId: window.localStorage.getItem("user_token"),
@@ -2301,6 +2347,13 @@ class ServerManagerClass {
 
 	}
 
+	getUserLastConnexionTime(data) {
+		firebase.database().ref(FirebaseEnvironment + '/users').orderByChild('private_id').equalTo(data.data.sender_info.notif_recipient_private_id).once("value", function (snapshot) {
+			console.log(Object.values(snapshot.val())[0].time);
+			data.lastConnexionTime = Object.values(snapshot.val())[0].time;
+			checkIfItsBeen1Month(data);
+		});
+	}
 
 	sendSmsVerificationCode(data) {
 		firebase.firestore().collection("messages").add({
@@ -2337,3 +2390,5 @@ class ServerManagerClass {
 
 
 var ServerManager = new ServerManagerClass();
+
+

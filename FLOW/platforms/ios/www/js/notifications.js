@@ -795,7 +795,7 @@ function send_notif_to_user(block, type) {
 
     let notif_lastos;
     let notif_body;
-    let notif_recipient; // destinataire
+    let notif_recipient; // destinataire    
     let prepare_id_flow = block.Flow_block_id ? block.Flow_block_id : block.ObjectId;
     let sender_info = {
         fullname: window.localStorage.getItem("user_name"),
@@ -807,7 +807,8 @@ function send_notif_to_user(block, type) {
         IdFlow: prepare_id_flow == undefined ? prepare_id_flow = "undefined" : prepare_id_flow,
         Id_comment: block.IdComment /*? block.ObjectId : undefined*/,
         Id_response: block.Idresponse /*? block.ObjectId : undefined*/,
-        tag_in_flow: block.tag_in_flow
+        tag_in_flow: block.tag_in_flow,
+        notif_recipient_private_id: block.reciever_private_id // le private id de la personne qui va recevoir la notif
     };
     if (sender_info.comment_text == undefined) {
         sender_info.comment_text = sender_info.post_texte;
