@@ -50,7 +50,6 @@
     "jquery.scrollto": "^2.1.2",
     "npm": "^2.15.12",
     "phonegap-plugin-multidex": "^1.0.0",
-    "phonegap-plugin-push": "^2.3.0",
     "plist": "^1.2.0",
     "q": "^1.5.1",
     "vorbis-encoder-js": "^1.0.2"
@@ -88,7 +87,6 @@
       "cordova-clipboard": {},
       "cordova-plugin-inappbrowser": {},
       "cordova.plugins.diagnostic": {},
-      "phonegap-plugin-push": {},
       "cordova-plugin-camera": {},
       "cordova-plugin-x-socialsharing": {
         "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
@@ -105,12 +103,20 @@
       "cordova-plugin-sign-in-with-apple": {},
       "cordova-plugin-contacts": {
         "CONTACTS_USAGE_DESCRIPTION": " "
+      },
+      "cordova-plugin-firebasex": {
+        "FIREBASE_ANALYTICS_COLLECTION_ENABLED": "true",
+        "FIREBASE_PERFORMANCE_COLLECTION_ENABLED": "true",
+        "FIREBASE_CRASHLYTICS_COLLECTION_ENABLED": "true",
+        "FIREBASE_FCM_AUTOINIT_ENABLED": "true",
+        "IOS_USE_PRECOMPILED_FIRESTORE_POD": "false"
       }
     },
     "platforms": []
   },
   "devDependencies": {
     "cordova-plugin-contacts": "^2.3.1",
+    "cordova-plugin-firebasex": "^14.2.1",
     "cordova.plugins.diagnostic": "~4.0.11"
   }
 }

@@ -328,14 +328,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "phonegap-plugin-push.PushNotification",
-      "file": "plugins/phonegap-plugin-push/www/push.js",
-      "pluginId": "phonegap-plugin-push",
-      "clobbers": [
-        "PushNotification"
-      ]
-    },
-    {
       "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
       "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
       "pluginId": "cordova-plugin-facebook4",
@@ -522,6 +514,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "merges": [
         "Contact"
       ]
+    },
+    {
+      "id": "cordova-plugin-firebasex.FirebasePlugin",
+      "file": "plugins/cordova-plugin-firebasex/www/firebase.js",
+      "pluginId": "cordova-plugin-firebasex",
+      "clobbers": [
+        "FirebasePlugin"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -549,7 +549,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-support-google-services": "1.3.1",
     "cordova-plugin-firebase-crashlytics": "0.0.6",
     "cordova-labs-local-webserver": "2.4.0",
-    "phonegap-plugin-push": "2.3.0",
     "cordova-plugin-facebook4": "6.4.0",
     "cordova-plugin-twitter-connect-wkwebview": "1.0.1",
     "cordova-plugin-camera": "4.1.0",
@@ -560,6 +559,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-appversion": "1.0.0",
     "cordova-plugin-ios-disable-bounce": "0.0.1",
     "cordova-plugin-sign-in-with-apple": "0.1.2",
-    "cordova-plugin-contacts": "2.3.1"
+    "cordova-plugin-contacts": "2.3.1",
+    "cordova-plugin-firebasex": "14.2.1"
   };
 });

@@ -97,9 +97,11 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "${PODS_ROOT}/GoogleTagManager/Frameworks/GoogleTagManager.xcframework/Resources/TagManagerResources.bundle"
   install_resource "${PODS_ROOT}/TwitterKit5/iOS/TwitterKit.framework/TwitterKitResources.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "${PODS_ROOT}/GoogleTagManager/Frameworks/GoogleTagManager.xcframework/Resources/TagManagerResources.bundle"
   install_resource "${PODS_ROOT}/TwitterKit5/iOS/TwitterKit.framework/TwitterKitResources.bundle"
 fi
 

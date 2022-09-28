@@ -77,9 +77,6 @@
     "cordova-labs-local-webserver": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
-    "phonegap-plugin-push": {
-      "PACKAGE_NAME": "com.flowapp.flow"
-    },
     "cordova-plugin-camera": {
       "PACKAGE_NAME": "com.flowapp.flow"
     },
@@ -108,6 +105,14 @@
     },
     "cordova-plugin-contacts": {
       "CONTACTS_USAGE_DESCRIPTION": " ",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-plugin-firebasex": {
+      "FIREBASE_ANALYTICS_COLLECTION_ENABLED": "true",
+      "FIREBASE_PERFORMANCE_COLLECTION_ENABLED": "true",
+      "FIREBASE_CRASHLYTICS_COLLECTION_ENABLED": "true",
+      "FIREBASE_FCM_AUTOINIT_ENABLED": "true",
+      "IOS_USE_PRECOMPILED_FIRESTORE_POD": "false",
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },

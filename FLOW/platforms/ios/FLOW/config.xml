@@ -85,9 +85,6 @@
     </feature>
     <access origin="http://localhost" />
     <allow-navigation href="http://localhost:*/*" />
-    <feature name="PushNotification">
-        <param name="ios-package" value="PushPlugin" />
-    </feature>
     <feature name="FacebookConnectPlugin">
         <param name="ios-package" value="FacebookConnectPlugin" />
         <param name="onload" value="true" />
@@ -205,4 +202,8 @@
     <preference name="TwitterConsumerSecret" value="6KXFOoLHqUIMwB74yNDcT0gK7WmvoK5wGLYwId4JsV185UIQQT" />
     <preference name="deployment-target" value="11.0" />
     <preference name="KeyboardShrinksView" value="true" />
+    <feature name="FirebasePlugin">
+        <param name="ios-package" value="FirebasePlugin" />
+        <param name="onload" value="true" />
+    </feature>
 </widget>

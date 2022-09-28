@@ -2,13 +2,13 @@
     "declarations": {
         "use_frameworks!": {
             "declaration": "use_frameworks!",
-            "count": 1
+            "count": 2
         }
     },
     "sources": {
         "https://cdn.cocoapods.org/": {
             "source": "https://cdn.cocoapods.org/",
-            "count": 1
+            "count": 2
         }
     },
     "libraries": {
@@ -22,12 +22,6 @@
             "name": "Crashlytics",
             "type": "podspec",
             "spec": "~> 3.10.1",
-            "count": 1
-        },
-        "FirebaseMessaging": {
-            "name": "FirebaseMessaging",
-            "type": "podspec",
-            "spec": "~> 2.0.0",
             "count": 1
         },
         "FBSDKCoreKit": {
@@ -49,6 +43,66 @@
             "name": "TwitterKit5",
             "type": "podspec",
             "spec": "5.2.0",
+            "count": 1
+        },
+        "Firebase/Core": {
+            "name": "Firebase/Core",
+            "spec": "9.1.0",
+            "count": 1
+        },
+        "Firebase/Auth": {
+            "name": "Firebase/Auth",
+            "spec": "9.1.0",
+            "count": 1
+        },
+        "Firebase/Messaging": {
+            "name": "Firebase/Messaging",
+            "spec": "9.1.0",
+            "count": 1
+        },
+        "Firebase/Performance": {
+            "name": "Firebase/Performance",
+            "spec": "9.1.0",
+            "count": 1
+        },
+        "Firebase/RemoteConfig": {
+            "name": "Firebase/RemoteConfig",
+            "spec": "9.1.0",
+            "count": 1
+        },
+        "Firebase/InAppMessaging": {
+            "name": "Firebase/InAppMessaging",
+            "spec": "9.1.0",
+            "count": 1
+        },
+        "Firebase/Firestore": {
+            "name": "Firebase/Firestore",
+            "spec": "9.1.0",
+            "count": 1
+        },
+        "Firebase/Crashlytics": {
+            "name": "Firebase/Crashlytics",
+            "spec": "9.1.0",
+            "count": 1
+        },
+        "Firebase/Functions": {
+            "name": "Firebase/Functions",
+            "spec": "9.1.0",
+            "count": 1
+        },
+        "Firebase/Installations": {
+            "name": "Firebase/Installations",
+            "spec": "9.1.0",
+            "count": 1
+        },
+        "GoogleSignIn": {
+            "name": "GoogleSignIn",
+            "spec": "6.2.1",
+            "count": 1
+        },
+        "GoogleTagManager": {
+            "name": "GoogleTagManager",
+            "spec": "7.4.1",
             "count": 1
         }
     }
