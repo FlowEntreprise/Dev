@@ -522,6 +522,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "FirebasePlugin"
       ]
+    },
+    {
+      "id": "cordova-sms-plugin.Sms",
+      "file": "plugins/cordova-sms-plugin/www/sms.js",
+      "pluginId": "cordova-sms-plugin",
+      "clobbers": [
+        "window.sms"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -560,6 +568,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-ios-disable-bounce": "0.0.1",
     "cordova-plugin-sign-in-with-apple": "0.1.2",
     "cordova-plugin-contacts": "2.3.1",
-    "cordova-plugin-firebasex": "14.2.1"
+    "cordova-plugin-firebasex": "14.2.1",
+    "cordova-sms-plugin": "1.0.2"
   };
 });

@@ -68,7 +68,7 @@
 }
 
 .f_user_photo {
-    background-image: url("www/src/pictures/notif2.jpg");
+    background-image: url("../src/icons/Account@3x.png");
     position: absolute;
     width: calc(7.5 * var(--custom-vh));
     height: calc(7.5 * var(--custom-vh));
@@ -120,6 +120,19 @@
 }*/
 
 .following_button {
+    position: absolute;
+    border: solid 1.5px #1a84ef;
+    color: #1a84ef;
+    border-radius: 22vw;
+    width: 90px;
+    text-align: center;
+    font-size: 13px;
+    padding: 2px;
+    top: calc(4.2 * var(--custom-vh));
+    right: 13vw;
+}
+
+.invite_button {
     position: absolute;
     border: solid 1.5px #1a84ef;
     color: #1a84ef;

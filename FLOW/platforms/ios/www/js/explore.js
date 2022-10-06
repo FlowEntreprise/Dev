@@ -28,6 +28,7 @@ function explore_tab_loaded() {
 	// Initialize search_bar events 
 	$(".fsearch-bar")[0].addEventListener("focus", function () {
 		// app.destroyPullToRefresh(ptrContent_explore);
+        FirebasePlugin.logEvent("search");
 		$(".search_results")[0].style.opacity = 1;
 		$(".search_results")[0].style.pointerEvents = "auto";
 		// $(".list-block-top50")[0].style.opacity = 0;
@@ -55,6 +56,7 @@ function explore_tab_loaded() {
 	$(".fsearch-bar")[0].addEventListener("blur", function () {
 		if (!searching) {
 			// app.initPullToRefresh(ptrContent_explore);
+            FirebasePlugin.logEvent("stop_search");
 			$(".search_results")[0].style.opacity = 0;
 			$(".search_results")[0].style.pointerEvents = "none";
 			// $(".list-block-top50")[0].style.opacity = 1;
@@ -185,12 +187,12 @@ function explore_tab_loaded() {
 		ShowMoreUsers();
 	});
 	$(".explore_view").scroll(function () {
-
+        
 		var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 		if (!searching) {
 			if (in_top50) {
 				if (canRefreshTop50) {
-
+                    FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "tendances"});
 					if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 						canRefreshTop50 = false;
 						top50CurrentIndex += 1;
@@ -204,6 +206,7 @@ function explore_tab_loaded() {
 				}
 			} else if (in_recents) {
 				if (canRefreshRecents) {
+                    FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "recents"});
 					if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 						canRefreshRecents = false;
 						recentsCurrentIndex += 1;

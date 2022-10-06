@@ -17,8 +17,9 @@ var httpd = null;
 var worker;
 var device_language;
 var language_mapping;
-var registrationId;
+var registrationId = "";
 var noteId = 0;
+var my_number_of_flow;
 var app = {
 	// Application Constructor
 	initialize: function () {
@@ -31,6 +32,7 @@ var app = {
 		document.addEventListener("resume", this.onResume, false);
 	},
 	onDeviceReady: function () {
+        firebase.initializeApp(firebaseConfig);
 		Keyboard.hide();
 		let custom_vh = window.innerHeight / 100;
 		device_language = navigator.language.slice(0, 2).toUpperCase();
@@ -433,7 +435,7 @@ var app = {
 			//console.log(e.message);
 		});
 
-		firebase.initializeApp(firebaseConfig);
+		
 	},
 };
 

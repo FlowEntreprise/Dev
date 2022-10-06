@@ -55,6 +55,7 @@ function inHome() {
 	showTopBar(main_topbar);
 	canShowNavbar = true;
 	current_page = "home";
+    FirebasePlugin.setScreenName("home");
 
 	$(".fhome-bar").css({
 		display: "block",
@@ -110,6 +111,8 @@ function inExplore() {
 	showTopBar(main_topbar);
 	canShowNavbar = true;
 	current_page = "explore";
+    FirebasePlugin.setScreenName("tendances");
+    
 
 	$(".fhome-bar").css({
 		display: "none",
@@ -162,14 +165,17 @@ function inExplore() {
 
 		$(".flowoftheday_btn")[0].addEventListener("click", function () {
 			explore_categories.slideTo(0);
+            FirebasePlugin.setScreenName("tendances");
 		})
 
 		$(".top50_btn")[0].addEventListener("click", function () {
 			explore_categories.slideTo(1);
+            FirebasePlugin.setScreenName("flow_du_jour");
 		})
 
 		$(".recents_btn")[0].addEventListener("click", function () {
 			explore_categories.slideTo(2);
+            FirebasePlugin.setScreenName("recents");
 		})
 
 		// $(".discover_btn")[0].addEventListener("click", function () {
@@ -264,6 +270,7 @@ function inMessages() {
 	showTopBar(main_topbar);
 	canShowNavbar = true;
 	current_page = "messages";
+    FirebasePlugin.setScreenName("messages");
 
 	$(".fhome-bar").css({
 		display: "none",
@@ -332,6 +339,7 @@ function inNotifications() {
 	showTopBar(main_topbar);
 	canShowNavbar = true;
 	current_page = "home";
+    FirebasePlugin.setScreenName("home");
 
 	$(".fhome-bar").css({
 		display: "none",
@@ -348,6 +356,7 @@ function inNotifications() {
 	canShowNavbar = true;
 	setTimeout(() => {
 		current_page = "notifications";
+        FirebasePlugin.setScreenName("notifications");
 	}, 100);
 	$(".faccount").css({
 		top: "calc(1 * var(--custom-vh) + 7px)",
@@ -365,6 +374,7 @@ function inNotifications() {
 }
 
 var current_page = "home";
+FirebasePlugin.setScreenName("home");
 var last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
 function onBackKeyDown() {
@@ -431,6 +441,7 @@ function onBackKeyDown() {
 			stopCapture(false);
 		}
 		current_page = "messages";
+        FirebasePlugin.setScreenName("messages");
 	} else if (current_page == "record") {
 		// app.closeModal('.popup-record');
 		Popup("popup-record", false);
@@ -439,6 +450,7 @@ function onBackKeyDown() {
 			stopCapture(false);
 		}
 		current_page = "home";
+        FirebasePlugin.setScreenName("home");
 	} else if (current_page == "record-story") {
 		// app.closeModal('.popup-story-record');
 		Popup("popup-story-record", false);
@@ -447,23 +459,26 @@ function onBackKeyDown() {
 			stopCapture(false);
 		}
 		current_page = "home";
+        FirebasePlugin.setScreenName("home");
 	} else if (current_page == "connect-popup") {
 		// app.closeModal('.popup-connect');
 		Popup("popup-connect", false);
 		current_page = "home";
+        FirebasePlugin.setScreenName("home");
 	} else if (current_page == "after-record") {
 		// app.closeModal('.popup-after-record');
 		// app.popup('.popup-record');
 		Popup("popup-after-record", false);
 		Popup("popup-record", true);
 		current_page = "record";
+        
 		stopAllBlocksAudio();
 	} else if (current_page == "after-story-record") {
 		// app.closeModal('.popup-after-story-record');
 		Popup("popup-after-story-record", false);
 		// app.popup('.popup-story-record');
 		Popup("popup-story-record", true);
-		current_page = "record-story";
+		current_page = "record-story";        
 		stopAllBlocksAudio();
 	} else if (current_page == "story") {
 		if (currentSection == "comments") {
@@ -475,6 +490,7 @@ function onBackKeyDown() {
 	} else if (current_page == "my-account") {
 		Popup("popup-myaccount", false);
 		current_page = "home";
+        FirebasePlugin.setScreenName("home");
 		stopAllBlocksAudio();
 		$(".flow_btn_img").css("display", "block");
 		$(".flow_btn_shadow").css("display", "block");
@@ -483,6 +499,7 @@ function onBackKeyDown() {
 	} else if (current_page == "account") {
 		Popup("popup-account", false);
 		current_page = "home";
+        FirebasePlugin.setScreenName("home");
 		stopAllBlocksAudio();
 		$(".flow_btn_img").css("display", "block");
 		$(".flow_btn_shadow").css("display", "block");

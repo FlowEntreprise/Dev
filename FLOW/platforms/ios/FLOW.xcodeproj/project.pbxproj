@@ -133,6 +133,7 @@
 		C4C06EF6240E4B1799F7B9A0 /* FirebasePluginMessageReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 61A2A41D2F2B439EACDEB5C5 /* FirebasePluginMessageReceiver.m */; };
 		917552BA882342D7A471253A /* FirebasePluginMessageReceiverManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F837A9A41EA4119A7CA4DC6 /* FirebasePluginMessageReceiverManager.m */; };
 		25783F6066DA4F35BBFF8BD2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73F4E764861B4DE6B62F3F23 /* GoogleService-Info.plist */; };
+		D561273D47C0484A84A439CD /* Sms.m in Sources */ = {isa = PBXBuildFile; fileRef = B36085126ACB4AED82E8861B /* Sms.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -403,6 +404,8 @@
 		EDEC14BE4E6F426BA2EAE58D /* FirebasePluginMessageReceiver.h */ = {isa = PBXFileReference; name = "FirebasePluginMessageReceiver.h"; path = "cordova-plugin-firebasex/FirebasePluginMessageReceiver.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		5442D6C1B3974A92A76DE5DF /* FirebasePluginMessageReceiverManager.h */ = {isa = PBXFileReference; name = "FirebasePluginMessageReceiverManager.h"; path = "cordova-plugin-firebasex/FirebasePluginMessageReceiverManager.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		73F4E764861B4DE6B62F3F23 /* GoogleService-Info.plist */ = {isa = PBXFileReference; name = "GoogleService-Info.plist"; path = "GoogleService-Info.plist"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = text.plist.xml; explicitFileType = undefined; includeInIndex = 0; };
+		B36085126ACB4AED82E8861B /* Sms.m */ = {isa = PBXFileReference; name = "Sms.m"; path = "cordova-sms-plugin/Sms.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		483BEB85CF0E4D11A437BC53 /* Sms.h */ = {isa = PBXFileReference; name = "Sms.h"; path = "cordova-sms-plugin/Sms.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -737,6 +740,8 @@
 				6A7449F2A4C04B8687CC5DBE /* FirebasePlugin.h */,
 				EDEC14BE4E6F426BA2EAE58D /* FirebasePluginMessageReceiver.h */,
 				5442D6C1B3974A92A76DE5DF /* FirebasePluginMessageReceiverManager.h */,
+				B36085126ACB4AED82E8861B /* Sms.m */,
+				483BEB85CF0E4D11A437BC53 /* Sms.h */,
 			);
 			name = Plugins;
 			path = FLOW/Plugins;
@@ -1046,6 +1051,7 @@
 				3B57A4A97C264E7FA79409D1 /* FirebasePlugin.m in Sources */,
 				C4C06EF6240E4B1799F7B9A0 /* FirebasePluginMessageReceiver.m in Sources */,
 				917552BA882342D7A471253A /* FirebasePluginMessageReceiverManager.m in Sources */,
+				D561273D47C0484A84A439CD /* Sms.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

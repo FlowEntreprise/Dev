@@ -207,6 +207,7 @@ function RefreshStories() {
                 });
                 last_currentpage_timestamp = Math.floor(Date.now() / 1000);
                 current_page = "story";
+                FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "story"});
                 SpawnStoryWindow($(this));
             }
         };
@@ -534,6 +535,7 @@ function CloseStory() {
         console.log("fb current_page error")
     });
     current_page = "home";
+    FirebasePlugin.setScreenName("home");
     last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
     RefreshStories();
@@ -1293,5 +1295,7 @@ document.getElementById("popup-story-record").addEventListener("closed", functio
         console.log("fb current_page error")
     });
     current_page = "home";
+    
+                FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-story-record"});
 
 });

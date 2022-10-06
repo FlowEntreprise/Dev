@@ -187,6 +187,10 @@
             {
               "xml": "<feature name=\"FirebasePlugin\"><param name=\"ios-package\" value=\"FirebasePlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"Sms\"><param name=\"ios-package\" value=\"Sms\" /></feature>",
+              "count": 1
             }
           ],
           "widget": [
@@ -459,6 +463,9 @@
       "FIREBASE_CRASHLYTICS_COLLECTION_ENABLED": "true",
       "FIREBASE_FCM_AUTOINIT_ENABLED": "true",
       "IOS_USE_PRECOMPILED_FIRESTORE_POD": "false",
+      "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-sms-plugin": {
       "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
@@ -986,6 +993,14 @@
       "clobbers": [
         "FirebasePlugin"
       ]
+    },
+    {
+      "id": "cordova-sms-plugin.Sms",
+      "file": "plugins/cordova-sms-plugin/www/sms.js",
+      "pluginId": "cordova-sms-plugin",
+      "clobbers": [
+        "window.sms"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -1024,6 +1039,7 @@
     "cordova-plugin-ios-disable-bounce": "0.0.1",
     "cordova-plugin-sign-in-with-apple": "0.1.2",
     "cordova-plugin-contacts": "2.3.1",
-    "cordova-plugin-firebasex": "14.2.1"
+    "cordova-plugin-firebasex": "14.2.1",
+    "cordova-sms-plugin": "1.0.2"
   }
 }

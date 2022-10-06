@@ -146,10 +146,13 @@ document
 		in_specifique = true;
 		current_comment_block.response_current_index = 0;
 		id_response_specifique = undefined;
+        
+        FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-specifique"});
 	});
 document
 	.getElementById("popup-specifique")
 	.addEventListener("closed", function () {
+        FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-specifique"});
 		commentaire_unique = null;
 		in_specifique = false;
 		comment_button_was_clicked_in_popup_specifique = false;

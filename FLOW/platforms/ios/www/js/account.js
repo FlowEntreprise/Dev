@@ -25,37 +25,37 @@ var FirebaseToken;
 function alertDismissed() { }
 
 function fInitialisationAccount(privateId) {
-	$("#UserActivity")[0].innerHTML = "";
-	$("#UserLikes")[0].innerHTML = "";
-
-	let LikesFirstLoad = document.createElement("div");
-	LikesFirstLoad.className = "loading-spinner LikesFirstLoad";
-
-	let loading_tl = document.createElement("div");
-	loading_tl.className = "loading-spinner loading_account";
-	loading_tl.style.marginTop = "50%";
-	$("#UserActivity")[0].appendChild(loading_tl);
-	$("#UserLikes")[0].appendChild(loading_tl);
-	$("#UserLikes")[0].appendChild(LikesFirstLoad);
-	privateIDAccount = privateId;
-	indexAccount = 0;
-	indexAccountLike = 0;
-	if (blocked_by_user == false || connected == false) {
-		var getFlow = {
-			Index: indexAccount,
-			PrivateId: privateIDAccount,
-		};
-		ServerManager.GetUserFlow(getFlow);
-		let data = {
-			Index: indexAccountLike,
-			PrivateId: privateIDAccount,
-		};
-		ServerManager.GetLikedFlows(data, false);
-	}
-	if (blocked_by_user == true) {
-		i_am_blocked();
-	}
-
+    $("#UserActivity")[0].innerHTML = "";
+    $("#UserLikes")[0].innerHTML = "";
+    
+    let LikesFirstLoad = document.createElement("div");
+    LikesFirstLoad.className = "loading-spinner LikesFirstLoad";
+    
+    let loading_tl = document.createElement("div");
+    loading_tl.className = "loading-spinner loading_account";
+    loading_tl.style.marginTop = "50%";
+    $("#UserActivity")[0].appendChild(loading_tl);
+    $("#UserLikes")[0].appendChild(loading_tl);
+    $("#UserLikes")[0].appendChild(LikesFirstLoad);
+    privateIDAccount = privateId;
+    indexAccount = 0;
+    indexAccountLike = 0;
+    if (blocked_by_user == false || connected == false) {
+        var getFlow = {
+        Index: indexAccount,
+        PrivateId: privateIDAccount,
+        };
+        ServerManager.GetUserFlow(getFlow);
+        let data = {
+        Index: indexAccountLike,
+        PrivateId: privateIDAccount,
+        };
+        ServerManager.GetLikedFlows(data, false);
+    }
+    if (blocked_by_user == true) {
+        i_am_blocked();
+    }
+    
 	var getInfosUserNumber = {
 		PrivateId: privateIDAccount,
 	};
@@ -146,6 +146,7 @@ document
 	.addEventListener("opened", function () {
 		last_scroll = 0;
 		current_page = "account";
+        FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-account"});
 		// app.showTab("#tabCompte1");
 		$("#GoDMBtn").css(
 			"display", "block"
@@ -179,11 +180,13 @@ document
 			if (!$("#activity").hasClass("active")) $("#activity").addClass("active");
 			$("#likes").removeClass("active");
 			account_swiper.slideTo(0);
+            FirebasePlugin.setScreenName("user-activity");
 		})
 		$("#likes").on("click", function () {
 			if (!$("#likes").hasClass("active")) $("#likes").addClass("active");
 			$("#activity").removeClass("active");
 			account_swiper.slideTo(1);
+            FirebasePlugin.setScreenName("user-likes");
 		})
 
 		stopAllBlocksAudio();
@@ -338,12 +341,14 @@ document
 		}
 
 		$("#fgobackCompte").click(function () {
-			Popup("popup-account", false);
+			Popup("popup-account", false);            
 		});
 
 		$("#tabCompte1").scroll(function () {
+            
 			var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 			if (UserFlowAdd == true) {
+                FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "activity"});
 				if (
 					Math.round($(this).scrollTop()) >= limit * 0.75 &&
 					indexAccount > 0
@@ -359,8 +364,10 @@ document
 		});
 
 		$("#tabCompte2").scroll(function () {
+            
 			var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 			if (UserLikeAdd == true) {
+                FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "likes"});
 				if (
 					Math.round($(this).scrollTop()) >= limit * 0.75 &&
 					indexAccountLike > 0
@@ -407,6 +414,7 @@ document.getElementById("popup-account").addEventListener("closed", function () 
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 	current_page = "home";
+    FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-account"});
 
 	// analytics.setCurrentScreen(current_page);
 
@@ -417,14 +425,17 @@ document.getElementById("popup-account").addEventListener("closed", function () 
 
 $("#fFollowButtunAccount").click(function () {
 	if (connected) {
+        
 		if (user_is_blocked == false && blocked_by_user == false) {
 			//$(this)[0].style.pointerEvents = "none";
 			if ($("#fFollowButtunAccount").attr("class") != "activeButtunFollow") {
 				$("#fFollowButtunAccount").addClass("activeButtunFollow");
 				$("#fFollowButtunAccount").text("ABONNÉ");
+                FirebasePlugin.logEvent("follow");
 			} else {
 				$("#fFollowButtunAccount").removeClass("activeButtunFollow");
 				$("#fFollowButtunAccount").text("S'ABONNER");
+                FirebasePlugin.logEvent("unfollow");
 			}
 			let data = {
 				PrivateId: privateIDAccount,

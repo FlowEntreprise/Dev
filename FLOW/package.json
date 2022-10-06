@@ -110,13 +110,15 @@
         "FIREBASE_CRASHLYTICS_COLLECTION_ENABLED": "true",
         "FIREBASE_FCM_AUTOINIT_ENABLED": "true",
         "IOS_USE_PRECOMPILED_FIRESTORE_POD": "false"
-      }
+      },
+      "cordova-sms-plugin": {}
     },
     "platforms": []
   },
   "devDependencies": {
     "cordova-plugin-contacts": "^2.3.1",
     "cordova-plugin-firebasex": "^14.2.1",
+    "cordova-sms-plugin": "^1.0.2",
     "cordova.plugins.diagnostic": "~4.0.11"
   }
 }

@@ -114,6 +114,9 @@
       "FIREBASE_FCM_AUTOINIT_ENABLED": "true",
       "IOS_USE_PRECOMPILED_FIRESTORE_POD": "false",
       "PACKAGE_NAME": "com.flowapp.flow"
+    },
+    "cordova-sms-plugin": {
+      "PACKAGE_NAME": "com.flowapp.flow"
     }
   },
   "dependent_plugins": {

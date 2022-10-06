@@ -18,6 +18,7 @@ target 'FLOW' do
 	pod 'Firebase/InAppMessaging', '9.1.0'
 	pod 'Firebase/Firestore', '9.1.0'
 	pod 'Firebase/Crashlytics', '9.1.0'
+	pod 'Firebase/Analytics', '9.1.0'
 	pod 'Firebase/Functions', '9.1.0'
 	pod 'Firebase/Installations', '9.1.0'
 	pod 'GoogleSignIn', '6.2.1'

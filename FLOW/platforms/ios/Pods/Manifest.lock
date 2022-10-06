@@ -625,6 +625,8 @@ PODS:
     - FBSDKShareKit/Share (= 5.15.0)
   - FBSDKShareKit/Share (5.15.0):
     - FBSDKCoreKit (~> 5.0)
+  - Firebase/Analytics (9.1.0):
+    - Firebase/Core
   - Firebase/Auth (9.1.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 9.1.0)
@@ -893,6 +895,7 @@ DEPENDENCIES:
   - FBSDKCoreKit (= 5.15.0)
   - FBSDKLoginKit (= 5.15.0)
   - FBSDKShareKit (= 5.15.0)
+  - Firebase/Analytics (= 9.1.0)
   - Firebase/Auth (= 9.1.0)
   - Firebase/Core (= 9.1.0)
   - Firebase/Crashlytics (= 9.1.0)
@@ -1000,6 +1003,6 @@ SPEC CHECKSUMS:
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit5: 64095dfefcf39be2355711ef27112d55e340d90e
 
-PODFILE CHECKSUM: 9b0d1c9344afdc0c3764b6b9b7678139fecb3990
+PODFILE CHECKSUM: 94f6aade3972c0ae61aeb4396bba9b9dcd54d510
 
 COCOAPODS: 1.11.3

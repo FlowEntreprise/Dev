@@ -803,6 +803,11 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.GetMyUserInfosURL,
 			data: JSON.stringify(final_data),
 			success: function (response) {
+                if(data.after_record)
+                {
+                    my_number_of_flow =  response.NbFlow
+                    
+                }
 				ShowMyInfosUser(response);
 			},
 			error: function (response) { },
@@ -819,7 +824,11 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				////console.log("on recup le getInfosUserNumber");
-				ShowInfosUserNumber(response);
+                
+                
+                ShowInfosUserNumber(response);
+                
+				
 			},
 			error: function (response) { },
 		});
@@ -2154,12 +2163,15 @@ class ServerManagerClass {
 				//console.log(" NewChatListener was called");
 				let clean_chat_list = {}; // object qui va etre rempli de façon {chat_id : time}
 				$(".loading_chat_list").remove();
+                console.log("------VALEUR DU NEWCHATLISTENER------")
+                console.log(snapshot.val())
 				if (snapshot.val() == null) {
 					console.log(" IL N Y A AUCUNE CONVERSATION");
 					// $(".no_conversation_yet")[0].style.display = "block";
 					no_conv = true;
 				} else {
 					no_conv = false;
+                    console.log(" IL N Y A DES CONVERSATION");
 					// $(".no_conversation_yet")[0].style.display = "none";
 
 					delete snapshot.val()[window.localStorage.getItem("firebase_token")];

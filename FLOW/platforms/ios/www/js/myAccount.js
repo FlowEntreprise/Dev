@@ -26,6 +26,7 @@ $(".faccount").each(function () {
 document.getElementById("popup-myaccount").addEventListener("opened", function () {
 	last_scroll = 0;
 	current_page = "my-account";
+    FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-myaccount"});
 	$(".faccount")[0].style.backgroundImage =
 		"url('" + window.localStorage.getItem("user_profile_pic") + "')";
 	$(".ftabsMonCompte")[0].style.display = "block";
@@ -57,11 +58,13 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 		if (!$("#myactivity").hasClass("active")) $("#myactivity").addClass("active");
 		$("#mylikes").removeClass("active");
 		myaccount_swiper.slideTo(0);
+        FirebasePlugin.setScreenName("myactivity");
 	})
 	$("#mylikes").on("click", function () {
 		if (!$("#mylikes").hasClass("active")) $("#mylikes").addClass("active");
 		$("#myactivity").removeClass("active");
 		myaccount_swiper.slideTo(1);
+        FirebasePlugin.setScreenName("mylikes");
 	})
 
 	stopAllBlocksAudio();
@@ -281,6 +284,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 	});
 
 	$("#feditProfil").click(function () {
+        FirebasePlugin.logEvent("edit_profile");
 		in_editprofile = true;
 		PPHasChanged = false;
 		$("#feditProfilePopupContainer").css("opacity", "1");
@@ -303,6 +307,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 	$("#tabMonCompte1").scroll(function () {
 		var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 		if (MyFlowAdd == true) {
+            FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "my_activity"});
 			if (
 				Math.round($(this).scrollTop()) >= limit * 0.75 &&
 				indexMyFlow > 0
@@ -320,6 +325,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 	$("#tabMonCompte2").scroll(function () {
 		var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 		if (MyLikeAdd == true) {
+            FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "my_likes"});
 			if (
 				Math.round($(this).scrollTop()) >= limit * 0.75 &&
 				indexMyLike > 0
@@ -523,6 +529,7 @@ function ShowMyFlow(flow) {
 document
 	.getElementById("popup-myaccount")
 	.addEventListener("closed", function () {
+        FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-myaccount"});
 		$(".ftabsMonCompte")[0].style.display = "none";
 		$(".flow_btn_img").css("display", "block");
 		$(".flow_btn_shadow").css("display", "block");
@@ -545,6 +552,7 @@ document
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 		current_page = "home";
+        FirebasePlugin.setScreenName("home");
 
 		// analytics.setCurrentScreen(current_page);
 
