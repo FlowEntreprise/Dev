@@ -42,14 +42,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-dialogs.notification",
-      "file": "plugins/cordova-plugin-dialogs/www/notification.js",
-      "pluginId": "cordova-plugin-dialogs",
-      "merges": [
-        "navigator.notification"
-      ]
-    },
-    {
       "id": "cordova-plugin-file.DirectoryEntry",
       "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
       "pluginId": "cordova-plugin-file",
@@ -530,6 +522,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "window.sms"
       ]
+    },
+    {
+      "id": "cordova-plugin-dialogs.notification",
+      "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+      "pluginId": "cordova-plugin-dialogs",
+      "merges": [
+        "navigator.notification"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -539,7 +539,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-audioinput": "1.0.2",
     "cordova-plugin-background-mode": "0.7.3",
     "cordova-plugin-compat": "1.2.0",
-    "cordova-plugin-dialogs": "2.0.2",
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-fullscreen": "1.1.0",
     "cordova-plugin-httpd": "0.9.3",
@@ -569,6 +568,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-sign-in-with-apple": "0.1.2",
     "cordova-plugin-contacts": "2.3.1",
     "cordova-plugin-firebasex": "14.2.1",
-    "cordova-sms-plugin": "1.0.2"
+    "cordova-sms-plugin": "1.0.2",
+    "cordova-plugin-dialogs": "2.0.2"
   };
 });

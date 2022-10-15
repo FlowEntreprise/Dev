@@ -1,7 +1,6 @@
 {
     "Accelerate.framework": 1,
     "CoreAudio.framework": 1,
-    "AudioToolbox.framework": 1,
     "CFNetwork.framework": 2,
     "Foundation.framework": 1,
     "SystemConfiguration.framework": 1,
@@ -15,5 +14,6 @@
     "StoreKit.framework": 1,
     "AuthenticationServices.framework": 2,
     "AddressBook.framework": 1,
-    "AddressBookUI.framework": 1
+    "AddressBookUI.framework": 1,
+    "AudioToolbox.framework": 1
 }

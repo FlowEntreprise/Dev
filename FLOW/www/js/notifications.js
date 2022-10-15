@@ -878,6 +878,7 @@ function send_notif_to_user(block, type) {
             notif_lastos = block.recipient_info.LastOs;
             notif_body = block.message;
             notif_recipient = block.recipient_info.registration_id;
+            sender_info.notif_recipient_private_id = block.recipient_info.private_id;
             break;
     }
 

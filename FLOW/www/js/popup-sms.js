@@ -232,6 +232,7 @@ document
     .addEventListener("closed", function () {
         $(".list_contact_on_flow")[0].innerHTML = "";
         CanRefreshContactList = true;
+        can_append_phone_number = false;
         ContactListCurrentIndex = 0;
         all_contacts.length = 0;
         all_phone_numbers.length = 0;
@@ -273,6 +274,10 @@ $("#explore_find_friends").on("click", function () {
     getContactAlreadyOnFLow();
 });
 
+$("#MyAccountFindFriendsLogo").on("click", function () {
+    getContactAlreadyOnFLow();
+});
+
 document.getElementById("popup-sms").addEventListener("closed", function () {
     FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-sms"});
 });
@@ -299,4 +304,6 @@ function send_invite_sms(number) {
         let error = function (e) { alert('Message Failed:' + e); };
         sms.send(number.toString(), `${language_mapping[device_language]['join_flow']}`, options, success, error);
     }
+
+
 
