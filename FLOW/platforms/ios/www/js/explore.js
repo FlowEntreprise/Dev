@@ -28,6 +28,8 @@ function explore_tab_loaded() {
 	// Initialize search_bar events 
 	$(".fsearch-bar")[0].addEventListener("focus", function () {
 		// app.destroyPullToRefresh(ptrContent_explore);
+        
+        $("#ExploreFindFriendsLogo").css("display", "none");
         FirebasePlugin.logEvent("search");
 		$(".search_results")[0].style.opacity = 1;
 		$(".search_results")[0].style.pointerEvents = "auto";
@@ -54,8 +56,10 @@ function explore_tab_loaded() {
 		searching_flows = false;
 	});
 	$(".fsearch-bar")[0].addEventListener("blur", function () {
+        $("#ExploreFindFriendsLogo").css("display", "block");
 		if (!searching) {
 			// app.initPullToRefresh(ptrContent_explore);
+            
             FirebasePlugin.logEvent("stop_search");
 			$(".search_results")[0].style.opacity = 0;
 			$(".search_results")[0].style.pointerEvents = "none";

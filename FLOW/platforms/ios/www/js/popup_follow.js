@@ -185,6 +185,7 @@ function block_user(follow_list, target, data,invite_friend) {
             }
         }
         $(this.invite_button).on("click", function () {
+            FirebasePlugin.logEvent("button_sms_invite_friend", {});
             let number = block_user.PhoneNumber ? block_user.PhoneNumber : block_user.phoneNumber
             send_invite_sms(number)
         });

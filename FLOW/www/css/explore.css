@@ -89,6 +89,15 @@
 	z-index: 10;
 }
 
+#ExploreFindFriendsLogo
+{
+    position: absolute;
+    top: calc(5 * var(--custom-vh));
+    left: 5vw;
+    width: 7vw;
+    z-index: 10;
+}
+
 /* .fexplore_list {
     margin: auto;
     list-style: none;

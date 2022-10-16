@@ -271,10 +271,19 @@ $("#ignorer_numero").on("click", function () {
 });
 
 $("#explore_find_friends").on("click", function () {
+    FirebasePlugin.logEvent("find_friend_from_explore_clicked", {});
     getContactAlreadyOnFLow();
 });
 
+$("#ExploreFindFriendsLogo").on("click", function () {
+    FirebasePlugin.logEvent("find_friend_logo_from_explore_clicked", {});
+    getContactAlreadyOnFLow();
+});
+
+
+
 $("#MyAccountFindFriendsLogo").on("click", function () {
+    FirebasePlugin.logEvent("find_friend_from_my_account_clicked", {});
     getContactAlreadyOnFLow();
 });
 
