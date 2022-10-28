@@ -196,7 +196,7 @@ function explore_tab_loaded() {
 		if (!searching) {
 			if (in_top50) {
 				if (canRefreshTop50) {
-                    FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "tendances"});
+                    
 					if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 						canRefreshTop50 = false;
 						top50CurrentIndex += 1;
@@ -206,6 +206,7 @@ function explore_tab_loaded() {
 							language: top50CurrentLanguage
 						};
 						ServerManager.GetTop50(data);
+                        FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "tendances"});
 					}
 				}
 			} else if (in_recents) {

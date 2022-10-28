@@ -330,13 +330,29 @@ class ServerManagerClass {
 					response.ObjectId,
 					data.Description
 				); // clean et envoi les notifs
+                
 				TLCurrentIndex = 0;
 				ServerManager.GetTimeline(0, 5);
 				CloseAfterRecord();
+                
+                let topic = FirebaseEnvironment+'NotloggedIn3Days';
+                let data_notif =  {
+                    ObjectId :response.ObjectId,
+                    PrivatedId :data.PrivatedId,
+                    Description :data.Description,
+                    Topic : topic
+                }
+                let addMessage = firebase.functions().httpsCallable('SubScribeToTopic');
+                addMessage({
+
+                Environnement : FirebaseEnvironment,
+                Topic :topic
+                })
+                  .then((result) => {
+                      send_notif_to_user(data_notif,'new_flow');
+                  });
 			},
 			error: function (response) {
-				//console.log("Flow adding error : ");
-				//console.log(response);
 				CloseAfterRecord();
 			},
 		});
@@ -849,12 +865,12 @@ class ServerManagerClass {
 				////console.log("on recup le profil");
 
 				if (typeof response == "string") {
-					// alert("Utilisateur introuvable");
+					/* alert("Utilisateur introuvable");
 					navigator.notification.alert(
 						"Utilisateur introuvable",
 						alertDismissed,
 						"Information"
-					);
+					);*/
 				} else {
 					if (toCheckPhoneNumber == true) {
 						checkIfUserPhoneNumberIsAlreadyVerified(response);
@@ -1496,7 +1512,11 @@ class ServerManagerClass {
 				data_notif_to_bdd.IdFlow = data.data.sender_info.Id_response;
 			}
 		}
-		ServerManager.getUserLastConnexionTime(data);
+        if(data.data.type != 'new_flow')
+        {
+            ServerManager.getUserLastConnexionTime(data);
+        }
+		
 		$.ajax({
 			type: "POST",
 			url: "https://fcm.googleapis.com/fcm/send",
@@ -1509,19 +1529,16 @@ class ServerManagerClass {
 			data: JSON.stringify(data),
 
 			success: function (response) {
-				/*
-								TypeNotification : data.data.type
-								RegisterIdOfUserToNotify : data.to
-								Content : data.data.message
-				*/
-				if (data.notification && data.notification.type != 'send_message' || data.data && data.data.type != 'send_message') {
+				console.log("NOTIF BIEN ENVOYE");
+				if (data.notification && data.notification.type != 'send_message' || data.data && data.data.type != 'send_message' || data.notification && data.notification.type != 'new_flow') {
 
 					ServerManager.AddNotificationToUser(data_notif_to_bdd);
 				}
 				//console.log("Notif envoyé avec succes");
 			},
 			error: function (response) {
-				////console.log("La notif n'a pas été envoyé");
+				console.log("La notif n'a pas été envoyé");
+                console.log(response)
 			},
 		});
 	}
@@ -2397,7 +2414,7 @@ class ServerManagerClass {
 		});
 
 	}
-
+    
 }
 
 

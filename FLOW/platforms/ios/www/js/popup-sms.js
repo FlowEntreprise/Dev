@@ -144,7 +144,7 @@ function getContactAlreadyOnFLow() {
 $(".list_contact_on_flow").scroll(function () {
     var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
     if (CanRefreshContactList == true) {
-        FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "list_contact"});
+        
         if (Math.round($(this).scrollTop()) >= limit * 0.75) {
             CanRefreshContactList = false;
             //console.log("Get followers on Server");
@@ -155,6 +155,7 @@ $(".list_contact_on_flow").scroll(function () {
                 ContactList: all_phone_numbers
             };
             ServerManager.GetUserFromContactList(data);
+            FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "list_contact"});
         }
     }
 });

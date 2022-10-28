@@ -46,8 +46,8 @@
             filePath = "../../www/js/Server/ServerManager.js"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "950"
-            endingLineNumber = "950"
+            startingLineNumber = "966"
+            endingLineNumber = "966"
             landmarkName = "success"
             landmarkType = "9">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "../../www/js/index.js"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
             landmarkName = "receivedEvent"
             landmarkType = "9">
          </BreakpointContent>

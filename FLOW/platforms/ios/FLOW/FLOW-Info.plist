@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>2.1.4</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -42,7 +42,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0.0</string>
+	<string>2.1.4</string>
 	<key>FacebookAppID</key>
 	<string>502054883649562</string>
 	<key>FacebookDisplayName</key>
@@ -64,17 +64,15 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>localhost</key>
+			<key>akamaihd.net</key>
 			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<key>NSIncludesSubdomains</key>
 				<true/>
 			</dict>
-			<key>m.facebook.com</key>
-			<dict/>
-			<key>graph.facebook.com</key>
-			<dict/>
 			<key>api.facebook.com</key>
 			<dict/>
 			<key>fbcdn.net</key>
@@ -82,23 +80,25 @@
 				<key>NSIncludesSubdomains</key>
 				<true/>
 			</dict>
-			<key>akamaihd.net</key>
+			<key>graph.facebook.com</key>
+			<dict/>
+			<key>localhost</key>
 			<dict>
-				<key>NSIncludesSubdomains</key>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
+			<key>m.facebook.com</key>
+			<dict/>
 		</dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>cette application requiert l'utilisation de la camera pour prendre des photos afin d'illustrer les flows</string>
 	<key>NSContactsUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Cette application peut accèder à votre localisation pour proposer du contenu audio local en fonction de votre position.</string>
 	<key>NSMainNibFile~ipad</key>
-	<string/>
+	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Cette application requiert l'utilisation du microphone pour enregistrer des flows.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>

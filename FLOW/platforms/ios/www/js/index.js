@@ -337,7 +337,8 @@ var app = {
                         }
                         if (
                             data.additionalData.type == "like_flow" ||
-                            data.additionalData.type == "tag_in_flow"
+                            data.additionalData.type == "tag_in_flow" ||
+                            data.additionalData.type == "new_flow"
                         ) {
                             let data_flow = {
                                 IdFlow: data.additionalData.sender_info.IdFlow,

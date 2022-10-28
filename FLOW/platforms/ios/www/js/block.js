@@ -932,7 +932,7 @@ $(".fblock_comment_content").scroll(function () {
     
 	var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 	if (CanRefreshCommentList == true) {
-        FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "comment_list"});
+        
 		if (Math.round($(this).scrollTop()) >= limit * 0.85) {
 			CanRefreshCommentList = false;
 			//console.log("Get comment on Server");
@@ -943,6 +943,7 @@ $(".fblock_comment_content").scroll(function () {
 				IsComment: block.IsComment,
 			};
 			ServerManager.GetFlowComment(data);
+            FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "comment_list"});
 		}
 	}
 });

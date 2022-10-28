@@ -281,7 +281,7 @@ var FollowersListCurrentIndex = 0;
 $(".popup_followers_container").scroll(function () {
 	var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 	if (CanRefreshFollowersList == true) {
-        FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "followers"});
+        
 		if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 			CanRefreshFollowersList = false;
 			//console.log("Get followers on Server");
@@ -299,6 +299,7 @@ $(".popup_followers_container").scroll(function () {
 				data_followers_scroll.PrivateId = privateIDAccount;
 			}
 			ServerManager.GetFollowerOfUser(data_followers_scroll);
+            FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "followers"});
 		}
 	}
 });
@@ -394,7 +395,7 @@ var followingsListCurrentIndex = 0;
 $(".popup_followings_container").scroll(function () {
 	var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 	if (CanRefreshfollowingsList == true) {
-        FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "followings"});
+        
 		if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 			CanRefreshfollowingsList = false;
 			//console.log("Get followings on Server");
@@ -412,6 +413,7 @@ $(".popup_followings_container").scroll(function () {
 				data_followings_scroll.PrivateId = privateIDAccount;
 			}
 			ServerManager.GetFollowingOfUser(data_followings_scroll);
+            FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "followings"});
 		}
 	}
 });

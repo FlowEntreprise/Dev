@@ -30,7 +30,7 @@ function home_tab_loaded() {
 	$(".home_parent").scroll(function () {
 		var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 		if (CanRefreshTL == true) {
-            FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "timeline"});
+            
 			if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 				CanRefreshTL = false;
 				let loading_tl = document.createElement("div");
@@ -39,6 +39,7 @@ function home_tab_loaded() {
 				console.log("Get Flow on Server");
 				console.log("TLCurrentIndex : " + TLCurrentIndex);
 				ServerManager.GetTimeline(TLCurrentIndex, 5);
+                FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "timeline"});
 			}
 		}
 	});

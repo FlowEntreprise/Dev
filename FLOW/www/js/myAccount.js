@@ -307,7 +307,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 	$("#tabMonCompte1").scroll(function () {
 		var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 		if (MyFlowAdd == true) {
-            FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "my_activity"});
+            
 			if (
 				Math.round($(this).scrollTop()) >= limit * 0.75 &&
 				indexMyFlow > 0
@@ -318,6 +318,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 					PrivateId: window.localStorage.getItem("user_private_id"),
 				};
 				ServerManager.GetMyFlow(addMyFlow);
+                FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "my_activity"});
 			}
 		}
 	});
@@ -325,7 +326,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 	$("#tabMonCompte2").scroll(function () {
 		var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 		if (MyLikeAdd == true) {
-            FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "my_likes"});
+            
 			if (
 				Math.round($(this).scrollTop()) >= limit * 0.75 &&
 				indexMyLike > 0
@@ -336,6 +337,7 @@ document.getElementById("popup-myaccount").addEventListener("opened", function (
 					PrivateId: window.localStorage.getItem("user_private_id"),
 				};
 				ServerManager.GetLikedFlows(data, true);
+                FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "my_likes"});
 			}
 		}
 	});

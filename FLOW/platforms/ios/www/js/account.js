@@ -348,17 +348,19 @@ document
             
 			var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 			if (UserFlowAdd == true) {
-                FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "activity"});
+                
 				if (
 					Math.round($(this).scrollTop()) >= limit * 0.75 &&
 					indexAccount > 0
 				) {
+                    
 					UserFlowAdd = false;
 					var addUserFlow = {
 						Index: indexAccount,
 						PrivateId: privateIDAccount,
 					};
 					ServerManager.GetUserFlow(addUserFlow);
+                    FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "activity"});
 				}
 			}
 		});
@@ -367,17 +369,19 @@ document
             
 			var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 			if (UserLikeAdd == true) {
-                FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "likes"});
+                
 				if (
 					Math.round($(this).scrollTop()) >= limit * 0.75 &&
 					indexAccountLike > 0
 				) {
+                    
 					UserLikeAdd = false;
 					var data = {
 						Index: indexAccountLike,
 						PrivateId: privateIDAccount,
 					};
 					ServerManager.GetLikedFlows(data, false);
+                    FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "likes"});
 				}
 			}
 		});
