@@ -212,6 +212,67 @@ exports.DevEncodeMp3 = functions.storage.object().onFinalize(async (object) => {
 
 });
 
+exports.SubScribeToTopic = functions.https.onCall((data, context) => {
+  let ref = admin.database().ref(data.Environnement + '/users').orderByChild('time').endAt(Date.now() - 72 * 3600 * 1000);
+  ref.once('value').then((snapshot) => {
+    let all_register_id = Object.keys(snapshot.val()).map(key => snapshot.val()[key].registration_id);
+    let clean_all_register_id = all_register_id.filter(id => id !== undefined);
+    console.log(clean_all_register_id);
+    return subSplitRegisterIds(clean_all_register_id, data);
+  }).catch(err => {
+    console.log(`Subscribre unable to get all registerids ${err.message}`);
+  });
+});
+
+
+function UnSubScribeFromTopic(data) {
+
+  let ref = admin.database().ref(data.Environnement + '/users').orderByChild('time').startAt(Date.now() - 72 * 3600 * 1000);
+  ref.once('value').then((snapshot) => {
+    let all_register_id = Object.keys(snapshot.val()).map(key => snapshot.val()[key].registration_id);
+    let clean_all_register_id = all_register_id.filter(id => id !== undefined);
+    console.log(clean_all_register_id);
+    return UnsubSplitRegisterIds(clean_all_register_id, data);
+  }).catch(err => {
+    console.log(`Unsubscribre unable to get all registerids ${err.message}`);
+  });
+
+}
+
+async function subSplitRegisterIds(registrationIds, data) {
+  let i = 0;
+  let all_register_id_length = registrationIds.length;
+  while (i < all_register_id_length) {
+    // eslint-disable-next-line no-loop-func, no-await-in-loop
+    await admin.messaging().subscribeToTopic(registrationIds.slice(i, i += 999), data.Topic).then((response) => {
+      // See the MessagingTopicManagementResponse reference documentation
+      // for the contents of response.
+      console.log('Successfully subscribed to topic:', response);
+      return response;
+      // eslint-disable-next-line no-loop-func
+    }).catch((error) => {
+      console.log('Error subscribing to topic:', error.message);
+    });
+  }
+  UnSubScribeFromTopic(data);
+}
+
+function UnsubSplitRegisterIds(registrationIds, data) {
+  let i = 0;
+  let all_register_id_length = registrationIds.length;
+  while (i < all_register_id_length) {
+    // eslint-disable-next-line no-loop-func
+    admin.messaging().unsubscribeFromTopic(registrationIds.slice(i, i += 999), data.Topic).then((response) => {
+      // See the MessagingTopicManagementResponse reference documentation
+      // for the contents of response.
+      console.log('Successfully unsubscribe from topic:', response);
+      return response;
+      // eslint-disable-next-line no-loop-func
+    }).catch((error) => {
+      console.log('Error unsubscribe from topic:', error.message);
+    });
+  }
+}
 
 function AddMessageToFirebase(dataMessage) {
   let ref = admin.database().ref(dataMessage.Environnement + '/messages/' + dataMessage.chat_id);
