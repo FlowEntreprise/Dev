@@ -1,0 +1,215 @@
+.frecord-btn {
+    position: absolute;
+    left: calc(50vw - 5vh);
+    bottom: 2vh;
+    height: 10vh !important;
+    width: 10vh !important;
+
+    z-index: 50000;
+    display: none;
+    transition-duration: 0.4s;
+
+    border-radius: 100%;
+    background: url("../src/icons/Record.png") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054);
+}
+
+.frecord_loading_btn {
+    background: url('../src/icons/loading_circle.png') center center / 7vh no-repeat, linear-gradient(rgb(26, 132, 239), rgb(255, 0, 84)) !important;
+    pointer-events: none !important;
+}
+
+.frecord_img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: url("../src/icons/FLOW@3x.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.frecord-btn-active {
+    filter: brightness(110%);
+    background: url("../src/icons/stop_icon.png") center center/3.5vh no-repeat, linear-gradient(#1A84EF, #FF0054) !important;
+}
+
+svg {
+    position: absolute;
+    left: calc(50vw - 6vh);
+    bottom: 1vh;
+    height: 12vh !important;
+    width: 12vh !important;
+
+    /* object-fit: contain;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%; */
+    transform: rotate(-90deg);
+    background: transparent;
+    border-radius: 50%;
+
+    margin: 0 auto;
+    display: block;
+    z-index: 40000;
+    pointer-events: none;
+}
+
+.frecord_indicator_parent {
+    display: none !important;
+}
+
+.frecord_indicator {
+    display: none;
+    fill: transparent;
+    stroke: black;
+    stroke-opacity: 0.2;
+    stroke-width: 32;
+    stroke-dasharray: 0 100;
+
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+    /* for 0% */
+}
+
+.fflow_duration {
+    position: absolute;
+    top: 10vh;
+    width: 100vw;
+    text-align: center;
+    font-family: 'Roboto-Regular';
+    font-size: 45px;
+    color: #1A84EF;
+}
+
+.fsec {
+    position: absolute;
+    top: 18vh;
+    font-size: 33px;
+}
+
+.fclose_record {
+    position: absolute;
+    top: 3vh;
+    right: 5vw;
+    width: 5vw;
+    height: 2.5vh;
+    background-image: url("../src/icons/cancel.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+
+/* --------------------------------------------------- */
+.fripple-record::after {
+    border-radius: 50%;
+    -webkit-animation: click-wave-record 0.65s;
+    -moz-animation: click-wave-record 0.65s;
+    animation: click-wave-record 0.65s;
+    background-image: linear-gradient(#1A84EF, #FF0054);
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: 100;
+    filter: brightness(200%);
+    filter: blur(5px);
+}
+
+@keyframes click-wave-record {
+    0% {
+        height: 10vh;
+        width: 10vh;
+        opacity: 0.15;
+        position: absolute;
+    }
+
+    100% {
+        height: 20vh;
+        width: 20vh;
+        margin-left: -5vh;
+        margin-top: -5vh;
+        /* margin-left: -80px;
+        margin-top: -80px; */
+        opacity: 0;
+    }
+}
+
+#wave-container {
+    position: absolute;
+    top: 30vh;
+    left: 0vw;
+    width: 101vw;
+    height: 40vh;
+    pointer-events: none;
+}
+
+.record-shadow {
+    position: absolute;
+    display: block;
+    height: 10vh !important;
+    width: 10vh !important;
+    left: calc(50vw - 5vh);
+    bottom: 2vh;
+    border-radius: 100%;
+    background: linear-gradient(#1A84EF, #FF0054);
+    filter: blur(10px);
+    opacity: 0.8 !important;
+    z-index: 40000 !important;
+    display: none;
+}
+
+/* for iOS device */
+@supports (-webkit-touch-callout: none) {
+    .frecord-btn {
+        left: calc(50vw - 4.5vh);
+        bottom: 2.5vh;
+        height: 9vh !important;
+        width: 9vh !important;
+
+    }
+
+    .record-shadow {
+        height: 9vh !important;
+        width: 9vh !important;
+        left: calc(50vw - 4.5vh);
+        bottom: 2vh;
+    }
+
+    .fclose_record {
+        top: 7vh;
+    }
+
+    /* .svg {
+        left: calc(50vw - 5.5vh);
+        bottom: 1vh;
+        height: 11vh !important;
+        width: 11vh !important;
+    } */
+}
+
+/* @media (max-height: 700px) { */
+.mobile700 .frecord-btn {
+    left: calc(50vw - 6vh);
+    bottom: 2vh;
+    height: 12vh !important;
+    width: 12vh !important;
+
+}
+
+.mobile700 .record-shadow {
+    height: 12vh !important;
+    width: 12vh !important;
+    left: calc(50vw - 6vh);
+    bottom: 2vh;
+}
+
+.mobile700 svg {
+    left: calc(50vw - 7vh);
+    bottom: 1vh;
+    height: 14vh !important;
+    width: 14vh !important;
+}
+
+/* } */

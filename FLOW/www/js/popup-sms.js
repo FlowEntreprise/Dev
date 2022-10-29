@@ -144,6 +144,7 @@ function getContactAlreadyOnFLow() {
 $(".list_contact_on_flow").scroll(function () {
     var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
     if (CanRefreshContactList == true) {
+        
         if (Math.round($(this).scrollTop()) >= limit * 0.75) {
             CanRefreshContactList = false;
             //console.log("Get followers on Server");
@@ -154,13 +155,28 @@ $(".list_contact_on_flow").scroll(function () {
                 ContactList: all_phone_numbers
             };
             ServerManager.GetUserFromContactList(data);
+            FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "list_contact"});
         }
     }
 });
 
-function UpdateContactList(data, follow_list) {
+function UpdateContactList(data_not_unique, follow_list) {
     //console.log("updating Followers list...");
     // //console.log(data.Data);
+    
+    if(data_not_unique.length == 0)
+    {
+        for (let i = 0; i < all_contacts.length; i++) {
+            let user = new block_user(follow_list, "contactList", all_contacts[i],true);
+            all_users_block.push(user);
+        }
+        
+        CanRefreshContactList = false;
+        return;
+    }
+    
+    let data = Array.from(new Set(data_not_unique.map(el => JSON.stringify(el)))).map(el => JSON.parse(el));
+    
     if (data.length == 0 && ContactListCurrentIndex == 0) {
         let no_friends = document.createElement("h2");
         no_friends.id = "no_friends";
@@ -189,6 +205,13 @@ function UpdateContactList(data, follow_list) {
             //console.log("user updated !");
             pullToRefreshEnd();
             if (data.length < 10) {
+                
+                
+                for (let i = 0; i < all_contacts.length; i++) {
+                    let user = new block_user(follow_list, "contactList", all_contacts[i],true);
+                    all_users_block.push(user);
+                }
+                
                 CanRefreshContactList = false;
                 // let tick_tl = document.createElement("div");
                 // tick_tl.className = "tick_icon";
@@ -210,9 +233,11 @@ document
     .addEventListener("closed", function () {
         $(".list_contact_on_flow")[0].innerHTML = "";
         CanRefreshContactList = true;
+        can_append_phone_number = false;
         ContactListCurrentIndex = 0;
         all_contacts.length = 0;
         all_phone_numbers.length = 0;
+        FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-contact-on-flow"});
     });
 
 document
@@ -221,6 +246,7 @@ document
         let loading_contact_list = document.createElement("div");
         loading_contact_list.className = "loading-spinner loading_contact_list";
         $(".list_contact_on_flow")[0].appendChild(loading_contact_list);
+        FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-contact-on-flow"});
     });
 
 
@@ -246,5 +272,48 @@ $("#ignorer_numero").on("click", function () {
 });
 
 $("#explore_find_friends").on("click", function () {
+    FirebasePlugin.logEvent("find_friend_from_explore_clicked", {});
     getContactAlreadyOnFLow();
 });
+
+$("#ExploreFindFriendsLogo").on("click", function () {
+    FirebasePlugin.logEvent("find_friend_logo_from_explore_clicked", {});
+    getContactAlreadyOnFLow();
+});
+
+
+
+$("#MyAccountFindFriendsLogo").on("click", function () {
+    FirebasePlugin.logEvent("find_friend_from_my_account_clicked", {});
+    getContactAlreadyOnFLow();
+});
+
+document.getElementById("popup-sms").addEventListener("closed", function () {
+    FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-sms"});
+});
+
+document.getElementById("popup-sms").addEventListener("opened", function () {
+    FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-sms"});
+});
+
+
+function send_invite_sms(number) {
+        //var number = document.getElementById('numberTxt').value.toString(); /* iOS: ensure number is actually a string */
+        //var message = document.getElementById('messageTxt').value;
+
+        //CONFIGURATION
+         let = {
+            replaceLineBreaks: false, // true to replace \n by a new line, false by default
+            android: {
+                intent: ''  // send SMS with the native android SMS messaging
+                //intent: '' // send SMS without opening any other app, require : android.permission.SEND_SMS and android.permission.READ_PHONE_STATE
+            }
+        };
+
+        let success = function () { alert('Message sent successfully'); };
+        let error = function (e) { alert('Message Failed:' + e); };
+        sms.send(number.toString(), `${language_mapping[device_language]['join_flow']}`, options, success, error);
+    }
+
+
+

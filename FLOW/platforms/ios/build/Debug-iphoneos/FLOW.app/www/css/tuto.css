@@ -1,0 +1,153 @@
+.tuto_app {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: white;
+	font-family: "Roboto-Regular";
+	transition-duration: 0.8s;
+	z-index: 9999;
+	display: none;
+}
+
+.tuto_app>.tuto_txt {
+	position: absolute;
+	font-size: 12.5px;
+	width: 100vw;
+	text-align: center;
+	transition-duration: 0.8s;
+	pointer-events: none;
+	color: #92abb2;
+	opacity: 0;
+}
+
+.tuto_txt>span {
+	color: #1a84ef;
+}
+
+.tuto_txt._1 {
+	top: 43vh;
+	color: #1a84ef;
+	font-size: 24px;
+	opacity: 0;
+}
+
+.tuto_next_btn,
+.tuto_next_btn_shadow {
+	position: absolute;
+	top: 80vh;
+	left: 30vw;
+	width: 40vw;
+	height: auto;
+	background: linear-gradient(0.35turn, #1a84ef, #ff0054);
+	border-radius: 5vh;
+	text-align: center;
+	line-height: 8vh;
+	color: white;
+	font-size: 19px;
+	text-size-adjust: none;
+	display: inline-block;
+	opacity: 0;
+	pointer-events: none;
+	transition-duration: 0.8s;
+}
+
+.tuto_next_btn_shadow {
+	top: 80.3vh;
+	height: 8vh;
+	filter: blur(5px);
+	opacity: 1;
+	opacity: 0;
+	animation: refresh 1.5s ease-in-out infinite;
+}
+
+@keyframes refresh {
+	0% {
+		transform: scale(1);
+	}
+
+	50% {
+		transform: scale(1.025);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+.screen_tuto {
+	position: absolute;
+	top: 25vh;
+	height: 50vh;
+	left: 0;
+	width: 100vw;
+	background-image: url("../src/pictures/tuto/record_screen.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	opacity: 0;
+	pointer-events: none;
+	transition-duration: 0.8s;
+}
+
+.tuto_record_btn {
+	position: absolute;
+	top: 64vh;
+	left: 0.2vw;
+	width: 100vw;
+	height: 7.7vh;
+	background: url("../src/pictures/tuto/record_btn.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	opacity: 0;
+	transform: scale(1);
+	animation: grow 2s ease-in-out infinite;
+	transition-duration: 0.8s;
+}
+
+.tuto_story_btn {
+	position: absolute;
+	top: 25vh;
+	height: 50vh;
+	left: 0;
+	width: 100vw;
+	background-image: url("../src/pictures/tuto/story_btn.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	opacity: 0;
+	pointer-events: none;
+	animation: none 1s ease-in-out infinite;
+	animation-delay: 0.8s;
+	transition-duration: 0.8s;
+}
+
+@keyframes grow {
+	0% {
+		transform: scale(1);
+	}
+
+	50% {
+		transform: scale(1.2);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes fade {
+	0% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0.5;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}

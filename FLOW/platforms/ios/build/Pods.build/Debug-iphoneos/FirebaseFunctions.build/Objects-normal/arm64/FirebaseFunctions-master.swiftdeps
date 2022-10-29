@@ -1,0 +1,18 @@
+version: "Apple Swift version 5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)"
+options: "ae4f6216b2dc2bc76f05ad8b2ff8c49ee4486aac108d8613e357c33ed81f9bb0"
+build_start_time: [1664310097, 760449886]
+build_end_time: [1664310104, 442795038]
+inputs:
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFunctions/FirebaseFunctions/Sources/Callable+Codable.swift"
+  : [1664050126, 285767793]
+  "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFunctions/FirebaseFunctions/Sources/Functions.swift": [1664050126, 285133838]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFunctions/FirebaseFunctions/Sources/FunctionsError.swift"
+  : [1664050126, 284967422]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFunctions/FirebaseFunctions/Sources/HTTPSCallable.swift"
+  : [1664050126, 284790754]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFunctions/FirebaseFunctions/Sources/Internal/FunctionsComponent.swift"
+  : [1664050126, 285640954]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFunctions/FirebaseFunctions/Sources/Internal/FunctionsContext.swift"
+  : [1664050126, 285387992]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFunctions/FirebaseFunctions/Sources/Internal/FunctionsSerializer.swift"
+  : [1664050126, 285517692]

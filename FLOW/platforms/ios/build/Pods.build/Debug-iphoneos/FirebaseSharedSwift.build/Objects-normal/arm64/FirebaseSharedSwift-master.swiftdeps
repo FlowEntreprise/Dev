@@ -1,0 +1,9 @@
+version: "Apple Swift version 5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)"
+options: "d75285c9ef0e5c8f5c7edddb69b8b51b0de4ed6f8ba41fa496b0fb0f3e09d479"
+build_start_time: [1664310093, 742676019]
+build_end_time: [1664310097, 607751846]
+inputs:
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseSharedSwift/FirebaseSharedSwift/Sources/FirebaseRemoteConfigValueDecoding.swift"
+  : [1664050126, 462076187]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseSharedSwift/FirebaseSharedSwift/Sources/third_party/FirebaseDataEncoder/FirebaseDataEncoder.swift"
+  : [1664050126, 461904525]

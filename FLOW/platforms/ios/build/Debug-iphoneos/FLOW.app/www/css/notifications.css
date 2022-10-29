@@ -1,0 +1,224 @@
+.notifications_parent {
+	height: calc(100 * var(--custom-vh));
+	width: 100vw;
+	overflow-x: hidden;
+	padding-top: calc(9 * var(--custom-vh));
+	transition: transform 0.5s;
+	/* padding-top: calc(7* var(--custom-vh)); */
+}
+
+.no_notif {
+	position: absolute;
+	top: calc(45* var(--custom-vh));
+	left: 0;
+	width: 100vw;
+	text-align: center;
+	font-size: 15px;
+	font-family: "Roboto-Regular";
+	color: #92abb2;
+}
+
+.fnotifications-bar {
+	display: none;
+}
+
+.fnotifications-bar>label {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	text-align: center;
+	height: calc(8 * var(--custom-vh));
+	line-height: calc(8 * var(--custom-vh));
+	font-family: "Roboto-Bold";
+	font-size: 20px;
+	color: #1a84ef;
+}
+
+.fblock_notification {
+	position: relative;
+	width: 90vw;
+	margin-left: 5vw;
+	height: calc(10 * var(--custom-vh));
+	margin-top: 2vw;
+	background-color: #fff;
+	border-radius: 2vw;
+	box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+	transition-duration: 0.4s;
+}
+
+.fphoto_block_notif_follow {
+	position: absolute;
+	width: calc(7 * var(--custom-vh));
+	height: calc(7 * var(--custom-vh));
+	top: calc(1.5 * var(--custom-vh));
+	left: 2vw;
+	border-radius: calc(7 * var(--custom-vh));
+	border: 1.5px solid rgb(146, 171, 178);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	background-size: cover;
+	background-position: center;
+}
+
+.fphoto_block_notif_like {
+	position: absolute;
+	width: calc(7 * var(--custom-vh));
+	height: calc(7 * var(--custom-vh));
+	top: calc(1.5 * var(--custom-vh));
+	left: 2vw;
+	border-radius: calc(7 * var(--custom-vh));
+	border: 1.5px solid rgb(255, 0, 84);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	background-size: cover;
+	background-position: center;
+}
+
+.fphoto_block_notif_story_comment {
+	position: absolute;
+	width: calc(7 * var(--custom-vh));
+	height: calc(7 * var(--custom-vh));
+	top: calc(1.5 * var(--custom-vh));
+	left: 2vw;
+	border-radius: calc(7 * var(--custom-vh));
+	border: 1.5px solid rgb(152, 57, 198);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	background-size: cover;
+	background-position: center;
+}
+
+.fphoto_block_notif_comment {
+	position: absolute;
+	width: calc(7 * var(--custom-vh));
+	height: calc(7 * var(--custom-vh));
+	top: calc(1.5 * var(--custom-vh));
+	left: 2vw;
+	border-radius: calc(7 * var(--custom-vh));
+	border: 1.5px solid rgb(26, 132, 239);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	background-size: cover;
+	background-position: center;
+}
+
+.ftype_notif {
+	position: absolute;
+	width: calc(3 * var(--custom-vh));
+	height: calc(3 * var(--custom-vh));
+	top: calc(5 * var(--custom-vh));
+	left: calc(4.5 * var(--custom-vh));
+	object-fit: contain;
+}
+
+.fnotif_label {
+	position: absolute;
+	top: calc(2.5 * var(--custom-vh));
+	left: 20vw;
+	font-size: 14px;
+	color: #92abb2;
+	font-family: "Roboto-Bold";
+}
+
+.fnotif_text {
+	font-family: "Roboto-Light";
+	position: absolute;
+	top: calc(5 * var(--custom-vh));
+	left: 20vw;
+	color: #92abb2;
+	font-size: 13px;
+	width: 60vw;
+}
+
+.fred_dot {
+	position: absolute;
+	z-index: 1;
+	top: 1vw;
+	left: 1vw;
+	width: 3vw;
+	height: 3vw;
+	border-radius: 3vw;
+	background-color: #ff5d5d;
+}
+
+.fred_dot_border {
+	position: absolute;
+	top: calc(3.5 * var(--custom-vh));
+	right: 4vw;
+	width: 5vw;
+	height: 5vw;
+	border-radius: 5vw;
+	background-color: rgba(255, 91, 91, 0.199);
+}
+
+.ftime {
+	position: absolute;
+	top: calc(7 * var(--custom-vh));
+	right: 3.5vw;
+	color: #92abb2;
+	font-size: 13px;
+	font-family: "Roboto-Light";
+	background: white;
+	padding-left: 10px;
+}
+
+.list-notif-block {
+	/* margin-top: calc(2 * var(--custom-vh)) !important; */
+	padding-bottom: calc(28* var(--custom-vh));
+}
+
+.layer_notif {
+	margin-top: calc(2 * var(--custom-vh)) !important;
+}
+
+/* only for iOS device */
+@supports (-webkit-touch-callout: none) {
+	.fnotifications-bar>label {
+		top: 25px !important;
+	}
+
+	.layer_notif {
+		margin-top: calc(2 * var(--custom-vh) + 25px) !important;
+	}
+
+
+	.list-notif-block {
+		margin-top: calc(2 * var(--custom-vh) + 15px) !important;
+	}
+
+	/* .fred_dot {
+		top: calc(1vw + 5px);
+		left: calc(1vw - 5px);
+	} */
+}
+
+/* @media (max-height: 700px) { */
+.mobile700 .fnotif_label {
+	font-size: 13px;
+}
+
+.mobile700 .fnotif_text {
+	font-size: 11px;
+}
+
+.mobile700 .ftime {
+	font-size: 11px;
+}
+
+/* } */
+
+/* @media (max-height: 600px) { */
+.mobile600 .fnotifications-bar>label {
+	font-size: 16px;
+}
+
+.mobile600 .fnotif_label {
+	font-size: 11px;
+}
+
+.mobile600 .fnotif_text {
+	font-size: 9px;
+}
+
+.mobile600 .ftime {
+	font-size: 9px;
+}
+
+/* } */

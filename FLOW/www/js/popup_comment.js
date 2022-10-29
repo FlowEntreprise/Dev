@@ -107,6 +107,7 @@ function block_response(response_data, response_is_specifique) {
     $(this.fresponse_like).on("click", function () {
         // like d'un response
         console.log("click sur le like d'une reponse");
+        FirebasePlugin.logEvent("response_like");
         if (connected) {
             current_response_block = block_response;
             let data = {
@@ -770,6 +771,7 @@ function send_response_to_server(data) {
 
 // send comment
 $(".fsend_comment").on("click", function () {
+    FirebasePlugin.logEvent("send_comment");
     var text = $("#finput_comment").val().trim();
     Popup("popup-identification", false, -5);
     let data;
@@ -1018,6 +1020,13 @@ document
     .addEventListener("closed", function () {
         in_identification = false;
         $(".after-record-block-container").css("margin-top", "");
+        FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-identification"});
+    });
+
+document
+    .getElementById("popup-identification")
+    .addEventListener("opened", function () {        
+        FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-identification"});
     });
 
 //supression de commentaire

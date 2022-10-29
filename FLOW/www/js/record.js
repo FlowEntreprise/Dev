@@ -38,7 +38,7 @@ var flow_btn_img = document.getElementsByClassName("flow_btn_img")[0];
 var frecord_btn = document.getElementsByClassName("frecord-btn")[0];
 
 flow_btn_img.addEventListener('long-press', function (e) {
-
+    FirebasePlugin.logEvent("flow_record_long_press");
 	if (connected) {
 		console.log("Hold Record !");
 		// app.popup('.popup-record');
@@ -55,6 +55,7 @@ flow_btn_img.addEventListener('long-press', function (e) {
 });
 
 frecord_btn.addEventListener('long-press', function (e) {
+    FirebasePlugin.logEvent("flow_retry_record_long_press");
 	if (!recording && !record_was_hold) {
 		console.log("Hold Record !");
 		record_was_hold = true;
@@ -87,6 +88,7 @@ document.getElementById("popup-record").addEventListener("opened", function () {
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 	current_page = "record";
+    FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-record"});
 
 	// analytics.setCurrentScreen(current_page);
 
@@ -97,18 +99,7 @@ document.getElementById("popup-record").addEventListener("opened", function () {
 	if (record_was_hold) {
 		// $('.frecord-btn').addClass('frecord-btn-active');
 	}
-
-	current_page = "record";
-	facebookConnectPlugin.logEvent(
-		"open_record", {},
-		null,
-		function () {
-			console.log("fb event success");
-		},
-		function () {
-			console.log("fb event error");
-		}
-	);
+	current_page = "record";    
 });
 document.getElementById("popup-record").addEventListener("closed", function () {
 	$(".frecord-btn").css({
@@ -133,6 +124,8 @@ document.getElementById("popup-record").addEventListener("closed", function () {
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 	current_page = "home";
+    FirebasePlugin.setScreenName("home");
+    FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-record"});
 
 	// analytics.setCurrentScreen(current_page);
 
@@ -165,6 +158,7 @@ document
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 		current_page = "after-record";
+        FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-after-record"});
 
 		// analytics.setCurrentScreen(current_page);
 	});
@@ -179,6 +173,7 @@ document
 		record_was_hold = false;
 		image64 = null;
 		all_tagged_users.length = 0;
+        FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-after-record"});
 	});
 
 document
@@ -187,6 +182,7 @@ document
 		$(".fvalidate-after_btn.story")[0].style.pointerEvents = "auto";
 		$(".fvalidate-after_btn.story")[0].setAttribute("style", "");
 		$(".floading-spinner.loading-story")[0].style.display = "none";
+        FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-after-story-record"});
 	});
 document
 	.getElementById("popup-after-story-record")
@@ -195,6 +191,7 @@ document
 		$(".fvalidate-after_btn.story")[0].style.pointerEvents = "auto";
 		$(".fvalidate-after_btn.story")[0].setAttribute("style", "");
 		$(".floading-spinner.loading-story")[0].style.display = "none";
+        FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-after-story-record"});
 	});
 
 // $('.popup-story-record').on('popup:open', function () {
@@ -223,11 +220,13 @@ document
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 		current_page = "record-story";
+        FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-story-record"});
 
 		// analytics.setCurrentScreen(current_page);
 	});
 
 $(".fclose_record")[0].addEventListener("touchend", function () {
+    
 	if (recording) {
 		console.log("stop recording");
 		stopCapture(false);
@@ -247,6 +246,7 @@ $(".fclose_story_record")[0].addEventListener("touchend", function () {
 
 $(".frecord-btn").on("click", function () {
 	if (recording) {
+        FirebasePlugin.logEvent("flow_stop_record");
 		console.log("stop recording");
 		// if (record_time > 2) {
 		//     stopCapture(true);
@@ -257,6 +257,7 @@ $(".frecord-btn").on("click", function () {
 	} else if (!record_was_hold) {
 		console.log("start recording");
 		startCapture();
+        FirebasePlugin.logEvent("flow_start_record");
 	}
 });
 
@@ -267,6 +268,7 @@ $("body").on("touchend", function () {
 		// } else {
 		//     stopCapture(false);
 		// }
+        FirebasePlugin.logEvent("flow_stop_record");
 		stopCapture(true);
 	}
 });
@@ -274,6 +276,7 @@ $("body").on("touchend", function () {
 $(".frestart-after_btn").on("touchend", function () {
 	console.log("restart record");
 	record_was_hold = false;
+    FirebasePlugin.logEvent("flow_restart_record");
 	if (current_page == "after-record") {
 		// app.closeModal('.popup-after-record');
 		Popup("popup-after-record", false);
@@ -328,6 +331,7 @@ $(".fcancel-after_btn").on("touchend", function () {
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 		current_page = "home";
+        FirebasePlugin.setScreenName("home");
 
 		// analytics.setCurrentScreen(current_page);
 	} else {
@@ -349,7 +353,8 @@ $(".fcancel-after_btn").on("touchend", function () {
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 		current_page = "home";
-
+        FirebasePlugin.setScreenName("home");
+        FirebasePlugin.logEvent("flow_cancel_record");
 		// analytics.setCurrentScreen(current_page);
 	}
 });
@@ -504,6 +509,7 @@ function CloseAfterRecord() {
 	);
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 	current_page = "home";
+    FirebasePlugin.setScreenName("home");
 
 	// analytics.setCurrentScreen(current_page);
 
@@ -523,10 +529,12 @@ function format(number) {
 }
 
 $(".frecord-btn").on("touchstart", function () {
+    FirebasePlugin.logEvent("flow_record");
 	PlayRipple($(this), "fripple-record");
 });
 
 $(".flow_btn_img").on("touchstart", function () {
+    FirebasePlugin.logEvent("flow_retry_record");
 	PlayRipple($(this), "fripple-record");
 });
 
@@ -571,6 +579,7 @@ function Save(blob) {
 			);
 			last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 			current_page = "after-record";
+            FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "after-record"});
 			console.log("after record");
 
 			// analytics.setCurrentScreen(current_page);
@@ -584,7 +593,7 @@ function Save(blob) {
 			patternKey: null,
 			imageURL: null,
 			title: "",
-			description: "",
+			description: "Flow #" + (++my_number_of_flow) ,
 			pseudo: window.localStorage.getItem("user_name"),
 			account_imageURL: window.localStorage.getItem("user_profile_pic"),
 		};
@@ -596,7 +605,7 @@ function Save(blob) {
 		appState.recordTime = record_time;
 		appState.blob = blob;
 		// appState.flow_title = $(".finput_title").val();
-		appState.flow_description = $(".finput_description").val();
+		appState.flow_description = $(".finput_description").val(block_params.description);
 		var reader = new FileReader();
 		reader.readAsDataURL(blob);
 		reader.onloadend = function () {
@@ -657,6 +666,7 @@ function Save(blob) {
 		);
 		last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 		current_page = "after-story-record";
+        FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "after-story-record"});
 
 		// analytics.setCurrentScreen(current_page);
 
@@ -840,6 +850,7 @@ function drawCurveAnim() {
 drawCurveAnim();
 
 function TakePhoto(callback) {
+    FirebasePlugin.logEvent("take_flow_picture");
 	console.log("take photo");
 	if (window.cordova.platformId == "android") {
 		var permissions = cordova.plugins.permissions;
@@ -882,6 +893,7 @@ function TakePhoto(callback) {
 }
 
 function GetPhotoFromGallery(callback) {
+    FirebasePlugin.logEvent("add_flow_image");
 	console.log("get photo from gallery");
 	if (window.cordova.platformId == "android") {
 		var permissions = cordova.plugins.permissions;
@@ -1016,6 +1028,7 @@ function closeStoryRecord() {
 		}
 	);
 	current_page = "home";
+    FirebasePlugin.setScreenName("home");
 	last_currentpage_timestamp = Math.floor(Date.now() / 1000);
 
 	// analytics.setCurrentScreen(current_page);

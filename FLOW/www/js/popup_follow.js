@@ -3,7 +3,7 @@ var my_followers = false;
 var all_tagged_users = [];
 var can_append_phone_number = false;
 //block qui correspond à utilisateur de la liste des followers et follwing
-function block_user(follow_list, target, data) {
+function block_user(follow_list, target, data,invite_friend) {
 	//follow_list true correspond au block user de la liste des utilisateur que l'on peu identifier dans un commentaire
 	var block_user = this; //
 	//var block_user.profilePicLink = src_profile_img + param_profile_img;
@@ -12,11 +12,15 @@ function block_user(follow_list, target, data) {
 	this.RegisterId = data.RegisterId;
 	this.LastOs = data.LastOs;
 	this.FirebaseToken = data.FirebaseToken;
-	this.FullName = data.FullName;
+	this.FullName = data.FullName ? data.FullName : data.name;
 	this.PrivateId = data.PrivateId;
 	if (data.PhoneNumber) {
 		this.PhoneNumber = data.PhoneNumber.replace(/[^0-9+]/g, '');
 	}
+    
+    if (data.phoneNumber) {
+        this.PhoneNumber = data.phoneNumber.replace(/[^0-9+]/g, '');
+    }
 
 	if (follow_list == false) {
 		(this.block_user.className = "f_block_user");
@@ -41,22 +45,25 @@ function block_user(follow_list, target, data) {
 	if (target == "CreateConversation") {
 		$(".fconversation_block_utilisateur_list").append(this.block_user);
 	}
-	if (target == "contactList") {
-		$(".list_contact_on_flow").append(this.block_user);
-		all_contacts.forEach(contact => {
-			if (contact.phoneNumber == block_user.PhoneNumber) {
-				this.FullName = contact.name;
-				can_append_phone_number = true;
-			}
-		});
-
+	if (target == "contactList" && !invite_friend) {
+        
+            all_contacts.forEach(contact => {
+                if (contact.phoneNumber == block_user.PhoneNumber) {
+                    this.FullName = contact.name;
+                    can_append_phone_number = true;
+                }
+            });
+        
+		
+        
 	}
 
 
 	this.fphoto_block_user = document.createElement("div");
 	this.fphoto_block_user.className = "f_user_photo";
-	this.fphoto_block_user.style.backgroundImage =
-		"url('" + block_user.profilePicLink + "')";
+    if(!invite_friend){this.fphoto_block_user.style.backgroundImage =
+        "url('" + block_user.profilePicLink + "')";}
+	
 	this.block_user.appendChild(this.fphoto_block_user);
 
 	$(this.fphoto_block_user).on("click", function () {
@@ -73,16 +80,17 @@ function block_user(follow_list, target, data) {
 	this.f_user_fullname.className = "f_user_fullname";
 	this.f_user_fullname.innerText = this.FullName;
 	this.block_user.appendChild(this.f_user_fullname);
-
-	this.f_user_private_id = document.createElement("label");
-	this.f_user_private_id.className = "f_user_private_id";
-	this.f_user_private_id.innerText = "@" + data.PrivateId;
-	this.block_user.appendChild(this.f_user_private_id);
-
-	if (can_append_phone_number == true) {
+    if(!invite_friend){
+        this.f_user_private_id = document.createElement("label");
+        this.f_user_private_id.className = "f_user_private_id";
+        this.f_user_private_id.innerText = "@" + data.PrivateId;
+        this.block_user.appendChild(this.f_user_private_id);
+    }
+	
+	if (can_append_phone_number == true || invite_friend ) {
 		this.f_user_phone_number = document.createElement("label");
 		this.f_user_phone_number.className = "f_user_phone_number";
-		this.f_user_phone_number.innerText = block_user.PhoneNumber;
+        this.f_user_phone_number.innerText = block_user.PhoneNumber;
 		this.block_user.appendChild(this.f_user_phone_number);
 	}
 
@@ -131,37 +139,57 @@ function block_user(follow_list, target, data) {
 	}
 
 	if (follow_list == false) {
+        
+        if(invite_friend){
+            
+            this.invite_button = document.createElement("div");
+            this.invite_button.className = "invite_button";
+            this.invite_button.innerText = `${language_mapping[device_language]['invite_button']}`
+            
+            this.block_user.appendChild(this.invite_button);
+            $(".list_contact_on_flow").append(this.block_user);
+        }
+        else
+        {
+            if (data.PrivateId != window.localStorage.getItem("user_private_id")) {
+                this.following_button = document.createElement("div"); //
+                this.following_button.className = "following_button";
+            }
+            
+            
 
-		if (data.PrivateId != window.localStorage.getItem("user_private_id")) {
-			this.following_button = document.createElement("div"); //
-			this.following_button.className = "following_button";
-		}
+            $(this.following_button).on("click", function () {
+                let data_user = {
+                    PrivateId: data.PrivateId,
+                    type: "block_user_follow",
+                    block_user: block_user,
+                };
+                ServerManager.ActionFollow(data_user, function (response, data) {
+                    ServerManager.GetFDJ();
+                    RefreshTL();
+                    FollowResponse(response, data.type, data.block_user);
+                });
+            });
 
-		$(this.following_button).on("click", function () {
-			let data_user = {
-				PrivateId: data.PrivateId,
-				type: "block_user_follow",
-				block_user: block_user,
-			};
-			ServerManager.ActionFollow(data_user, function (response, data) {
-				ServerManager.GetFDJ();
-				RefreshTL();
-				FollowResponse(response, data.type, data.block_user);
-			});
-		});
-
-		if (data.YouFollowHim == "true") {
-			$(this.following_button).addClass("activeButtunFollow");
-			$(this.following_button).text(`${language_mapping[device_language]['ffollowersBandeau']}`);
-		} else if (
-			data.PrivateId != window.localStorage.getItem("user_private_id")
-		) {
-			$(this.following_button).removeClass("activeButtunFollow");
-			this.following_button.innerText = `${language_mapping[device_language]['fFollowButtunAccount']}`;
-		}
-		if (this.following_button) {
-			this.block_user.appendChild(this.following_button);
-		}
+            if (data.YouFollowHim == "true") {
+                $(this.following_button).addClass("activeButtunFollow");
+                $(this.following_button).text(`${language_mapping[device_language]['ffollowersBandeau']}`);
+            } else if (
+                data.PrivateId != window.localStorage.getItem("user_private_id")
+            ) {
+                $(this.following_button).removeClass("activeButtunFollow");
+                this.following_button.innerText = `${language_mapping[device_language]['fFollowButtunAccount']}`;
+            }
+            if (this.following_button) {
+                this.block_user.appendChild(this.following_button);
+            }
+        }
+        $(this.invite_button).on("click", function () {
+            FirebasePlugin.logEvent("button_sms_invite_friend", {});
+            let number = block_user.PhoneNumber ? block_user.PhoneNumber : block_user.phoneNumber
+            send_invite_sms(number)
+        });
+                        		
 	}
 
 	if (follow_list == "CreateConversation") {
@@ -239,13 +267,21 @@ document
 	.addEventListener("closed", function () {
 		$(".popup_followers_container")[0].innerHTML = "";
 		in_followers = false;
+        FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-followers"});
 	});
+
+document
+    .getElementById("popup-followers")
+    .addEventListener("opened", function () {
+        FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-followers"});
+    });
 
 var CanRefreshFollowersList = true;
 var FollowersListCurrentIndex = 0;
 $(".popup_followers_container").scroll(function () {
 	var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 	if (CanRefreshFollowersList == true) {
+        
 		if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 			CanRefreshFollowersList = false;
 			//console.log("Get followers on Server");
@@ -263,6 +299,7 @@ $(".popup_followers_container").scroll(function () {
 				data_followers_scroll.PrivateId = privateIDAccount;
 			}
 			ServerManager.GetFollowerOfUser(data_followers_scroll);
+            FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "followers"});
 		}
 	}
 });
@@ -344,13 +381,21 @@ document
 	.addEventListener("closed", function () {
 		$(".popup_followings_container")[0].innerHTML = "";
 		in_following = false;
+        FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-followings"});
 	});
+
+document
+    .getElementById("popup-followings")
+    .addEventListener("opened", function () {
+        FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-followings"});
+    });
 
 var CanRefreshfollowingsList = true;
 var followingsListCurrentIndex = 0;
 $(".popup_followings_container").scroll(function () {
 	var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 	if (CanRefreshfollowingsList == true) {
+        
 		if (Math.round($(this).scrollTop()) >= limit * 0.75) {
 			CanRefreshfollowingsList = false;
 			//console.log("Get followings on Server");
@@ -368,6 +413,7 @@ $(".popup_followings_container").scroll(function () {
 				data_followings_scroll.PrivateId = privateIDAccount;
 			}
 			ServerManager.GetFollowingOfUser(data_followings_scroll);
+            FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "followings"});
 		}
 	}
 });

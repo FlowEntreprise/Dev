@@ -1,0 +1,31 @@
+dependencies: \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFirestore/Firestore/core/src/nanopb/reader.cc \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFirestore/Firestore/core/src/nanopb/reader.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/nanopb/pb.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/nanopb/pb_decode.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFirestore/Firestore/core/include/firebase/firestore/firestore_errors.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFirestore/Firestore/core/src/nanopb/byte_string.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFirestore/Firestore/core/src/util/comparison.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/meta/type_traits.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/base/config.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/base/options.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/base/policy_checks.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/strings/string_view.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/base/attributes.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/base/internal/throw_delegate.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/base/macros.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/base/optimization.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/base/port.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFirestore/Firestore/core/src/util/read_context.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFirestore/Firestore/core/src/util/status.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFirestore/Firestore/core/src/util/status_fwd.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFirestore/Firestore/core/src/util/string_format.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFirestore/Firestore/core/src/objc/objc_type_traits.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFirestore/Firestore/core/src/util/string_apple.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseFirestore/Firestore/core/src/util/type_traits.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/strings/str_cat.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/strings/numbers.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/numeric/bits.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/numeric/internal/bits.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/numeric/int128.h \
+  /Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/build/Debug-iphoneos/abseil/absl.framework/Headers/numeric/int128_have_intrinsic.inc

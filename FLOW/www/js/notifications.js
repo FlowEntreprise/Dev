@@ -39,6 +39,7 @@ function notifications_tab_loaded() {
     $(".notifications_parent").scroll(function () {
         var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
         if (CanRefreshNotificationList == true) {
+            
             if (Math.round($(this).scrollTop()) >= limit * 0.75) {
                 CanRefreshNotificationList = false;
                 var data_update_Notification_list = {
@@ -46,6 +47,7 @@ function notifications_tab_loaded() {
                     Index: NotificationListCurrentIndex
                 };
                 ServerManager.GetNotificationOfUser(data_update_Notification_list);
+                FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "notification"});
             }
         }
     });
@@ -792,12 +794,20 @@ function push_notif_block(notification_type, like_type) {
 //https://github.com/phonegap/phonegap-plugin-push/blob/master/docs/PAYLOAD.md
 
 function send_notif_to_user(block, type) {
-
     let notif_lastos;
     let notif_body;
     let notif_recipient; // destinataire    
     let prepare_id_flow = block.Flow_block_id ? block.Flow_block_id : block.ObjectId;
-    let sender_info = {
+    let sender_info;
+    if(type =='new_flow')
+    {
+        sender_info = {fullname : 'FLOW',IdFlow : block.ObjectId};
+        notif_lastos = 'ios';
+        notif_body = "@" + block.PrivatedId + ` a posté un flow :` + block.Description;
+        notif_recipient = "/topics/"+block.Topic;
+    }
+    else{
+     sender_info = {
         fullname: window.localStorage.getItem("user_name"),
         privateId: window.localStorage.getItem("user_private_id"),
         profil_pic: window.localStorage.getItem("user_profile_pic"),
@@ -813,10 +823,12 @@ function send_notif_to_user(block, type) {
     if (sender_info.comment_text == undefined) {
         sender_info.comment_text = sender_info.post_texte;
     }
+    }
 
     noteId++;
 
     switch (type) {
+            
         case 'story_comment':
             notif_lastos = block.LastOs;
             notif_body = "@" + sender_info.privateId + ` ${language_mapping[device_language]['reacted_to_your_story']}` + sender_info.post_texte;
@@ -877,6 +889,7 @@ function send_notif_to_user(block, type) {
             notif_lastos = block.recipient_info.LastOs;
             notif_body = block.message;
             notif_recipient = block.recipient_info.registration_id;
+            sender_info.notif_recipient_private_id = block.recipient_info.private_id;
             break;
     }
 

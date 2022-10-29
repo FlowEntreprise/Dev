@@ -1,0 +1,27 @@
+version: "Apple Swift version 5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)"
+options: "b6df7883a1d752345df5a540d8237dfe64919f4ede35ba2ae28bf8a3860ef037"
+build_start_time: [1664310095, 225447177]
+build_end_time: [1664310100, 67613124]
+inputs:
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/Heartbeat.swift"
+  : [1664050126, 94726085]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatController.swift"
+  : [1664050126, 95120191]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatStorage.swift"
+  : [1664050126, 95358610]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatsBundle.swift"
+  : [1664050126, 95553159]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatsPayload.swift"
+  : [1664050126, 95821857]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/RingBuffer.swift"
+  : [1664050126, 94889163]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/Storage.swift"
+  : [1664050126, 94536066]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/StorageFactory.swift"
+  : [1664050126, 95945119]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/WeakContainer.swift"
+  : [1664050126, 95710277]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/_ObjC_HeartbeatController.swift"
+  : [1664050126, 95006704]
+  ? "/Users/chrisgerminal/Documents/GitHub/Dev/FLOW/platforms/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/_ObjC_HeartbeatsPayload.swift"
+  : [1664050126, 95235109]

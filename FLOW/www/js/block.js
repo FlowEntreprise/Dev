@@ -58,6 +58,7 @@ function block(params) {
 	this.flowplay = function () {
 		// console.log("play flow", block);
 		// console.trace();
+        
 		if (this.ready) {
 			// if (window.cordova.platformId == "ios") {
 			//     cordova.plugins.backgroundMode.enable();
@@ -89,6 +90,7 @@ function block(params) {
 				block.progress_div.style.transform = "scale3d(1, 1, 1)";
 			}
 			block.isPlaying = true;
+            FirebasePlugin.logEvent("flow_play", {duration : block.duration});
 			// block.myRange.style.pointerEvents = "all";
 		} else {
 			// console.log("audio not ready");
@@ -110,6 +112,7 @@ function block(params) {
 			waveform.style.display = "none";
 			// wave.stop();
 			block.isPlaying = false;
+            FirebasePlugin.logEvent("flow_pause", {duration : block.duration});
 			audio_playing = false;
 			// block.myRange.style.pointerEvents = "none";
 			block.progress_div.style.transitionDuration = "0s";
@@ -370,6 +373,7 @@ function block(params) {
 		};
 
 		this.fshare.onclick = function () {
+            FirebasePlugin.logEvent("flow_share", {duration : block.duration});
 			window.plugins.socialsharing.shareWithOptions(
 				options,
 				function (result) {
@@ -633,6 +637,7 @@ function block(params) {
 				ObjectId: current_flow_block.ObjectId,
 			};
 			ServerManager.LikeFlow(data, current_flow_block);
+            FirebasePlugin.logEvent("flow_like", {duration : current_flow_block.duration});
 		} else {
 			Popup("popup-connect", true, 60);
 		}
@@ -651,7 +656,7 @@ function block(params) {
 
 	  ----------------------FIN_TEST_LAURE------------*/
 	$(this.fimg_impression_comment).on("click", function () {
-		if (connected) {
+		if (connected) {            
 			if (comment_button_was_clicked_in_popup_specifique == false) {
 				current_flow_block = block; +
 					current_flow_block.Comments <= 1 ?
@@ -877,6 +882,7 @@ function go_to_account(data) {
 			Popup("popup-create-conversation", false);
 			Popup("popup-myaccount", true);
 			current_page = "my-account";
+            FirebasePlugin.setScreenName("my-activity");
 		} else {
 			shake("tabMonCompte1");
 			Popup("popup-comment", false);
@@ -908,6 +914,7 @@ function go_to_account(data) {
 			//fInitialisationAccount(data.private_Id);
 			Popup("popup-account", true);
 			current_page = "account";
+            FirebasePlugin.setScreenName("activity");
 			//Popup("popup-account", true);
 		}
 	}
@@ -922,8 +929,10 @@ function shake(element_id) {
 
 //--------------------------Comment 10 par 10-------------------------------
 $(".fblock_comment_content").scroll(function () {
+    
 	var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
 	if (CanRefreshCommentList == true) {
+        
 		if (Math.round($(this).scrollTop()) >= limit * 0.85) {
 			CanRefreshCommentList = false;
 			//console.log("Get comment on Server");
@@ -934,6 +943,7 @@ $(".fblock_comment_content").scroll(function () {
 				IsComment: block.IsComment,
 			};
 			ServerManager.GetFlowComment(data);
+            FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "comment_list"});
 		}
 	}
 });
@@ -1097,6 +1107,7 @@ document
 			CommentListCurrentIndex = 0;
 			response_current_index = 0;
 		}
+        FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-comment"});
 	});
 
 document
@@ -1109,6 +1120,7 @@ document
 			CommentListCurrentIndex = 0;
 			response_current_index = 0;
 		}
+        FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-comment"});
 	});
 
 document.getElementById("popup-likes").addEventListener("opened", function () {
@@ -1117,6 +1129,7 @@ document.getElementById("popup-likes").addEventListener("opened", function () {
 		StatusBar.backgroundColorByHexString("#949494");
 		StatusBar.styleLightContent();
 	}
+    FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-likes"});
 });
 
 document.getElementById("popup-likes").addEventListener("closed", function () {
@@ -1125,6 +1138,8 @@ document.getElementById("popup-likes").addEventListener("closed", function () {
 		StatusBar.backgroundColorByHexString("#f7f7f8");
 		StatusBar.styleDefault();
 	}
+    
+    FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-likes"});
 });
 
 function iosPolyfill(e, slider) {

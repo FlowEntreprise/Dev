@@ -330,13 +330,29 @@ class ServerManagerClass {
 					response.ObjectId,
 					data.Description
 				); // clean et envoi les notifs
+                
 				TLCurrentIndex = 0;
 				ServerManager.GetTimeline(0, 5);
 				CloseAfterRecord();
+                
+                let topic = FirebaseEnvironment+'NotloggedIn3Days';
+                let data_notif =  {
+                    ObjectId :response.ObjectId,
+                    PrivatedId :data.PrivatedId,
+                    Description :data.Description,
+                    Topic : topic
+                }
+                let addMessage = firebase.functions().httpsCallable('SubScribeToTopic');
+                addMessage({
+
+                Environnement : FirebaseEnvironment,
+                Topic :topic
+                })
+                  .then((result) => {
+                      send_notif_to_user(data_notif,'new_flow');
+                  });
 			},
 			error: function (response) {
-				//console.log("Flow adding error : ");
-				//console.log(response);
 				CloseAfterRecord();
 			},
 		});
@@ -803,6 +819,11 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.GetMyUserInfosURL,
 			data: JSON.stringify(final_data),
 			success: function (response) {
+                if(data.after_record)
+                {
+                    my_number_of_flow =  response.NbFlow
+                    
+                }
 				ShowMyInfosUser(response);
 			},
 			error: function (response) { },
@@ -819,7 +840,11 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				////console.log("on recup le getInfosUserNumber");
-				ShowInfosUserNumber(response);
+                
+                
+                ShowInfosUserNumber(response);
+                
+				
 			},
 			error: function (response) { },
 		});
@@ -840,12 +865,12 @@ class ServerManagerClass {
 				////console.log("on recup le profil");
 
 				if (typeof response == "string") {
-					// alert("Utilisateur introuvable");
+					/* alert("Utilisateur introuvable");
 					navigator.notification.alert(
 						"Utilisateur introuvable",
 						alertDismissed,
 						"Information"
-					);
+					);*/
 				} else {
 					if (toCheckPhoneNumber == true) {
 						checkIfUserPhoneNumberIsAlreadyVerified(response);
@@ -1487,7 +1512,11 @@ class ServerManagerClass {
 				data_notif_to_bdd.IdFlow = data.data.sender_info.Id_response;
 			}
 		}
-		ServerManager.getUserLastConnexionTime(data);
+        if(data.data.type != 'new_flow')
+        {
+            ServerManager.getUserLastConnexionTime(data);
+        }
+		
 		$.ajax({
 			type: "POST",
 			url: "https://fcm.googleapis.com/fcm/send",
@@ -1500,19 +1529,16 @@ class ServerManagerClass {
 			data: JSON.stringify(data),
 
 			success: function (response) {
-				/*
-								TypeNotification : data.data.type
-								RegisterIdOfUserToNotify : data.to
-								Content : data.data.message
-				*/
-				if (data.notification && data.notification.type != 'send_message' || data.data && data.data.type != 'send_message') {
+				console.log("NOTIF BIEN ENVOYE");
+				if (data.notification && data.notification.type != 'send_message' || data.data && data.data.type != 'send_message' || data.notification && data.notification.type != 'new_flow') {
 
 					ServerManager.AddNotificationToUser(data_notif_to_bdd);
 				}
 				//console.log("Notif envoyé avec succes");
 			},
 			error: function (response) {
-				////console.log("La notif n'a pas été envoyé");
+				console.log("La notif n'a pas été envoyé");
+                console.log(response)
 			},
 		});
 	}
@@ -2154,12 +2180,15 @@ class ServerManagerClass {
 				//console.log(" NewChatListener was called");
 				let clean_chat_list = {}; // object qui va etre rempli de façon {chat_id : time}
 				$(".loading_chat_list").remove();
+                console.log("------VALEUR DU NEWCHATLISTENER------")
+                console.log(snapshot.val())
 				if (snapshot.val() == null) {
 					console.log(" IL N Y A AUCUNE CONVERSATION");
 					// $(".no_conversation_yet")[0].style.display = "block";
 					no_conv = true;
 				} else {
 					no_conv = false;
+                    console.log(" IL N Y A DES CONVERSATION");
 					// $(".no_conversation_yet")[0].style.display = "none";
 
 					delete snapshot.val()[window.localStorage.getItem("firebase_token")];
@@ -2385,7 +2414,7 @@ class ServerManagerClass {
 		});
 
 	}
-
+    
 }
 
 

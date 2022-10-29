@@ -1,0 +1,24 @@
+.fclose_specifique {
+	width: 6vw;
+	position: absolute;
+	right: 4.5vw;
+	top: calc(2 * var(--custom-vh));
+	opacity: 1 !important;
+}
+
+.flow_specifique_container {
+	padding: 0 !important;
+	position: absolute;
+	top: calc(5 * var(--custom-vh));
+}
+
+/* for iOS device */
+@supports (-webkit-touch-callout: none) {
+	.fclose_specifique {
+		top: calc(6 * var(--custom-vh));
+	}
+
+	.flow_specifique_container {
+		top: calc(11 * var(--custom-vh));
+	}
+}
