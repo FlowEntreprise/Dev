@@ -133,11 +133,15 @@ function onError(contactError) {
 
 function getContactAlreadyOnFLow() {
     Popup("popup-contact-on-flow", true, 30);
-    var ContactOptions = new ContactFindOptions();
-    ContactOptions.filter = "";
-    ContactOptions.multiple = true;
-    filter = ["displayName", "name"];
-    navigator.contacts.find(filter, onSuccess, onError, ContactOptions);
+    
+    setTimeout(function(){
+        var ContactOptions = new ContactFindOptions();
+        ContactOptions.filter = "";
+        ContactOptions.multiple = true;
+        filter = ["displayName", "name"];
+        navigator.contacts.find(filter, onSuccess, onError, ContactOptions);
+    },200)
+    
 }
 
 

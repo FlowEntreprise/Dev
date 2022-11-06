@@ -1,6 +1,10 @@
 let first_open = window.localStorage.getItem("first_open");
 if (first_open) first_open = false;
-else first_open = true;
+else
+{
+    first_open = true;
+    FirebasePlugin.logEvent("first_open", {content_type: "page_view", item_id: "first_time_tuto"});
+}
 
 if (first_open) {
     $(".tuto_app")[0].style.display = "block";
