@@ -8,10 +8,9 @@ var was_disconnected = false;
 function ConnectUser(data) {
     let data_flow_number = {
         PrivateId: window.localStorage.getItem("user_private_id"),
-        after_record : true
+        after_record: true
     };
     ServerManager.GetMyUserInfoNumber(data_flow_number);
-    FirebasePlugin.logEvent("user_login");
     console.log("user connected");
     connected = true;
     // $(".empty_tl")[0].style.display = "none";
@@ -57,7 +56,6 @@ function ConnectUser(data) {
             user_id: window.localStorage.getItem("firebase_token"),
             Language: navigator.language.slice(0, 2).toUpperCase()
         };
-        FirebasePlugin.setUserId(data.user_id);
         ServerManager.UpdateRegisterId(data);
         ServerManager.UpdateUserLanguage(data);
 
@@ -183,7 +181,6 @@ $('.fneed_connect').on('click', function () {
         });
         last_currentpage_timestamp = Math.floor(Date.now() / 1000);
         current_page = "connect-popup";
-        FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "connect-popup"});
 
         // analytics.setCurrentScreen(current_page);
 
@@ -247,13 +244,11 @@ function getBase64Image(imgUrl, callback) {
 document.getElementById("popup-connect").addEventListener("opened", function () {
     StatusBar.backgroundColorByHexString('#949494');
     StatusBar.styleLightContent();
-    FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-connect"});
 });
 
 document.getElementById("popup-connect").addEventListener("closed", function () {
     StatusBar.backgroundColorByHexString('#f7f7f8');
     StatusBar.styleDefault();
-    FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-connect"});
 });
 
 // $$('.popup-connect').on('popup:open', function () {

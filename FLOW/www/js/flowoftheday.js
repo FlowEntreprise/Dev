@@ -388,7 +388,6 @@ function showFDJ(data) {
 
 function GetRandomFlow() {
     if (!gettingRandomFlow) {
-        FirebasePlugin.logEvent("get_random_flow");
         gettingRandomFlow = true;
         showingFDJ = false;
         $(".random_flow_btn").toggleClass("searching");

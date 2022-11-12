@@ -2,14 +2,14 @@
 	background-color: white !important;
 }
 
-#MyAccountFindFriendsLogo
-{
-    position: absolute;
-    z-index: 5;
-    width: 7vw;
-    left: 15vw;
-    top: calc(28 * var(--custom-vh));
+#MyAccountFindFriendsLogo {
+	position: absolute;
+	z-index: 5;
+	width: 7vw;
+	left: 12vw;
+	top: calc(28 * var(--custom-vh));
 }
+
 #tabMonCompte1,
 #tabMonCompte2 {
 	overflow-x: hidden;

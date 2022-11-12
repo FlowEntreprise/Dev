@@ -47,7 +47,6 @@ function delete_flow_from_bdd(element) { // affiche la popup option
 }
 
 function delete_flow_from_html(element) {
-    FirebasePlugin.logEvent("delete_flow");
     for (var i = 0; i < all_blocks.length; i++) {
         if (element.ObjectId == all_blocks[i].ObjectId) {
             all_blocks.splice(i, 1);
@@ -85,7 +84,6 @@ function delete_comment_from_bdd(element, is_a_response) { //affiche la popup op
 
 
 function delete_comment_from_html(element) {
-    FirebasePlugin.logEvent("delete_comment");
     let nb_comment_in_current_flow_block = 0;
     let nb_comment = parseInt($(".fcomment_number").text());
 
@@ -110,7 +108,6 @@ function delete_comment_from_html(element) {
 
 
 function delete_response_from_html(element) {
-    FirebasePlugin.logEvent("delete_response");
     let nb_response = current_comment_block.nombre_de_reponses;
 
     for (var i = 0; i < current_comment_block.all_response_blocks.length; i++) {
@@ -305,10 +302,8 @@ $("#delete_button").on("touchend", function () {
 
 document.getElementById("popup-option").addEventListener("opened", function () {
     in_options = true;
-    FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-option"});
 });
 document.getElementById("popup-option").addEventListener("closed", function () {
     in_options = false;
     $("#delete_button").css("display", "none");
-    FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-option"});
 });

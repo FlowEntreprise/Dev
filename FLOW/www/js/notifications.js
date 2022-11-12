@@ -39,7 +39,7 @@ function notifications_tab_loaded() {
     $(".notifications_parent").scroll(function () {
         var limit = $(this)[0].scrollHeight - $(this)[0].clientHeight;
         if (CanRefreshNotificationList == true) {
-            
+
             if (Math.round($(this).scrollTop()) >= limit * 0.75) {
                 CanRefreshNotificationList = false;
                 var data_update_Notification_list = {
@@ -47,7 +47,6 @@ function notifications_tab_loaded() {
                     Index: NotificationListCurrentIndex
                 };
                 ServerManager.GetNotificationOfUser(data_update_Notification_list);
-                FirebasePlugin.logEvent("page_scroll", {content_type: "page_view", item_id: "notification"});
             }
         }
     });
@@ -799,36 +798,35 @@ function send_notif_to_user(block, type) {
     let notif_recipient; // destinataire    
     let prepare_id_flow = block.Flow_block_id ? block.Flow_block_id : block.ObjectId;
     let sender_info;
-    if(type =='new_flow')
-    {
-        sender_info = {fullname : 'FLOW',IdFlow : block.ObjectId};
+    if (type == 'new_flow') {
+        sender_info = { fullname: 'FLOW', IdFlow: block.ObjectId };
         notif_lastos = 'ios';
         notif_body = "@" + block.PrivatedId + ` a posté un flow :` + block.Description;
-        notif_recipient = "/topics/"+block.Topic;
+        notif_recipient = "/topics/" + block.Topic;
     }
-    else{
-     sender_info = {
-        fullname: window.localStorage.getItem("user_name"),
-        privateId: window.localStorage.getItem("user_private_id"),
-        profil_pic: window.localStorage.getItem("user_profile_pic"),
-        post_texte: $(block.fpost_description).text(), // texte like de flow
-        comment_text: block.Comment_text, // texte commentaire genre le vrai commenaire t'a capté
-        like_comment_text: block.fcomment_text, // texte lorsque l'on like un commentaire
-        IdFlow: prepare_id_flow == undefined ? prepare_id_flow = "undefined" : prepare_id_flow,
-        Id_comment: block.IdComment /*? block.ObjectId : undefined*/,
-        Id_response: block.Idresponse /*? block.ObjectId : undefined*/,
-        tag_in_flow: block.tag_in_flow,
-        notif_recipient_private_id: block.reciever_private_id // le private id de la personne qui va recevoir la notif
-    };
-    if (sender_info.comment_text == undefined) {
-        sender_info.comment_text = sender_info.post_texte;
-    }
+    else {
+        sender_info = {
+            fullname: window.localStorage.getItem("user_name"),
+            privateId: window.localStorage.getItem("user_private_id"),
+            profil_pic: window.localStorage.getItem("user_profile_pic"),
+            post_texte: $(block.fpost_description).text(), // texte like de flow
+            comment_text: block.Comment_text, // texte commentaire genre le vrai commenaire t'a capté
+            like_comment_text: block.fcomment_text, // texte lorsque l'on like un commentaire
+            IdFlow: prepare_id_flow == undefined ? prepare_id_flow = "undefined" : prepare_id_flow,
+            Id_comment: block.IdComment /*? block.ObjectId : undefined*/,
+            Id_response: block.Idresponse /*? block.ObjectId : undefined*/,
+            tag_in_flow: block.tag_in_flow,
+            notif_recipient_private_id: block.reciever_private_id // le private id de la personne qui va recevoir la notif
+        };
+        if (sender_info.comment_text == undefined) {
+            sender_info.comment_text = sender_info.post_texte;
+        }
     }
 
     noteId++;
 
     switch (type) {
-            
+
         case 'story_comment':
             notif_lastos = block.LastOs;
             notif_body = "@" + sender_info.privateId + ` ${language_mapping[device_language]['reacted_to_your_story']}` + sender_info.post_texte;

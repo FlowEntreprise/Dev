@@ -253,14 +253,12 @@ function messages_tab_loaded() {
         $("#div_send_message").css("transform", "translate3d(0vw, 0, 0)");
         $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
         current_page = "dm_messages";
-        FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-message"});
         if (current_dm_audio) {
             current_dm_audio.pause();
         }
         notif_chat_id = undefined;
     });
     document.getElementById("popup-message").addEventListener("closed", function () {
-        FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-message"});
         InPopupMessage = false;
         previous_message = {};
         first_message = {};
@@ -282,18 +280,15 @@ function messages_tab_loaded() {
             "display": "none"
         });
         current_page = "messages";
-        FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "message-popup"});
     });
 
-    
+
 }
 
 document.getElementById("popup-create-conversation").addEventListener("opened", function () {
     GetFollowingsPopupCreateConversation();
-    FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-create-conversation"});
 });
 document.getElementById("popup-create-conversation").addEventListener("closed", function () {
-    FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-create-conversation"});
 });
 
 function block_chat(data) {
