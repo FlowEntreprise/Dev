@@ -146,17 +146,18 @@ function block_user(follow_list, target, data, invite_friend) {
 
 			this.invite_button = document.createElement("div");
 			this.invite_button.className = "invite_button";
-			this.invite_button.innerText = `${language_mapping[device_language]['invite_button']}`
+			this.invite_button.innerText = `${language_mapping[device_language]['invite_button']}`;
 
 			this.block_user.appendChild(this.invite_button);
 			$(".list_contact_on_flow").append(this.block_user);
+
 		}
 		else {
 			if (data.PrivateId != window.localStorage.getItem("user_private_id")) {
 				this.following_button = document.createElement("div"); //
 				this.following_button.className = "following_button";
 			}
-
+			$(".list_contact_on_flow").append(this.block_user);
 
 
 			$(this.following_button).on("click", function () {
