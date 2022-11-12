@@ -457,6 +457,12 @@ function block(params) {
 	// window.addEventListener("resize", resize);
 	// resize();
 
+	this.reloadAudio = function () {
+		setTimeout(function () {
+			block.LoadAudio();
+		}, 200);
+
+	};
 	this.myaudio = new Audio();
 
 	this.LoadAudio = function () {
@@ -474,7 +480,11 @@ function block(params) {
 			}
 
 			function mediaFailure(err) {
-				console.log("An error occurred: " + err.code);
+				console.log("An error occurred: " + err.code + block.fpost_description.textContent);
+				if (err.code == 1) {
+					block.reloadAudio();
+				}
+
 			}
 
 			function mediaStatus(status) {
@@ -538,24 +548,7 @@ function block(params) {
 		block.currentTime = 0;
 	};
 
-	// this.seek = function () {
-	//     //console.log("seek");
-	//     //console.log(block.myRange.value);
-	//     this.progress = block.myRange.value;
-	//     this.time = (this.progress * block.myaudio.duration) / 100;
-	//     block.myaudio.currentTime = Math.round(this.time);
-	//     block.myaudio.currentTime = block.currentTime;
-	//     block.seeking = true;
-	//     block.progress_div.style.display = "block";
-	//     block.progress_div.style.width =
-	//         (block.myaudio.currentTime * 100) / block.myaudio.duration + "%";
-	//     setTimeout(function () {
-	//         block.seeking = false;
-	//         //console.log("seeking = false");
-	//     }, 600);
-	//     // block.flowplay();
-	//     // //console.log("flow play");
-	// };
+
 
 	this.fplay_button.addEventListener("click", function () {
 		if (audio_playing) {
@@ -572,58 +565,7 @@ function block(params) {
 		block.flowpause();
 	});
 
-	// this.myRange.addEventListener("input", function () {
-	// 	// //console.log("change");
-	// 	// block.seek();
-	// 	block.progress = block.myRange.value;
-	// 	block.progress_div.style.transitionDuration = "0s";
-	// 	if (block.progress > 99) block.progress = 99;
-	// 	block.currentTime = (block.progress * params.duration) / 100;
-	// 	block.progress_div.style.width =
-	// 		(block.currentTime * 100) / params.duration + "%";
-	// });
 
-	// this.myRange.addEventListener("touchend", function () {
-	// 	// block.myaudio.currentTime = block.currentTime;
-	// 	//console.log("seek to : " + block.currentTime);
-	// 	block.myaudio.seekTo(block.currentTime * 1000);
-	// 	block.offset_indicator = 0;
-	// 	// setTimeout(function () {
-	// 	block.flowplay();
-	// 	// }, 100)
-	// 	//console.log("flow play");
-	// 	//current_flow_block
-	// });
-
-	// this.myRange.addEventListener('input', function () {
-	//     //console.log("input");
-	//     this.focus();
-	//     //block.wasPlaying = block.isPlaying;
-	//     block.flowpause();
-	//     block.progress = block.myRange.value;
-	//     if (block.progress > 99) block.progress = 99;
-	//     block.currentTime = block.progress * block.duration / 100;
-	//     // block.myaudio.currentTime = block.time;
-	//     block.progress_div.style.width = block.currentTime * 100 / block.duration + '%';
-	//     event.stopPropagation();
-	// });
-
-	// this.myRange.addEventListener(
-	// 	"touchstart",
-	// 	function (e) {
-	// 		iosPolyfill(e, this);
-	// 		this.focus();
-	// 		block.flowpause();
-	// 		block.progress = block.myRange.value;
-	// 		block.progress_div.style.transitionDuration = params.duration / 100 + "s";
-	// 		if (block.progress > 99) block.progress = 99;
-	// 		block.currentTime = (block.progress * params.duration) / 100;
-	// 		block.progress_div.style.width =
-	// 			(block.currentTime * 100) / params.duration + "%";
-	// 	}, {
-	// 	passive: true,
-	// }
-	// );
 
 	// Like d'un flow
 	$(this.fimg_impression_like).on("click", function () {
