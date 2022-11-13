@@ -157,8 +157,9 @@ function block_user(follow_list, target, data, invite_friend) {
 				this.following_button = document.createElement("div"); //
 				this.following_button.className = "following_button";
 			}
-			$(".list_contact_on_flow").append(this.block_user);
-
+			if (target == "contactList") {
+				$(".list_contact_on_flow").append(this.block_user);
+			}
 
 			$(this.following_button).on("click", function () {
 				let data_user = {

@@ -56,6 +56,8 @@ function ConnectUser(data) {
             user_id: window.localStorage.getItem("firebase_token"),
             Language: navigator.language.slice(0, 2).toUpperCase()
         };
+        console.log("------------------------HERE-----------------");
+        console.log(data);
         ServerManager.UpdateRegisterId(data);
         ServerManager.UpdateUserLanguage(data);
 

@@ -1,6 +1,6 @@
 //Global variables used for Server Management :
 const ServerParams = {
-	ServerURL: "https://api-test.flowappweb.com/",
+	ServerURL: "https://api.flowappweb.com/",
 	ConnexionURL: "ConnexionFromApi",
 	AddFlowURL: "AddFlow",
 	GetSingleFlowURL: "GetSingle",
@@ -226,7 +226,7 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.ConnexionURL,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//// //console.log("Connection success : ");
+				console.log("Connection success : ----------------HERE---------------- ");
 				console.log(response);
 				if (response && response.PrivateId) {
 					storeVariables(response);
