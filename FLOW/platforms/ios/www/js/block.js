@@ -459,7 +459,12 @@ function block(params) {
 	// };
 	// window.addEventListener("resize", resize);
 	// resize();
+    this.reloadAudio = function () {
+            setTimeout(function () {
+                block.LoadAudio();
+            }, 200);
 
+        };
 	this.myaudio = new Audio();
 
 	this.LoadAudio = function () {
@@ -476,9 +481,13 @@ function block(params) {
 				console.log("Successfully finished task.");
 			}
 
-			function mediaFailure(err) {
-				console.log("An error occurred: " + err.code);
-			}
+            function mediaFailure(err) {
+                            console.log("An error occurred: " + err.code + block.fpost_description.textContent);
+                            if (err.code == 1) {
+                                block.reloadAudio();
+                            }
+
+                        }
 
 			function mediaStatus(status) {
 				console.log("A status change occurred: " + status);
