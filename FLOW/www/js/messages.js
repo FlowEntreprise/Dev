@@ -198,12 +198,11 @@ function messages_tab_loaded() {
 
     $("#chat_photo").on("click", function () {
         let data = {
-            private_Id: current_block_chat.block_chat_member_private_id,
+            private_Id: current_block_chat.is_groupe_chat ? current_block_chat.creator : current_block_chat.block_chat_member_private_id,
             user_private_Id: window.localStorage.getItem("user_private_id"),
         };
         go_to_account(data);
     });
-
 
 
     $(document).on("keyup", ".fmessages-search-bar", function () {
@@ -295,9 +294,11 @@ function block_chat(data) {
     var block_chat = this;
     this.chat_id = data.chat_data.chat_id;
     this.block_chat_last_message = data.chat_data.last_message;
-    this.block_chat_title = data.members_data.name;
-    this.block_chat_photo = data.members_data.profile_pic;
-    this.block_chat_member_private_id = data.members_data.private_id;
+    this.block_chat_title = data.chat_data.is_groupe_chat ? data.chat_data.title : data.members_data.name;
+    this.block_chat_photo = data.chat_data.is_groupe_chat ? data.chat_data.photo : data.members_data.profile_pic;
+    //this.block_chat_member_private_id = data.members_data.private_id;
+    if (!data.chat_data.is_groupe_chat && data.members_data) { this.block_chat_member_private_id = data.members_data[0].private_id }
+
     this.members = data.members_data;
     this.creator = data.chat_data.creator;
     this.is_seen = false;
@@ -306,11 +307,22 @@ function block_chat(data) {
     this.block_chat = document.createElement('div');
     this.block_chat.className = 'fblock_chat';
     this.block_chat.id = this.chat_id;
+    if (this.is_groupe_chat) {
+        if (window.localStorage.getItem("IsFlowFeedbackMute") && window.localStorage.getItem("IsFlowFeedbackMute") == 'true') {
+            $(".dots_msg_header").attr('src', "../www/src/icons/en-sourdine-rouge.png");
+        }
+        else {
+            $(".dots_msg_header").attr('src', "../www/src/icons/en-sourdine-noir.png");
+
+        }
+    }
+
     $("#block_chat_contrainer").prepend(this.block_chat);
 
     $(this.block_chat).on("click", function () {
         current_block_chat = block_chat;
         block_chat.is_seen = true;
+
         $(current_block_chat.block_chat).css("background-color", "#fff");
         $(".fred_dot_toolbar_new_message").css("display", "none");
         data_dm = {
@@ -376,6 +388,20 @@ function block_chat(data) {
         $(block_chat.block_chat).trigger("click");
     }
 }
+
+$(".dots_msg_header").on("click", function () {
+
+    if (window.localStorage.getItem("IsFlowFeedbackMute") && window.localStorage.getItem("IsFlowFeedbackMute") == 'false') {
+        $(".dots_msg_header").attr('src', "../www/src/icons/en-sourdine-rouge.png");
+        window.localStorage.setItem("IsFlowFeedbackMute", true);
+        ServerManager.MuteConvFeedBack(true);
+    }
+    else {
+        $(".dots_msg_header").attr('src', "../www/src/icons/en-sourdine-noir.png");
+        ServerManager.MuteConvFeedBack(false);
+        window.localStorage.setItem("IsFlowFeedbackMute", false);
+    }
+});
 // affichage de la date complete quand il s'est ecoulé plus de 2h entre 2 msg
 function block_message_date(time, prepend) {
     var block_message_date = this;
@@ -430,6 +456,9 @@ function block_message(data, previous_message) {
         this.block_message_left_photo = document.createElement('div');
         this.block_message_left_photo.className = 'block_message_left_photo';
         this.block_message_left_photo.style.backgroundImage = "url(" + current_block_chat.block_chat_photo + "";
+        if (current_block_chat.is_groupe_chat) {
+            this.block_message_left_photo.style.backgroundImage = "url(" + current_block_chat.members.filter(e => e.private_id == this.sender_private_id)[0].profile_pic + "";
+        }
         this.block_message.className = 'block_message';
         this.time_and_seen_container.innerText = set_timestamp(this.block_message_time, true);
     }
@@ -502,6 +531,15 @@ function block_message(data, previous_message) {
     //     $(block_message.time_and_seen_container).css('display', 'block');
 
     // });
+    /*$(document).on("click", this.block_message_left_photo, function (event) {
+        console.log("clicked wallah");
+        let data = {
+            private_Id: block_message.sender_private_id,
+            user_private_Id: window.localStorage.getItem("user_private_id"),
+        };
+        go_to_account(data);
+        event.stopPropagation();
+    });*/
 
     if (self.image && !self.deleted) {
         $(self.block_message_child).text("");
@@ -729,7 +767,6 @@ function block_message(data, previous_message) {
     }
 
 }
-
 
 function CreateConversation(data) {
     ServerManager.CheckFirstChat(data);
@@ -1059,14 +1096,18 @@ function UpdateProgressBar(percent, vocal_id) {
 function check_if_user_is_blocked(data) {
 
     (data.BlockedByUser).forEach(user => {
-        if (user == current_block_chat.block_chat_member_private_id) {
+        /* if (user == current_block_chat.block_chat_member_private_id) {*/
+
+        if (current_block_chat.members.find(e => e.private_id === user)) {
+
             $("#div_user_blocked_message").css("display", "flex");
             $("#label_user_blocked_message").text(`${language_mapping[device_language]['label_user_blocked_message']}`);
         }
     });
 
     (data.UserBlocked).forEach(user => {
-        if (user == current_block_chat.block_chat_member_private_id) {
+        /*if (user == current_block_chat.block_chat_member_private_id) {*/
+        if (current_block_chat.members.find(e => e.private_id === user)) {
             $("#div_user_blocked_message").css("display", "flex");
             $("#label_user_blocked_message").text(`${language_mapping[device_language]['label_user_you_blocked_message']}`);
         }

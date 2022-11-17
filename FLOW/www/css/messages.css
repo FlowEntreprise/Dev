@@ -259,25 +259,23 @@
 
 /*------------------------------------------POPUP create-conversation-----------------------------*/
 
-#div_user_blocked_message
-{
+#div_user_blocked_message {
 	display: none;
-    background-color: white;
-    position: absolute;
-    z-index: 99991;
-    width: 100vw;
-    height: 12vh;
-    bottom: 0vh;
+	background-color: white;
+	position: absolute;
+	z-index: 99991;
+	width: 100vw;
+	height: 12vh;
+	bottom: 0vh;
 	text-align: center;
 	align-items: center;
-    justify-content: center;
+	justify-content: center;
 }
 
-#label_user_blocked_message
-{
+#label_user_blocked_message {
 	font-family: "Roboto-Regular";
-    color: #92abb2;
-    opacity: 0.8;
+	color: #92abb2;
+	opacity: 0.8;
 
 }
 
@@ -431,12 +429,11 @@
 .dots_msg_header {
 	position: absolute;
 	right: 15px;
-	width: 20px;
-	height: 10px;
-	top: calc(5.5 * var(--custom-vh) - 5px);
+	width: 3vh;
+	height: 3vh;
+	top: calc(4.5 * var(--custom-vh) - 5px);
 	display: block;
 	object-fit: contain;
-	filter: invert(32%) sepia(24%) saturate(433%) hue-rotate(169deg) brightness(65%) contrast(89%);
 }
 
 #fblock_message_content {
@@ -476,14 +473,13 @@
 	padding-bottom: 10px;
 }
 
-.deleted_block_message
-{
+.deleted_block_message {
 	background-color: white !important;
 	color: #80808059 !important;
 	box-shadow: none !important;
 	padding: none !important;
 	width: none !important;
-	
+
 }
 
 .block_message {

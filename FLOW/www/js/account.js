@@ -576,7 +576,7 @@ function ShowUserProfile(response) {
 
 	let crown_colors = ["#9E7D6D", "#7b8a9d", "#CFA441", "#CFA441", "#CFA441", "#c82e21", "#16dc81", "#41dde4"];
 	let crown_color = crown_colors[rank - 1];
-	myrank_number.innerHTML = response.Data.NbFlowsOfTheDay;
+	if (response.Data.NbFlowsOfTheDay) { myrank_number.innerHTML = response.Data.NbFlowsOfTheDay; }
 	myrank_number.style.color = crown_color;
 	myrank_img.style.backgroundImage = "url('./src/icons/crown" + rank + ".png')";
 	if (response.Data.NbFlowsOfTheDay == 0) {
