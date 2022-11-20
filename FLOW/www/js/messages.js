@@ -24,6 +24,7 @@ let block_photo_url;
 let dm_vocal_playing = false;
 let current_dm_audio;
 let no_conv = false;
+var allChatMembers = [];
 
 function messages_tab_loaded() {
 
@@ -292,18 +293,24 @@ document.getElementById("popup-create-conversation").addEventListener("closed", 
 
 function block_chat(data) {
     var block_chat = this;
-    this.chat_id = data.chat_data.chat_id;
-    this.block_chat_last_message = data.chat_data.last_message;
-    this.block_chat_title = data.chat_data.is_groupe_chat ? data.chat_data.title : data.members_data.name;
-    this.block_chat_photo = data.chat_data.is_groupe_chat ? data.chat_data.photo : data.members_data.profile_pic;
-    //this.block_chat_member_private_id = data.members_data.private_id;
-    if (!data.chat_data.is_groupe_chat && data.members_data) { this.block_chat_member_private_id = data.members_data[0].private_id }
+    this.members = [];
+    if (data[0].chat_data.is_groupe_chat) {
+        data.filter(member_data => block_chat.members.push(member_data.members_data));
+    }
+    else {
+        block_chat.members.push(data[0].members_data);
+    }
+    this.chat_id = data[0].chat_data.chat_id;
+    this.block_chat_last_message = data[0].chat_data.last_message;
+    this.block_chat_title = data[0].chat_data.is_groupe_chat ? data[0].chat_data.title : data[0].members_data.name;
+    this.block_chat_photo = data[0].chat_data.is_groupe_chat ? data[0].chat_data.photo : data[0].members_data.profile_pic;
 
-    this.members = data.members_data;
-    this.creator = data.chat_data.creator;
+    if (data[0].chat_data.is_groupe_chat && data[0].members_data.length != 0) { this.block_chat_member_private_id = this.members[0].private_id }
+    else { this.block_chat_member_private_id = data[0].members_data.private_id; }
+    this.creator = data[0].chat_data.creator;
     this.is_seen = false;
     //this.creation_date = data.chat_data.creation_date;
-    this.is_groupe_chat = data.chat_data.is_groupe_chat;
+    this.is_groupe_chat = data[0].chat_data.is_groupe_chat;
     this.block_chat = document.createElement('div');
     this.block_chat.className = 'fblock_chat';
     this.block_chat.id = this.chat_id;
@@ -462,6 +469,15 @@ function block_message(data, previous_message) {
         this.block_message.className = 'block_message';
         this.time_and_seen_container.innerText = set_timestamp(this.block_message_time, true);
     }
+
+    $(this.block_message_left_photo).on("click", function () {
+        current_block_message = block_message;
+        let data = {
+            private_Id: current_block_message.sender_private_id,
+            user_private_Id: window.localStorage.getItem("user_private_id"),
+        };
+        go_to_account(data);
+    });
 
     /*$(this.block_message).on("taphold", function () {
         console.log("was clicked");

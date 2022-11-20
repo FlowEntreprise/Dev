@@ -2229,50 +2229,51 @@ class ServerManagerClass {
 	}
 
 	GetFirebaseUserProfile(data, callback, chat_id) {
-
 		var test_data_block_chat = {};
-
+		let chatMembers = [];
+		let chatMembersGroupby = [];
+		let member;
 		if (data) {
 			let data_chat = data;
 			data_chat.chat_id = chat_id;
 			data = Object.keys(data);
-			let members = [];
 			for (let i = 0; i < data.length; i++) {
 				if (data[i].length == 32 && data[i] != window.localStorage.getItem("firebase_token")) {
 					let ref_members = firebase.database().ref(FirebaseEnvironment + "/users/" + data[i]);
 					ref_members.once('value').then(function (profile_snapshot) {
 						if (profile_snapshot.val() != null) {
-							let data_block_chat = {
-								chat_data: data_chat,
-								members_data: profile_snapshot.val()
-							};
-							data_block_chat.members_data.id = profile_snapshot.key;
-							members.push(data_block_chat.members_data);
+							member = profile_snapshot.val();
+							member.id = profile_snapshot.key;
+							chatMembers.push({ chat_id: chat_id, chat_data: data_chat, members_data: member });
+							allChatMembers.push({ chat_id: chat_id, chat_data: data_chat, members_data: member });
 						}
-					});
-
+					})
 				}
+
 				if (i == data.length - 1) {
-					$("#" + chat_id + "").remove();
-					if (all_block_chat.length) {
+					setTimeout(() => {
+						console.log(chatMembers.length);
+						console.log(allChatMembers.length);
+						console.log(groupByKey(allChatMembers, 'chat_id'));
+						let chatsGroupByKey = groupByKey(allChatMembers, 'chat_id');
+						for (let chat in chatsGroupByKey) {
+							$("#" + chat + "").remove();
+							if (all_block_chat.length) {
+								all_block_chat.forEach(function (item, index) {
 
-						all_block_chat.forEach(function (item, index) {
-
-							if (item && item.chat_id === chat_id) {
-								$("#" + chat_id + "").remove();
-								all_block_chat.splice(index, 1);
+									if (item && item.chat_id === chat) {
+										$("#" + chat + "").remove();
+										all_block_chat.splice(index, 1);
+									}
+								});
 							}
+							console.log("----------------------DATA BLOCK CHAT IS HERE----------------------------");
+							all_block_chat.push(pop_block_chat(chatsGroupByKey[chat]));
+							check_block_chat_seen();
+						}
+					}, 200);
 
-						});
-					}
-					test_data_block_chat = {
-						members_data: members,
-						chat_data: data_chat
-					};
-					console.log("----------------------DATA BLOCK CHAT IS HERE----------------------------");
-					console.log(test_data_block_chat);
-					all_block_chat.push(pop_block_chat(test_data_block_chat));
-					check_block_chat_seen();
+
 				}
 
 			}
@@ -2283,6 +2284,7 @@ class ServerManagerClass {
 	NewChatListener(callback) {
 		firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats")
 			.on("value", function (snapshot) {
+				allChatMembers = [];
 				//console.log(" NewChatListener was called");
 				let clean_chat_list = {}; // object qui va etre rempli de façon {chat_id : time}
 				$(".loading_chat_list").remove();
