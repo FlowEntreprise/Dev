@@ -24,6 +24,7 @@ let block_photo_url;
 let dm_vocal_playing = false;
 let current_dm_audio;
 let no_conv = false;
+var allChatMembers = [];
 
 function messages_tab_loaded() {
 
@@ -198,12 +199,11 @@ function messages_tab_loaded() {
 
     $("#chat_photo").on("click", function () {
         let data = {
-            private_Id: current_block_chat.block_chat_member_private_id,
+            private_Id: current_block_chat.is_groupe_chat ? current_block_chat.creator : current_block_chat.block_chat_member_private_id,
             user_private_Id: window.localStorage.getItem("user_private_id"),
         };
         go_to_account(data);
     });
-
 
 
     $(document).on("keyup", ".fmessages-search-bar", function () {
@@ -253,14 +253,14 @@ function messages_tab_loaded() {
         $("#div_send_message").css("transform", "translate3d(0vw, 0, 0)");
         $("#fblock_message_content").scrollTop($("#fblock_message_content").height());
         current_page = "dm_messages";
-        FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-message"});
+        FirebasePlugin.logEvent("popup_oppened", { content_type: "page_view", item_id: "popup-message" });
         if (current_dm_audio) {
             current_dm_audio.pause();
         }
         notif_chat_id = undefined;
     });
     document.getElementById("popup-message").addEventListener("closed", function () {
-        FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-message"});
+        FirebasePlugin.logEvent("popup_closed", { content_type: "page_view", item_id: "popup-message" });
         InPopupMessage = false;
         previous_message = {};
         first_message = {};
@@ -282,40 +282,59 @@ function messages_tab_loaded() {
             "display": "none"
         });
         current_page = "messages";
-        FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "message-popup"});
+        FirebasePlugin.logEvent("popup_closed", { content_type: "page_view", item_id: "message-popup" });
     });
 
-    
+
 }
 
 document.getElementById("popup-create-conversation").addEventListener("opened", function () {
     GetFollowingsPopupCreateConversation();
-    FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "popup-create-conversation"});
+    FirebasePlugin.logEvent("popup_oppened", { content_type: "page_view", item_id: "popup-create-conversation" });
 });
 document.getElementById("popup-create-conversation").addEventListener("closed", function () {
-    FirebasePlugin.logEvent("popup_closed", {content_type: "page_view", item_id: "popup-create-conversation"});
+    FirebasePlugin.logEvent("popup_closed", { content_type: "page_view", item_id: "popup-create-conversation" });
 });
 
 function block_chat(data) {
     var block_chat = this;
-    this.chat_id = data.chat_data.chat_id;
-    this.block_chat_last_message = data.chat_data.last_message;
-    this.block_chat_title = data.members_data.name;
-    this.block_chat_photo = data.members_data.profile_pic;
-    this.block_chat_member_private_id = data.members_data.private_id;
-    this.members = data.members_data;
-    this.creator = data.chat_data.creator;
+    this.members = [];
+    if (data[0].chat_data.is_groupe_chat) {
+        data.filter(member_data => block_chat.members.push(member_data.members_data));
+    }
+    else {
+        block_chat.members.push(data[0].members_data);
+    }
+    this.chat_id = data[0].chat_data.chat_id;
+    this.block_chat_last_message = data[0].chat_data.last_message;
+    this.block_chat_title = data[0].chat_data.is_groupe_chat ? data[0].chat_data.title : data[0].members_data.name;
+    this.block_chat_photo = data[0].chat_data.is_groupe_chat ? data[0].chat_data.photo : data[0].members_data.profile_pic;
+
+    if (data[0].chat_data.is_groupe_chat && data[0].members_data.length != 0) { this.block_chat_member_private_id = this.members[0].private_id }
+    else { this.block_chat_member_private_id = data[0].members_data.private_id; }
+    this.creator = data[0].chat_data.creator;
     this.is_seen = false;
     //this.creation_date = data.chat_data.creation_date;
-    this.is_groupe_chat = data.chat_data.is_groupe_chat;
+    this.is_groupe_chat = data[0].chat_data.is_groupe_chat;
     this.block_chat = document.createElement('div');
     this.block_chat.className = 'fblock_chat';
     this.block_chat.id = this.chat_id;
+    if (this.is_groupe_chat) {
+        if (window.localStorage.getItem("IsFlowFeedbackMute") && window.localStorage.getItem("IsFlowFeedbackMute") == 'true') {
+            $(".dots_msg_header").attr('src', "../www/src/icons/en-sourdine-rouge.png");
+        }
+        else {
+            $(".dots_msg_header").attr('src', "../www/src/icons/en-sourdine-noir.png");
+
+        }
+    }
+
     $("#block_chat_contrainer").prepend(this.block_chat);
 
     $(this.block_chat).on("click", function () {
         current_block_chat = block_chat;
         block_chat.is_seen = true;
+
         $(current_block_chat.block_chat).css("background-color", "#fff");
         $(".fred_dot_toolbar_new_message").css("display", "none");
         data_dm = {
@@ -381,6 +400,20 @@ function block_chat(data) {
         $(block_chat.block_chat).trigger("click");
     }
 }
+
+$(".dots_msg_header").on("click", function () {
+
+    if (window.localStorage.getItem("IsFlowFeedbackMute") && window.localStorage.getItem("IsFlowFeedbackMute") == 'false') {
+        $(".dots_msg_header").attr('src', "../www/src/icons/en-sourdine-rouge.png");
+        window.localStorage.setItem("IsFlowFeedbackMute", true);
+        ServerManager.MuteConvFeedBack(true);
+    }
+    else {
+        $(".dots_msg_header").attr('src', "../www/src/icons/en-sourdine-noir.png");
+        ServerManager.MuteConvFeedBack(false);
+        window.localStorage.setItem("IsFlowFeedbackMute", false);
+    }
+});
 // affichage de la date complete quand il s'est ecoulé plus de 2h entre 2 msg
 function block_message_date(time, prepend) {
     var block_message_date = this;
@@ -435,9 +468,21 @@ function block_message(data, previous_message) {
         this.block_message_left_photo = document.createElement('div');
         this.block_message_left_photo.className = 'block_message_left_photo';
         this.block_message_left_photo.style.backgroundImage = "url(" + current_block_chat.block_chat_photo + "";
+        if (current_block_chat.is_groupe_chat) {
+            this.block_message_left_photo.style.backgroundImage = "url(" + current_block_chat.members.filter(e => e.private_id == this.sender_private_id)[0].profile_pic + "";
+        }
         this.block_message.className = 'block_message';
         this.time_and_seen_container.innerText = set_timestamp(this.block_message_time, true);
     }
+
+    $(this.block_message_left_photo).on("click", function () {
+        current_block_message = block_message;
+        let data = {
+            private_Id: current_block_message.sender_private_id,
+            user_private_Id: window.localStorage.getItem("user_private_id"),
+        };
+        go_to_account(data);
+    });
 
     /*$(this.block_message).on("taphold", function () {
         console.log("was clicked");
@@ -507,6 +552,15 @@ function block_message(data, previous_message) {
     //     $(block_message.time_and_seen_container).css('display', 'block');
 
     // });
+    /*$(document).on("click", this.block_message_left_photo, function (event) {
+        console.log("clicked wallah");
+        let data = {
+            private_Id: block_message.sender_private_id,
+            user_private_Id: window.localStorage.getItem("user_private_id"),
+        };
+        go_to_account(data);
+        event.stopPropagation();
+    });*/
 
     if (self.image && !self.deleted) {
         $(self.block_message_child).text("");
@@ -734,7 +788,6 @@ function block_message(data, previous_message) {
     }
 
 }
-
 
 function CreateConversation(data) {
     ServerManager.CheckFirstChat(data);
@@ -1064,14 +1117,18 @@ function UpdateProgressBar(percent, vocal_id) {
 function check_if_user_is_blocked(data) {
 
     (data.BlockedByUser).forEach(user => {
-        if (user == current_block_chat.block_chat_member_private_id) {
+        /* if (user == current_block_chat.block_chat_member_private_id) {*/
+
+        if (current_block_chat.members.find(e => e.private_id === user)) {
+
             $("#div_user_blocked_message").css("display", "flex");
             $("#label_user_blocked_message").text(`${language_mapping[device_language]['label_user_blocked_message']}`);
         }
     });
 
     (data.UserBlocked).forEach(user => {
-        if (user == current_block_chat.block_chat_member_private_id) {
+        /*if (user == current_block_chat.block_chat_member_private_id) {*/
+        if (current_block_chat.members.find(e => e.private_id === user)) {
             $("#div_user_blocked_message").css("display", "flex");
             $("#label_user_blocked_message").text(`${language_mapping[device_language]['label_user_you_blocked_message']}`);
         }

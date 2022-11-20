@@ -226,7 +226,7 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.ConnexionURL,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-				//// //console.log("Connection success : ");
+				console.log("Connection success : ----------------HERE---------------- ");
 				console.log(response);
 				if (response && response.PrivateId) {
 					storeVariables(response);
@@ -330,27 +330,27 @@ class ServerManagerClass {
 					response.ObjectId,
 					data.Description
 				); // clean et envoi les notifs
-                
+
 				TLCurrentIndex = 0;
 				ServerManager.GetTimeline(0, 5);
 				CloseAfterRecord();
-                
-                let topic = FirebaseEnvironment+'NotloggedIn3Days';
-                let data_notif =  {
-                    ObjectId :response.ObjectId,
-                    PrivatedId :data.PrivatedId,
-                    Description :data.Description,
-                    Topic : topic
-                }
-                let addMessage = firebase.functions().httpsCallable('SubScribeToTopic');
-                addMessage({
 
-                Environnement : FirebaseEnvironment,
-                Topic :topic
-                })
-                  .then((result) => {
-                      send_notif_to_user(data_notif,'new_flow');
-                  });
+				let topic = FirebaseEnvironment + 'NotloggedIn3Days';
+				let data_notif = {
+					ObjectId: response.ObjectId,
+					PrivatedId: data.PrivatedId,
+					Description: data.Description,
+					Topic: topic
+				}
+				let addMessage = firebase.functions().httpsCallable('SubScribeToTopic');
+				addMessage({
+
+					Environnement: FirebaseEnvironment,
+					Topic: topic
+				})
+					.then((result) => {
+						send_notif_to_user(data_notif, 'new_flow');
+					});
 			},
 			error: function (response) {
 				CloseAfterRecord();
@@ -819,11 +819,10 @@ class ServerManagerClass {
 			url: ServerParams.ServerURL + ServerParams.GetMyUserInfosURL,
 			data: JSON.stringify(final_data),
 			success: function (response) {
-                if(data.after_record)
-                {
-                    my_number_of_flow =  response.NbFlow
-                    
-                }
+				if (data.after_record) {
+					my_number_of_flow = response.NbFlow
+
+				}
 				ShowMyInfosUser(response);
 			},
 			error: function (response) { },
@@ -840,11 +839,11 @@ class ServerManagerClass {
 			data: JSON.stringify(final_data),
 			success: function (response) {
 				////console.log("on recup le getInfosUserNumber");
-                
-                
-                ShowInfosUserNumber(response);
-                
-				
+
+
+				ShowInfosUserNumber(response);
+
+
 			},
 			error: function (response) { },
 		});
@@ -1512,11 +1511,10 @@ class ServerManagerClass {
 				data_notif_to_bdd.IdFlow = data.data.sender_info.Id_response;
 			}
 		}
-        if(data.data.type != 'new_flow')
-        {
-            ServerManager.getUserLastConnexionTime(data);
-        }
-		
+		if (data.data.type != 'new_flow') {
+			ServerManager.getUserLastConnexionTime(data);
+		}
+
 		$.ajax({
 			type: "POST",
 			url: "https://fcm.googleapis.com/fcm/send",
@@ -1538,7 +1536,7 @@ class ServerManagerClass {
 			},
 			error: function (response) {
 				console.log("La notif n'a pas été envoyé");
-                console.log(response)
+				console.log(response)
 			},
 		});
 	}
@@ -2065,11 +2063,16 @@ class ServerManagerClass {
 				data_message.message_id = Object.keys(snapshot.val())[0];
 
 			}).then(() => {
+
+				let allUsersToUpdate = {};
+				current_block_chat.members.filter(e => e.id ? allUsersToUpdate['/users/' + e.id + '/chats/' + [data.chat_id] + "/time"] = data_message.time : "");
+
+				/* {
+										['/users/' + current_block_chat.members.id + '/chats/' + [data.chat_id] + "/time"]: data_message.time,
+										['/users/' + window.localStorage.getItem("firebase_token") + '/chats/' + [data.chat_id] + "/time"]: data_message.time
+									}*/
 				firebase.database().ref(FirebaseEnvironment + '/chats/' + data.chat_id + "/last_message/").update(data_message).then(() => {
-					firebase.database().ref(FirebaseEnvironment).update({
-						['/users/' + current_block_chat.members.id + '/chats/' + [data.chat_id] + "/time"]: data_message.time,
-						['/users/' + window.localStorage.getItem("firebase_token") + '/chats/' + [data.chat_id] + "/time"]: data_message.time
-					}, (error) => {
+					firebase.database().ref(FirebaseEnvironment).update(allUsersToUpdate, (error) => {
 						if (error) {
 							// The write failed...
 						} else {
@@ -2077,18 +2080,22 @@ class ServerManagerClass {
 						}
 					});
 				}).then(() => {
-					let userRef = firebase.database().ref(FirebaseEnvironment + '/users/' + current_block_chat.members.id + '/registration_id');
-					userRef.once('value').then((snapshot) => {
-						if (snapshot.val() != null) {
-							current_block_chat.members.registration_id = snapshot.val();
-							let data_notif_message = {
-								message: data.message,
-								chat_id: current_block_chat.chat_id,
-								recipient_info: current_block_chat.members
-							};
-							send_notif_to_user(data_notif_message, "send_message");
-						}
-					});
+
+					for (let i = 0; i < current_block_chat.members.length; i++) {
+						let current_block_chat_bis = current_block_chat;
+						let userRef = firebase.database().ref(FirebaseEnvironment + '/users/' + current_block_chat.members[i].id + '/registration_id');
+						userRef.once('value').then((snapshot) => {
+							if (snapshot.val() != null) {
+								current_block_chat_bis.members[i].registration_id = snapshot.val();
+								let data_notif_message = {
+									message: data.message,
+									chat_id: current_block_chat.chat_id,
+									recipient_info: current_block_chat_bis.members[i]
+								};
+								send_notif_to_user(data_notif_message, "send_message");
+							}
+						});
+					}
 				});
 			});
 		});
@@ -2129,66 +2136,167 @@ class ServerManagerClass {
 			});
 		});
 	}
+	/*
+		firebase.database().ref(FirebaseEnvironment +'/chats/FeedbackFR').update({
+	
+			"c3860408e96f194d8b19e847e1fc0c7d": true
+		})
+	
+		firebase.database().ref(FirebaseEnvironment).update({
+		['/users/c3860408e96f194d8b19e847e1fc0c7d/chats/FeedbackFR']: {
+			time: Date.now(),
+			search_key: 'flowfeedbackfr',
+			mute: false
+		}
+	})
+	function feddback() {
+		let data_message = {
+			"sender_id": window.localStorage.getItem("firebase_token"),
+			"sender_private_id": window.localStorage.getItem("user_private_id"),
+			"sender_full_name": window.localStorage.getItem("user_name"),
+			"message": "Cette conversation de groupe a pour objectif de proposer des améliorations et à remonter les bugs rencontrés.",
+			"seen_by": {
+				[window.localStorage.getItem("firebase_token")]: true
+			},
+			"image": "",
+			"audio": "",
+			"time": Date.now()
+		};
+		let db_message = firebase.database().ref(FirebaseEnvironment + '/messages/FeedbackFR');
+		db_message.push().set(data_message).then(() => {
+			db_message.limitToLast(1).once('value').then((snapshot) => {
+				console.log(snapshot.val());
+				data_message.message_id = Object.keys(snapshot.val())[0];
+	
+			})}).then(() => {
+				firebase.database().ref(FirebaseEnvironment + '/chats/FeedbackFR/last_message/').update(data_message).then(() => {
+					firebase.database().ref(FirebaseEnvironment).update({
+						['/users/c3860408e96f194d8b19e847e1fc0c7d/chats/FeedbackFR/time']: data_message.time,
+						['/users/' + window.localStorage.getItem("firebase_token") + '/chats/FeedbackFR/time']: data_message.time
+					}, (error) => {
+						if (error) {
+							// The write failed...
+						} else {
+							// Data saved successfully!
+						}
+					});
+				});
+			});
+		
+	}
+	
+	
+	*/
+
+	AddUserToConvFeedBack() {
+		firebase.database().ref(FirebaseEnvironment + '/chats/FeedbackFR').update({
+
+			[window.localStorage.getItem("firebase_token")]: true
+		})
+			.then(() => {
+				firebase.database().ref(FirebaseEnvironment).update({
+					['/users/' + window.localStorage.getItem("firebase_token") + '/chats/FeedbackFR']: {
+						time: Date.now(),
+						search_key: 'flowfeedbackfr',
+						mute: false
+					}
+				}, (error) => {
+					if (error) {
+						// The write failed...
+					} else {
+						window.localStorage.setItem("InConvFlowFeedbackFR", true);
+					}
+				});
+			});
+
+	}
+
+	MuteConvFeedBack(data) {
+		firebase.database().ref(FirebaseEnvironment).update({
+			['/users/' + window.localStorage.getItem("firebase_token") + '/chats/FeedbackFR']: {
+				time: Date.now(),
+				search_key: 'flowfeedbackfr',
+				mute: data
+			}
+		}, (error) => {
+			if (error) {
+				console.log(error);
+			} else {
+
+			}
+		});
+
+	}
 
 	GetFirebaseUserProfile(data, callback, chat_id) {
-
+		var test_data_block_chat = {};
+		let chatMembers = [];
+		let chatMembersGroupby = [];
+		let member;
 		if (data) {
 			let data_chat = data;
 			data_chat.chat_id = chat_id;
 			data = Object.keys(data);
-
 			for (let i = 0; i < data.length; i++) {
 				if (data[i].length == 32 && data[i] != window.localStorage.getItem("firebase_token")) {
 					let ref_members = firebase.database().ref(FirebaseEnvironment + "/users/" + data[i]);
 					ref_members.once('value').then(function (profile_snapshot) {
 						if (profile_snapshot.val() != null) {
-							$("#" + chat_id + "").remove();
-							let data_block_chat = {
-								chat_data: data_chat,
-								members_data: profile_snapshot.val()
-							};
-							data_block_chat.members_data.id = profile_snapshot.key;
+							member = profile_snapshot.val();
+							member.id = profile_snapshot.key;
+							chatMembers.push({ chat_id: chat_id, chat_data: data_chat, members_data: member });
+							allChatMembers.push({ chat_id: chat_id, chat_data: data_chat, members_data: member });
+						}
+					})
+				}
 
+				if (i == data.length - 1) {
+					setTimeout(() => {
+						console.log(chatMembers.length);
+						console.log(allChatMembers.length);
+						console.log(groupByKey(allChatMembers, 'chat_id'));
+						let chatsGroupByKey = groupByKey(allChatMembers, 'chat_id');
+						for (let chat in chatsGroupByKey) {
+							$("#" + chat + "").remove();
 							if (all_block_chat.length) {
-
 								all_block_chat.forEach(function (item, index) {
 
-									if (item && item.chat_id === chat_id) {
-										$("#" + chat_id + "").remove();
+									if (item && item.chat_id === chat) {
+										$("#" + chat + "").remove();
 										all_block_chat.splice(index, 1);
 									}
-
 								});
 							}
-							all_block_chat.push(pop_block_chat(data_block_chat));
+							console.log("----------------------DATA BLOCK CHAT IS HERE----------------------------");
+							all_block_chat.push(pop_block_chat(chatsGroupByKey[chat]));
 							check_block_chat_seen();
-
 						}
-					});
+					}, 200);
+
 
 				}
 
 			}
 
 		}
-
 	}
 
 	NewChatListener(callback) {
 		firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats")
 			.on("value", function (snapshot) {
+				allChatMembers = [];
 				//console.log(" NewChatListener was called");
 				let clean_chat_list = {}; // object qui va etre rempli de façon {chat_id : time}
 				$(".loading_chat_list").remove();
-                console.log("------VALEUR DU NEWCHATLISTENER------")
-                console.log(snapshot.val())
+				console.log("------VALEUR DU NEWCHATLISTENER------")
+				console.log(snapshot.val())
 				if (snapshot.val() == null) {
 					console.log(" IL N Y A AUCUNE CONVERSATION");
 					// $(".no_conversation_yet")[0].style.display = "block";
 					no_conv = true;
 				} else {
 					no_conv = false;
-                    console.log(" IL N Y A DES CONVERSATION");
+					console.log(" IL N Y A DES CONVERSATION");
 					// $(".no_conversation_yet")[0].style.display = "none";
 
 					delete snapshot.val()[window.localStorage.getItem("firebase_token")];
@@ -2239,6 +2347,9 @@ class ServerManagerClass {
 			"time": Date.now()
 			//["chats/" + window.localStorage.getItem("firebase_token") + "/time"]: Date.now()
 		});
+		if (!window.localStorage.getItem("InConvFlowFeedbackFR")) {
+			ServerManager.AddUserToConvFeedBack();
+		}
 		ServerManager.NewChatListener(pop_block_chat);
 	}
 
@@ -2414,7 +2525,7 @@ class ServerManagerClass {
 		});
 
 	}
-    
+
 }
 
 

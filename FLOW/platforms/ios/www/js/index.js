@@ -33,7 +33,7 @@ var app = {
 		document.addEventListener("resume", this.onResume, false);
 	},
 	onDeviceReady: function () {
-        firebase.initializeApp(firebaseConfig);
+		firebase.initializeApp(firebaseConfig);
 		Keyboard.hide();
 		let custom_vh = window.innerHeight / 100;
 		device_language = navigator.language.slice(0, 2).toUpperCase();
@@ -154,7 +154,7 @@ var app = {
 
 		setTimeout(function () {
 			let last_phone_number_verification_asked = Math.floor((Date.now() - window.localStorage.getItem("last_time_phone_number_verification_was_asked")) / 1000 / 60 / 60 / 24);
-			if (last_phone_number_verification_asked > 3 || window.localStorage.getItem("last_time_phone_number_verification_was_asked") == null) {
+			if (last_phone_number_verification_asked > 4 || window.localStorage.getItem("last_time_phone_number_verification_was_asked") == null) {
 				askIfUserWantToVerifyPhoneNumber();
 			}
 		}, 15000);
@@ -247,122 +247,122 @@ var app = {
 			// console.log("cordova-plugin-audioinput not found!");
 		}
 
-        
-        FirebasePlugin.getToken(function(fcmToken) {
-            registrationId = fcmToken;
-            if (!window.localStorage.getItem("user_token")) {
-                let data = {
-                    RegisterId: registrationId
-                };
-                console.log("Le registration id est : " + data.RegisterId);
-                ServerManager.IsRegisterExist(data);
-            }
-            FirebasePlugin.onMessageReceived(function(message) {
-                
-                let data = {};
-                data.additionalData =  message;
-                /*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
-                pas dans l'application */
-                //console.log("data notif firebase");
-                //console.log(data);
-                if (data.additionalData.tap) {
-                    Popup("popup-specifique", false);
-                    Popup("popup-comment", false);
-                    if (window.cordova.platformId == "ios") {
-                        data.additionalData.sender_info = JSON.parse(message.sender_info);
-                    }
-                    if (data.additionalData.type == "send_message") {
-                        Popup("popup-message", false);
-                        let data_popup_msg = {
-                            profile_picture: data.additionalData.sender_info.profil_pic,
-                            fullname: data.additionalData.sender_info.fullname,
-                            chat_id: data.additionalData.sender_info.chat_id
-                        };
-                        /*
-                        -Pour generer le block_message_seen à l'ouverture d'une notif
-                        - Pour generer les blocks message de l'epediteur à l'ouverture d'une notif
-                        */
-                        //setup_popup_message(data_popup_msg, true);
-                        //app.showTab("#tab2");
-                        let loading_popup_message = document.createElement("div");
-                        loading_popup_message.className = "loading-spinner loading_chat_list";
-                        $(".home_parent").append(loading_popup_message);
 
-                        if ($("#" + data_popup_msg.chat_id + "").length) {
-                            $("#" + data_popup_msg.chat_id + "").trigger("click");
-                        } else {
-                            notif_chat_id = data_popup_msg.chat_id;
-                        }
-                        return;
-                    }
-                    if (data.additionalData.type == "story_comment") {
-                        return;
-                    }
-                    if (data.additionalData.type == "flow_du_jour") {
-                        pages_swiper.slideTo(1);
-                        setTimeout(function () {
-                            explore_categories.slideTo(0);
-                        }, 800);
-                        return;
-                    }
-                    if (data.additionalData.type == "follow") {
-                        let data_go_to_account = {
-                            private_Id: data.additionalData.sender_info.privateId,
-                            user_private_Id: window.localStorage.getItem("user_private_id"),
-                        };
-                        go_to_account(data_go_to_account);
-                    } else {
-                        $(".flow_specifique_container").html("");
-                        if (
-                            data.additionalData.type == "like_comment" ||
-                            data.additionalData.type == "send_comment" ||
-                            (data.additionalData.type == "tag_in_comment" &&
-                                data.additionalData.sender_info.Id_comment)
-                        ) {
-                            let data_single_comment = {
-                                ObjectId: data.additionalData.sender_info.Id_comment,
-                            };
-                            ServerManager.GetSingleComment(data_single_comment);
-                        }
-                        if (
-                            data.additionalData.type == "like_response" ||
-                            data.additionalData.type == "send_response" ||
-                            (data.additionalData.type == "tag_in_comment" &&
-                                data.additionalData.sender_info.Id_response)
-                        ) {
-                            let data_single_response = {
-                                ObjectId: data.additionalData.sender_info.Id_response,
-                            };
-                            ServerManager.GetSingleResponseExtended(data_single_response);
-                        }
-                        if (
-                            data.additionalData.type == "like_flow" ||
-                            data.additionalData.type == "tag_in_flow" ||
-                            data.additionalData.type == "new_flow"
-                        ) {
-                            let data_flow = {
-                                IdFlow: data.additionalData.sender_info.IdFlow,
-                            };
-                            ServerManager.GetSingle(data_flow);
-                        }
-                    }
-                    refresh_notif(true);
-                }
-                if (data.additionalData.foreground == true) {
-                    in_app_notif(data);
-                    refresh_notif();
-                }
-                
-            }, function(error) {
-                console.error(error);
-            });
-        }, function(error) {
-            console.error(error);
-        });
-        
-        FirebasePlugin.grantPermission(function(hasPermission){
-            console.log("Permission was " + (hasPermission ? "granted" : "denied"));
-        });
+		FirebasePlugin.getToken(function (fcmToken) {
+			registrationId = fcmToken;
+			if (!window.localStorage.getItem("user_token")) {
+				let data = {
+					RegisterId: registrationId
+				};
+				console.log("Le registration id est : " + data.RegisterId);
+				ServerManager.IsRegisterExist(data);
+			}
+			FirebasePlugin.onMessageReceived(function (message) {
+
+				let data = {};
+				data.additionalData = message;
+				/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
+				pas dans l'application */
+				//console.log("data notif firebase");
+				//console.log(data);
+				if (data.additionalData.tap) {
+					Popup("popup-specifique", false);
+					Popup("popup-comment", false);
+					if (window.cordova.platformId == "ios") {
+						data.additionalData.sender_info = JSON.parse(message.sender_info);
+					}
+					if (data.additionalData.type == "send_message") {
+						Popup("popup-message", false);
+						let data_popup_msg = {
+							profile_picture: data.additionalData.sender_info.profil_pic,
+							fullname: data.additionalData.sender_info.fullname,
+							chat_id: data.additionalData.sender_info.chat_id
+						};
+						/*
+						-Pour generer le block_message_seen à l'ouverture d'une notif
+						- Pour generer les blocks message de l'epediteur à l'ouverture d'une notif
+						*/
+						//setup_popup_message(data_popup_msg, true);
+						//app.showTab("#tab2");
+						let loading_popup_message = document.createElement("div");
+						loading_popup_message.className = "loading-spinner loading_chat_list";
+						$(".home_parent").append(loading_popup_message);
+
+						if ($("#" + data_popup_msg.chat_id + "").length) {
+							$("#" + data_popup_msg.chat_id + "").trigger("click");
+						} else {
+							notif_chat_id = data_popup_msg.chat_id;
+						}
+						return;
+					}
+					if (data.additionalData.type == "story_comment") {
+						return;
+					}
+					if (data.additionalData.type == "flow_du_jour") {
+						pages_swiper.slideTo(1);
+						setTimeout(function () {
+							explore_categories.slideTo(0);
+						}, 800);
+						return;
+					}
+					if (data.additionalData.type == "follow") {
+						let data_go_to_account = {
+							private_Id: data.additionalData.sender_info.privateId,
+							user_private_Id: window.localStorage.getItem("user_private_id"),
+						};
+						go_to_account(data_go_to_account);
+					} else {
+						$(".flow_specifique_container").html("");
+						if (
+							data.additionalData.type == "like_comment" ||
+							data.additionalData.type == "send_comment" ||
+							(data.additionalData.type == "tag_in_comment" &&
+								data.additionalData.sender_info.Id_comment)
+						) {
+							let data_single_comment = {
+								ObjectId: data.additionalData.sender_info.Id_comment,
+							};
+							ServerManager.GetSingleComment(data_single_comment);
+						}
+						if (
+							data.additionalData.type == "like_response" ||
+							data.additionalData.type == "send_response" ||
+							(data.additionalData.type == "tag_in_comment" &&
+								data.additionalData.sender_info.Id_response)
+						) {
+							let data_single_response = {
+								ObjectId: data.additionalData.sender_info.Id_response,
+							};
+							ServerManager.GetSingleResponseExtended(data_single_response);
+						}
+						if (
+							data.additionalData.type == "like_flow" ||
+							data.additionalData.type == "tag_in_flow" ||
+							data.additionalData.type == "new_flow"
+						) {
+							let data_flow = {
+								IdFlow: data.additionalData.sender_info.IdFlow,
+							};
+							ServerManager.GetSingle(data_flow);
+						}
+					}
+					refresh_notif(true);
+				}
+				if (data.additionalData.foreground == true) {
+					in_app_notif(data);
+					refresh_notif();
+				}
+
+			}, function (error) {
+				console.error(error);
+			});
+		}, function (error) {
+			console.error(error);
+		});
+
+		FirebasePlugin.grantPermission(function (hasPermission) {
+			console.log("Permission was " + (hasPermission ? "granted" : "denied"));
+		});
 		push = PushNotification.init({
 			android: {
 				icon: device.manufacturer == "OnePlus" ?
@@ -413,20 +413,20 @@ var app = {
 				topic = "all-ios-en";
 				unsubscribe = "all-ios-fr";
 			}
-			            
-            FirebasePlugin.unsubscribe(unsubscribe, function(){
-                console.log("Unsubscribed from topic");
-            }, function(error){
-                 console.error("Error unsubscribing from topic: "+topic + error);
-            });
-            
-            FirebasePlugin.subscribe(topic, function(){
-                console.log("Subscribed to topic" +topic);
-            }, function(error){
-                 console.error("Error subscribing to topic: "+topic + error);
-            });
-            
-            
+
+			FirebasePlugin.unsubscribe(unsubscribe, function () {
+				console.log("Unsubscribed from topic");
+			}, function (error) {
+				console.error("Error unsubscribing from topic: " + topic + error);
+			});
+
+			FirebasePlugin.subscribe(topic, function () {
+				console.log("Subscribed to topic" + topic);
+			}, function (error) {
+				console.error("Error subscribing to topic: " + topic + error);
+			});
+
+
 		}
 
 		if (window.cordova.platformId == "android") {
@@ -443,22 +443,22 @@ var app = {
 			}
 
 			console.log("LA LANGUE DE DEVICE : " + device_language);
-			
-            FirebasePlugin.unsubscribe(unsubscribe, function(){
-                console.log("Unsubscribed from topic");
-            }, function(error){
-                 console.error("Error unsubscribing from topic: "+topic + error);
-            });
-            
-            FirebasePlugin.subscribe(topic, function(){
-                console.log("Subscribed to topic" +topic);
-            }, function(error){
-                 console.error("Error subscribing to topic: "+topic + error);
-            });
+
+			FirebasePlugin.unsubscribe(unsubscribe, function () {
+				console.log("Unsubscribed from topic");
+			}, function (error) {
+				console.error("Error unsubscribing from topic: " + topic + error);
+			});
+
+			FirebasePlugin.subscribe(topic, function () {
+				console.log("Subscribed to topic" + topic);
+			}, function (error) {
+				console.error("Error subscribing to topic: " + topic + error);
+			});
 		}
 
-        
-        
+
+
 
 		push.on("notification", function (data) {
 			/*le false correspond au notification recu lorque l'app est en background en gros quand tu reçois une notif mais que t'es
@@ -557,7 +557,7 @@ var app = {
 			//console.log(e.message);
 		});
 
-		
+
 	},
 };
 

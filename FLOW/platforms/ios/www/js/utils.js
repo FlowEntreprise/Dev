@@ -169,7 +169,7 @@ function go_to_account(data) {
             Popup("popup-contact-on-flow", false);
             Popup("popup-myaccount", true);
             current_page = "my-account";
-            FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "my-account"});
+            FirebasePlugin.logEvent("popup_oppened", { content_type: "page_view", item_id: "my-account" });
         } else {
             shake("tabMonCompte1");
             Popup("popup-comment", false);
@@ -205,7 +205,7 @@ function go_to_account(data) {
             //fInitialisationAccount(data.private_Id);
             Popup("popup-account", true);
             current_page = "account";
-            FirebasePlugin.logEvent("popup_oppened", {content_type: "page_view", item_id: "account"});
+            FirebasePlugin.logEvent("popup_oppened", { content_type: "page_view", item_id: "account" });
             //Popup("popup-account", true);
         }
     }
@@ -463,8 +463,8 @@ function translate_app() {
             "confirmation_supprimer_compte": "Do you really want to delete your account ?",
             "supression_compte_sept_jours": "Your account will be deleted within 7 days",
             "delete_account_btn": "Delete account",
-            "invite_button" : "Invite",
-            "join_flow" : "Hey join me on FLOW the app to be heard http://onelink.to/6b7mth"
+            "invite_button": "Invite",
+            "join_flow": "Hey join me on FLOW the app to be heard http://onelink.to/6b7mth"
         },
         //French
         "FR": {
@@ -632,8 +632,8 @@ function translate_app() {
             "confirmation_supprimer_compte": "Voulez-vous vraiment supprimer votre compte ?",
             "supression_compte_sept_jours": "Votre compte sera suprimmé sous 7 jours",
             "delete_account_btn": "Supprimer compte",
-            "invite_button" : "Inviter",
-            "join_flow" : "Hey rejoins-moi sur FLOW l'application pour se faire entendre http://onelink.to/6b7mth"
+            "invite_button": "Inviter",
+            "join_flow": "Hey rejoins-moi sur FLOW l'application pour se faire entendre http://onelink.to/6b7mth"
         }
 
     };
@@ -653,6 +653,13 @@ function translate_app() {
     });
 }
 
+function groupByKey(array, key) {
+    return array
+        .reduce((hash, obj) => {
+            if (obj[key] === undefined) return hash;
+            return Object.assign(hash, { [obj[key]]: (hash[obj[key]] || []).concat(obj) })
+        }, {})
+}
 
 //#TODO Faire traduction des places holder
 

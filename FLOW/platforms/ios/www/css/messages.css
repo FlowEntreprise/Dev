@@ -431,12 +431,11 @@
 .dots_msg_header {
 	position: absolute;
 	right: 15px;
-	width: 20px;
-	height: 10px;
-	top: calc(5.5 * var(--custom-vh) - 5px);
+	width: 3vh;
+	height: 3vh;
+	top: calc(4.5 * var(--custom-vh) - 5px);
 	display: block;
 	object-fit: contain;
-	filter: invert(32%) sepia(24%) saturate(433%) hue-rotate(169deg) brightness(65%) contrast(89%);
 }
 
 #fblock_message_content {
