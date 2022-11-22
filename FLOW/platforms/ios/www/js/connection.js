@@ -10,6 +10,7 @@ function ConnectUser(data) {
         PrivateId: window.localStorage.getItem("user_private_id"),
         after_record : true
     };
+    $("#ExploreFindFriendsLogo").css('display','block');
     ServerManager.GetMyUserInfoNumber(data_flow_number);
     FirebasePlugin.logEvent("user_login");
     console.log("user connected");
@@ -110,6 +111,7 @@ function ConnectUser(data) {
 function DisconnectUser() {
     // console.log("user disconnected");
     was_disconnected = true;
+    $("#ExploreFindFriendsLogo").css('display','none');
     if (window.localStorage.getItem("firebase_token")) {
         firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token") + "/chats").off();
         firebase.database().ref(FirebaseEnvironment + "/users/" + window.localStorage.getItem("firebase_token"))

@@ -96,6 +96,7 @@
     left: 5vw;
     width: 7vw;
     z-index: 10;
+    display:none;
 }
 
 /* .fexplore_list {
