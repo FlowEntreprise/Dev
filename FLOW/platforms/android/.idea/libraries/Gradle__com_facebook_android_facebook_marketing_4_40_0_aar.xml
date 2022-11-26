@@ -4,6 +4,9 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a9d5d285fe0c650258ae13332b2385ff/facebook-marketing-4.40.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a9d5d285fe0c650258ae13332b2385ff/facebook-marketing-4.40.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a9d5d285fe0c650258ae13332b2385ff/facebook-marketing-4.40.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e916f4996d1ed366a042d6ff54c3cea4/jetified-facebook-marketing-4.40.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e916f4996d1ed366a042d6ff54c3cea4/jetified-facebook-marketing-4.40.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e916f4996d1ed366a042d6ff54c3cea4/jetified-facebook-marketing-4.40.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.android/facebook-marketing/4.40.0/3a7f9e441df154db23621d8a3660061146b22c60/facebook-marketing-4.40.0-javadoc.jar!/" />

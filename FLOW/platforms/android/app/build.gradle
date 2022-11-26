@@ -174,7 +174,7 @@ android {
             minSdkVersion cdvMinSdkVersion
         }
         minSdkVersion 27
-        targetSdkVersion 30
+        targetSdkVersion 31
         // versionCode 10006
         // versionName "1.0.6"
     }

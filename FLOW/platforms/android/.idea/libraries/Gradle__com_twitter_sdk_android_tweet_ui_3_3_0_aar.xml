@@ -4,6 +4,9 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4c53c46817c5295e5be092173bdbea38/tweet-ui-3.3.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4c53c46817c5295e5be092173bdbea38/tweet-ui-3.3.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4c53c46817c5295e5be092173bdbea38/tweet-ui-3.3.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2691898cfb5e95e2ec3541d9aafd890a/jetified-tweet-ui-3.3.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2691898cfb5e95e2ec3541d9aafd890a/jetified-tweet-ui-3.3.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2691898cfb5e95e2ec3541d9aafd890a/jetified-tweet-ui-3.3.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.twitter.sdk.android/tweet-ui/3.3.0/205fc487a7a2354a3336561df8085118d2a7d426/tweet-ui-3.3.0-javadoc.jar!/" />
